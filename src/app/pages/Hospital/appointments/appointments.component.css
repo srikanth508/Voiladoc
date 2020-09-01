@@ -36,3 +36,9 @@ th::first-letter{
     #imp{
         text-transform: none;
       }
+      .label{
+          text-align: end;
+      }
+      label{
+        margin-right: 10px;
+    }

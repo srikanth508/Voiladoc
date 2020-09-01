@@ -1,14 +1,13 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9">
       <h5>{{labels[0].doctorFeeDashboard}}</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
-      <button *ngIf="languageid==1" type="button" routerLink="/DoctorFees" class="btn btncolor">Add Doctor Fees
+    <div class="col-lg-3" style="text-align: end;">
+      <button *ngIf="languageid==1" type="button" routerLink="/DoctorFees" class="btn btncolor">Add Fees
       </button>
-      <button *ngIf="languageid==6" type="button" routerLink="/DoctorFees" class="btn btncolor">Ajouter
+      <button style="margin-right: 10px;" *ngIf="languageid==6" type="button" routerLink="/DoctorFees"
+        class="btn btncolor">Ajouter
       </button>
     </div>
   </div>
@@ -20,14 +19,11 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-6">
     </div>
-    <div class="col-lg-2">
-      <label *ngIf="languageid==1">
-        <b>Count</b> : {{count}}
-      </label>
-      <label *ngIf="languageid==6">
-        <b>Nombre</b> : {{count}}</label>
+    <div class="col-lg-3" style="text-align: end;">
+      <label *ngIf="languageid==1"> Count : {{count}}</label>
+      <label *ngIf="languageid==6"> Nombre : {{count}}</label>
     </div>
   </div>
   <br>

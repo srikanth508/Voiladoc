@@ -1,26 +1,19 @@
-<div class="container-fluid card card-hover">
-  <br>
-  <div class="row">
-    <div class="col-lg-4">
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9">
       <h5>{{labels[0].midWifeMonthWise}}</h5>
-        <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
-        <br>
     </div>
-    <div class="col-lg-1">
-
-    </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3" style="text-align: end;">
 
     </div>
   </div>
 </div><br>
-
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
     <div class="col-lg-2">
-      <h6>{{labels[0].year}} : {{year}}</h6>
-      <h6>{{labels[0].month}} : {{showmonth}}</h6>
+      <b>{{labels[0].year}} : {{year}}</b><br>
+      <b>{{labels[0].month}} : {{showmonth}}</b>
     </div>
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->

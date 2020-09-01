@@ -203,10 +203,10 @@
               <br>
               <br>
               <div class="row">
-                <div class="col-lg-3" *ngFor="let mulphoto of multiplephotos">
+                <div class="col-lg-2" *ngFor="let mulphoto of multiplephotos" style="margin-left: 42px;">
                   <img src="{{mulphoto.photoURL}}" style="height:140px;width:140px;">&nbsp;&nbsp;
-                  <button class="btn  btncolor" style="    width: 81%;
-                  margin-top: 11px;" (click)="GetHospitalID(mulphoto.hospitalid)">{{labels[0].edit}}</button>
+                  <button class="btn  btncolor" style="    width:132%;
+                  " (click)="GetHospitalID(mulphoto.hospitalid)">{{labels[0].edit}}</button>
                 </div>
               </div>
               <br>
@@ -231,8 +231,8 @@
             <img src="{{photourl}}" style="width:90%;height:auto;" />
             <br>
             <br>
-            <button class="btn   btncolor" style="width: 81%;
-            margin-top: 11px;" (click)="GetID()">{{labels[0].edit}}</button>
+            <button class="btn   btncolor" style="width: 40%;
+            margin-top: 11px; margin-left: 100px" (click)="GetID()">{{labels[0].edit}}</button>
             <br>
             <br>
             <div class="col-lg-8" *ngIf="showdrop=='1'">
