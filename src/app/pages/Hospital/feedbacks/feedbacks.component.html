@@ -1,0 +1,45 @@
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Feedbacks</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-4">
+      <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <br>
+      <input type="text" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Rating</th>
+            <th>Notes</th>
+           
+          </tr>
+          <tr *ngFor="let details of feedbacklist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td>{{details.date}}</td>
+            <td>{{details.hospitalRating}}</td>
+            <td>{{details.notes}}</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
+      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>

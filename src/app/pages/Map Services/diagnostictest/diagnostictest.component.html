@@ -1,0 +1,106 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].diagnosticTest}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover divspacee">
+  <form #testForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].diagnosticCenter}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <!-- <select class="form-control"  (change)="GetDiagnosticID($event)" [disabled]="tablecount=='1'">
+        <option valu="" selected>Select</option>
+        <option *ngFor="let diagnostic of diagnosticlist" value={{diagnostic.id}}>{{diagnostic.diagnosticCenterName}}</option>
+      </select> -->
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
+          [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].test}} :</label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetTestID($event)">
+          <option value="" selected>{{labels[0].select}} </option>
+          <option *ngFor="let test of testlist" value={{test.id}}>{{test.short}}</option>
+        </select>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].testPrice}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="price" required [(ngModel)]="price" placeholder="{{labels[0].testPrice}}"
+          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].testDescription}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" placeholder="{{labels[0].testDescription}}" name="description" required [(ngModel)]="description"
+          class="form-control"></textarea>
+      </div>
+    </div><br><br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" [disabled]="testForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">{{labels[0].add}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div><br>
+    <div class="row" *ngIf="tablecount=='1'">
+      <div class="col-lg-12">
+        <table>
+          <thead>
+            <tr>
+              <th>{{labels[0].diagnosticCenter}} </th>
+              <th>{{labels[0].test}}</th>
+              <th>{{labels[0].testPrice}}</th>
+              <th>{{labels[0].testDescription}}</th>
+              <th>{{labels[0].actions}}</th>
+            </tr>
+            <tr *ngFor="let details of qwerty">
+              <td>{{details.DiagnosticName}}</td>
+              <td>{{details.DiagnotiocTestName}}</td>
+              <td>{{details.Price}}</td>
+              <td>{{details.Description}}</td>
+              <td>
+                <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                <a [ngbTooltip]="tipcontent2">
+                  <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                    (click)="delete(details.Sno)">
+                </a>
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div><br>
+    <div class="row" *ngIf="tablecount=='1'">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+  </form>
+</div><br><br>

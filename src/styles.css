@@ -1,0 +1,264 @@
+/* You can add global styles to this file, and also import other style files */
+.form-control {
+    /* border-color: black; */
+    font-size: 12px;
+    font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+    }
+    
+    .required {
+    color: #e4013a;
+    }
+    
+    .dashboardcolor {
+    background-color: #303577;
+    text-align: center;
+    color: white;
+    }
+
+    .dashboardbtns{
+        background-color:#303577;
+        font-size: 20px;
+        color: white;
+        font-style:inherit;
+    }
+
+    .viewbtns{
+        background-color:#303577;
+        font-size: 14px;
+        color: white;
+        font-style:inherit;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        border-radius: 5px;
+      }
+      
+      th {
+        background-color: #f18235;
+        color:white;
+        text-align: center;
+        padding: 4px;
+      }
+      td {
+        border: 1px solid #dddddd;
+        padding: 4px;
+        text-align: center;
+        font-size:14px;
+      }
+      
+      /* tr:nth-child(even) {
+        background-color: #dddddd;
+      } */
+
+
+      .childdd{
+        width: 20%;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+      }
+
+    /* .containe-fluid{
+        height: 450px !important ;
+    } */
+label{
+    font-size: 14px !important;
+}
+
+    .back{
+        background-color:#f7f7f7
+    }
+    /* .tableback{
+        border: 0px solid #5f992a!important;
+         background-color:#5f992a
+     } */
+     .button{
+         background-color:#303577;font-size: 20px;color: white;font-style:inherit}
+    
+
+         /* h1 { font-family: Raleway; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: Raleway; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } p { font-family: Raleway; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: Raleway; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: Raleway; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; } */
+         
+         textarea {
+          resize: none;
+       }
+
+
+       .sidebar_new {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+      }
+      
+      .sidebar_new a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+      
+      .sidebar_new a:hover {
+        color: #f1f1f1;
+      }
+      
+      .sidebar_new .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+      
+      .openbtn {
+        font-size: 20px;
+        cursor: pointer;
+        background-color: #111;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+      }
+      
+      .openbtn:hover {
+        background-color: #444;
+      }
+      
+      #main {
+        transition: margin-left .5s;
+        padding: 16px;
+      }
+      
+      /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+      @media screen and (max-height: 450px) {
+        .sidebar_new {padding-top: 15px;}
+        .sidebar_new a {font-size: 18px;}
+      }
+
+      .required{
+        color: red;
+    }
+    
+    .ttextareaaddress{
+        width: 500px;
+      height: 150px;
+    }
+    .required{
+      color:red;
+    }
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    
+      .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      }
+      .headerspace{
+       padding-top: 8px;
+          height:70px;
+          color: #251156;
+      }
+      .divspacee{
+          margin-top:10px;
+         
+      }
+      .btncolor
+      {
+          background-color: #f18235;
+          color:white;
+      }
+     .specforimg
+     {
+       background-color: #86c5be;
+       height:70px;
+       width:100%;
+     }
+     .nextbtncolor{
+      background: #444a48;
+      color:white;
+     }
+     .btncolor
+     {
+         background-color: #f18235;
+         color:white;
+     }
+     ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888; 
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+
+     p{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+     }
+     label{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+      font-weight: 600;
+      color: #828282;
+      font-size: 13px;
+      
+     }
+     h1,h2,h3,h4,h5,h6{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+    }
+    a{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+      font-weight: 600;
+    }
+    th{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+      font-weight: 600;
+    }
+    td{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+    }
+    button{
+      font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+    }
+
+    .bs-datepicker-body table th {
+      font-size: 13px;
+      color: white;
+      font-weight: 400;
+      text-align: center;
+  }
+
+  .theme-green .bs-datepicker-head {
+    background-color: #322b6b;
+}
+
+button:disabled {
+  background-color: #f18235;
+  cursor: no-drop;
+}
+
+

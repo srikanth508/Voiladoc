@@ -1,0 +1,87 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>{{labels[0].diagnosticSlotRegisration}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <div class="row " style="margin-top:20px;">
+    <div class="col-lg-3">
+      <label class="dname_label">{{labels[0].diagnosticCenter}} :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <!-- <select class="dropdown form-control ng-pristine" (change)="GetDiagnosticID($event)">
+          <option value="" selected>Select</option>
+          <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.diagnosticCenterName}}</option>
+        </select> -->
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
+        [settings]="diadnosticdd" (onSelect)="GetDiagnosticID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <BR>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="Slot_label">{{labels[0].slots}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <label class="Slot_label">{{labels[0].morning}}:</label>
+
+    </div>
+    <div class="col-lg-4">
+      <label class="Slot_label">{{labels[0].afternoon}}:</label>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-4">
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="dropdownclear1" [data]="slotslist"
+        [settings]="slotsdd" (onSelect)="GetMrngSlotsID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+    <div class="col-lg-4">
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="dropdownclear2" [data]="slotslist1"
+        [settings]="slotsdd1" (onSelect)="GetAfternoonSlotsID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-4">
+      <label class="Slot_label">{{labels[0].evening}}:</label>
+    </div>
+    <div class="col-lg-4">
+      <label class="Slot_label">{{labels[0].night}}:</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-4">
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="dropdownclear3" [data]="slotslist2"
+        [settings]="slotsdd2" (onSelect)="GetEvngSlotsID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+    <div class="col-lg-4">
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="dropdownclear4" [data]="slotslist3"
+        [settings]="slotsdd3" (onSelect)="GetNightSlotsID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div><br>
+</div>

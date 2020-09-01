@@ -1,0 +1,453 @@
+<div class="container-fluid ">
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>Patient Medical History</h5>
+    </div>
+  </div><br>
+</div>
+<div class="container-fluid card card-hover">
+  <div class="row">
+    <div class="col-lg-3">
+      <label><img src="assets/Images/Name.png" title="Patient Name" style="height:20px;width:20px">
+        :<b>{{patientname}}</b></label>
+    </div>
+    <div class="col-lg-3">
+      <label><img src="assets/Images/Phone.png" title="Phone No" style="height:20px;width:20px">
+        :<b>{{mobileno}}</b></label>
+    </div>
+    <div class="col-lg-3">
+      <label><img src="assets/Images/gmail.png" title="Email" style="height:20px;width:20px">
+        :<b>{{emailid}}</b></label>
+    </div>
+    <div class="col-lg-3">
+      <label><img src="assets/Images/gender.png" title="Gender" style="height:20px;width:20px">
+        :<b>{{gender}}</b></label>
+    </div><br><br>
+    <div class="col-lg-3">
+      <label><img src="assets/Images/blood.png" title="Blood" style="height:20px;width:20px">
+        :<b>{{bloodgroup}}</b></label>
+    </div>
+    <div class="col-lg-3">
+      <label><img src="assets/Images/address.png" title="Address" style="height:20px;width:20px">
+        :<b>{{address}}</b></label>
+    </div>
+  </div>
+</div><br>
+<div>
+  <div class="container" style="overflow: auto;">
+    <div class="row">
+      <div class="col-lg-3">
+        <label><b>Appointments List</b></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 card card-hover" style="overflow: auto;"><br>
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment Date</th>
+              <th>Type Of Appointment</th>
+              <th>Ailment</th>
+              <th>Patient Details</th>
+              <th>PMR</th>
+            </tr>
+            <tr *ngFor="let detailss of appointmentlist">
+              <td>{{detailss.apptDateTime}}</td>
+              <td>{{detailss.appointmentType}}</td>
+              <td>{{detailss.reasonForVisit}}</td>
+              <td><img src="assets/Images/imgicon.png" title="Images" (click)="GetImagesID(detailss.appointmentID)"
+                  data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
+                <img src="assets/Images/showvedio.png" title="Vedio" style="margin: 2%;width: 20px;" />&nbsp;
+                <img src="assets/Images/commen.png" title="Comments" style="margin: 2%;width: 20px;" /></td>
+              <td>
+                <a [ngbTooltip]="tipcontent10">
+                  <img src="assets/Images/soap1.png" data-toggle="modal" data-target="#exampleModal1"
+                    style="margin: 2%;width: 20px;" (click)="GetSoapID(detailss.appointmentID)" />
+                </a>
+                <a [ngbTooltip]="tipcontent19">
+                  <img src="assets/Images/view.png" 
+                    style="margin: 2%;width: 20px;" data-toggle="modal" (click)="GetprscriptionID(detailss.appointmentID)" data-target="#exampleModalCenter" />
+                </a>
+                <a [ngbTooltip]="tipcontent19">
+                  <img src="assets/Images/test.png" 
+                    style="margin: 2%;width: 20px;" data-toggle="modal" (click)="GetdiaID(detailss.appointmentID)" data-target="#exampleModalCenter1" />
+                </a>
+              </td>
+            </tr>
+          </thead>
+        </table><br><br>
+      </div><br>
+    </div><br>
+  </div><br>
+
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width:1000px">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">Previous Prescriptions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto;">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Patient Name</th>
+                    <th>Medicine Type</th>
+                    <th>Medicine Name</th>
+                    <th>Morning</th>
+                    <th>Afternoon</th>
+                    <th>Evening</th>
+                    <th>Night</th>
+                    <th>No Of Days</th>
+                    <th>When To Consume</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let presciption of prescrptionlist1">
+                    <td>{{presciption.date}}</td>
+                    <td>{{presciption.patientName}}</td>
+                    <td>{{presciption.medicinetype}}</td>
+                    <td>{{presciption.medicineName}}</td>
+                    <td>{{presciption.morning}}</td>
+                    <td>{{presciption.afternoon}}</td>
+                    <td>{{presciption.evening}}</td>
+                    <td>{{presciption.night}}</td>
+                    <td>{{presciption.noOfDays}}</td>
+                    <td>{{presciption.name}}</td>
+                    <td>{{presciption.total}}</td>
+                    <td>
+                      <ng-template #tipcontent2>Delete</ng-template>
+                      <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                          (click)="deleteprscriptonforpatient(presciption.id)">
+                      </a>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width:1000px">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">Previous Tests</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container" style="overflow: auto;">
+          <div class="row">
+            <div class="col-lg-12 card card-hover" style="overflow: auto;"><br>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Appointment Date</th>
+                    <th>Reason</th>
+                    <th>Test Type</th>
+                    <th>Tests</th>
+                  </tr>
+                  <tr *ngFor="let diatest of diagnosticlist">
+                    <td>{{diatest.appdate}}</td>
+                    <td>{{diatest.reasonForVisit}}</td>
+                    <td>{{diatest.name}}</td>
+                    <td>{{diatest.diagnosticTestName}}</td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Patient Photos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6" *ngFor="let showphoto of showimages"><br>
+                <img src="{{showphoto.photoURL}}" style="height: 300px;width:300px" /><br>
+              </div><br>
+            </div><br>
+          </div>
+        </div><br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel1">SOAP Notes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form #soapForm="ngForm">
+              <div class="row">
+                <div class="col-lg-3">
+                  <label><b>Subjective</b></label>
+                </div>
+                <div class="col-lg-7">
+                  <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                    placeholder="Subjective"></textarea>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-12">
+                  <label><b>Objective</b></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <!-- <label>Physical Exam</label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="phsycialexam" name="phsycialexam"
+                    placeholder="Physical Exam" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>General</label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="genaral" name="genaral" placeholder="General" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>ENT</label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="ent" name="ent" placeholder="Ent" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Neck </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="neck" name="neck" placeholder="Neck" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Lymph Nodes </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="lymphnode" name="lymphnode"
+                    placeholder="Lymph Nodes" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Cardiovascular </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="cardiovascular" name="cardiovascular"
+                    placeholder="Cardiovascular" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Lungs </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="lungs" name="lungs" placeholder="Lungs" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Skin </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="skin" name="skin" placeholder="Skin " />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Breast </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="breast" name="breast" placeholder="Breast  " />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Psychiatry </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="Psychiatry" name="Psychiatry"
+                    placeholder="Psychiatry" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Abdomen </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="abdomen" name="abdomen" placeholder="Abdomen" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Genitourinary System </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="genitourinary" name="genitourinary"
+                    placeholder="Genitourinary System" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Rectal </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="rectal" name="rectal" placeholder="Rectal" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Extremities </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="extremities" name="extremities"
+                    placeholder="Extremities" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Musculoskeletal </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="musculoskeletal" name="musculoskeletal"
+                    placeholder="Musculoskeletal" />
+                </div>
+                <div class="col-lg-4">
+                  <!-- <label>Neurological </label> -->
+                  <br>
+                  <input type="text" class="form-control" [(ngModel)]="neurological" name="neurological"
+                    placeholder="Neurological" />
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-lg-3">
+                  <label><b>Assessment</b></label>
+                  <span style="color: red;">*</span>
+                </div>
+                <div class="col-lg-7">
+                  <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                    placeholder="Assessment"></textarea>
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-lg-3">
+                  <label><b>Plan</b></label>
+                  <span style="color: red;">*</span>
+                </div>
+                <div class="col-lg-7">
+                  <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                    placeholder="Plan"></textarea>
+                </div>
+              </div><br>
+              <div class="row">
+                <div class="col-lg-3">
+                  <label><b>Diagnosis Code</b> </label>
+                  <!-- <span style="color: red;">*</span> -->
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                    placeholder="Diagnosis Code" />
+                </div>
+              </div><br>
+              <!-- <div class="row">
+              <div class="col-lg-3">
+                <label><b>Sick Slip Genarator</b> </label>
+              
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+                  placeholder="Sick Slip Genarator" />
+              </div>
+            </div><br> -->
+              <div class="row">
+                <div class="col-lg-3">
+                  <label><b>Follow Up Plan</b> </label>
+                  <!-- <span style="color: red;">*</span> -->
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                    placeholder="Follow Up Plan" />
+                </div>
+              </div>
+              <br>
+              <!-- <div class="row">
+              <div class="col-lg-3">
+                <label><b>Signature</b> </label>
+              <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+                  placeholder="Signature" />
+              </div>
+            </div>
+            <br> -->
+              <div class="row">
+                <div class="col-lg-3">
+                  <label><b>Notes</b> </label>
+                  <!-- <span style="color: red;">*</span> -->
+                </div>
+                <div class="col-lg-7">
+                  <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
+                    placeholder="Notes"></textarea>
+                </div>
+              </div>
+              <br>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+

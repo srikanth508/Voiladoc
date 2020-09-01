@@ -1,0 +1,165 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].myworkschedule}}</h5>
+    </div>
+    <div class="col-lg-4">
+
+    </div>
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+      <button type="button" style="float: right; width: auto;" class="btn btn-block btncolor"
+        (click)="addnew()">{{labels[0].addworkingdetails}}</button>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select value="" selected class="form-control" (change)="GetHospital($event)">
+        <option>{{labels[0].selecthospital}}</option>
+        <option *ngFor="let hos of hopitsllist" value="{{hos.hospital_ClinicName}}">{{hos.hospital_ClinicName}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select value="" selected class="form-control" (change)="GetDaysName($event)">
+        <option>{{labels[0].selectday}}</option>
+        <option *ngFor="let days of workinglist" value={{days.dayOfTheWeek}}>{{days.dayOfTheWeek}}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].hospitalOrClinic}}</th>
+            <th>{{labels[0].address}}</th>
+            <!-- <th>{{labels[0].fees}}</th> -->
+            <th>{{labels[0].day}}</th>
+            <th>{{labels[0].startTime}}</th>
+            <th>{{labels[0].endTime}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of workinglist|filter:term|filter:hopitslname|filter:daysname">
+            <td>{{details.hospital_ClinicName}}</td>
+            <td>{{details.address}}</td>
+            <!-- <td>{{details.fees}}</td> -->
+            <td>{{details.dayOfTheWeek}}</td>
+            <td>{{details.starttime}}</td>
+            <td>{{details.endtime}}</td>
+            <td>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal"
+                  (click)="GetDetsilsID(details.physiotherapyHospitalDetailsID,details.dayID,details.startDateTime,details.endDateTime,details.id)"
+                  style="width: 20px">
+              </a>&nbsp;
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png"
+                  (click)="DeletePhysiotherapistWorkingDetails(details.physiotherapyHospitalDetailsID,details.dayID,details.id)"
+                  style="width: 20px;margin-left: 10px;">
+              </a>
+              <ng-template #tipcontent3>Enable</ng-template>
+              <a *ngIf="details.enable==1" [ngbTooltip]="tipcontent3">
+                <img src="assets/Images/dactive.png" (click)="EnablePhysiotherapistWorkingDetails(details.id)"
+                  style="width: 40px;margin-left: 10px;">
+              </a>
+              <ng-template #tipcontent4>{{labels[0].disable}}</ng-template>
+              <a *ngIf="details.enable==NULL ||details.enable==0" [ngbTooltip]="tipcontent4">
+                <img src="assets/Images/active.png" (click)="DisablePhysiotherapistWorkingDetails(details.id)"
+                  style="width: 40px;margin-left: 10px;">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].updateTimings}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].day}} :</label>
+            </div>
+            <div class="col-lg-8">
+              <select value="" selected class="form-control" disabled (change)="GetDayID($event)" [(ngModel)]="dayid"
+                name="dayid">
+                <option>{{labels[0].select}}</option>
+                <option *ngFor="let day of dayslist" value="{{day.id}}">{{day.dayOfTheWeek}}</option>
+              </select>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].startTime}}:</label>
+            </div>
+            <div class="col-lg-8">
+              <select class="form-control" required [(ngModel)]="startdatetime" name="startdatetime">
+                <option selected>{{labels[0].startTime}}</option>
+                <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+                </option>
+              </select>
+              <!-- <input type="time" [(ngModel)]="startdatetime" name="enddatetime" class="form-control"> -->
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].endTime}}:</label>
+            </div>
+            <div class="col-lg-8">
+              <select class="form-control" required [(ngModel)]="enddatetime" name="enddatetime">
+                <option selected>{{labels[0].startTime}}</option>
+                <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+                </option>
+              </select>
+              <!-- <input type="time" [(ngModel)]="enddatetime" name="enddatetime" class="form-control"> -->
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary" (click)="updatedetails()"
+                data-dismiss="modal">{{labels[0].update}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color:#f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

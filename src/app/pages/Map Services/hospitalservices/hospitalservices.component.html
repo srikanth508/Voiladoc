@@ -1,0 +1,70 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+     
+      <h5>{{labels[0].hospitalservices}}</h5>
+     
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <!-- <div class="col-lg-2">
+      <br>
+      <button type="button" routerLink="/HospitalServicesDash" class="btn btncolor">{{labels[0].dashboard}}</button>
+    </div> -->
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <form #hospitalForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].hospitalOrServices}} : </label>
+      </div>
+      <div class="col-lg-4" *ngIf="dummid==null">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist" [settings]="hospitadd"
+          (onSelect)="GetHospitalID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-lg-4" *ngIf="dummid!=null">
+        <input type="text" disabled class="form-control" [(ngModel)]="hospitalname" name="hospitalname">
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].department}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetDepartmentID($event)">
+          <option valu="" selected>{{labels[0].select}}</option>
+          <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].services}} :</label>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="servicelist" [settings]="servicedd"
+          (onSelect)="GetServiceID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br><br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" [disabled]="hospitalForm.form.invalid" text_align="center"
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+    <br>
+    <br>
+  </form>
+</div>

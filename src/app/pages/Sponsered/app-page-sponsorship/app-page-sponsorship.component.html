@@ -1,0 +1,104 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5> Sponsorship</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div *ngIf="paramid==undefined || paramid!=undefined" class="row" style="margin-top:20px;">
+    <div class="col-lg-3">
+      <label>Client Name :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" name="ClientName" [(ngModel)]="ClientName" placeholder="Client Name">
+    </div>
+  </div>
+  <br>
+  <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
+    <div class="col-lg-3">
+      <label>Description :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <textarea rows="3" type="text" class="form-control" name="Description" [(ngModel)]="Description"
+        placeholder="Description"></textarea>
+    </div>
+  </div>
+  <br>
+  <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
+    <div class="col-lg-3">
+      <label>Start Date:</label>
+      <span class="required">*</span>
+    </div>
+
+    <div class="col-lg-4">
+      <input type="text" placeholder="Start Date" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+        name="StartDate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="StartDate" bsDatepicker>
+      <!-- <input type="date" name="StartDate" required [(ngModel)]="StartDate" class="form-control"> -->
+    </div>
+  </div>
+  <br>
+  <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
+    <div class="col-lg-3">
+      <label>End Date :</label>
+      <span class="required">*</span>
+    </div>
+
+    <div class="col-lg-4">
+      <input type="text" placeholder="End Date" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+        name="EndDate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="EndDate" bsDatepicker>
+      <!-- <input type="date" name="EndDate" required [(ngModel)]="EndDate" class="form-control"> -->
+    </div>
+  </div>
+  <br>
+  <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
+    <div class="col-lg-3">
+      <label>Photo Url :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" name="LinkURL" [(ngModel)]="LinkURL" placeholder="LinkURL">
+    </div>
+  </div> <br>
+  <div *ngIf="paramid==undefined" class="row">
+    <div class="col-lg-3">
+      <label for="" class="reglabel">Photo:</label>
+    </div>
+    <div class="col-lg-4">
+      <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+      </ngx-dropzone>
+      <!-- <div>
+        <span *ngFor="let docphoto of showdocphoto">
+          <img src="{{docphoto}}" style="height:50px;width:70px">&nbsp;
+        </span>
+      </div> -->
+    </div>
+  </div>
+  <br>
+
+  <div *ngIf="paramid==undefined" class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="insertdetails()">Save</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+  <div *ngIf="paramid!=undefined" class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="UpdateDetails()">Update</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+
+  <br>
+</div>

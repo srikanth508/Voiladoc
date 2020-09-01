@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-4">
+      <label>{{labels[0].date}} : <b>{{appdate}}</b></label>
+    </div>
+    <div class="col-lg-4">
+      <label>{{labels[0].time}} : <b>{{slots}}</b></label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <label>{{labels[0].patientName}} : <b>{{patientname}}</b></label>
+    </div>
+    <div class="col-lg-4">
+      <label>{{labels[0].ailment}} : <b>{{reason}}</b></label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12" *ngFor="let video of videiourl" >
+      <!-- <iframe width="100%" height="400px" src="{{}}"></iframe> -->
+      <video controls width="100%" autoplay height="300px">
+        <source src="{{video}}" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-3">
+      <label><b>{{labels[0].patientVideo}}</b></label>
+    </div>
+    <div class="col-lg-3">
+      <label><b>{{labels[0].doctorVideo}}</b></label>
+    </div>
+  </div>
+</div>

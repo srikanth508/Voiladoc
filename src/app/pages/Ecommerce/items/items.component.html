@@ -1,0 +1,126 @@
+<div class="container-fluid card card:hover headerspace">
+    <div class="row headerspace">
+        <div class="col-lg-5">
+            <h5>{{labels[0].products}}</h5>
+        </div>
+        <div class="col-lg-5">
+        </div>
+        <!-- s -->
+    </div>
+</div>
+<div class="container-fluid card card:hover divspacee">
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+            <label>{{labels[0].category}} :</label>
+            <span class="required">*</span>
+        </div>
+        <div class="col-lg-5">
+            <select class="form-control" id="CategoryID" [(ngModel)]="CategoryID" (change)="getCategoryID($event)" name="CountryID" required>
+                <option value=0> {{labels[0].selectCategory}}</option>
+                <option value="{{category.id}}" *ngFor="let category of Categorylist">{{category.categoryName}}</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+            <label>Subcategory :</label>
+            <span class="required">*</span>
+        </div>
+        <div class="col-lg-5">
+
+            <select class="form-control" id="SubcategoryID" [(ngModel)]="SubcategoryID" name="SubcategoryID" required>
+                <option value="0">{{labels[0].selectSubCategory}}</option>
+                <option value="{{Subcategory.id}}" *ngFor="let Subcategory of Subcategorylist">
+                    {{Subcategory.subacategoryName}}</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <form #hospitalForm="ngForm">
+        <div *ngIf="ID==undefined||ID!=undefined" class="row" style="margin-top:20px;">
+            <div class="col-lg-3">
+                <label>{{labels[0].product}} :</label>
+                <span class="required">*</span>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" required [(ngModel)]="productname" name="productname" class="form-control">
+            </div>
+        </div>
+        <br>
+        <div *ngIf="ID==undefined||ID!=undefined" class=" row ">
+            <div class="col-lg-3 ">
+                <label>{{labels[0].productDescription}} :</label>
+                <span class="required ">*</span>
+            </div>
+            <div class="col-lg-5 ">
+                <textarea class="form-control " rows="4 " required [(ngModel)]="productDescription" name="productDescription"></textarea>
+            </div>
+        </div>
+        <br>
+        <div *ngIf="ID==undefined||ID!=undefined" class="row" style="margin-top:20px;">
+            <div class="col-lg-3">
+                <label>{{labels[0].productCode}} :</label>
+                <span class="required">*</span>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" required [(ngModel)]="productCode" name="productCode" class="form-control">
+            </div>
+        </div>
+        <br>
+        <div *ngIf="ID==undefined||ID!=undefined" class="row" style="margin-top:20px;">
+            <div class="col-lg-3">
+                <label>{{labels[0].productPrice}} :</label>
+                <span class="required">*</span>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" required [(ngModel)]="productprice" name="productprice" class="form-control">
+            </div>
+        </div>
+        <br>
+        <!-- <div class="row" style="margin-top:20px;">
+                <div class="col-lg-3">
+                    <label>Quantity :</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="col-lg-5">
+                    <input type="text" required [(ngModel)]="quantity" name="quantity" class="form-control">
+                </div>
+            </div> -->
+        <!-- <br> -->
+        <div *ngIf="ID==undefined" class="row" style="margin-top:20px;">
+            <div class="col-lg-3">
+                <label>{{labels[0].photos}} :</label>
+                <span class="required">*</span>
+            </div>
+            <div class="col-lg-5">
+                <ngx-dropzone [multiple]="true" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                </ngx-dropzone>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <div *ngIf="ID==undefined" class="row ">
+            <div class="col-lg-5 ">
+            </div>
+            <div class="col-lg-2 ">
+                <button type="button " class="btn btn-block btn-md allbtns btncolor" (click)="insertdetail()">{{labels[0].save}}</button>
+            </div>
+            <div class="col-lg-5 ">
+            </div>
+        </div>
+        <div *ngIf="ID!=undefined" class="row ">
+            <div class="col-lg-5 ">
+            </div>
+            <div class="col-lg-2 ">
+                <button type="button " class="btn btn-block btn-md allbtns btncolor" (click)="Updatedetail()">{{labels[0].update}}</button>
+            </div>
+            <div class="col-lg-5 ">
+            </div>
+        </div>
+        <br>
+        <br>
+    </form>
+</div>

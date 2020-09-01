@@ -1,0 +1,477 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid card card:hover">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].myProfile}}</h5>
+    </div>
+  </div>
+</div>
+<aw-wizard navBarLocation="top" navBarLayout="small" navBarDirection="left-to-right" navigationMode="strict"
+  class="card card:hover divspacee">
+  <aw-wizard-step stepTitle="{{labels[0].personalInformation}}">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8">
+          <form #doctorForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].doctorName}}:</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" disabled [(ngModel)]="doctorname" name="doctorname" class="form-control">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].phoneNo}}:</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text"  maxlength="13" [(ngModel)]="phno" name="phno"
+                  class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+              <br>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].email}}:</label>
+              
+              </div>
+              <div class="col-lg-6">
+                <input type="email"  [(ngModel)]="emailid" (ngModelChange)="onChange($event)" name="emailid"
+                  class="form-control">
+              </div>
+              <br>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="Email_label">{{labels[0].speaklanguages}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="email" placeholder="{{labels[0].speaklanguages}}" name="speaklanguages"
+                  [(ngModel)]="speaklanguages" name="speaklanguages" class="form-control">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].address}}:</label>
+           
+              </div>
+              <div class="col-lg-6">
+                <textarea id="textarea1"  rows="4" cols="45" [(ngModel)]="address" name="address"
+                  class="form-control"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].country}} : </label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+                  <option value="" selected>Select</option>
+                  <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].province}} :</label> 
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+                  <option value="" selected="selected">select</option>
+                  <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="City_label">{{labels[0].city}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+                  <option value="" selected="selected">Select</option>
+                  <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].department}}:</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="dropdown form-control" [(ngModel)]="departmentid" name="departmentid"
+                  (change)="GetdepartmentID($event)">
+                  <option value="" selected>select</option>
+                  <option *ngFor="let department of departmentlist" value={{department.id}}>
+                    {{department.departmentname}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].experience}}:</label>
+              
+              </div>
+              <div class="col-lg-6">
+                <input type="text"  maxlength="2" [(ngModel)]="experience" name="experience"
+                  class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].isHomeVisitIsAvailable}} :</label>
+             
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="homevisit"  [(ngModel)]="homevisit" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="homevisit"  [(ngModel)]="homevisit" [value]="false">{{labels[0].no}}
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].description}}:</label>
+              
+              </div>
+              <div class="col-lg-6">
+                <textarea id="textarea1"  rows="7" cols="45" [(ngModel)]="description" name="description"
+                  class="form-control"></textarea>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="Email_label">{{labels[0].documentVerified}} :</label>
+            
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="dcoverify"  [(ngModel)]="dcoverify" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="dcoverify"  [(ngModel)]="dcoverify" [value]="false">{{labels[0].no}}
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="Email_label">{{labels[0].mallpractiece}} :</label>
+              
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="mallprcise"  [(ngModel)]="mallprcise" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="mallprcise"  [(ngModel)]="mallprcise" [value]="false">{{labels[0].no}}
+              </div>
+            </div><br>
+            <!-- <div class="row">
+              <div class="col-lg-6">
+                  <img src="{{mphoto}}" style="height:120px;width:150px;"><br>
+                  <button  class="btn  btncolor">Edit</button>
+                  </div>
+                </div> -->
+            <br><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-3">
+                <button type="button" [disabled]="doctorForm.form.invalid||validEmail==false" text_align="center"
+                  class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-4">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-4">
+          <img src={{photourl}} style="width: 100%;height: auto;" /><br><br>
+          <button class="btn  btncolor" (click)="GetEditPhoto()">{{labels[0].edit}}</button><br><br>
+          <div class="col-lg-8" *ngIf="editbit=='1'">
+            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+            </ngx-dropzone><br>
+
+            <span *ngFor="let pic of showdocphoto">
+              <img src="{{pic}}" style="height:30px;width:30px">
+            </span>
+          </div>
+          <div class="col-lg-4" *ngIf="editbit=='1'">
+            <button class="btn  btncolor" (click)="updatedocphoto()"> {{labels[0].update}}</button>
+          </div><br>
+          <div class="col-lg-12 " *ngIf="editbit=='1'">
+            <p style="background-color: #f18235;color: white;">
+              {{labels[0].image}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6" *ngFor="let mphoto of details1">
+          <img src="{{mphoto.photoUrl}}" style="height:120px;width:150px;"><br><br>
+          <button class="btn  btncolor" (click)="GetMedicalPhotoEdit(mphoto.id)">{{labels[0].edit}}</button><br><br>
+
+          <div class="col-lg-4" *ngIf="meditt=='1'">
+            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
+            </ngx-dropzone>
+            <span *ngFor="let sds of photodetail">
+              <img src="{{sds}}" style="height: 20px;width: 30px;">
+            </span>
+          </div><br>
+          <div class="col-lg-4" *ngIf="meditt=='1'">
+            <button class="btn  btncolor" (click)="updatemedicalphoto()">{{labels[0].update}}</button>
+          </div>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-6 " *ngIf="meditt=='1'">
+          <p style="background-color: #f18235;color: white;">
+            {{labels[0].image}}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br>
+        </div>
+      </div>
+    </div><br><br>
+
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="{{labels[0].madicalRegistration}}">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8">
+          <form #doctorsForm="ngForm">
+            <div class="row">
+
+              <div class="col-lg-5">
+                <label>{{labels[0].registrationNo}}:</label>
+              
+              </div>
+              <div class="col-lg-5">
+                <input type="text" placeholder="registration no" maxlength="15"  [(ngModel)]="registrationno"
+                  name="registrationno" class="form-control"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].registrationCouncil}}:</label>
+           
+              </div>
+              <div class="col-lg-5">
+                <input type="text" placeholder="registration council"  [(ngModel)]="registrationcouncil"
+                  name="registrationcouncil" class="form-control"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].registrationYear}}:</label>
+               
+              </div>
+              <div class="col-lg-5">
+                <input type="text" placeholder="registration year" minlength="4" maxlength="4" 
+                  [(ngModel)]="registrationyear" name="registrationyear" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" [disabled]="doctorsForm.form.invalid" text_align="center"
+                  class="btn btn-block btn-md allbtns btncolor" (click)="updatemedicalregistration()">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+
+
+          </form>
+
+        </div>
+        <!-- <div class="col-lg-4" *ngFor="let mphoto of details1">
+          <img src="{{mphoto.photoUrl}}" style="height:120px;width:150px;"><br>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <button type="button" style="float: left" class="btn dashbtn btncolor" awPreviousStep>{{labels[0].previous}}</button>
+          <button type="button" style="float:right;" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br><br>
+        </div>
+      </div>
+    </div>
+
+  </aw-wizard-step><br>
+  <aw-wizard-step stepTitle="{{labels[0].education}}">
+    <div class="container-fluid">
+      <form #doctorssForm="ngForm">
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="DEPARTMENT_label">{{labels[0].degree}}:</label>
+            <!-- <span class="required">*</span> -->
+          </div>
+          <div class="col-lg-4">
+            <select class="dropdown form-control" (change)="GetDegreeID($event)">
+              <option value="" selected>{{labels[0].select}}</option>
+              <option *ngFor="let degree of degreelist" value={{degree.id}}>{{degree.short}}</option>
+            </select>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="">{{labels[0].college}}:</label>
+            <!-- <span class="required">*</span> -->
+          </div>
+          <div class="col-lg-4">
+            <input type="text" placeholder="{{labels[0].college}}" name="colleagename" [(ngModel)]="colleagename" class="form-control"
+              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="REGISTRATION NO:">{{labels[0].yearOfPassing}}:</label>
+            <!-- <span class="required">*</span> -->
+          </div>
+          <div class="col-lg-4">
+            <input type="text" placeholder="{{labels[0].yearOfPassing}}" maxlength="4" name="yearofpassing" maxlength="4"
+              [(ngModel)]="yearofpassing" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+              [disabled]="doctorssForm.form.invalid" (click)="insertdoctoreducation()">{{labels[0].save}}</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <table>
+              <tr>
+                <th>{{labels[0].degree}}</th>
+                <th>{{labels[0].college}}</th>
+                <th>{{labels[0].yearOfPassing}}</th>
+                <th>{{labels[0].delete}}</th>
+              </tr>
+              <tr *ngFor="let edu of educationlist">
+                <td>{{edu.short}}</td>
+                <td>{{edu.collegeName}}</td>
+                <td>{{edu.yearOfPassing}}</td>
+                <td><img src="assets/Images/dell.png" (click)="DeleteDoctorEducation(edu.id)"></td>
+              </tr>
+            </table>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-2" *ngFor="let identiy of identityphoto">
+            <img src="{{identiy.photoURL}}" style="height:100px;width:100px;"><br><br>
+            <button class="btn  btncolor" (click)="GetidentityID(identiy.id)">{{labels[0].edit}}</button><br><br>
+            <div class="col-lg-12" *ngIf="identiyyyds=='1'">
+              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              </ngx-dropzone>
+              <span *ngFor="let dsffs of showidentityproof">
+                <img src="{{dsffs}}" style="height: 20px;width: 20px;">
+              </span>
+            </div><br><br>
+            <div class="col-lg-4" *ngIf="identiyyyds=='1'">
+              <button class="btn  btncolor" (click)="UpdateIdentityproof()"> {{labels[0].update}}</button>
+            </div>
+          </div><br>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4 specforimg" *ngIf="identiyyyds=='1'">
+            <p style="background-color: #f18235;color: white;">
+              {{labels[0].image}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <button type="button" style="float: left" class="btn dashbtn btncolor" awPreviousStep>{{labels[0].previous}}</button>
+
+            <button type="button" style="float:right;" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br><br>
+          </div>
+        </div>
+      </form>
+    </div><br><br>
+  </aw-wizard-step>
+
+
+  <aw-wizard-step stepTitle="{{labels[0].service}}">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="DEPARTMENT_label">{{labels[0].department}}:</label>
+        </div>
+        <div class="col-lg-4">
+          <select class="form-control" disabled (change)="GetDepartmentID($event)" [(ngModel)]="departmentid" name="departmentid">
+            <option valu="" selected>{{labels[0].select}}</option>
+            <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>{{labels[0].service}}</label>
+        </div>
+        <div class="col-lg-4">
+          <select class="form-control" (change)="GetServiceID($event)">
+            <option value="">{{labels[0].select}}</option>
+            <option *ngFor="let ser of servicelist" value="{{ser.id}}">{{ser.serviceName}}</option>
+          </select>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-2">
+          <button type="button" class="btn dashbtn btncolor" style="width: 100%;"
+            (click)="insertdetails()">{{labels[0].save}}</button>
+        </div>
+        <div class="col-lg-5"></div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-12">
+          <table>
+            <tr>
+              <th>{{labels[0].department}}</th>
+              <th>{{labels[0].service}}</th>
+              <th>{{labels[0].delete}}</th>
+            </tr>
+            <tr *ngFor="let doc of doctorservices">
+              <td>{{doc.departmentname}}</td>
+              <td>{{doc.serviceName}}</td>
+              <td><img src="assets/Images/dell.png" (click)="DeleteDoctorSrvices(doc.id)"></td>
+            </tr>
+          </table>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-12">
+          <button type="button" style="float: left" class="btn dashbtn btncolor" awPreviousStep>{{labels[0].previous}}</button>
+          <!-- <button type="button" style="float:right;" class="btn dashbtn nextbtncolor" awNextStep>{{labels[0].next}}</button><br><br> -->
+        </div>
+      </div><br>
+    </div>
+    <br>
+  </aw-wizard-step>
+</aw-wizard><br><br>

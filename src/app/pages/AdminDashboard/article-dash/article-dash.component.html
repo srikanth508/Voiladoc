@@ -1,0 +1,74 @@
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Articles</h5>
+    </div>
+    <div class="col-lg-7">
+
+    </div>
+    <!-- <div class="col-lg-2">
+      <button type="button" routerLink="/Announsements" class="btn btncolor">ADD</button>
+    </div> -->
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <!-- <div class="col-lg-4">
+      <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker>
+    </div> -->
+    <!-- <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
+    </div> -->
+    <!-- <div class="col-lg-2">
+      {{labels[0].count}} : <b>{{count}}</b>
+    </div> -->
+  </div><br><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Doctor Name</th>
+            <th>Category</th>
+            <th>Topic</th>
+            <th>Sub Topic</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let article of articlelist">
+            <td><img src="{{article.photo}}" style="height:40px;width:40px"></td>
+            <td>{{article.doctorName}}</td>
+            <td>{{article.category}}</td>
+            <td>{{article.topic}}</td>
+            <td>{{article.subTopic}}</td>
+            <td>
+              <p innerHTML="{{article.writeup}}"></p>
+            </td>
+            <td>
+              <a [ngbTooltip]="tipcontent3">
+                <button  *ngIf="article.enable=='0'"
+                  style="background-color: red;color: aliceblue;border: none;"
+                (click)="GetDisableArticle(article.id)" >Disable</button>
+              </a>
+            <ng-template #tipcontent2>Enable</ng-template>
+            <a [ngbTooltip]="tipcontent2" *ngIf="article.enable=='1'">
+                <button  *ngIf="article.enable=='1'"
+                  style="background-color: green;color: aliceblue;border: none;"
+                (click)="GetEnableArticle(article.id)" >Enable</button>
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br><br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
+      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br> -->
+</div><br>

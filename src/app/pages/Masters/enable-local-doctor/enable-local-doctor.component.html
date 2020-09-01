@@ -1,0 +1,84 @@
+
+<div class="container-fluid card card:hover ">
+  <br><br>
+  <div class="row">
+    <div class="col-lg-6">
+      <h2>{{labels[0].enabledoctor}}</h2>
+    </div>
+    <div class="col-lg-6" >
+      <a>
+        <img *ngIf="enabledisable=='1'"
+          src="assets/Images/active.png"
+          title="Enable"
+          style="width: 50px;" (click)="enablelocaldoc()"
+        />
+      </a>
+      <a>
+        <img *ngIf="enabledisable=='0'"
+          src="assets/Images/dactive.png"
+          title="Disable"
+          style="width: 50px;" (click)="disablelocaldoc()"
+        />
+      </a>
+    </div>
+  </div><br><br>
+  <!-- <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      {{labels[0].count}} : <b>{{count}}</b>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>{{labels[0].doctorName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].email}}</th>
+            <th>{{labels[0].country}}</th>
+            <th>{{labels[0].province}}</th>
+            <th>{{labels[0].city}}</th>
+            <th>{{labels[0].userName}}</th>
+            <th>{{labels[0].password}}</th>
+            <th>{{labels[0].address}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr
+            *ngFor="let details of localdoclist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td><img src="{{details.photourl}}" style="height: 50px;width: 50px;" /></td>
+            <td>{{details.doctorName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.country}}</td>
+            <td>{{details.city}}</td>
+            <td>{{details.areaName}}</td>
+            <td>{{details.userName}}</td>
+            <td>{{details.password}}</td>
+            <td>{{details.address}}</td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="deletedoctorregistration(details.id)">
+              </a>
+           
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br><br>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br> -->
+</div><br><br><br>

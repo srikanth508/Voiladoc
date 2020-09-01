@@ -1,0 +1,73 @@
+<div class="container-fluid  card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetAppointmentTypeID($event)" [(ngModel)]="appointmentypeid"
+        name="appointmentypeid">
+        <option value="0" selected>Appointment Type</option>
+        <option value="1">In Clinic</option>
+        <option value="2">Video Conference</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetDepartmentID($event)">
+        <option value="0" selected>Select Department</option>
+        <option *ngFor="let department of departmentlist" value={{department.id}}>
+          {{department.departmentname}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetSlotID($event)">
+        <option value="0">Select</option>
+        <option *ngFor="let slot of doctorslots"  value="{{slot.id}}">{{slot.slots}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-3" >
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="Search" name="Search">
+    </div>
+  </div><br>
+</div><br>
+<div class="container-fluid" *ngFor="let doc of doctorslist|filter:Search">
+  <div class="card">
+    <div class="row">
+      <div class="col-lg-3">
+        <img src="{{doc.photoUrl}}"
+          style="height: 150px;width: 80%;margin-left: 14px;margin-top: 10px;margin-bottom: 10px;">
+        <br>
+      </div>
+      <br>
+      <div class="col-lg-5" style="margin-top:10px;">
+        <h5 style="margin-left: 15px;color:purple">{{doc.doctorName}}</h5>
+        <span style="margin-left: 15px;">{{doc.degreeName}}</span><br>
+        <span style="margin-left: 15px;"><b>{{doc.mobileNumber}}</b></span>
+        <br>
+        <span style="margin-left: 15px;">Available Today At
+          <span style="color:green;">{{doc.hospital_ClinicName}}</span>
+        </span>
+        <br>
+        <span style="margin-left: 15px;">{{doc.departmentname}}</span>
+      </div>
+      <div class="col-lg-2">
+      </div>
+      <div class="col-lg-2">
+        <br>
+        <br>
+        <span>{{labels[0].fees}} :{{doc.feesNumber}}
+          <img src="assets/Images/money.png" style="height: 14px;width: 25px;">
+        </span>
+        <br>
+        <br>
+        <br>
+        <button class="btn btncolor" style="height: 33px;
+        width: 124px;"
+          [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID]">{{labels[0].book}}</button>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>

@@ -1,0 +1,128 @@
+<div class="container-fluid card card:hover headerrspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].offers}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card-hover divspacee">
+  <form #offersForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <!-- <label>{{labels[0].offers}}</label> -->
+      </div>
+      <div class="col-lg-7">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" routerLink="/Offersdash" class="btn btncolor">{{labels[0].dashboard}}</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].offerNames}}:</label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].offerNames}}" name="offername" required [(ngModel)]="offername"
+          class="form-control"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode>=48&&event.charCode<=57'>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].offerDescription}} : </label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <textarea id="textarea1" rows="4" cols="47" name="descripton" required [(ngModel)]="descripton"
+          placeholder="{{labels[0].offerDescription}}" class="form-control"></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].tests}} : </label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetTestID($event)">
+          <option value="" selected>{{labels[0].select}}</option>
+          <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.short}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].startDate}} : </label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <input *ngIf="languageid==1" type="text" placeholder="DD/DD/YYYY" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="sdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="sdate" (change)="GetClearDate()" bsDatepicker>
+        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="sdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="sdate" (change)="GetClearDate()" bsDatepicker>
+        <!-- <input type="date" name="sdate" min='{{todaydate}}' required [(ngModel)]="sdate" class="form-control" (change)="GetClearDate()"> -->
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].endDate}} : </label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <input *ngIf="languageid==1" type="text" placeholder="DD/DD/YYYY" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="edate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="edate" bsDatepicker>
+        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="edate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="edate" bsDatepicker>
+        <!-- <input type="date" [(ngModel)]="edate" min='{{sdate}}' name="edate" required class="form-control"> -->
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].offer}} : </label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" [(ngModel)]="offer" name="offer" required placeholder="Offer" class="form-control">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].offerPhotos}} : </label>
+        <span class="required"> *</span>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        </ngx-dropzone>
+      </div>
+      <div class="col-lg-5 ">
+        <p>
+          {{labels[0].image}}
+        </p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="offersForm.form.invalid"
+          (click)="insertdetails()">
+          {{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+
+      </div>
+    </div>
+    <br>
+  </form>
+</div>

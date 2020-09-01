@@ -1,0 +1,42 @@
+<div class="container-fluid card card:hover">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].myArticle}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee ">
+  <div class="row" style="margin-top:20px;">
+    <div class="col-lg-3">
+      <h6>{{labels[0].articles}}</h6>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" routerLink="/Writearticle" class="btn btncolor">{{labels[0].writeArticle}}</button>
+    </div>
+  </div>
+  <div class="row " style="margin-top:20px;">
+    <div class="col-lg-4" *ngFor="let article of details">
+      <div class="card card:hover" >
+        <div class="row" style="padding: 10px;">
+          <div class="col-lg-8">
+            {{article.topic}}
+            <br>
+            {{article.subTopic}}
+            <br>
+            {{article.tags}}
+          </div>
+          <div class="col-lg-4">
+            <img src="{{article.photo}}" style="width: 100%;height: auto;">
+          </div>
+          <div class="col-lg-12" style="text-align:justify;height: 300px;overflow-y: auto">
+            <p innerHTML="{{article.writeup}}">
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><br>
+  </div><br>
+</div><br>

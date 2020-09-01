@@ -1,0 +1,57 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5 *ngIf="languageID=='1'">Receptionist Dashboard</h5>
+      <h5 *ngIf="languageID=='6'">secrétaires</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button *ngIf="languageID=='1'" type="button" routerLink="/Receptionstlogin" class="btn btncolor">ADD</button>
+      <button *ngIf="languageID=='6'" type="button" routerLink="/Receptionstlogin" class="btn btncolor">Ajouter</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover" style="overflow:auto;">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input *ngIf="languageID=='1'" type="text" class="form-control" [(ngModel)]="term" placeholder="Search">
+      <input *ngIf="languageID=='6'" type="text" class="form-control" [(ngModel)]="term" placeholder="Rechercher">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th *ngIf="languageID=='1'">User Name</th>
+            <th *ngIf="languageID=='1'">Password</th>
+
+            <th *ngIf="languageID=='6'">Nom d'utilisateur</th>
+            <th *ngIf="languageID=='6'">
+              Mot de passe</th>
+          </tr>
+          <tr *ngFor="let details of receptionistlogins|filter:term">
+            <td>{{details.userName}}</td>
+            <td>{{details.password}}</td>
+          </tr>
+        </thead>
+      </table>
+      <br>
+      <br>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div> -->
+</div>
+<br>
+<br>

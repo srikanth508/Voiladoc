@@ -1,0 +1,60 @@
+<div class="container-fluid card card:hover  headerspace">
+    <div class="row  headerspace">
+        <div class="col-lg-3">
+            <h5>{{labels[0].category}}</h5>
+        </div>
+        <div class="col-lg-7">
+        </div>
+        <br>
+        <div class="col-lg-2">
+            <button type="button" routerLink="/Category" class="btn btncolor">{{labels[0].addCategory}}</button>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-3">
+            <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12" style="overflow: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{labels[0].categoryName}}</th>
+                        <th>{{labels[0].descriptions}}</th>
+                        <th>{{labels[0].action}}</th>
+                    </tr>
+                    <tr
+                        *ngFor="let category of catgeorylist| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}|filter:term">
+                        <td>{{category.categoryName}}</td>
+                        <td>{{category.description}}</td>
+                        <td>
+                            <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                            <a [ngbTooltip]="tipcontent2">
+                                <img src="assets/Images/dell.png" style="width:18px"
+                                    (click)="DeleteCategory(category.id)">
+                            </a>
+                            &nbsp;
+                            <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
+                            <a [ngbTooltip]="tipcontent3">
+                                <img src="assets/Images/edit.png" style="width:18px"
+                                    [routerLink]="['/Category',category.id]">
+                            </a>
+                        </td>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+
+
+</div>
+<br>
+<br>

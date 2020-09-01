@@ -1,0 +1,164 @@
+<div class="container-fluid  ">
+  <div class="row ">
+    <div class="col-lg-5">
+      <h5>{{labels[0].soapNotesDashboard}}</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].appointmentDate}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].soap}}</th>
+            <!-- <th>{{labels[0].actions}}</th> -->
+          </tr>
+          <tr *ngFor="let soap of soaplist1|filter:term">
+            <td>{{soap.appointDate}}</td>
+            <td>{{soap.pName}}</td>
+            <td>
+              <ng-template #tipcontent1>SOAP</ng-template>
+            <a [ngbTooltip]="tipcontent11">
+                <img src="assets/Images/previoussoap.png" data-toggle="modal" data-target="#exampleModal1"  (click)="GetID(soap.soapID)" style="height:25px;"
+                 />
+              </a></td>
+            <!-- <td>
+                <ng-template #tipcontent2>Delete</ng-template>
+                <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="deletesoap(soap.soapID)">
+              </a>
+            </td> -->
+          </tr>
+        </thead>
+      </table>
+    </div><br>
+  </div><br>
+
+
+
+
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 700px;margin-left: -15%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{labels[0].soap}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].subjective}}</b></label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].objective}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}"></textarea>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].assessment}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}"></textarea>
+              </div>
+            </div><br>
+
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].plan}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}"></textarea>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].diagnosisCode}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                  placeholder="{{labels[0].diagnosisCode}}" />
+              </div>
+            </div><br>
+            <!-- <div class="row">
+          <div class="col-lg-3">
+            <label><b>Sick Slip Genarator</b> </label>
+          
+          </div>
+          <div class="col-lg-7">
+            <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+              placeholder="Sick Slip Genarator" />
+          </div>
+        </div><br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].followUpPlan}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+          <div class="col-lg-3">
+            <label><b>Signature</b> </label>
+          <span style="color: red;">*</span>
+          </div>
+          <div class="col-lg-7">
+            <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+              placeholder="Signature" />
+          </div>
+        </div>
+        <br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].notes}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
+                  placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" style="background-color: #f18235;border:none" data-dismiss="modal">{{labels[0].close}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

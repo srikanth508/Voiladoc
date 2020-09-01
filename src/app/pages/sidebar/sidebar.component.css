@@ -1,0 +1,100 @@
+.sidenav {
+       height: 100%;
+       width: 100%;
+       position: fixed;
+       z-index: 1;
+       top: 0;
+       left: 0;
+       background-color: 
+       #322b6b;
+       overflow-x: hidden;
+       padding-top: 10px;
+       
+     }
+     
+     .sidenav a {
+       padding: 3px 0px 9px 0px;
+       text-decoration: none;
+       font-size: 14px;
+       color: #f9fbf9;
+       display: block;
+     }
+     
+     .sidenav a:hover {
+       color: 
+       #f18235;
+       cursor: pointer;
+     }
+     
+
+     .togglebtn{
+      background-color: #322b6b;;
+      border: none;
+      color: aliceblue;
+      font-size: 15px;
+      padding-left: 7%;
+      width: 100%;
+      text-align: left;
+     }
+
+     
+
+     ::-webkit-scrollbar {
+      width: 7px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #2aaadf; 
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2aaadf; 
+    }
+
+    side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab a {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  /* padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px; */
+}
+
+.tab a:hover {
+  background-color: #322b6b;
+}
+
+.tab a.active {
+  /* background-color: #f18235; */
+  color: #f18235;
+  width: 100%;
+}

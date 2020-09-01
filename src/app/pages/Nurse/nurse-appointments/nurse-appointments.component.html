@@ -1,0 +1,250 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].appointments}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].appointmentyDate}}</th>
+            <th>{{labels[0].appointmentNo}}</th>
+            <th>{{labels[0].patientname}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].email}}</th>
+            <th>{{labels[0].address}}</th>
+            <th>{{labels[0].appointmentTime}}</th>
+            <th>{{labels[0].reason}}</th>
+            <th>{{labels[0].status}}</th>
+            <th>Notes</th>
+            <th>{{labels[0].action}}</th>
+          </tr>
+          <tr *ngFor="let app of appointmentist|filter:term">
+            <td>{{app.apptDatetime}}</td>
+            <td>{{app.id}}</td>
+            <td>{{app.patientName}}</td>
+            <td>{{app.mobileNumber}}</td>
+            <td>{{app.emailID}}</td>
+            <td>{{app.address}}</td>
+            <td>{{app.bookedTime}}</td>
+            <td>{{app.reasonForVisit}}</td>
+            <td>
+              <label
+                *ngIf="app.accepted=='1'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.isVisited=='0'&&app.notVisited=='0'"
+                style="color:green">{{labels[0].accepted}}</label>
+              <label *ngIf="app.accepted=='0'&&app.nurseCancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
+                style="color:red">{{labels[0].nurseCancelled}}</label>
+              <label *ngIf="app.accepted=='0'&&app.cancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
+                style="color:red">{{labels[0].patientCancelled}}</label>
+              <label *ngIf="app.isVisited=='1'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'"
+                style="color:yellowgreen">{{labels[0].visited}}</label>
+              <label *ngIf="app.isVisited=='0'&&app.notVisited=='1'"
+                style="color:rgb(4, 107, 43)">{{labels[0].notVisited}}</label>
+            </td>
+            <td>
+              {{app.completedNotes}}
+            </td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+              <a [ngbTooltip]="tipcontent2"
+                *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
+                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
+                  (click)="GetAcceptAppointmentID(app.id,app.nurseID,app.bookedTime,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID)"
+                  style="height:30px;" />
+              </a>
+              <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+              <a [ngbTooltip]="tipcontent3"
+                *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
+                <img src="assets/Images/can.png" style="height:30px;" data-toggle="modal" data-target="#exampleModal"
+                  (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.paidAmount,app.walletAmount)" />
+              </a>
+              <ng-template #tipcontent4>{{labels[0].visited}}</ng-template>
+              <a [ngbTooltip]="tipcontent4"
+                *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
+                <img src="assets/Images/Visit.png" style="height:30px;"
+                  (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID)" />
+              </a>
+
+              <ng-template #tipcontent8>{{labels[0].notVisited}}</ng-template>
+              <a [ngbTooltip]="tipcontent8"
+                *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
+                <img src="assets/Images/notvisit.png" style="height:30px;" (click)="updateNotVisitBit(app.id)" />
+              </a>
+
+
+              <ng-template #tipcontent9>Illness Photos</ng-template>
+              <a [ngbTooltip]="tipcontent9">
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
+                  style="height:30px;" (click)="GetIllnessPhotos(app.id)" />
+              </a>
+
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].reasonForcancel}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-8">
+              <textarea class="form-control" placeholder="{{labels[0].reason}}" [(ngModel)]="reason" rows="5"
+                cols="30"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary" (click)="CancelAppointment()">{{labels[0].save}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].nextAppointmentTime}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <!-- <div class="row">
+            <div class="col-lg-4">
+              <label>Next Available Appointment Date</label>
+            </div>
+            <div class="col-lg-6">
+              <input type="date" [(ngModel)]="availbledate" min="{{todaydate}}" name="availbledate"
+                class="form-control">
+            </div>
+          </div><br> -->
+          <div class="row">
+            <div class="col-lg-4">
+              <label>{{labels[0].nextAppointmentTime}}</label>
+            </div>
+            <div class="col-lg-4">
+              <input type="time" [(ngModel)]="availabletime" (change)="GetTime($event)" name="availabletime"
+                class="form-control">
+            </div>
+            <div class="col-lg-3">
+              <select class="form-control" (change)="getfromampm($event)">
+                <option value="">{{labels[0].select}}</option>
+                <option value="am">am</option>
+                <option value="pm">pm</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary" (click)="acceptappointment()"
+                data-dismiss="modal">{{labels[0].save}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="IllnessPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 *ngIf="languageid==6" class="modal-title" id="exampleModalLongTitle"> Photos</h5>
+        <h5 *ngIf="languageid==1" class="modal-title" id="exampleModalLongTitle"> Photos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="nophoto=='0'">
+            <div class="col-lg-6" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoUrl}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="nophoto=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

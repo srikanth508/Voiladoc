@@ -1,0 +1,158 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].doctorFees}}
+      </h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <!-- <div class="col-lg-2">
+      <button type="button" routerLink="/DoctorFeeDash" class="btn btncolor">{{labels[0].dashboard}}</button>
+    </div> -->
+  </div>
+</div> <br>
+<div class="container-fluid card card-hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <label>{{labels[0].doctor}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <!-- <select class="form-control" [disabled]="tablecount=='1'" (change)="GetDoctorID($event)">
+        <option>{{labels[0].select}}</option>
+        <option *ngFor="let doc of doctorlist"  value="{{doc.doctorID}}">{{doc.doctorName}}</option>
+      </select> -->
+
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="doctorlist" [settings]="docdd"
+        (onSelect)="GetDoctorID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].hospitalClinic}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" [disabled]="tablecount=='1'" [(ngModel)]="hospitalid" name="hospitalid"
+        (change)="GetHospitalID($event)">
+        <option>{{labels[0].select}}</option>
+        <option *ngFor="let hos of hosptalist" value="{{hos.hospital_ClinicID}}">{{hos.hospital_ClinicName}}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].department}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <!-- <select class="form-control" (change)="GetDepartmentID($event)" [(ngModel)]="departmentid" name="departmentid">
+        <option selected value="0">Select</option>
+        <option *ngFor="let dept of departmentlist" value="{{dept.departmentID}}">{{dept.departmentname}} </option>
+      </select> -->
+      <input type="text" disabled class="form-control" [(ngModel)]="departmentname" name="departmentname">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].treatmentService}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" (change)="GetTreatmentID($event)">
+        <option>{{labels[0].select}}</option>
+        <option *ngFor="let treat of treatmentlist" value="{{treat.id}}">{{treat.treatmentPlan}} </option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].patientCharges}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="fees" name="fees" placeholder="{{labels[0].patientCharges}}">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].doctorCommission}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="doccommission"
+        (ngModelChange)="GetDoccommission(doccommission)" placeholder="Doctor Revenue">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>Voildoc Commission Percentage : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled placeholder="{{labels[0].voildoccommssion}}"
+        [(ngModel)]="voiladoccommission" name="voiladoccommission">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="adddetails()">{{labels[0].add}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div><br><br>
+
+  <div class="row" *ngIf="tablecount=='1'">
+    <div class="col-lg-12">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].doctor}}</th>
+            <th>{{labels[0].hospitalClinic}}</th>
+            <th>{{labels[0].treatmentService}}</th>
+            <th>{{labels[0].fees}}</th>
+            <th>{{labels[0].doctorCommission}}</th>
+            <th>{{labels[0].voildoccommssion}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of qwerty">
+            <td>{{details.DoctorName}}</td>
+            <td>{{details.HospitalName}}</td>
+            <td>{{details.TreatmentPlan}}</td>
+            <td>{{details.Fees}}</td>
+            <td>{{details.DoctorCommission}}</td>
+            <td>{{details.VoilaDocCommisiion}}</td>
+            <td>
+              <ng-template #tipcontent2>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" (click)="delete(details.Sno)" style="width: 20px;margin-left: 10px;">
+              </a>
+            </td>
+          </tr>
+
+        </thead>
+      </table>
+    </div>
+  </div><br>
+  <div class="row" *ngIf="tablecount=='1'">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="insertdetails()">{{labels[0].save}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div><br><br>
+</div>

@@ -1,0 +1,109 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>{{labels[0].doctoeworkingdetails}}</h5>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-3">
+      <button type="button" class="btn btn-block btncolor"
+        routerLink="/Docworkingdetails">{{labels[0].add_Working_Details}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-lg-10">
+  </div>
+  <div class="col-lg-1">
+  </div>
+</div>
+<br>
+<div class="container-fluid card card-hover">
+  <div class="row" style="margin-top:10px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
+    </div>
+
+    <div class="col-lg-3">
+      <!-- (change)="GetDaysName($event)" -->
+      <select value="" selected class="form-control" [(ngModel)]="doctorname" name="doctorname">
+        <option value="">{{labels[0].selectDoctor}}</option>
+        <option *ngFor="let doc of doctorlist" value={{doc.doctorName}}>{{doc.doctorName}}</option>
+      </select>
+    </div>
+    
+    <div class="col-lg-3">
+      <!-- (change)="GetDaysName($event)" -->
+      <select value="" selected class="form-control" [(ngModel)]="daysname" name="daysname">
+        <option value="">{{labels[0].selectday}}</option>
+        <option *ngFor="let days of dayslist" value={{days.dayOfTheWeek}}>{{days.dayOfTheWeek}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].hospitalOrClinicName}}</th>
+            <th>{{labels[0].doctor_Name}}</th>
+            <th>{{labels[0].day}}</th>
+            <th>{{labels[0].morning}}</th>
+            <th>{{labels[0].afternoon}}</th>
+            <th>{{labels[0].evening}}</th>
+            <th>{{labels[0].night}}</th>
+            <!-- <th>{{labels[0].actions}}</th> -->
+          </tr>
+          <tr *ngFor="let doc of workingdetails|filter:term|filter:daysname|filter:doctorname">
+            <td>{{doc.hospital_ClinicName}}</td>
+            <td>{{doc.doctorName}}</td>
+            <td>{{doc.dayOfTheWeek}}</td>
+            <td [style.background-color]="doc.mrngAppointtypeID">
+              {{doc.mrngStartTime}} -- {{doc.mrngEndTime}}
+              <br>
+              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(1,doc.id,doc.hospital_ClinicID,doc.dayID)"
+                data-toggle="modal" data-target="#myModal" style="width: 20px">
+              &nbsp;&nbsp;
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,1)" style="width: 20px"> -->
+            </td>
+            <td [style.background-color]="doc.afternoonAppointmentTypeID"> 
+              {{doc.noonStartTime}} -- {{doc.noonEndTime}}
+              <br>
+              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(2,id,hospital_ClinicID)" data-toggle="modal"
+                data-target="#myModal" style="width: 20px">
+              &nbsp;&nbsp;
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,2)" style="width: 20px"> -->
+            </td>
+            <td [style.background-color]="doc.eveningAppointmentTypeID">
+              {{doc.evngStartTime}} -- {{doc.evngEndTime}}
+              <br>
+              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(3,id,hospital_ClinicID)" data-toggle="modal"
+                data-target="#myModal" style="width: 20px">
+              &nbsp;&nbsp;
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,3)" style="width: 20px"> -->
+            </td>
+            <td [style.background-color]="doc.nightAppointmentTypeID">
+              {{doc.nightStartTime}} -- {{doc.nightEndTime}}
+              <br>
+              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(4,id,hospital_ClinicID)" data-toggle="modal"
+                data-target="#myModal" style="width: 20px">
+              &nbsp;&nbsp;
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,4)" style="width: 20px"> -->
+            </td>
+            <!-- <td>
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" data-toggle="modal" style="width: 20px">
+              </a>&nbsp;
+              <ng-template #tipcontent2>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" (click)="deletebydochspid(doc.id,doc.dayID)">
+              </a>
+            </td> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+</div><br><br>

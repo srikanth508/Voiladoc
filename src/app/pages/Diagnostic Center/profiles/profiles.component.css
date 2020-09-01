@@ -1,0 +1,38 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    .headerspace{
+        margin-top:10px;
+    }
+    .divspacee{
+        margin-top:20px;
+       
+    }
+    .tablecss{
+        background-color: #f18235;
+        color:white;
+    }
+    .headerspace{
+        margin-top: 10px;
+        text-transform:uppercase;
+      }
+      label::first-letter{
+          text-transform: capitalize;
+      }
+      label{
+        text-transform: lowercase;
+    }
+    
+    .specforimg{
+        background-color: #86c5be;
+    }
+    .btncolor
+    {
+        background-color: #f18235;
+        color:white;
+    }

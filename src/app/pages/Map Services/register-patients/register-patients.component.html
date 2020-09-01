@@ -1,0 +1,90 @@
+<div class="container-fluid card card:hover">
+  <br />
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>{{ labels[0].registeredPatients }}</h5>
+    </div>
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+  </div>
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{ labels[0].search }}" />
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetCountryID($event)">
+        <option value="0">{{labels[0].selectCountry}}</option>
+        <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
+        <option value="0">{{labels[0].selectProvince}}</option>
+        <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" *ngIf="cityid!='0'" (change)="GetAreaID($event)">
+        <option value="0">{{labels[0].selectCity}}</option>
+        <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{ labels[0].patientID }}</th>
+            <th>{{ labels[0].patientName }}</th>
+            <th>{{ labels[0].mobileNumber }}</th>
+            <th>{{ labels[0].emailID }}</th>
+            <th>{{ labels[0].password }}</th>
+            <th>{{ labels[0].walletBalance }}</th>
+            <th>{{ labels[0].actions }}</th>
+          </tr>
+          <tr *ngFor="let list of patientslist|filter:search">
+            <td>{{list.id}}</td>
+            <td>{{list.patientName}}</td>
+            <td>{{list.mobileNumber}}</td>
+            <td>{{list.emailID}}</td>
+            <td>{{list.password}}</td>
+            <td>{{list.walletAmount}}</td>
+            <td>
+              <a>
+                <img *ngIf="list.hidden == 0" src="assets/Images/active.png" title="Active"
+                  (click)="deletepatient(list.id)" style="width: 50px;" />
+              </a>
+              <a>
+                <img *ngIf="list.hidden == 1" (click)="Enablepatient(list.id)" src="assets/Images/dactive.png"
+                  title="Deactive" style="width: 50px;" />
+              </a>
+              <!-- <ng-template #tipcontent1>Graph</ng-template>
+              <a [ngbTooltip]="tipcontent1" routerLink="/PatientCharts" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a> -->
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br /><br />
+  </div>
+  <br /><br />
+  <br />
+</div>
+<br /><br /><br /><br />

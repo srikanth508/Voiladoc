@@ -1,0 +1,163 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Camp</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee">
+  <div class="col-lg-12">
+    <form #addroleForm="ngForm">
+
+
+      <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+
+          <label>HOSPITAL / CLINIC : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+
+          <!-- <select class="form-control" [(ngModel)]="hospitalid" name="hospitalid"
+            (change)="GetHospitalID($event)">
+            <option value="" selected>Select</option>
+            <option *ngFor="let hospital of hospitallist" value={{hospital.id}}>{{hospital.hospital_ClinicName}}
+            </option>
+          </select> -->
+          <input type="text" class="form-control" disabled [(ngModel)]="hospitalid" name="hospitalid">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>CAMP NAME: </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input class="form-control" type="text" required name="campname" [(ngModel)]="campname"
+            placeholder="Camp Name"
+            onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>CAMP DESCRIPTION : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <textarea placeholder="Description" rows="4" required name="campdescription" [(ngModel)]="campdescription"
+            class="form-control"></textarea>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>CONTACT PERSON NAME : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input class="form-control" type="text" required name="contactpersonname" [(ngModel)]="contactpersonname"
+            placeholder="Name"
+            onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>CONTACT PERSON PH NO : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input class="form-control" type="text" minlength="10" maxlength="10" required name="contactpersonphno"
+            [(ngModel)]="contactpersonphno" placeholder="Phone No"
+            onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>
+            ENROLMENT CRITERIA : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <textarea placeholder="Criteria" rows="4" required name="criteria" [(ngModel)]="criteria"
+            class="form-control"></textarea>
+
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>FEES : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input class="form-control" type="text" required name="fees" [(ngModel)]="fees" placeholder="Fees"
+            onkeypress='return (event.charCode >=48 && event.charCode <=57)'>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>START DATE : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input type="date" [ngModel]="startdate | date:'yyyy-MM-dd'" value={{startdate}} required name="startdate"
+            class="form-control">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+
+        <div class="col-lg-3">
+          <label>END DATE : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input type="date" [ngModel]="enddate | date:'yyyy-MM-dd'" value={{enddate}} required name="enddate"
+            class="form-control">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+
+        <div class="col-lg-3">
+          <label>TIME : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input class="form-control" [(ngModel)]="time" required name="time" type="text" placeholder="Timings"
+            onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
+      event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58||event.charCode==46'>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+
+        <div class="col-lg-3">
+          <label>ADDRESS : </label>
+          <span class="requird">*</span>
+        </div>
+        <div class="col-lg-4">
+          <textarea placeholder="Address" [(ngModel)]="address" required name="address" rows="4"
+            class="form-control"></textarea>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-2">
+          <button type="button" [disabled]="addroleForm.form.invalid" class="btn btn-block btn-md allbtns btncolor"
+            (click)="updatedetails()">Update</button>
+        </div>
+        <div class="col-lg-5">
+        </div>
+      </div>
+    </form>
+  </div><br>
+</div>

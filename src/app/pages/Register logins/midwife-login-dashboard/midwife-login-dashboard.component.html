@@ -1,0 +1,65 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5 *ngIf="languageid==1">{{labels[0].midWife}}</h5>
+      <h5 *ngIf="languageid==6">SAGE-FEMMES</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button *ngIf="languageid=='1'" type="button" routerLink="/MidwifeLogin" class="btn btncolor">ADD</button>
+      <button *ngIf="languageid=='6'" type="button" routerLink="/MidwifeLogin" class="btn btncolor">Ajouter</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover" style="overflow:auto;">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th *ngIf="languageid==1">Name</th>
+            <th *ngIf="languageid==6">Nom</th>
+            <th>{{labels[0].userName}}</th>
+            <th>{{labels[0].password}}</th>
+            <th>{{labels[0].disable}}</th>
+            <th>{{labels[0].enable}}</th>
+          </tr>
+          <tr *ngFor="let details of midwifelist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td>{{details.name}}</td>
+            <td>{{details.userName}}</td>
+            <td>{{details.password}}</td>
+            <td>
+              <ng-template #tipcontent3>{{labels[0].disable}}</ng-template>
+              <button type="button" [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'" (click)="DisableMidWivesLogin(details.midWiveID)"
+                style="background-color: red;color: aliceblue;border: none;">{{labels[0].disable}}</button>
+            </td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].enable}}</ng-template>
+              <button type="button" [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'" (click)="EnableMidWivesLogin(details.midWiveID)"
+                style="background-color: green;color: aliceblue;border: none;">{{labels[0].enable}}</button>
+            </td>
+        </thead>
+      </table>
+      <br>
+      <br>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
+      previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>
+<br>
+<br>

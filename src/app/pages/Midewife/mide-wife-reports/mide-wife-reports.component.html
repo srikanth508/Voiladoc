@@ -1,0 +1,88 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-6">
+      <h5>{{labels[0].appointmentreports}}</h5>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-2">
+    </div>
+    <!-- <div class="col-lg-2">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    </div> -->
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="getget($event)">
+        <option selected value="5">{{labels[0].select}}</option>
+        <option value="1">{{labels[0].visited}}</option>
+        <option value="4">{{labels[0].notVisited}}</option>
+        <option value="3">{{labels[0].cancelled}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="MidWife">
+        <thead>
+          <tr>
+            <th id="imp">{{labels[0].appointmentdate}}</th>
+            <th>{{labels[0].appointmentID}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].phoneno}}</th>
+            <th>{{labels[0].email}}</th>
+            <th>{{labels[0].address}}</th>
+            <th id="imp">{{labels[0].appointmentTime}}</th>
+            <th>{{labels[0].reason}}</th>
+            <th>{{labels[0].status}}</th>
+          </tr>
+          <tr *ngFor="let app of appointmentreportlist|filter:term">
+            <td>{{app.apptDate}}</td>
+            <td>{{app.id}}</td>
+            <td>{{app.patientName}}</td>
+            <td>{{app.mobileNumber}}</td>
+            <td>{{app.emailID}}</td>
+            <td>{{app.address}}</td>
+            <td>{{app.bookedTime}}</td>
+            <td>{{app.reasonForVisit}}</td>
+            <td>
+              <label *ngIf="app.isVisited=='1'" style="color:yellowgreen">{{labels[0].visited}}</label>
+              <label *ngIf="app.midwivesCancelled=='1'" style="color:red">{{labels[0].midWifeCancelled}}</label>
+
+              <label *ngIf="app.cancelled=='1'" style="color:red">{{labels[0].patientCancelled}}</label>
+
+              <label *ngIf="app.notVisited=='1'" style="color:rgb(23, 206, 115)">{{labels[0].notVisited}}</label>
+              <label
+                *ngIf="app.notVisited=='0'&&app.midwivesCancelled=='0'&&app.isVisited=='0'&&app.cancelled=='0'&&app.accepted=='0'"
+                style="color:rgb(23, 206, 115)">{{labels[0].pending}}</label>
+              <label
+                *ngIf="app.notVisited=='0'&&app.midwivesCancelled=='0'&&app.isVisited=='0'&&app.cancelled=='0'&&app.accepted=='1'"
+                style="color:rgb(23, 206, 115)">{{labels[0].accepted}}</label>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>

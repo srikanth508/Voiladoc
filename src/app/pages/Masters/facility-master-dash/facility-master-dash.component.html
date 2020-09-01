@@ -1,0 +1,50 @@
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>{{labels[0].facilityMasterDash}}</h5>
+    </div>
+    <div class="col-lg-6">
+    </div>
+    <div class="col-lg-3">
+      <button type="button" routerLink="/FacilityMaster"
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].add}}</button>
+    </div>
+  </div>
+  <br>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term"  placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].facilityName}} </th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let list of facilitylist|filter:term">
+            <td>{{list.short}}</td>
+            <td>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/FacilityMaster',list.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteFacilitiesMaster(list.id)">
+              </a>
+            
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div><br><br>
+  </div><br><br>
+  <br>
+</div><br><br><br><br>

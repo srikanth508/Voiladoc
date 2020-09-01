@@ -1,0 +1,98 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Orders Dashboard</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetCategoryID($event)">
+        <option value="0">{{labels[0].selectCategory}}</option>
+        <option *ngFor="let couu of CategoryList" value={{couu.id}}>{{couu.categoryName}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetSubCategoryID($event)">
+        <option value="0">{{labels[0].selectSubCategory}}</option>
+        <option *ngFor="let couu of SubCategoryList" value={{couu.id}}>{{couu.subacategoryName}}</option>
+      </select>
+    </div>
+
+
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].orderedDate}} </th>
+            <th>{{labels[0].CustomerName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].email}}</th>
+            <th>{{labels[0].category}}</th>
+            <th>{{labels[0].subcategory}}</th>
+            <th>{{labels[0].product}}</th>
+            <th>{{labels[0].quantity}}</th>
+            <th>{{labels[0].productPrice}} </th>
+            <th>{{labels[0].tax}} </th>
+            <th>{{labels[0].totalAmount}}</th>
+            <th>{{labels[0].deliveryStatus}}</th>
+            <th>Action </th>
+          </tr>
+          <tr *ngFor="let details of Orderslist|filter:term">
+            <td>{{details.modifiedDate|date}}</td>
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.categoryName}}</td>
+            <td>{{details.subacategoryName}}</td>
+            <td>{{details.productName}}</td>
+            <td>{{details.quantity}}</td>
+            <td>{{details.productPrice}}</td>
+            <td>{{details.tax}}</td>
+            <td>{{details.productTotalPrice}}</td>
+            <td *ngIf="details.ordered==0">Pending</td>
+            <td *ngIf="details.ordered==1">Delivered</td>
+            <td>
+              <button type="button" class="acceptbtn"
+                (click)="acceptdelete(details.ordertypeid,details.medicalOrderID,1,details.id)">Delivered</button>
+              <!-- <ng-template #tipcontent3>Not Delivered</ng-template>
+              <a *ngIf="details.ordered==1" [ngbTooltip]="tipcontent3">
+                <img src="assets/Images/notd.jfif" style="width: 40px;margin-left: 10px;">
+              </a>
+              <ng-template #tipcontent4> Delivered</ng-template>
+              <a *ngIf="details.ordered==0 " [ngbTooltip]="tipcontent4">
+                <img src="assets/Images/Delivered.png" style="width: 40px;margin-left: 10px;">
+              </a> -->
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>

@@ -1,0 +1,115 @@
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Items</h5>
+    </div>
+    <div class="col-lg-7"></div>
+
+    <!-- <div class="col-lg-2">
+      <button type="button" routerLink="/Products" class="btn btncolor">ADD</button>
+    </div> -->
+  </div>
+</div>
+<br>
+
+
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <form #testForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Category : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetCategoryID($event)">
+          <option valu="" selected>Select Category</option>
+          <option *ngFor="let Category of CategoryList" value={{Category.id}}>{{Category.categoryName}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Sub Category : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetSubCategoryID($event)">
+          <option valu="" selected>Select SubCategory</option>
+          <option *ngFor="let Sub of SubcategoryLists" value={{Sub.id}}>{{Sub.subacategoryName}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Item Name : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="ItemName" required [(ngModel)]="ItemName" placeholder="Item Name">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Product Code : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="ProductCode" required [(ngModel)]="ProductCode" placeholder="ProductCode">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Price : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="number" class="form-control" name="Price" required [(ngModel)]="Price" placeholder="Price">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Quantity : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="number" class="form-control" name="Quantity" required [(ngModel)]="Quantity" placeholder="Quantity">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Description : </label>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" placeholder="ItemDescription" name="ItemDescription" required [(ngModel)]="ItemDescription" class="form-control"></textarea>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">Save</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+  </form>
+</div>
+<br>
+<br>
+<br>

@@ -1,0 +1,36 @@
+.required{
+    color:red;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    .headerspace{
+        margin-top: 10px;
+        text-transform:uppercase;
+      }
+    
+    
+            label::first-letter{
+          text-transform: uppercase;
+        }
+        label{
+          text-transform: lowercase;
+        }
+    
+    .divspacee{
+        margin-top:10px;
+        height: calc(70% - 44px);
+    }
+    .btncolor
+    {
+        background-color: #f18235;
+        color:white;
+    }
+    
+   
+   

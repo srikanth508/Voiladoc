@@ -1,0 +1,147 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].myRevenue}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card-hover">
+  <br>
+  <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+  </ng-daterangepicker> -->
+
+  <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+    style="width: 25%;" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)"
+    bsDaterangepicker>
+  <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+    style="width: 25%;" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)"
+    bsDaterangepicker>
+  <br>
+  <br>
+
+  <!-- <h3 style="text-align: center;">{{labels[0].myRevenue}}</h3> -->
+  <div class="row">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-2" *ngFor="let inclinic of inclinicount">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DoctorRev',1]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].in_clinicrevenue}}</b>
+          <br>
+          <br>
+        </label>
+        <br />  
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;"  >{{inclinic.totalamount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />   
+      <br />
+    </div>
+
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2" *ngFor="let cou of vediocountcommision">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DoctorRev',2]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].videoCall_revenue}}</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;margin-top: 21px;">
+          <b>
+            <u style="font-size: 20px;" >{{cou.totalamount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <!-- <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2" *ngFor="let cou of inclicncommssion">     
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;"><b  style="font-size: 15px;">
+          {{labels[0].myCommission}}</b></label>
+        <br /> <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" 
+         ><b><u style="font-size: 20px;">{{cou.doccommision}}</u></b></label> 
+      </div>
+      <br />
+      <br />     
+    </div><br> -->
+    <!-- <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2" *ngFor="let cou of inclicncommssion">     
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;"><b  style="font-size: 15px;">
+          {{labels[0].voiladocCommission}}</b></label>
+        <br /> <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" 
+         ><b><u style="font-size: 20px;">{{cou.voiladocsommission}}</u></b></label> 
+      </div>
+      <br />
+      <br />      
+    </div> -->
+    <div class="col-lg-2"></div>
+    <br />
+  </div>
+  <!-- <div class="row">   
+   
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-2" *ngFor="let cou of vediocountcommision">     
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;"><b  style="font-size: 15px;">
+          {{labels[0].videoconferenceRevenue}} </b></label>
+        <br /> <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" 
+         ><b><u style="font-size: 20px;">{{cou.totalamount}}</u></b></label> 
+      </div>
+      <br />
+      <br />     
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2" *ngFor="let cou of videocommission">     
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;"><b  style="font-size: 15px;">
+          {{labels[0].myCommission}}</b></label>
+        <br /> <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" 
+         ><b><u style="font-size: 20px;">{{cou.doccommision}}</u></b></label> 
+      </div>
+      <br />
+      <br />     
+    </div><br>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2" *ngFor="let cou of videocommission">     
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;"><b  style="font-size: 15px;">
+          {{labels[0].voiladocCommission}}</b></label>
+        <br /> <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" 
+         ><b><u style="font-size: 20px;">{{cou.voiladocsommission}}</u></b></label> 
+      </div>
+      <br />
+      <br />      
+    </div>
+    <div class="col-lg-2"></div>
+    <br />
+  </div> -->
+</div>
+<br>

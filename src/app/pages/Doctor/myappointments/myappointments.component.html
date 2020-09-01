@@ -1,0 +1,2411 @@
+<div class="container-fluid card card:hover headerrspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].myAppointments}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="getget($event)">
+        <option value="4" selected>{{labels[0].selectsatus}}</option>
+        <option value="1">{{labels[0].visited}}</option>
+        <option value="2">{{labels[0].notvisited}}</option>
+        <option value="3">{{labels[0].patientCancelled}}</option>
+        <option value="6">{{labels[0].doctorCancelled}}</option>
+        <option value="5">{{labels[0].accepted}}</option>
+      </select>
+    </div>
+    <div class="col-lg-2">
+      <label>
+        <b>{{labels[0].count}} : </b>
+        <b>{{count}}</b>
+      </label>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-6">
+    </div>
+    <!-- <div class="col-lg-2">
+      <img src="assets/Images/vedio.png" style="width:25px;">:
+      <label>
+        <b>{{labels[0].scheduled}}</b>
+      </label>
+    </div>
+    <div class="col-lg-2">
+      <img src="assets/Images/ondemand.png" style="width:25px;">:
+      <label>
+        <b>{{labels[0].ondemand}}</b>
+      </label>
+    </div> -->
+    <!-- <div class="col-lg-2">
+      <img src="assets/Images/clinic.png" style="width:20px;">:
+      <label>
+        <b>{{labels[0].inClinic}}</b>
+      </label>
+    </div> -->
+  </div>
+  <div class="row" *ngIf="apppppp=='0'">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th id="imp">{{labels[0].appointmentDate}}</th>
+            <th id="imp">{{labels[0].slot}}</th>
+            <th id="imp">{{labels[0].appointmentType}}</th>
+            <th id="imp">{{labels[0].appointmentNumber}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].reason_For_Visit}}</th>
+            <th>{{labels[0].patientDocuments}}</th>
+            <th>{{labels[0].actions}}</th>
+            <th>{{labels[0].status}}</th>
+            <th id="imp">{{labels[0].previousvisitdocument}}</th>
+          </tr>
+          <tr [ngStyle]="{'background-color':details.misUse=='1'? '#FFCCCB' : 'white' }"
+            *ngFor="let details of appointmentlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td>{{details.apptDateTime}}</td>
+            <td>{{details.slots}}</td>
+            <td>
+              <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
+              <button type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
+                [disabled]="details.isVisited=='1' && details.completed=='2'" *ngIf="details.bookingTypeID=='2'"
+                (click)="getvedioconferencebydateandtime(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
+              </button>
+
+              <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
+              <button type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8" *ngIf="details.bookingTypeID=='1'"
+                (click)="getvedioconferencebydateandtimedemand(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
+              </button>
+
+              <ng-template #tipcontent2099>Home Visit</ng-template>
+              <button type="button" class="homecarebtn" [ngbTooltip]="tipcontent2099"
+                *ngIf="details.appointmentTypeID=='5'">Home Visit
+              </button>
+
+              <ng-template #tipcontent20>{{labels[0].inClinic}}</ng-template>
+              <button type="button" class="inclinicbutton" [ngbTooltip]="tipcontent20"
+                *ngIf="details.appointmentTypeID=='1'">{{labels[0].inClinic}}
+              </button>
+              <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
+              <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
+              *ngIf="details.appointmentTypeID=='2'"  [routerLink]="['/Mychats',details.doctorID,details.patientID]">{{labels[0].startchat}}</button>
+            </td>
+            <td>{{details.appointmentID}}</td>
+            <td>{{details.pName}}</td>
+            <td>{{details.pMobileNo}}</td>
+            <td>{{details.reasonForVisit}}</td>
+            <td>
+              <img src="assets/Images/imgicon.png" title="{{labels[0].images}}"
+                (click)="GetImagesID(details.appointmentID)" data-toggle="modal" data-target="#exampleModalLong2"
+                style="margin: 2%;width: 20px;" />&nbsp;
+              <img src="assets/Images/showvedio.png" *ngIf="details.appointmentTypeID=='2'" data-toggle="modal"
+                data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
+                (click)="GetVedioID(details.appointmentID)" />&nbsp;
+            </td>
+
+            <td>
+              <table style="box-shadow:none">
+                <tr>
+                  <td style="border:none">
+                    <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+                    <a [ngbTooltip]="tipcontent3"
+                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'">
+                      <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
+                        data-target="#exampleModal"
+                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.paidAmount,details.walletAmount)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+                    <a [ngbTooltip]="tipcontent2"
+                      *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'">
+                      <img src="assets/Images/acc.png"
+                        (click)="Appointmentstatus(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID)"
+                        style="height:20px;" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent4>{{labels[0].notvisited}}</ng-template>
+                    <a [ngbTooltip]="tipcontent4"
+                      *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      <img src="assets/Images/notvisit.png" style="height:25px;"
+                        (click)="UpdateBookAppointmentNoShow(details.appointmentID,details.appdate,details.slots)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent201>Follow Up Plan</ng-template>
+                    <a [ngbTooltip]="tipcontent201" *ngIf="details.isVisited=='1'&&details.followUpVisit=='0'">
+                      <img src="assets/Images/refer.png" style="height:25px;"
+                        (click)="GetFolloupVistID(details.appointmentID)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent56>{{labels[0].receipt}}</ng-template>
+                    <a [ngbTooltip]="tipcontent56" *ngIf="details.appointmentTypeID=='2' && details.isVisited=='1'">
+                      <img src="assets/Images/Receipts.png" style="height:25px;" (click)="GenerateReciept(details)"
+                        data-toggle="modal" data-target="#Reciept" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent567>Upload Prescription</ng-template>
+                    <a [ngbTooltip]="tipcontent567"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'">
+                      <img src=" assets/Images/uploadfile.png" style="height:25px;" data-toggle="modal"
+                        data-target="#UploadPhotos" (click)="GetPrescriptionPhoto(details)" />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border:none">
+                    <ng-template #tipcontent5>{{labels[0].addPrescription}}</ng-template>
+                    <a [ngbTooltip]="tipcontent5"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      <img src="assets/Images/pre.png" data-toggle="modal" data-target="#exampleModalLong"
+                        style="height:25px;"
+                        (click)="GetPatientid(details.patientID,details.appointmentID,details.appointmentTypeID,details.countryID,details.cityID,details.areaID,details.slots,details.appdate,details.pEmail)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent7>{{labels[0].addTest}}</ng-template>
+                    <a [ngbTooltip]="tipcontent7"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
+                        style="height:25px;"
+                        (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent10>{{labels[0].addSoapNotes}}</ng-template>
+                    <a [ngbTooltip]="tipcontent10"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
+                        style="height:25px;"
+                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent88>{{labels[0].refertodoctor}}</ng-template>
+                    <a [ngbTooltip]="tipcontent88"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.noShow=='0'">
+                      <img src="assets/Images/refer.png" style="height:25px;" data-toggle="modal"
+                        data-target="#exampleModalCenterRefferal" (click)="GetReferralID(details)" />
+                    </a>
+                  </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent89>{{labels[0].generateSickSlip}}</ng-template>
+                    <a [ngbTooltip]="tipcontent89"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.noShow=='0'">
+                      <img src="assets/Images/medical.png" style="height:25px;" data-toggle="modal"
+                        data-target="#exampleModalCenterSickSlip" (click)="GetSickSlipID(details.patientID)" />
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- <ng-template #tipcontent4>Visit</ng-template>
+                <a [ngbTooltip]="tipcontent4"
+                  *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.cancelled=='0'">
+                  <img src="assets/Images/Visit.png" style="height:20px;"
+                    (click)="VisitDoctorAppointmentStatus(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID)" />
+                </a> -->
+
+            </td>
+            <td>
+              <label *ngIf=" details.accepted=='1' &&details.cancelled=='0' &&details.docCancelled=='0'
+                  &&details.isVisited=='0' &&details.noShow=='0'" style=" color: green;">{{labels[0].accepted}}</label>
+              <label *ngIf="details.cancelled=='1'" style="color: red;">{{labels[0].patientCancelled}}</label>
+              <label *ngIf="details.docCancelled=='1'" style="color: red;">{{labels[0].doctorCancelled}}</label>
+
+              <label *ngIf="details.isVisited=='1'" style="color: orange;">{{labels[0].visited}}</label>
+              <label *ngIf="details.noShow=='1'" style="color: orange;">{{labels[0].notvisited}}</label>
+            </td>
+            <td>
+              <ng-template #tipcontent6>{{labels[0].previousPrescription}}</ng-template>
+              <a [ngbTooltip]="tipcontent6"
+                *ngIf="details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.accepted=='1'">
+                <img src="assets/Images/preprescription.png" data-toggle="modal" data-target="#exampleModalCenter"
+                  style="height:25px;" (click)="GetDoctorPatientid(details.patientID)" />
+              </a>&nbsp;
+              <ng-template #tipcontent12>{{labels[0].previousTests}}</ng-template>
+              <a [ngbTooltip]="tipcontent12"
+                *ngIf="details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.accepted=='1'">
+                <img src="assets/Images/previoustest.png" data-toggle="modal" data-target="#exampleModalCenter1"
+                  style="height:20px;" (click)="GetDiaID(details.patientID)" />
+              </a>&nbsp;
+              <ng-template #tipcontent98>{{labels[0].previousSoapNotes}}</ng-template>
+              <a [ngbTooltip]="tipcontent98"
+                *ngIf="details.noShow=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'">
+                <img src="assets/Images/previoussoap.png" style="height:25px;"
+                  [routerLink]="['/Soapdash',details.patientID]" />
+              </a>
+              <ng-template #tipcontent11>{{labels[0].misUseComments}}</ng-template>
+              <a [ngbTooltip]="tipcontent11" data-toggle="modal" data-target="#exampleModalCenter15"
+                *ngIf="details.misUse=='1'">
+                <img src="assets/Images/upload.png" (click)="GetMisusecomments(details.misUseComments)"
+                  style="height:25px;" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+  <div class="container-fluid" *ngIf="apppppp=='1'">
+    <div class="row">
+      <div class="col-lg-12">
+        <h4 style="color:#f18235">{{labels[0].thereIsNoAppointments}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+  <br>
+  <br>
+</div>
+<br>
+<br>
+<br>
+
+<div class="modal fade" id="exampleModal1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{labels[0].soapnotes}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnosisCode}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                  placeholder="{{labels[0].diagnosisCode}}" />
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+            <div class="col-lg-3">
+              <label><b>Sick Slip Genarator</b> </label>
+            </div>
+            <div class="col-lg-7">
+              <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+                placeholder="Sick Slip Genarator" />
+            </div>
+          </div><br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].followUpPlan}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+            <div class="col-lg-3">
+              <label><b>Signature</b> </label>
+            <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-7">
+              <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+                placeholder="Signature" />
+            </div>
+          </div>
+          <br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].notes}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
+                  placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenter15" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter15"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].flaggedDoctorNotes}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-8">
+              <textarea class="form-control" placeholder="{{labels[0].misUseComments}}" [(ngModel)]="misusecomments"
+                name="misusecomments" rows="5" cols="30"></textarea>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].reasonForCancel}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-8">
+              <textarea class="form-control" placeholder="Reason" [(ngModel)]="reason" rows="5" cols="30"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-default" style="background-color: #f18235;color: white;"
+                (click)="cancelledappointment()">{{labels[0].save}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addPrescription}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #medicineForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <h6>Choose From Template </h6>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDoctorPrecriptioTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4">
+                <h6>OR Fill All Details</h6>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].mttype}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetMedicineID($event)" [(ngModel)]="medicineid"
+                  name="medicineid">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let medicine of medicinelist" value="{{medicine.id}}">{{medicine.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].sig}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
+                  placeholder="{{labels[0].sig}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].drugName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                  placeholder="{{labels[0].drugName}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].unitOfMeasure}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
+                  placeholder="{{labels[0].unitOfMeasure}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].dosagee}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="dosage" [(ngModel)]="dosage"
+                  placeholder="{{labels[0].dosagee}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].durationn}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="duration" [(ngModel)]="duration"
+                  placeholder="{{labels[0].duration}}">
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].dispenseQuantityy}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="dispensequantity" [(ngModel)]="dispensequantity"
+                  placeholder="{{labels[0].dispenseQuantityy}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].noteToPharmasist}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].diagnosiss}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis"
+                  placeholder="{{labels[0].diagnosiss}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].howmanyRefillss}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
+                  placeholder="{{labels[0].howmanyRefillss}}">
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Save As Template :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="1">&nbsp; Yes
+                &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="2">&nbsp; No
+                &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="medicinetemplate=='1'">
+              <div class="col-lg-4">
+                <label>Template Name :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" name="medicinetemplatename" [(ngModel)]="medicinetemplatename"
+                  placeholder="Template Name">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  [(disabled)]="medicineForm.form.invalid" (click)="adddetails1()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecuont1=='1'">
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].drugName}}</th>
+                      <th>{{labels[0].unitOfMeasure}}</th>
+                      <th>{{labels[0].dosage}}</th>
+                      <th>{{labels[0].duration}}</th>
+                      <th>{{labels[0].sig}}</th>
+                      <th>{{labels[0].dispenseQuantity}}</th>
+                      <th>{{labels[0].noteToPharmasist}}</th>
+                      <th>{{labels[0].diagnosis}}</th>
+                      <th>{{labels[0].howmanyRefills}}</th>
+                    </tr>
+                    <tr *ngFor="let medicinelist of qwerty2">
+                      <td>{{medicinelist.MedicineName}}</td>
+                      <td>{{medicinelist.UnitOfMeasure}}</td>
+                      <td>{{medicinelist.Dosage}}</td>
+                      <td>{{medicinelist.SIG}}</td>
+                      <td>{{medicinelist.Duration}}</td>
+                      <td>{{medicinelist.DispenseQuantity}}</td>
+                      <td>{{medicinelist.NoteToPharmasist}}</td>
+                      <td>{{medicinelist.Diagnosis}}</td>
+                      <td>{{medicinelist.HowmanyRefills}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecuont1=='1'">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="insertdetails()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<div class="backdrop" [ngStyle]="{ display: display }"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-lg">
+      <p class="modal-title" style="line-height: 28px;
+        margin-left: 9px;">
+      </p>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addPrescription}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height:500px;width:800px;overflow-y: auto;">
+        <div class="container-fluid">
+          <form #medicineForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <h6>{{labels[0].chooseFromtemplate}} </h6>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDoctorPrecriptioTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-8">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].mttype}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetMedicineID($event)" [(ngModel)]="medicineid"
+                  name="medicineid">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let medicine of medicinelist" value="{{medicine.id}}">{{medicine.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].sig}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
+                  placeholder="{{labels[0].sig}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].drugName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                  placeholder="{{labels[0].drugName}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].unitOfMeasure}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
+                  placeholder="{{labels[0].unitOfMeasure}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].dosagee}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="dosage" [(ngModel)]="dosage"
+                  placeholder="{{labels[0].dosagee}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].durationn}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="duration" [(ngModel)]="duration"
+                  placeholder="{{labels[0].duration}}">
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].dispenseQuantityy}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="dispensequantity" [(ngModel)]="dispensequantity"
+                  placeholder="{{labels[0].dispenseQuantityy}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].noteToPharmasist}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].diagnosiss}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis"
+                  placeholder="{{labels[0].diagnosiss}}">
+              </div>
+            </div>
+            <br>
+
+
+            <!-- <div class="row">
+              <div class="col-lg-4">
+                <label>ICD Code :</label>
+              </div>
+              <div class="col-lg-7">
+             
+                <input type="text" [(ngModel)]="icdcode" placeholder="ICD Code" name="icdcode" class="form-control"
+                  (ngModelChange)="SearchIcrCode($event)">
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="SerachOn=='1'">
+              <div class="col-lg-4">
+              </div>
+              <div class="col-lg-7" style="overflow-y:auto;height:100px">
+                <table>
+                  <thead>
+                    <tr *ngFor="let code of icdcodelist|filter:icdcode">
+                      <td style="border:none;cursor: pointer;"
+                        (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        {{code.icdCode}}</td>
+                     
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>ICD Description :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="4" class="form-control" placeholder="ICD Description" name="icrdescription"
+                  [(ngModel)]="icrdescription"></textarea>
+              </div>
+            </div>
+            <br> -->
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].howmanyRefillss}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
+                  placeholder="{{labels[0].howmanyRefillss}}">
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].saveastemplate}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="1">&nbsp;
+                {{labels[0].yes}}
+                &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="2">&nbsp;
+                {{labels[0].no}}
+                &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="medicinetemplate=='1'">
+              <div class="col-lg-4">
+                <label>{{labels[0].templateName}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" name="medicinetemplatename" [(ngModel)]="medicinetemplatename"
+                  placeholder="{{labels[0].templateName}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  [(disabled)]="medicineForm.form.invalid" (click)="adddetails1()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecuont1=='1'">
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].drugName}}</th>
+                      <th>{{labels[0].unitOfMeasure}}</th>
+                      <th>{{labels[0].dosage}}</th>
+                      <th>{{labels[0].duration}}</th>
+                      <th>{{labels[0].sig}}</th>
+                      <th>{{labels[0].dispenseQuantity}}</th>
+                      <th>{{labels[0].noteToPharmasist}}</th>
+                      <!-- <th>ICD Code</th> -->
+                      <th>{{labels[0].diagnosis}}</th>
+                      <th>{{labels[0].howmanyRefills}}</th>
+                    </tr>
+                    <tr *ngFor="let medicinelist of qwerty2">
+                      <td>{{medicinelist.MedicineName}}</td>
+                      <td>{{medicinelist.UnitOfMeasure}}</td>
+                      <td>{{medicinelist.Dosage}}</td>
+                      <td>{{medicinelist.SIG}}</td>
+                      <td>{{medicinelist.Duration}}</td>
+                      <td>{{medicinelist.DispenseQuantity}}</td>
+                      <td>{{medicinelist.NoteToPharmasist}}</td>
+                      <!-- <td>{{medicinelist.ICDCode}}</td> -->
+                      <td>{{medicinelist.Diagnosis}}</td>
+                      <td>{{medicinelist.HowmanyRefills}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecuont1=='1'">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="insertdetails()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          (click)="onCloseHandled()">
+          {{labels[0].close}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="backdrop" [ngStyle]="{ display: testdisplay }"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: testdisplay }">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-lg">
+      <p class="modal-title" style="line-height: 28px;
+        margin-left: 9px;">
+      </p>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addADiagnosticTestt}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="onclosetest()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height:500px;width:800px;overflow-y: auto;">
+        <div class="container-fluid">
+          <form #diaForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testType}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testName}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="testid==2">
+              <div class="col-lg-5">
+                <label>{{labels[0].clinicalInfo}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
+                  [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="adddetails()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecount=='1'">
+
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].testType}}</th>
+                      <th>{{labels[0].testName}}</th>
+                      <th>{{labels[0].delete}}</th>
+                    </tr>
+                    <tr *ngFor="let diagtest of qwerty">
+                      <td>{{diagtest.DiagnosticTestTypeName}}</td>
+                      <td>{{diagtest.TestName}}</td>
+                      <td>
+                        <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                        <a [ngbTooltip]="tipcontent2">
+                          <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                            (click)="delete(diagtest.Sno)">
+                        </a>
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecount=='1'">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-secondary"
+                  (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          (click)="onclosetest()">
+          {{labels[0].close}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="backdrop" [ngStyle]="{ display: soapdisplay }"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: soapdisplay }">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-lg">
+      <p class="modal-title" style="line-height: 28px;
+        margin-left: 9px;">
+      </p>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].soapp}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="onsopclose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height:500px;width:800px;overflow-y: auto;">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+
+            <div class="row">
+              <div class="col-lg-3">
+
+                <h6>{{labels[0].chooseFromtemplate}}</h6>
+
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetTemplateID($event)">
+                  <option value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let temp of templatelist" value="{{temp.id}}">{{temp.templateName}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-8">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnosisCode}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                  placeholder="{{labels[0].diagnosisCode}}" [ngModelOptions]="{standalone: true}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label> <b>ICD Description</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea rows="4" class="form-control"  [(ngModel)]="icddescription" placeholder="ICD Description" name="icddescription"   (ngModelChange)="SearchIcrCode()"
+                 ></textarea> -->
+                <input id="typeahead-basic" type="text"  class="form-control"
+                  placeholder="ICD Description" [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}"
+                  [ngbTypeahead]="search" (ngModelChange)="getid()" />
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row" *ngIf="SerachOn=='1'">
+              <div class="col-lg-3">
+              </div>
+              <div class="col-lg-7" style="overflow-y:auto;height:100px">
+                <table>
+                  <thead>
+                    <tr *ngFor="let code of icdcodelist|filter:icddescription">
+                      <td style="border:none;cursor: pointer;"
+                        (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        {{code.description}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>ICD Code</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                  name="icdcode" [(ngModel)]="icdcode"></textarea> -->
+                  <input type="text"  class="form-control" disabled [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                  name="icdcode" [(ngModel)]="icdcode">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].followUpPlan}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="followupplan"
+                  name="followupplan" placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].signature}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" disabled
+                  [(ngModel)]="signature" name="signature" placeholder="{{labels[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].notes}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="notes"
+                  [(ngModel)]="notes" placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].saveastemplate}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="savetemplate" [ngModelOptions]="{standalone: true}" name="savetemplate"
+                  [value]="1">&nbsp;{{labels[0].yes}}
+                &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="savetemplate" [ngModelOptions]="{standalone: true}" name="savetemplate"
+                  [value]="2">&nbsp;{{labels[0].no}}
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="savetemplate=='1'">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].templateName}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="templatename"
+                  [(ngModel)]="templatename" placeholder="{{labels[0].templateName}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="misuse=='1'">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].misUseComments}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="notes" [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="miscomments" placeholder="{{labels[0].miscomments}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          (click)="onsopclose()">
+          {{labels[0].close}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].previousTests}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto;">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].appointmentDate}}</th>
+                    <th>{{labels[0].testType}}</th>
+                    <th>{{labels[0].test}}</th>
+                    <!-- <th>Actions</th> -->
+                  </tr>
+                  <tr *ngFor="let dia of dialist">
+                    <td>{{dia.appdate}}</td>
+                    <td>{{dia.name}}</td>
+                    <td>{{dia.testName}}</td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width:1000px">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].previousPrescription}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto;">
+            <div class="col-lg-12">
+              <table style="font-size: 14px;">
+                <tr>
+                  <th>{{labels[0].date}}</th>
+                  <th>{{labels[0].medicineType}}</th>
+                  <th>{{labels[0].drugName}}</th>
+                  <th>{{labels[0].unitOfMeasure}}</th>
+                  <th>{{labels[0].dosage}}</th>
+                  <th>{{labels[0].duration}}</th>
+                  <th>{{labels[0].sig}}</th>
+                  <th>{{labels[0].dispenseQuantity}}</th>
+                  <th>{{labels[0].noteToPharmasist}}</th>
+                  <th>{{labels[0].diagnosis}}</th>
+                  <th>{{labels[0].howmanyRefills}}</th>
+                </tr>
+                <tr *ngFor="let presciption of prescrptionlist">
+                  <td>{{presciption.date}}</td>
+                  <td>{{presciption.medicinetype}}</td>
+                  <td>{{presciption.medicineName}}</td>
+                  <td>{{presciption.unitOfMeasure}}</td>
+                  <td>{{presciption.dosage}}</td>
+                  <td>{{presciption.sig}}</td>
+                  <td>{{presciption.duration}}</td>
+                  <td>{{presciption.dispenseQuantity}}</td>
+                  <td>{{presciption.noteToPharmasist}}</td>
+                  <td>{{presciption.diagnosis}}</td>
+                  <td>{{presciption.howmanyRefills}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addADiagnosticTestt}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #diaForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testType}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testName}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="testid==2">
+              <div class="col-lg-5">
+                <label>{{labels[0].clinicalInfo}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
+                  [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="adddetails()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecount=='1'">
+
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].testType}}</th>
+                      <th>{{labels[0].testName}}</th>
+                      <th>{{labels[0].delete}}</th>
+                    </tr>
+                    <tr *ngFor="let diagtest of qwerty">
+                      <td>{{diagtest.DiagnosticTestTypeName}}</td>
+                      <td>{{diagtest.TestName}}</td>
+                      <td>
+                        <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                        <a [ngbTooltip]="tipcontent2">
+                          <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                            (click)="delete(diagtest.Sno)">
+                        </a>
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecount=='1'">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-secondary"
+                  (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;" class="btn"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedPhotos}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="nophoto=='0'">
+            <div class="col-lg-6" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoURL}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="nophoto=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedVideo}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="novideo=='0'">
+            <div class="col-lg-6" *ngFor="let showvedio of showvedioes">
+              <br>
+              <div class="video">
+                <video controls id="videoPlayer" autoplay>
+                  <source src="{{showvedio.videoUrl}}" type="video/mp4" style="height:auto; width: 100%;" /> Browser not
+                  supported
+                </video>
+              </div>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="novideo=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/nov.png" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{labels[0].soapp}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+
+            <div class="row">
+              <div class="col-lg-3">
+
+                <h6>Choose From Template</h6>
+
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetTemplateID($event)">
+                  <option value="0">Select</option>
+                  <option *ngFor="let temp of templatelist" value="{{temp.id}}">{{temp.templateName}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4">
+                <h6>OR Fill All Details</h6>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnosisCode}}</b>
+                </label>
+              
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                  placeholder="{{labels[0].diagnosisCode}}" />
+              </div>
+            </div>
+            <br>
+          
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].followUpPlan}}</b>
+                </label>
+              
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].signature}}</b>
+                </label>
+               
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" disabled [(ngModel)]="signature" name="signature"
+                  placeholder="{{labels[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].notes}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
+                  placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>Save As Template</b>
+                </label>
+              </div>
+              <div class="col-lg-2">
+                <input type="radio" [(ngModel)]="savetemplate" name="savetemplate" [value]="1">&nbsp;Yes &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="savetemplate" name="savetemplate" [value]="2">&nbsp;No
+              </div>
+
+            </div>
+            <br>
+            <div class="row" *ngIf="savetemplate=='1'">
+              <div class="col-lg-3">
+                <label>
+                  <b>Template Name</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="templatename" [(ngModel)]="templatename"
+                  placeholder="Template Name"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row" *ngIf="misuse=='1'">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].misUseComments}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="notes" [(ngModel)]="miscomments"
+                  placeholder="{{labels[0].miscomments}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="modal fade" id="exampleModalCenterSickSlip" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].generateSickSlip}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].patientname}}: </b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" [(ngModel)]="patientname" placeholder="{{labels1[0].patientname}}" name="patientname"
+                disabled class="form-control">
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].patientNumber}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" [(ngModel)]="phonenumber" placeholder="{{labels1[0].patientNumber}}" name="phonenumber"
+                disabled class="form-control">
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].email}}</b> :</label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" [(ngModel)]="email" placeholder="{{labels1[0].email}}" name="email" disabled
+                class="form-control">
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].from}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="fromdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="fromdate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="fromdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="fromdate" bsDatepicker>
+              <!-- <input type="date" [(ngModel)]="fromdate" name="fromdate" class="form-control"> -->
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].to}}</b> :</label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="todate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="todate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="todate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="todate" bsDatepicker>
+              <!-- <input type="date" [(ngModel)]="todate" name="todate" class="form-control"> -->
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].leaveOfAbsence}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-2">
+              <input type="radio" value="{{labels1[0].school}}" [(ngModel)]="leavefor" (change)="Getscholladate()"
+                name="todate">
+              {{labels1[0].school}}
+            </div>
+            <div class="col-lg-2">
+              <input type="radio" value="{{labels1[0].office}}" [(ngModel)]="leavefor" (change)="Getscholladate()"
+                name="todate">
+              {{labels1[0].office}}
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].ailment}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <textarea rows="4" [(ngModel)]="ailment" placeholder="{{labels1[0].ailment}}" name="ailment"
+                class="form-control"></textarea>
+              <!-- <input type="text" [(ngModel)]="ailment" placeholder="Ailment" name="ailment" class="form-control"><br> -->
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn btncolor" style="background-color: #f18235;" data-toggle="modal"
+                data-target="#myModal" (click)="InsertSickSlipGenarator()">{{labels1[0].generate}}</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+          data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="qwerty">
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="margin-top: 65px;">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- <img src="assets/Images/logo.png" style="float: right;margin-bottom: -10%;"> -->
+            <br>
+          </div>
+          <div class="col-lg-12" [innerHTML]="desc">
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          (click)="sendmail()" data-dismiss="modal">{{labels[0].send}}
+        </button>
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenterRefferal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].refertodoctor}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].patintIDd}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Patient ID" disabled class="form-control" [(ngModel)]="patientidd"
+                name="patientidd">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].patientName}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Patient Name" disabled class="form-control" [(ngModel)]="patientname"
+                name="patientname">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].phoneNoo}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="number" name="mobileno" [(ngModel)]="mobileno" disabled class="form-control">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].emaill}} :</label>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" disabled name="email" [(ngModel)]="email">
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].referTO}} :</label>
+            </div>
+            <div class="col-lg-8">
+              <input type="radio" name="referaltypeid" [(ngModel)]="referaltypeid" value="1"
+                (change)="GetReferencetypeID($event)">&nbsp; {{labels[0].internalDoctorr}} &nbsp;
+              <input type="radio" name="referaltypeid" [(ngModel)]="referaltypeid" value="2"
+                (change)="GetReferencetypeID($event)">&nbsp; {{labels[0].externalDoctorr}} &nbsp;
+              <input type="radio" name="referaltypeid" [(ngModel)]="referaltypeid" value="3"
+                (change)="GetReferencetypeID($event)">&nbsp; {{labels[0].genralref}} &nbsp;
+            </div>
+          </div>
+          <br>
+
+          <div class="row" *ngIf="referaltypeid=='1'">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-3">
+                  <label *ngIf="languageid==1" class="dname_label">Country :</label>
+                  <label *ngIf="languageid==6" class="dname_label">Pays :</label>
+                </div>
+                <div class="col-lg-4">
+                  <!-- <select class="form-control" (change)="GetCountryID($event)">
+                      <option value="0">{{labels1[0].selectCountry}}</option>
+                      <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+                  </select> -->
+
+                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="countrylist" [settings]="countrydd"
+                    (onSelect)="GetCountryID($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+              <br>
+
+              <div class="row">
+                <div class="col-lg-3">
+                  <label class="dname_label">Province :</label>
+                </div>
+                <div class="col-lg-4">
+                  <!-- <select class="form-control"  (change)="GetCityID($event)">
+                      <option value="0">{{labels1[0].selectProvince}}</option>
+                      <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+                  </select> -->
+                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="citylist" [settings]="citydd"
+                    (onSelect)="GetCityID($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-3">
+                  <label class="dname_label">{{labels2[0].city}} :</label>
+                </div>
+                <div class="col-lg-4">
+                  <!-- <select class="form-control"  (change)="GetAreaID($event)">
+                      <option value="0">{{labels1[0].selectCity}}</option>
+                      <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+                  </select> -->
+                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="arealist" [settings]="areadd"
+                    (onSelect)="GetAreaID($event)">
+                  </ng-multiselect-dropdown>
+
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-3">
+                  <label class="dname_label">{{labels[0].department}} :</label>
+                </div>
+                <div class="col-lg-4">
+                  <select class="form-control" (change)="GetDepartmentID($event)" required [(ngModel)]="departmentid"
+                    name="departmentid">
+                    <option value="0" selected>{{labels[0].selectDepartment}}</option>
+                    <option *ngFor="let department of departmentlist" value={{department.id}}>
+                      {{department.departmentname}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-3">
+                  <label *ngIf="languageid==1" class="dname_label">Doctor :</label>
+                  <label *ngIf="languageid==6" class="dname_label">Médecin :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-4">
+                  <!-- <select class="form-control" (change)="GetDoctorID($event)">
+                      <option>{{labels[0].selectDoctor}}</option>
+                      <option *ngFor="let doc of referdoctorlist" value="{{doc.id}}">{{doc.doctorName}}</option>
+                  </select> -->
+                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="referdoctorlist" [settings]="docdd"
+                    (onSelect)="GetDoctorID($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="referaltypeid=='2'">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].doctorName}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="doctorname" name="doctorname"
+                (ngModelChange)="Getdocname(doctorname)" placeholder="{{labels[0].doctorName}}">
+            </div>
+          </div>
+          <br>
+          <div class="row" *ngIf="referaltypeid=='2'">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].email}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" placeholder="{{labels[0].email}}" name="doctoremail"
+                [(ngModel)]="doctoremail">
+            </div>
+          </div>
+          <br>
+          <div class="row" *ngIf="referaltypeid=='2'">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].phoneNo}} :</label>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" name="docphoneno" placeholder="{{labels[0].phoneNo}}"
+                [(ngModel)]="docphoneno">
+            </div>
+          </div>
+          <br>
+
+          <div class="row" *ngIf="referaltypeid=='1'">
+            <div class="col-lg-3">
+              <label class="Email_label">SOAP Notes :</label>
+
+            </div>
+            <div class="col-lg-3">
+              <input type="radio" name="soap" [(ngModel)]="soap" [value]="1">&nbsp;{{labels[0].yes}} &nbsp;
+              <input type="radio" name="soap" [(ngModel)]="soap" [value]="0">&nbsp;{{labels[0].no}}
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label *ngIf="languageid==1" class="dname_label">Notes :</label>
+              <label *ngIf="languageid==6" class="dname_label">Remarques :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <ckeditor [editor]="Editor" [(ngModel)]="referalnotes" name="referalnotes" data=""></ckeditor>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label *ngIf="languageid==1" class="reglabel">Upload file :</label>
+              <label *ngIf="languageid==6" class="reglabel">Télécharger des fichiers :</label>
+            </div>
+            <div class="col-lg-4">
+              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)"
+                class="dropzone_vendorinvoice">
+              </ngx-dropzone>
+            </div>
+            <div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" text_align="center" class="btn btn-md allbtns btncolor" (click)="insertdetails1()"
+                data-dismiss="modal">{{labels[0].save}}</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+          data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="Reciept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 153%;
+    margin-left: -160px;
+">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].receiptt}}</h5>
+        <!-- <img src="assets/Images/logo.png" style="height: 33px;
+        margin-left: 539px;"> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <div class="col-lg-12" style="    margin-left: 31px;">
+            <!-- <label>Video Call Reciept</label> -->
+
+            <div>{{labels[0].hospitalClinicName}} : {{hospital_ClinicName}}</div>
+
+            <div>{{labels[0].phoneNoo}} : {{mobileNumber}}</div>
+
+            <div>{{labels[0].patientName}} : {{patientName}}</div>
+
+            <hr>
+
+            <!-- <label>Slot : {{slots}}</label>
+
+            <label>Name : {{patientName}}</label>
+
+            <label>Phone No : {{pMobileNo}}</label>
+
+            <label>Paid Amount: {{videoAmount}}</label> -->
+
+            <div class="row">
+              <div class="col-lg-4">
+                Date
+              </div>
+              <div class="col-lg-4">
+                Description
+              </div>
+              <div class="col-lg-4">
+                {{labels[0].charge}}
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4">
+                {{adate}}
+              </div>
+              <div class="col-lg-4">
+                Video Call Payment Reciept
+              </div>
+              <div class="col-lg-4">
+                {{videoAmount}}
+              </div>
+
+            </div>
+            <br>
+            <div style="text-align: end;
+            margin-top: 81px;
+            margin-right: 46px;"> {{labels[0].totalCharges}} : {{videoAmount}}</div>
+            <br>
+            <br>
+            <br>
+            <div style="margin-top: -83px;">
+              {{labels[0].doctorr}} : {{doctorName}}
+            </div>
+            <img src="{{signatureURL}}" style="height: 69px;">
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SendReciept()"
+          data-dismiss="modal">{{labels[0].sendEmail}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="UploadPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Prescription</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- <label>Upload Photo</label> -->
+
+          <div class="col-lg-12">
+            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+            </ngx-dropzone>
+          </div>
+        </div>
+        <button style="margin-top: 10px;" type="button" class="btn btn-md allbtns btncolor"
+          (click)="InsertPrescrptionPhoto()" data-dismiss="modal">{{labels[0].save}}</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="SendReciept()" data-dismiss="modal">Send Email</button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2955 @@
+import { Component, OnInit } from '@angular/core';
+import { HelloDoctorService } from '../../../hello-doctor.service';
+import Swal from 'sweetalert2';
+import { formatDate } from "@angular/common";
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { environment } from 'src/environments/environment';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-myappointments',
+  templateUrl: './myappointments.component.html',
+  styleUrls: ['./myappointments.component.css']
+})
+
+export class MyappointmentsComponent implements OnInit {
+  unitofmeasure: any;
+  dosage: any;
+  sig: any;
+  duration: any;
+  dispensequantity: any;
+  notetopharmacist: any;
+  diagnosis: any;
+  howmanyrefills: any;
+  public miscomments: any;
+  public Editor = ClassicEditor;
+  icddescription: string;
+  states: any;
+  model: any;
+  icddesc: any;
+
+  constructor(public docservice: HelloDoctorService) { }
+
+  options: NgDateRangePickerOptions;
+  public appointmentlist: any;
+  public doctorid: any;
+  public term: any;
+  public attachmentsurl1 = [];
+  public attachments1 = [];
+  public p: number = 1;
+  public appid: any;
+  public cancelid: any;
+  public reason: any;
+  public doctorlist: any;
+  public medicinelist: any;
+  public orders: any;
+  public medicineid: any;
+  public consumelist: any;
+  public consumeid: any;
+  public prescrptionlist: any;
+  public medicinename: any;
+  public morning: any;
+  public afternoon: any;
+  public evening: any;
+  public night: any;
+  public noofdays: any;
+  public date: any;
+  public patientiddd: any;
+  public todaydate: any;
+  public CurrentTime: any;
+  public patientiddddddd: any;
+  public testslist: any;
+  public testid: any;
+  public diatest: any;
+  public qwerty = [];
+  public tablecount: any;
+  public diagnostictesttypename: any;
+  public diapatientid: any;
+  public idcount: any;
+  public patientid: any;
+  public appdatetime: any;
+  public slots: any;
+  public patientID: any;
+  public appointmentID: any;
+  public time: any;
+  public result: any;
+  public serverdate: any;
+  public servertime: any;
+  public serverdateandtime: any;
+  public appointmentid: any;
+  public appointmentdatetime: any;
+  public plan: any;
+  public cheif: any;
+  public historyofillness: any;
+  public medcondition: any;
+  public meditations: any;
+  public allergies: any;
+  public pastsix: any;
+  public socialhx: any;
+  public assessment: any;
+  public soapid: any;
+  public bp: any;
+  public hr: any;
+  public temp: any;
+  public extraoral: any;
+  public intraoral: any;
+  public radiology: any;
+  public treatment: any;
+  public apppppp: any;
+  public appidddd: any;
+  public doctorname: any;
+  public slotsname: any;
+  public patientidddd: any;
+  public hspitalclinicname: any;
+  public cancelpatientid: any;
+  public canslots: any;
+  public candoctorname: any;
+  public canhospital_ClinicName: any;
+  public vsitpatientid: any;
+  public visitslots: any;
+  public visidoctorname: any;
+  public visithospitannae: any;
+  public paemailid: any;
+  public canemail: any;
+  public visitemail: any;
+  public term5: any;
+  public subjective: any;
+  public phsycialexam: any;
+  public genaral: any;
+  public ent: any;
+  public neck: any;
+  public lymphnode: any;
+  public cardiovascular: any;
+  public lungs: any;
+  public skin: any;
+  public breast: any;
+  public Psychiatry: any;
+  public abdomen: any;
+  public genitourinary: any;
+  public rectal: any;
+  public extremities: any;
+  public musculoskeletal: any;
+  public neurological: any;
+  public diagnosiscode: any;
+  public sickslip: any;
+  public followupplan: any;
+  public signature: any;
+  public notes: any;
+  public imageid: any;
+  public showimages: any;
+  public showpatientimages: any;
+  public diaappointmentID: any;
+  public preappointmentid: any;
+  public diapatientidddd: any;
+  public dialist: any;
+  public soapappoitmentid: any;
+  public objective: any;
+  public fromdate: any;
+  public todate: any;
+  SDate = new Date();
+  EDate = new Date();
+  startdate: any;
+  enddate: any;
+  value: any;
+  public soaplist: any;
+  public vedioid: any;
+  public showvedioes: any;
+  public patientname: any;
+  public ailment: any;
+  public nophoto: any;
+  public novideo: any;
+  public qwerty3 = [];
+  public tablecuont1: any;
+  public qwerty2 = [];
+  public medicinenamede: any;
+  public consumename: any;
+  public appointmentidd: any;
+  Date2: any;
+  DateChanged2: boolean = false;
+  Date: any;
+  DateChanged: boolean = false;
+  public tablecount2: any;
+  public quantity: any;
+  //ondemand
+  public appointmentlist1: any;
+  public showvondemandedioes: any;
+  public tsetssslist: any;
+  public testssid: any;
+  public testsslist: any;
+  public diagnostictestname: any;
+  public dummlist: any;
+  public count: any;
+  public languageid: any;
+  public labels: any;
+  public startdates: any;
+  public enddates: any;
+  public docname: any;
+  public clinicalinfo: any;
+  labels2: any
+  public misusecomments: any;
+  public sigdate: any;
+  MobileNumber
+  public endorse: any;
+  doctorsssid: any
+  public apptypeid: any;
+  public countryid: any;
+  public cityid: any;
+  public areaid: any;
+  Hospital_ClinicName
+  public localdoclist: any;
+  public localdocid: any;
+  public paidamount: any;
+  public walletamount: any;
+  public totaladdmoney: any;
+  public selectlabel: any;
+
+  public savetemplate: any;
+  public templatename: any;
+
+  public medicinetemplate: any;
+  public medicinetemplatename: any;
+  public icdcodelist: any;
+  public docdepartmentid: any;
+  public dummprescrptionlist: any;
+  dummdialist: any;
+
+
+  ngOnInit() {
+
+    this.misuse = 0;
+    this.departmentid = 0;
+    this.savetemplate = 2;
+    this.medicinetemplate = 2;
+    this.medicineid = 0
+
+    this.docservice.showvid = 0;
+    const format = 'yyyy-MM-dd';
+    const myDate = new Date();
+    const locale = 'en-US';
+    this.todaydate = formatDate(myDate, format, locale);
+
+    const llll = 'dd-MMM-yyyy';
+    const sigdate = new Date();
+    const locales = 'en-US';
+    this.sigdate = formatDate(sigdate, llll, locales);
+
+
+    debugger
+    this.docname = localStorage.getItem('user');
+    this.MobileNumber = localStorage.getItem('MobileNumber');
+    this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sigdate;
+    this.user = localStorage.getItem('user');
+
+    this.options = {
+      theme: 'default',
+      range: 'tm',
+      dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
+      dateFormat: 'yyyy/MM/dd',
+      outputFormat: 'YYYY/MM/DD',
+      startOfWeek: 1
+    };
+    this.languageid = localStorage.getItem('LanguageID');
+    this.docdepartmentid = localStorage.getItem('departmentid')
+    this.Hospital_ClinicName = localStorage.getItem('Hospital_ClinicName');
+    this.getlanguage();
+    this.doctorsssid = localStorage.getItem('userid');
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+    debugger
+    this.idcount = 1;
+
+
+    this.startdate = formatDate(kkk, format, locale);
+    this.enddate = formatDate(lll, format, locale);
+    debugger
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let newformat = hours >= 12 ? 'PM' : 'AM';
+    // Find current hour in AM-PM Format 
+    hours = hours % 12;
+    // To display "0" as "12" 
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? 0 + minutes : minutes;
+    this.tablecount = 0;
+    this.doctorid = localStorage.getItem('userid');
+
+
+    this.getbookappointmentbydoctorid();
+    this.getbookappointmentbydocid()
+    this.Getmedicinetypemaster();
+    this.GetWhenConsumemedicals();
+    this.getdiagnosticcentertests();
+    this.getserverdateandtime();
+    this.getdepartmentmaster();
+    this.getdoctorforadmin();
+    this.GetCountryMaster();
+    this.GetDoctorSoapNotesTemplates()
+    this.GetDoctorPrescrptionTemplates()
+    this.geticdcode()
+    document.getElementById('Scheduled').style.display = "block";
+
+    this.morning = 0;
+    this.evening = 0;
+    this.afternoon = 0;
+    this.night = 0;
+    this.quantity = 0
+    this.testid = 0;
+    this.testssid = 0;
+    debugger
+
+  }
+
+
+
+
+
+  validdate: any;
+  DateChange() {
+    debugger
+    this.DateChanged = true;
+    this.Date.toLocaleDateString();
+    var date = this.Date.getFullYear() + '-' + (this.Date.getMonth() + 1) + '-' + this.Date.getDate();
+    //this.Date = date;
+    debugger
+    this.validdate = date
+    console.log(this.validdate)
+
+  }
+  labels1: any
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels = data;
+        this.selectlabel = this.labels[0].select
+      }, error => {
+      }
+    )
+
+    this.docservice.GetAdmin_DoctorLoginSickSlipGenerator_label(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
+      }, error => {
+      }
+    )
+    this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
+      data => {
+        debugger;
+        this.labels2 = data;
+      },
+      error => { }
+    );
+  }
+  validdate1: any;
+  DateChange2() {
+    debugger
+    this.DateChanged2 = true;
+    this.Date2.toLocaleDateString();
+    var date2 = this.Date2.getFullYear() + '-' + (this.Date2.getMonth() + 1) + '-' + this.Date2.getDate();
+    //this.Date2 = date2;
+    debugger
+    this.validdate1 = date2
+    console.log(this.validdate1)
+
+  }
+  public getbookappointmentbydoctorid() {
+    debugger
+    this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
+      data => {
+        debugger
+        this.appointmentlist = data;
+        this.count = this.appointmentlist.length
+        this.dummlist = this.appointmentlist;
+        if (this.appointmentlist.length == 0) {
+          this.apppppp = 1;
+        }
+        else {
+          this.apppppp = 0;
+        }
+      })
+  }
+  public pageChanged(even) {
+    debugger
+    let fgdgfgd = even;
+    this.p = even;
+  }
+
+  selectedDate(data) {
+    debugger
+    // var sdate = data.split('-')
+    // this.startdate = sdate[0]
+    // this.enddate = sdate[1]
+    this.startdate = data[0].toLocaleString().split(',')[0];
+    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.getbookappointmentbydocid();
+  }
+  public getbookappointmentbydocid() {
+    this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
+      data => {
+        debugger
+        this.appointmentlist = data;
+        this.count = this.appointmentlist.length
+        this.dummlist = this.appointmentlist;
+        if (this.appointmentlist.length == 0) {
+          this.apppppp = 1;
+        }
+        else {
+          this.apppppp = 0;
+        }
+      })
+
+  }
+
+
+
+
+  public getget(even) {
+    // this.featurelist.find(item => item.featureID == fid).checkbox = true;
+    debugger
+    if (even.target.value == 1) {
+      debugger
+      let dfsfd = this.dummlist.filter(x => x.isVisited == 1);
+      debugger
+      this.appointmentlist = dfsfd;
+      this.count = this.appointmentlist.length
+    }
+    if (even.target.value == 2) {
+      debugger
+      let dfsfd = this.dummlist.filter(x => x.noShow == 1);
+      debugger
+      this.appointmentlist = dfsfd;
+      this.count = this.appointmentlist.length
+    }
+    if (even.target.value == 3) {
+      debugger
+      let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
+      debugger
+      this.appointmentlist = dfsfd;
+      this.count = this.appointmentlist.length
+    }
+    if (even.target.value == 6) {
+      debugger
+      let dfsfd = this.dummlist.filter(x => x.docCancelled == 1);
+      debugger
+      this.appointmentlist = dfsfd;
+      this.count = this.appointmentlist.length
+    }
+    if (even.target.value == 5) {
+      debugger
+      let dfsfd = this.dummlist.filter(x => x.accepted == '1' && x.cancelled == '0' && x.docCancelled == '0'
+        && x.isVisited == '0' && x.noShow == '0');
+      debugger
+      this.appointmentlist = dfsfd;
+      this.count = this.appointmentlist.length
+    }
+
+    if (even.target.value == 4) {
+      this.getbookappointmentbydocid();
+    }
+  }
+
+  public GetImagesID(id) {
+    debugger
+    this.imageid = id;
+    this.docservice.GetPatient_Illnessphotos(this.imageid).subscribe(
+      data => {
+        debugger
+        this.showimages = data;
+        if (this.showimages.length == 0) {
+          this.nophoto = 1
+        }
+        else if (this.showimages.length != 0) {
+          this.nophoto = 0
+        }
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+
+
+  public getserverdateandtime() {
+    debugger
+    this.docservice.GetServerDateAndTime().subscribe(
+      data => {
+        debugger
+        this.serverdateandtime = data;
+        this.servertime = this.serverdateandtime.presentTime,
+          this.serverdate = this.serverdateandtime.todaydate
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetDate(date) {
+    debugger
+    this.todaydate = date;
+    this.getbookappointmentbydoctorid();
+    this.getbookappointmentbydocid();
+  }
+
+
+
+  public GetMisusecomments(doctorComments) {
+    debugger
+    this.misusecomments = doctorComments;
+  }
+
+  public Appointmentstatus(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID) {
+    debugger
+    if (this.languageid == 1) {
+      this.doctorname = doctorName;
+      this.slotsname = notificationdate;
+      this.patientidddd = patientID;
+      this.hspitalclinicname = hospital_ClinicName;
+      this.paemailid = emailID
+      debugger;
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to Accept Appointment!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Accept!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateAcceptedBitByDoctor(appointmentID).subscribe(res => {
+            let test = res;
+            this.getbookappointmentbydoctorid();
+            this.getbookappointmentbydocid();
+            this.InsertNotifiaction();
+            this.Insertnotificatiaccept();
+          })
+          if (this.languageid == 1) {
+            Swal.fire('Completed', 'Appointment Accepted Successfully'
+            )
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Rendez-vous accepté !.',
+
+            )
+          }
+
+        }
+        else {
+          this.getbookappointmentbydoctorid();
+          this.getbookappointmentbydocid();
+
+          debugger
+
+        }
+      })
+    }
+    else {
+      this.doctorname = doctorName;
+      this.slotsname = notificationdate;
+      this.patientidddd = patientID;
+      this.hspitalclinicname = hospital_ClinicName;
+      this.paemailid = emailID
+      debugger;
+      Swal.fire({
+        title: 'Êtes-vous sûr(e) ?',
+        text: "Accepté ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Qui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateAcceptedBitByDoctor(appointmentID).subscribe(res => {
+            let test = res;
+            this.getbookappointmentbydoctorid();
+            this.getbookappointmentbydocid();
+            this.InsertNotifiaction();
+            this.Insertnotificatiaccept();
+          })
+          Swal.fire(
+            'Accepted!',
+            'Doctor Accepted Appointment  Successfully.',
+            'success'
+          )
+        }
+        else {
+          this.getbookappointmentbydoctorid();
+          this.getbookappointmentbydocid();
+
+          debugger
+
+        }
+      })
+    }
+  }
+  public Insertnotificatiaccept() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': "Your Appointment with " + this.doctorname + " scheduled for " + this.slotsname + " at " + this.hspitalclinicname + " has been Accepted.",
+        'ToUser': this.paemailid,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "Votre rendez-vous avec" + this.doctorname + " prévu pour" + this.slotsname + " à " + this.hspitalclinicname + "a été accepté.",
+        'ToUser': this.paemailid,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+      })
+    }
+  }
+
+  public InsertNotifiaction() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientidddd,
+        'Notification': "Appointment Accepted By Doctor.",
+        'Description': "Your Appointment with " + this.doctorname + " scheduled for " + this.slotsname + " at " + this.hspitalclinicname + " has been Accepted.",
+        'NotificationTypeID': 10,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+      }
+      this.docservice.InsertNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientidddd,
+        'Notification': "Rendez-vous accepté par le médecin.",
+        'Description': "Votre rendez-vous avec " + this.doctorname + " prévu pour " + this.slotsname + " à " + this.hspitalclinicname + " a été accepté.",
+        'NotificationTypeID': 10,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+      }
+      this.docservice.InsertNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+
+      })
+    }
+
+  }
+
+
+
+  public cancelledappointment() {
+
+    debugger
+    this.docservice.UpdateBookAppointmentByDocCancel(this.appid).subscribe(
+      data => {
+        debugger
+        this.updatereson();
+        this.getbookappointmentbydoctorid();
+        this.getbookappointmentbydocid();
+        this.insercancelnotoification();
+        this.Insertnotificatiacceptforcansel();
+
+      }, error => {
+      }
+    )
+  }
+
+
+  public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount) {
+    debugger
+    this.appid = appointmentID;
+    this.cancelpatientid = patientID,
+      this.canslots = notificationdate,
+      this.candoctorname = doctorName,
+      this.canhospital_ClinicName = hospital_ClinicName,
+      this.canemail = emailID;
+    this.paidamount = paidAmount;
+    this.walletamount = walletAmount
+    debugger
+    this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
+    debugger
+  }
+
+
+  public updatedateails() {
+    var entity = {
+      'PatientID': this.cancelpatientid,
+      'WalletAmount': this.totaladdmoney
+    }
+    this.docservice.UpdatePatientWalletDetails(entity).subscribe(data => {
+      let res = data;
+      // Swal.fire('Success', 'Wallet Balance Updated Successfully');
+    })
+  }
+
+
+
+
+
+  public Insertnotificatiacceptforcansel() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': "Sorry ,The Doctor " + this.candoctorname + "Has Cancelled Your Appointment  " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+        'ToUser': this.canemail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "VDésolé, le docteur " + this.candoctorname + " A annulé votre rendez-vous " + this.canslots + " à " + this.canhospital_ClinicName + " a été annulé.Nous avons chargé votre portefeuille avec Ar" + this.paidamount + " Veuillez utiliser la même chose pour la prochaine réservation.",
+        'ToUser': this.canemail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+      })
+    }
+  }
+
+  public insercancelnotoification() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.cancelpatientid,
+        'Notification': "Appointment Cancelled By Doctor.",
+        'Description': "Sorry ,The Doctor " + this.candoctorname + " Has Cancelled Your Appointment " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+        'NotificationTypeID': 11,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+      }
+      this.docservice.InsertNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.cancelpatientid,
+        'Notification': "Rendez-vous annulé par le médecin.",
+        'Description': "VDésolé, le docteur " + this.candoctorname + "A annulé votre rendez-vous " + this.canslots + " at this" + this.canhospital_ClinicName + " a été annulé.Nous avons chargé votre portefeuille avec Ar" + this.paidamount + " Veuillez utiliser la même chose pour la prochaine réservation.",
+        'NotificationTypeID': 11,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+      }
+      this.docservice.InsertNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+  public updatereson() {
+    debugger
+    var entity = {
+      'ID': this.appid,
+      'ReasonForCancel': this.reason
+    }
+    this.docservice.UpdateBookAppointmentReasonForCancel(entity).subscribe(res => {
+      let test = res;
+      Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+      this.updatedateails()
+      this.insercancelnotoification();
+      this.Insertnotificatiacceptforcansel();
+
+    })
+  }
+
+  public VisitDoctorAppointmentStatus(appointmentID) {
+
+    this.docservice.UpdateVisitedBitByDoctor(appointmentID).subscribe(
+      data => {
+        debugger
+        // Swal.fire('Completed', 'Visited Successfully');
+        this.getbookappointmentbydoctorid();
+        this.getbookappointmentbydocid();
+        //  this.InservisitNotification()
+
+      }, error => {
+      }
+    )
+  }
+
+  public Insertvisitnotificatiaccept() {
+    debugger
+    var entity = {
+      'Description': "Your Appointment with " + this.visidoctorname + " scheduled for " + this.visitslots + " at " + this.visithospitannae + " has been Visited.",
+      'ToUser': this.visitemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+  }
+
+  public InservisitNotification() {
+    var entity = {
+      'PatientID': this.vsitpatientid,
+      'Notification': "Patient Visited Successfully.",
+      'Description': "Your Appointment with " + this.visidoctorname + " scheduled for " + this.visitslots + " at " + this.visithospitannae + " has been Visited.",
+      'NotificationTypeID': 12,
+      'Date': this.todaydate,
+      'LanguageID': 1,
+    }
+    this.docservice.InsertNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+
+    })
+  }
+
+
+  public Getmedicinetypemaster() {
+    debugger
+    this.docservice.GetMedicineTypeMasterByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.medicinelist = data;
+      }, error => {
+      }
+    )
+  }
+  public GetMedicineID(even) {
+    debugger
+    this.medicineid = even.target.value;
+    for (let i = 0; i < this.medicinelist.length; i++) {
+      if (this.medicinelist[i].id == this.medicineid) {
+        this.medicinenamede = this.medicinelist[i].name
+      }
+    }
+  }
+  public GetConsumeID(even) {
+    debugger
+    this.consumeid = even.target.value;
+    for (let i = 0; i < this.consumelist.length; i++) {
+      if (this.consumelist[i].id == this.consumeid) {
+        this.consumename = this.consumelist[i].name
+      }
+    }
+  }
+
+
+  preslots: any
+  appdate: any;
+  prepatientemail: any;
+  public GetPatientid(patientID, appointmentID, appointmentTypeID, countryID, cityID, areaID, slots, appdate, pemail) {
+    debugger
+    this.patientiddd = patientID,
+      this.preappointmentid = appointmentID;
+    this.apptypeid = appointmentTypeID;
+    this.countryid = countryID;
+    this.cityid = cityID;
+    this.areaid = areaID
+    this.preslots = slots
+    this.appdate = appdate
+    this.prepatientemail = pemail;
+    this.getserverdateandtime();
+    if (this.serverdate >= this.appdate) {
+      debugger
+      if (this.servertime > this.preslots) {
+        this.patientiddd = patientID,
+          this.preappointmentid = appointmentID;
+        this.apptypeid = appointmentTypeID;
+        this.countryid = countryID;
+        this.cityid = cityID;
+        this.areaid = areaID
+        this.preslots = slots
+        this.appdate = appdate
+        this.medicinename = "";
+        this.unitofmeasure = "";
+        this.dosage = "";
+        this.sig = "";
+        this.duration = "";
+        this.dispensequantity = "";
+        this.notetopharmacist = "";
+        this.diagnosis = '';
+        this.howmanyrefills = '';
+        this.medicinetemplatename = "",
+          this.medicinetemplate = 2;
+        this.display = "block";
+        this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
+          data => {
+            debugger
+            this.localdoclist = data;
+
+            this.localdocid = this.localdoclist[0].id
+          }, error => {
+          }
+        )
+      }
+      else {
+        Swal.fire('Alert', 'It is Still not yet Time to Add A Prescription.');
+        this.display = "none";
+      }
+    }
+    else {
+      Swal.fire('Alert', 'It is Still not yet Time to Add A Prescription.');
+      this.display = "none";
+    }
+
+  }
+
+  public GetDoctorPatientid(patientID) {
+    debugger
+    this.patientiddddddd = patientID;
+    this.getdoctorpatinetdetails();
+  }
+
+  public GetWhenConsumemedicals() {
+    debugger
+    this.docservice.GetWhenToConsumeMasterMedicalsByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.consumelist = data;
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+  docpretemplates: any;
+  docprtemplateslist: any;
+  docpretempid: any;
+
+  public GetDoctorPrescrptionTemplates() {
+    debugger
+    this.docservice.GetDoctorPrescrptionTemplates().subscribe(
+      data => {
+        debugger
+        this.docpretemplates = data;
+        this.docprtemplateslist = this.docpretemplates.filter(x => x.doctorID == this.doctorid)
+      }, error => {
+      }
+    )
+  }
+
+  icrdescription:any;
+  public GetDoctorPrecriptioTemplateID(even) {
+    if (even.target.value != 0) {
+      this.docpretempid = even.target.value;
+      var list = this.docpretemplates.filter(x => x.id == this.docpretempid)
+      this.duration = list[0].duration
+      this.medicinename = list[0].drugName
+      this.unitofmeasure = list[0].unitOfMeasure
+      this.dosage = list[0].dosage
+      this.sig = list[0].sig
+      this.dispensequantity = list[0].dispencequnatity
+      this.notetopharmacist = list[0].noteToPharmacist
+      this.diagnosis = list[0].diagnosis
+      this.howmanyrefills = list[0].howManyRefils
+      this.medicineid = list[0].medicineTypeID
+      this.icdcode = list[0].icdCode
+      this.icrdescription = list[0].icdDescription
+      this.icrcodeid = list[0].icdid
+    }
+    else {
+      this.medicinename = "";
+      this.unitofmeasure = "";
+      this.dosage = "";
+      this.sig = "";
+      this.duration = "";
+      this.dispensequantity = "";
+      this.notetopharmacist = "";
+      this.diagnosis = '';
+      this.howmanyrefills = '';
+      this.medicinetemplatename = "",
+        this.medicinetemplate = 2;
+    }
+  }
+
+
+  public AddDoctorPrescriptionTemplates() {
+    var entity = {
+      'DoctorID': this.doctorid,
+      'TemplateName': this.medicinetemplatename,
+      'MedicineTypeID': this.medicineid,
+      'MedicineName': this.medicinename,
+      'SIG': this.sig,
+      'DrugName': this.medicinename,
+      'UnitOfMeasure': this.unitofmeasure,
+      'Dosage': this.dosage,
+      'Duration': this.duration,
+      'Dispencequnatity': this.dispensequantity,
+      'NoteToPharmacist': this.notetopharmacist,
+      'Diagnosis': this.diagnosis,
+      'HowManyRefils': this.howmanyrefills,
+      'ICDCode': this.icdcode,
+      'ICDDescription': this.icrdescription,
+      'ICDID': this.icrcodeid
+    }
+    this.docservice.InsertDoctorPrescrptionTemplates(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+
+  }
+
+
+
+
+
+  public adddetails1() {
+    this.tablecuont1 = 1;
+    var entity1 = {
+      'MedicineTypeID': this.medicineid,
+      'DoctorID': this.doctorid,
+      'PateintID': this.patientiddd,
+      'LanguageID': this.languageid,
+      'Date': new Date(),
+      'AppointmentID': this.preappointmentid,
+      'MedicineName': this.medicinename,
+      'UnitOfMeasure': this.unitofmeasure,
+      'Dosage': this.dosage,
+      'SIG': this.sig,
+      'Duration': this.duration,
+      'DispenseQuantity': this.dispensequantity,
+      'NoteToPharmasist': this.notetopharmacist,
+      'Diagnosis': this.diagnosis,
+      'ICDCode': this.icdcode,
+      'ICDDescription': this.icrdescription,
+      'ICDID': this.icrcodeid
+    }
+    this.qwerty2.push(entity1);
+    if (this.medicinetemplate == 1) {
+      this.AddDoctorPrescriptionTemplates()
+    }
+    this.medicinename = "";
+    this.unitofmeasure = "";
+    this.dosage = "";
+    this.sig = "";
+    this.duration = "";
+    this.dispensequantity = "";
+    this.notetopharmacist = "";
+    this.diagnosis = '';
+    this.howmanyrefills = '';
+    this.medicinetemplatename = "",
+      this.medicinetemplate = 2;
+    this.icdcode = ""
+    this.icrdescription = ""
+    this.icrcodeid = ""
+  }
+
+
+  public insertdetails() {
+    if (this.apptypeid == '1' || this.localdocid == '0') {
+      this.endorse = 1;
+    }
+    if (this.apptypeid == '2' && this.localdocid != '0') {
+      this.endorse = 0;
+    }
+    if (this.apptypeid == '2' && this.localdocid == '0') {
+      this.endorse = 1;
+    }
+    for (let i = 0; this.qwerty2.length; i++) {
+      debugger
+      var entity = {
+        'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
+        'DoctorID': this.qwerty2[i].DoctorID,
+        'PateintID': this.qwerty2[i].PateintID,
+        'LanguageID': this.qwerty2[i].LanguageID,
+        'Date': new Date(),
+        'AppointmentID': this.qwerty2[i].AppointmentID,
+        'MedicineName': this.qwerty2[i].MedicineName,
+        'UnitOfMeasure': this.qwerty2[i].UnitOfMeasure,
+        'Dosage': this.qwerty2[i].Dosage,
+        'SIG': this.qwerty2[i].SIG,
+        'Duration': this.qwerty2[i].Duration,
+        'DispenseQuantity': this.qwerty2[i].DispenseQuantity,
+        'NoteToPharmasist': this.qwerty2[i].NoteToPharmasist,
+        'Diagnosis': this.qwerty2[i].Diagnosis,
+        'HowmanyRefills': this.qwerty2[i].HowmanyRefills,
+        'LocalDoctorID': this.localdocid,
+        'EndorseBit': this.endorse,
+        'ICDCode': this.qwerty2[i].ICDCode,
+        'ICDDescription': this.qwerty2[i].ICDDescription,
+        'ICDID': this.qwerty2[i].ICDID
+      }
+      this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+          if (this.languageid == 1) {
+            Swal.fire('Completed', 'Prescription saved successfully', 'success');
+            this.tablecuont1 = 0;
+            this.VisitDoctorAppointmentStatus(this.preappointmentid);
+            this.InsertPrscriptionNotifications()
+            this.InsertNotificationPrescription()
+            this.GetDoctorPrescrptionTemplates()
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('L’ordonnance a bien été sauvegardée');
+            this.tablecuont1 = 0;
+            this.VisitDoctorAppointmentStatus(this.preappointmentid);
+            this.InsertPrscriptionNotifications()
+            this.InsertNotificationPrescription()
+            this.GetDoctorPrescrptionTemplates()
+          }
+        }
+      })
+    }
+  }
+
+  public InsertNotificationPrescription() {
+    debugger
+    var entity = {
+      'Description': this.user + " Added Prescription For You",
+      'ToUser': this.prepatientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+  public InsertPrscriptionNotifications() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientiddd,
+        'Notification': "Doctor Added Prescription.",
+        'Description': this.user + " Added Prescription For You",
+        'NotificationTypeID': 28,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.preappointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientiddd,
+        'Notification': "Prescription ajoutée par le médecin.",
+        'Description': this.user + " Added Prescription For You",
+        'NotificationTypeID': 28,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.preappointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public clear1() {
+    this.medicinename = "";
+    this.morning = "";
+    this.afternoon = "";
+    this.evening = "";
+    this.night = "";
+    this.noofdays = "";
+  }
+
+  public getdoctorpatinetdetails() {
+    debugger
+    if (this.docdepartmentid == 14) {
+      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid).subscribe(
+        data => {
+          debugger
+          this.prescrptionlist = data;
+        }, error => {
+        }
+      )
+    }
+    else if (this.docdepartmentid != 14) {
+      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid).subscribe(
+        data => {
+          debugger
+          this.dummprescrptionlist = data;
+          this.prescrptionlist = this.dummprescrptionlist.filter(x => x.departmentID != 14)
+        }, error => {
+        }
+      )
+    }
+  }
+
+  testdisplay: any;
+  testpatientemail: any;
+
+
+  public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail) {
+    debugger
+    this.diapatientid = patientID;
+    this.diaappointmentID = appointmentID;
+    this.appdate = appdate
+    this.slots = slots,
+      this.testpatientemail = pemail
+    if (this.serverdate >= this.appdate) {
+      if (this.servertime > this.slots) {
+        this.testdisplay = "block";
+        this.diapatientid = patientID;
+        this.diaappointmentID = appointmentID;
+        this.appdate = appdate
+        this.slots = slots
+      }
+      else {
+        Swal.fire('Alert', 'It is Still not yet Time to Add A Diagnostic Test.');
+        this.testdisplay = "none";
+      }
+    }
+    else {
+      Swal.fire('Alert', 'It is Still not yet Time to Add A  Diagnostic Test..');
+      this.testdisplay = "none";
+    }
+
+  }
+
+  public getdiagnosticcentertests() {
+    debugger
+    this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.testslist = data;
+      }, error => {
+      }
+    )
+  }
+
+  public GetDiagnosticTestID(even) {
+    debugger
+    this.testid = even.target.value;
+    for (let i = 0; i < this.testslist.length; i++) {
+      debugger
+      if (this.testslist[i].id == this.testid) {
+        this.diagnostictesttypename = this.testslist[i].name
+      }
+    }
+    this.getdiagnostictests();
+  }
+
+  public getdiagnostictests() {
+    this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
+      data => {
+        debugger
+        this.tsetssslist = data;
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetDiagnosticTestssID(even) {
+    debugger
+    this.testssid = even.target.value;
+    for (let i = 0; i < this.tsetssslist.length; i++) {
+      if (this.tsetssslist[i].id == this.testssid) {
+        this.diagnostictestname = this.tsetssslist[i].short
+      }
+    }
+  }
+
+
+
+  public adddetails() {
+    this.tablecount = 1;
+    var entity = {
+      'Sno': this.idcount,
+      'DiagnosticTestTypeID': this.testid,
+      'DiagnosticTestName': this.diatest,
+      'DiagnosticTestTypeName': this.diagnostictesttypename,
+      'TestName': this.diagnostictestname,
+      'TestID': this.testssid,
+      'ClinicalInfo': this.clinicalinfo
+    }
+    this.qwerty.push(entity);
+    this.idcount = this.idcount + 1;
+    this.diatest = "";
+    this.testslist.length = 0;
+    this.tsetssslist.length = 0;
+    this.getdiagnosticcentertests();
+
+  }
+
+  public insertDiagnostictestdetails() {
+    for (let i = 0; i < this.qwerty.length; i++) {
+      var entity = {
+        'DoctorID': this.doctorid,
+        'PateintID': this.diapatientid,
+        'DiagnosticTestTypeID': this.qwerty[i].DiagnosticTestTypeID,
+        'DiagnosticTestName': this.qwerty[i].TestName,
+        'LanguageID': 1,
+        'AppointmentID': this.diaappointmentID,
+        'TestsID': this.qwerty[i].TestID,
+        'ClinicalInfo': this.qwerty[i].ClinicalInfo
+      }
+      this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+          Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+          this.qwerty = [];
+          this.qwerty.length = 0
+          this.VisitDoctorAppointmentStatus(this.diaappointmentID);
+          this.Insertnotificationtestazure()
+          this.Insertnotificationtest()
+          this.tablecount = 0;
+          this.testid.length = 0;
+          this.tsetssslist = 0;
+          this.testssid = 0;
+
+        }
+      })
+    }
+  }
+
+  public Insertnotificationtestazure() {
+    debugger
+    var entity = {
+      'Description': this.user + " Added Diagnostic Test For You.",
+      'ToUser': this.testpatientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+  public Insertnotificationtest() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.diapatientid,
+        'Notification': "Doctor Added Diagnostic Test For You.",
+        'Description': this.user + " Added Diagnostic Test For You.",
+        'NotificationTypeID': 30,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.diaappointmentID
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.diapatientid,
+        'Notification': "Le médecin a ajouté un test de diagnostic pour vous.",
+        'Description': this.user + " a ajouté un test de diagnostic pour vous.",
+        'NotificationTypeID': 30,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.diaappointmentID
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+
+
+
+
+
+
+  public delete(Sno) {
+    debugger
+    for (let i = 0; i < this.qwerty.length; i++) {
+      debugger
+      if (Sno == this.qwerty[i].Sno) {
+        debugger
+        this.qwerty.splice(i, 1);
+      }
+    }
+
+  }
+  public deleteprscriptonforpatient(id) {
+    debugger;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to Delete This Appointment!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeleteDoctor_PatientPrescription(id).subscribe(res => {
+          let test = res;
+          this.getdoctorpatinetdetails();
+        })
+        Swal.fire(
+          'Deleted!',
+          'Prescription has been deleted.',
+          'success'
+        )
+      }
+      else {
+        this.getdoctorpatinetdetails();
+      }
+    })
+  }
+
+  public GetDiaID(patientID) {
+    debugger
+    this.diapatientidddd = patientID;
+    this.getdiadnosticdetails();
+  }
+  public getdiadnosticdetails() {
+    if (this.docdepartmentid == 14) {
+      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid).subscribe(
+        data => {
+          debugger
+          this.dialist = data;
+        }, error => {
+        }
+      )
+    }
+    else if (this.docdepartmentid != 14) {
+      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid).subscribe(
+        data => {
+          debugger
+          this.dummdialist = data;
+          this.dialist = this.dummdialist.filter(x => x.departmentID != 14)
+        }, error => {
+        }
+      )
+    }
+
+  }
+
+
+  public getvedioconferencebydateandtime(patientID, appointmentID, appdate, slots, endtime) {
+    localStorage.setItem('patientID', patientID);
+    localStorage.setItem('appointmentID', appointmentID);
+    localStorage.setItem('appdate', appdate);
+    debugger
+    debugger
+    this.getserverdateandtime();
+    debugger
+    if (this.serverdate == appdate) {
+      debugger
+      if (this.servertime >= slots) {
+        if (this.servertime <= endtime) {
+          this.docservice.showvid = 1;
+          location.href = '#/Vediocall';
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+            
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
+          }
+        }
+      }
+      else {
+        if (this.languageid == 1) {
+          Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
+        }
+      }
+    }
+    else {
+      if (this.languageid == 1) {
+        Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots + ' on ' + appdate);
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Alert', 'Le rendez-vous n a pas encore commencé ' + slots + ' on ' + appdate);
+      }
+    }
+  }
+  // public GetChatByDateandTime(patientID, appointmentID, appdate, slots) {
+  //   localStorage.setItem('patientID', patientID);
+  //   localStorage.setItem('appointmentID', appointmentID);
+  //   localStorage.setItem('appdate', appdate);
+  //   debugger
+
+  //   debugger
+  //   this.getserverdateandtime();
+  //   debugger
+  //   if (this.serverdate == appdate) {
+  //     debugger
+  //     if (this.servertime >= slots) {
+  //       location.href = '#/Mychats';
+
+  //     }
+  //     else {
+  //       Swal.fire('Alert', 'You Can Start Chat At ' + slots)
+  //     }
+
+  //   }
+  //   else {
+  //     Swal.fire('Alert', 'You Can Start Chat At ' + slots + ' on ' + appdate)
+  //   }
+  // }
+
+
+
+
+  public getvedioconferencebydateandtimedemand(patientID, appointmentID, appdate, slots, endtime) {
+    debugger
+    localStorage.setItem('patientID', patientID);
+    localStorage.setItem('appointmentID', appointmentID);
+    localStorage.setItem('appdate', appdate);
+
+    debugger
+    if (this.serverdate == appdate) {
+      if (this.servertime >= slots) {
+        if (this.servertime <= endtime) {
+          location.href = '#/Vediocall';
+
+        }
+        else {
+          Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+        }
+
+      }
+      else {
+        Swal.fire('Alert', 'You Can Start Video Conference At ' + slots)
+      }
+    }
+    else {
+      Swal.fire('Alert', 'You Can Start Video Conference At ' + slots + ' on ' + appdate)
+    }
+  }
+
+  misuse: any;
+
+  public GetPateintMisUseCheck(even) {
+    debugger
+    if (even.target.checked == true) {
+      this.misuse = 1;
+    }
+    else {
+      debugger
+      this.misuse = 0;
+    }
+  }
+
+
+  public updatecomments() {
+    debugger
+    var entity = {
+      'ID': this.patientid,
+      'MisUseComments': this.miscomments
+    }
+    this.docservice.UpdatePatientRegistrationMisUseComments(entity).subscribe(res => {
+      let test = res;
+
+    })
+  }
+  pemailsoap: any;
+
+  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail) {
+    debugger
+    this.patientid = patientID;
+    this.appointmentdatetime = adate;
+    this.appointmentid = appointmentID;
+    this.appdate = appdate;
+    this.pemailsoap = pemail;
+    this.slots = slots
+    if (this.serverdate >= this.appdate) {
+      if (this.servertime > this.slots) {
+        this.soapdisplay = "block"
+
+        this.objective = "",
+          this.subjective = "",
+          this.assessment = "",
+          this.diagnosiscode = "",
+          this.followupplan = "",
+          this.notes = ""
+        this.plan = ""
+
+        this.savetemplate = 2
+        let list = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
+        debugger
+        this.patientname = list[0].patientName
+        this.ailment = list[0].reasonForVisit
+      }
+      else {
+        Swal.fire('Alert', 'It is Still not yet Time to Add A Soap Notes.');
+        this.soapdisplay = "none"
+      }
+    }
+    else {
+      Swal.fire('Alert', 'It is Still not yet Time to Add A Soap Notes.');
+      this.soapdisplay = "none"
+    }
+    // for(let i=0;i<this.appointmentlist.length;i++)
+    // {
+    //   debugger
+    //   if(this.appointmentlist[i].id==this.appointmentid)
+    //   {
+    //     debugger
+    //     this.patientname=this.appointmentlist[i].patientName,
+    //     this.ailment=this.appointmentlist[i].reasonForVisit
+
+    //   }
+    // }
+
+  }
+
+
+
+  // public InsertSickSlipGenarator() {
+  //   debugger
+  //   var entity = {
+  //     'PatientID': this.patientid,
+  //     'Ailment': this.ailment,
+  //     'FromDate': this.fromdate,
+  //     'ToDate': this.todate,
+  //     'SickSlipDate': this.todaydate,
+  //     'Description': 0,
+  //     'AppointmentID': this.appointmentid
+  //   }
+  //   this.docservice.InsertSickSlipGenarator(entity).subscribe(data => {
+  //     if (data != 0) {
+  //       Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       this.clear()
+
+  //     }
+  //   })
+  // }
+
+  doctemplatelist: any;
+  templatelist: any;
+  templateid: any;
+
+  public GetDoctorSoapNotesTemplates() {
+    debugger
+    this.docservice.GetDoctorSoapNotesTemplates().subscribe(
+      data => {
+        debugger
+        this.doctemplatelist = data;
+        this.templatelist = this.doctemplatelist.filter(x => x.doctorID == this.doctorid)
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetTemplateID(even) {
+    if (even.target.value != 0) {
+      debugger
+      this.templateid = even.target.value;
+      var list = this.doctemplatelist.filter(x => x.id == this.templateid)
+      this.subjective = list[0].subjective,
+        this.objective = list[0].objective,
+        this.assessment = list[0].assesment,
+        this.plan = list[0].plan,
+        this.diagnosiscode = list[0].diagnosisCode,
+        this.followupplan = list[0].followUpPlan,
+        this.signature = list[0].signature,
+        this.notes = list[0].notes,
+        this.icdcode=list[0].icrCode,
+        this.icrcodeid=list[0].icrID,
+        this.icddesc=list[0].icrDescrption
+    }
+    else {
+      this.objective = "",
+        this.subjective = "",
+        this.assessment = "",
+        this.diagnosiscode = "",
+        this.followupplan = "",
+        this.notes = ""
+      this.plan = ""
+      this.signature = ""
+      this.icddesc="",
+      this.icdcode=""
+    }
+  }
+
+  public InsertDoctorSoapNoteTemplate() {
+    debugger
+    debugger
+    var entity = {
+      'DoctorID': this.doctorid,
+      'TemplateName': this.templatename,
+      'Subjective': this.subjective,
+      'Objective': this.objective,
+      'Assesment': this.assessment,
+      'Plan': this.plan,
+      'DiagnosisCode': this.diagnosiscode,
+      'FollowUpPlan': this.followupplan,
+      'Signature': this.signature,
+      'Notes': this.notes,
+      'LanguageID': this.languageid,
+      'IcrCode':this.icdcode,
+      'IcrDescrption':this.icddesc,
+      'IcrID':this.icrcodeid
+    }
+    debugger
+    this.docservice.InsertDoctorSoapNotesTemplates(entity).subscribe(data => {
+      if (data != 0) {
+
+        // Swal.fire('Completed', 'Details saved successfully', 'success');
+        this.GetDoctorSoapNotesTemplates()
+
+
+      }
+    })
+  }
+
+
+
+  icrcodedummlist: any;
+  icdcode:any;
+  icrcodeid:any;
+
+  public geticdcode() {
+    this.docservice.GetICDCodeMaster(this.languageid).subscribe(
+      data => {
+        debugger;
+        this.icrcodedummlist = data;
+        this.icdcodelist = data;
+        this.states = this.icdcodelist.map(x => x.description);
+      },
+      error => { }
+    );
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+
+      distinctUntilChanged(),
+      map(term => term.length < 1 ? []
+        : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 100))
+    )
+
+
+  public getid() {
+    debugger
+    if(this.icddesc==''){
+      this.icdcode=''
+    }
+    else{
+      let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+      this.icdcode = wqew[0].icdCode,
+      this.icrcodeid=wqew[0].id
+      debugger
+    }
+  }
+
+
+
+  public insertsoapnotes1() {
+    debugger
+    debugger
+    var entity = {
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientid,
+      'AppointmentID': this.appointmentid,
+      'AppointmentDate': this.appointmentdatetime,
+      'Subjective': this.subjective,
+      'LanguageID': this.languageid,
+      'ICRCode': this.icdcode,
+      'ICRDescription': this.icddesc,
+      'ICRID': this.icrcodeid
+    }
+    debugger
+    this.docservice.InsertDoctor_PatientSoapNotes1(entity).subscribe(data => {
+      if (data != 0) {
+        this.soapid = data;
+
+        this.insertsoapnotes2();
+        this.insertsoapnotes3();
+        this.insertsoapnotes4();
+        this.Insertnotificationsoapnotesazuere()
+        this.InsertNotificationSoapnotes()
+        this.VisitDoctorAppointmentStatus(this.appointmentid);
+        if (this.savetemplate == 1) {
+          this.InsertDoctorSoapNoteTemplate()
+        }
+        if (this.misuse == 1) {
+          debugger
+          this.docservice.GetPatientRegistrationMisuseBit(this.patientid).subscribe(data => {
+          })
+
+          this.updatecomments();
+        }
+        else if (this.misuse == 0) {
+          this.docservice.GetPatientRegistrationMisuseEnablebit(this.patientid).subscribe(data => {
+          })
+        }
+        this.GetDoctorSoapNotesTemplates()
+        Swal.fire('Completed', 'Details saved successfully', 'success');
+        this.clear()
+        this.icdcode=""
+        this.icddesc=""
+
+      }
+    })
+
+  }
+
+
+
+  public Insertnotificationsoapnotesazuere() {
+    debugger
+    var entity = {
+      'Description': this.user + " Added SOAP Notes For You.",
+      'ToUser': this.pemailsoap,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+  public InsertNotificationSoapnotes() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientid,
+        'Notification': "Doctor Added SOAP Notes For You.",
+        'Description': this.user + " Added  SOAP Notes For You",
+        'NotificationTypeID': 29,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientiddd,
+        'Notification': "Le docteur a ajouté des notes SOAP pour vous.",
+        'Description': this.user + " a ajouté des notes SOAP pour vous.",
+        'NotificationTypeID': 29,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+  public insertsoapnotes2() {
+    var entity = {
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientid,
+      'SoapID': this.soapid,
+      'Objective': this.objective
+    }
+    this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
+
+      if (data != 0) {
+        Swal.fire('Completed', 'Details saved successfully', 'success');
+        this.clear()
+
+      }
+    })
+  }
+
+  public insertsoapnotes3() {
+    var entity = {
+      'Assessment': this.assessment,
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientid,
+      'SoapID': this.soapid
+    }
+    this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Completed', 'Details saved successfully', 'success');
+        this.clear()
+
+      }
+    })
+  }
+
+
+
+  public UpdateBookAppointmentNoShow(appointmentID, appdate, slots) {
+    debugger
+    if (this.languageid == 1) {
+      if (this.serverdate >= appdate) {
+        debugger
+        if (this.servertime >= slots) {
+          debugger;
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "This Patient has Not Visited!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Not Visited!'
+          }).then((result) => {
+            if (result.value) {
+              this.docservice.UpdateBookAppointmentNoShow(appointmentID).subscribe(res => {
+                let test = res;
+                this.getbookappointmentbydoctorid();
+                this.getbookappointmentbydocid();
+              })
+              Swal.fire(
+                'Yes!',
+                'Patient Not Visited.',
+                'success'
+              )
+            }
+            else {
+              this.getbookappointmentbydoctorid();
+              this.getbookappointmentbydocid();
+            }
+          })
+
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'The Patient  Will Come At' + slots)
+          } else {
+            Swal.fire('Alert', 'Le patient sera présent à' + slots)
+          }
+
+        }
+
+
+      }
+    }
+    else {
+      if (this.serverdate >= appdate) {
+        debugger
+        if (this.servertime >= slots) {
+          debugger;
+          Swal.fire({
+            title: 'Êtes-vous sûr(e) ?',
+            text: "Ce patient n'a pas visité!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui',
+            cancelButtonText: 'Annuler'
+          }).then((result) => {
+            if (result.value) {
+              this.docservice.UpdateBookAppointmentNoShow(appointmentID).subscribe(res => {
+                let test = res;
+                this.getbookappointmentbydoctorid();
+                this.getbookappointmentbydocid();
+              })
+              Swal.fire(
+                'Yes!',
+                'Patient Not Visited.',
+                'success'
+              )
+            }
+            else {
+              this.getbookappointmentbydoctorid();
+              this.getbookappointmentbydocid();
+            }
+          })
+
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'The Patient  Will Come At' + slots)
+          } else {
+            Swal.fire('Alert', 'Le patient sera présent à' + slots)
+          }
+
+        }
+
+      }
+      else {
+        // Swal.fire('Alert', 'The PAtient Will Come At ' + slots + ' on ' + appdate)
+
+        if (this.languageid == 1) {
+          Swal.fire('Alert', 'The PAtient Will Come At ' + slots + ' on ' + appdate)
+        } else {
+          Swal.fire('Alert', 'Le patient sera présent à ' + slots + ' on ' + appdate)
+        }
+      }
+    }
+
+  }
+
+
+  public insertsoapnotes4() {
+    var entity = {
+      'Plan': this.plan,
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientid,
+      'SoapID': this.soapid,
+      'DiagnosisCode': this.diagnosiscode,
+      'Orders': 0,
+      'SickSlip': 0,
+      'FollowUpPlan': this.followupplan,
+      'Signature': this.signature,
+      'Notes': this.notes,
+
+    }
+    this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Completed', 'Details saved successfully', 'success');
+        this.clear()
+
+      }
+    })
+  }
+  public clear() {
+    this.objective = "",
+      this.subjective = "",
+      this.assessment = "",
+
+      this.diagnosiscode = "",
+      this.followupplan = "",
+      this.notes = ""
+  
+  }
+
+  public openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+
+  public Getappointmentsoapid(appointmentID) {
+    debugger
+    this.soapappoitmentid = appointmentID;
+
+    this.docservice.GetSoapNotesByAppointmentID(this.soapappoitmentid).subscribe(
+      data => {
+        debugger
+        this.soaplist = data;
+        if (this.soaplist == null) {
+          this.subjective = "";
+          this.phsycialexam = "";
+          this.genaral = "";
+          this.ent = "";
+          this.neck = "";
+          this.lymphnode = "";
+          this.cardiovascular = "";
+          this.lungs = "";
+          this.skin = "";
+          this.breast = "";
+          this.Psychiatry = "";
+          this.abdomen = "";
+          this.genitourinary = "";
+          this.rectal = "";
+          this.extremities = "";
+          this.musculoskeletal = "";
+          this.assessment = "";
+          this.plan = "";
+          this.diagnosiscode = "";
+          this.followupplan = "";
+          this.notes = "";
+          this.neurological = "";
+        }
+        else {
+          this.subjective = this.soaplist[0].subjective,
+            this.phsycialexam = this.soaplist[0].physicalExam,
+            this.genaral = this.soaplist[0].genaral,
+            this.ent = this.soaplist[0].ent,
+            this.neck = this.soaplist[0].neck,
+            this.lymphnode = this.soaplist[0].lymphNode,
+            this.cardiovascular = this.soaplist[0].cardiovascular,
+            this.lungs = this.soaplist[0].lungs,
+            this.skin = this.soaplist[0].skin,
+            this.breast = this.soaplist[0].breast,
+            this.Psychiatry = this.soaplist[0].psychiatry,
+            this.abdomen = this.soaplist[0].abdomen,
+            this.genitourinary = this.soaplist[0].genitourinarySystem,
+            this.rectal = this.soaplist[0].rectal,
+            this.extremities = this.soaplist[0].extremities,
+            this.musculoskeletal = this.soaplist[0].musculoskeletal,
+            this.assessment = this.soaplist[0].assessment,
+            this.plan = this.soaplist[0].plan,
+            this.diagnosiscode = this.soaplist[0].diagnosisCode,
+            this.followupplan = this.soaplist[0].followUpPlan,
+            this.notes = this.soaplist[0].notes,
+            this.neurological = this.soaplist[0].neurological,
+            this.objective = this.soaplist[0].objective
+        }
+
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetVedioID(id) {
+    debugger
+    this.vedioid = id;
+    this.docservice.GetPatient_IllnessVedioes(this.vedioid).subscribe(
+      data => {
+        debugger
+        this.showvedioes = data;
+        if (this.showvedioes.length == 0) {
+          this.novideo = 1
+        }
+        else if (this.showvedioes.length != 0) {
+          this.novideo = 0
+        }
+      }, error => {
+      }
+    )
+  }
+  sickslippatientid
+  patientlist: any
+  public GetSickSlipID(patientID) {
+    debugger
+    this.sickslippatientid = patientID;
+    this.docservice.GetDoctorPatients(this.doctorid).subscribe(
+      data => {
+        debugger
+        this.patientlist = data;
+        this.getpatientdetail(this.sickslippatientid);
+      }
+    )
+  }
+  phonenumber: any
+  email: any
+  address: any
+  public getpatientdetail(pid) {
+    debugger
+    this.patientid = pid;
+    let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
+    this.patientname = qwerty[0].patientName;
+    this.phonenumber = qwerty[0].mobileNumber;
+    this.email = qwerty[0].emailID;
+    this.address = qwerty[0].address;
+    this.doctorname = qwerty[0].doctorName;
+  }
+  description: any
+  mobiledescription: any
+  leavefor: any
+  sicksliplist: any
+  description1
+  desc: any
+  Scholldata: any;
+
+
+
+  public Getscholladate() {
+    if (this.languageid == 6) {
+      debugger
+      if (this.leavefor == 'École') {
+        this.Scholldata = 'Arrêt maladie (Ecole)'
+      }
+      if (this.leavefor == 'Bureau') {
+        debugger
+        this.Scholldata = 'Arrêt maladie (Arrêt de travail)'
+      }
+    }
+  }
+
+
+  public InsertSickSlipGenarator() {
+
+    debugger
+    if (this.languageid == 1) {
+      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+    }
+    else {
+      this.desc = '<p>DATE : ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + ' </b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+    }
+
+
+    if (this.languageid == 1) {
+      document.getElementById("qwerty").innerHTML = this.description
+      this.mobiledescription = document.getElementById("qwerty").innerText;
+    }
+    else if (this.languageid == 6) {
+      document.getElementById("qwerty").innerHTML = this.description1
+      this.mobiledescription = document.getElementById("qwerty").innerText;
+    }
+
+
+    const qwer = 'dd-MMM-yyyy';
+    const pljdjf = 'en-US';
+    const frdat = this.fromdate;
+    this.fromdate = formatDate(frdat, qwer, pljdjf);
+    const todat = this.todate;
+    this.todate = formatDate(todat, qwer, pljdjf);
+
+
+    if (this.languageid == 1) {
+      var entity = {
+        'PatientID': this.patientid,
+        'Ailment': this.ailment,
+        'FromDate': this.fromdate,
+        'ToDate': this.todate,
+        'SickSlipDate': this.todaydate,
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT : ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+        'AppointmentID': 0,
+        'DoctorID': this.doctorid,
+        'LeaveFor': this.leavefor,
+        'Mobiledescription': this.mobiledescription,
+        'LanguageID': this.languageid
+      }
+    } else {
+
+      var entity = {
+        'PatientID': this.patientid,
+        'Ailment': this.ailment,
+        'FromDate': this.fromdate,
+        'ToDate': this.todate,
+        'SickSlipDate': this.todaydate,
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+        // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>OBJET: ' + this.leavefor + ' Je vous référe le patient </b></p><p> ' + this.patientname + ' </p><p style="text-align: center !important;">Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.wwwwXrr</p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
+        'AppointmentID': 0,
+        'DoctorID': this.doctorid,
+        'LeaveFor': this.leavefor,
+        'Mobiledescription': this.mobiledescription,
+        'LanguageID': this.languageid
+      }
+    }
+
+
+    this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
+      if (res != 0) {
+        this.doctorid = localStorage.getItem('userid');
+        this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
+          data => {
+            debugger
+            this.sicksliplist = data;
+            // this.getdesc(res);
+          }, error => {
+          }
+        )
+      }
+    })
+  }
+  des
+  public getdesc(id) {
+    debugger
+    this.des = this.sicksliplist.filter(x => x.id == id);
+    this.desc = this.des[0].description;
+  }
+  public attachmentsurl = [];
+  public sendmail() {
+    this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
+    var mailentity = {
+      'emailto': 'srikanthreddy0905@gmail.com',
+      'emailsubject': 'SICK SLIP',
+      'emailbody': this.desc,
+      'attachmenturl': this.attachmentsurl
+    }
+    debugger
+    this.docservice.SendMail(mailentity).subscribe(data => {
+      debugger
+      Swal.fire('Mail sent successfully.');
+      this.leavefor = "";
+      this.ailment = "";
+      document.getElementById('close').click();
+      location.href = "#/SickSlipDashboard";
+
+    })
+  }
+
+  public GetReferralID(details) {
+    debugger
+    this.patientid = details.patientID;
+    this.appointmentid = details.appointmentID;
+    if (this.languageid == 1) {
+      const format = 'yyyy-MM-dd';
+      const myDate = new Date();
+      const locale = 'en-US';
+      this.todaydate = formatDate(myDate, format, locale);
+    }
+    else {
+      const format = 'yyyy-MM-dd';
+      const myDate = new Date();
+      const locale = 'en-US';
+      this.todaydate = formatDate(myDate, format, locale);
+    }
+
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+      data => {
+        this.details = data[0];
+        this.patientname = this.details.pName,
+          this.mobileno = this.details.mobileNumber,
+          // this.emailid = this.details.pEmail,
+          this.patientidd = this.details.patientID,
+          // this.mobileno = this.details.mobileNumber,
+          this.email = this.details.pEmail
+
+        if (this.languageid == 1) {
+          this.referalnotes = " DATE: " + this.todaydate + " <p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p><br>" + this.MobileNumber + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp;  " + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+        }
+        else {
+          this.referalnotes = " DATE :" + this.todaydate + "<p>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "</p><p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<p>Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+        }
+
+      }, error => {
+      }
+    )
+  }
+  details: any
+  mobileno: any
+  patientidd: any
+
+  referaltypeid: any
+  doctoremail: any
+  docphoneno: any
+  public GetReferencetypeID(even) {
+    debugger
+    this.referaltypeid = even.target.value;
+    if (this.referaltypeid == '2') {
+      this.doctorname = "",
+        this.doctoremail = "",
+        this.docphoneno = ""
+    }
+  }
+
+
+  departmentlist: any
+  public getdepartmentmaster() {
+    debugger
+    this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.departmentlist = data;
+      }, error => {
+      }
+    )
+  }
+
+  hospitalid: any
+  dochospitalid: any
+  public GetDoctorID(item: any) {
+    debugger
+    this.doctorid = item.id
+    var list = this.dummlist.filter(x => x.id == this.doctorid)
+    this.doctorname = list[0].doctorName,
+      this.docphoneno = list[0].mobileNumber,
+      this.doctoremail = list[0].emailID,
+      this.hospitalid = list[0].hospital_ClinicID;
+    this.dochospitalid = list[0].dochospitalID;
+
+    if (this.languageid == 1) {
+      this.referalnotes = " DATE: " + this.todaydate + "<br><p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>&nbsp;</p > <p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>" + this.MobileNumber + "</p><p>Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "<br>" + this.docphoneno + "<br>" + this.Hospital_ClinicName + "</p>"
+    }
+    else {
+      this.referalnotes = " DATE :" + this.todaydate + "<br>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "<p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<p>Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+    }
+    // this.referalnotes = "<p><br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p>Voiladoc</p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
+  }
+
+  departmentid: any
+  public list: any;
+  public referdoctorlist: any;
+  public docdd = {}
+  public GetDepartmentID(even) {
+    debugger
+    this.departmentid = even.target.value;
+
+    this.list = this.dummlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
+    this.referdoctorlist = this.list.filter(x => x.referealBit == 1)
+
+    this.docdd = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'doctorName',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      //  itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+  }
+
+  public Getdocname(doctorname) {
+    debugger
+    this.doctorname = doctorname;
+    this.referalnotes = "<p><br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p></p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
+
+
+  }
+
+
+  referalnotes: any
+  mobilereferalnotes: any
+  public user: any;
+  public soap: any;
+  public insertdetails1() {
+    debugger
+    if (this.referaltypeid == 1 || this.referaltypeid == 2) {
+      if (this.doctorname == null) {
+        Swal.fire("Please Select Or Enter Doctor Name")
+      }
+      else if (this.doctoremail == null) {
+        Swal.fire("Please Enter Doctor Email")
+      }
+      else if (this.referalnotes == null || this.referalnotes == "") {
+        Swal.fire("Please Enter Referral Notes")
+      }
+      else {
+        debugger
+        if (this.referaltypeid == 1 || this.referaltypeid == 2) {
+          debugger
+          this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
+        }
+        if (this.referaltypeid == 3) {
+          document.getElementById("qwerty").innerHTML = this.referalnotes;
+          this.mobilereferalnotes = document.getElementById("qwerty").innerText;
+        }
+        var entity = {
+          'ReferalTypeID': this.referaltypeid,
+          'AppointmentID': this.appointmentid,
+          'PatientID': this.patientid,
+          'PatientName': this.patientname,
+          'DoctorID': this.doctorid,
+          'DoctorName': this.doctorname,
+          'DoctorEmail': this.doctoremail,
+          'DoctorPhNo': this.docphoneno,
+          'ReferalNotes': this.referalnotes,
+          'AssignDoctorID': this.doctorsssid,
+          'MobileReferalNotes': this.mobilereferalnotes,
+          'soapbit': this.soap,
+          'Hospital_ClinicID': this.hospitalid,
+          'DoctorHospitalDetailsID': this.dochospitalid,
+          'LanguageID': this.languageid
+        }
+        this.docservice.InsertDoctorReferals(entity).subscribe(data => {
+          if (data != 0) {
+            this.InsertDoctorRefererlas();
+            debugger
+            this.SendNotification();
+            // this.senmailToPatient();
+            debugger
+            if (this.referaltypeid == 1 || this.referaltypeid == 2) {
+              this.sendmail1();
+            }
+            if (this.referaltypeid == 3) {
+              this.senmailToPatient()
+            }
+            Swal.fire('Success', 'Referral Sent To Doctor Successfully');
+            location.href = "#/Sentrefferals"
+          }
+        })
+      }
+    }
+    if (this.referaltypeid == 3) {
+      debugger
+      // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
+      //   debugger
+      //   this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
+      // }
+      if (this.referaltypeid == 3) {
+        document.getElementById("qwerty").innerHTML = this.referalnotes;
+        this.mobilereferalnotes = document.getElementById("qwerty").innerText;
+      }
+      var entity = {
+        'ReferalTypeID': this.referaltypeid,
+        'AppointmentID': this.appointmentid,
+        'PatientID': this.patientid,
+        'PatientName': this.patientname,
+        'DoctorID': this.doctorid,
+        'DoctorName': this.doctorname,
+        'DoctorEmail': this.doctoremail,
+        'DoctorPhNo': this.docphoneno,
+        'ReferalNotes': this.referalnotes,
+        'AssignDoctorID': this.doctorsssid,
+        'MobileReferalNotes': this.mobilereferalnotes,
+        'soapbit': this.soap,
+        'Hospital_ClinicID': this.hospitalid,
+        'DoctorHospitalDetailsID': this.dochospitalid,
+        'LanguageID': this.languageid
+      }
+      this.docservice.InsertDoctorReferals(entity).subscribe(data => {
+        if (data != 0) {
+          this.InsertDoctorRefererlas();
+          debugger
+          this.SendNotification();
+          // this.senmailToPatient();
+          debugger
+          // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
+          //   this.sendmail();
+          // }
+          Swal.fire('Success', 'Referral Sent To Doctor Successfully');
+          location.href = "#/Sentrefferals"
+        }
+      })
+    }
+
+  }
+
+  public sendmail1() {
+
+    var mailentity = {
+      ToEmail: this.doctoremail,
+      Subject: 'Patient Referred By ' + this.user,
+      FromEmail: 'Doctor@Voiladoc.Net',
+      ContentType: "text/html",
+      Content: this.referalnotes,
+    };
+    debugger
+    this.docservice.SendMail(mailentity).subscribe(data => {
+      debugger
+      Swal.fire('Mail sent successfully.');
+    })
+  }
+
+  // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user
+  public SendNotification() {
+    debugger
+    var entity = {
+      'Description': "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
+      'ToUser': this.email,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+
+  }
+
+  public InsertDoctorRefererlas() {
+    for (let i = 0; i < this.attachmentsurl1.length; i++) {
+      var entity = {
+        'AppointmentID': this.appointmentid,
+        'PatientID': this.patientid,
+        'AttachmentUrl': this.attachmentsurl1[i],
+      }
+      this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+      })
+    }
+    debugger
+  }
+
+
+
+
+
+  // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
+
+
+
+
+
+
+
+
+
+
+
+  public senmailToPatient() {
+    debugger
+    // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
+    debugger
+    // var mailentity = {
+    //   'emailto': 'srikanthreddy0905@gmail.com',
+    //   'emailsubject': 'Patient Referred By' + this.doctorname,
+    //   'emailbody': 'Dear' + this.doctorname + ' I Am Referring My Patient' + this.patientname + 'For Further Investigation. My Notes About The Patient Given Below',
+    //   'attachmenturl': this.attachmentsurl
+    var mailentity = {
+      ToEmail: this.email,
+      Subject: 'Patient Referred By ' + this.user,
+      FromEmail: 'Doctor@Voiladoc.Net',
+      ContentType: "text/html",
+      Content: "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
+      // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
+    };
+    debugger
+    this.docservice.SendMail(mailentity).subscribe(data => {
+      debugger
+      Swal.fire('Mail sent successfully.');
+    })
+  }
+
+  mobileNumber: any;
+  public SendReciept() {
+    debugger
+    // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
+    debugger
+    // var mailentity = {
+    //   'emailto': 'srikanthreddy0905@gmail.com',
+    //   'emailsubject': 'Patient Referred By' + this.doctorname,
+    //   'emailbody': 'Dear' + this.doctorname + ' I Am Referring My Patient' + this.patientname + 'For Further Investigation. My Notes About The Patient Given Below',
+    //   'attachmenturl': this.attachmentsurl
+
+
+    var mailentity = {
+      ToEmail: 'vamsivardhan01@gmail.com',
+      Subject: 'Reciept ' + this.patientName,
+      FromEmail: 'Doctor@Voiladoc.Net',
+      ContentType: "text/html",
+      Content: "Reciept has been recieved for video call with " + this.doctorName + " For Further Investigation. Please Contact Him on Mobile " + this.mobileNumber,
+      // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
+    };
+    debugger
+    this.docservice.SendMail(mailentity).subscribe(data => {
+      debugger
+      Swal.fire('Mail sent successfully.');
+    })
+  }
+
+
+
+
+  public GetCountryID(item: any) {
+    debugger
+    // if (item.target.value != 0) {
+    debugger
+    this.countryid = item.id;
+
+    this.doctorlist = this.dummlist.filter(x => x.countryID == this.countryid)
+    // this.count = this.doctorlist.length
+    this.getcity();
+
+    // else if (item.target.value == 0) {
+    //   this.getdoctorforadmin()
+    //   this.countryid = 0
+
+    // }
+  }
+  public getdoctorforadmin() {
+    debugger
+    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.doctorlist = data;
+        this.dummlist = this.doctorlist
+
+      }, error => {
+      }
+    )
+  }
+  public citylist: any;
+  public citydd = {};
+  public areadd = {}
+  public getcity() {
+    debugger
+    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
+      data => {
+        debugger
+        this.citylist = data;
+
+        this.citydd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'short',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true
+        };
+      }, error => {
+      }
+    )
+  }
+
+  public GetCityID(item: any) {
+    // if (item.target.value != 0) {
+    debugger
+    this.cityid = item.id;
+    this.getareamasterbyid()
+    this.doctorlist = this.dummlist.filter(x => x.cityID == this.cityid)
+    // this.count = this.doctorlist.length
+    // }
+    // else if (item.target.value == 0) {
+    //   this.getcity();
+    //   this.areaid = 0;
+    //   this.cityid = 0
+    // }
+  }
+  public arealist: any;
+  public getareamasterbyid() {
+    debugger
+    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
+      data => {
+        debugger
+        this.arealist = data;
+
+        this.areadd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'areaName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true
+        };
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+  public GetAreaID(item: any) {
+    // if (item.target.value != 0) {
+    //   debugger
+    this.areaid = item.id;
+    this.doctorlist = this.dummlist.filter(x => x.areaID == this.areaid)
+    this.departmentid = 0;
+    // }
+    // else if (item.target.value == 0) {
+    //   this.getdoctorforadmin()
+    // }
+  }
+  public countrylist: any;
+  public countrydd = {}
+  public GetCountryMaster() {
+    this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.countrylist = data;
+
+        this.countrydd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'short',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true
+        };
+
+      }, error => {
+      }
+    )
+  }
+
+
+  doctorName: any;
+  patientName: any;
+  pMobileNo: any;
+  videoAmount: any;
+  appointmentType: any;
+  hospital_ClinicName: any;
+  adate: any;
+  signatureURL: any;
+  public GenerateReciept(data) {
+    debugger;
+    this.appointmentID = data.appointmentID;
+    this.doctorName = data.doctorName;
+    this.patientName = data.patientName;
+    this.slots = data.slots;
+    this.pMobileNo = data.pMobileNo;
+    this.videoAmount = data.videoAmount;
+    this.appointmentType = data.appointmentType;
+    this.mobileNumber = data.mobileNumber;
+    this.hospital_ClinicName = data.hospital_ClinicName;
+    this.adate = data.reciptdate;
+    this.signatureURL = data.signatureURL
+  }
+
+  display: any;
+
+  public Openmodel() {
+    debugger;
+    this.display = "block";
+  }
+
+  soapdisplay: any;
+
+
+  onCloseHandled() {
+    this.display = "none";
+  }
+  onclosetest() {
+    this.testdisplay = "none"
+  }
+
+  onsopclose() {
+    this.soapdisplay = "none"
+  }
+
+
+
+  public GetFolloupVistID(id) {
+    debugger;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to This Appointment Follow Up Again!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Follow Up!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.UpdateBookAppointmentFollowupVisit(id).subscribe(res => {
+          let test = res;
+          this.getbookappointmentbydocid;
+        })
+        Swal.fire(
+          'Success!',
+          'This Appointment Follow Up Again',
+          'success'
+        )
+      }
+      else {
+        this.getbookappointmentbydocid();
+      }
+    })
+  }
+
+
+
+
+
+  public GetPrescriptionPhoto(details) {
+    debugger
+    this.patientid = details.patientID,
+      this.appointmentid = details.appointmentID
+  }
+
+
+
+  public onattachmentUpload1(abcd) {
+    debugger
+    for (let i = 0; i < abcd.length; i++) {
+      this.attachments1.push(abcd[i]);
+      this.uploadattachments1();
+    }
+    Swal.fire('Added Successfully');
+    abcd.length = 0;
+  }
+
+  public uploadattachments1() {
+    this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
+      debugger
+      this.attachmentsurl1.push(res);
+      let a = this.attachmentsurl1[0].slice(2);
+      debugger
+      let b = 'http://14.192.17.225' + a;
+
+      // this.showdocphoto.push(b)
+      debugger
+
+      this.attachments1.length = 0;
+      debugger
+    })
+    // this.sendattachment();
+  }
+
+
+  public InsertPrescrptionPhoto() {
+    if (this.attachmentsurl1.length == 0 || (this.attachmentsurl1 == null)) {
+      Swal.fire('Please Add Prescription')
+    }
+    else {
+      var entity = {
+        'DoctorID': this.doctorid,
+        'PateintID': this.patientid,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid,
+        'NewPrescriptionPhotoUrl': this.attachmentsurl1[0],
+      }
+      this.docservice.InsertDoctor_PatientPrescriptionPhotoUrl(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Success', 'Prescription Added Successfully');
+          this.attachmentsurl1.length = 0
+        }
+      })
+    }
+  }
+
+}

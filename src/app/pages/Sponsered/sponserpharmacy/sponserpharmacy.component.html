@@ -1,0 +1,79 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].pharmacy}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee">
+  <form #pharmacyForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <h6>{{labels[0].sponsoredPharmacy}}
+        </h6>
+      </div>
+      <div class="col-lg-7">
+      </div>
+      <!-- <div class="col-lg-2">
+          <button type="button" routerLink="/Pharmdash" class="btn btncolor">{{labels[0].dashboard}}</button>
+        </div> -->
+    </div>
+    <hr>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].pharmacy}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <!--<input type="text" placeholder="Name" class="form-control"> -->
+
+        <!-- <select class="dropdown form-control" (change)="GetPharmacyID($event)">
+     <option  value="" selected>select</option>
+     <option *ngFor="let pharmacy of pharmacylist1" value={{pharmacy.id}}>{{pharmacy.pharmacyName}}</option>
+   </select> -->
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="pharmacylist1" [settings]="pharmacydd"
+          (onSelect)="GetPharmacyID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].startdate}}:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].startdate}}" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="startdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="startdate" (change)="GetEnddate()" bsDatepicker>
+        <!-- <input type="date" min='{{todaydate}}' name="startdate" required [(ngModel)]="startdate" class="form-control"
+          (change)="GetEnddate()"> -->
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].endDate}} :</label>
+        <span class="required">*</span>
+      </div>
+
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].endDate}}" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="enddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="enddate" bsDatepicker>
+        <!-- <input type="date" min='{{startdate}}' name="enddate" required [(ngModel)]="enddate" class="form-control"> -->
+      </div>
+    </div>
+    <br> <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" [disabled]="pharmacyForm.form.invalid" text_align="center"
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+  </form>
+</div>

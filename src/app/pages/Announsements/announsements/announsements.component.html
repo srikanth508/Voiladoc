@@ -1,0 +1,104 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace headercolor">
+    <div class="col-lg-3">
+      <h5>{{labels[0].announsements}}</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <!-- <div class="col-lg-2">
+      <button type="button" routerLink="/AnnounseDash" class="btn btncolor">{{labels[0].dashboard}}</button>
+    </div> -->
+  </div>
+</div>
+<div class="container-fluid card card:hover" style="margin-top:20px;">
+  <form #nurseForm="ngForm">
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].announsementName}}:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].announsementName}}" required class="form-control" [(ngModel)]="announsementname"
+          name="announsementname">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].country}} : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="countrylist" [settings]="countrydd"
+          (onSelect)="GetCountryID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">{{labels[0].state}}:</label>
+        <!-- <span class="required">*</span> -->
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="citylist" [settings]="citydd"
+          (onSelect)="GetCityID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">{{labels[0].city}} :</label>
+        <!-- <span class="required">*</span> -->
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="arealist" [settings]="areadd"
+          (onSelect)="GetAreaID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].description}}:</label>
+      <span class="required">*</span>
+      </div>
+      <div class="col-lg-6">
+        <!-- <textarea class="form-control" rows="4" required [(ngModel)]="description" name="description" placeholder="{{labels[0].description}}"></textarea> -->
+     
+        <ckeditor [editor]="Editor"  [(ngModel)]="description" name="description" data=""></ckeditor> </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label for="" class="reglabel">{{labels[0].photo}}:</label>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+        </ngx-dropzone>
+        <div>
+          <span *ngFor="let docphoto of showdocphoto">
+            <img src="{{docphoto}}" style="height:50px;width:70px">&nbsp;
+          </span>
+        </div>
+      </div>
+      <!-- <div class="col-lg-5 specforimg">
+        <p>
+          {{labels[0].images}}
+        </p>
+      </div> -->
+    </div><br>
+
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" [disabled]="nurseForm.form.invalid" 
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+    <br>
+  </form>
+</div>

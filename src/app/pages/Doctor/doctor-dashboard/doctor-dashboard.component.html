@@ -1,0 +1,242 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].dashboard}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div  class="container-fluid card card-hover">
+  <br>
+  <div class="col-lg-4" *ngIf="languageid=='1'">
+    <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+    </ng-daterangepicker> -->
+
+    <input type="text" placeholder="selectDate" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+      [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+  </div>
+
+  <div class="col-lg-4" *ngIf="languageid=='6'">
+    <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+    </ng-daterangepicker> -->
+
+    <input type="text" placeholder=" {{labels[0].selectDate}}" class="form-control"
+      [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="value" (ngModelChange)="selectedDate($event)"
+      bsDaterangepicker>
+
+  </div>
+  <!-- <h3 style="text-align: center;">{{labels[0].dashboard}}</h3> -->
+  <br>
+  <div class="row">
+    <!-- <div class="col-lg-2"></div>     -->
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',1]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">
+            {{labels[0].totalApp}}</b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;;">
+          <b>
+            <u style="font-size: 20px;" >{{count}}</u>
+          </b>
+        </label>
+      </div>
+   
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;"  [routerLink]="['/DocDashboardDetails',7]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].clinicAppts}}</b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cliniccount}}</u>
+          </b>
+        </label>
+      </div>
+
+    </div>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',8]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].videoAppointments}} </b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{videoappcount}}</u>
+          </b>
+        </label>
+      </div>
+    </div>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',9]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels3[0].house_Calls}}</b>
+          <br>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{homecallscount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <div class="row">
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',6]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels3[0].pending_Acceptence}}</b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{pendingcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <br>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;"  [routerLink]="['/DocDashboardDetails',5]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].accepted}}</b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{accptcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/Sentrefferals']">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels3[0].sent_Referrals}}</b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b style="font-size: 20px;">
+            <u style="font-size: 20px;" >{{sentrefereralscount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/ReferredPatients']">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;"> {{labels3[0].received_Referrals}}
+          </b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{receivedreferlcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',2]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].patientVisited}}</b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{visitedcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',3]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].notVisited}}
+          </b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{notvisitedcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',4]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels3[0].patient_Cancelled}}
+          </b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{cancelledcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+     <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;" [routerLink]="['/DocDashboardDetails',10]">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels3[0].doctor_Cancelled}}
+          </b>
+        </label>
+        <br>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" >{{doccancelledcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+
+  </div>
+
+</div>
+
+<br>

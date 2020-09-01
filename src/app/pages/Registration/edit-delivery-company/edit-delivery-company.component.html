@@ -1,0 +1,122 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace headercolor">
+    <div class="col-lg-5">
+      <h5>{{labels[0].profile}}</h5>
+    </div>
+    <div class="col-lg-5">
+    </div>
+    
+  </div>
+</div>
+<div class="container-fluid card card:hover" style="margin-top:20px;">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="dname_label">{{labels[0].companyName}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" placeholder="{{labels[0].companyName}}" required class="form-control" [(ngModel)]="companyname" name="companyname"
+        onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="dname_label">{{labels[0].contactPerson}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" placeholder="{{labels[0].contactPerson}}" required class="form-control" [(ngModel)]="contactname" name="contactname"
+        onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="dname_label">{{labels[0].phoneNo}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
+        class="form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="dname_label">{{labels[0].emailD}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
+        name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailD}}">
+      <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
+        <div [hidden]="!emailref.errors?.pattern">
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="Address_label">{{labels[0].address}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <textarea class="form-control" rows="4" name="address" [(ngModel)]="address" required
+        placeholder="{{labels[0].address}}"></textarea>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].country}} : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+        <option value="" selected>{{labels[0].select}}</option>
+        <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].province}} :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+        <option value="" selected="selected">{{labels[0].select}}</option>
+        <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">{{labels[0].city}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+          <option value="" selected="selected">{{labels[0].select}}</option>
+          <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+        </select>
+      </div>
+    </div><br>
+  <div class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" (click)="updatedetails()"
+        class="btn btn-block btn-md allbtns btncolor">{{labels[0].update}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+  <br>
+</div>
+<br><br><br>

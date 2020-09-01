@@ -1,0 +1,150 @@
+
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].myProfile}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover" style="margin-top:20px;">
+  <br>
+  <form #doctorForm="ngForm">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="dname_label">{{labels[0].name}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" placeholder="{{labels[0].name}}" name="doctorname" required [(ngModel)]="doctorname"
+            class="form-control">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="Phone_label">{{labels[0].phoneNo}}:</label>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" placeholder="{{labels[0].phoneNo}}" minlength="10" maxlength="10" name="phoneno"
+            [(ngModel)]="phoneno" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="Email_label">{{labels[0].email}}:</label>
+
+        </div>
+        <div class="col-lg-4">
+          <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email" class="form-control"
+          >
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="Email_label">{{labels[0].gender}}:</label>
+        </div>
+        <div class="col-lg-3">
+          <input type="radio" name="gender" [(ngModel)]="gender" [value]="1">
+          {{labels[0].male}} &nbsp;
+          <input type="radio" name="gender" [(ngModel)]="gender" [value]="2">
+          {{labels[0].female}}
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="Address_label">{{labels[0].address}}:</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <textarea class="form-control" rows="4" name="address" required [(ngModel)]="address"
+            placeholder="Address"></textarea>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label>{{labels[0].country}} : </label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+        <select class="form-control"  [(ngModel)]="countryid" name="countryid"  (change)="GetCountryID($event)"> 
+          <option value="0">{{labels[0].select}}</option>
+          <option *ngFor="let cou of countrylist" value="{{cou.id}}">{{cou.short}}</option>
+          </select>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="City_label">{{labels[0].province}}:</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <select class="form-control"  [(ngModel)]="cityid" name="cityid"  (change)="GetCityID($event)"> 
+            <option value="0">{{labels[0].select}}</option>
+            <option *ngFor="let city of citylist" value="{{city.id}}">{{city.short}}</option>
+            </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="City_label">{{labels[0].city}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <select class="form-control"  [(ngModel)]="areaid" name="areaid"  (change)="GetAreaID($event)"> 
+            <option value="0">{{labels[0].select}}</option>
+            <option *ngFor="let area of arealist" value="{{area.id}}">{{area.areaName}}</option>
+            </select>
+        </div>
+      </div><br>
+      <!-- <div class="row">
+        <div class="col-lg-3">
+          <label class="Address_label">{{labels[0].description}}:</label>
+        
+        </div>
+        <div class="col-lg-4">
+          <textarea rows="4" class="form-control" name="description" [(ngModel)]="description"
+            placeholder="{{labels[0].description}}"></textarea>
+        </div>
+      </div><br> -->
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="Address_label">{{labels[0].userName}}:</label>
+          <!-- <span class="required">*</span> -->
+        </div>
+        <div class="col-lg-4">
+          <input type="text" placeholder="{{labels[0].userName}}" name="username" required [(ngModel)]="username"
+            class="form-control">
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="Address_label">{{labels[0].password}}:</label>
+          <!-- <span class="required">*</span> -->
+        </div>
+        <div class="col-lg-4">
+          <input type="text" placeholder="{{labels[0].password}}" name="password" required [(ngModel)]="password"
+            class="form-control">
+        </div>
+      </div><br>
+      <div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" text_align="center" [disabled]="doctorForm.form.invalid"
+              class="btn btn-block btn-md allbtns btncolor"
+              (click)="updatedeilas()">{{labels[0].update}}</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </form>
+</div><br><br><br>

@@ -1,0 +1,50 @@
+.bg {
+      
+    /* background-image: url("../../../assets/Images/bg.jpg"); */
+    background-image: url("../../../assets/Images/bg.jpg");
+    /* width: 1000px;
+   height: auto;  
+    height: 1000px;   */
+
+   height: 100vh;
+  width: 100%;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+   }
+   ::placeholder { /* Firefox, Chrome, Opera */ 
+    color: black; 
+} 
+.form{
+    height: 45px;
+    background-color:	white;
+    margin-top:10px;
+    color:black;
+   
+}
+.login{
+    margin-top: 10px;
+    height: 40px;
+    color: white;
+    background-color: #9ec3cc;
+    border: none;
+    width: 146px;
+    margin-left: 75px;
+}
+.dropdown{
+    color: rgb(61, 60, 60); 
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .container{
+    padding-top:50px;
+    margin: auto;
+  }

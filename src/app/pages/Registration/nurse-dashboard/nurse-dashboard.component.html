@@ -1,0 +1,96 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>{{labels2[0].nursereg}}</h5>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-2">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        (click)="getglmasterexcel()">
+        {{labels1[0].exportExcel}}</button>
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" routerLink="/Nurse" class="btn btncolor">
+        {{labels[0].add_Nurse}}
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
+    </div>
+    <div class="col-lg-7">
+
+    </div>
+    <!-- <div class="col-lg-3">
+      <select class="form-control" (change)="GetCountryID($event)">
+          <option value="0">{{labels1[0].selectCountry}}</option>
+          <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+      </select>
+  </div>
+  <div class="col-lg-3">
+      <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
+          <option value="0">{{labels1[0].selectProvince}}</option>
+          <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+      </select>
+  </div>
+  <div class="col-lg-3">
+      <select class="form-control" *ngIf="cityid!='0'" (change)="GetAreaID($event)">
+          <option value="0">{{labels1[0].selectCity}}</option>
+          <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+      </select>
+  </div> -->
+    <div class="col-lg-2">
+      {{labels[0].count}} : <b>{{count}}</b>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Doc">
+        <thead>
+          <tr>
+            <th>{{labels[0].name}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>{{labels[0].country}}</th>
+            <th>{{labels[0].province}}</th>
+            <th>{{labels[0].city}}</th>
+            <th>{{labels[0].address}}</th>
+            <th>{{labels[0].action}}</th>
+          </tr>
+          <tr *ngFor="let nurse of nurselist|filter:term">
+            <td>{{nurse.nurseName}}</td>
+            <td>{{nurse.phoneNo}}</td>
+            <td>{{nurse.email}}</td>
+            <td>{{nurse.short}}</td>
+            <td>{{nurse.city}}</td>
+            <td>{{nurse.areaName}}</td>
+            <td>{{nurse.address}}</td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width:18px" (click)="deletenurse(nurse.id)"></a>
+              &nbsp;
+              <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent3">
+                <img src="assets/Images/edit.png" style="width:18px"
+                  [routerLink]="['/EditNurseComponent',nurse.id]"></a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>

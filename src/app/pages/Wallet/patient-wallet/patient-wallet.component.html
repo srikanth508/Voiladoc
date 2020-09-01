@@ -1,0 +1,158 @@
+<div class="container-fluid card card:hover">
+    <br />
+    <div class="row ">
+        <div class="col-lg-3">
+            <h5>{{labels[0].patientWallet}}</h5>
+        </div>
+        <div class="col-lg-6"></div>
+        <div class="col-lg-3"></div>
+    </div>
+    <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-3">
+            <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+            </ng-daterangepicker> -->
+            <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+                class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+            <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date"
+                [bsConfig]="{ showWeekNumbers:false }" class="form-control" [(ngModel)]="value"
+                (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+        </div>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{labels[0].search}}" />
+        </div>
+        <div class="col-lg-3">
+            <select class="form-control" (change)="GetCountryID($event)">
+                <option value="0">{{labels[0].selectCountry}}</option>
+                <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
+                <option value="0">{{labels[0].selectProvince}}</option>
+                <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <select class="form-control" *ngIf="cityid!='0'" (change)="GetAreaID($event)">
+                <option value="0">{{labels[0].selectCity}}</option>
+                <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-2">
+            <label style="float:right">Count : {{count}}</label>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12" style="overflow: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{labels[0].patientID}}</th>
+                        <th>{{labels[0].patientName}}</th>
+                        <th>{{labels[0].mobileNumber}}</th>
+                        <th>{{labels[0].emailID}}</th>
+                        <th>{{labels[0].country}}</th>
+                        <th>{{labels[0].province}}</th>
+                        <th>{{labels[0].city}}</th>
+                        <th>{{labels[0].walletBalance}}</th>
+                        <th>{{labels[0].actions}}</th>
+                    </tr>
+                    <tr *ngFor="let list of walletlist|filter:search">
+                        <td>{{list.patientID}}</td>
+                        <td>{{list.patientName}}</td>
+                        <td>{{list.mobileNumber}}</td>
+                        <td>{{list.emailID}}</td>
+                        <td>{{list.country}}</td>
+                        <td>{{list.city}}</td>
+                        <td>{{list.areaName}}</td>
+                        <td>{{list.walletAmount}}</td>
+                        <td>
+                            <ng-template #tipcontent1>{{labels[0].addMoney}}</ng-template>
+                            <a [ngbTooltip]="tipcontent1" style="color:black">
+                                <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal"
+                                    (click)="GetPatientIDAndMoney(list.patientID,list.walletAmount)"
+                                    style="width: 20px">
+                            </a>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <br />
+        <br />
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+<br />
+<br />
+<br />
+<br />
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{labels[0].addMoney}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form #feesForm="ngForm">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>{{labels[0].money}} :</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" placeholder="{{labels[0].money}} " required
+                                    [(ngModel)]="money" name="money" (ngModelChange)="GetAddMoneyToWallet(money)"
+                                    onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>{{labels[0].reason}} :</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea class="form-control" placeholder="{{labels[0].reason}}" name="reason" required
+                                    [(ngModel)]="reason" rows="5" cols="30"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-5">
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-primary" [disabled]="feesForm.form.invalid"
+                                    (click)="updatedateails()">{{labels[0].update}}</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+            </div>
+        </div>
+    </div>
+</div>

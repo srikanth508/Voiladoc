@@ -1,0 +1,124 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].diagnosticPackage}}</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <!-- <div class="col-lg-2">
+      <br>
+      <button type="button" routerLink="/DiagnosticPackageDash" class="btn btncolor">{{labels[0].dashboard}}</button>
+    </div> -->
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <form #diagnosticForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].diagnosticCenter}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <!-- <select class="form-control" [disabled]="tablecount=='1'"  (change)="GetDiagnosticID($event)">
+        <option valu="" selected>Select</option>
+        <option *ngFor="let diagnostic of diagnosticlist" value={{diagnostic.id}}>{{diagnostic.diagnosticCenterName}}</option>
+      </select> -->
+
+        <ng-multiselect-dropdown [disabled]="tablecount=='1'" [placeholder]="SelectLabel" [data]="diagnosticlist"
+          [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].packageName}} :</label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="packagename" required [disabled]="tablecount=='1'"
+          [(ngModel)]="packagename" placeholder="{{labels[0].packageName}}"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].test}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="selectedItemsRoot" [data]="testlist"
+          [settings]="testdd" (onSelect)="GetTestID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].packagePrice}}  : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" [disabled]="tablecount=='1'" name="packageprice" required class="form-control"
+          [(ngModel)]="packageprice" placeholder="{{labels[0].packagePrice}}" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].packageDescription}}: </label>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" class="form-control" [disabled]="tablecount=='1'" name="description" required
+          [(ngModel)]="description" placeholder="{{labels[0].packageDescription}}"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'></textarea>
+      </div>
+    </div><br><br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" [disabled]="diagnosticForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">{{labels[0].add}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div><br>
+    <div class="row" *ngIf="tablecount=='1'">
+      <div class="col-lg-12">
+        <table>
+          <thead>
+            <tr>
+              <th>{{labels[0].diagnosticCenter}} </th>
+              <th>{{labels[0].packageName}}</th>
+              <th>{{labels[0].test}}</th>
+              <th>{{labels[0].packagePrice}}</th>
+              <th>{{labels[0].packageDescription}}</th>
+              <th>{{labels[0].actions}}</th>
+            </tr>
+            <tr *ngFor="let details of qwerty">
+              <td>{{details.DiagnosticName}}</td>
+              <td>{{details.PackageName}}</td>
+              <td>{{details.diagnostictestname}}</td>
+              <td>{{details.Price}}</td>
+              <td>{{details.Description}}</td>
+              <td>
+                <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                <a [ngbTooltip]="tipcontent2">
+                  <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                    (click)="delete(details.sno)">
+                </a>
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div><br>
+    <div class="row" *ngIf="tablecount=='1'">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+  </form>
+</div><br><br>

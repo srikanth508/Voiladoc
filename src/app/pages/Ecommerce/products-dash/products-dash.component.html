@@ -1,0 +1,56 @@
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Items</h5>
+    </div>
+    <div class="col-lg-7"></div>
+
+    <div class="col-lg-2">
+      <button type="button" routerLink="/Products" class="btn btncolor">ADD</button>
+    </div>
+  </div>
+</div>
+<br>
+
+
+
+
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term">
+    </div>
+
+  </div>
+  <br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Sub Category</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let details of SubcategoryLists|filter:term">
+            <td>{{details.categoryName}}</td>
+            <td>{{details.subacategoryName}}</td>
+            <td>{{details.description}}</td>
+            <td>
+              <ng-template #tipcontent1>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent1">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteSubcategory(details.id)">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+</div>

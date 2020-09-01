@@ -1,0 +1,211 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].profile}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <div class="row">
+    <div class="col-lg-8">
+      <form #hospitalForm="ngForm">
+        <div class="row" style="margin-top:20px;">
+          <div class="col-lg-4">
+            <label>{{labels[0].hospitalClinicName}}: </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" disabled [(ngModel)]="hospitalname" name="hospitalname" class="form-control">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].hospitalPhoneNo}}: </label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" maxlength="13"  [(ngModel)]="phno" name="phno" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].contactPersonName}}: </label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" placeholder="{{labels[0].contactPersonName}}"  [(ngModel)]="contactpersonname" name="contactpersonname"
+              class="form-control"
+           >
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].contactPersonPhoneNumber}}:</label>
+          
+          </div>
+          <div class="col-lg-6">
+            <input type="text" placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13"  [(ngModel)]="contactpersonphno"
+              name="contactpersonphno" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].email}}:</label>
+         
+          </div>
+          <div class="col-lg-6">
+            <input type="email" [(ngModel)]="emailid"  name="emailid" class="form-control"
+              (ngModelChange)="onChange($event)">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].address}} :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <textarea class="form-control" rows="4" required [(ngModel)]="address" name="address"
+              placeholder="{{labels[0].address}}"></textarea>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].country}} : </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+              <option value=""  selected>{{labels[0].select}}</option>
+              <option *ngFor="let cou of countrylist" value="{{cou.id}}">{{cou.short}}</option>
+            </select>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].province}} : </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-control" (change)="GetCityID($event)" [(ngModel)]="cityid" name="cityid">
+              <option value="" selected>{{labels[0].select}}</option>
+              <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+            </select>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label class="City_label">{{labels[0].city}} :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-control" (change)="GetAreaID($event)" [(ngModel)]="areaid" name="areaid">
+              <option value="" selected="selected">{{labels[0].select}}</option>
+              <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+            </select>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].zipCode}}: </label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" [(ngModel)]="zipcode" maxlength="6"  name="zipcode" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].timings}}: </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" [(ngModel)]="timings" required name="timings" class="form-control" onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
+            event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].website}}: </label>
+
+          </div>
+          <div class="col-lg-6">
+            <input type="text" [(ngModel)]="website" name="website" class="form-control"
+              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode>=48||event.charCode<=57'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].yearEstablished}}: </label>
+
+          </div>
+          <div class="col-lg-6">
+            <input type="text" [(ngModel)]="yearestablished" maxlength="4" name="yearestablished" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].noOfBeds}} : </label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" [(ngModel)]="noofbeds" maxlength="10" name="noofbeds" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].description}} : </label>
+
+          </div>
+          <div class="col-lg-6">
+            <textarea class="form-control" rows="4" [(ngModel)]="description" name="description"></textarea>
+          </div>
+        </div><br>
+        <!-- <div class="row">
+          <div class="col-lg-3" *ngFor="let mulphoto of multiplephotos">
+            <img src="{{mulphoto.photoURL}}" style="height:140px;width:140px;">&nbsp;&nbsp;
+          </div>
+
+        </div> -->
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" [disabled]="hospitalForm.form.invalid||validEmail==false" text_align="center"
+              class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].update}}</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div><br><br>
+        <div class="row">
+          <div class="col-lg-3" *ngFor="let mulphoto of multiplephotos">
+            <img src="{{mulphoto.photoURL}}" style="height:140px;width:140px;">&nbsp;&nbsp;<br><br>
+            <button class="btn  btncolor" (click)="GetHospitalID(mulphoto.hospitalid)">{{labels[0].edit}}</button>
+          </div><br><br>
+        </div><br><br>
+        <div class="row">
+            <div class="col-lg-4" *ngIf="mulbit=='1'">
+                <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                </ngx-dropzone><br>
+              </div><br><br><br>
+              <div class="col-lg-9" *ngIf="mulbit=='1'">
+                <button class="btn btncolor" (click)="UpdateMultiplePhotos()">{{labels[0].update}}</button>
+              </div>
+        </div>
+      </form>
+    </div><br>
+    <div class="col-lg-4" style="margin-top:20px;">
+      <img src="{{photourl}}" style="width:90%;height:auto;" /><br><br>
+      <button class="btn   btncolor" (click)="GetID()">{{labels[0].edit}}</button><br><br>
+      <div class="col-lg-8" *ngIf="showdrop=='1'">
+        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        </ngx-dropzone>
+        <span *ngFor="let hspphoto of showphoto">
+          <img src="{{hspphoto}}">
+        </span>
+      </div><br><br><br>
+      <div class="col-lg-8" *ngIf="showdrop=='1'">
+        <button class="btn btncolor" (click)="updatephoto()">{{labels[0].update}}</button>
+      </div>
+    </div>
+  </div><br>
+</div><br><br>

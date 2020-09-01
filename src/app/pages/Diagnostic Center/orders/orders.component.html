@@ -1,0 +1,283 @@
+<div class="container-fluid card card:hover headerrspace">
+  <div class="row headerspace" style="margin-top: 10px;">
+    <div class="col-lg-3">
+      <h5>{{labels1[0].digorders}}</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].ordedate}}</th>
+            <th>{{labels[0].orderNumber}}</th>
+            <th>{{labels[0].patientname}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].emailId}}</th>
+            <th>{{labels[0].address}}</th>
+            <th>{{labels[0].homeSample}}</th>
+            <th>{{labels[0].details}}</th>
+            <th>{{labels[0].slot}}</th>
+            <th>{{labels[0].status}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}
+          ">
+            <td>{{details.appdate}}</td>
+            <td>{{details.id}}</td>
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.address}}</td>
+            <td>
+              <label *ngIf="details.homeSampleBit=='1'">{{labels[0].yes}}</label>
+              <label *ngIf="details.homeSampleBit=='0'">{{labels[0].no}}</label>
+            </td>
+            <td>
+              <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
+              <a [ngbTooltip]="tipcontent18" *ngIf="details.testsCount!=0">
+                <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;"
+                  (click)="GetTestsID(details.id)">
+              </a>&nbsp;
+              <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
+              <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
+                <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;"
+                  (click)="GetPackageID(details.id)">
+              </a>
+            </td>
+            <td>{{details.slotName}}</td>
+            <td>
+              <label
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'"
+                style="color: green;">{{labels[0].accepted}}</label>
+              <label
+                *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
+                style="color: red;">{{labels[0].cancelled}}</label>
+              <label *ngIf="details.approved=='1'" style="color: yellowgreen;">{{labels[0].visited}}</label>
+              <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
+            </td>
+            <ng-template #tipcontent10>{{labels[0].cancel}}</ng-template>
+            <td> <a [ngbTooltip]="tipcontent10"
+                *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
+                <img src="assets/Images/can.png" data-toggle="modal" data-target="#exampleModal"
+                  (click)="cancelmedicine(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                  style="height:30px;">
+              </a>
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+              <a [ngbTooltip]="tipcontent2"
+                *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
+                <img src="assets/Images/acc.png"
+                  (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                  style="height:30px;">
+              </a>
+              <ng-template #tipcontent3>{{labels[0].visited}}</ng-template>
+              <a [ngbTooltip]="tipcontent3"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'">
+                <img src="assets/Images/approve.png"
+                  (click)="Approvestatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                  style="height:30px;">
+              </a>
+              <ng-template #tipcontent5>{{labels[0].notVisited}}</ng-template>
+              <a [ngbTooltip]="tipcontent5"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'">
+                <img src="assets/Images/notvisit.png" (click)="UpdateDiagnosticAppointmentsNotVisitedBit(details.id)"
+                  style="height:30px;">
+              </a>
+              <ng-template #tipcontent8>{{labels[0].uploadreport}}</ng-template>
+              <a [ngbTooltip]="tipcontent8"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'||details.approved=='1'&&details.notVisited=='0'">
+                <img src="assets/Images/report.png" data-toggle="modal" data-target="#exampleModal1"
+                  style="height:30px;"
+                  (click)="GetUploadReportID(details.id,details.patientID,details.diagnosticCenterID)">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table><br>
+    </div><br><br>
+  </div><br><br><br>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br>
+</div><br><br>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].reasonForCancel}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-8">
+              <textarea class="form-control" placeholder="Reason" [(ngModel)]="reason" rows="5" cols="30"></textarea>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary" (click)="canclediagnosticappointment()">{{labels[0].save}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].uploadreport}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].diagnosticReport}} :</label>
+            </div>
+            <div class="col-lg-6">
+              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              </ngx-dropzone>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].notes}} :</label>
+            </div>
+            <div class="col-lg-6">
+              <textarea rows="4" [(ngModel)]="notes" name="notes" class="form-control"></textarea>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary" (click)="insertdiagnosticupload()"
+                data-dismiss="modal">{{labels[0].save}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].tests}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].tests}}</th>
+                  </tr>
+                  <tr *ngFor="let listss of testslist">
+                    <td>{{listss.testName}}</td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].packages}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].packageName}}</th>
+                    <th>{{labels[0].tests}}</th>
+                  </tr>
+                  <tr *ngFor="let listsssss of packagelist">
+                    <td>{{listsssss.packageName}}</td>
+                    <td>{{listsssss.testNames}}</td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

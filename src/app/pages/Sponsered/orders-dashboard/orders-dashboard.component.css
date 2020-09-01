@@ -1,0 +1,40 @@
+.acceptbtn{
+    background-color: #29d929;
+    color: white;
+    border: none;
+    
+}
+
+.rejbtn{
+    background-color: red;
+    color: white;
+    border: none;
+  
+}
+
+.asignbtn{
+    background-color: black;
+    color: white;
+    border: none;
+   
+}
+
+.asignedbtn{
+    background-color: yellow;
+    color: black;
+    border: none;
+   
+}
+
+.headerspace{
+    margin-top: 10px;
+    text-transform:uppercase;
+  }
+
+
+		th::first-letter{
+      text-transform: uppercase;
+    }
+    th{
+      text-transform: lowercase;
+    }

@@ -1,0 +1,78 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].diagnosticTest}}</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button *ngIf="languageid==1" type="button" routerLink="/Diagnostictest" class="btn btncolor">ADD</button>
+      <button *ngIf="languageid==6" type="button" routerLink="/Diagnostictest" class="btn btncolor">Ajouter</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetCountryID($event)">
+        <option value="0">{{labels1[0].selectCountry}}</option>
+        <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
+        <option value="0">{{labels1[0].selectProvince}}</option>
+        <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" *ngIf="cityid!='0'" (change)="GetAreaID($event)">
+        <option value="0">{{labels1[0].selectCity}}</option>
+        <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].diagnosticCenter}}</th>
+            <th>{{labels2[0].country}}</th>
+            <th>{{labels2[0].province}}</th>
+            <th>{{labels2[0].city}}</th>
+            <th>{{labels[0].test}}</th>
+            <th>{{labels[0].testPrice}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of servicelist| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}|filter:term">
+            <td>{{details.diagnosticCenterName}}</td>
+            <td>{{details.country}}</td>
+            <td>{{details.city}}</td>
+            <td>{{details.areaName}}</td>
+            <td>{{details.short}}</td>
+            <td>{{details.price}}</td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteDiagnostocServces(details.id)">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br>
+</div><br><br>

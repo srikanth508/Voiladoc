@@ -1,0 +1,47 @@
+
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5 *ngIf="languageID=='1'">Receptionist</h5>
+      <h5 *ngIf="languageID=='6'">ACCES SECRETAIRES</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee">
+  <form #doctorForm="ngForm">
+ <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>User Name :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="username" required [(ngModel)]="username" placeholder="User Name"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Password :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="password" class="form-control" name="password" required [(ngModel)]="password"
+          placeholder="Password">
+        
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" [disabled]="doctorForm.form.invalid" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">Save</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div><br><br>
+  </form>
+</div>

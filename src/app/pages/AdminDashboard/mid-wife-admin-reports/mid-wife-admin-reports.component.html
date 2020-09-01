@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>{{labels[0].appointmentreports}}</h5>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-2">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <!-- <div class="col-lg-5">
+      <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker>
+    </div> -->
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <!-- <select class="form-control" (change)="getget($event)">
+        <option selected value="5">{{labels[0].select}}</option>
+        <option value="1">{{labels[0].visited}}</option>
+        <option value="3">{{labels[0].cancelled}}</option>
+        <option value="4">{{labels[0].notVisited}}</option>
+      </select> -->
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="MidWife">
+        <thead>
+          <tr>
+            <th>{{labels[0].appointmentdate}}</th>
+            <th>{{labels[0].appointmentID}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].phoneno}}</th>
+            <th>{{labels[0].email}}</th>
+            <th>{{labels[0].address}}</th>
+            <th>{{labels[0].appointmentTime}}</th>
+            <th>Midwife Name</th>
+            <th>Paid Amount</th>
+            <th>{{labels[0].reason}}</th>
+            <th>{{labels[0].status}}</th>
+          </tr>
+          <tr *ngFor="let app of reports|filter:term">
+            <td>{{app.apptDate}}</td>
+            <td>{{app.id}}</td>
+            <td>{{app.patientName}}</td>
+            <td>{{app.mobileNumber}}</td>
+            <td>{{app.emailID}}</td>
+            <td>{{app.address}}</td>
+            <td>{{app.bookedTime}}</td>
+            <td>{{app.name}}</td>
+            <td>{{app.paidAmount}}</td>
+            <td>{{app.reasonForVisit}}</td>
+            <td>
+              <label style="color:yellowgreen">{{labels[0].visited}}</label>
+              
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>

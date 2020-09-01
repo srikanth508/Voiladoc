@@ -1,0 +1,94 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].articles}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee">
+  <form #articleForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].category}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="dropdown form-control" (change)="GetCategoryID($event)">
+          <option value="" selected>{{labels[0].select}}</option>
+          <option *ngFor="let category of categorylist" value={{category.id}}>{{category.category}}</option>
+        </select>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].topic}}:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <textarea  rows="4" name="topic" required cols="45" [(ngModel)]="topic" placeholder="{{labels[0].topic}}"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].subTopic}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" cols="45" placeholder="{{labels[0].subTopic}}" [(ngModel)]="subtopic" rows="4" name="subtopic" required class="form-control"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].tags}}:</label>
+        <span class="required">*</span><br>
+       <label>({{labels[0].seperatetagswithSemicolon}})</label> 
+      </div>
+      <div class="col-lg-4">
+        <textarea  rows="4" [(ngModel)]="tags" name="tags" required cols="45" placeholder="{{labels[0].tags}}"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==35'></textarea>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].writeup}}:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-6">
+        <ckeditor [editor]="Editor"  [(ngModel)]="writeup" name="writeup" data=""></ckeditor>
+        <!-- <textarea class="form-contol" rows="4" cols="45" [(ngModel)]="writeup" name="writeup" required
+          placeholder="Write Up"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea> -->
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].photos}}:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        </ngx-dropzone>
+      </div>
+      <div class="col-lg-5 specforimg">
+        <p>
+          {{labels[0].image}}
+        </p>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" class="btn btn-block  allbtns btncolor" [disabled]="articleForm.form.invalid"
+          (click)="insertdetails()">  {{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+
+      </div>
+    </div><br><br>
+  </form>
+</div><br><br><br>
+<div id="qwerty">
+</div>

@@ -1,0 +1,165 @@
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-4">
+      <h5>Planning</h5>
+      <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
+      <br>
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+  </div>
+</div><br>
+
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-2">
+      <h6>{{labels[0].year}} : {{year}}</h6>
+      <h6>{{labels[0].month}} : {{showmonth}}</h6>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">
+        <option value="">{{labels[0].selectYear}}</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="ChangeMonth($event)" [(ngModel)]="month" name="month">
+        <option value="">{{labels[0].selectMonth}}</option>
+        <option value="0">{{labels[0].jan}}</option>
+        <option value="1">{{labels[0].feb}}</option>
+        <option value="2">{{labels[0].march}}</option>
+        <option value="3">{{labels[0].april}}</option>
+        <option value="4">{{labels[0].may}}</option>
+        <option value="5">{{labels[0].june}}</option>
+        <option value="6">{{labels[0].july}}</option>
+        <option value="7">{{labels[0].aug}}</option>
+        <option value="8">{{labels[0].sept}}</option>
+        <option value="9">{{labels[0].oct}}</option>
+        <option value="10">{{labels[0].nov}}</option>
+        <option value="11">{{labels[0].dec}}</option>
+      </select>
+    </div>
+    <div class="col-lg-1">
+      <div class="rectangle"><span style="margin-left: 5px;">{{labels[0].inclinic}}</span></div>
+    </div>
+    <div class="col-lg-1">
+      <div class="vdioerect"> <span style="margin-left: 11px;">{{labels[0].video}}</span></div>
+    </div>
+    <div class="col-lg-1">
+      <div class="homecare"><span style="margin-left: 11px;">Home Visit</span></div>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div style="margin-top:3px">
+        <table class="table" style="overflow: auto;">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>{{labels[0].day}}</th>
+              <!-- <th>Doctor Name</th> -->
+              <th>{{labels[0].hospitalOrClinicName}}</th>
+              <th>{{labels[0].morning}}</th>
+              <th>{{labels[0].afternoon}}</th>
+              <th>{{labels[0].evening}}</th>
+              <th>{{labels[0].night}}</th>
+              <th>{{labels[0].actions}}</th>
+            </tr>
+            <tr *ngFor="let equi of timeSheetTablearray">
+              <td>{{equi._date}}</td>
+              <td> {{equi.dayOfTheWeek}} </td>
+              <!-- <td>{{equi.doctorName}}</td> -->
+              <td>{{equi.hospital_ClinicName}}</td>
+              <td [style.background-color]="equi.mrngAppointtypeID">{{equi.mrngStartTime}} - {{equi.mrngEndTime}}<br>
+                <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
+                <a [ngbTooltip]="tipcontent6" *ngIf="equi.mrngtimeid=='6'">
+                  <img src="assets/Images/active.png" title="Disable"
+                    (click)="GetDisableslots(equi.doctorHospitalDetailsID,1,equi._fulldate)" style="width: 30px">
+                </a>
+                &nbsp;&nbsp;
+                <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
+                <a [ngbTooltip]="tipcontent7" *ngIf="equi.mrngtimeid=='1'">
+                  <img src="assets/Images/dactive.png" title="Enable" style="width: 30px"
+                    (click)="GetDeleteSlots(equi.doctorHospitalDetailsID,1,equi._fulldate)"></a>
+
+              </td>
+              <td [style.background-color]="equi.afternoonAppointmentTypeID">{{equi.noonStartTime}} -
+                {{equi.noonEndTime}}
+
+                <br>
+                <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
+                <a [ngbTooltip]="tipcontent6">
+                  <img src="assets/Images/active.png" *ngIf="equi.afternoontimeid=='6'" title="Disable"
+                    (click)="GetDisableslots(equi.doctorHospitalDetailsID,2,equi._fulldate)" style="width: 30px">
+                </a>
+                &nbsp;&nbsp;
+                <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
+                <a [ngbTooltip]="tipcontent7">
+                  <img src="assets/Images/dactive.png" *ngIf="equi.afternoontimeid=='2'"
+                    (click)="GetDeleteSlots(equi.doctorHospitalDetailsID,2,equi._fulldate)" title="Enable"
+                    style="width: 30px"></a>
+
+              </td>
+              <td [style.background-color]="equi.eveningAppointmentTypeID">{{equi.evngStartTime}} - {{equi.evngEndTime}}
+
+                <br>
+                <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
+                <a [ngbTooltip]="tipcontent6">
+                  <img src="assets/Images/active.png" title="Disable" *ngIf="equi.eveningtimeid=='6'"
+                    (click)="GetDisableslots(equi.doctorHospitalDetailsID,3,equi._fulldate)" style="width: 30px">
+                </a>
+                &nbsp;&nbsp;
+                <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
+                <a [ngbTooltip]="tipcontent7" *ngIf="equi.eveningtimeid=='3'">
+                  <img src="assets/Images/dactive.png"
+                    (click)="GetDeleteSlots(equi.doctorHospitalDetailsID,3,equi._fulldate)" title="Enable"
+                    style="width: 30px"></a>
+
+              </td>
+              <td [style.background-color]="equi.nightAppointmentTypeID">{{equi.nightStartTime}} - {{equi.nightEndTime}}
+
+                <br>
+                <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
+                <a [ngbTooltip]="tipcontent6">
+                  <img src="assets/Images/active.png" *ngIf="equi.niighttimeid=='6'" title="Disable"
+                    (click)="GetDisableslots(equi.doctorHospitalDetailsID,4,equi._fulldate)" style="width: 30px">
+                </a>
+                &nbsp;&nbsp;
+                <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
+                <a [ngbTooltip]="tipcontent7" *ngIf="equi.niighttimeid=='4'">
+                  <img src="assets/Images/dactive.png"
+                    (click)="GetDeleteSlots(equi.doctorHospitalDetailsID,4,equi._fulldate)" title="Enable"
+                    style="width: 30px"></a>
+              </td>
+              <td>
+                <br>
+                <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
+                <a [ngbTooltip]="tipcontent6">
+                  <img src="assets/Images/active.png" title="Disable" style="width: 30px"
+                    *ngIf="equi.mrngtimeid=='6'&&equi.afternoontimeid=='6'&&equi.eveningtimeid=='6'&&equi.niighttimeid=='6'"
+                    (click)="GetAllDisableSlots(equi.doctorHospitalDetailsID,equi._fulldate)">
+                </a>
+                &nbsp;&nbsp;
+                <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
+                <a [ngbTooltip]="tipcontent7">
+                  <img src="assets/Images/dactive.png"
+                    *ngIf="equi.mrngtimeid=='1'||equi.afternoontimeid=='2'||equi.eveningtimeid=='3'||equi.niighttimeid=='4'"
+                    title="Enable" (click)="GetDeleteAllSlots(equi.doctorHospitalDetailsID,equi._fulldate)"
+                    style="width: 30px"></a>
+
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

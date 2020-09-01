@@ -1,0 +1,62 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].doctors}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" placeholder="{{labels[0].search}}" [(ngModel)]="term1" class="form-control">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetDepartmentID($event)">
+        <option value="" selected>{{labels[0].selectDepartment}}</option>
+        <option *ngFor="let department of departmentlist" value={{department.departmentname}}>
+          {{department.departmentname}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-2">
+      <label>
+        <b>{{labels[0].count}}</b> :
+        <b>{{count}}</b>
+      </label>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].doctorName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>Email</th>
+            <th>{{labels[0].department}}</th>
+            <th>Address</th>
+            <!-- <th>{{labels[0].delete}}</th> -->
+          </tr>
+          <tr *ngFor="let details of doctorlist|filter:term|filter:term1">
+            <td>{{details.doctorName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.departmentname}}</td>
+            <td>{{details.address}}</td>
+            <!-- <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="deletedoctorhosiptaldetails(details.id)">
+              </a>
+            </td> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+
+</div>

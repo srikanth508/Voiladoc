@@ -1,0 +1,19 @@
+.headerspace{
+    margin-top: 10px;
+    text-transform:uppercase;
+  }
+
+
+		th::first-letter{
+      text-transform: uppercase;
+    }
+    th{
+      text-transform: lowercase;
+    }
+    label::first-letter{
+        text-transform: uppercase;
+    }
+    label{
+        text-transform: lowercase;
+      }
+ 

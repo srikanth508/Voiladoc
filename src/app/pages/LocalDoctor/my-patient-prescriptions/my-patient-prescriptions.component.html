@@ -1,0 +1,209 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-6">
+      <h5>{{labels[0].prescriptions}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <!-- <div class="col-lg-2">
+      {{labels[0].count}} : <b>{{count}}</b>
+    </div> -->
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].appointmentDate}}</th>
+            <th>{{labels[0].patientID}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].country}}</th>
+            <th>{{labels[0].state}}</th>
+            <th>{{labels[0].city}}</th>
+            <th>{{labels[0].consultedDoctor}}</th>
+            <th>{{labels[0].prescription}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of appointmentslist">
+            <td>{{details.appdate}}</td>
+            <td>{{details.pateintID}}</td>
+            <td>{{details.pName}}</td>
+            <td>{{details.country}}</td>
+            <td>{{details.city}}</td>
+            <td>{{details.areaName}}</td>
+            <td>{{details.doctorName}}</td>
+            <td>
+              <a [ngbTooltip]="tipcontent19">
+                <img src="assets/Images/view.png" style="margin: 2%;width: 20px;" data-toggle="modal"
+                  (click)="GetprscriptionID(details.appointmentID)" data-target="#exampleModalCenter" />
+              </a>
+            </td>
+            <td>
+              <ng-template #tipcontent2>Endorse</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/acc.png" *ngIf="details.endorseBit=='0'"
+                  (click)="GetEndorseID(details.appointmentID)" style="height:30px;" />
+              </a>
+
+              <ng-template #tipcontent8>Upload New Prescription</ng-template>
+              <a [ngbTooltip]="tipcontent8">
+                <img src="assets/Images/report.png" data-toggle="modal" data-target="#exampleModal1"
+                  style="height:30px;" (click)="GetAppointmentID(details.appointmentID)">
+              </a>
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
+      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br> -->
+</div>
+<br>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width:1000px">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">Prescriptions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto;">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels1[0].date}}</th>
+                    <th>{{labels1[0].medicineType}}</th>
+                    <th>{{labels1[0].drugName}}</th>
+                    <th>{{labels1[0].unitOfMeasure}}</th>
+                    <th>{{labels1[0].dosage}}</th>
+                    <th>{{labels1[0].duration}}</th>
+                    <th>{{labels1[0].sig}}</th>
+                    <th>{{labels1[0].dispenseQuantity}}</th>
+                    <th>{{labels1[0].noteToPharmasist}}</th>
+                    <th>{{labels1[0].diagnosis}}</th>
+                    <th>{{labels1[0].howmanyRefills}}</th>
+                    <!-- <th>Total</th>
+                    <th>Actions</th> -->
+                  </tr>
+                  <tr *ngFor="let presciption of prelist">
+                    <td>{{presciption.date}}</td>
+                    <td>{{presciption.medicinetype}}</td>
+                    <td>{{presciption.medicineName}}</td>
+                    <td>{{presciption.unitOfMeasure}}</td>
+                    <td>{{presciption.dosage}}</td>
+                    <td>{{presciption.sig}}</td>
+                    <td>{{presciption.duration}}</td>
+                    <td>{{presciption.dispenseQuantity}}</td>
+                    <td>{{presciption.noteToPharmasist}}</td>
+                    <td>{{presciption.diagnosis}}</td>
+                    <td>{{presciption.howmanyRefills}}</td>
+                    <!-- <td>
+                      <label *ngIf="presciption.medicineTypeID=='1'">{{presciption.total}}</label>
+                      <label
+                        *ngIf="presciption.medicineTypeID=='3'||presciption.medicineTypeID=='4'">{{presciption.quantity}}</label>
+                    </td> -->
+                    <!-- <td>{{presciption.total}}</td> -->
+                    <!-- <td>
+                      <ng-template #tipcontent2>Delete</ng-template>
+                      <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                          (click)="deleteprscriptonforpatient(presciption.id)">
+                      </a>
+                    </td> -->
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+<br>
+
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].uploadreport}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>New Prescription :</label>
+            </div>
+            <div class="col-lg-6">
+              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              </ngx-dropzone>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Notes :</label>
+            </div>
+            <div class="col-lg-6">
+              <textarea rows="4" [(ngModel)]="notes" name="notes" class="form-control"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-primary" data-dismiss="modal"
+                (click)="UpdateNewPrescription()">{{labels[0].save}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

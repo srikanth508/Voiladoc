@@ -1,0 +1,103 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].inventory}}</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <form #testForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].category}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" [(ngModel)]="categoryID" id="ddl_Category" name="Category"
+          (change)="GetCategoryID($event)">
+          <option valu="" selected>{{labels[0].selectCategory}}</option>
+          <option *ngFor="let Category of CategoryList" value={{Category.id}}>{{Category.categoryName}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Sub Category : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" [(ngModel)]="SubCatID" id="ddl_subCategoryID" name="SubCatID"
+          (change)="GetSubCategoryID($event)">
+          <option valu="" selected>{{labels[0].selectSubCategory}}</option>
+          <option *ngFor="let sub of SubcategoryLists" value={{sub.subCatID}}>{{sub.subacategoryName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>Products : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" [(ngModel)]="item" id="ddl_item" name="item" (change)="GetItemID($event)">
+          <option valu="" selected>{{labels[0].products}}</option>
+          <option *ngFor="let inv of InventoryLists" value={{inv.id}}>{{inv.productName}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+
+
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label>{{labels[0].quantity}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="number" id="Quantity" class="form-control" name="Quantity" required [(ngModel)]="Quantity"
+          placeholder="Quantity">
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+
+
+    <div class="row" *ngIf="paramID==null">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="paramID!=null">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="Update()">{{labels[0].update}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+  </form>
+</div>
+<br>
+<br>

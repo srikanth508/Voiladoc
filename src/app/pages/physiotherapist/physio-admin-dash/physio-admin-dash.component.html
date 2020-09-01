@@ -1,0 +1,156 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].dashboard}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="col-lg-4">
+    <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+    </ng-daterangepicker> -->
+
+    <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+      class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+      class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+  </div>
+  <br>
+  <h3 style="text-align: center;"></h3>
+  <br>
+  <div class="row">
+    <!-- <div class="col-lg-2"></div>     -->
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-2">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].totalApp}}</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" [routerLink]="['/PhysioDashboardDetails',1]">{{count}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].pendingAcceptence}}</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" [routerLink]="['/PhysioDashboardDetails',2]">{{pendingingcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <br>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].accepted}}</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" [routerLink]="['/PhysioDashboardDetails',3]">{{acceptcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+
+    <div class="col-lg-2"></div>
+    <br />
+  </div>
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-2">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].patientVisited}}</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" [routerLink]="['/PhysioDashboardDetails',4]">{{visitcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].notVisited}}
+          </b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" [routerLink]="['/PhysioDashboardDetails',6]">{{notvisitcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-2">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].cancelled}}
+          </b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" [routerLink]="['/PhysioDashboardDetails',5]">{{cancelcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+
+</div>
+<br>

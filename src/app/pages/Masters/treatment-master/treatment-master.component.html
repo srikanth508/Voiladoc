@@ -1,0 +1,49 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid card card:hover">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].treatmentMaster}}</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <br>
+  <form #provinceForm="ngForm">
+  <div class="row">
+    <div class="col-lg-2">
+      <label class="REGISTRATION NO:">{{labels[0].department}}:</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" (change)="GetDepartmentID($event)" required [(ngModel)]="departmentid"
+        name="departmentid">
+        <option value="0" selected>{{labels[0].select}}</option>
+        <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-2">
+      <label class="REGISTRATION NO:">{{labels[0].treatmentservice}} :</label>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" required [(ngModel)]="treatmentservice" name="treatmentservice" placeholder="{{labels[0].treatmentservice}}">
+    </div>
+  </div><br>
+
+  <div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='0'" [disabled]="provinceForm.form.invalid" (click)="insertdetails()">{{labels[0].save}}</button>
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='1'" [disabled]="provinceForm.form.invalid" (click)="updatedetails()">{{labels[0].update}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+  <br>
+</form>
+</div>

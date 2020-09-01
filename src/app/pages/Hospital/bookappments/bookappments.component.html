@@ -1,0 +1,163 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5 *ngIf="languageid=='1'">Book Appointment</h5>
+      <h5 *ngIf="languageid=='6'">RENDEZ-VOUS</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card-hover">
+  <div class="row" style="margin-top:20px;">
+    <div class="col-lg-3">
+      <label>{{labels[0].patient}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <!-- <select class="form-control" (change)="GetPatientID($event)">
+            <option>Select</option>
+            <option *ngFor="let pat of patientslist" value="{{pat.id}}">{{pat.patientName}}</option>
+          </select> -->
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="patientslist" [settings]="patientdd"
+        (onSelect)="GetPatientID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].email}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled [(ngModel)]="email" name="email">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].phoneNo}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled [(ngModel)]="mobileno" name="mobileno">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].address}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled [(ngModel)]="address" name="address">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].aptdate}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled [(ngModel)]="appdate" name="appdate">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].slot}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled [(ngModel)]="slotname" name="slotname">
+    </div>
+  </div>
+  <br>
+  <!-- <div class="row" style="margin-top:20px;">
+    <div class="col-lg-3">
+      <label>Nurse : </label>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" (change)="GetNurseID($event)">
+        <option value="0">Select</option>
+        <option *ngFor="let pat of NurseList" value="{{pat.id}}">{{pat.nurseName}}</option>
+      </select>
+    </div>
+  </div>
+  <br> -->
+  <div class="row" style="margin-top:20px;">
+    <div class="col-lg-3">
+      <label>{{labels[0].reasonforvisit}} : </label>
+    </div>
+    <div class="col-lg-4">
+      <textarea rows="3" class="form-control" [(ngModel)]="ReasonForVisit" placeholder="{{labels[0].reasonforvisit}}"></textarea>
+      <!-- <ng-multiselect-dropdown [placeholder]="'Select'" [data]="NurseList" [settings]="patientdd"
+          (onSelect)="GetNurseID($event)">
+        </ng-multiselect-dropdown> -->
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="DEPARTMENT_label"> Payment Type :</label>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" [(ngModel)]="PaymentTypeID" (change)="GetPaymentTypeID($event)">
+        <option value="" selected>Select Payment Type</option>
+        <option value="4">Cash</option>
+        <option value="2">Credit Card / Debit Card</option>
+        <!-- <option value="3">Debit Card</option> -->
+      </select>
+    </div>
+  </div>
+  <br>
+  <div *ngIf="PaymentTypeID=='2'||PaymentTypeID=='3'">
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Card No</label>
+      </div>
+      <div class="col-lg-4">
+        <input placeholder="Enter Card No" type="text" class="form-control" id="CardNo" name="CardNo" maxlength=12>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Expiry Date</label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="MM" id="month" maxlength=2 />
+        <input type="text" class="form-control" placeholder="YYYY" id="year" maxlength=4 />
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>CVV</label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="CVV" id="CVV" name="CVV" maxlength=3 />
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="DEPARTMENT_label"> Amount :</label>
+    </div>
+    <div class="col-lg-4">
+      <input type="number" [(ngModel)]="PaidAmount" id="Amount" name="Amount" class="form-control">
+    </div>
+  </div>
+  <br>
+
+
+  <div class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="bookappointment()">{{labels[0].book}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+  <br>
+</div>

@@ -1,0 +1,44 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].deliveryCompany}}</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button *ngIf="languageid=='1'" type="button" routerLink="/PartnerRegistration" class="btn btncolor">Add</button>
+      <button *ngIf="languageid=='6'" type="button" routerLink="/PartnerRegistration"
+        class="btn btncolor">Ajouter</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover" style="overflow:auto;">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th *ngIf="languageid=='1'">Staff Type</th>
+            <th *ngIf="languageid=='6'">Fonction</th>
+            <th>{{labels[0].name}}</th>
+            <th>{{labels[0].phoneNo}}</th> 
+            <th>{{labels[0].email}}</th>
+          </tr>
+          <tr *ngFor="let details of partnerlist|filter:term">
+            <td *ngIf="details.staffType==1">Delivery Supervisor</td>
+            <td *ngIf="details.staffType==2">Delivery Executive</td>
+            <td>{{details.name}}</td>
+            <td>{{details.phoneNo}}</td>
+            <td>{{details.emailID}}</td>
+          </tr>
+        </thead>
+      </table><br><br>
+    </div>
+  </div>
+</div><br><br>

@@ -1,0 +1,88 @@
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-4">
+      <h5>Planning</h5>
+      <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
+      <br>
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+  </div>
+</div><br>
+
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-2">
+      <h6>{{labels[0].year}} : {{year}}</h6>
+      <h6>{{labels[0].month}} : {{showmonth}}</h6>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">
+        <option value="">{{labels[0].selectYear}}</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="ChangeMonth($event)" [(ngModel)]="month" name="month">
+        <option value="">{{labels[0].selectMonth}}</option>
+        <option value="0">{{labels[0].jan}}</option>
+        <option value="1">{{labels[0].feb}}</option>
+        <option value="2">{{labels[0].march}}</option>
+        <option value="3">{{labels[0].april}}</option>
+        <option value="4">{{labels[0].may}}</option>
+        <option value="5">{{labels[0].june}}</option>
+        <option value="6">{{labels[0].july}}</option>
+        <option value="7">{{labels[0].aug}}</option>
+        <option value="8">{{labels[0].sept}}</option>
+        <option value="9">{{labels[0].oct}}</option>
+        <option value="10">{{labels[0].nov}}</option>
+        <option value="11">{{labels[0].dec}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div style="margin-top:3px">
+        <table class="table" style="overflow: auto;">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>{{labels[0].day}}</th>
+              <!-- <th>Doctor Name</th> -->
+              <th>{{labels[0].hospitalOrClinicName}}</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Actions</th>
+            </tr>
+            <tr *ngFor="let equi of timeSheetTablearray">
+              <td>{{equi._date}}</td>
+              <td> {{equi.dayOfTheWeek}} </td>
+              <td> {{equi.hospital_ClinicName}} </td>
+              <td> {{equi.startime}} </td>
+              <td> {{equi.endtime}} </td>
+              <td>
+                <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
+                <a [ngbTooltip]="tipcontent6">
+                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px"
+                    (click)="GetDisableDate(equi.physiohospitalid,equi._fulldate)">
+                </a>
+                <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
+                <a [ngbTooltip]="tipcontent7">
+                  <img src="assets/Images/dactive.png" title="Enable" *ngIf="equi.disabled=='1'"
+                    (click)="GetDeleteSlots(equi._fulldate)" style="width: 30px"></a>
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

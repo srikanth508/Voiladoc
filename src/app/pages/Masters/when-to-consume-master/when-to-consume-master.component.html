@@ -1,0 +1,51 @@
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row ">
+    <div class="col-lg-5">
+      <h5>{{labels[0].whenToconsumeDash}}</h5>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-3">
+      <button type="button" routerLink="/WhenToConsume"
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].add}}</button>
+    </div>
+  </div>
+  <br>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control"  placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].whenToConsume}} </th>
+            <th>{{labels[0].description}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let list of consumelist|filter:term">
+            <td>{{list.name}}</td>
+            <td>{{list.description}}</td>
+            <td>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/WhenToConsume',list.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteWhenToConsumeMasterMedicals(list.id)">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div><br><br>
+  </div><br><br>
+  <br>
+</div><br><br><br><br>

@@ -1,0 +1,87 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid card card:hover">
+  <br />
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>{{labels[0].supportDash}}</h5>
+    </div>
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+  </div>
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" [(ngModel)]="term" class="form-control" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetResolvedStatus($event)">
+        <option value="0">{{labels[0].select}}</option>
+        <option value="1">{{labels[0].resolved}}</option>
+        <option value="2">{{labels[0].unresolved}}</option>
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].date}}</th>
+            <th>{{labels[0].time}}</th>
+            <th>{{labels[0].patientID}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileNumber}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>{{labels[0].message}}</th>
+            <th>{{labels[0].status}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of supportlist|filter:term">
+            <td>{{details.date}}</td>
+            <td>{{details.time}}</td>
+            <td>{{details.patientID}}</td>
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.message}}</td>
+            <td>
+              <label *ngIf="details.resolve=='1'" style="color:red">{{labels[0].resolved}}</label>
+            </td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].resolved}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/acc.png" *ngIf="details.resolve=='0'"
+                  (click)="GetSupportResolvedBit(details.id)" style="height:30px;" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br />
+    <br />
+  </div>
+  <br />
+  <br />
+  <br />
+</div>
+<br />
+<br />
+<br />
+<br />

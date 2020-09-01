@@ -1,0 +1,51 @@
+<div class="container-fluid card card:hover">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].diagnosticTestMaster}}</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <br>
+  <form #diaForm="ngForm"> 
+  <div class="row">
+    <div class="col-lg-2">
+      <label class="REGISTRATION NO:">{{labels[0].diagnosticTestType}} :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" (change)="GetTestsID($event)" [(ngModel)]="testsid" name="testsid">
+        <option value="0">{{labels[0].select}} </option>
+        <option *ngFor="let test of testslist" value="{{test.id}}">{{test.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-2">
+      <label class="REGISTRATION NO:">{{labels[0].testName}} :</label>
+    </div>
+    <div class="col-lg-4">
+    <input type="text" class="form-control"  required [(ngModel)]="testname" name="testname" placeholder="{{labels[0].testName}}">
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-2">
+      <label class="REGISTRATION NO:">{{labels[0].description}} :</label>
+    </div>
+    <div class="col-lg-4">
+      <textarea class="form-control" rows="4" required [(ngModel)]="description" name="description" placeholder="{{labels[0].description}}"></textarea>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" [disabled]="diaForm.form.invalid" *ngIf="showbit=='0'" (click)="insertdetails()">{{labels[0].save}}</button>
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"  [disabled]="diaForm.form.invalid" *ngIf="showbit=='1'" (click)='updatedetails()'>{{labels[0].update}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+  <br>
+</form>
+</div>

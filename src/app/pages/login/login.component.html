@@ -1,0 +1,55 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid bg">
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-4" style="text-align: center;">
+      <br><br><br>
+      <div style="background-color: #322b6b;padding: 12%;border-radius: 20px;">
+        <form #loginForm="ngForm">
+          <h3
+            style="border-radius: 10px;padding-top: 3%;height:100px;width:100%;background-color: aliceblue;color: aliceblue;">
+            <img src="assets/Images/logo.png" style="margin-top:2px;">
+          </h3>
+          <br>
+          <select class="form-control" style="height:40px;" (change)="GetCountryID($event)">
+            <option value="0" selected>Select Country</option>
+            <option *ngFor="let cou of countrylist" value={{cou.countryID}}>{{cou.countryName}}</option>
+          </select><br>
+          <div *ngIf="countryid!=null">
+            <select class="form-control" style="height:40px;" (change)="GetLanguageID($event)">
+              <option value="" selected>Select Language</option>
+              <option *ngFor="let lang of languagelist" value={{lang.id}}>{{lang.languageName}}</option>
+            </select>
+          </div>
+          <br>
+          <div *ngIf="LanguageID!=null">
+            <select class="form-control" style="height:40px;" (change)="onchangeFunction($event)">
+              <option value="" selected>{{labels[0].selectRole}}</option>
+              <option *ngFor="let role of rolelist" value={{role.id}}>{{role.short}}</option>
+            </select>
+            <br>
+            <input type="text" [(ngModel)]="uname" style="height:40px;" name="uname" required
+              placeholder="{{labels[0].userName}}" class="form-control">
+            <br>
+            <input type="password" [(ngModel)]="pwd" style="height:40px;" name="pwd" required
+              placeholder="{{labels[0].password}}" class="form-control"> 
+
+
+            <!-- <input type="text"   [(ngModel)]="otp" style="height:40px;" name="otp" required placeholder="Password"
+            class="form-control"> -->
+            <br>
+            <button type="submit" class="form-control login" (click)="login()"
+              [disabled]="loginForm.form.invalid">{{labels[0].login}}</button>
+          </div>
+        </form>
+      </div>
+    </div><br>
+    <div class="col-lg-1">
+    </div>
+  </div>
+  
+</div>
+
+

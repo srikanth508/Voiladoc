@@ -1,0 +1,81 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>{{labels[0].nurseFee}}
+      </h5>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div>
+</div> <br>
+<div class="container-fluid card card-hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <label>{{labels[0].nurse}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" [disabled]="tablecount=='1'" (change)="GetNurseID($event)">
+        <option>{{labels[0].select}}</option>
+        <option *ngFor="let nurse of nurselist" value="{{nurse.nurseID}}">{{nurse.nurseName}}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].hospitalClinic}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" (change)="GetHospitalID($event)">
+        <option>{{labels[0].select}}</option>
+        <option *ngFor="let hos of hospitalist" value="{{hos.hospital_ClinicID}}">{{hos.hospital_ClinicName}}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].homeVisitCharges}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="homevisitfee" name="homevisitfee"
+        placeholder="{{labels[0].homeVisitCharges}}">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].nurseFee}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="nursefees" name="nursefees"
+        (ngModelChange)="GetDoccommission(nursefees)" placeholder="{{labels[0].nurseFee}}">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].voildoccommssion}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" disabled placeholder="{{labels[0].voildoccommssion}}"
+        [(ngModel)]="voiladoccommission" name="voiladoccommission">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="insertdetails()">{{labels[0].save}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div><br><br>
+</div>

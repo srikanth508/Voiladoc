@@ -1,0 +1,80 @@
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>How To Use Doctors Dashboard</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" routerLink="/HowToUseDoc" class="btn btncolor">{{labels[0].add}}</button>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
+    </div>
+    <!-- <div class="col-lg-2">
+      {{labels[0].count}} : <b>{{count}}</b>
+    </div> -->
+  </div><br><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].image}}</th>
+            <th>{{labels[0].screenShotName}}</th>
+            <th>{{labels[0].description}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of howtouselist">
+            <td><img src="{{details.image}}" style="height:50px;width:50px"></td>
+            <td>{{details.screenShotName}}</td>
+            <td>
+              <p innerHTML="{{details.description}}"></p>
+            </td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteHowToUseDoctorsWeb(details.id)">
+              </a>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/HowToUseDoc',details.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a>
+              <a>
+                <img
+                  *ngIf="details.enableDisable =='0'"
+                  src="assets/Images/dactive.png"
+                  title="Disable"
+                  (click)="DisableHowToUseDoctorsWeb(details.id)"
+                  style="width: 50px;"
+                />
+              </a>
+              <a>
+                <img
+                  *ngIf="details.enableDisable =='1'"
+                  (click)="EnableHowToUseDoctorsWeb(details.id)"
+                  src="assets/Images/active.png"
+                  title="Enable"
+                  style="width: 50px;"
+                />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br><br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
+      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br> -->
+</div><br>

@@ -1,0 +1,178 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5 *ngIf="languageid=='1'">Patient Registration</h5>
+      <h5 *ngIf="languageid=='6'">Inscription des patients</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <form #hospitalForm="ngForm">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'">Patient Name : </label>
+        <label *ngIf="languageid=='6'">Nom du patient : </label>
+      </div>
+      <div class="col-lg-4">
+        <input *ngIf="languageid=='1'" type="text" class="form-control" placeholder="Patient Name"
+          [(ngModel)]="patientname" name="patientname">
+        <input *ngIf="languageid=='6'" type="text" class="form-control" placeholder="Nom du patient"
+          [(ngModel)]="patientname" name="patientname">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'">Mobile Number : </label>
+        <label *ngIf="languageid=='6'">Numéro de telephone : </label>
+      </div>
+      <div class="col-lg-4">
+        <input *ngIf="languageid=='1'" type="text" class="form-control" placeholder="Mobile Number"
+          [(ngModel)]="mobileno" name="mobileno">
+        <input *ngIf="languageid=='6'" type="text" class="form-control" placeholder="Numéro de telephone"
+          [(ngModel)]="mobileno" name="mobileno">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Email : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'">National identity card no  : </label>
+        <label *ngIf="languageid=='6'">Numéro de carte d'identité nationale   : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" *ngIf="languageid=='1'" class="form-control" placeholder="National identity card no" [(ngModel)]="nationalidentitycardno" name="nationalidentitycardno">
+        <input type="text" *ngIf="languageid=='6'" class="form-control" placeholder="Numéro de carte d'identité nationale" [(ngModel)]="nationalidentitycardno" name="nationalidentitycardno">
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'">Address : </label>
+        <label *ngIf="languageid=='6'">Adresse : </label>
+      </div>
+      <div class="col-lg-4">
+        <textarea *ngIf="languageid=='1'" rows="4" class="form-control" placeholder="Address" [(ngModel)]="address"
+          name="address"></textarea>
+        <textarea *ngIf="languageid=='6'" rows="4" class="form-control" placeholder="Adresse" [(ngModel)]="address"
+          name="address"></textarea>
+      </div>
+    </div><br>
+    <!-- <div class="row">
+      <div class="col-lg-3">
+        <label>Notes : </label>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" class="form-control" placeholder="Notes"></textarea>
+      </div>
+    </div><br> -->
+    <!-- <div class="row">
+      <div class="col-lg-3">
+        <label>Date of Birth : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="date" class="form-control" [(ngModel)]="dateofbirth" name="dateofbirth">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Age : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="Age" [(ngModel)]="age" name="age">
+      </div>
+    </div><br> -->
+    <!-- <div class="row">
+      <div class="col-lg-3">
+        <label>Blood Group : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control">
+          <option>Select</option>
+        </select>
+      </div>
+    </div><br> -->
+    <div *ngIf="languageid=='1'" class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'">Gender : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="radio" name="gender" [(ngModel)]="gender" value="1"> Male &nbsp;
+        <input type="radio" name="gender" [(ngModel)]="gender" value="2"> Female
+      </div>
+    </div><br>
+    <div *ngIf="languageid=='6'" class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='6'">Sexe : </label>
+      </div>
+      <div class="col-lg-4">
+        <input type="radio" name="gender" [(ngModel)]="gender" value="1"> Homme &nbsp;
+        <input type="radio" name="gender" [(ngModel)]="gender" value="2"> Femme
+      </div>
+    </div><br>
+    <!-- <div class="row">
+      <div class="col-lg-3">
+        <label>Marital Status : </label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control">
+          <option>Select</option>
+        </select>
+      </div>
+    </div><br> -->
+    <div class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'">Country : </label>
+        <label *ngIf="languageid=='6'">Pays : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
+          (onSelect)="GetCountryID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">Province :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
+          (onSelect)="GetCityID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label *ngIf="languageid=='1'" class="City_label">City :</label>
+        <label *ngIf="languageid=='6'" class="City_label">Ville :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
+          (onSelect)="GetAreaID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button *ngIf="languageid=='1'" type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">Save</button>
+        <button *ngIf="languageid=='6'" type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">Sauvegarder</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div><br><br>
+  </form>
+</div>

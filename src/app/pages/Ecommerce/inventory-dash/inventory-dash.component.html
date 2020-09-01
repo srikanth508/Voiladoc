@@ -1,0 +1,121 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].inventory}}</h5>
+    </div>
+    <div class="col-lg-7"></div>
+    <div class="col-lg-2">
+      <button type="button" routerLink="/Inventory" class="btn btncolor">{{labels[0].add}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
+    </div>
+
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetCategoryID($event)">
+        <option value="0">{{labels[0].selectCategory}}</option>
+        <option *ngFor="let couu of CategoryList" value={{couu.id}}>{{couu.categoryName}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetSubCategoryID($event)">
+        <option value="0">{{labels[0].selectSubCategory}}</option>
+        <option *ngFor="let couu of SubCategoryList" value={{couu.subCatID}}>{{couu.subacategoryName}}</option>
+      </select>
+    </div>
+
+
+  </div>
+  <br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].category}}</th>
+            <th>{{labels[0].subcategory}}</th>
+            <th>{{labels[0].product}}</th>
+            <th>{{labels[0].productCode}}</th>
+            <th>{{labels[0].quantity}}</th>
+            <th>{{labels[0].action}}</th>
+          </tr>
+          <tr *ngFor="let details of FilteredInventoryList|filter:term">
+            <td>{{details.categoryName}}</td>
+            <td>{{details.subacategoryName}}</td>
+            <td>{{details.productName}}</td>
+            <td>{{details.productCode}}</td>
+            <td>{{details.quantity}}</td>
+            <td>
+              <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent3">
+                <img src="assets/Images/edit.png" style="width: 20px;margin-left: 10px;"
+                  [routerLink]="['/Inventory',details.id]" (click)="Edit(details.id)">
+              </a>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteSubcategory(details.id)">
+              </a>
+              <ng-template #tipcontent9>{{labels[0].photos}}</ng-template>
+              <a [ngbTooltip]="tipcontent9">
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
+                  style="height:30px;" (click)="GetIllnessPhotos(details.productID)" />
+              </a>
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <div class="modal fade" id="IllnessPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"> {{labels[0].photos}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row" *ngIf="nophoto=='0'">
+              <div class="col-lg-6" *ngFor="let showphoto of showimages">
+                <br>
+                <img src="{{showphoto.photoUrl}}" style="height: 300px;width:300px" />
+                <br>
+              </div>
+              <br>
+            </div>
+            <br>
+            <div class="row" *ngIf="nophoto=='1'">
+              <div class="col-lg-6">
+                <br>
+                <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+              </div>
+              <br>
+            </div>
+            <br>
+          </div>
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

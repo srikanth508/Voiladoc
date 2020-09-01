@@ -1,0 +1,61 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels[0].doctorServices}}</h5>
+    </div>
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
+  <div class="row" style="margin-top:20px;">
+    <div class="col-lg-3">
+      <label>{{labels[0].doctor}} : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <!-- <select class="form-control" (change)="GetDoctorID($event)">
+        <option>select</option>
+        <option *ngFor="let doctor of doctorlist" value={{doctor.id}}>{{doctor.doctorName}}</option>
+      </select> -->
+
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="doctorlist" [settings]="doctordd"
+        (onSelect)="GetDoctorID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div><br>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="DEPARTMENT_label">{{labels[0].department}} :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" disabled (change)="GetDepartmentID($event)"  [(ngModel)]="departmentid" name="departmentid">
+        <option valu="" selected>{{labels[0].select}}</option>
+        <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].servicesOffered}} : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="dropdown" [data]="servicelist"
+        [settings]="servicedd" (onSelect)="GetServiceID($event)" (onDeSelect)="onItemDeSelect($event)">
+      </ng-multiselect-dropdown>
+    </div><br>
+  </div><br><br>
+  <div class="row">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+        (click)="insertdetails()">{{labels[0].save}}</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div><br><br>
+</div>
