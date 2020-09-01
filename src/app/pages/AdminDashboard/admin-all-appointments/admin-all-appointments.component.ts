@@ -3,6 +3,10 @@ import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { NgDateRangePickerOptions } from "ng-daterangepicker";
+
+
+
+
 @Component({
   selector: 'app-admin-all-appointments',
   templateUrl: './admin-all-appointments.component.html',
