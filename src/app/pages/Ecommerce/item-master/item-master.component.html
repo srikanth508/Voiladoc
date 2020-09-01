@@ -1,11 +1,10 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].products}}</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
+
+    <div class="col-lg-3" style="text-align: end;margin-top: -10px;">
       <button type="button" routerLink="/items" class="btn btncolor">{{labels[0].addProducts}}</button>
     </div>
   </div>
@@ -69,8 +68,8 @@
 
               <ng-template #tipcontent9> {{labels[0].photos}}</ng-template>
               <a [ngbTooltip]="tipcontent9">
-                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
-                  style="height:30px;" (click)="GetIllnessPhotos(item.id)" />
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos" style="height:30px;" (click)="GetIllnessPhotos(item.id)"
+                />
               </a>
             </td>
           </tr>
@@ -80,8 +79,7 @@
   </div>
   <br>
   <br>
-  <div class="modal fade" id="IllnessPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-    aria-hidden="true">
+  <div class="modal fade" id="IllnessPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content ">
         <div class="modal-header">

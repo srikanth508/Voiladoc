@@ -1,14 +1,12 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].hospitalclinicDashboard}}</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
-      <button *ngIf="languageid==1" type="button" routerLink="/Sponserhospitalclinic" class="btn btncolor">ADD</button>
-      <button *ngIf="languageid==6" type="button" routerLink="/Sponserhospitalclinic"
-        class="btn btncolor">Ajouter</button>
+
+    <div class="col-lg-3" style="text-align: end;margin-top: -10px;">
+      <button *ngIf="languageid==1" type="button" routerLink="/Sponserhospitalclinic" class="btn btncolor">Add Hospital</button>
+      <button *ngIf="languageid==6" type="button" routerLink="/Sponserhospitalclinic" class="btn btncolor">Ajouter</button>
     </div>
   </div>
 </div>
@@ -18,17 +16,18 @@
     <div class="col-lg-3">
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
 
 
     </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -41,36 +40,39 @@
             <th>{{labels[0].disable}}</th>
             <th>{{labels[0].enable}}</th>
           </tr>
-          <tr
-            *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+          <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.hospital_ClinicName}}</td>
             <!-- <td>{{details.address}}</td> -->
             <td>{{details.sDate}}</td>
             <td>{{details.eDate}}</td>
             <ng-template #tipcontent3>{{labels[0].disable}}</ng-template>
-            <td> <a [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'">
+            <td>
+              <a [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'">
 
 
-                <button (click)="disablehospital(details.id)"
-                  style="background-color: red;color: aliceblue;border: none;"
-                  *ngIf="details.hidden=='0'">{{labels[0].disable}}</button>
-              </a></td>
+                <button (click)="disablehospital(details.id)" style="background-color: red;color: aliceblue;border: none;" *ngIf="details.hidden=='0'">{{labels[0].disable}}</button>
+              </a>
+            </td>
             <ng-template #tipcontent2>{{labels[0].enable}}</ng-template>
-            <td><a [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'">
+            <td>
+              <a [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'">
 
-                <button (click)="enablehospital(details.id)"
-                  style="background-color: green;color: aliceblue;border: none;"
-                  *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
-              </a></td>
+                <button (click)="enablehospital(details.id)" style="background-color: green;color: aliceblue;border: none;" *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
+              </a>
+            </td>
           </tr>
         </thead>
       </table>
-    </div><br>
+    </div>
+    <br>
     <div class="col-lg-12" style="text-align: center">
       <br>
-      <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
-        autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
-        screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+      <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
+        previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
       </pagination-controls>
-    </div><br><br>
-  </div><br><br>
+    </div>
+    <br>
+    <br>
+  </div>
+  <br>
+  <br>
