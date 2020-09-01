@@ -1,16 +1,16 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>Sponsorship Dashboard</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
+
+    <div class="col-lg-3" style="text-align: end; margin-top: -10px;">
       <button *ngIf="languageid==1" type="button" routerLink="/AppPageSponsorship" class="btn btncolor">ADD</button>
       <button *ngIf="languageid==6" type="button" routerLink="/AppPageSponsorship" class="btn btncolor">Ajouter</button>
     </div>
   </div>
-</div><br>
+</div>
+<br>
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
@@ -18,10 +18,10 @@
       </ng-daterangepicker> -->
 
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -29,7 +29,8 @@
       <input *ngIf="languageid==6" type="text" class="form-control" [(ngModel)]="term" placeholder="Rechercher">
     </div>
 
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12">
       <table>
@@ -56,13 +57,12 @@
 
               <ng-template #tipcontent2>Delete</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                  (click)="DeleteServiceMaster(details.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteServiceMaster(details.id)">
               </a>
               <ng-template #tipcontent3>Photo</ng-template>
               <a [ngbTooltip]="tipcontent3">
-                <img src="assets/Images/att.png" style="width: 20px;margin-left: 10px;"
-                  (click)="GetPhotoUrl(details.id)" data-toggle="modal" data-target="#myModal">
+                <img src="assets/Images/att.png" style="width: 20px;margin-left: 10px;" (click)="GetPhotoUrl(details.id)" data-toggle="modal"
+                  data-target="#myModal">
               </a>
             </td>
 
@@ -70,14 +70,17 @@
         </thead>
       </table>
     </div>
-  </div><br>
+  </div>
+  <br>
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel"><b>Sponsorship Image</b></h4>
+        <h4 class="modal-title" id="exampleModalLabel">
+          <b>Sponsorship Image</b>
+        </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

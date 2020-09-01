@@ -1,4 +1,4 @@
-<div class="container-fluid card card:hover headerspace" >
+<!-- <div class="container-fluid card card:hover headerspace" >
   <div class="row headerspace">
     <div class="col-lg-3">
       <h5>{{labels1[0].clinicDash}}</h5>
@@ -15,7 +15,30 @@
       <button type="button" routerLink="/HospitalClinicregistration" class="btn btncolor">Add Hospital</button>
     </div>
   </div>
-</div><br>
+</div><br> -->
+
+
+
+
+
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9" style="    margin-top: -4px;">
+      <h5>{{labels1[0].clinicDash}}</h5>
+    </div>
+    <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
+      <button class="btn btncolor" (click)="getglmasterexcel()">
+        {{labels1[0].exportExcel}}</button>
+      <button style="margin-left: 10px;" *ngIf="languageid==1" type="button" routerLink="/HospitalClinicregistration" class="btn btncolor">Add Hospital
+      </button>
+      <button style="margin-left: 10px;" *ngIf="languageid==6" type="button" routerLink="/HospitalClinicregistration" class="btn btncolor">Ajouter
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+
+
 
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
@@ -41,10 +64,23 @@
       </select>
     </div>
 
-    <div class="col-lg-3">
-      {{labels[0].count}}: <b>{{hospitalcount}}</b>
+    <!-- <div class="col-lg-3">
+      {{labels[0].count}}:
+      <b>{{hospitalcount}}</b>
+    </div> -->
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-10">
     </div>
-  </div><br>
+
+    <div class="col-lg-2 Labels">
+      <label>{{labels[0].count}} : {{hospitalcount}}
+      </label>
+    </div>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table id="Doc">
@@ -61,9 +97,10 @@
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
-          <tr
-            *ngFor="let details of hospitalcliniclist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
-            <td><img src="{{details.photoURL}}" style=" height: 50px;width: 50px;" /></td>
+          <tr *ngFor="let details of hospitalcliniclist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td>
+              <img src="{{details.photoURL}}" style=" height: 50px;width: 50px;" />
+            </td>
             <td>{{details.hospital_ClinicName}}</td>
             <td>{{details.phoneNo}}</td>
             <td>{{details.contactPersonName}}</td>
@@ -75,8 +112,7 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 18px;margin-left: 10px;"
-                  (click)="deletehospitalclinic(details.id)"> </a>&nbsp;
+                <img src="assets/Images/dell.png" style="width: 18px;margin-left: 10px;" (click)="deletehospitalclinic(details.id)"> </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditHospitalClinic',details.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 18px">
@@ -86,12 +122,17 @@
         </thead>
       </table>
     </div>
-  </div><br><br>
+  </div>
+  <br>
+  <br>
   <div class="col-lg-12" style="text-align: center">
     <br>
-    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
-      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
-      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
+      previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div><br>
-</div><br><br><br>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>
