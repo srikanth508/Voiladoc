@@ -1,12 +1,10 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
-      <h5 *ngIf="languageID=='1'">Receptionist Dashboard</h5>
+    <div class="col-lg-9">
+      <h5 *ngIf="languageID=='1'">Receptionist</h5>
       <h5 *ngIf="languageID=='6'">secrétaires</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3" style="text-align: end;">
       <button *ngIf="languageID=='1'" type="button" routerLink="/Receptionstlogin" class="btn btncolor">ADD</button>
       <button *ngIf="languageID=='6'" type="button" routerLink="/Receptionstlogin" class="btn btncolor">Ajouter</button>
     </div>

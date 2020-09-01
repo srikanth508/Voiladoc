@@ -1,29 +1,25 @@
-<div class="container-fluid card card-hover">
-  <br>
-  <div class="row">
-    <div class="col-lg-4">
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9">
       <h5>{{labels[0].monthWiseSchedule}}</h5>
-      <br>
     </div>
-    <div class="col-lg-1">
-
-    </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3" style="text-align: end;">
 
     </div>
   </div>
+
 </div><br>
 
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <h6>{{labels[0].year}} : {{year}}</h6>
-      <h6>{{labels[0].month}} : {{showmonth}}</h6>
+      <b>{{labels[0].year}} : {{year}}</b><br>
+      <b>{{labels[0].month}} : {{showmonth}}</b>
     </div>
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select  selected class="form-control" (change)="GetDoctorID($event)">
+      <select selected class="form-control" (change)="GetDoctorID($event)">
         <option value="">{{labels[0].selectDoctor}}</option>
         <option *ngFor="let doc of doctorlist" value={{doc.doctorID}}>{{doc.doctorName}}</option>
       </select>
@@ -39,7 +35,7 @@
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeMonth($event)" [(ngModel)]="month" name="month">
         <option value="">{{labels[0].selectMonth}}</option>
-    <option value="0">{{labels[0].jan}}</option>
+        <option value="0">{{labels[0].jan}}</option>
         <option value="1">{{labels[0].feb}}</option>
         <option value="2">{{labels[0].march}}</option>
         <option value="3">{{labels[0].april}}</option>
@@ -89,7 +85,8 @@
                     (click)="GetDeleteSlots(equi.doctorHospitalDetailsID,1,equi._fulldate)"></a>
 
               </td>
-              <td [style.background-color]="equi.afternoonAppointmentTypeID">{{equi.noonStartTime}} - {{equi.noonEndTime}}
+              <td [style.background-color]="equi.afternoonAppointmentTypeID">{{equi.noonStartTime}} -
+                {{equi.noonEndTime}}
 
                 <br>
                 <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
@@ -120,7 +117,7 @@
                     (click)="GetDeleteSlots(equi.doctorHospitalDetailsID,3,equi._fulldate)" title="Enable"
                     style="width: 30px"></a>
               </td>
-              <td  [style.background-color]="equi.nightAppointmentTypeID">{{equi.nightStartTime}} - {{equi.nightEndTime}}
+              <td [style.background-color]="equi.nightAppointmentTypeID">{{equi.nightStartTime}} - {{equi.nightEndTime}}
 
                 <br>
                 <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>

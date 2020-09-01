@@ -1,21 +1,17 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9">
       <h5>{{labels[0].pharmacyDashboard}}</h5>
     </div>
-    <div class="col-lg-4">
-    </div>
-    <div class="col-lg-2">
-      <button class="btn btn-color" (click)="getglmasterexcel()">
+    <div class="col-lg-3" style="text-align: end;">
+      <button class="btn btncolor" (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
-    </div>
-    <div class="col-lg-1">
-    </div>
-    <div class="col-lg-2">
-      <button *ngIf="languageid==1" type="button" routerLink="/Pharmacyregistration" class="btn btncolor">
-        Add
+      <button style="margin-left: 10px;" *ngIf="languageid==1" type="button" routerLink="/Pharmacyregistration"
+        class="btn btncolor">
+        Add Pharmacy
       </button>
-      <button  *ngIf="languageid==6"  type="button" routerLink="/Pharmacyregistration" class="btn btncolor">
+      <button style="margin-left: 10px;" *ngIf="languageid==6" type="button" routerLink="/Pharmacyregistration"
+        class="btn btncolor">
         Ajouter
       </button>
     </div>
@@ -45,9 +41,12 @@
         <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
       </select>
     </div>
-    <div class="col-lg-3">
-      {{labels[0].count}}:
-      <b>{{pharmacycount}}</b>
+  </div>
+  <div class="row">
+    <div class="col-lg-9">
+    </div>
+    <div class="col-lg-3" style="text-align: end;">
+      <label> {{labels[0].count}} : {{pharmacycount}}</label>
     </div>
   </div>
   <br>

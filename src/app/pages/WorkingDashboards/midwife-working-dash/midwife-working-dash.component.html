@@ -1,12 +1,13 @@
 <div class="container-fluid  card card-hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9">
       <h5>{{labels[0].midwifeworkingdetails}}</h5>
     </div>
-    <div class="col-lg-6">
-    </div>
-    <div class="col-lg-3">
-      <button type="button" class="btn btn-block btncolor" routerLink="/MidwifeWorkingDetails">{{labels[0].addworkingdetails}}</button>
+    <div class="col-lg-3" style="text-align: end;">
+      <button *ngIf="languageid==1" type="button" class="btn  btncolor" routerLink="/MidwifeWorkingDetails">Add
+        Working Details</button>
+      <button *ngIf="languageid==6" type="button" class="btn  btncolor"
+        routerLink="/MidwifeWorkingDetails">Ajouter</button>
     </div>
   </div>
 </div>

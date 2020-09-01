@@ -27,3 +27,6 @@ th::first-letter{
 
 
     }
+    label{
+        margin-right: 10px;
+    }

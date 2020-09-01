@@ -1,5 +1,5 @@
 <div class="container-fluid card card:hover headerspace">
-  <div class="row ">
+  <div class="row headerspace">
     <div class="col-lg-3">
       <h5>{{labels[0].appointmentss}}</h5>
     </div>
@@ -43,16 +43,17 @@
           {{doctor.doctorName}}</option>
       </select>
     </div>
-    <div class="col-lg-2">
-      <label>
-        <b>{{labels[0].count}}</b> :
-        <b>{{count}}</b>
-      </label>
-    </div>
+
   </div>
   <div class="row">
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-6">
+    </div>
+    <div class="col-lg-3 label">
+      <label>{{labels[0].count}} : {{count}}
+      </label>
     </div>
   </div>
   <br>

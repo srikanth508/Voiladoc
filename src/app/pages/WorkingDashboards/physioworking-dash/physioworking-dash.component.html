@@ -1,19 +1,18 @@
 <div class="container-fluid card card-hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-4">
+    <div class="col-lg-9">
       <h5 *ngIf="languageid==1">Physiotherapist Working Details</h5>
       <h5 *ngIf="languageid==6">PHYSIOTHÉRAPEUTE AGENDA</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="text-align: end;">
       <button *ngIf="languageid==1" type="button" class="btn btncolor" routerLink="/PhysiotherapistWorkingDetails">Add
-        Physiotherapist Working</button>
+        Working Details</button>
       <button *ngIf="languageid==6" type="button" class="btn btncolor"
         routerLink="/PhysiotherapistWorkingDetails">Ajouter
       </button>
     </div>
   </div>
+
 </div>
 <br>
 <div class="container-fluid card card:hover">

@@ -1,15 +1,10 @@
-<div class="container-fluid card card-hover">
-  <br>
-  <div class="row">
-    <div class="col-lg-4">
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9">
       <h5>{{labels[0].nurseMonthWise}}</h5>
-      <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
-      <br>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-3" style="text-align: end;">
 
-    </div>
-    <div class="col-lg-2">
     </div>
   </div>
 </div><br>
@@ -17,11 +12,11 @@
   <br>
   <div class="row">
     <div class="col-lg-2">
-      <h6>{{labels[0].year}} : {{year}}</h6>
-      <h6>{{labels[0].month}} : {{showmonth}}</h6>
+      <b>{{labels[0].year}} : {{year}}</b><br>
+      <b>{{labels[0].month}} : {{showmonth}}</b>
     </div>
     <div class="col-lg-3">
-      <select  class="form-control" (change)="GetNurseID($event)">
+      <select class="form-control" (change)="GetNurseID($event)">
         <option value="">{{labels[0].selectNurse}}</option>
         <option *ngFor="let nurse of nurselist" value={{nurse.id}}>{{nurse.nurseName}}</option>
       </select>
