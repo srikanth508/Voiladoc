@@ -80,6 +80,26 @@ export class NewPatientHistoryComponent implements OnInit {
     }
     )
 
+    if (this.departmentid == 14) {
+      debugger
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+        data => {
+          debugger
+          this.soaplist1 = data;
+        }, error => {
+        }
+      )
+    }
+    else if (this.departmentid != 14) {
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+        data => {
+          debugger
+          this.dummsoaplist = data;
+          this.soaplist1 = this.dummsoaplist.filter(x => x.departmentID!= 14);
+        }, error => {
+        }
+      )
+    }
 
     this.docservice.GetPatientDetails(this.patientid).subscribe(
       data => {
@@ -142,26 +162,8 @@ export class NewPatientHistoryComponent implements OnInit {
         }
       )
     }
-    if (this.departmentid == 14) {
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
-        data => {
-          debugger
-          this.soaplist1 = data;
-        }, error => {
-        }
-      )
-    }
-    else if (this.departmentid != 14) {
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
-        data => {
-          debugger
-          this.dummsoaplist = data;
-          this.soaplist1 = this.dummsoaplist.filter(x => x.departmentID != 14);
-        }, error => {
-        }
-      )
-    }
 
+   
 
     if (this.departmentid == 14) {
       this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(
@@ -183,7 +185,6 @@ export class NewPatientHistoryComponent implements OnInit {
         }
       )
     }
-
 
     this.getlanguage();
     this.getlanguagesssss();

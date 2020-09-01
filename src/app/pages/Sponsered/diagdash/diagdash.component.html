@@ -4,7 +4,7 @@
       <h5>{{labels[0].diagnosticDashboard}}</h5>
     </div>
 
-    <div class="col-lg-3" style="margin-top: -10px; text-align: end;">
+    <div class="col-lg-3" style="margin-top: -5px; text-align: end;">
       <button *ngIf="languageid==1" type="button" routerLink="/Diagnosticcenter" class="btn btncolor">ADD</button>
       <button *ngIf="languageid==6" type="button" routerLink="/Diagnosticcenter" class="btn btncolor">Ajouter</button>
     </div>
@@ -16,10 +16,10 @@
     <div class="col-lg-3">
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
         </ng-daterangepicker> -->
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -39,7 +39,8 @@
             <th>{{labels[0].disable}}</th>
             <th>{{labels[0].enable}}</th>
           </tr>
-          <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+          <tr
+            *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.diagnosticCenterName}}</td>
             <!-- <td>{{details.address}}</td> -->
             <td>{{details.sDate}}</td>
@@ -48,13 +49,17 @@
             <td>
               <a [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'">
 
-                <button (click)="disablediagnostic(details.id)" style="background-color: red;color: aliceblue;border: none;" *ngIf="details.hidden=='0'">{{labels[0].disable}}</button>
+                <button (click)="disablediagnostic(details.id)"
+                  style="background-color: red;color: aliceblue;border: none;"
+                  *ngIf="details.hidden=='0'">{{labels[0].disable}}</button>
               </a>
             </td>
             <ng-template #tipcontent2>{{labels[0].enable}}</ng-template>
             <td>
               <a [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'">
-                <button (click)="enablediagnostic(details.id)" style="background-color: green;color: aliceblue;border: none;" *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
+                <button (click)="enablediagnostic(details.id)"
+                  style="background-color: green;color: aliceblue;border: none;"
+                  *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
               </a>
             </td>
           </tr>
@@ -64,8 +69,9 @@
   </div>
   <div class="col-lg-12" style="text-align: center">
     <br>
-    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
-      previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
   </div>
   <br>

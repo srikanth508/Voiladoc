@@ -500,230 +500,6 @@
   </div>
 </div>
 
-<!-- <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addPrescription}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <form #medicineForm="ngForm">
-            <div class="row">
-              <div class="col-lg-4">
-                <h6>Choose From Template </h6>
-              </div>
-              <div class="col-lg-7">
-                <select class="form-control" (change)="GetDoctorPrecriptioTemplateID($event)">
-                  <option selected="selected" value="0">{{labels[0].select}}</option>
-                  <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4"></div>
-              <div class="col-lg-4">
-                <h6>OR Fill All Details</h6>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].mttype}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <select class="form-control" (change)="GetMedicineID($event)" [(ngModel)]="medicineid"
-                  name="medicineid">
-                  <option selected="selected" value="0">{{labels[0].select}}</option>
-                  <option *ngFor="let medicine of medicinelist" value="{{medicine.id}}">{{medicine.name}}</option>
-                </select>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].sig}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
-                  placeholder="{{labels[0].sig}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].drugName}} :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
-                  placeholder="{{labels[0].drugName}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].unitOfMeasure}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
-                  placeholder="{{labels[0].unitOfMeasure}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].dosagee}} :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="dosage" [(ngModel)]="dosage"
-                  placeholder="{{labels[0].dosagee}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].durationn}} :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="duration" [(ngModel)]="duration"
-                  placeholder="{{labels[0].duration}}">
-              </div>
-            </div>
-            <br>
-
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].dispenseQuantityy}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="dispensequantity" [(ngModel)]="dispensequantity"
-                  placeholder="{{labels[0].dispenseQuantityy}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].noteToPharmasist}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="notetopharmacist" [(ngModel)]="notetopharmacist"
-                  placeholder="{{labels[0].noteToPharmasist}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].diagnosiss}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis"
-                  placeholder="{{labels[0].diagnosiss}}">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].howmanyRefillss}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
-                  placeholder="{{labels[0].howmanyRefillss}}">
-              </div>
-            </div>
-            <br>
-
-            <div class="row">
-              <div class="col-lg-4">
-                <label>Save As Template :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="1">&nbsp; Yes
-                &nbsp;&nbsp;
-                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="2">&nbsp; No
-                &nbsp;&nbsp;
-              </div>
-            </div>
-            <br>
-            <div class="row" *ngIf="medicinetemplate=='1'">
-              <div class="col-lg-4">
-                <label>Template Name :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" name="medicinetemplatename" [(ngModel)]="medicinetemplatename"
-                  placeholder="Template Name">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-5">
-              </div>
-              <div class="col-lg-2">
-                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-                  [(disabled)]="medicineForm.form.invalid" (click)="adddetails1()">{{labels[0].add}}</button>
-              </div>
-              <div class="col-lg-5">
-              </div>
-            </div>
-            <br>
-            <div class="row" *ngIf="tablecuont1=='1'">
-              <div class="col-lg-12">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{{labels[0].drugName}}</th>
-                      <th>{{labels[0].unitOfMeasure}}</th>
-                      <th>{{labels[0].dosage}}</th>
-                      <th>{{labels[0].duration}}</th>
-                      <th>{{labels[0].sig}}</th>
-                      <th>{{labels[0].dispenseQuantity}}</th>
-                      <th>{{labels[0].noteToPharmasist}}</th>
-                      <th>{{labels[0].diagnosis}}</th>
-                      <th>{{labels[0].howmanyRefills}}</th>
-                    </tr>
-                    <tr *ngFor="let medicinelist of qwerty2">
-                      <td>{{medicinelist.MedicineName}}</td>
-                      <td>{{medicinelist.UnitOfMeasure}}</td>
-                      <td>{{medicinelist.Dosage}}</td>
-                      <td>{{medicinelist.SIG}}</td>
-                      <td>{{medicinelist.Duration}}</td>
-                      <td>{{medicinelist.DispenseQuantity}}</td>
-                      <td>{{medicinelist.NoteToPharmasist}}</td>
-                      <td>{{medicinelist.Diagnosis}}</td>
-                      <td>{{medicinelist.HowmanyRefills}}</td>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-            </div>
-            <br>
-            <div class="row" *ngIf="tablecuont1=='1'">
-              <div class="col-lg-5">
-              </div>
-              <div class="col-lg-2">
-                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-                  (click)="insertdetails()">{{labels[0].save}}</button>
-              </div>
-              <div class="col-lg-5">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
 
 
 <div class="backdrop" [ngStyle]="{ display: display }"></div>
@@ -1211,28 +987,28 @@
               </div>
             </div>
             <br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-3">
                 <label>
                   <b>{{labels[0].diagnosisCode}}</b>
                 </label>
-                <!-- <span style="color: red;">*</span> -->
+              
               </div>
               <div class="col-lg-7">
                 <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
                   placeholder="{{labels[0].diagnosisCode}}" [ngModelOptions]="{standalone: true}" />
               </div>
             </div>
-            <br>
+            <br> -->
             <div class="row">
               <div class="col-lg-3">
-                <label> <b>ICD Description</b> :</label>
+                <label><b>Diagnosis Description</b> :</label>
               </div>
               <div class="col-lg-7">
                 <!-- <textarea rows="4" class="form-control"  [(ngModel)]="icddescription" placeholder="ICD Description" name="icddescription"   (ngModelChange)="SearchIcrCode()"
                  ></textarea> -->
                 <input id="typeahead-basic" type="text"  class="form-control"
-                  placeholder="ICD Description" [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}"
+                  placeholder="Diagnosis Description" [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}"
                   [ngbTypeahead]="search" (ngModelChange)="getid()" />
               </div>
             </div>
@@ -1255,12 +1031,12 @@
             </div> -->
             <div class="row">
               <div class="col-lg-3">
-                <label><b>ICD Code</b> :</label>
+                <label><b>{{labels[0].diagnosisCode}}</b> :</label>
               </div>
               <div class="col-lg-7">
                 <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
                   name="icdcode" [(ngModel)]="icdcode"></textarea> -->
-                  <input type="text"  class="form-control" disabled [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                  <input type="text"  class="form-control" disabled [ngModelOptions]="{standalone: true}" placeholder="{{labels[0].diagnosisCode}}"
                   name="icdcode" [(ngModel)]="icdcode">
               </div>
             </div>
@@ -1372,19 +1148,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -1402,12 +1165,16 @@
               <table>
                 <thead>
                   <tr>
+                    <th>Department Name</th>
+                    <th>Doctor Name</th>
                     <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].test}}</th>
                     <!-- <th>Actions</th> -->
                   </tr>
                   <tr *ngFor="let dia of dialist">
+                    <td>{{dia.departmentname}}</td>
+                    <td>{{dia.doctorName}}</td>
                     <td>{{dia.appdate}}</td>
                     <td>{{dia.name}}</td>
                     <td>{{dia.testName}}</td>
@@ -1444,6 +1211,8 @@
               <table style="font-size: 14px;">
                 <tr>
                   <th>{{labels[0].date}}</th>
+                  <th>Department Name</th>
+                    <th>Doctor Name</th>
                   <th>{{labels[0].medicineType}}</th>
                   <th>{{labels[0].drugName}}</th>
                   <th>{{labels[0].unitOfMeasure}}</th>
@@ -1457,6 +1226,8 @@
                 </tr>
                 <tr *ngFor="let presciption of prescrptionlist">
                   <td>{{presciption.date}}</td>
+                  <td>{{presciption.departmentname}}</td>
+                  <td>{{presciption.doctorName}}</td>
                   <td>{{presciption.medicinetype}}</td>
                   <td>{{presciption.medicineName}}</td>
                   <td>{{presciption.unitOfMeasure}}</td>

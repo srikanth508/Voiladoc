@@ -17,12 +17,16 @@
         <thead>
           <tr>
             <th>{{labels[0].appointmentDate}}</th>
+            <th>Department Name</th>
+            <th>Doctor Name</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].soap}}</th>
             <!-- <th>{{labels[0].actions}}</th> -->
           </tr>
           <tr *ngFor="let soap of soaplist1|filter:term">
             <td>{{soap.appointDate}}</td>
+            <td>{{soap.departmentname}}</td>
+            <td>{{soap.doctorName}}</td>
             <td>{{soap.pName}}</td>
             <td>
               <ng-template #tipcontent1>SOAP</ng-template>
