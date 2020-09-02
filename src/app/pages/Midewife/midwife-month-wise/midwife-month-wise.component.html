@@ -1,15 +1,11 @@
-<div class="container-fluid card card-hover">
-  <br>
-  <div class="row">
-    <div class="col-lg-4">
-      <h5>Planning</h5>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9">
+      <h5>MidWife Planner</h5>
       <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
       <br>
     </div>
-    <div class="col-lg-1">
-
-    </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3">
 
     </div>
   </div>
@@ -19,8 +15,8 @@
   <br>
   <div class="row">
     <div class="col-lg-2">
-      <h6>{{labels[0].year}} : {{year}}</h6>
-      <h6>{{labels[0].month}} : {{showmonth}}</h6>
+      <b style="font-size: 15px;">{{labels[0].year}} : {{year}}</b>
+      <b style="font-size: 15px;margin-left: 6px;">{{labels[0].month}} : {{showmonth}}</b>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">
@@ -71,13 +67,13 @@
               <td>
                 <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
                 <a [ngbTooltip]="tipcontent6">
-                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px"
+                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 40px"
                     (click)="GetDisableDate(equi.midWifeHospitalDetailsID,equi._fulldate)">
                 </a>
                 <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
                 <a [ngbTooltip]="tipcontent7">
                   <img src="assets/Images/dactive.png" title="Enable" *ngIf="equi.disabled=='1'"
-                    (click)="GetDeleteSlots(equi._fulldate)" style="width: 30px"></a>
+                    (click)="GetDeleteSlots(equi._fulldate)" style="width: 40px"></a>
               </td>
             </tr>
           </thead>

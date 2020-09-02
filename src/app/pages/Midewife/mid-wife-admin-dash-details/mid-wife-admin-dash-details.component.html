@@ -1,7 +1,12 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-6">
-      <h5 *ngIf="languageid==1">{{labels[0].appointmentreports}}</h5>
+      <h5 *ngIf="languageid==1 && id==1">Appointments(total)</h5>
+      <h5 *ngIf="languageid==1 && id==2">Pending Acceptence</h5>
+      <h5 *ngIf="languageid==1 && id==3">Accepted(pending visit)</h5>
+      <h5 *ngIf="languageid==1 && id==4">Patients visited</h5>
+      <h5 *ngIf="languageid==1 && id==5">Cancelled</h5>
+      <h5 *ngIf="languageid==1 && id==6">Patient no show</h5>
       <h5 *ngIf="languageid==6 && id==1">RENDEZ-VOUS (TOTAL)</h5>
       <h5 *ngIf="languageid==6 && id==2">EN ATTENTE D'ACCEPTATION</h5>
       <h5 *ngIf="languageid==6 && id==3">RV ACCEPTÉ (NON EFFECTUÉ)</h5>
@@ -18,10 +23,10 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-6">
 
     </div>
-    <div class="col-lg-2" style="text-align: center;">
+    <div class="col-lg-3" style="text-align: end;">
       <label>{{labels[0].count}} : {{count}}</label>
     </div>
 

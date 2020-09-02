@@ -1,15 +1,12 @@
 <div class="container-fluid  card card:hover headerspace">
   <div class="row headerspace headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid==1">Video Call Revenue</h5>
       <h5 *ngIf="languageid==6">
         Revenus Téléconsultation</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
+      <button class="btn  btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -29,11 +26,14 @@
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-3" style="    text-align: end;
-    margin-left: 160px;">
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-3" style="text-align: end;
+    ">
       <label>
-        <b>Total : </b>
-        <b>{{TotalAmount}}</b>
+        Total :
+        {{TotalAmount}}
       </label>
     </div>
   </div>

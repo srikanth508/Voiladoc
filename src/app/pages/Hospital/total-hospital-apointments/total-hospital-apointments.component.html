@@ -1,16 +1,13 @@
 <div class="container-fluid  card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="ID=='1'">Total Revenue</h5>
       <h5 *ngIf="ID=='2'">Total Appointments</h5>
       <h5 *ngIf="ID=='3'">Doctor Home Care Appointments</h5>
       <h5 *ngIf="ID=='4'">Doctor Home Care Revenue</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    <div class="col-lg-3" style="text-align: end; margin-top: -12px;">
+      <button class="btn  btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -28,12 +25,11 @@
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
     </div>
-    <div class="col-lg-3" style="text-align: end;
-    margin-left: 160px;">
-      <label *ngIf="languageid==1"><b>Count : </b> <b>{{count}}</b></label>
-      <label *ngIf="languageid==6"><b>Nombre : </b> <b>{{count}}</b></label>
+    <div class="col-lg-3" style="text-align: end;">
+      <label *ngIf="languageid==1">Count : {{count}}</label>
+      <label *ngIf="languageid==6">Nombre : {{count}}</label>
     </div>
   </div>
   <br>
@@ -65,7 +61,7 @@
             <td>{{details.pName}}</td>
             <td>{{details.pMobileNo}}</td>
             <td>{{details.emailID}}</td>
-            <td  *ngIf="ID=='4'">{{details.paidAmount}}</td>
+            <td *ngIf="ID=='4'">{{details.paidAmount}}</td>
             <td>
               <!-- <label *ngIf="details.isVisited=='1'" style="color:green">{{labels[0].visited}}</label>
               <label *ngIf="details.noShow=='1'" style="color:yellowgreen">{{labels[0].notVisited}}</label>

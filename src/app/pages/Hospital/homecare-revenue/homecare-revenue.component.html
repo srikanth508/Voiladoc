@@ -1,12 +1,12 @@
 <div class="container-fluid  card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-10" style="margin-top: -2px;">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid==1">Homecare Revenue</h5>
       <h5 *ngIf="languageid==6">RENDEZ-VOUS SOINS À DOMICILE</h5>
     </div>
-
-    <div class="col-lg-2" style="margin-top: -12px;">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btncolor"
+        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -46,12 +46,11 @@
   <div class="row">
     <div class="col-lg-9">
     </div>
-    <div class="col-lg-3" style="    text-align: end;
-    margin-left: -12px;">
+    <div class="col-lg-3" style="text-align: end;">
       <label>
-        Total Amount : {{TotalAmount}}
+        Total :
+        {{TotalAmount}}
       </label>
-
     </div>
   </div>
   <br>

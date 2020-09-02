@@ -59,7 +59,7 @@
             <td>{{doc.hospital_ClinicName}}</td>
             <td>{{doc.doctorName}}</td>
             <td>{{doc.dayOfTheWeek}}</td>
-            <td [style.background-color]="doc.mrngAppointtypeID">
+            <td [style.background-color]="doc.mrngAppointtypeID" [style.color]="doc.mtextcolor">
               {{doc.mrngStartTime}} -- {{doc.mrngEndTime}}
               <br>
               <!-- <img src="assets/Images/edit.png" (click)="gettimeid(1,doc.id,doc.hospital_ClinicID,doc.dayID)"
@@ -67,7 +67,7 @@
               &nbsp;&nbsp;
               <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,1)" style="width: 20px"> -->
             </td>
-            <td style="color: white;" [style.background-color]="doc.afternoonAppointmentTypeID">
+            <td [style.background-color]="doc.afternoonAppointmentTypeID" [style.color]="doc.atextcolor">
               {{doc.noonStartTime}} -- {{doc.noonEndTime}}
               <br>
               <!-- <img src="assets/Images/edit.png" (click)="gettimeid(2,id,hospital_ClinicID)" data-toggle="modal"
@@ -75,7 +75,7 @@
               &nbsp;&nbsp;
               <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,2)" style="width: 20px"> -->
             </td>
-            <td style="color: white;" [style.background-color]="doc.eveningAppointmentTypeID">
+            <td [style.background-color]="doc.eveningAppointmentTypeID" [style.color]="doc.etextcolor">
               {{doc.evngStartTime}} -- {{doc.evngEndTime}}
               <br>
               <!-- <img src="assets/Images/edit.png" (click)="gettimeid(3,id,hospital_ClinicID)" data-toggle="modal"
@@ -83,7 +83,7 @@
               &nbsp;&nbsp;
               <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,3)" style="width: 20px"> -->
             </td>
-            <td style="color: white;" [style.background-color]="doc.nightAppointmentTypeID">
+            <td [style.background-color]="doc.nightAppointmentTypeID" [style.color]="doc.ntextcolor">
               {{doc.nightStartTime}} -- {{doc.nightEndTime}}
               <br>
               <!-- <img src="assets/Images/edit.png" (click)="gettimeid(4,id,hospital_ClinicID)" data-toggle="modal"

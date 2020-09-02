@@ -1,11 +1,10 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9">
       <h5>{{labels[0].hospitalorClinic}}</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
+
+    <div class="col-lg-3" style="text-align: end; margin-top: -12px;">
       <button type="button" routerLink="/Hspclidash" class="btn btncolor">{{labels[0].dashboard}}</button>
     </div>
   </div>
@@ -18,10 +17,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="radio" value="1" name="hspcliid" required [(ngModel)]="hspcliid"
-          (change)="handleChange($event)">Hospital &nbsp;&nbsp;
-        <input type="radio" value="2" name="hspcliid" required [(ngModel)]="hspcliid"
-          (change)="handleChange($event)">Clinic
+        <input type="radio" value="1" name="hspcliid" required [(ngModel)]="hspcliid" (change)="handleChange($event)">Hospital &nbsp;&nbsp;
+        <input type="radio" value="2" name="hspcliid" required [(ngModel)]="hspcliid" (change)="handleChange($event)">Clinic
       </div>
     </div>
     <br>
@@ -36,8 +33,7 @@
      <option  value="" selected="selected">select</option>
      <option *ngFor="let hospital of hospitalcliniclist" value={{hospital.id}}>{{hospital.hospital_ClinicName}}</option>  
    </select> -->
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitalcliniclist" [settings]="hospitaldd"
-          (onSelect)="GetHospitalID($event)">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitalcliniclist" [settings]="hospitaldd" (onSelect)="GetHospitalID($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -49,9 +45,8 @@
       </div>
 
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].startdate}}" class="form-control"
-          [bsConfig]="{ showWeekNumbers:false }" name="startdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-          [(ngModel)]="startdate" (change)="GetEnddate()" bsDatepicker>
+        <input type="text" placeholder="{{labels[0].startdate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="startdate"
+          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="startdate" (change)="GetEnddate()" bsDatepicker>
         <!-- <input type="date" name="startdate" min='{{todaydate}}' required [(ngModel)]="startdate" class="form-control"
           (change)="GetEnddate()"> -->
       </div>
@@ -64,19 +59,19 @@
       </div>
 
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].endDate}}" class="form-control"
-          [bsConfig]="{ showWeekNumbers:false }" name="enddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-          [(ngModel)]="enddate" bsDatepicker>
+        <input type="text" placeholder="{{labels[0].endDate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="enddate"
+          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="enddate" bsDatepicker>
         <!-- <input type="date" name="enddate" min='{{startdate}}' required [(ngModel)]="enddate" class="form-control"> -->
       </div>
     </div>
-    <br><br>
+    <br>
+    <br>
     <div class="row">
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" [disabled]="hospitalForm.form.invalid" text_align="center"
-          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+        <button type="button" [disabled]="hospitalForm.form.invalid" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">{{labels[0].save}}</button>
       </div>
       <div class="col-lg-5">
 
