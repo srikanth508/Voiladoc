@@ -7,13 +7,14 @@
 
     </div>
   </div>
-</div><br>
+</div>
+<br>
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <div class="col-lg-2">
-      <b>{{labels[0].year}} : {{year}}</b><br>
-      <b>{{labels[0].month}} : {{showmonth}}</b>
+    <div class="col-lg-3">
+      <b>{{labels[0].year}} : {{year}}</b>
+      <b style="margin-left: 27px;">{{labels[0].month}} : {{showmonth}}</b>
     </div>
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
@@ -48,7 +49,8 @@
         <option value="11">{{labels[0].dec}}</option>
       </select>
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12">
       <div style="margin-top:3px">
@@ -74,13 +76,12 @@
               <td>
                 <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
                 <a [ngbTooltip]="tipcontent6">
-                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px"
-                    (click)="GetDisableDate(equi.physiohospitalid,equi._fulldate)">
+                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px" (click)="GetDisableDate(equi.physiohospitalid,equi._fulldate)">
                 </a>
                 <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
                 <a [ngbTooltip]="tipcontent7">
-                  <img src="assets/Images/dactive.png" title="Enable" *ngIf="equi.disabled=='1'"
-                    (click)="GetDeleteSlots(equi._fulldate)" style="width: 30px"></a>
+                  <img src="assets/Images/dactive.png" title="Enable" *ngIf="equi.disabled=='1'" (click)="GetDeleteSlots(equi._fulldate)" style="width: 30px">
+                </a>
               </td>
             </tr>
           </thead>

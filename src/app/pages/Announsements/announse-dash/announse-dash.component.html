@@ -1,12 +1,10 @@
 <div class="container-fluid card card:hover ">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9" style="margin-top: 11px;">
       <h5>{{labels[0].announsements}}</h5>
     </div>
-    <div class="col-lg-7">
 
-    </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3" style="text-align: end;margin-top: 5px;">
       <button type="button" routerLink="/Announsements" class="btn btncolor">ADD</button>
     </div>
   </div>
@@ -18,10 +16,10 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -57,21 +55,20 @@
             <td>
               <p innerHTML="{{details.description}}"></p>
               <!-- </p>{{details.description}}</td> -->
-            <td>
-              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
-              <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                  (click)="DeleteAnnouncements(details.id)">
-              </a>
-              <a>
-                <img *ngIf="details.enableDisable =='0'" src="assets/Images/dactive.png" title="Disable"
-                  (click)="DisableAnnouncements(details.id)" style="width: 50px;" />
-              </a>
-              <a>
-                <img *ngIf="details.enableDisable =='1'" (click)="EnableAnnouncements(details.id)"
-                  src="assets/Images/active.png" title="Enable" style="width: 50px;" />
-              </a>
-            </td>
+              <td>
+                <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                <a [ngbTooltip]="tipcontent2">
+                  <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteAnnouncements(details.id)">
+                </a>
+                <a>
+                  <img *ngIf="details.enableDisable =='0'" src="assets/Images/dactive.png" title="Disable" (click)="DisableAnnouncements(details.id)"
+                    style="width: 50px;" />
+                </a>
+                <a>
+                  <img *ngIf="details.enableDisable =='1'" (click)="EnableAnnouncements(details.id)" src="assets/Images/active.png" title="Enable"
+                    style="width: 50px;" />
+                </a>
+              </td>
           </tr>
         </thead>
       </table>

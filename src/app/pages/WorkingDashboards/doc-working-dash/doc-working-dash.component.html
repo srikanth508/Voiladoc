@@ -1,9 +1,9 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-9">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].doctoeworkingdetails}}</h5>
     </div>
-    <div class="col-lg-3" style="text-align: end;">
+    <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button style="margin-left: 10px;" type="button" routerLink="/Docworkingdetails" class="btn btncolor">
         {{labels[0].add_Working_Details}}
       </button>
@@ -39,7 +39,8 @@
         <option *ngFor="let days of dayslist" value={{days.dayOfTheWeek}}>{{days.dayOfTheWeek}}</option>
       </select>
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -58,7 +59,7 @@
             <td>{{doc.hospital_ClinicName}}</td>
             <td>{{doc.doctorName}}</td>
             <td>{{doc.dayOfTheWeek}}</td>
-            <td  [style.background-color]="doc.mrngAppointtypeID">
+            <td [style.background-color]="doc.mrngAppointtypeID">
               {{doc.mrngStartTime}} -- {{doc.mrngEndTime}}
               <br>
               <!-- <img src="assets/Images/edit.png" (click)="gettimeid(1,doc.id,doc.hospital_ClinicID,doc.dayID)"
@@ -104,5 +105,8 @@
         </thead>
       </table>
     </div>
-  </div><br>
-</div><br><br>
+  </div>
+  <br>
+</div>
+<br>
+<br>

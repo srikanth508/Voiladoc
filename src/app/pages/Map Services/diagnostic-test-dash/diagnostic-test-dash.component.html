@@ -1,9 +1,9 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-9">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].diagnosticTest}}</h5>
     </div>
-    <div class="col-lg-3" style="text-align: end;">
+    <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button *ngIf="languageid==1" type="button" routerLink="/Diagnostictest" class="btn btncolor">Add Test</button>
       <button *ngIf="languageid==6" type="button" routerLink="/Diagnostictest" class="btn btncolor">Ajouter</button>
     </div>
@@ -33,7 +33,8 @@
         <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
       </select>
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -57,20 +58,23 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                  (click)="DeleteDiagnostocServces(details.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteDiagnostocServces(details.id)">
               </a>
             </td>
           </tr>
         </thead>
       </table>
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="col-lg-12" style="text-align: center">
     <br>
-    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
-      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
-      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
+      previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div><br><br>
-</div><br><br>
+  </div>
+  <br>
+  <br>
+</div>
+<br>
+<br>

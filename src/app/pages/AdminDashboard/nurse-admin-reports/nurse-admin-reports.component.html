@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row headerspace">
     <div class="col-lg-5">
       <h5>{{labels[0].appointmentReports}}</h5>
@@ -6,8 +6,19 @@
     <div class="col-lg-4">
     </div>
     <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-10" style="margin-top: -2px;">
+      <h5>{{labels[0].appointmentReports}}</h5>
+    </div>
+
+    <div class="col-lg-2" style="margin-top: -5px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -15,23 +26,17 @@
 <div class="container-fluid card card:hover">
   <br>
   <div class="row">
- 
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
+    <div class="col-lg-7">
 
-    <div class="col-lg-3">
-      <!-- <select class="form-control" (change)="getget($event)" >
-        <option value="4" selected>{{labels[0].select}}</option>
-        <option value="1">{{labels[0].visited}}</option>
-        <option value="2">{{labels[0].cancelled}}</option>
-        <option value="3">{{labels[0].notVisited}}</option>
-      </select> -->
     </div>
-    <div class="col-lg-2">
-      {{labels[0].count}} : <b>{{count}}</b>
+    <div class="col-lg-2" style="margin-left: -5px; text-align: end;">
+      {{labels[0].count}} : {{count}}
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table id="Nurse">
@@ -62,7 +67,7 @@
             <td>{{app.reasonForVisit}}</td>
             <td>
               <label style="color:yellowgreen">{{labels[0].visited}}</label>
-            
+
             </td>
           </tr>
         </thead>
@@ -74,5 +79,3 @@
 <br>
 <br>
 <br>
-
-

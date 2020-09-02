@@ -1,9 +1,9 @@
 <div class="container-fluid  card card:hover">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-9" style="margin-top: 12px;">
       <h5>{{labels[0].appointmentReport}}</h5>
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-3">
     </div>
     <!-- <div class="col-lg-2">
       <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
@@ -31,19 +31,31 @@
       </select>
     </div>
     <div class="col-lg-3">
-     <select class="form-control"  (change)="GetAppointmenttype($event)">
-       <option value="1">{{labels[0].selectAppType}}</option>
-       <option value="2">{{labels[0].inclinic}}</option>
-       <option value="3">{{labels[0].vedio}}</option>
-     </select>
+      <select class="form-control" (change)="GetAppointmenttype($event)">
+        <option value="1">{{labels[0].selectAppType}}</option>
+        <option value="2">{{labels[0].inclinic}}</option>
+        <option value="3">{{labels[0].vedio}}</option>
+      </select>
     </div>
   </div>
+
+
   <div class="row">
-    <div class="col-lg-11">
+    <div class="col-lg-9"></div>
+    <div class="col-lg-3" style="text-align: end;    margin-left: -5px;">
+      <label>{{labels[0].count}} : {{count}}</label>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <!-- <div class="col-lg-11">
     </div>
     <div class="col-lg-1">
       <label><b>{{labels[0].count}}:</b> <b>{{count}}</b></label>
-    </div>
+    </div> -->
     <div class="col-lg-12">
       <table class="table" id="Appointment" style="overflow: auto;">
         <thead>
@@ -71,17 +83,24 @@
               <!-- <label *ngIf="details.isVisited=='1'" style="color:green">{{labels[0].visited}}</label>
               <label *ngIf="details.noShow=='1'" style="color:yellowgreen">{{labels[0].notVisited}}</label>
               <label *ngIf="details.cancelled=='1'||details.docCancelled=='1'" style="color:red">{{labels[0].cancel}}</label> -->
-              <label *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'" style="color: green;">{{labels[0].accepted}}</label>
+              <label *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"
+                style="color: green;">{{labels[0].accepted}}</label>
               <label *ngIf="details.cancelled=='1'" style="color: red;">{{labels[0].patientCancelled}}</label>
               <label *ngIf="details.isVisited=='1'&&details.accepted=='1'" style="color: orange;">{{labels[0].visited}}</label>
               <label *ngIf="details.docCancelled=='1'" style="color: red;">{{labels[0].docCancelled}}</label>
-              <label *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
-              style="color: rgb(255, 0, 149);" >{{labels[0].pending}}</label>
+              <label *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'" style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
               <label *ngIf="details.accepted=='1'&&details.noShow=='1'" style="color: red;">{{labels[0].notVisited}}</label>
             </td>
           </tr>
         </thead>
-      </table><br><br>
+      </table>
+      <br>
+      <br>
     </div>
-  </div><br>
-</div><br><br><br><br>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>
+<br>

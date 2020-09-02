@@ -14,14 +14,11 @@
 
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-10" style="margin-top: -2px;">
       <h5>{{labels1[0].digorederReports}}</h5>
     </div>
-    <div class="col-lg-4">
-    </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    <div class="col-lg-2" style="margin-top: -12px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -34,10 +31,10 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
@@ -51,16 +48,26 @@
       </select>
     </div>
   </div>
-  <br>
-  <div class="row" style="overflow: auto;">
+
+  <div class="row">
     <div class="col-lg-10">
+
+    </div>
+    <div class="col-lg-2" style="margin-left: -5px; text-align: end">
+      <label>{{labels[0].count}} : {{count}}</label>
+    </div>
+
+  </div>
+  <br>
+  <div class="row" style="overflow: auto;    padding: 12px;">
+    <!-- <div class="col-lg-10">
     </div>
     <div class="col-lg-2">
       <label>
         <b>{{labels[0].count}}:</b>
         <b>{{count}}</b>
       </label>
-    </div>
+    </div> -->
     <table class="table" id="Diagnostic" style="overflow: auto;">
       <thead>
         <tr>
@@ -90,13 +97,11 @@
           <td>
             <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
             <a [ngbTooltip]="tipcontent18" *ngIf="details.testsCount!=0">
-              <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;"
-                (click)="GetTestsID(details.id)">
+              <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;" (click)="GetTestsID(details.id)">
             </a>&nbsp;
             <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
             <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
-              <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;"
-                (click)="GetPackageID(details.id)">
+              <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;" (click)="GetPackageID(details.id)">
             </a>
           </td>
           <td>{{details.slotName}}</td>
@@ -109,8 +114,7 @@
           <td>
             <label *ngIf="details.approved=='1'" style="color:green">{{labels[0].visited}}</label>
             <label *ngIf="details.notVisited=='1'" style="color:yellowgreen">{{labels[0].notVisited}}</label>
-            <label *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'"
-              style="color:red">{{labels[0].cancelled}}</label>
+            <label *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'" style="color:red">{{labels[0].cancelled}}</label>
           </td>
 
         </tr>
@@ -126,8 +130,7 @@
 
 
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -164,8 +167,7 @@
 
 
 
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -204,8 +206,7 @@
 
 
 
-<div class="modal fade" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

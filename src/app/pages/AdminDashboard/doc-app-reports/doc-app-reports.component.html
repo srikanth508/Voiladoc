@@ -1,13 +1,11 @@
 <div class="container-fluid  card card:hover">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-10" style="margin-top: 9px;">
       <h5>{{labels[0].appointmentReport}}</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+
+    <div class="col-lg-2" style="margin-top: 8px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -23,8 +21,10 @@
   <div class="row">
     <div class="col-lg-11">
     </div>
-    <div class="col-lg-1">
-      <label><b>{{labels[0].count}}:</b> <b>{{count}}</b></label>
+    <div class="col-lg-1" style="text-align: end;">
+      <label>
+        {{labels[0].count}}: {{count}}
+      </label>
     </div>
     <div class="col-lg-12">
       <table class="table card card:hover" id="Appointment" style="overflow: auto;">
@@ -54,7 +54,14 @@
             </td>
           </tr>
         </thead>
-      </table><br><br>
+      </table>
+      <br>
+      <br>
     </div>
-  </div><br>
-</div><br><br><br><br>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>
+<br>

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row headerspace">
     <div class="col-lg-5">
       <h5>{{labels[0].appointmentreports}}</h5>
@@ -10,7 +10,19 @@
         (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
+</div> -->
+<div class="container-fluid  card card:hover">
+  <div class="row headerspace">
+    <div class="col-lg-10" style="margin-top: 9px;">
+      <h5>{{labels[0].appointmentreports}}</h5>
+    </div>
+
+    <div class="col-lg-2" style="margin-top: 8px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    </div>
+  </div>
 </div>
+
 <br>
 <div class="container-fluid card card:hover">
   <br>
@@ -30,7 +42,8 @@
         <option value="4">{{labels[0].notVisited}}</option>
       </select> -->
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table id="MidWife">
@@ -61,7 +74,7 @@
             <td>{{app.reasonForVisit}}</td>
             <td>
               <label style="color:yellowgreen">{{labels[0].visited}}</label>
-              
+
             </td>
           </tr>
         </thead>

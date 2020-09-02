@@ -1,16 +1,16 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-9">
       <h5>{{labels1[0].supportDash}}</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
+
+    <div class="col-lg-3" style="text-align: end;">
       <button *ngIf="languageid==1" type="button" routerLink="/SupportReg" class="btn btncolor">Add</button>
       <button *ngIf="languageid==6" type="button" routerLink="/SupportReg" class="btn btncolor">Ajouter</button>
     </div>
   </div>
-</div><br>
+</div>
+<br>
 <div class="container-fluid card card:hover ">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
@@ -35,13 +35,34 @@
       </select>
     </div>
 
-    <div *ngIf="languageid==1" class="col-lg-2">
-      Count: <b>{{count}}</b>
+    <!-- <div *ngIf="languageid==1" class="col-lg-2">
+      Count:
+      <b>{{count}}</b>
     </div>
     <div *ngIf="languageid==6" class="col-lg-2">
-      Nombre : <b>{{count}}</b>
+      Nombre :
+      <b>{{count}}</b>
     </div>
-  </div><br>
+  </div> -->
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-11">
+
+    </div>
+    <div class="col-lg-1" style="text-align: end">
+      <div *ngIf="languageid==1">
+        Count:
+        <b>{{count}}</b>
+      </div>
+      <div *ngIf="languageid==6">
+        Nombre :
+        <b>{{count}}</b>
+      </div>
+    </div>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -59,8 +80,7 @@
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
-          <tr
-            *ngFor="let details of localdoclist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+          <tr *ngFor="let details of localdoclist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <!-- <td><img src="{{details.photourl}}" style="height: 50px;width: 50px;" /></td> -->
             <td>{{details.name}}</td>
             <td>{{details.mobileNumber}}</td>
@@ -74,8 +94,7 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                  (click)="DeleteSupportRegistration(details.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteSupportRegistration(details.id)">
               </a>
               <!-- <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditDoctorRegistration',details.id]" style="color:black">
@@ -86,12 +105,18 @@
         </thead>
       </table>
     </div>
-  </div><br><br>
+  </div>
+  <br>
+  <br>
   <div class="col-lg-12" style="text-align: center">
     <br>
-    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
-      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
-      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
+      previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div><br><br>
-</div><br><br><br>
+  </div>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
