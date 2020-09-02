@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-mychats',
@@ -39,6 +40,8 @@ export class MychatsComponent implements OnInit {
   public attachmentsurl = [];
   public imageurl: any;
   public image: any;
+
+  chatIDlist: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
@@ -51,14 +54,14 @@ export class MychatsComponent implements OnInit {
     )
     this.image = 0;
 
-
     this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
       debugger;
-      this.chatID = res;
+      this.chatIDlist = res;
+      this.chatID = this.chatIDlist[0].chatID
       this.getPreviousChat();
       this.oberserableTimer();
       this.getserverdateandtime();
-      this.appointmentiddd = 570;
+      // this.appointmentiddd = 570;
       this.appointmentdatetimee = localStorage.getItem('appdate');
       this.getserverdateandtime();
       this.getPreviousChat();
@@ -67,6 +70,9 @@ export class MychatsComponent implements OnInit {
     })
 
   }
+
+
+  
   labels: any
 
   public getlanguage() {
@@ -121,10 +127,10 @@ export class MychatsComponent implements OnInit {
       }
       else {
         var entity = {
-          'ChatID': null,
+          // 'ChatID': this.chatID,
           'DoctorID': this.doctorid,
           'PatientID': this.patientiddd,
-          'Read_Me': 0
+          // 'Read_Me': 0
         }
         this.docservice.InsertChatMaster(entity).subscribe(data => {
           debugger
@@ -146,7 +152,9 @@ export class MychatsComponent implements OnInit {
         'Message': conversation,
         'SenderID': this.doctorid,
         'Sender': 'Doctor',
-        'MessageType': 1
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entity).subscribe(data => {
         debugger
@@ -165,7 +173,9 @@ export class MychatsComponent implements OnInit {
         'Message': this.imageurl,
         'SenderID': this.doctorid,
         'Sender': 'Doctor',
-        'MessageType': 2
+        'MessageType': 2,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entitys).subscribe(data => {
         debugger
@@ -178,55 +188,66 @@ export class MychatsComponent implements OnInit {
 
       })
     }
-
   }
 
+
   public getPreviousChat() {
-    this.docservice.GetChatDetails(this.chatID).subscribe(res => {
+    this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
       debugger
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
-
-        if (Chatconversation[i].Message.includes('[doc:-')) {
-
-          var msg = Chatconversation[i].Message.substring(
-            Chatconversation[i].Message.lastIndexOf("[doc:-") + 6,
-            Chatconversation[i].Message.lastIndexOf(";")
-          );
-          var chattime = Chatconversation[i].Message.substring(
-            Chatconversation[i].Message.lastIndexOf("time:-") + 6,
-            Chatconversation[i].Message.lastIndexOf("time:-") + 7 + 8
-          );
-          this.coversationarray.push({ user: 'doc', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].MessageType })
+        debugger
+        if (Chatconversation[i].sender == 'Patient') {
+          this.coversationarray.push({
+            chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
+          })
         }
-        else if (Chatconversation[i].Message.includes('[pat:-')) {
-
-          var msg = Chatconversation[i].Message.substring(
-            Chatconversation[i].Message.lastIndexOf("[pat:-") + 6,
-            Chatconversation[i].Message.lastIndexOf(";")
-          );
-          var chattime = Chatconversation[i].Message.substring(
-            Chatconversation[i].Message.lastIndexOf("time:-") + 6,
-            Chatconversation[i].Message.lastIndexOf("time:-") + 7 + 8
-          );
-          this.coversationarray.push({ user: 'pat', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].MessageType })
-        }
-        else {
-
-          if (Chatconversation[i].Sender == 'Patient') {
-            this.coversationarray.push({ user: 'pat', chatmsg: Chatconversation[i].Message, time: chattime, msgtype: Chatconversation[i].MessageType })
-          }
-          if (Chatconversation[i].Sender == 'Doctor') {
-            this.coversationarray.push({ user: 'doc', chatmsg: Chatconversation[i].Message, time: chattime, msgtype: Chatconversation[i].MessageType })
-          }
+        debugger
+        if (Chatconversation[i].sender == 'Doctor') {
+          this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
       }
+      debugger
+      // for (let i = 0; i < Chatconversation.length; i++) {
 
+      //   Chatconversation[i]['Message']=Chatconversation[i].Chatconversation;
+      //   if (Chatconversation[i].Message.Includes('[doc:-')) {
 
+      //     var msg = Chatconversation[i].Message.substring(
+      //       Chatconversation[i].Message.lastIndexOf("[doc:-") + 6,
+      //       Chatconversation[i].Message.lastIndexOf(";")
+      //     );
+      //     var chattime = Chatconversation[i].Message.substring(
+      //       Chatconversation[i].Message.lastIndexOf("time:-") + 6,
+      //       Chatconversation[i].Message.lastIndexOf("time:-") + 7 + 8
+      //     );
+      //     this.coversationarray.push({ user: 'doc', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].MessageType })
+      //   }
+      //   else if (Chatconversation[i].Message.includes('[pat:-')) {
 
-
+      //     var msg = Chatconversation[i].Message.substring(
+      //       Chatconversation[i].Message.lastIndexOf("[pat:-") + 6,
+      //       Chatconversation[i].Message.lastIndexOf(";")
+      //     );
+      //     var chattime = Chatconversation[i].Message.substring(
+      //       Chatconversation[i].Message.lastIndexOf("time:-") + 6,
+      //       Chatconversation[i].Message.lastIndexOf("time:-") + 7 + 8
+      //     );
+      //     this.coversationarray.push({ user: 'pat', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].MessageType })
+      //   }
+      //   else {
+      //     debugger
+      //     if (Chatconversation[i].Sender == 'Patient') {
+      //       this.coversationarray.push({ user: 'pat', chatmsg: Chatconversation[i].Message, time: chattime, msgtype: Chatconversation[i].MessageType })
+      //     }
+      //     debugger
+      //     if (Chatconversation[i].Sender == 'Doctor') {
+      //       this.coversationarray.push({ user: 'doc', chatmsg: Chatconversation[i].Message, time: chattime, msgtype: Chatconversation[i].MessageType })
+      //     }
+      //   }
+      // }
     })
   }
 
@@ -234,33 +255,33 @@ export class MychatsComponent implements OnInit {
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
       this.getPreviousChat();
-      this.updateusertyping();
-      this.getusertyping();
+      // this.updateusertyping();
+      // this.getusertyping();
       var objDiv = document.getElementById("chatboxdiv");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
   }
 
-  public updateusertyping() {
-    if (this.chatconversation.length > 0) {
-      this.docservice.UpdateIsTyping(this.appointmentiddd, true).subscribe(res => {
-        let tt = res;
-      })
-    }
-    else {
-      this.docservice.UpdateIsTyping(this.appointmentiddd, false).subscribe(res => {
-        let tt = res;
-      })
-    }
-  }
+  // public updateusertyping() {
+  //   if (this.chatconversation.length > 0) {
+  //     this.docservice.UpdateIsTyping(this.appointmentiddd, true).subscribe(res => {
+  //       let tt = res;
+  //     })
+  //   }
+  //   else {
+  //     this.docservice.UpdateIsTyping(this.appointmentiddd, false).subscribe(res => {
+  //       let tt = res;
+  //     })
+  //   }
+  // }
 
-  public getusertyping() {
-    this.docservice.getChat(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
-      let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
-      this.istyping = isUserTyping[0].isTyping;
-    })
-  }
+  // public getusertyping() {
+  //   this.docservice.getChat(this.doctorid, this.patientiddd).subscribe(res => {
+  //     debugger;
+  //     let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
+  //     this.istyping = isUserTyping[0].isTyping;
+  //   })
+  // }
 
   public onattachmentUpload(abcd) {
     debugger

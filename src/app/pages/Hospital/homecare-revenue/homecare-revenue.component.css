@@ -13,3 +13,6 @@
     #imp{
       text-transform: none;
     }
+    label{
+      margin-right: 10px;
+    }

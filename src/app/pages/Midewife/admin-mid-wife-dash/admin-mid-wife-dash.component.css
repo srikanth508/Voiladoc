@@ -12,9 +12,10 @@
     background-color:#2e2d6e;;
     color: white;
     text-align: center;
-    padding: 7px;
+    padding: 7px; 
     font-size: 14px;
     height: 150px;
+    width: 200px;
     margin-left: 4%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }

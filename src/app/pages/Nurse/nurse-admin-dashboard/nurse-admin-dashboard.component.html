@@ -20,14 +20,13 @@
 <div class="container-fluid card card:hover">
   <br>
   <div class="row">
-
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-6">
     </div>
-    <div class="col-lg-2" style="text-align: center;">
-      {{labels[0].count}} : <b>{{count}}</b>
+    <div class="col-lg-3" style="text-align: end;">
+      <label> {{labels[0].count}} : {{count}}</label>
     </div>
   </div><br>
   <div class="row">

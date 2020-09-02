@@ -1,11 +1,9 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].sickSlipGenerator}}</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
       <button type="button" routerLink="/SickSlipDashboard" class="btn btncolor">{{labels[0].dashboard}}</button>
     </div>
   </div>
@@ -15,7 +13,7 @@
   <br>
   <div *ngIf="paramid==undefined" class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].patientname}} :</b> </label>
+      <label>{{labels[0].patientname}} : </label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -31,7 +29,7 @@
   <br>
   <!-- <div class="row">
     <div class="col-lg-3">
-      <label><b>Patient Name</b> </label>
+      <label>Patient Name </label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -41,7 +39,7 @@
   </div> -->
   <div *ngIf="paramid!=undefined" class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].patientname}}: </b> </label>
+      <label>{{labels[0].patientname}}: </label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -52,7 +50,7 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].patientNumber}} :</b> </label>
+      <label>{{labels[0].patientNumber}} : </label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -62,7 +60,7 @@
   </div>
   <div class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].email}}</b> :</label>
+      <label>{{labels[0].email}} :</label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -75,7 +73,7 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].from}} :</b> </label>
+      <label>{{labels[0].from}} : </label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -91,7 +89,7 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].to}}</b> :</label>
+      <label>{{labels[0].to}} :</label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -106,21 +104,23 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].leaveOfAbsence}} :</b> </label>
+      <label>{{labels[0].leaveOfAbsence}} : </label>
       <span style="color: red;">*</span>
     </div>
     <br>
     <div class="col-lg-2">
-      <input type="radio" value="{{labels[0].school}}" [(ngModel)]="leavefor" name="todate" (change)="Getscholladate()"> {{labels[0].school}}
+      <input type="radio" value="{{labels[0].school}}" [(ngModel)]="leavefor" name="todate" (change)="Getscholladate()">
+      {{labels[0].school}}
     </div>
     <div class="col-lg-2">
-      <input type="radio" value="{{labels[0].office}}" [(ngModel)]="leavefor" name="todate" (change)="Getscholladate()"> {{labels[0].office}}
+      <input type="radio" value="{{labels[0].office}}" [(ngModel)]="leavefor" name="todate" (change)="Getscholladate()">
+      {{labels[0].office}}
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label><b>{{labels[0].ailment}} :</b> </label>
+      <label>{{labels[0].ailment}} : </label>
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
@@ -150,7 +150,7 @@
 <p style="float: right;">DATE: {{todaydate}}</p>
 <br>
 <p>To Whom It May Concern:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS IS TO CERTIFY THAT <b>{{patientname}}</b> of
-  <b>{{address}}</b> was examined and treated on <b>{{todaydate}}</b> with following diagnosis: <b>{{ailment}}</b> and
-  would require rest from <b>{{fromdate}}</b> to <b>{{todate}}</b> barring complication.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THIS IS TO CERTIFY THAT {{patientname}} of
+  {{address}} was examined and treated on {{todaydate}} with following diagnosis: {{ailment}} and
+  would require rest from {{fromdate}} to {{todate}} barring complication.</p>
 <p style="float: right;"><u>{{doctorname}}</u></p> -->

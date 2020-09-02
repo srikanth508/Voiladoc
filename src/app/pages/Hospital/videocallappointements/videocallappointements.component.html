@@ -1,14 +1,11 @@
 <div class="container-fluid  card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid==1">Video Call Appointment</h5>
       <h5 *ngIf="languageid==6">Rendez-vous Téléconsultation</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
+      <button class="btn btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -16,7 +13,7 @@
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
@@ -27,10 +24,12 @@
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-3" style="text-align: end;
-    margin-left: 160px;">
-      <label *ngIf="languageid==1"><b>Count : </b> <b>{{count}}</b></label>
-      <label *ngIf="languageid==6"><b>Nombre : </b> <b>{{count}}</b></label>
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-3" style="text-align: end;">
+      <label *ngIf="languageid==1">Count : {{count}}</label>
+      <label *ngIf="languageid==6">Nombre : {{count}}</label>
     </div>
   </div>
   <br>

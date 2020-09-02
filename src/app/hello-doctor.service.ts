@@ -2318,15 +2318,18 @@ export class HelloDoctorService {
   public InsertChatDetails(data) {
     // this.url = 'https://14.192.17.225/MongoAPI/Api/Employee/InsertChatDetails';
     // this.url = 'https://localhost:44317/Api/Employee/InsertChatMaster';
-    this.url = this.host + '/Admin/InsertChatMaster';
+    this.url = this.host + '/Admin/InsertChatDetails';
 
     return this.http.post(this.url, data)
   }
+
   public GetChatDetails(did) {
     debugger
     // return this.http.get<any[]>('https://14.192.17.225/MongoAPI/Api/Employee/GetChatDetailsById?ChatID=' + did);
     // return this.http.get<any[]>('https://localhost:44317/Api/Employee/GetChatDetailsById?ChatID=' + did);
-    return this.http.get<any[]>(this.host + '/Admin/GetChatDetailsById?ChatID=' + did);
+    // return this.http.get<any[]>(this.host + '/Admin/GetChatDetails?ChatID=' + did);
+
+    return this.http.get<any[]>(this.host + '/Admin/GetChatDetails?ChatID=' + did);
   }
 
 
@@ -4048,5 +4051,11 @@ export class HelloDoctorService {
 
     this.url = this.host + '/Doctor/UpdateRefundAmount';
     return this.http.post(this.url, data)
+  }
+
+
+  public GetDoctor_ChatDetailsMobileWeb(chatid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Admin/GetDoctor_ChatDetailsMobileWeb?ChatID=' + chatid);
   }
 }

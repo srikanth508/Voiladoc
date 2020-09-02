@@ -1,77 +1,74 @@
 <div class="container-fluid card card-hover" style="height: 550px;">
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <h4>{{labels[0].chatmessagee}}</h4>
-      <span *ngIf="istyping==true">typing .... </span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
+        <!-- <span *ngIf="istyping==true">typing .... </span> -->
+      </div>
     </div>
-    
-
-  </div>
-  <div style="height: 500px;overflow-y: scroll;">
-    <div *ngFor='let convo of coversationarray'>
-      <div class="container" *ngIf='convo.user=="doc"'>
-        <div class="row">
-          <div class="col-lg-4"></div>
-          <div class="col-lg-3"></div>
-          <div class="col-lg-5" style="background-color:darkgray;border-radius: 5px;color:white">
-            <div *ngIf="convo.msgtype=='1'">
-              <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
-              float: left;">
-              <p style="margin-top: 5px;">{{convo.chatmsg}}
-                <span style="float: right;;margin-top: 5px;">
-                  {{convo.time}}
-                </span>
-              </p>
-            </div>
-            <div *ngIf="convo.msgtype=='2'">
-              <img src="{{convo.chatmsg}}" style="width: 100%;">
+    <div style="height: 500px;overflow-y: scroll;">
+      <div *ngFor='let convo of coversationarray'>
+        <div class="container" *ngIf='convo.user=="doc"'>
+          <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-5" style="background-color:darkgray;border-radius: 5px;color:white">
+              <div *ngIf="convo.msgtype=='1'">
+                <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
+                float: left;">
+                <p style="margin-top: 5px;">{{convo.chatmsg}}
+                  <span style="float: right;;margin-top: 5px;">
+                    {{convo.time}}
+                  </span>
+                </p>
+              </div>
+              <div *ngIf="convo.msgtype=='2'">
+                <img src="{{convo.chatmsg}}" style="width: 100%;">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="container" *ngIf='convo.user=="pat"'>
-        <div class="row">
-          <div class="col-lg-5" style="background-color:#1ebea5;border-radius: 5px;color:white;margin-top: 1px;">
-            <div *ngIf="convo.msgtype=='1'">
-              <p style="margin-top: 5px;">
-                <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
-                &nbsp;
-                {{convo.chatmsg}}
-                <span style="float: right;;margin-top: 5px;">
-                  {{convo.time}}
-                </span>
-              </p>
-            </div>
-            <div *ngIf="convo.msgtype=='2'">
-              <img src="{{convo.chatmsg}}" style="width: 100%;">
+        <div class="container" *ngIf='convo.user=="pat"'>
+          <div class="row">
+            <div class="col-lg-5" style="background-color:#1ebea5;border-radius: 5px;color:white;margin-top: 1px;">
+              <div *ngIf="convo.msgtype=='1'">
+                <p style="margin-top: 5px;">
+                  <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
+                  &nbsp;
+                  {{convo.chatmsg}}
+                  <span style="float: right;;margin-top: 5px;">
+                    {{convo.time}}
+                  </span>
+                </p>
+              </div>
+              <div *ngIf="convo.msgtype=='2'">
+                <img src="{{convo.chatmsg}}" style="width: 100%;">
+              </div>
             </div>
           </div>
         </div>
+        <br>
       </div>
-      <br>
     </div>
-  </div>
-  <hr>
-  <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
-    <form #chatfrom="ngForm">
-      <div class="row">
-        <div class="col-lg-9">
-          <textarea rows="2" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
-            placeholder="{{labels[0].typemsg}}"></textarea>
+    <hr>
+    <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
+      <form #chatfrom="ngForm">
+        <div class="row">
+          <div class="col-lg-9">
+            <textarea rows="2" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
+              placeholder="{{labels[0].typemsg}}"></textarea>
+          </div>
+          <div class="col-lg-2">
+            <button type="submit" [disabled]="chatfrom.form.invalid" (click)="dosendmsg()">
+              <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
+            </button>
+          </div>
+          <div class="col-lg-1">
+            <!-- <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
+              style="height: 50px;">
+            </ngx-dropzone> -->
+          </div>
         </div>
-        <div class="col-lg-1">
-          <button type="submit" [disabled]="chatfrom.form.invalid">
-            <img src="assets/Images/send.png" alt="Avatar" class="right" (click)="dosendmsg()" style="width:50%;">
-          </button>
-        </div>
-        <div class="col-lg-2">
-          <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
-            style="height: 50px;">
-          </ngx-dropzone>
-        </div>
-
-      </div>
-    </form>
+      </form>
+    </div><br>
   </div><br>
-</div>

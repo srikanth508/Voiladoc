@@ -210,6 +210,10 @@ export class DocCalenderComponent implements OnInit {
             this.timeSheetTablearray[t]["afternoonAppointmentTypeID"] = kk[0].afternoonAppointmentTypeID;
             this.timeSheetTablearray[t]["eveningAppointmentTypeID"] = kk[0].eveningAppointmentTypeID;
             this.timeSheetTablearray[t]["nightAppointmentTypeID"] = kk[0].nightAppointmentTypeID;
+            this.timeSheetTablearray[t]["mtextcolor"] = kk[0].mtextcolor;
+            this.timeSheetTablearray[t]["atextcolor"] = kk[0].atextcolor;
+            this.timeSheetTablearray[t]["etextcolor"] = kk[0].etextcolor;
+            this.timeSheetTablearray[t]["ntextcolor"] = kk[0].ntextcolor;
 
             this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
 

@@ -229,6 +229,7 @@ export class VediocallComponent implements OnInit {
   public localdoclist: any;
   public showhistoryid: any;
   public savetemplate: any;
+  public chatIDlist: any;
 
   ngOnInit() {
 
@@ -298,7 +299,6 @@ export class VediocallComponent implements OnInit {
       this.appointmentid = localStorage.getItem('appointmentID');
       this.appointmentdatetime = localStorage.getItem('appdate');
 
-
     }
     )
 
@@ -317,24 +317,28 @@ export class VediocallComponent implements OnInit {
     //chat
     this.image = 0;
     this.savetemplate = 2;
-    this.getPreviousChat();
-    this.oberserableTimer();
+
     this.getserverdateandtime();
 
     // this.appointmentiddd = 570;
     this.appointmentdatetimee = localStorage.getItem('appdate');
 
+  
     this.getserverdateandtime();
-    this.getPreviousChat();
-    this.oberserableTimer();
-    this.GetDetails();
 
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
       debugger;
-      this.chatID = res[0].chatID;
-
+      this.chatIDlist = res;
+      this.chatID = this.chatIDlist[0].chatID
+      this.getPreviousChat();
+      this.oberserableTimer();
+      this.getserverdateandtime();
+      // this.appointmentiddd = 570;
+      this.appointmentdatetimee = localStorage.getItem('appdate');
+      this.getserverdateandtime();
+      this.getPreviousChat();
+      this.oberserableTimer();
     })
-
     debugger;
     // this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
@@ -444,7 +448,7 @@ export class VediocallComponent implements OnInit {
             debugger
           });
         })
-        
+
           .then(() => this.opentokService.connect())
           .catch((err) => {
             console.error(err);
@@ -849,9 +853,9 @@ export class VediocallComponent implements OnInit {
       'Signature': this.signature,
       'Notes': this.notes,
       'LanguageID': this.languageid,
-      'IcrCode':this.icdcode,
-      'IcrDescrption':this.icddesc,
-      'IcrID':this.icrcodeid
+      'IcrCode': this.icdcode,
+      'IcrDescrption': this.icddesc,
+      'IcrID': this.icrcodeid
 
     }
     debugger
@@ -895,9 +899,9 @@ export class VediocallComponent implements OnInit {
         this.followupplan = list[0].followUpPlan,
         this.signature = list[0].signature,
         this.notes = list[0].notes,
-        this.icdcode=list[0].icrCode,
-        this.icrcodeid=list[0].icrID,
-        this.icddesc=list[0].icrDescrption
+        this.icdcode = list[0].icrCode,
+        this.icrcodeid = list[0].icrID,
+        this.icddesc = list[0].icrDescrption
     }
     else {
       this.objective = "",
@@ -980,8 +984,8 @@ export class VediocallComponent implements OnInit {
         this.GetSoapNotesByPatientID();
         this.VisitDoctorAppointmentStatus()
         this.clear();
-        this.icdcode=""
-        this.icddesc=""
+        this.icdcode = ""
+        this.icddesc = ""
 
       }
     })
@@ -1556,36 +1560,19 @@ export class VediocallComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   //chat
 
 
+
+  // oberserableTimer() {
+  //   const source = timer(1000, 2000);
+  //   const abc = source.subscribe(val => {
+  //     this.getPreviousChat();
+
+  //     var objDiv = document.getElementById("chatboxdiv");
+  //     objDiv.scrollTop = objDiv.scrollHeight;
+  //   });
+  // }
 
   public getserverdateandtime() {
 
@@ -1600,23 +1587,6 @@ export class VediocallComponent implements OnInit {
     )
   }
 
-  public GetDetails() {
-    debugger
-    this.docservice.GetBookAppointmentDetailsByID(this.appointmentiddd, this.doctorid, this.patientiddd).subscribe(
-      data => {
-
-        this.details = data[0];
-        this.patientname = this.details.patientName,
-          this.mobileno = this.details.mobileNumber,
-          this.patientphoto = this.details.photoURL,
-          this.docphoto = this.details.docphoto
-
-
-      }, error => {
-
-      }
-    )
-  }
 
   public dosendmsg() {
     this.getChat();
@@ -1626,14 +1596,16 @@ export class VediocallComponent implements OnInit {
     this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
       debugger;
 
-      if (res.length > 0) {
-        this.chatID = res[0].chatID;
+      if (res.length > 1) {
+        this.chatID = res;
         this.InsertChatDetails();
       }
       else {
         var entity = {
+          // 'ChatID': this.chatID,
           'DoctorID': this.doctorid,
-          'PatientID': this.patientid
+          'PatientID': this.patientid,
+          // 'Read_Me': 0
         }
         this.docservice.InsertChatMaster(entity).subscribe(data => {
           debugger
@@ -1655,7 +1627,9 @@ export class VediocallComponent implements OnInit {
         'Message': conversation,
         'SenderID': this.doctorid,
         'Sender': 'Doctor',
-        'MessageType': 1
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entity).subscribe(data => {
         debugger
@@ -1674,7 +1648,9 @@ export class VediocallComponent implements OnInit {
         'Message': this.imageurl,
         'SenderID': this.doctorid,
         'Sender': 'Doctor',
-        'MessageType': 2
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entitys).subscribe(data => {
         debugger
@@ -1684,89 +1660,50 @@ export class VediocallComponent implements OnInit {
         this.chatconversation = "";
         this.image = 0;
         this.getPreviousChat();
-
       })
     }
-
   }
 
 
-  // public updatechat(conversation, appointmentid) {
-  //   if (conversation == null) {
-  //     conversation = "";
-  //   }
-  //   conversation = conversation + '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-  //   var entity = {
-  //     'AppointmentID': appointmentid,
-  //     'ChatConversation': conversation,
-  //   }
-  //   this.docservice.UpdateDoctor_PatientChat(entity).subscribe(res => {
-  //     debugger;
-  //     let ttt = res;
-  //     this.chatconversation = "";
-  //     this.getPreviousChat();
-
-  //   })
-  // }
-
   public getPreviousChat() {
-    this.docservice.GetChatDetails(this.chatID).subscribe(res => {
+    this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
       debugger
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
-
-        if (Chatconversation[i].chatConversation.includes('[doc:-')) {
-
-          var msg = Chatconversation[i].chatConversation.substring(
-            Chatconversation[i].chatConversation.lastIndexOf("[doc:-") + 6,
-            Chatconversation[i].chatConversation.lastIndexOf(";")
-          );
-          var chattime = Chatconversation[i].chatConversation.substring(
-            Chatconversation[i].chatConversation.lastIndexOf("time:-") + 6,
-            Chatconversation[i].chatConversation.lastIndexOf("time:-") + 7 + 8
-          );
-
-          this.coversationarray.push({ user: 'doc', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].messageType })
+        debugger
+        if (Chatconversation[i].sender == 'Patient') {
+          this.coversationarray.push({
+            chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
+          })
         }
-        else if (Chatconversation[i].chatConversation.includes('[pat:-')) {
-
-          var msg = Chatconversation[i].chatConversation.substring(
-            Chatconversation[i].chatConversation.lastIndexOf("[pat:-") + 6,
-            Chatconversation[i].chatConversation.lastIndexOf(";")
-          );
-          var chattime = Chatconversation[i].chatConversation.substring(
-            Chatconversation[i].chatConversation.lastIndexOf("time:-") + 6,
-            Chatconversation[i].chatConversation.lastIndexOf("time:-") + 7 + 8
-          );
-          this.coversationarray.push({ user: 'pat', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].messageType })
-        }
-        else {
-
-          if (Chatconversation[i].sender == 'Patient') {
-            this.coversationarray.push({ user: 'pat', chatmsg: Chatconversation[i].chatConversation, time: chattime, msgtype: Chatconversation[i].messageType })
-          }
-          if (Chatconversation[i].sender == 'Doctor') {
-            this.coversationarray.push({ user: 'doc', chatmsg: Chatconversation[i].chatConversation, time: chattime, msgtype: Chatconversation[i].messageType })
-          }
+        debugger
+        if (Chatconversation[i].sender == 'Doctor') {
+          this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
       }
+      debugger
 
     })
   }
+
+
   compltedlist: any;
   public count: any;
+
+
+  //chat end
 
   oberserableTimer() {
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
       this.getPreviousChat();
-      this.updateusertyping();
-      this.getusertyping();
+
       var objDiv = document.getElementById("chatboxdiv");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
+    
 
     this.docservice.GetVideoStatus(this.appointmentiddd).subscribe(res => {
       this.compltedlist = res;
@@ -1779,26 +1716,8 @@ export class VediocallComponent implements OnInit {
     })
   }
 
-  public updateusertyping() {
-    if (this.chatconversation.length > 0) {
-      this.docservice.UpdateIsTyping(this.appointmentiddd, true).subscribe(res => {
-        let tt = res;
-      })
-    }
-    else {
-      this.docservice.UpdateIsTyping(this.appointmentiddd, false).subscribe(res => {
-        let tt = res;
-      })
-    }
-  }
 
-  public getusertyping() {
-    this.docservice.getChat(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
-      let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
-      this.istyping = isUserTyping[0].isTyping;
-    })
-  }
+
 
   public onattachmentUpload(abcd) {
     debugger

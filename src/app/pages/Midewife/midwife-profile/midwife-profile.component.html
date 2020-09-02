@@ -39,7 +39,7 @@
         name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailID}}">
       <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
         <div [hidden]="!emailref.errors?.pattern">
-        
+
         </div>
       </div>
     </div>
@@ -93,17 +93,17 @@
   </div>
   <br>
   <div class="row">
-      <div class="col-lg-3">
-        <label class="City_label">{{labels[0].city}} :</label>
-        <span class="required">*</span>
-      </div>
-      <div class="col-lg-4">
-        <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
-          <option value="" selected="selected">{{labels[0].select}}</option>
-          <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
-        </select>
-      </div>
-    </div><br>
+    <div class="col-lg-3">
+      <label class="City_label">{{labels[0].city}} :</label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+        <option value="" selected="selected">{{labels[0].select}}</option>
+        <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+      </select>
+    </div>
+  </div><br>
   <div class="row">
     <div class="col-lg-3">
       <label class="DEPARTMENT_label">{{labels[0].department}} :</label>
@@ -135,7 +135,8 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="number" placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required class="form-control">
+      <input type="number" placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required
+        class="form-control">
     </div>
   </div>
   <br>
@@ -150,7 +151,7 @@
     </div>
   </div>
   <br>
- 
+
   <!-- <div class="row">
     <div class="col-lg-5">
     </div>

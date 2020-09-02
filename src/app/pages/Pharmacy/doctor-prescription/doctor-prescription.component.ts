@@ -745,26 +745,24 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
 
-
-
-
-
-
+  public GetShowOff() {
+    this.showwindow = 0
+    document.getElementById("myForm").style.display = "none";
+  }
 
 
   showwindow: any;
 
 
-
-
-  public GetPharmacyPatientID(patientid) {
+  public GetPharmacyPatientID(patientid, patientemail) {
     this.patientid = patientid;
-
+    this.patientemail = patientemail
+    document.getElementById("myForm").style.display = "block";
     this.showwindow = 1;
 
     this.image = 0;
     this.getserverdateandtime()
-     this.oberserableTimer();
+    this.oberserableTimer();
     this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
       debugger;
       this.chatID = res[0].chatID;
@@ -818,6 +816,25 @@ export class DoctorPrescriptionComponent implements OnInit {
     })
   }
 
+  patientemail: any;
+
+  public Insertnotificationtestazure() {
+    debugger
+    var entity = {
+      'Description': "Pharmacy Trying To Reach You",
+      'ToUser': this.patientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+
+
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
@@ -829,14 +846,15 @@ export class DoctorPrescriptionComponent implements OnInit {
         'SenderID': this.pharmacyid,
         'Sender': 'Pharmacy',
         'MessageType': 1,
-        'MobileMessage':this.chatconversation,
-        'MobileTime':this.servertime
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
       }
       this.docservice.InsertPharmacy_ChatDetails(entity).subscribe(data => {
         debugger
         if (data != 0) {
-
+          this.Insertnotificationtestazure()
         }
+        this.Insertnotificationtestazure()
         this.chatconversation = "";
         this.image = 0;
         this.getPreviousChat();
@@ -850,14 +868,15 @@ export class DoctorPrescriptionComponent implements OnInit {
         'SenderID': this.pharmacyid,
         'Sender': 'Pharmacy',
         'MessageType': 1,
-        'MobileMessage':this.chatconversation,
-        'MobileTime':this.servertime
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
       }
       this.docservice.InsertPharmacy_ChatDetails(entitys).subscribe(data => {
         debugger
         if (data != 0) {
-
+          this.Insertnotificationtestazure()
         }
+        this.Insertnotificationtestazure()
         this.chatconversation = "";
         this.image = 0;
         this.getPreviousChat();
@@ -920,8 +939,8 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.getPreviousChat();
       // this.updateusertyping();
       // this.getusertyping();
-      // var objDiv = document.getElementById("chatboxdiv");
-      // objDiv.scrollTop = objDiv.scrollHeight;
+      var objDiv = document.getElementById("chatboxdiv");
+      objDiv.scrollTop = objDiv.scrollHeight;
     });
   }
 
@@ -973,8 +992,8 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
 
-  public GetShowID()
-  {
-    this.showwindow=0;
-  }
+  // public GetShowID()
+  // {
+  //   this.showwindow=0;
+  // }
 }

@@ -91,3 +91,9 @@ side navigation */ #main {
       font-size: 18px;
   }
 }
+
+
+.newcard{
+  margin: -8px;
+  margin-bottom: 15px;
+}

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-myappointments',
   templateUrl: './myappointments.component.html',
@@ -215,7 +215,7 @@ export class MyappointmentsComponent implements OnInit {
   public docdepartmentid: any;
   public dummprescrptionlist: any;
   dummdialist: any;
-
+  chatIDlist: any;
 
   ngOnInit() {
 
@@ -302,6 +302,26 @@ export class MyappointmentsComponent implements OnInit {
     this.testssid = 0;
     debugger
 
+
+
+
+
+
+    this.image = 0;
+
+    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+      debugger;
+      this.chatIDlist = res;
+      this.chatID = this.chatIDlist[0].chatID
+      this.getPreviousChat();
+      this.oberserableTimer();
+      this.getserverdateandtime();
+      // this.appointmentiddd = 570;
+      this.appointmentdatetimee = localStorage.getItem('appdate');
+      this.getserverdateandtime();
+      this.getPreviousChat();
+      this.oberserableTimer();
+    })
   }
 
 
@@ -966,7 +986,7 @@ export class MyappointmentsComponent implements OnInit {
     )
   }
 
-  icrdescription:any;
+  icrdescription: any;
   public GetDoctorPrecriptioTemplateID(even) {
     if (even.target.value != 0) {
       this.docpretempid = even.target.value;
@@ -1508,19 +1528,23 @@ export class MyappointmentsComponent implements OnInit {
         else {
           if (this.languageid == 1) {
             Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
-            
+           
+
           }
           else if (this.languageid == 6) {
             Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
+          
           }
         }
       }
       else {
         if (this.languageid == 1) {
           Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
+        
         }
         else if (this.languageid == 6) {
           Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
+         
         }
       }
     }
@@ -1716,9 +1740,9 @@ export class MyappointmentsComponent implements OnInit {
         this.followupplan = list[0].followUpPlan,
         this.signature = list[0].signature,
         this.notes = list[0].notes,
-        this.icdcode=list[0].icrCode,
-        this.icrcodeid=list[0].icrID,
-        this.icddesc=list[0].icrDescrption
+        this.icdcode = list[0].icrCode,
+        this.icrcodeid = list[0].icrID,
+        this.icddesc = list[0].icrDescrption
     }
     else {
       this.objective = "",
@@ -1729,8 +1753,8 @@ export class MyappointmentsComponent implements OnInit {
         this.notes = ""
       this.plan = ""
       this.signature = ""
-      this.icddesc="",
-      this.icdcode=""
+      this.icddesc = "",
+        this.icdcode = ""
     }
   }
 
@@ -1749,9 +1773,9 @@ export class MyappointmentsComponent implements OnInit {
       'Signature': this.signature,
       'Notes': this.notes,
       'LanguageID': this.languageid,
-      'IcrCode':this.icdcode,
-      'IcrDescrption':this.icddesc,
-      'IcrID':this.icrcodeid
+      'IcrCode': this.icdcode,
+      'IcrDescrption': this.icddesc,
+      'IcrID': this.icrcodeid
     }
     debugger
     this.docservice.InsertDoctorSoapNotesTemplates(entity).subscribe(data => {
@@ -1768,8 +1792,8 @@ export class MyappointmentsComponent implements OnInit {
 
 
   icrcodedummlist: any;
-  icdcode:any;
-  icrcodeid:any;
+  icdcode: any;
+  icrcodeid: any;
 
   public geticdcode() {
     this.docservice.GetICDCodeMaster(this.languageid).subscribe(
@@ -1795,13 +1819,13 @@ export class MyappointmentsComponent implements OnInit {
 
   public getid() {
     debugger
-    if(this.icddesc==''){
-      this.icdcode=''
+    if (this.icddesc == '') {
+      this.icdcode = ''
     }
-    else{
+    else {
       let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
       this.icdcode = wqew[0].icdCode,
-      this.icrcodeid=wqew[0].id
+        this.icrcodeid = wqew[0].id
       debugger
     }
   }
@@ -1850,8 +1874,8 @@ export class MyappointmentsComponent implements OnInit {
         this.GetDoctorSoapNotesTemplates()
         Swal.fire('Completed', 'Details saved successfully', 'success');
         this.clear()
-        this.icdcode=""
-        this.icddesc=""
+        this.icdcode = ""
+        this.icddesc = ""
 
       }
     })
@@ -2093,7 +2117,7 @@ export class MyappointmentsComponent implements OnInit {
       this.diagnosiscode = "",
       this.followupplan = "",
       this.notes = ""
-  
+
   }
 
   public openCity(evt, cityName) {
@@ -2952,4 +2976,219 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //chat
+
+
+
+
+  public appointmentiddd: any;
+  public appointmentdatetimee: any;
+
+  public chatconversation = "";
+
+  public docmsges = [];
+  public patientmsges = [];
+  public istyping = false;
+  coversationarray = [];
+
+  public patientphoto: any;
+  public docphoto: any;
+  public chatID: any;
+  public attachments = [];
+
+  public imageurl: any;
+  public image: any;
+
+
+
+  showwindow: any;
+
+  public GetShowID() {
+    this.showwindow = 0
+    document.getElementById("myForm").style.display = "none";
+  }
+
+
+  public GetChatShowID(patientid) {
+    this.patientiddd = patientid;
+    document.getElementById("myForm").style.display = "block";
+
+    this.showwindow = 1
+
+    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+      debugger;
+      this.chatIDlist = res;
+      this.chatID = this.chatIDlist[0].chatID
+      this.getPreviousChat();
+      this.oberserableTimer();
+      this.getserverdateandtime();
+      // this.appointmentiddd = 570;
+      this.appointmentdatetimee = localStorage.getItem('appdate');
+      this.getserverdateandtime();
+      this.getPreviousChat();
+      this.oberserableTimer();
+     
+    })
+  }
+
+
+
+  public dosendmsg() {
+    this.getChat();
+    debugger
+  }
+
+  public getChat() {
+    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+      debugger;
+
+      if (res.length > 1) {
+        this.chatID = res;
+        this.InsertChatDetails();
+      }
+      else {
+        var entity = {
+          // 'ChatID': this.chatID,
+          'DoctorID': this.doctorid,
+          'PatientID': this.patientiddd,
+          // 'Read_Me': 0
+        }
+        this.docservice.InsertChatMaster(entity).subscribe(data => {
+          debugger
+          if (data != 0) {
+            this.chatID = data;
+            this.InsertChatDetails();
+          }
+        })
+      }
+    })
+  }
+
+  public InsertChatDetails() {
+    let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
+    debugger;
+    if (this.image == 0) {
+      var entity = {
+        'ChatID': this.chatID,
+        'Message': conversation,
+        'SenderID': this.doctorid,
+        'Sender': 'Doctor',
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
+      }
+      this.docservice.InsertChatDetails(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+        this.chatconversation = "";
+        this.image = 0;
+        this.getPreviousChat();
+
+      })
+    }
+    else {
+      var entitys = {
+        'ChatID': this.chatID,
+        'Message': this.imageurl,
+        'SenderID': this.doctorid,
+        'Sender': 'Doctor',
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
+      }
+      this.docservice.InsertChatDetails(entitys).subscribe(data => {
+        debugger
+        if (data != 0) {
+
+        }
+        this.chatconversation = "";
+        this.image = 0;
+        this.getPreviousChat();
+
+      })
+    }
+  }
+
+
+  public getPreviousChat() {
+    this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
+      let Chatconversation = res;
+      debugger
+      this.coversationarray.length = 0;
+
+      for (let i = 0; i < Chatconversation.length; i++) {
+        debugger
+        if (Chatconversation[i].sender == 'Patient') {
+          this.coversationarray.push({
+            chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
+          })
+        }
+        debugger
+        if (Chatconversation[i].sender == 'Doctor') {
+          this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
+        }
+      }
+      debugger
+
+    })
+  }
+
+  oberserableTimer() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+      this.getPreviousChat();
+
+      var objDiv = document.getElementById("chatboxdiv");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    });
+  }
+
+
+
+  public onattachmentUpload(abcd) {
+    debugger
+    for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd[i]);
+      this.uploadattachments();
+    }
+    Swal.fire('Added Successfully');
+    abcd.length = 0;
+  }
+
+  public uploadattachments() {
+    this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
+      debugger
+      this.attachmentsurl.push(res);
+      let a = this.attachmentsurl[0].slice(2);
+      debugger
+      let b = 'https://14.192.17.225' + a;
+      this.imageurl = b;
+      this.image = 1;
+      this.attachments.length = 0;
+      this.attachmentsurl = [];
+      debugger
+    })
+    // this.sendattachment();
+  }
+
+
+public GetShowOff()
+{
+  document.getElementById("myForm").style.display = "none";
+}
 }
