@@ -1,13 +1,26 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].appointmentreports}}</h5>
     </div>
-    <div class="col-lg-4">
+
+    <div class="col-lg-3" style="margin-top: -12px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+  </div>
+</div> -->
+
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-10" style="margin-top: -2px;">
+      <h5>{{labels[0].appointmentreports}}</h5>
+    </div>
+
+    <div class="col-lg-2" style="margin-top: -1px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+
+      <!-- <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+          data-toggle="modal" data-target="#importexcel">import excel</button> -->
     </div>
   </div>
 </div>
@@ -22,7 +35,7 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-7">
       <!-- <select class="form-control" (change)="getget($event)">
         <option  selected value="4">{{labels[0].select}}</option>
         <option value="1">{{labels[0].visited}}</option>
@@ -30,10 +43,11 @@
         <option value="3">{{labels[0].cancelled}}</option>
       </select> -->
     </div>
-    <div class="col-lg-2">
-      {{labels[0].count}}:<b>{{count}}</b>
+    <div class="col-lg-2" style="margin-left: -7px; text-align: end;">
+      {{labels[0].count}}: {{count}}
     </div>
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table id="Physiotherapist">
@@ -63,9 +77,9 @@
             <td>{{app.paidAmount}}</td>
             <td>{{app.reasonForVisit}}</td>
             <td>
-              <label  style="color:yellowgreen">{{labels[0].visited}}</label>
-           
-             
+              <label style="color:yellowgreen">{{labels[0].visited}}</label>
+
+
             </td>
           </tr>
         </thead>
@@ -77,5 +91,3 @@
 <br>
 <br>
 <br>
-
-

@@ -1,16 +1,19 @@
 <div class="container-fluid card card:hover">
   <br>
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-9" style="margin-top: 5px;">
       <h5>{{labels[0].deliveryComapanyDashboard}}</h5>
     </div>
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
+
+    <div class="col-lg-3" style="text-align: end; margin-left: -5px;">
       <button type="button" routerLink="/DeliveryPartner" class="btn btncolor">{{labels1[0].add}}</button>
-    </div><br>
-  </div><br>
-</div><br><br>
+    </div>
+    <br>
+  </div>
+  <br>
+</div>
+<br>
+<br>
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
@@ -18,23 +21,24 @@
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetCountryID($event)">
-          <option value="0">{{labels1[0].selectCountry}}</option>
-          <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+        <option value="0">{{labels1[0].selectCountry}}</option>
+        <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
       </select>
-  </div>
-  <div class="col-lg-3">
+    </div>
+    <div class="col-lg-3">
       <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
-          <option value="0">{{labels1[0].selectProvince}}</option>
-          <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+        <option value="0">{{labels1[0].selectProvince}}</option>
+        <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
       </select>
-  </div>
-  <div class="col-lg-3">
+    </div>
+    <div class="col-lg-3">
       <select class="form-control" *ngIf="cityid!='0'" (change)="GetAreaID($event)">
-          <option value="0">{{labels1[0].selectCity}}</option>
-          <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+        <option value="0">{{labels1[0].selectCity}}</option>
+        <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
       </select>
+    </div>
   </div>
-  </div><br>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -62,15 +66,21 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-              <img src="assets/Images/dell.png" (click)="deletedeliverycopmany(del.id)"></a>
+                <img src="assets/Images/dell.png" (click)="deletedeliverycopmany(del.id)">
+              </a>
               &nbsp;&nbsp;&nbsp;
               <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
-              <img src="assets/Images/edit.png" [routerLink]="['/EditDeliveryCompany',del.id]"></a>
+                <img src="assets/Images/edit.png" [routerLink]="['/EditDeliveryCompany',del.id]">
+              </a>
             </td>
           </tr>
         </thead>
       </table>
     </div>
-  </div><br>
-</div><br><br><br>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>

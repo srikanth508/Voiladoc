@@ -5,10 +5,10 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
 
     </div>
     <br>
@@ -28,12 +28,16 @@
     <div class="col-lg-3" *ngFor="let count of allcounts">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b
-            style="font-size: 15px;">{{labels[0].totalDocRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].totalDocRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              routerLink="/DocAppReports">{{count.totalamount}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" routerLink="/DocAppReports">{{count.totalamount}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -41,13 +45,17 @@
     <div class="col-lg-3" *ngFor="let cous of doccommissioncount">
       <div class="optionsboxdown" style="border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b
-            style="font-size: 15px;">{{labels[0].doctorCommission}}
-          </b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].doctorCommission}}
+          </b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{cous.doccommision}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cous.doccommision}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -55,12 +63,17 @@
     <div class="col-lg-3" *ngFor="let cou of doccommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].voilaDocCommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].voiladocCommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{cou.voiladocsommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.voiladocsommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -73,12 +86,17 @@
     <div class="col-lg-3" *ngFor="let count of nursecount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].totalNurseRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].totalNurseRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              routerLink="/NurseAdminReports">{{count.nursetotalamount}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" routerLink="/NurseAdminReports">{{count.nursetotalamount}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -86,12 +104,17 @@
     <div class="col-lg-3" *ngFor="let cou of Nursecommssioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].nurseCommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].nurseCommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{cou.nursecommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.nursecommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -99,12 +122,17 @@
     <div class="col-lg-3" *ngFor="let cou of Nursecommssioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].voilaDocCommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].voiladocCommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{cou.voiladocsommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.voiladocsommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -117,12 +145,17 @@
     <div class="col-lg-3" *ngFor="let det of midwifecount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].totalMidwifeRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].totalMidwifeRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              routerLink="/MidWifeAdminReports">{{det.miwifecount}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" routerLink="/MidWifeAdminReports">{{det.miwifecount}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -130,12 +163,16 @@
     <div class="col-lg-3" *ngFor="let couu of midwifecommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b
-            style="font-size: 15px;">{{labels[0].midwifecommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">{{labels[0].midwifecommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{couu.midwifecommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{couu.midwifecommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -143,12 +180,17 @@
     <div class="col-lg-3" *ngFor="let couu of midwifecommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].voilaDocCommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].voiladocCommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{couu.voiladocsommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{couu.voiladocsommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -162,12 +204,17 @@
     <div class="col-lg-3" *ngFor="let cou of physiocount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].totalPhysioRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].totalPhysioRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              routerLink="/Physioreports">{{cou.physioamount}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;" routerLink="/Physioreports">{{cou.physioamount}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -175,12 +222,17 @@
     <div class="col-lg-3" *ngFor="let couu of physiocommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].physuiocommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].physuiocommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{couu.physiocommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{couu.physiocommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -188,12 +240,17 @@
     <div class="col-lg-3" *ngFor="let couu of physiocommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].voilaDocCommission}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].voiladocCommission}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
-              style="font-size: 20px;">{{couu.voiladocsommission}}</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{couu.voiladocsommission}}</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -211,11 +268,17 @@
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].pharmacyrevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].pharmacyrevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">0</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">0</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -223,11 +286,17 @@
     <div class="col-lg-3" *ngFor="let couu of physiocommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].diagnosticRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].diagnosticRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">0</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">0</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -235,11 +304,17 @@
     <div class="col-lg-3" *ngFor="let couu of physiocommissioncount">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].hospitalRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].hospitalRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">0</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">0</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />
@@ -252,11 +327,17 @@
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
-        <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
-            {{labels[0].clinicRevenue}}</b></label>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].clinicRevenue}}</b>
+        </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">0</u></b></label>
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">0</u>
+          </b>
+        </label>
       </div>
       <br />
       <br />

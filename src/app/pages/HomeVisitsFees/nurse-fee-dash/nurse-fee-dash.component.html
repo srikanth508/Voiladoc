@@ -1,16 +1,17 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-9">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].nurseFeeDashboard}}</h5>
     </div>
-    <div class="col-lg-3" style="text-align: end;">
+    <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button *ngIf="languageid==1" type="button" routerLink="/NurseFees" class="btn btncolor">Add Fees
       </button>
       <button *ngIf="languageid==6" type="button" routerLink="/NurseFees" class="btn btncolor">Ajouter
       </button>
     </div>
   </div>
-</div><br>
+</div>
+<br>
 <div class="container-fluid card card:hover ">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
@@ -34,7 +35,8 @@
           <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
       </select>
   </div> -->
-  </div><br>
+  </div>
+  <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -62,14 +64,21 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 18px;margin-left: 10px;"
-                  (click)="DeleteNurseCommissionDeatails(list.id)">
+                <img src="assets/Images/dell.png" style="width: 18px;margin-left: 10px;" (click)="DeleteNurseCommissionDeatails(list.id)">
               </a>
             </td>
           </tr>
         </thead>
       </table>
-    </div><br><br>
-  </div><br><br>
+    </div>
+    <br>
+    <br>
+  </div>
   <br>
-</div><br><br><br><br>
+  <br>
+  <br>
+</div>
+<br>
+<br>
+<br>
+<br>

@@ -1,15 +1,13 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-5">
+    <div class="col-lg-10" style="margin-top: -2px;">
       <h5>{{labels[0].appointmentReport}}</h5>
     </div>
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
 
-        <!-- <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+    <div class="col-lg-2" style="margin-top: -12px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+
+      <!-- <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
         data-toggle="modal" data-target="#importexcel">import excel</button> -->
     </div>
   </div>
@@ -22,10 +20,10 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
@@ -43,13 +41,16 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-11">
+    <div class="col-lg-10">
     </div>
-    <div class="col-lg-1">
-      <label style="margin-left: -8px;">
+    <div class="col-lg-2" style="text-align: end;
+    margin-left: -5px;">
+
+      <label>{{labels[0].count}} : {{count}}</label>
+      <!-- <label style="margin-left: -8px;">
         <b>{{labels[0].count}}:</b>
         <b>{{count}}</b>
-      </label>
+      </label> -->
     </div>
     <div class="col-lg-12">
       <table class="table" id="Appointment" style="overflow: auto;">
@@ -75,18 +76,13 @@
             <td>{{details.pMobileNo}}</td>
             <td>{{details.pemail}}</td>
             <td>
-              <label
-                *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"
+              <label *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"
                 style="color: green;">{{labels[0].accepted}}</label>
               <label *ngIf="details.cancelled=='1'" style="color: orange;">{{labels[0].patientCancelled}}</label>
-              <label *ngIf="details.isVisited=='1'&&details.accepted=='1'"
-                style="color: orange;">{{labels[0].visited}}</label>
+              <label *ngIf="details.isVisited=='1'&&details.accepted=='1'" style="color: orange;">{{labels[0].visited}}</label>
               <label *ngIf="details.docCancelled=='1'" style="color: orange;">{{labels[0].docCancelled}}</label>
-              <label
-                *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
-                style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
-              <label *ngIf="details.accepted=='1'&&details.noShow=='1'"
-                style="color: red;">{{labels[0].notVisited}}</label>
+              <label *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'" style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
+              <label *ngIf="details.accepted=='1'&&details.noShow=='1'" style="color: red;">{{labels[0].notVisited}}</label>
             </td>
           </tr>
         </thead>
@@ -107,36 +103,37 @@
 
 <div id="importexcel" class="modal fade" role="dialog">
   <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title">Import Excel</h4>
-              <button type="button" class="close" data-dismiss="modal">
-        &times;
-      </button>
-          </div>
-          <div class="modal-body">
-              <div class="row">
-                  <div class="col-lg-6">
-                      <input type="file" accept=".xls,.xlsx" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx" />
-                  </div>
-              </div>
-              <br />
-              <div class="row">
-                  <div class="col-lg-4">
-                      <div class="form-group">
-                          <button type="button" class="btn btn-primary" (click)="Upload_file()" data-dismiss="modal">
-              Import Excel
-            </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">
-        Close
-      </button>
-          </div>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Import Excel</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <input type="file" accept=".xls,.xlsx" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file"
+              accept=".xlsx" />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <button type="button" class="btn btn-primary" (click)="Upload_file()" data-dismiss="modal">
+                Import Excel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
   </div>
 </div>
