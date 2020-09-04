@@ -29,7 +29,7 @@
     </div>
   </div>
   <br>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].hospitalClinic}} : </label>
       <span class="requird">*</span>
@@ -37,12 +37,12 @@
     <div class="col-lg-4">
       <select class="form-control" [disabled]="tablecount=='1'" [(ngModel)]="hospitalid" name="hospitalid"
         (change)="GetHospitalID($event)">
-        <option>{{labels[0].select}}</option>
+        <option value="">{{labels[0].select}}</option>
         <option *ngFor="let hos of hosptalist" value="{{hos.hospital_ClinicID}}">{{hos.hospital_ClinicName}}</option>
       </select>
     </div>
   </div>
-  <br>
+  <br> -->
   <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].department}} : </label>

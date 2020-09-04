@@ -216,14 +216,16 @@ export class MyappointmentsComponent implements OnInit {
   public dummprescrptionlist: any;
   dummdialist: any;
   chatIDlist: any;
+  manuallydrug: any;
 
   ngOnInit() {
-
     this.misuse = 0;
     this.departmentid = 0;
     this.savetemplate = 2;
     this.medicinetemplate = 2;
     this.medicineid = 0
+    this.substainable = 1
+    this.manuallydrug = 2
 
     this.docservice.showvid = 0;
     const format = 'yyyy-MM-dd';
@@ -237,7 +239,7 @@ export class MyappointmentsComponent implements OnInit {
     this.sigdate = formatDate(sigdate, llll, locales);
 
 
-    debugger
+
     this.docname = localStorage.getItem('user');
     this.MobileNumber = localStorage.getItem('MobileNumber');
     this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sigdate;
@@ -259,13 +261,13 @@ export class MyappointmentsComponent implements OnInit {
     this.doctorsssid = localStorage.getItem('userid');
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
     var lll = this.EDate.setDate(this.EDate.getDate() + 7);
-    debugger
+
     this.idcount = 1;
 
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -291,6 +293,7 @@ export class MyappointmentsComponent implements OnInit {
     this.GetDoctorSoapNotesTemplates()
     this.GetDoctorPrescrptionTemplates()
     this.geticdcode()
+    this.GetDrugnamemaster()
     document.getElementById('Scheduled').style.display = "block";
 
     this.morning = 0;
@@ -300,42 +303,38 @@ export class MyappointmentsComponent implements OnInit {
     this.quantity = 0
     this.testid = 0;
     this.testssid = 0;
-    debugger
-
-
 
 
 
 
     this.image = 0;
 
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
-      this.chatIDlist = res;
-      this.chatID = this.chatIDlist[0].chatID
-      this.getPreviousChat();
-      this.oberserableTimer();
-      this.getserverdateandtime();
-      // this.appointmentiddd = 570;
-      this.appointmentdatetimee = localStorage.getItem('appdate');
-      this.getserverdateandtime();
-      this.getPreviousChat();
-      this.oberserableTimer();
-    })
+    // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    //   ;
+    //   this.chatIDlist = res;
+    //   this.chatID = this.chatIDlist[0].chatID
+    //   this.getPreviousChat();
+    //   this.oberserableTimer();
+    //   this.getserverdateandtime();
+    //   // this.appointmentiddd = 570;
+    //   this.appointmentdatetimee = localStorage.getItem('appdate');
+    //   this.getserverdateandtime();
+    //   this.getPreviousChat();
+    //   this.oberserableTimer();
+    // })
   }
-
 
 
 
 
   validdate: any;
   DateChange() {
-    debugger
+
     this.DateChanged = true;
     this.Date.toLocaleDateString();
     var date = this.Date.getFullYear() + '-' + (this.Date.getMonth() + 1) + '-' + this.Date.getDate();
     //this.Date = date;
-    debugger
+
     this.validdate = date
     console.log(this.validdate)
 
@@ -344,7 +343,7 @@ export class MyappointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels = data;
         this.selectlabel = this.labels[0].select
       }, error => {
@@ -353,14 +352,14 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.GetAdmin_DoctorLoginSickSlipGenerator_label(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels1 = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+        ;
         this.labels2 = data;
       },
       error => { }
@@ -368,21 +367,21 @@ export class MyappointmentsComponent implements OnInit {
   }
   validdate1: any;
   DateChange2() {
-    debugger
+
     this.DateChanged2 = true;
     this.Date2.toLocaleDateString();
     var date2 = this.Date2.getFullYear() + '-' + (this.Date2.getMonth() + 1) + '-' + this.Date2.getDate();
     //this.Date2 = date2;
-    debugger
+
     this.validdate1 = date2
     console.log(this.validdate1)
 
   }
   public getbookappointmentbydoctorid() {
-    debugger
+
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+
         this.appointmentlist = data;
         this.count = this.appointmentlist.length
         this.dummlist = this.appointmentlist;
@@ -395,13 +394,13 @@ export class MyappointmentsComponent implements OnInit {
       })
   }
   public pageChanged(even) {
-    debugger
+
     let fgdgfgd = even;
     this.p = even;
   }
 
   selectedDate(data) {
-    debugger
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -412,7 +411,7 @@ export class MyappointmentsComponent implements OnInit {
   public getbookappointmentbydocid() {
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+
         this.appointmentlist = data;
         this.count = this.appointmentlist.length
         this.dummlist = this.appointmentlist;
@@ -431,40 +430,40 @@ export class MyappointmentsComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+
     if (even.target.value == 1) {
-      debugger
+
       let dfsfd = this.dummlist.filter(x => x.isVisited == 1);
-      debugger
+
       this.appointmentlist = dfsfd;
       this.count = this.appointmentlist.length
     }
     if (even.target.value == 2) {
-      debugger
+
       let dfsfd = this.dummlist.filter(x => x.noShow == 1);
-      debugger
+
       this.appointmentlist = dfsfd;
       this.count = this.appointmentlist.length
     }
     if (even.target.value == 3) {
-      debugger
+
       let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
-      debugger
+
       this.appointmentlist = dfsfd;
       this.count = this.appointmentlist.length
     }
     if (even.target.value == 6) {
-      debugger
+
       let dfsfd = this.dummlist.filter(x => x.docCancelled == 1);
-      debugger
+
       this.appointmentlist = dfsfd;
       this.count = this.appointmentlist.length
     }
     if (even.target.value == 5) {
-      debugger
+
       let dfsfd = this.dummlist.filter(x => x.accepted == '1' && x.cancelled == '0' && x.docCancelled == '0'
         && x.isVisited == '0' && x.noShow == '0');
-      debugger
+
       this.appointmentlist = dfsfd;
       this.count = this.appointmentlist.length
     }
@@ -475,11 +474,11 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetImagesID(id) {
-    debugger
+
     this.imageid = id;
     this.docservice.GetPatient_Illnessphotos(this.imageid).subscribe(
       data => {
-        debugger
+
         this.showimages = data;
         if (this.showimages.length == 0) {
           this.nophoto = 1
@@ -500,10 +499,10 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public getserverdateandtime() {
-    debugger
+
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
-        debugger
+
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
@@ -514,7 +513,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDate(date) {
-    debugger
+
     this.todaydate = date;
     this.getbookappointmentbydoctorid();
     this.getbookappointmentbydocid();
@@ -523,19 +522,19 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetMisusecomments(doctorComments) {
-    debugger
+
     this.misusecomments = doctorComments;
   }
 
   public Appointmentstatus(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID) {
-    debugger
+
     if (this.languageid == 1) {
       this.doctorname = doctorName;
       this.slotsname = notificationdate;
       this.patientidddd = patientID;
       this.hspitalclinicname = hospital_ClinicName;
       this.paemailid = emailID
-      debugger;
+        ;
       Swal.fire({
         title: 'Are you sure?',
         text: "You want to Accept Appointment!",
@@ -568,7 +567,7 @@ export class MyappointmentsComponent implements OnInit {
           this.getbookappointmentbydoctorid();
           this.getbookappointmentbydocid();
 
-          debugger
+
 
         }
       })
@@ -579,7 +578,7 @@ export class MyappointmentsComponent implements OnInit {
       this.patientidddd = patientID;
       this.hspitalclinicname = hospital_ClinicName;
       this.paemailid = emailID
-      debugger;
+        ;
       Swal.fire({
         title: 'Êtes-vous sûr(e) ?',
         text: "Accepté ?",
@@ -598,31 +597,28 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertNotifiaction();
             this.Insertnotificatiaccept();
           })
-          Swal.fire(
-            'Accepted!',
-            'Doctor Accepted Appointment  Successfully.',
-            'success'
-          )
+
+          Swal.fire('Rendez-vous accepté !.')
         }
         else {
           this.getbookappointmentbydoctorid();
           this.getbookappointmentbydocid();
 
-          debugger
+
 
         }
       })
     }
   }
   public Insertnotificatiaccept() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.doctorname + " scheduled for " + this.slotsname + " at " + this.hspitalclinicname + " has been Accepted.",
         'ToUser': this.paemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -634,7 +630,7 @@ export class MyappointmentsComponent implements OnInit {
         'ToUser': this.paemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -643,7 +639,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public InsertNotifiaction() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientidddd,
@@ -654,7 +650,7 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -670,7 +666,7 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -684,10 +680,10 @@ export class MyappointmentsComponent implements OnInit {
 
   public cancelledappointment() {
 
-    debugger
+
     this.docservice.UpdateBookAppointmentByDocCancel(this.appid).subscribe(
       data => {
-        debugger
+
         this.updatereson();
         this.getbookappointmentbydoctorid();
         this.getbookappointmentbydocid();
@@ -701,7 +697,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount) {
-    debugger
+
     this.appid = appointmentID;
     this.cancelpatientid = patientID,
       this.canslots = notificationdate,
@@ -710,9 +706,9 @@ export class MyappointmentsComponent implements OnInit {
       this.canemail = emailID;
     this.paidamount = paidAmount;
     this.walletamount = walletAmount
-    debugger
+
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
-    debugger
+
   }
 
 
@@ -732,14 +728,14 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public Insertnotificatiacceptforcansel() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Sorry ,The Doctor " + this.candoctorname + "Has Cancelled Your Appointment  " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -751,7 +747,7 @@ export class MyappointmentsComponent implements OnInit {
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -760,7 +756,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public insercancelnotoification() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.cancelpatientid,
@@ -771,7 +767,7 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
         }
       })
@@ -786,7 +782,7 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -796,7 +792,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public updatereson() {
-    debugger
+
     var entity = {
       'ID': this.appid,
       'ReasonForCancel': this.reason
@@ -815,7 +811,7 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.UpdateVisitedBitByDoctor(appointmentID).subscribe(
       data => {
-        debugger
+
         // Swal.fire('Completed', 'Visited Successfully');
         this.getbookappointmentbydoctorid();
         this.getbookappointmentbydocid();
@@ -827,13 +823,13 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public Insertvisitnotificatiaccept() {
-    debugger
+
     var entity = {
       'Description': "Your Appointment with " + this.visidoctorname + " scheduled for " + this.visitslots + " at " + this.visithospitannae + " has been Visited.",
       'ToUser': this.visitemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -850,7 +846,7 @@ export class MyappointmentsComponent implements OnInit {
       'LanguageID': 1,
     }
     this.docservice.InsertNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -860,17 +856,17 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public Getmedicinetypemaster() {
-    debugger
+
     this.docservice.GetMedicineTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.medicinelist = data;
       }, error => {
       }
     )
   }
   public GetMedicineID(even) {
-    debugger
+
     this.medicineid = even.target.value;
     for (let i = 0; i < this.medicinelist.length; i++) {
       if (this.medicinelist[i].id == this.medicineid) {
@@ -879,7 +875,7 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
   public GetConsumeID(even) {
-    debugger
+
     this.consumeid = even.target.value;
     for (let i = 0; i < this.consumelist.length; i++) {
       if (this.consumelist[i].id == this.consumeid) {
@@ -893,7 +889,7 @@ export class MyappointmentsComponent implements OnInit {
   appdate: any;
   prepatientemail: any;
   public GetPatientid(patientID, appointmentID, appointmentTypeID, countryID, cityID, areaID, slots, appdate, pemail) {
-    debugger
+
     this.patientiddd = patientID,
       this.preappointmentid = appointmentID;
     this.apptypeid = appointmentTypeID;
@@ -905,7 +901,7 @@ export class MyappointmentsComponent implements OnInit {
     this.prepatientemail = pemail;
     this.getserverdateandtime();
     if (this.serverdate >= this.appdate) {
-      debugger
+
       if (this.servertime > this.preslots) {
         this.patientiddd = patientID,
           this.preappointmentid = appointmentID;
@@ -929,7 +925,7 @@ export class MyappointmentsComponent implements OnInit {
         this.display = "block";
         this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
           data => {
-            debugger
+
             this.localdoclist = data;
 
             this.localdocid = this.localdoclist[0].id
@@ -950,16 +946,16 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetDoctorPatientid(patientID) {
-    debugger
+
     this.patientiddddddd = patientID;
     this.getdoctorpatinetdetails();
   }
 
   public GetWhenConsumemedicals() {
-    debugger
+
     this.docservice.GetWhenToConsumeMasterMedicalsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.consumelist = data;
       }, error => {
       }
@@ -970,15 +966,99 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // prescription
+
+
+
+
   docpretemplates: any;
   docprtemplateslist: any;
   docpretempid: any;
+  substainable: any;
+  drugnamelist: any;
+  drugnames: any;
+  dummdrugnamelist: any;
+
+  search1 = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(termsss => termsss.length < 1 ? []
+        : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
+    )
+
+  public GetDrugnamemaster() {
+    debugger
+    this.docservice.GetDrugNameMaster(this.languageid).subscribe(
+      data => {
+        this.dummdrugnamelist = data;
+        this.drugnamelist = data;
+        debugger
+        // this.drugnames = this.drugnamelist.map(x => x.medicament);
+        debugger
+      }, error => {
+      }
+    )
+  }
+
+
+  SerachOn: any;
+  public SerchDrugName(medicinename) {
+    debugger
+    if (medicinename == "") {
+      this.SerachOn = 0;
+      debugger
+    }
+    else {
+      this.SerachOn = 1;
+      debugger
+      //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+    }
+  }
+
+
+
+  public GetDrugID(medicinename) {
+    debugger
+    this.medicinename = medicinename
+    this.SerachOn = 0
+  }
+
+
+  // public GetDrugNameID() {
+
+  //   if (this.medicinename == '') {
+  //     this.medicinename = ''
+  //   }
+  //   else {
+  //     let wqew = this.icdcodelist.filter(v => v.drugnames.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+  //     // this.icdcode = wqew[0].icdCode,
+  //     //   this.icrcodeid = wqew[0].id
+
+  //   }
+  // }
+
+
 
   public GetDoctorPrescrptionTemplates() {
-    debugger
+
     this.docservice.GetDoctorPrescrptionTemplates().subscribe(
       data => {
-        debugger
+
         this.docpretemplates = data;
         this.docprtemplateslist = this.docpretemplates.filter(x => x.doctorID == this.doctorid)
       }, error => {
@@ -1003,7 +1083,8 @@ export class MyappointmentsComponent implements OnInit {
       this.medicineid = list[0].medicineTypeID
       this.icdcode = list[0].icdCode
       this.icrdescription = list[0].icdDescription
-      this.icrcodeid = list[0].icdid
+      this.icrcodeid = list[0].icdid,
+        this.substainable = list[0].substainablenotPermitted
     }
     else {
       this.medicinename = "";
@@ -1017,6 +1098,7 @@ export class MyappointmentsComponent implements OnInit {
       this.howmanyrefills = '';
       this.medicinetemplatename = "",
         this.medicinetemplate = 2;
+      this.substainable = ""
     }
   }
 
@@ -1038,20 +1120,17 @@ export class MyappointmentsComponent implements OnInit {
       'HowManyRefils': this.howmanyrefills,
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
-      'ICDID': this.icrcodeid
+      'ICDID': this.icrcodeid,
+      'SubstainablenotPermitted': this.substainable
     }
     this.docservice.InsertDoctorPrescrptionTemplates(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
     })
 
   }
-
-
-
-
 
   public adddetails1() {
     this.tablecuont1 = 1;
@@ -1072,7 +1151,9 @@ export class MyappointmentsComponent implements OnInit {
       'Diagnosis': this.diagnosis,
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
-      'ICDID': this.icrcodeid
+      'ICDID': this.icrcodeid,
+      'SubstainablenotPermitted': this.substainable,
+      'HowmanyRefills': this.howmanyrefills
     }
     this.qwerty2.push(entity1);
     if (this.medicinetemplate == 1) {
@@ -1092,6 +1173,7 @@ export class MyappointmentsComponent implements OnInit {
     this.icdcode = ""
     this.icrdescription = ""
     this.icrcodeid = ""
+    this.substainable = ""
   }
 
 
@@ -1106,7 +1188,7 @@ export class MyappointmentsComponent implements OnInit {
       this.endorse = 1;
     }
     for (let i = 0; this.qwerty2.length; i++) {
-      debugger
+
       var entity = {
         'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
         'DoctorID': this.qwerty2[i].DoctorID,
@@ -1127,10 +1209,11 @@ export class MyappointmentsComponent implements OnInit {
         'EndorseBit': this.endorse,
         'ICDCode': this.qwerty2[i].ICDCode,
         'ICDDescription': this.qwerty2[i].ICDDescription,
-        'ICDID': this.qwerty2[i].ICDID
+        'ICDID': this.qwerty2[i].ICDID,
+        'SubstainablenotPermitted': this.qwerty2[i].SubstainablenotPermitted
       }
       this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Prescription saved successfully', 'success');
@@ -1154,13 +1237,13 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public InsertNotificationPrescription() {
-    debugger
+
     var entity = {
       'Description': this.user + " Added Prescription For You",
       'ToUser': this.prepatientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -1169,7 +1252,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public InsertPrscriptionNotifications() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientiddd,
@@ -1181,7 +1264,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.preappointmentid
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
         }
       })
@@ -1197,7 +1280,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.preappointmentid
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -1205,20 +1288,6 @@ export class MyappointmentsComponent implements OnInit {
       })
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1233,11 +1302,11 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public getdoctorpatinetdetails() {
-    debugger
+
     if (this.docdepartmentid == 14) {
       this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid).subscribe(
         data => {
-          debugger
+
           this.prescrptionlist = data;
         }, error => {
         }
@@ -1246,7 +1315,7 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.docdepartmentid != 14) {
       this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid).subscribe(
         data => {
-          debugger
+
           this.dummprescrptionlist = data;
           this.prescrptionlist = this.dummprescrptionlist.filter(x => x.departmentID != 14)
         }, error => {
@@ -1255,12 +1324,42 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
 
+
+
+
+
+  //prescrptio end 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   testdisplay: any;
   testpatientemail: any;
 
 
+
+
+
+
+
+
+
   public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail) {
-    debugger
+
     this.diapatientid = patientID;
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
@@ -1287,10 +1386,10 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public getdiagnosticcentertests() {
-    debugger
+
     this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.testslist = data;
       }, error => {
       }
@@ -1298,10 +1397,10 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetDiagnosticTestID(even) {
-    debugger
+
     this.testid = even.target.value;
     for (let i = 0; i < this.testslist.length; i++) {
-      debugger
+
       if (this.testslist[i].id == this.testid) {
         this.diagnostictesttypename = this.testslist[i].name
       }
@@ -1312,7 +1411,7 @@ export class MyappointmentsComponent implements OnInit {
   public getdiagnostictests() {
     this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
       data => {
-        debugger
+
         this.tsetssslist = data;
       }, error => {
       }
@@ -1321,7 +1420,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDiagnosticTestssID(even) {
-    debugger
+
     this.testssid = even.target.value;
     for (let i = 0; i < this.tsetssslist.length; i++) {
       if (this.tsetssslist[i].id == this.testssid) {
@@ -1365,7 +1464,7 @@ export class MyappointmentsComponent implements OnInit {
         'ClinicalInfo': this.qwerty[i].ClinicalInfo
       }
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
           Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
           this.qwerty = [];
@@ -1384,13 +1483,13 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public Insertnotificationtestazure() {
-    debugger
+
     var entity = {
       'Description': this.user + " Added Diagnostic Test For You.",
       'ToUser': this.testpatientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -1399,7 +1498,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public Insertnotificationtest() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.diapatientid,
@@ -1411,7 +1510,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.diaappointmentID
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
         }
       })
@@ -1427,7 +1526,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.diaappointmentID
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -1443,18 +1542,18 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public delete(Sno) {
-    debugger
+
     for (let i = 0; i < this.qwerty.length; i++) {
-      debugger
+
       if (Sno == this.qwerty[i].Sno) {
-        debugger
+
         this.qwerty.splice(i, 1);
       }
     }
 
   }
   public deleteprscriptonforpatient(id) {
-    debugger;
+    ;
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Appointment!",
@@ -1482,7 +1581,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetDiaID(patientID) {
-    debugger
+
     this.diapatientidddd = patientID;
     this.getdiadnosticdetails();
   }
@@ -1490,7 +1589,7 @@ export class MyappointmentsComponent implements OnInit {
     if (this.docdepartmentid == 14) {
       this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid).subscribe(
         data => {
-          debugger
+
           this.dialist = data;
         }, error => {
         }
@@ -1499,7 +1598,7 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.docdepartmentid != 14) {
       this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid).subscribe(
         data => {
-          debugger
+
           this.dummdialist = data;
           this.dialist = this.dummdialist.filter(x => x.departmentID != 14)
         }, error => {
@@ -1514,12 +1613,11 @@ export class MyappointmentsComponent implements OnInit {
     localStorage.setItem('patientID', patientID);
     localStorage.setItem('appointmentID', appointmentID);
     localStorage.setItem('appdate', appdate);
-    debugger
-    debugger
+
+
     this.getserverdateandtime();
-    debugger
     if (this.serverdate == appdate) {
-      debugger
+
       if (this.servertime >= slots) {
         if (this.servertime <= endtime) {
           this.docservice.showvid = 1;
@@ -1528,19 +1626,17 @@ export class MyappointmentsComponent implements OnInit {
         else {
           if (this.languageid == 1) {
             Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
-           
-
           }
           else if (this.languageid == 6) {
             Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
-          
+       
           }
         }
       }
       else {
         if (this.languageid == 1) {
           Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
-        
+         
         }
         else if (this.languageid == 6) {
           Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
@@ -1561,13 +1657,13 @@ export class MyappointmentsComponent implements OnInit {
   //   localStorage.setItem('patientID', patientID);
   //   localStorage.setItem('appointmentID', appointmentID);
   //   localStorage.setItem('appdate', appdate);
-  //   debugger
+  //   
 
-  //   debugger
+  //   
   //   this.getserverdateandtime();
-  //   debugger
+  //   
   //   if (this.serverdate == appdate) {
-  //     debugger
+  //     
   //     if (this.servertime >= slots) {
   //       location.href = '#/Mychats';
 
@@ -1586,12 +1682,12 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public getvedioconferencebydateandtimedemand(patientID, appointmentID, appdate, slots, endtime) {
-    debugger
+
     localStorage.setItem('patientID', patientID);
     localStorage.setItem('appointmentID', appointmentID);
     localStorage.setItem('appdate', appdate);
 
-    debugger
+
     if (this.serverdate == appdate) {
       if (this.servertime >= slots) {
         if (this.servertime <= endtime) {
@@ -1615,19 +1711,19 @@ export class MyappointmentsComponent implements OnInit {
   misuse: any;
 
   public GetPateintMisUseCheck(even) {
-    debugger
+
     if (even.target.checked == true) {
       this.misuse = 1;
     }
     else {
-      debugger
+
       this.misuse = 0;
     }
   }
 
 
   public updatecomments() {
-    debugger
+
     var entity = {
       'ID': this.patientid,
       'MisUseComments': this.miscomments
@@ -1640,7 +1736,7 @@ export class MyappointmentsComponent implements OnInit {
   pemailsoap: any;
 
   public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail) {
-    debugger
+
     this.patientid = patientID;
     this.appointmentdatetime = adate;
     this.appointmentid = appointmentID;
@@ -1661,7 +1757,7 @@ export class MyappointmentsComponent implements OnInit {
 
         this.savetemplate = 2
         let list = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
-        debugger
+
         this.patientname = list[0].patientName
         this.ailment = list[0].reasonForVisit
       }
@@ -1676,10 +1772,10 @@ export class MyappointmentsComponent implements OnInit {
     }
     // for(let i=0;i<this.appointmentlist.length;i++)
     // {
-    //   debugger
+    //   
     //   if(this.appointmentlist[i].id==this.appointmentid)
     //   {
-    //     debugger
+    //     
     //     this.patientname=this.appointmentlist[i].patientName,
     //     this.ailment=this.appointmentlist[i].reasonForVisit
 
@@ -1691,7 +1787,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   // public InsertSickSlipGenarator() {
-  //   debugger
+  //   
   //   var entity = {
   //     'PatientID': this.patientid,
   //     'Ailment': this.ailment,
@@ -1715,10 +1811,10 @@ export class MyappointmentsComponent implements OnInit {
   templateid: any;
 
   public GetDoctorSoapNotesTemplates() {
-    debugger
+
     this.docservice.GetDoctorSoapNotesTemplates().subscribe(
       data => {
-        debugger
+
         this.doctemplatelist = data;
         this.templatelist = this.doctemplatelist.filter(x => x.doctorID == this.doctorid)
       }, error => {
@@ -1729,7 +1825,7 @@ export class MyappointmentsComponent implements OnInit {
 
   public GetTemplateID(even) {
     if (even.target.value != 0) {
-      debugger
+
       this.templateid = even.target.value;
       var list = this.doctemplatelist.filter(x => x.id == this.templateid)
       this.subjective = list[0].subjective,
@@ -1759,8 +1855,6 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public InsertDoctorSoapNoteTemplate() {
-    debugger
-    debugger
     var entity = {
       'DoctorID': this.doctorid,
       'TemplateName': this.templatename,
@@ -1777,7 +1871,7 @@ export class MyappointmentsComponent implements OnInit {
       'IcrDescrption': this.icddesc,
       'IcrID': this.icrcodeid
     }
-    debugger
+
     this.docservice.InsertDoctorSoapNotesTemplates(entity).subscribe(data => {
       if (data != 0) {
 
@@ -1794,13 +1888,15 @@ export class MyappointmentsComponent implements OnInit {
   icrcodedummlist: any;
   icdcode: any;
   icrcodeid: any;
+  icddmmmms = []
 
   public geticdcode() {
     this.docservice.GetICDCodeMaster(this.languageid).subscribe(
       data => {
-        debugger;
+        ;
         this.icrcodedummlist = data;
         this.icdcodelist = data;
+
         this.states = this.icdcodelist.map(x => x.description);
       },
       error => { }
@@ -1818,7 +1914,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public getid() {
-    debugger
+
     if (this.icddesc == '') {
       this.icdcode = ''
     }
@@ -1826,15 +1922,15 @@ export class MyappointmentsComponent implements OnInit {
       let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
       this.icdcode = wqew[0].icdCode,
         this.icrcodeid = wqew[0].id
-      debugger
+
     }
   }
 
 
 
   public insertsoapnotes1() {
-    debugger
-    debugger
+
+
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -1846,7 +1942,7 @@ export class MyappointmentsComponent implements OnInit {
       'ICRDescription': this.icddesc,
       'ICRID': this.icrcodeid
     }
-    debugger
+
     this.docservice.InsertDoctor_PatientSoapNotes1(entity).subscribe(data => {
       if (data != 0) {
         this.soapid = data;
@@ -1861,7 +1957,7 @@ export class MyappointmentsComponent implements OnInit {
           this.InsertDoctorSoapNoteTemplate()
         }
         if (this.misuse == 1) {
-          debugger
+
           this.docservice.GetPatientRegistrationMisuseBit(this.patientid).subscribe(data => {
           })
 
@@ -1885,13 +1981,13 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public Insertnotificationsoapnotesazuere() {
-    debugger
+
     var entity = {
       'Description': this.user + " Added SOAP Notes For You.",
       'ToUser': this.pemailsoap,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -1900,7 +1996,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public InsertNotificationSoapnotes() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientid,
@@ -1912,7 +2008,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.appointmentid
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
         }
       })
@@ -1928,7 +2024,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.appointmentid
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -1983,12 +2079,12 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public UpdateBookAppointmentNoShow(appointmentID, appdate, slots) {
-    debugger
+
     if (this.languageid == 1) {
       if (this.serverdate >= appdate) {
-        debugger
+
         if (this.servertime >= slots) {
-          debugger;
+          ;
           Swal.fire({
             title: 'Are you sure?',
             text: "This Patient has Not Visited!",
@@ -2031,9 +2127,9 @@ export class MyappointmentsComponent implements OnInit {
     }
     else {
       if (this.serverdate >= appdate) {
-        debugger
+
         if (this.servertime >= slots) {
-          debugger;
+          ;
           Swal.fire({
             title: 'Êtes-vous sûr(e) ?',
             text: "Ce patient n'a pas visité!",
@@ -2136,12 +2232,12 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public Getappointmentsoapid(appointmentID) {
-    debugger
+
     this.soapappoitmentid = appointmentID;
 
     this.docservice.GetSoapNotesByAppointmentID(this.soapappoitmentid).subscribe(
       data => {
-        debugger
+
         this.soaplist = data;
         if (this.soaplist == null) {
           this.subjective = "";
@@ -2200,11 +2296,11 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetVedioID(id) {
-    debugger
+
     this.vedioid = id;
     this.docservice.GetPatient_IllnessVedioes(this.vedioid).subscribe(
       data => {
-        debugger
+
         this.showvedioes = data;
         if (this.showvedioes.length == 0) {
           this.novideo = 1
@@ -2219,11 +2315,11 @@ export class MyappointmentsComponent implements OnInit {
   sickslippatientid
   patientlist: any
   public GetSickSlipID(patientID) {
-    debugger
+
     this.sickslippatientid = patientID;
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
       data => {
-        debugger
+
         this.patientlist = data;
         this.getpatientdetail(this.sickslippatientid);
       }
@@ -2233,7 +2329,7 @@ export class MyappointmentsComponent implements OnInit {
   email: any
   address: any
   public getpatientdetail(pid) {
-    debugger
+
     this.patientid = pid;
     let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
     this.patientname = qwerty[0].patientName;
@@ -2254,12 +2350,12 @@ export class MyappointmentsComponent implements OnInit {
 
   public Getscholladate() {
     if (this.languageid == 6) {
-      debugger
+
       if (this.leavefor == 'École') {
         this.Scholldata = 'Arrêt maladie (Ecole)'
       }
       if (this.leavefor == 'Bureau') {
-        debugger
+
         this.Scholldata = 'Arrêt maladie (Arrêt de travail)'
       }
     }
@@ -2268,7 +2364,7 @@ export class MyappointmentsComponent implements OnInit {
 
   public InsertSickSlipGenarator() {
 
-    debugger
+
     if (this.languageid == 1) {
       this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
@@ -2333,7 +2429,7 @@ export class MyappointmentsComponent implements OnInit {
         this.doctorid = localStorage.getItem('userid');
         this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
           data => {
-            debugger
+
             this.sicksliplist = data;
             // this.getdesc(res);
           }, error => {
@@ -2344,7 +2440,7 @@ export class MyappointmentsComponent implements OnInit {
   }
   des
   public getdesc(id) {
-    debugger
+
     this.des = this.sicksliplist.filter(x => x.id == id);
     this.desc = this.des[0].description;
   }
@@ -2357,9 +2453,9 @@ export class MyappointmentsComponent implements OnInit {
       'emailbody': this.desc,
       'attachmenturl': this.attachmentsurl
     }
-    debugger
+
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+
       Swal.fire('Mail sent successfully.');
       this.leavefor = "";
       this.ailment = "";
@@ -2370,7 +2466,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetReferralID(details) {
-    debugger
+
     this.patientid = details.patientID;
     this.appointmentid = details.appointmentID;
     if (this.languageid == 1) {
@@ -2415,7 +2511,7 @@ export class MyappointmentsComponent implements OnInit {
   doctoremail: any
   docphoneno: any
   public GetReferencetypeID(even) {
-    debugger
+
     this.referaltypeid = even.target.value;
     if (this.referaltypeid == '2') {
       this.doctorname = "",
@@ -2427,10 +2523,10 @@ export class MyappointmentsComponent implements OnInit {
 
   departmentlist: any
   public getdepartmentmaster() {
-    debugger
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.departmentlist = data;
       }, error => {
       }
@@ -2440,7 +2536,7 @@ export class MyappointmentsComponent implements OnInit {
   hospitalid: any
   dochospitalid: any
   public GetDoctorID(item: any) {
-    debugger
+
     this.doctorid = item.id
     var list = this.dummlist.filter(x => x.id == this.doctorid)
     this.doctorname = list[0].doctorName,
@@ -2463,7 +2559,7 @@ export class MyappointmentsComponent implements OnInit {
   public referdoctorlist: any;
   public docdd = {}
   public GetDepartmentID(even) {
-    debugger
+
     this.departmentid = even.target.value;
 
     this.list = this.dummlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
@@ -2481,7 +2577,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public Getdocname(doctorname) {
-    debugger
+
     this.doctorname = doctorname;
     this.referalnotes = "<p><br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p></p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
 
@@ -2494,7 +2590,7 @@ export class MyappointmentsComponent implements OnInit {
   public user: any;
   public soap: any;
   public insertdetails1() {
-    debugger
+
     if (this.referaltypeid == 1 || this.referaltypeid == 2) {
       if (this.doctorname == null) {
         Swal.fire("Please Select Or Enter Doctor Name")
@@ -2506,9 +2602,9 @@ export class MyappointmentsComponent implements OnInit {
         Swal.fire("Please Enter Referral Notes")
       }
       else {
-        debugger
+
         if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-          debugger
+
           this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
         }
         if (this.referaltypeid == 3) {
@@ -2535,10 +2631,10 @@ export class MyappointmentsComponent implements OnInit {
         this.docservice.InsertDoctorReferals(entity).subscribe(data => {
           if (data != 0) {
             this.InsertDoctorRefererlas();
-            debugger
+
             this.SendNotification();
             // this.senmailToPatient();
-            debugger
+
             if (this.referaltypeid == 1 || this.referaltypeid == 2) {
               this.sendmail1();
             }
@@ -2552,9 +2648,9 @@ export class MyappointmentsComponent implements OnInit {
       }
     }
     if (this.referaltypeid == 3) {
-      debugger
+
       // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-      //   debugger
+      //   
       //   this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
       // }
       if (this.referaltypeid == 3) {
@@ -2581,10 +2677,10 @@ export class MyappointmentsComponent implements OnInit {
       this.docservice.InsertDoctorReferals(entity).subscribe(data => {
         if (data != 0) {
           this.InsertDoctorRefererlas();
-          debugger
+
           this.SendNotification();
           // this.senmailToPatient();
-          debugger
+
           // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
           //   this.sendmail();
           // }
@@ -2605,22 +2701,22 @@ export class MyappointmentsComponent implements OnInit {
       ContentType: "text/html",
       Content: this.referalnotes,
     };
-    debugger
+
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+
       Swal.fire('Mail sent successfully.');
     })
   }
 
   // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user
   public SendNotification() {
-    debugger
+
     var entity = {
       'Description': "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -2636,13 +2732,13 @@ export class MyappointmentsComponent implements OnInit {
         'AttachmentUrl': this.attachmentsurl1[i],
       }
       this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
       })
     }
-    debugger
+
   }
 
 
@@ -2662,9 +2758,9 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public senmailToPatient() {
-    debugger
+
     // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
-    debugger
+
     // var mailentity = {
     //   'emailto': 'srikanthreddy0905@gmail.com',
     //   'emailsubject': 'Patient Referred By' + this.doctorname,
@@ -2678,18 +2774,18 @@ export class MyappointmentsComponent implements OnInit {
       Content: "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
       // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
     };
-    debugger
+
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+
       Swal.fire('Mail sent successfully.');
     })
   }
 
   mobileNumber: any;
   public SendReciept() {
-    debugger
+
     // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
-    debugger
+
     // var mailentity = {
     //   'emailto': 'srikanthreddy0905@gmail.com',
     //   'emailsubject': 'Patient Referred By' + this.doctorname,
@@ -2705,9 +2801,9 @@ export class MyappointmentsComponent implements OnInit {
       Content: "Reciept has been recieved for video call with " + this.doctorName + " For Further Investigation. Please Contact Him on Mobile " + this.mobileNumber,
       // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
     };
-    debugger
+
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+
       Swal.fire('Mail sent successfully.');
     })
   }
@@ -2716,9 +2812,9 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetCountryID(item: any) {
-    debugger
+
     // if (item.target.value != 0) {
-    debugger
+
     this.countryid = item.id;
 
     this.doctorlist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -2732,10 +2828,10 @@ export class MyappointmentsComponent implements OnInit {
     // }
   }
   public getdoctorforadmin() {
-    debugger
+
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.doctorlist = data;
         this.dummlist = this.doctorlist
 
@@ -2747,10 +2843,10 @@ export class MyappointmentsComponent implements OnInit {
   public citydd = {};
   public areadd = {}
   public getcity() {
-    debugger
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+
         this.citylist = data;
 
         this.citydd = {
@@ -2769,7 +2865,7 @@ export class MyappointmentsComponent implements OnInit {
 
   public GetCityID(item: any) {
     // if (item.target.value != 0) {
-    debugger
+
     this.cityid = item.id;
     this.getareamasterbyid()
     this.doctorlist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -2783,10 +2879,10 @@ export class MyappointmentsComponent implements OnInit {
   }
   public arealist: any;
   public getareamasterbyid() {
-    debugger
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+
         this.arealist = data;
 
         this.areadd = {
@@ -2808,7 +2904,7 @@ export class MyappointmentsComponent implements OnInit {
 
   public GetAreaID(item: any) {
     // if (item.target.value != 0) {
-    //   debugger
+    //   
     this.areaid = item.id;
     this.doctorlist = this.dummlist.filter(x => x.areaID == this.areaid)
     this.departmentid = 0;
@@ -2822,7 +2918,7 @@ export class MyappointmentsComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.countrylist = data;
 
         this.countrydd = {
@@ -2850,7 +2946,7 @@ export class MyappointmentsComponent implements OnInit {
   adate: any;
   signatureURL: any;
   public GenerateReciept(data) {
-    debugger;
+    ;
     this.appointmentID = data.appointmentID;
     this.doctorName = data.doctorName;
     this.patientName = data.patientName;
@@ -2867,7 +2963,7 @@ export class MyappointmentsComponent implements OnInit {
   display: any;
 
   public Openmodel() {
-    debugger;
+    ;
     this.display = "block";
   }
 
@@ -2888,7 +2984,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetFolloupVistID(id) {
-    debugger;
+    ;
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to This Appointment Follow Up Again!",
@@ -2920,7 +3016,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetPrescriptionPhoto(details) {
-    debugger
+
     this.patientid = details.patientID,
       this.appointmentid = details.appointmentID
   }
@@ -2928,7 +3024,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public onattachmentUpload1(abcd) {
-    debugger
+
     for (let i = 0; i < abcd.length; i++) {
       this.attachments1.push(abcd[i]);
       this.uploadattachments1();
@@ -2939,17 +3035,17 @@ export class MyappointmentsComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-      debugger
+
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+
       let b = 'http://14.192.17.225' + a;
 
       // this.showdocphoto.push(b)
-      debugger
+
 
       this.attachments1.length = 0;
-      debugger
+
     })
     // this.sendattachment();
   }
@@ -3029,7 +3125,7 @@ export class MyappointmentsComponent implements OnInit {
     this.showwindow = 1
 
     this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
+      ;
       this.chatIDlist = res;
       this.chatID = this.chatIDlist[0].chatID
       this.getPreviousChat();
@@ -3040,46 +3136,47 @@ export class MyappointmentsComponent implements OnInit {
       this.getserverdateandtime();
       this.getPreviousChat();
       this.oberserableTimer();
-     
+
     })
   }
 
 
+
+  // public dosendmsg() {
+  //   this.getChat();
+  //   
+  // }
 
   public dosendmsg() {
-    this.getChat();
-    debugger
-  }
+    var entity = {
+      // 'ChatID': this.chatID,
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientiddd,
+      // 'Read_Me': 0
+    }
+    this.docservice.InsertChatMaster(entity).subscribe(data => {
 
-  public getChat() {
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
-
-      if (res.length > 1) {
-        this.chatID = res;
+      if (data != 0) {
+        this.chatID = data;
         this.InsertChatDetails();
       }
-      else {
-        var entity = {
-          // 'ChatID': this.chatID,
-          'DoctorID': this.doctorid,
-          'PatientID': this.patientiddd,
-          // 'Read_Me': 0
-        }
-        this.docservice.InsertChatMaster(entity).subscribe(data => {
-          debugger
-          if (data != 0) {
-            this.chatID = data;
-            this.InsertChatDetails();
-          }
-        })
-      }
     })
+    // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    //   ;
+
+    //   if (res.length > 1) {
+    //     this.chatID = res;
+    //     this.InsertChatDetails();
+    //   }
+    //   else {
+
+    //   }
+    // })
   }
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-    debugger;
+    ;
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -3091,7 +3188,7 @@ export class MyappointmentsComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -3112,7 +3209,7 @@ export class MyappointmentsComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entitys).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -3128,22 +3225,22 @@ export class MyappointmentsComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
-        debugger
+
         if (Chatconversation[i].sender == 'Patient') {
           this.coversationarray.push({
             chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
           })
         }
-        debugger
+
         if (Chatconversation[i].sender == 'Doctor') {
           this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
       }
-      debugger
+
 
     })
   }
@@ -3161,7 +3258,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -3172,23 +3269,22 @@ export class MyappointmentsComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
       this.attachmentsurl = [];
-      debugger
+
     })
     // this.sendattachment();
   }
 
 
-public GetShowOff()
-{
-  document.getElementById("myForm").style.display = "none";
-}
+  public GetShowOff() {
+    document.getElementById("myForm").style.display = "none";
+  }
 }

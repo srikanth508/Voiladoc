@@ -24,6 +24,9 @@
       <table>
         <thead>
           <tr>
+            <th>{{labels[0].name}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>Email</th>
             <th *ngIf="languageID=='1'">User Name</th>
             <th *ngIf="languageID=='1'">Password</th>
 
@@ -32,6 +35,9 @@
               Mot de passe</th>
           </tr>
           <tr *ngFor="let details of receptionistlogins|filter:term">
+            <td>{{details.name}}</td>
+            <td>{{details.phoneNo}}</td>
+            <td>{{details.email}}</td>
             <td>{{details.userName}}</td>
             <td>{{details.password}}</td>
           </tr>

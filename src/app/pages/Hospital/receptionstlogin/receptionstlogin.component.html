@@ -1,4 +1,3 @@
-
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-3">
@@ -9,27 +8,57 @@
 </div>
 <div class="container-fluid card card:hover divspacee">
   <form #doctorForm="ngForm">
- <br>
+    <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>User Name :</label>
+        <label>{{labels[0].name}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control" name="username" required [(ngModel)]="username" placeholder="User Name"
-          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+        <input type="text" class="form-control" name="name" required [(ngModel)]="name" placeholder="{{labels[0].name}}">
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>Password :</label>
+        <label>{{labels[0].phoneNo}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="phoneno" required [(ngModel)]="phoneno" placeholder="{{labels[0].phoneNo}}">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Email ID :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="email" required [(ngModel)]="email" placeholder="Email ID ">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].userName}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="username" required [(ngModel)]="username"
+          placeholder="{{labels[0].userName}}">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].password}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <input type="password" class="form-control" name="password" required [(ngModel)]="password"
-          placeholder="Password">
-        
+          placeholder="{{labels[0].password}}">
+
       </div>
     </div>
     <br><br>
@@ -38,7 +67,7 @@
       </div>
       <div class="col-lg-2">
         <button type="button" [disabled]="doctorForm.form.invalid" class="btn btn-block btn-md allbtns btncolor"
-          (click)="insertdetails()">Save</button>
+          (click)="insertdetails()">{{labels[0].save}}</button>
       </div>
       <div class="col-lg-5">
       </div>

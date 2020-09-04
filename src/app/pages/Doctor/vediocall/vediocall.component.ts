@@ -230,7 +230,7 @@ export class VediocallComponent implements OnInit {
   public showhistoryid: any;
   public savetemplate: any;
   public chatIDlist: any;
-
+  manuallydrug:any;
   ngOnInit() {
 
     this.minutes = 0;
@@ -313,10 +313,11 @@ export class VediocallComponent implements OnInit {
       }
     })
 
-
     //chat
     this.image = 0;
     this.savetemplate = 2;
+    this.manuallydrug=2
+    this.substainable=1;
 
     this.getserverdateandtime();
 
@@ -326,19 +327,19 @@ export class VediocallComponent implements OnInit {
   
     this.getserverdateandtime();
 
-    this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
-      debugger;
-      this.chatIDlist = res;
-      this.chatID = this.chatIDlist[0].chatID
-      this.getPreviousChat();
-      this.oberserableTimer();
-      this.getserverdateandtime();
-      // this.appointmentiddd = 570;
-      this.appointmentdatetimee = localStorage.getItem('appdate');
-      this.getserverdateandtime();
-      this.getPreviousChat();
-      this.oberserableTimer();
-    })
+    // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
+    //   debugger;
+    //   this.chatIDlist = res;
+    //   this.chatID = this.chatIDlist[0].chatID
+    //   this.getPreviousChat();
+    //   this.oberserableTimer();
+    //   this.getserverdateandtime();
+    //   // this.appointmentiddd = 570;
+    //   this.appointmentdatetimee = localStorage.getItem('appdate');
+    //   this.getserverdateandtime();
+    //   this.getPreviousChat();
+    //   this.oberserableTimer();
+    // })
     debugger;
     // this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
@@ -353,6 +354,8 @@ export class VediocallComponent implements OnInit {
     this.GetDoctorPrescrptionTemplates()
     this.geticdcode()
     this.GetDoctorSoapNotesTemplates()
+    this.GetDrugnamemaster()
+
     this.pddddd = 1;
     this.pdpd = 1;
     debugger;
@@ -980,7 +983,15 @@ export class VediocallComponent implements OnInit {
           this.docservice.GetPatientRegistrationMisuseEnablebit(this.patientid).subscribe(data => {
           })
         }
-        Swal.fire('Completed', 'Details saved successfully', 'success');
+        if(this.languageid==1)
+        {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else
+        {
+          Swal.fire('Détails enregistrés','SOAP');
+        } 
+       
         this.GetSoapNotesByPatientID();
         this.VisitDoctorAppointmentStatus()
         this.clear();
@@ -1011,8 +1022,14 @@ export class VediocallComponent implements OnInit {
     this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
 
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
-
+        if(this.languageid==1)
+        {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else
+        {
+          Swal.fire('Détails enregistrés','SOAP');
+        } 
       }
     })
   }
@@ -1026,7 +1043,14 @@ export class VediocallComponent implements OnInit {
     }
     this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
+        if(this.languageid==1)
+        {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else
+        {
+          Swal.fire('Détails enregistrés','SOAP');
+        } 
 
       }
     })
@@ -1047,8 +1071,14 @@ export class VediocallComponent implements OnInit {
     }
     this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
-
+        if(this.languageid==1)
+        {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else
+        {
+          Swal.fire('Détails enregistrés','SOAP');
+        } 
       }
     })
   }
@@ -1262,7 +1292,8 @@ export class VediocallComponent implements OnInit {
       this.medicineid = list[0].medicineTypeID
       this.icdcode = list[0].icdCode
       this.icrdescription = list[0].icdDescription
-      this.icrcodeid = list[0].icdid
+      this.icrcodeid = list[0].icdid,
+      this.substainable=list[0].substainablenotPermitted
     }
     else {
       this.medicinename = "";
@@ -1276,6 +1307,7 @@ export class VediocallComponent implements OnInit {
       this.howmanyrefills = '';
       this.medicinetemplatename = "",
         this.medicinetemplate = 2;
+        this.substainable=""
     }
   }
   icdcodelist: any;
@@ -1320,6 +1352,82 @@ export class VediocallComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+
+
+
+// prescription 
+drugnames:any;
+drugnamelist:any;
+
+
+search1 = (text$: Observable<string>) =>
+text$.pipe(
+  debounceTime(200),
+  distinctUntilChanged(),
+  map(termsss => termsss.length < 1 ? []
+    : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
+)
+
+public GetDrugnamemaster() {
+debugger
+this.docservice.GetDrugNameMaster(this.languageid).subscribe(
+  data => {
+    this.drugnamelist = data;
+    debugger
+    // this.drugnames = this.drugnamelist.map(x => x.medicament);
+    debugger
+  }, error => {
+  }
+)
+}
+
+// public GetDrugNameID() {
+
+// if (this.medicinename == '') {
+//   this.medicinename = ''
+// }
+// else {
+//   let wqew = this.icdcodelist.filter(v => v.drugnames.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+//   // this.icdcode = wqew[0].icdCode,
+//   //   this.icrcodeid = wqew[0].id
+
+// }
+// }
+
+
+
+public SerchDrugName(medicinename) {
+  debugger
+  if (medicinename == "") {
+    this.SerachOn = 0;
+    debugger
+  }
+  else {
+    this.SerachOn = 1;
+    debugger
+    //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+  }
+}
+
+
+
+public GetDrugID(medicinename) {
+  debugger
+  this.medicinename = medicinename
+  this.SerachOn = 0
+}
+
+
+
+
+
   public AddDoctorPrescriptionTemplates() {
     var entity = {
       'DoctorID': this.doctorid,
@@ -1337,7 +1445,9 @@ export class VediocallComponent implements OnInit {
       'HowManyRefils': this.howmanyrefills,
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
-      'ICDID': this.icrcodeid
+      'ICDID': this.icrcodeid,
+      'SubstainablenotPermitted':this.substainable,
+      
     }
     this.docservice.InsertDoctorPrescrptionTemplates(entity).subscribe(data => {
       debugger
@@ -1348,7 +1458,7 @@ export class VediocallComponent implements OnInit {
 
   }
 
-
+  substainable:any;
 
   public adddetails1() {
     this.tablecuont1 = 1;
@@ -1370,7 +1480,9 @@ export class VediocallComponent implements OnInit {
       'HowmanyRefills': this.howmanyrefills,
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
-      'ICDID': this.icrcodeid
+      'ICDID': this.icrcodeid,
+      'SubstainablenotPermitted':this.substainable,
+     
     }
     this.qwerty2.push(entity1);
 
@@ -1390,6 +1502,7 @@ export class VediocallComponent implements OnInit {
     this.icrdescription = ""
     this.icrcodeid = ""
     this.medicinetemplate == 2
+    this.substainable=""
   }
 
 
@@ -1435,12 +1548,21 @@ export class VediocallComponent implements OnInit {
         'EndorseBit': this.endorse,
         'ICDCode': this.qwerty2[i].ICDCode,
         'ICDDescription': this.qwerty2[i].ICDDescription,
-        'ICDID': this.qwerty2[i].ICDID
+        'ICDID': this.qwerty2[i].ICDID,
+        'SubstainablenotPermitted':this.qwerty2[i].SubstainablenotPermitted
       }
       this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
         debugger
         if (data != 0) {
-          Swal.fire('Completed', 'Prescription saved successfully', 'success');
+          if(this.languageid==1)
+          {
+            Swal.fire('Completed', 'Prescription saved successfully', 'success');
+          }
+          else
+          {
+            Swal.fire('Détails enregistrés','Ordonnance');
+          }
+        
           this.tablecuont1 = 0;
           this.qwerty2 = [];
           this.getdoctorpatinetdetails();
@@ -1529,7 +1651,15 @@ export class VediocallComponent implements OnInit {
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
         debugger
         if (data != 0) {
-          Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+
+          if(this.languageid==1)
+          {
+            Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+          }
+          else
+          {
+            Swal.fire('Détails enregistrés','Test de laboratoire');
+          } 
           this.tablecount = 0;
           this.qwerty = []
           this.qwerty.length = 0
@@ -1588,34 +1718,37 @@ export class VediocallComponent implements OnInit {
   }
 
 
+  // public dosendmsg() {
+  //   this.getChat();
+  // }
+
+  
   public dosendmsg() {
-    this.getChat();
-  }
-
-  public getChat() {
-    this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
-      debugger;
-
-      if (res.length > 1) {
-        this.chatID = res;
+    var entity = {
+      // 'ChatID': this.chatID,
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientid,
+      // 'Read_Me': 0
+    }
+    this.docservice.InsertChatMaster(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+        this.chatID = data;
         this.InsertChatDetails();
       }
-      else {
-        var entity = {
-          // 'ChatID': this.chatID,
-          'DoctorID': this.doctorid,
-          'PatientID': this.patientid,
-          // 'Read_Me': 0
-        }
-        this.docservice.InsertChatMaster(entity).subscribe(data => {
-          debugger
-          if (data != 0) {
-            this.chatID = data;
-            this.InsertChatDetails();
-          }
-        })
-      }
     })
+
+    // debugger
+    // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(ressss => {
+    //   debugger;
+    //   if (ressss.length > 1) {
+    //     this.chatID = ressss;
+    //     this.InsertChatDetails();
+    //   }
+    //   else {
+     
+    //   }
+    // })
   }
 
   public InsertChatDetails() {
@@ -1747,8 +1880,6 @@ export class VediocallComponent implements OnInit {
 
 
 
-
-
   public renewprescription(presdetails) {
     var entity = {
       'MedicineTypeID': presdetails.medicineTypeID,
@@ -1767,20 +1898,26 @@ export class VediocallComponent implements OnInit {
       'Diagnosis': presdetails.diagnosis,
       'HowmanyRefills': presdetails.howmanyRefills,
       'LocalDoctorID': this.localdocid,
-      'EndorseBit': this.endorse
+      'EndorseBit': this.endorse,
+      'ICDCode': 0,
+      'ICDDescription': 0,
+      'ICDID': 0,
+      'SubstainablenotPermitted':presdetails.substainablenotPermitted
     }
     this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
       debugger
       if (data != 0) {
         this.getdoctorpatinetdetails()
-        Swal.fire('Renewed', 'Prescription renewed successfully', 'success');
-
+        if(this.languageid=1)
+        {
+          Swal.fire('Renewed', 'Prescription renewed successfully', 'success');
+        }
+      else{
+        Swal.fire('Détails enregistrés','Ordonnance');
+      }
       }
     })
   }
-
-
-
 
 
 
@@ -1807,4 +1944,20 @@ export class VediocallComponent implements OnInit {
     debugger
     this.showhistoryid = even.target.value;
   }
+
+
+
+
+  public highlight(evt) {
+    var i, tablinks;
+  
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    evt.currentTarget.className += " active";
+  }
 }
+
+

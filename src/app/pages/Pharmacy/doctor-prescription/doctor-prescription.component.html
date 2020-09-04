@@ -29,6 +29,7 @@
               <th>{{labels[0].orderNumber}}</th>
               <th>Prescription Type</th>
               <th>Pick Up Type</th>
+              <th>Substitutable not permitted </th>
               <th>{{labels[0].name}}</th>
               <th>{{labels[0].phoneNo}} </th>
               <th>{{labels[0].mailId}}</th>
@@ -46,7 +47,11 @@
               </td>
               <td>
                 <span *ngIf="details.selfPickUP=='0'">Home Delivery</span>
-                <span *ngIf="details.selfPickUP=='2'">Self Pick Up</span>
+                <span *ngIf="details.selfPickUP=='1'">Self Pick Up</span>
+              </td>
+              <td>
+                <span *ngIf="details.substainablenotPermitted=='1'">Yes</span>
+                <span *ngIf="details.substainablenotPermitted=='2'">NO</span>
               </td>
               <td>{{details.patientName}}</td>
               <td>{{details.mobileNumber}}</td>

@@ -716,14 +716,15 @@
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='14'" routerLink="/Ptientregdash">
             <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].patient_Registration}}
         </a>
-
+       
         <!-- <button *ngIf="this.docservice.showvid == 1" (click)="show()">show</button>
         <button *ngIf="this.docservice.showvid == 1" (click)="hide()">hide</button>
         <br> -->
 
-        <div *ngIf="this.docservice.showvid == 1">
-            <p style="color: aliceblue;">{{labels[0].doctorVideo}}</p>
+        <div *ngIf="this.docservice.showvid == 1" >
+           
             <app-publisher [session]="session" id="publishme" [ngStyle]="{ display: block }"></app-publisher>
+            <p style="color: aliceblue;">{{labels[0].doctorVideo}}</p>
         </div>
     </div>
 </div>

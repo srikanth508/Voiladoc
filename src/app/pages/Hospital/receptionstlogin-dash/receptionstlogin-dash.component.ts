@@ -13,10 +13,12 @@ export class ReceptionstloginDashComponent implements OnInit {
   public hospitalclinicid: any;
   public term: any;
   languageID
+  labels: any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageID = localStorage.getItem('LanguageID');
     this.getreceptionlogin();
+    this.getlanguage()
   }
 
   public getreceptionlogin() {
@@ -29,4 +31,17 @@ export class ReceptionstloginDashComponent implements OnInit {
       }
     )
   }
+
+
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageID).subscribe(
+      data => {
+        debugger
+        this.labels = data;
+
+      }, error => {
+      }
+    )
+  }
+
 }

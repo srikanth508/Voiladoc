@@ -48,3 +48,27 @@
         th{
           text-transform: lowercase;
         }
+
+               
+  .rectangle {
+    height: 30px;
+    width: 83px;
+    background-color: #bae6fb;
+ 
+  }
+
+  .vdioerect
+  {
+    height: 30px;
+    width: 130px;
+    background-color: #4e66b0;
+    color:white;
+  }
+
+  .homecare
+  {
+    height: 30px;
+    width: 94px;
+    background-color: #90EE90;
+    color:white;
+  }

@@ -4058,4 +4058,9 @@ export class HelloDoctorService {
     debugger
     return this.http.get<any[]>(this.host + '/Admin/GetDoctor_ChatDetailsMobileWeb?ChatID=' + chatid);
   }
+
+  public GetDrugNameMaster(lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetDrugNameMaster?LanguageID=' + lid);
+  }
 }

@@ -196,7 +196,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '3');
             localStorage.setItem('hospitalid', this.result[0].hospital_ClinicID);
             localStorage.setItem('temp', '1');
-            location.href = '#/Profile';
+            location.href = '#/HospitalRevenue';
             location.reload();
           }
           else {

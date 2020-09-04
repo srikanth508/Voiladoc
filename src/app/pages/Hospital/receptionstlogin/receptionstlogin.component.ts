@@ -14,17 +14,37 @@ export class ReceptionstloginComponent implements OnInit {
   public password: any;
   public hospitalclinicid: any;
   languageID: any;
-
+  name: any;
+  phoneno: any;
+  email: any;
+  labels: any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageID = localStorage.getItem('LanguageID');
+    this.getlanguage()
   }
+
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageID).subscribe(
+      data => {
+        debugger
+        this.labels = data;
+
+      }, error => {
+      }
+    )
+  }
+
+
 
   public insertdetails() {
     var entity = {
       'HospitalID': this.hospitalclinicid,
       'UserName': this.username,
-      'Password': this.password
+      'Password': this.password,
+      'Name': this.name,
+      'Email': this.email,
+      'PhoneNo': this.phoneno
     }
     this.docservice.InsertReceiptionistLogin(entity).subscribe(data => {
       debugger

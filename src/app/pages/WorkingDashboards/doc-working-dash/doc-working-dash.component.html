@@ -12,13 +12,18 @@
 </div>
 <br>
 <div class="row">
-  <div class="col-lg-10">
+  <div class="col-lg-8">
   </div>
-  <div class="col-lg-1">
-  </div>
+ 
 </div>
 <br>
 <div class="container-fluid card card-hover">
+  <!-- <br>
+  <div class="row">
+    <div class="col-lg-8">
+    </div>
+    
+  </div> -->
   <div class="row" style="margin-top:10px;">
     <div class="col-lg-3">
       <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
@@ -31,13 +36,21 @@
         <option *ngFor="let doc of doctorlist" value={{doc.doctorName}}>{{doc.doctorName}}</option>
       </select>
     </div>
-
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="margin-right: -28px;">
       <!-- (change)="GetDaysName($event)" -->
       <select value="" selected class="form-control" [(ngModel)]="daysname" name="daysname">
         <option value="">{{labels[0].selectday}}</option>
         <option *ngFor="let days of dayslist" value={{days.dayOfTheWeek}}>{{days.dayOfTheWeek}}</option>
       </select>
+    </div>
+    <div class="col-lg-1" style="margin-right: -17px;">
+      <div class="rectangle"><span style="margin-left: 5px;">{{labels[0].inclinic}}</span></div>
+    </div>
+    <div class="col-lg-1" style="margin-right: 5px;">
+      <div class="vdioerect"> <span style="margin-left: 11px;">{{labels[0].video}}</span></div>
+    </div>
+    <div class="col-lg-1" style="margin-left: 28px;">
+      <div class="homecare"><span style="margin-left: 28px;">Home Visit</span></div>
     </div>
   </div>
   <br>
