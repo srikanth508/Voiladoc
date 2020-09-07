@@ -17,10 +17,9 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-
-      <select value="" selected class="form-control" [(ngModel)]="nursename" name="nursename">
-        <option value="">{{labels[0].selectNurse}}</option>
-        <option *ngFor="let nurse of nurselist" value={{nurse.nurseName}}>{{nurse.nurseName}}</option>
+      <select  class="form-control"(change)="GetNurseID($event)">
+        <option value="0">{{labels[0].selectNurse}}</option>
+        <option *ngFor="let nurse of nurselist" value={{nurse.id}}>{{nurse.nurseName}}</option>
       </select>
     </div>
     <div class="col-lg-3">

@@ -3,9 +3,9 @@
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].sickSlipGenerator}}</h5>
     </div>
-    <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
+    <!-- <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
       <button type="button" routerLink="/SickSlipDashboard" class="btn btncolor">{{labels[0].dashboard}}</button>
-    </div>
+    </div> -->
   </div>
 </div>
 <br>
@@ -17,16 +17,16 @@
       <span style="color: red;">*</span>
     </div>
     <div class="col-lg-4">
-      <select class="form-control" (change)="GetPatientdetails($event)">
+      <!-- <select class="form-control" (change)="GetPatientdetails($event)">
         <option value="">{{labels[0].selectt}}</option>
         <option *ngFor="let pat of patientlist" value="{{pat.patientID}}">{{pat.patientName}}</option>
-      </select>
-      <!-- <ng-multiselect-dropdown [placeholder]="'Select'" [data]="patientlist" [settings]="docdd"
+      </select> -->
+      <ng-multiselect-dropdown [placeholder]="'Select'" [data]="patientlist" [settings]="docdd"
         (onSelect)="GetPatientdetails($event)">
-      </ng-multiselect-dropdown> -->
+      </ng-multiselect-dropdown>
     </div>
   </div>
-  <br>
+ 
   <!-- <div class="row">
     <div class="col-lg-3">
       <label>Patient Name </label>
@@ -68,8 +68,6 @@
         class="form-control"><br>
     </div>
   </div>
-
-
 
   <div class="row">
     <div class="col-lg-3">

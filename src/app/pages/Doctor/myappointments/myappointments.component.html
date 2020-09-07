@@ -105,7 +105,7 @@
               <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
               <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
                 *ngIf="details.appointmentTypeID=='2'"
-                (click)="GetChatShowID(details.patientID)">{{labels[0].startchat}}</button>
+                (click)="GetChatShowID(details.patientID,details.appdate,details.slots)">{{labels[0].startchat}}</button>
             </td>
             <td>{{details.appointmentID}}</td>
             <td>{{details.pName}}</td>
@@ -119,7 +119,6 @@
                 data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetVedioID(details.appointmentID)" />&nbsp;
             </td>
-
             <td>
               <table style="box-shadow:none">
                 <tr>
@@ -604,7 +603,8 @@
                     <tr>
                       <th>médicament</th>
                       <th>Dénomination </th>
-                      <th>Dosage</th>
+                      <th>Forme & Dosage
+                      </th>
                       <th>Actions</th>
                     </tr>
                     <tr *ngFor="let code of drugnamelist|filter:medicinename">
@@ -621,7 +621,7 @@
               <br>
             </div>
 
-            
+
             <div *ngIf="languageid=='6'&&manuallydrug=='1'">
               <div class="row">
                 <div class="col-lg-4">

@@ -29,9 +29,8 @@ export class DocWorkingDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
     this.getlanguage();
-    this.GetDoctorHospitalDetails();
+    // this.GetDoctorHospitalDetails();
     this.GetDaysMaster()
-
 
     if (this.hospitalid == undefined) {
       this.getdoctorforadmin();
@@ -61,9 +60,6 @@ export class DocWorkingDashComponent implements OnInit {
       }
     )
   }
-
-
-
 
 
 
@@ -112,6 +108,21 @@ export class DocWorkingDashComponent implements OnInit {
 
   }
   dummwork: any;
+  doctorid: any;
 
 
+  public GetDoctorID(even) {
+    debugger
+    this.doctorid = even.target.value
+
+    this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
+      data => {
+        debugger;
+        this.dummworkingdetails = data;
+        this.workingdetails = this.dummworkingdetails.filter(x => x.doctorID == this.doctorid)
+      }, error => {
+      }
+    )
+
+  }
 }

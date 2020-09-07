@@ -9,6 +9,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { timer } from 'rxjs';
+import { shallowEqualArrays } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'app-myappointments',
   templateUrl: './myappointments.component.html',
@@ -1540,7 +1541,6 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-
   public delete(Sno) {
 
     for (let i = 0; i < this.qwerty.length; i++) {
@@ -1629,18 +1629,18 @@ export class MyappointmentsComponent implements OnInit {
           }
           else if (this.languageid == 6) {
             Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
-       
+
           }
         }
       }
       else {
         if (this.languageid == 1) {
           Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
-         
+
         }
         else if (this.languageid == 6) {
           Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
-         
+
         }
       }
     }
@@ -3115,29 +3115,48 @@ export class MyappointmentsComponent implements OnInit {
   public GetShowID() {
     this.showwindow = 0
     document.getElementById("myForm").style.display = "none";
+
+
+
+
+
   }
 
 
-  public GetChatShowID(patientid) {
+  public GetChatShowID(patientid, appdate, slots) {
+    debugger
     this.patientiddd = patientid;
-    document.getElementById("myForm").style.display = "block";
+    debugger
+    if (this.serverdate == appdate) {
 
-    this.showwindow = 1
+      if (this.servertime >= slots) {
+        debugger
+        document.getElementById("myForm").style.display = "block";
 
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      ;
-      this.chatIDlist = res;
-      this.chatID = this.chatIDlist[0].chatID
-      this.getPreviousChat();
-      this.oberserableTimer();
-      this.getserverdateandtime();
-      // this.appointmentiddd = 570;
-      this.appointmentdatetimee = localStorage.getItem('appdate');
-      this.getserverdateandtime();
-      this.getPreviousChat();
-      this.oberserableTimer();
+        this.showwindow = 1
 
-    })
+        this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+          ;
+          this.chatIDlist = res;
+          this.chatID = this.chatIDlist[0].chatID
+          this.getPreviousChat();
+          this.oberserableTimer();
+          this.getserverdateandtime();
+          // this.appointmentiddd = 570;
+          this.appointmentdatetimee = localStorage.getItem('appdate');
+          this.getserverdateandtime();
+          this.getPreviousChat();
+          this.oberserableTimer();
+
+        })
+      }
+      else {
+        Swal.fire('It is Still not yet Time to Do The Chat. You Can Start At ' + slots)
+      }
+    }
+    else {
+      Swal.fire('Your Appointment Date Is Over.You can not do chat now')
+    }
   }
 
 

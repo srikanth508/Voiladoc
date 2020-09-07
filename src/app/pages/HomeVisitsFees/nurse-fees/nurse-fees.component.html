@@ -28,7 +28,7 @@
       <span class="requird">*</span>
     </div>
     <div class="col-lg-4">
-      <select class="form-control" (change)="GetHospitalID($event)">
+      <select class="form-control"  (change)="GetHospitalID($event)">
         <option>{{labels[0].select}}</option>
         <option *ngFor="let hos of hospitalist" value="{{hos.hospital_ClinicID}}">{{hos.hospital_ClinicName}}</option>
       </select>
@@ -46,7 +46,7 @@
     </div>
   </div>
   <br>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].nurseFee}} : </label>
       <span class="requird">*</span>
@@ -67,7 +67,7 @@
         [(ngModel)]="voiladoccommission" name="voiladoccommission">
     </div>
   </div>
-  <br>
+  <br> -->
   <div class="row">
     <div class="col-lg-5">
     </div>

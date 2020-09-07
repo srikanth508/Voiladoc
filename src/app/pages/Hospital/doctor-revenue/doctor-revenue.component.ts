@@ -92,6 +92,11 @@ export class DoctorRevenueComponent implements OnInit {
       this.term = even.target.value;
       this.doctorlist = this.dummlist.filter(x => x.departmentname == this.term)
       this.count = this.doctorlist.length;
+
+      this.GrandTotal = 0;
+      for (let i = 0; i < this.doctorlist.length; i++) {
+        this.GrandTotal = this.GrandTotal + this.doctorlist[i].paidAmount;
+      }
     }
     else if (even.target.value == 0) {
       this.gethospitaldoctorsforadmin()
@@ -175,6 +180,10 @@ export class DoctorRevenueComponent implements OnInit {
       this.doctorname = even.target.value;
       this.doctorlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
       this.count = this.doctorlist.length;
+      this.GrandTotal = 0;
+      for (let i = 0; i < this.doctorlist.length; i++) {
+        this.GrandTotal = this.GrandTotal + this.doctorlist[i].paidAmount;
+      }
     }
     else if (even.target.value == 0) {
       this.gethospitaldoctorsforadmin()
@@ -182,12 +191,21 @@ export class DoctorRevenueComponent implements OnInit {
   }
 
 
+
   public SelectAppointmentType(even) {
-    if(even.target.value!=0)
-    {
+    if (even.target.value != 0) {
       this.appointmenttype = even.target.value;
+      this.doctorlist = this.dummlist.filter(x => x.appointmentTypeID == this.appointmenttype)
+      this.count = this.doctorlist.length;
+      this.GrandTotal = 0;
+      for (let i = 0; i < this.doctorlist.length; i++) {
+        this.GrandTotal = this.GrandTotal + this.doctorlist[i].paidAmount;
+      }
     }
- 
+    else {
+      this.gethospitaldoctorsforadmin()
+    }
+
   }
 
 }

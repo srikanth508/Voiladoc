@@ -19,6 +19,7 @@ export class NurseLoginDashboardComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummnurseloginlist:any;
+  public count:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -43,6 +44,7 @@ export class NurseLoginDashboardComponent implements OnInit {
         data => {
           debugger
           this.nurseloginlist = data;
+          this.count= this.nurseloginlist.length;
         }, error => {
         }
       )
@@ -54,6 +56,7 @@ export class NurseLoginDashboardComponent implements OnInit {
           debugger
           this.dummnurseloginlist = data;
           this.nurseloginlist=this.dummnurseloginlist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
+          this.count= this.nurseloginlist.length;
         }, error => {
         }
       )

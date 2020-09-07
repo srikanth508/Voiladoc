@@ -21,17 +21,16 @@ export class MidwifeWorkingDashComponent implements OnInit {
   public dummlist: any;
   public midwifelist: any;
   public count: any;
-  public miwifename:any;
+  public miwifename: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.miwifename = ''
     this.daysname = ''
-    this.getmidwifelist();
+    // this.getmidwifelist();
     this.getlanguage();
     this.GetDaysMaster();
-
 
 
     if (this.hospitalclinicid == undefined) {
@@ -103,5 +102,21 @@ export class MidwifeWorkingDashComponent implements OnInit {
       )
     }
 
+  }
+
+  midwifeid: any;
+
+  public GetmidwifeID(even) {
+    debugger
+    this.midwifeid = even.target.value;
+
+    this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
+      data => {
+        debugger
+        this.dummworkinglist = data;
+        this.workinglist = this.dummworkinglist.filter(x => x.midWifeID == this.midwifeid)
+      }, error => {
+      }
+    )
   }
 }

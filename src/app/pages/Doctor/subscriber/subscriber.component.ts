@@ -13,7 +13,7 @@ export class SubscriberComponent implements AfterViewInit {
   @Input() stream: OT.Stream;
   constructor() { }  
   ngAfterViewInit() {
-    const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {height:300,width:450}, (err) => {
+    const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {height:300,width:485}, (err) => {
       debugger;
       if (err) {
         alert(err.message);
@@ -25,5 +25,4 @@ export class SubscriberComponent implements AfterViewInit {
     });
 
   }
-
 }

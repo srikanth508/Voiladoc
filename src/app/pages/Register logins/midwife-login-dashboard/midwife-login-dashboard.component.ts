@@ -19,6 +19,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummmidwifelist: any;
+  public count: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -43,6 +44,8 @@ export class MidwifeLoginDashboardComponent implements OnInit {
         data => {
           debugger
           this.midwifelist = data;
+          this.count = this.midwifelist.length;
+
         }, error => {
         }
       )
@@ -52,7 +55,8 @@ export class MidwifeLoginDashboardComponent implements OnInit {
         data => {
           debugger
           this.dummmidwifelist = data;
-          this.midwifelist=this.dummmidwifelist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
+          this.midwifelist = this.dummmidwifelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+          this.count = this.midwifelist.length;
         }, error => {
         }
       )

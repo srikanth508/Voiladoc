@@ -3,7 +3,7 @@
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].appointmentss}}</h5>
     </div>
-  
+
     <div class="col-lg-3" style="margin-top: -5px;text-align: end;">
       <button type="button" *ngIf="roleid==14" routerLink="/Bookappointment"
         class="btn btncolor">{{labels[0].addapp}}</button>
@@ -46,7 +46,7 @@
   </div>
   <div class="row">
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+      <input type="text" class="form-control" [(ngModel)]="termsss" placeholder="{{labels[0].search}}">
     </div>
     <div class="col-lg-6">
     </div>
@@ -76,7 +76,7 @@
             <th *ngIf="roleid==14">Actions</th>
           </tr>
           <tr
-            *ngFor="let details of appointmentlist |filter:term  | paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            *ngFor="let details of appointmentlist |filter:term|filter:termsss  | paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.appointmentID}}</td>
             <td>{{details.apptDateTime}}</td>
             <td>{{details.pName}}</td>

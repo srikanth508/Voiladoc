@@ -17,6 +17,12 @@
       <input *ngIf="languageID=='1'" type="text" class="form-control" [(ngModel)]="term" placeholder="Search">
       <input *ngIf="languageID=='6'" type="text" class="form-control" [(ngModel)]="term" placeholder="Rechercher">
     </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <label *ngIf="languageID=='1'" style="margin-left: 100px;"><b>Count : {{count}}</b></label>
+      <label *ngIf="languageID=='6'" style="margin-left: 100px;"><b>Nombre : {{count}}</b></label>
+    </div>
   </div>
   <br>
   <div class="row">

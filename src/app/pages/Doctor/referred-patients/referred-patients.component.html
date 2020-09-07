@@ -9,14 +9,24 @@
 <br>
 <div class="container-fluid card card:hover ">
   <div class="row" style="margin-top: 20px;">
-    <!-- <div class="col-lg-4">
-      <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
-      </ng-daterangepicker>
-    </div> -->
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{ labels[0].search }}" />
     </div>
+    <div class="col-lg-4">
 
+    </div>
+    <div class="col-lg-2">
+      <label style="margin-left: 96px;">{{labels1[0].count}} : {{count}}</label>
+    </div>
   </div>
   <br />
   <div class="row">
@@ -46,16 +56,16 @@
             <td>
               <ng-template #tipcontent11>{{ labels1[0].patientCondition }}</ng-template>
               <a [ngbTooltip]="tipcontent11">
-                <img src="assets/Images/receivereferral.png" data-toggle="modal" data-target="#exampleModal6" style="height:25px;"
-                  (click)="GetPatientCondition(doc.referalNotes)" />
+                <img src="assets/Images/receivereferral.png" data-toggle="modal" data-target="#exampleModal6"
+                  style="height:25px;" (click)="GetPatientCondition(doc.referalNotes)" />
               </a>
               <!-- <p innerHTML="{{doc.referalNotes}}"></p> -->
             </td>
             <td>
               <ng-template #tipcontent10>{{ labels1[0].view }}</ng-template>
               <a [ngbTooltip]="tipcontent10">
-                <img src="assets/Images/viewfile.png" data-toggle="modal" data-target="#exampleModal5" style="height:25px;"
-                  (click)="GetAppointmentID(doc.appointmentID)" />
+                <img src="assets/Images/viewfile.png" data-toggle="modal" data-target="#exampleModal5"
+                  style="height:25px;" (click)="GetAppointmentID(doc.appointmentID)" />
               </a>
             </td>
             <td>
@@ -65,8 +75,8 @@
                 <img src="assets/Images/acc.png" *ngIf="doc.completed=='0'" style="height:20px;"
                   (click)="UpdateDoctorReferalsCompletedBit(doc.id)" />
               </a>&nbsp;
-              <ng-template #tipcontent2>Soap Notes</ng-template>
-              <a [ngbTooltip]="tipcontent2">
+              <ng-template #tipcontent4>Soap Notes</ng-template>
+              <a [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/soap.png" *ngIf="doc.soapbit=='1'" style="height:20px;" data-toggle="modal"
                   data-target="#exampleModal1" (click)="GetSopaNotesID(doc.appointmentID)" />
               </a>

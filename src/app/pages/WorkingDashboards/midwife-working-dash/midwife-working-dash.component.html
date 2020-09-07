@@ -17,9 +17,9 @@
   <div class="row">
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select value="" selected class="form-control" [(ngModel)]="miwifename" name="miwifename">
+      <select  class="form-control" (change)="GetmidwifeID($event)">
         <option value="">{{labels[0].selectMidwife}}</option>
-        <option *ngFor="let mid of midwifelist" value={{mid.name}}>{{mid.name}}</option>
+        <option *ngFor="let mid of midwifelist" value={{mid.id}}>{{mid.name}}</option>
       </select>
     </div>
     <div class="col-lg-3">

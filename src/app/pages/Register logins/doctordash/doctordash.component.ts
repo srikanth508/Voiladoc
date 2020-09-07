@@ -20,13 +20,14 @@ export class DoctordashComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummdcotorlogins: any;
+  public count: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.getdoctorloginfordash();
 
-    
+
   }
 
   public getlanguage() {
@@ -45,6 +46,7 @@ export class DoctordashComponent implements OnInit {
         data => {
           debugger
           this.doctorloginlist = data;
+          this.count = this.doctorloginlist.length;
         }, error => {
         }
       )
@@ -55,6 +57,7 @@ export class DoctordashComponent implements OnInit {
           debugger
           this.dummdcotorlogins = data;
           this.doctorloginlist = this.dummdcotorlogins.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+          this.count = this.doctorloginlist.length;
         }, error => {
         }
       )

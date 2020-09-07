@@ -19,6 +19,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummphysiolist: any;
+  public count:any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -42,6 +43,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
         data => {
           debugger
           this.physiologinlist = data;
+          this.count=this.physiologinlist.length;
         }, error => {
         }
       )
@@ -52,6 +54,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
           debugger
           this.dummphysiolist = data;
           this.physiologinlist = this.dummphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+          this.count=this.physiologinlist.length;
         }, error => {
         }
       )

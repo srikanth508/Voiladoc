@@ -40,14 +40,15 @@ export class DocdashComponent implements OnInit {
   public departmentid: any;
   labels2: any
   ngOnInit() {
-    this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.departmentname = ""
     this.spinner.show();
     setTimeout(() => {
       /** spinner ends after 5 seconds */
       this.spinner.hide();
     }, 800);
     this.getdoctorsbycityforexcel()
-
+    debugger
+    this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
@@ -109,7 +110,59 @@ export class DocdashComponent implements OnInit {
     this.countryid = 0
     this.cityid = 0
     this.getdepartmentmaster();
+
   }
+
+  doctorlistsss: any;
+  departmentname: any;
+
+
+
+
+  // public GetDepartmentID(even) {
+  //   debugger
+  //   this.hospitalclinicid = localStorage.getItem('hospitalid');
+  //   if (this.hospitalclinicid! = 'undefined') {
+  //     if (even.target.value != 0) {
+  //       debugger
+  //       this.departmentid = even.target.value;
+  //       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+  //         data => {
+  //           debugger
+  //           this.dummlist = data;
+  //           this.doctorlistsss = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+
+  //           this.doctorlist = this.doctorlistsss.filter(x => x.departmentID == this.departmentid)
+  //           this.count = this.doctorlist.length
+  //         }, error => {
+  //         }
+  //       )
+  //     }
+  //     else {
+  //       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+  //         data => {
+  //           debugger
+  //           this.dummlist = data;
+  //           this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+  //           this.count = this.doctorlist.length
+  //         }, error => {
+  //         }
+  //       )
+  //     }
+  //   }
+  //   else {
+  //     if (even.target.value != 0) {
+  //       debugger
+  //       this.departmentid = even.target.value;
+  //       this.doctorlist = this.dummlist.filter(x => x.departmentID = this.departmentid)
+  //       this.count = this.doctorlist.length;
+  //     }
+  //     else {
+  //       this.getdoctorforadmin()
+  //     }
+  //   }
+  // }
+
 
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
@@ -287,7 +340,7 @@ export class DocdashComponent implements OnInit {
   }
 
   public getglmasterexcel() {
-     let hhh = this.tableToJson(document.getElementById('Doc'));
+    let hhh = this.tableToJson(document.getElementById('Doc'));
     this.exportAsExcelFile(this.docount, "Register Entity List");
   }
 
@@ -321,4 +374,16 @@ export class DocdashComponent implements OnInit {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
+
+
+  // public GetDepartmentID(even) {
+  //   debugger
+  //   if (even.target.value != 0) {
+  //     this.departmentid = even.target.value;
+  //     this.doctorlist = this.dummlist.filter(x => x.departmentID == this.departmentid)
+  //   }
+  //   else if (even.target.value == 0) {
+  //     this.getdoctorforadmin()
+  //   }
+  // }
 }

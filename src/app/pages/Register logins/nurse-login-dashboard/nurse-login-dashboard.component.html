@@ -15,6 +15,12 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <label *ngIf="languageid=='1'" style="margin-left: 100px;"><b>Count : {{count}}</b></label>
+      <label *ngIf="languageid=='6'"  style="margin-left: 100px;"><b>Nombre : {{count}}</b></label>
+    </div>
   </div><br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">

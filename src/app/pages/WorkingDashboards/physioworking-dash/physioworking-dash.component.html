@@ -20,9 +20,9 @@
   <div class="row">
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select value="" selected class="form-control" [(ngModel)]="physioname" name="physioname">
+      <select class="form-control"(change)="GetPhysioID($event)">
         <option value="">{{labels[0].selectPhysiotherapist}}</option>
-        <option *ngFor="let phsio of physioist" value={{phsio.name}}>{{phsio.name}}</option>
+        <option *ngFor="let phsio of physioist" value={{phsio.id}}>{{phsio.name}}</option>
       </select>
     </div>
     <div class="col-lg-3">
@@ -43,7 +43,7 @@
         <thead>
           <tr>
             <th>Physiotherapist Name</th>
-            <th>{{labels[0].hospitalOrClinic}}</th>
+            <!-- <th>{{labels[0].hospitalOrClinic}}</th> -->
             <!-- <th>{{labels[0].address}}</th> -->
             <th>{{labels[0].day}}</th>
             <!-- <th>{{labels[0].fees}}</th> -->
@@ -54,7 +54,7 @@
           </tr>
           <tr *ngFor="let details of workinglist|filter:term|filter:physioname|filter:daysname">
             <td>{{details.name}}</td>
-            <td>{{details.hospital_ClinicName}}</td>
+            <!-- <td>{{details.hospital_ClinicName}}</td> -->
             <!-- <td>{{details.address}}</td> -->
             <td>{{details.dayOfTheWeek}}</td>
             <!-- <td>{{details.fees}}</td> -->

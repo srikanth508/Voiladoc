@@ -31,9 +31,9 @@
 
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select value="" selected class="form-control" [(ngModel)]="doctorname" name="doctorname">
+      <select value="" selected class="form-control" (change)=GetDoctorID($event)>
         <option value="">{{labels[0].selectDoctor}}</option>
-        <option *ngFor="let doc of doctorlist" value={{doc.doctorName}}>{{doc.doctorName}}</option>
+        <option *ngFor="let doc of doctorlist" value={{doc.id}}>{{doc.doctorName}}</option>
       </select>
     </div>
     <div class="col-lg-3" style="margin-right: -28px;">
@@ -50,7 +50,7 @@
       <div class="vdioerect"> <span style="margin-left: 11px;">{{labels[0].video}}</span></div>
     </div>
     <div class="col-lg-1" style="margin-left: 28px;">
-      <div class="homecare"><span style="margin-left: 28px;">Home Visit</span></div>
+      <div class="homecare"><span>Home Visit</span></div>
     </div>
   </div>
   <br>

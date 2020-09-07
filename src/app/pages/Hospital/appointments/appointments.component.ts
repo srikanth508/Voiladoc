@@ -34,6 +34,7 @@ export class AppointmentsComponent implements OnInit {
   public doctorname: any;
   public dummlist: any;
   roleid;
+  termsss:any;
   ngOnInit() {
     this.roleid = localStorage.getItem('roleid');
 

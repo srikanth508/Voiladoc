@@ -17,12 +17,12 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <select value="" selected class="form-control" (change)="GetHospital($event)">
         <option>{{labels[0].selecthospital}}</option>
         <option *ngFor="let hos of hopitsllist" value="{{hos.hospital_ClinicName}}">{{hos.hospital_ClinicName}}</option>
       </select>
-    </div>
+    </div> -->
     <div class="col-lg-3">
       <select value="" selected class="form-control" (change)="GetDaysName($event)">
         <option>{{labels[0].selectday}}</option>
@@ -36,8 +36,8 @@
       <table>
         <thead>
           <tr>
-            <th>{{labels[0].hospitalOrClinic}}</th>
-            <th>{{labels[0].address}}</th>
+            <!-- <th>{{labels[0].hospitalOrClinic}}</th>
+            <th>{{labels[0].address}}</th> -->
             <!-- <th>{{labels[0].fees}}</th> -->
             <th>{{labels[0].day}}</th>
             <th>{{labels[0].startTime}}</th>
@@ -45,8 +45,8 @@
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of workinglist|filter:term|filter:hopitslname|filter:daysname">
-            <td>{{details.hospital_ClinicName}}</td>
-            <td>{{details.address}}</td>
+            <!-- <td>{{details.hospital_ClinicName}}</td>
+            <td>{{details.address}}</td> -->
             <!-- <td>{{details.fees}}</td> -->
             <td>{{details.dayOfTheWeek}}</td>
             <td>{{details.starttime}}</td>

@@ -3247,10 +3247,10 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  public GetDoctorReferals(lid, TypeID) {
+  public GetDoctorReferals(lid, TypeID,sdate,edate) {
     debugger;
     return this.http.get<any[]>(
-      this.host + "/Doctor/GetDoctorReferals?DoctorID=" + lid + '&TypeID=' + TypeID
+      this.host + "/Doctor/GetDoctorReferals?DoctorID=" + lid + '&TypeID=' + TypeID+'&Sdate='+sdate+'&Edate='+edate
     );
   }
 

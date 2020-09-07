@@ -25,6 +25,12 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{ labels[0].search }}" />
     </div>
+    <div class="col-lg-4">
+
+    </div>
+    <div class="col-lg-2">
+      <label style="margin-left: 100px;">Count : {{count}}</label>
+    </div>
   </div>
   <br />
   <div class="row">
@@ -34,6 +40,8 @@
           <tr>
             <th>{{ labels[0].patientID }}</th>
             <th>{{ labels[0].patientName }}</th>
+            <th *ngIf="languageid=='1'">Registred date</th>
+            <th *ngIf="languageid=='6'">Date d'enregistrement</th>
             <th>{{ labels[0].mobileNumber }}</th>
             <th>{{ labels[0].emailID }}</th>
             <th>{{ labels[0].password }}</th>
@@ -43,6 +51,7 @@
           <tr *ngFor="let list of patientslist|filter:search">
             <td>{{list.id}}</td>
             <td>{{list.patientName}}</td>
+            <td>{{list.registereddate}}</td>
             <td>{{list.mobileNumber}}</td>
             <td>{{list.emailID}}</td>
             <td>{{list.password}}</td>

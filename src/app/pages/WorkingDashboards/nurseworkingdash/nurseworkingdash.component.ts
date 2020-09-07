@@ -23,20 +23,20 @@ export class NurseworkingdashComponent implements OnInit {
   public languageid: any;
   public labels: any;
   public hospitalclinicid: any;
-  public dummworkinglist:any;
-  public dummlist:any;
-  public nurselist:any;
-  public count:any;
-  public daysname:any;
-  public nursename:any;
+  public dummworkinglist: any;
+  public dummlist: any;
+  public nurselist: any;
+  public count: any;
+  public daysname: any;
+  public nursename: any;
   ngOnInit() {
-    this.daysname=''
-    this.nursename=''
+    this.daysname = ''
+    this.nursename = ''
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
 
     this.getlanguage()
-    this.getnurselist();
+    // this.getnurselist();
     this.GetDaysMaster()
 
 
@@ -79,29 +79,41 @@ export class NurseworkingdashComponent implements OnInit {
     )
   }
   public getnurselist() {
-    if(this.hospitalclinicid==undefined)
-    {
+    if (this.hospitalclinicid == undefined) {
       this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
         data => {
           debugger
           this.workinglist = data;
-  
+
         }, error => {
         }
       )
     }
-    else if(this.hospitalclinicid!=undefined)
-    {
+    else if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
         data => {
           debugger
           this.dummworkinglist = data;
-          this.workinglist=this.dummworkinglist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
-  
+          this.workinglist = this.dummworkinglist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+
         }, error => {
         }
       )
     }
-   
+
+  }
+
+  public GetNurseID(even) {
+    debugger
+    this.nurseid = even.target.value;
+    this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
+      data => {
+        debugger
+        this.dummworkinglist = data;
+        this.workinglist = this.dummworkinglist.filter(x => x.id == this.nurseid)
+
+      }, error => {
+      }
+    )
   }
 }

@@ -1,26 +1,29 @@
 
-  .rectangle {
-    height: 30px;
-    width: 80px;
-    background-color: #bae6fb;
-    color:black;
-  }
   .headerspace{
     margin-top: 10px;
     text-transform:uppercase;
   }
 
+  .rectangle {
+    height: 30px;
+    width: 100px;
+    background-color: #bae6fb;
+    color:black;
+  }
+
   .vdioerect
   {
     height: 30px;
-    width: 80px;
+    width: 115px;
     background-color: #4e66b0;
     color:white;
   }
-  .homecare
+
+  .homevisit
   {
     height: 30px;
-    width: 82px;
+    width: 100px;
     background-color: #90EE90;
     color:black;
+    margin-left: 15px;
   }

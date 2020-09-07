@@ -80,7 +80,7 @@
     </div>
   </div>
   <br>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].doctorCommission}} : </label>
       <span class="requird">*</span>
@@ -101,7 +101,7 @@
         [(ngModel)]="voiladoccommission" name="voiladoccommission">
     </div>
   </div>
-  <br>
+  <br> -->
   <div class="row">
     <div class="col-lg-5">
     </div>
@@ -122,8 +122,8 @@
             <th>{{labels[0].hospitalClinic}}</th>
             <th>{{labels[0].treatmentService}}</th>
             <th>{{labels[0].fees}}</th>
-            <th>{{labels[0].doctorCommission}}</th>
-            <th>{{labels[0].voildoccommssion}}</th>
+            <!-- <th>{{labels[0].doctorCommission}}</th>
+            <th>{{labels[0].voildoccommssion}}</th> -->
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of qwerty">
@@ -131,8 +131,8 @@
             <td>{{details.HospitalName}}</td>
             <td>{{details.TreatmentPlan}}</td>
             <td>{{details.Fees}}</td>
-            <td>{{details.DoctorCommission}}</td>
-            <td>{{details.VoilaDocCommisiion}}</td>
+            <!-- <td>{{details.DoctorCommission}}</td>
+            <td>{{details.VoilaDocCommisiion}}</td> -->
             <td>
               <ng-template #tipcontent2>Delete</ng-template>
               <a [ngbTooltip]="tipcontent2">
