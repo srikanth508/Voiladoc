@@ -141,7 +141,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       //   }, error => {
       //   }
       // )
-      this.booktypeid = [1, 2]
+      // this.booktypeid = [1, 2]
 
       this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
         data => {
@@ -332,8 +332,16 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
   public GetBookingTpeID(item7: any) {
     debugger
-    this.booktypeid.push(item7);
+    if(item7.id==1)
+    {
+      Swal.fire('On Demand Disabled As of Now')
+      this.booktypeid.push(item7);
+    }
+    else{
+      this.booktypeid.push(item7);
+    }
   }
+  
   public onItemDeSelect7(item7: any) {
     debugger
     this.booktypeid = this.booktypeid.slice(item7.id)

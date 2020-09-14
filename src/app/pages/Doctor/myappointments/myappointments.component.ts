@@ -1191,26 +1191,26 @@ export class MyappointmentsComponent implements OnInit {
     for (let i = 0; this.qwerty2.length; i++) {
 
       var entity = {
-        'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
+        // 'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
         'DoctorID': this.qwerty2[i].DoctorID,
         'PateintID': this.qwerty2[i].PateintID,
         'LanguageID': this.qwerty2[i].LanguageID,
         'Date': new Date(),
         'AppointmentID': this.qwerty2[i].AppointmentID,
         'MedicineName': this.qwerty2[i].MedicineName,
-        'UnitOfMeasure': this.qwerty2[i].UnitOfMeasure,
-        'Dosage': this.qwerty2[i].Dosage,
+        // 'UnitOfMeasure': this.qwerty2[i].UnitOfMeasure,
+        // 'Dosage': this.qwerty2[i].Dosage,
         'SIG': this.qwerty2[i].SIG,
-        'Duration': this.qwerty2[i].Duration,
+        // 'Duration': this.qwerty2[i].Duration,
         'DispenseQuantity': this.qwerty2[i].DispenseQuantity,
         'NoteToPharmasist': this.qwerty2[i].NoteToPharmasist,
-        'Diagnosis': this.qwerty2[i].Diagnosis,
+        // 'Diagnosis': this.qwerty2[i].Diagnosis,
         'HowmanyRefills': this.qwerty2[i].HowmanyRefills,
         'LocalDoctorID': this.localdocid,
         'EndorseBit': this.endorse,
-        'ICDCode': this.qwerty2[i].ICDCode,
-        'ICDDescription': this.qwerty2[i].ICDDescription,
-        'ICDID': this.qwerty2[i].ICDID,
+        // 'ICDCode': this.qwerty2[i].ICDCode,
+        // 'ICDDescription': this.qwerty2[i].ICDDescription,
+        // 'ICDID': this.qwerty2[i].ICDID,
         'SubstainablenotPermitted': this.qwerty2[i].SubstainablenotPermitted
       }
       this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
@@ -1626,27 +1626,27 @@ export class MyappointmentsComponent implements OnInit {
         else {
           if (this.languageid == 1) {
             Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+           
           }
           else if (this.languageid == 6) {
             Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
-
           }
         }
       }
       else {
         if (this.languageid == 1) {
           Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
-
+        
         }
         else if (this.languageid == 6) {
           Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
-
         }
       }
     }
     else {
       if (this.languageid == 1) {
         Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots + ' on ' + appdate);
+      
       }
       else if (this.languageid == 6) {
         Swal.fire('Alert', 'Le rendez-vous n a pas encore commencé ' + slots + ' on ' + appdate);
@@ -3259,8 +3259,6 @@ export class MyappointmentsComponent implements OnInit {
           this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
       }
-
-
     })
   }
 

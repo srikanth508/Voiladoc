@@ -65,11 +65,10 @@
             <th *ngIf="languageid=='6'">Motif annulation</th>
             <th>{{labels[0].status}}</th>
             <th>Actions</th>
-
           </tr>
           <tr *ngFor="let details of appointmentlist| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.appointmentID}}</td>
-            <td>{{details.apptDateTime}}</td>
+            <td>{{details.appointmentdate}}</td>
             <td>{{details.pName}}</td>
             <td>{{details.pMobileNo}}</td>
             <td>{{details.slots}}</td>

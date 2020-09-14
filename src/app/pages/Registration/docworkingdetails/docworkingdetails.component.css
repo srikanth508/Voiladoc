@@ -29,16 +29,17 @@
             label::first-letter{
           text-transform: uppercase;
         }
-        label{
+        /* label{
           text-transform: lowercase;
-        }
-   
+        } */
+   #imp{
+    text-transform: lowercase;
+   }
            
   .rectangle {
     height: 30px;
     width: 100px;
     background-color: #bae6fb;
- 
   }
 
   .vdioerect

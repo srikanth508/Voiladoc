@@ -21,7 +21,7 @@
         <option value="">{{labels[0].selectt}}</option>
         <option *ngFor="let pat of patientlist" value="{{pat.patientID}}">{{pat.patientName}}</option>
       </select> -->
-      <ng-multiselect-dropdown [placeholder]="'Select'" [data]="patientlist" [settings]="docdd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="patientlist" [settings]="docdd"
         (onSelect)="GetPatientdetails($event)">
       </ng-multiselect-dropdown>
     </div>

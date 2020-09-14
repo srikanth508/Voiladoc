@@ -36,13 +36,13 @@
     </div> -->
   </div>
   <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-8">
     </div>
     <div class="col-lg-2">
-      Total revenue :
+      {{labels[0].totalRevenue}} :
       <b>{{totalamount}}</b>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-2">
       {{labels[0].count}} :
       <b>{{count}}</b>
     </div>
@@ -55,7 +55,8 @@
           <tr>
             <th>{{labels[0].orderDate}}</th>
             <th>{{labels[0].orderNumber}}</th>
-            <th>Prescription Type</th>
+            <th *ngIf="languageid=='1'">Prescription Type</th>
+            <th *ngIf="languageid=='6'">Format de ordonnance</th>
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].mailId}}</th>
@@ -68,8 +69,8 @@
             <td>{{details.date}}</td>
             <td>{{details.id}}</td>
             <td>
-              <span *ngIf="details.orderType=='1'">Online</span>
-              <span *ngIf="details.orderType=='2'">Photo</span>
+              <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
+              <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>
             </td>
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
@@ -124,28 +125,27 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width: 650px;
-    height: auto;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content" style="width: 650px;
+  height: auto;">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="content">
         <div class="row">
           <div class="col-lg-8">
           </div>
           <div class="col-lg-4">
-            <h5 style="color:#1dbfd2">Doctor Details</h5>
-            <span>{{doctorname}}</span>
-            <br>
-            <span>{{docmobile}}</span>
-            <br>
-            <span>{{email}}</span>
-            <br>
+            <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5>
+            <span>{{doctorname}}</span><br>
+            <span>{{docmobile}}</span><br>
+            <span>{{email}}</span><br>
           </div>
         </div>
         <br>
@@ -155,48 +155,44 @@
               <section class="file-marker">
                 <div>
                   <div class="box-title">
-                    Patient Details
+                    {{labels[0].patientDetails}}
                   </div>
                   <div class="box-contents">
                     <div id="audit-trail">
-                      <label> Name : {{patientname}} </label>
-                      <br>
-                      <label> Phone No : {{mobilernumber}}</label>
-                      <br>
-                      <label> Address : {{address}}</label>
+                      <label> {{labels[0].patientname}} : {{patientname}} </label><br>
+                      <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
+                      <label> {{labels[0].address}} : {{address}}</label>
                     </div>
                   </div>
                 </div>
               </section>
             </aside>
           </div>
-        </div>
-        <br>
+        </div><br>
         <div class="row">
           <div class="col-lg-12">
             <h4>RX</h4>
           </div>
-        </div>
-        <br>
+        </div><br>
         <div class="row">
           <div class="col-lg-12">
             <aside id="info-block">
               <section class="file-marker">
                 <div>
                   <div class="box-title">
-                    Medicine Details
+                   {{labels[0].medicinedetails}}
                   </div>
                   <div class="box-contents">
                     <div id="audit-trail">
                       <table>
                         <thead>
                           <tr>
-                            <th>{{labels[0].medicineType}}</th>
+                            <!-- <th>{{labels[0].medicineType}}</th> -->
                             <th>{{labels[0].medicines}}</th>
                             <th>{{labels[0].quantity}}</th>
                           </tr>
                           <tr *ngFor="let medicinelist of myarray">
-                            <td>{{medicinelist.Medicinetype}}</td>
+                            <!-- <td>{{medicinelist.Medicinetype}}</td> -->
                             <td>{{medicinelist.medicine}}</td>
                             <td>{{medicinelist.quantity}}</td>
                           </tr>
@@ -215,18 +211,27 @@
           </div>
           <div class="col-lg-3">
             <!-- <img src="{{docsignatureurl}}"> -->
-            {{doctorname}}
-            <br>
+            {{doctorname}}<br>
             <span style="text-align:center;">(Signature)</span>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal" (click)="SavePDF()">Download</button>
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
+
     </div>
   </div>
 </div>
+</div>
+
+
+
+
+
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

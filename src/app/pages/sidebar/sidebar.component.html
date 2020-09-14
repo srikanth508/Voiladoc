@@ -62,6 +62,10 @@
                 <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].midwife}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" routerLink="/HospitalDocDash">
+                <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;Commissions
+            </a>
+
             <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/LanguageCheck">
                 <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;LanguageCheck
             </a> -->
@@ -189,9 +193,6 @@
                 <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].appPageSponsership}}
             </a>
-
-
-
         </div>
 
 
@@ -374,10 +375,14 @@
             {{labels[0].patientReferrals}}
         </a>
 
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DoctorSupportDash">
+            <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+           Support
+        </a>
+
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'&&hospitalid=='590'" routerLink="/MyFees">
             <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorFees}}
         </a>
-
 
         <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/PatientChat">
             <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; Patient Chat
@@ -596,6 +601,10 @@
             <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Planning
         </a>
 
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/NurseSupportDash">
+            <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Support
+        </a>
+
 
 
         <!-- PHYSIOTHERAPIST -->
@@ -622,6 +631,10 @@
             <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Planning
         </a>
 
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='8'" routerLink="/PhyioSupportDash">
+            <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Support
+        </a>
+
 
 
         <!-- MIDWIFE -->
@@ -645,6 +658,10 @@
         </a>
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'" routerLink="/MidwifeMonthWise">
             <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Planning
+        </a>
+
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'" routerLink="/MidwifsupportDash">
+            <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Support
         </a>
         <!-- DELIVERY -->
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='10'" routerLink="/DeliverPartnerProfile">
@@ -720,13 +737,9 @@
         <!-- <button *ngIf="this.docservice.showvid == 1" (click)="show()">show</button>
         <button *ngIf="this.docservice.showvid == 1" (click)="hide()">hide</button>
         <br> -->
-
-        <div *ngIf="this.docservice.showvid == 1" >
-           <br>
-           <br>
-           <br>
-            <app-publisher [session]="session" id="publishme" [ngStyle]="{ display: block }"></app-publisher>
-            <p style="color: aliceblue;">{{labels[0].doctorVideo}}</p>
+        <div *ngIf="this.docservice.showvid == 1">
+            <app-publisher [session]="session" id="publishme" [ngStyle]="{ display: block}"></app-publisher>
+            <p style="color: aliceblue; margin-left: 25px;">{{labels[0].doctorVideo}}</p>
         </div>
     </div>
 </div>

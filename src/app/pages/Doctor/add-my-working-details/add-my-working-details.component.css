@@ -25,14 +25,19 @@
         text-transform:uppercase;
       }
     
-    
+
             label::first-letter{
           text-transform: uppercase;
         }
-        label{
-          text-transform: lowercase;
-        }
-   
+
+       #imp
+       {
+        text-transform: lowercase;
+       }
+        
+   span::first-letter{
+    text-transform: uppercase;
+   }
    
         
   .rectangle {
@@ -56,4 +61,9 @@
     width: 130px;
     background-color: #90EE90;
     color:black;
+    margin-left: 30px;;
+  }
+
+  input::first-letter{
+    text-transform: uppercase;
   }

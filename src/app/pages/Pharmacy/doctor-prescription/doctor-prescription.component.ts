@@ -95,7 +95,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       }, error => {
       }
     )
-    this.oberserableTimer();
+    // this.oberserableTimer();
 
   }
   public GetPharmacyOrders() {
@@ -133,6 +133,12 @@ export class DoctorPrescriptionComponent implements OnInit {
   docmobile: any;
   email: any;
   docsignatureurl: any;
+  hospitalname: any;
+  hospitalid: any;
+  docaddress: any;
+  registrationno: any;
+  prescriptiondate: any;
+  dateofbirth:any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
@@ -147,12 +153,15 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.doctorname = this.list[0].doctorName,
       this.docmobile = this.list[0].docmobile,
       this.email = this.list[0].emailID,
-      this.docsignatureurl = this.list[0].siganatureurl
+      this.docsignatureurl = this.list[0].siganatureurl,
+      this.hospitalname = this.list[0].hospital_ClinicName,
+      this.hospitalid = this.list[0].hospitalClinicID,
+      this.docaddress = this.list[0].docaddress,
+      this.registrationno = this.list[0].registrationNo,
+      this.prescriptiondate = this.list[0].prescrptiondate,
+      this.dateofbirth= this.list[0].dateofbirth
 
-
-
-
-    let meds = this.list[0].allMedicines.split(',');
+      let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');
     let mtype = this.list[0].medicineTypeID.split(',');
     for (let i = 0; i < meds.length; i++) {

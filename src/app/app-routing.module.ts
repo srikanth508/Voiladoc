@@ -274,6 +274,16 @@ import { PhysioMonthWiseSchComponent } from './pages/Hospital/physio-month-wise-
 import { TotalHospitalApointmentsComponent } from './pages/Hospital/total-hospital-apointments/total-hospital-apointments.component';
 import { PharmacyOrdersComponent } from './pages/DeliveryPartner/pharmacy-orders/pharmacy-orders.component';
 import { PharmacyReturnordersComponent } from './pages/DeliveryPartner/pharmacy-returnorders/pharmacy-returnorders.component';
+import { HospitalDocCommissionComponent } from './pages/Registration/hospital-doc-commission/hospital-doc-commission.component';
+import { HospitalDocDashComponent } from './pages/Registration/hospital-doc-dash/hospital-doc-dash.component';
+import { DoctorSupportComponent } from './pages/Doctor/doctor-support/doctor-support.component';
+import { DoctorSupportDashComponent } from './pages/Doctor/doctor-support-dash/doctor-support-dash.component';
+import { NurseSupportComponent } from './pages/Nurse/nurse-support/nurse-support.component';
+import { NurseSupportDashComponent } from './pages/Nurse/nurse-support-dash/nurse-support-dash.component';
+import { PhyioSupportComponent } from './pages/physiotherapist/phyio-support/phyio-support.component';
+import { PhyioSupportDashComponent } from './pages/physiotherapist/phyio-support-dash/phyio-support-dash.component';
+import { MidwifsupportComponent } from './pages/Midewife/midwifsupport/midwifsupport.component';
+import { MidwifsupportDashComponent } from './pages/Midewife/midwifsupport-dash/midwifsupport-dash.component';
 
 
 const routes: Routes = [
@@ -617,9 +627,21 @@ const routes: Routes = [
   { path: 'TotalHospitalApointments/:id', component: TotalHospitalApointmentsComponent },
   { path: 'PharmacyOrders', component: PharmacyOrdersComponent },
   { path: 'PharmacyReturnorders', component: PharmacyReturnordersComponent },
+  { path: 'HospitalDocCommission', component: HospitalDocCommissionComponent },
+  { path: 'HospitalDocDash', component: HospitalDocDashComponent },
+  { path: 'HospitalDocCommission/:id/:hospital_ClinicName', component: HospitalDocCommissionComponent },
+  { path: 'DoctorSupport', component: DoctorSupportComponent },
+  { path: 'DoctorSupportDash', component: DoctorSupportDashComponent },
+  { path: 'NurseSupport', component: NurseSupportComponent },
+  { path: 'NurseSupportDash', component: NurseSupportDashComponent },
 
+  { path: 'PhyioSupport', component: PhyioSupportComponent },
+  { path: 'PhyioSupportDash', component: PhyioSupportDashComponent },
 
+  { path: 'Midwifsupport', component: MidwifsupportComponent },
+  { path: 'MidwifsupportDash', component: MidwifsupportDashComponent },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

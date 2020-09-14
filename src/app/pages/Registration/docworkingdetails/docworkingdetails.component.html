@@ -93,10 +93,10 @@
         </ng-multiselect-dropdown>
       </div>
     </div>
-    <br>
-    <div class="row" *ngIf="showid!='1'">
+    <br> -->
+    <div class="row">
       <div class="col-lg-2">
-        <label>{{labels[0].bookingType}} : </label>
+        <label>{{labels[0].bookingType}}: </label>
         <span class="requird">*</span>
       </div>
       <div class="col-lg-4">
@@ -105,7 +105,7 @@
         </ng-multiselect-dropdown>
       </div>
     </div>
-    <br> -->
+    <br>
     <!-- <br>
     <div class="row">
       <div class="col-lg-2">
@@ -170,7 +170,7 @@
     </div>
     <div class="row" *ngIf="availabilityid=='3'">
       <div class="col-lg-2">
-        <label>{{labels[0].timings}} : </label>
+        <label id="imp">{{labels[0].timings}} : </label>
         <span class="requird">*</span>
       </div>
       <div class="col-lg-4">
@@ -185,7 +185,7 @@
 
             &nbsp;
             <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="5"> &nbsp;
-            Home visit
+            {{labels[0].homeVisit}}
           </div>
         </label>
         <br>
@@ -205,7 +205,7 @@
             {{labels[0].video}} &nbsp;
 
             <input type="radio" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="5"> &nbsp;
-            Home Visit
+            {{labels[0].homeVisit}}
           </div>
         </label>
         <br>
@@ -229,7 +229,7 @@
             <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="2"> &nbsp;
             {{labels[0].video}} &nbsp;
             <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="5"> &nbsp;
-            Home visit
+            {{labels[0].homeVisit}}
           </div>
         </label>
         <br>
@@ -249,7 +249,7 @@
             <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="2"> &nbsp;
             {{labels[0].video}} &nbsp;
             <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="5"> &nbsp;
-            Home Visit
+            {{labels[0].homeVisit}}
           </div>
         </label>
 
@@ -275,7 +275,7 @@
         <div class="vdioerect"> <span style="margin-left: 11px;">{{labels[0].video}}</span></div>
       </div>
       <div class="col-lg-1" style="margin-left: 30px;">
-        <div class="homecare"><span style="margin-left: 11px;">Home Visit</span></div>
+        <div class="homecare"><span style="margin-left: 11px;"> {{labels[0].homeVisit}}</span></div>
       </div>
     </div>
     <br>

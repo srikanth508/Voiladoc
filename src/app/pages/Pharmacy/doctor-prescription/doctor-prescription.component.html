@@ -1,387 +1,407 @@
 <div class="container-fluid card card:hover headerspace">
-    <div class="row headerspace">
-      <div class="col-lg-3">
-        <h5>{{labels1[0].pharamadoctorPrescription}}</h5>
-      </div>
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>{{labels1[0].pharamadoctorPrescription}}</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+        </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
   </div><br>
-  <div class="container-fluid card card:hover">
-    <div class="row" style="margin-top: 20px;">
-      <div class="col-lg-3">
-        <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
-        </ng-daterangepicker> -->
-  
-        <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-          class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-        <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-          class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      </div>
-      <div class="col-lg-3">
-        <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-12" style="overflow: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>{{labels[0].orderDate}}</th>
-              <th>{{labels[0].orderNumber}}</th>
-              <th *ngIf="languageid=='1'">Prescription Type</th>
-              <th *ngIf="languageid=='6'">Type de prescription</th>
-              <th  *ngIf="languageid=='1'">Pick Up Type</th>
-              <th  *ngIf="languageid=='6'">Type de ramassage</th>
-              <th>{{labels[0].substitablenotpermitedd}} </th>
-              <th>{{labels[0].name}}</th>
-              <th>{{labels[0].phoneNo}} </th>
-              <th>{{labels[0].mailId}}</th>
-              <th>{{labels[0].deliveryAddress}}</th>
-              <th>{{labels[0].medicines}}</th>
-              <th>{{labels[0].status}}</th>
-              <th>{{labels[0].actions}}</th>
-            </tr>
-            <tr *ngFor="let details of orderlist|filter:term">
-              <td>{{details.date}}</td>
-              <td>{{details.id}}</td>
-              <td>
-                <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
-                <span *ngIf="details.orderType=='2'">Photo</span>
-              </td>
-              <td>
-                <span *ngIf="details.selfPickUP=='0'">{{labels[0].homeDelivery}}</span>
-                <span *ngIf="details.selfPickUP=='1'">{{labels[0].selfpickup}}</span>
-              </td>
-              <td>
-                <span *ngIf="details.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
-                <span *ngIf="details.substainablenotPermitted=='2'">{{labels[0].no}}</span>
-              </td>
-              <td>{{details.patientName}}</td>
-              <td>{{details.mobileNumber}}</td>
-              <td>{{details.patientemail}}</td>
-              <td>{{details.address}}</td>
-              <td>
-                <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
-                <a [ngbTooltip]="tipcontent12">
-                  <img src="assets/Images/report.png" *ngIf="details.orderType=='1'" style="height:30px;"
-                    data-toggle="modal" data-target="#exampleModal" (click)="GetMedicines(details.id)" /></a>
-  
-                <ng-template #tipcontent890>Photo</ng-template>
-                <a [ngbTooltip]="tipcontent890">
-                  <img src="assets/Images/report.png" *ngIf="details.orderType=='2'" style="height:30px;"
-                    data-toggle="modal" data-target="#exampleModal2"
-                    (click)="GetPrescriptionUrl(details.prescriptionUrl)" /></a>
-              </td>
-              <td>
-                <label style="color:green"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">{{labels[0].accepted}}</label>
-                <label style="color:red"
-                  *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
-                <label style="color:green"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
-  
-                <label style="color:green"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">
-                  {{labels[0].fullyAvailable}}</label>
-  
-                <label style="color:green"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='1'&&details.readyfordelivery=='0'">
-                  {{labels[0].partailAvailable}}</label>
-  
-                <label style="color:green"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='0'">
-                  {{labels[0].readyfordelivery}}</label>
-  
-                <label style="color:green"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.delivered=='0'">
-                  Paid</label>
-              </td>
-              <td>
-  
-                <ng-template #tipcontent3>{{labels[0].accept}}</ng-template>
-                <a [ngbTooltip]="tipcontent3"
-                  *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
-                  <img src="assets/Images/acc.png" style="height:20px;"
-                    (click)="GetAcceptOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" /></a>&nbsp;
-  
-                <ng-template #tipcontent4>{{labels[0].cancel}}</ng-template>
-                <a [ngbTooltip]="tipcontent4"
-                  *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
-                  <img src="assets/Images/can.png" style="height:20px;"
-                    (click)="GetCancelOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
-                </a>&nbsp;
-  
-                <ng-template #tipcontent84>{{labels[0].fullyAvailable}}</ng-template>
-                <a [ngbTooltip]="tipcontent84"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
-                  <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal3"
-                    (click)="GetFullyOrderDetails(details)" /></a>&nbsp;
-  
-                <ng-template #tipcontent89>{{labels[0].partailAvailable}}</ng-template>
-                <a [ngbTooltip]="tipcontent89"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
-                  <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal4"
-                    (click)="GetPartialOrderDetails(details)" /></a>&nbsp;
-  
-  
-                <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
-                <a [ngbTooltip]="tipcontent899"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'||details.partialBit=='1'&&details.readyfordelivery=='0'">
-                  <img src="assets/Images/edit.png" style="height:20px;"
-                    (click)="GetReadyForDelivery(details.id)" /></a>&nbsp;
-  
-  
-                <ng-template #tipcontent5>{{labels[0].delivered}}</ng-template>
-                <a [ngbTooltip]="tipcontent5"
-                  *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'">
-                  <img src="assets/Images/deli.png" style="height:20px;"
-                    (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
-                </a>
-  
-                <!-- <ng-template #tipcontent36>Chat</ng-template>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].orderDate}}</th>
+            <th>{{labels[0].orderNumber}}</th>
+            <th *ngIf="languageid=='1'">Prescription Type</th>
+            <th *ngIf="languageid=='6'">Format de ordonnance</th>
+            <th *ngIf="languageid=='1'">Pick Up Type</th>
+            <th *ngIf="languageid=='6'">Retrait et Livraison </th>
+            <th>{{labels[0].substitablenotpermitedd}} </th>
+            <th>{{labels[0].name}}</th>
+            <th>{{labels[0].phoneNo}} </th>
+            <th>{{labels[0].mailId}}</th>
+            <th>{{labels[0].deliveryAddress}}</th>
+            <th>{{labels[0].medicines}}</th>
+            <th>{{labels[0].status}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of orderlist|filter:term">
+            <td>{{details.date}}</td>
+            <td>{{details.id}}</td>
+            <td>
+              <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
+              <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>
+            </td>
+            <td>
+              <span *ngIf="details.selfPickUP=='0'">{{labels[0].homeDelivery}}</span>
+              <span *ngIf="details.selfPickUP=='1'">{{labels[0].selfpickup}}</span>
+            </td>
+            <td>
+              <span *ngIf="details.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
+              <span *ngIf="details.substainablenotPermitted=='2'">{{labels[0].no}}</span>
+            </td>
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.patientemail}}</td>
+            <td>{{details.address}}</td>
+            <td>
+              <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
+              <a [ngbTooltip]="tipcontent12">
+                <img src="assets/Images/report.png" *ngIf="details.orderType=='1'" style="height:30px;"
+                  data-toggle="modal" data-target="#exampleModal" (click)="GetMedicines(details.id)" /></a>
+
+              <ng-template #tipcontent890>Photo</ng-template>
+              <a [ngbTooltip]="tipcontent890">
+                <img src="assets/Images/report.png" *ngIf="details.orderType=='2'" style="height:30px;"
+                  data-toggle="modal" data-target="#exampleModal2"
+                  (click)="GetPrescriptionUrl(details.prescriptionUrl)" /></a>
+            </td>
+            <td>
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">{{labels[0].accepted}}</label>
+              <label style="color:red"
+                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">
+                {{labels[0].fullyAvailable}}</label>
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='1'&&details.readyfordelivery=='0'">
+                {{labels[0].partailAvailable}}</label>
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='0'">
+                {{labels[0].readyfordelivery}}</label>
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.delivered=='0'">
+                Paid</label>
+            </td>
+            <td>
+
+              <ng-template #tipcontent3>{{labels[0].accept}}</ng-template>
+              <a [ngbTooltip]="tipcontent3"
+                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
+                <img src="assets/Images/acc.png" style="height:20px;"
+                  (click)="GetAcceptOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" /></a>&nbsp;
+
+              <ng-template #tipcontent4>{{labels[0].cancel}}</ng-template>
+              <a [ngbTooltip]="tipcontent4"
+                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
+                <img src="assets/Images/can.png" style="height:20px;"
+                  (click)="GetCancelOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
+              </a>&nbsp;
+
+              <ng-template #tipcontent84>{{labels[0].fullyAvailable}}</ng-template>
+              <a [ngbTooltip]="tipcontent84"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
+                <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal3"
+                  (click)="GetFullyOrderDetails(details)" /></a>&nbsp;
+
+              <ng-template #tipcontent89>{{labels[0].partailAvailable}}</ng-template>
+              <a [ngbTooltip]="tipcontent89"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
+                <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal4"
+                  (click)="GetPartialOrderDetails(details)" /></a>&nbsp;
+
+
+              <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
+              <a [ngbTooltip]="tipcontent899"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'||details.partialBit=='1'&&details.readyfordelivery=='0'">
+                <img src="assets/Images/edit.png" style="height:20px;"
+                  (click)="GetReadyForDelivery(details.id)" /></a>&nbsp;
+
+
+              <ng-template #tipcontent5>{{labels[0].delivered}}</ng-template>
+              <a [ngbTooltip]="tipcontent5"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'">
+                <img src="assets/Images/deli.png" style="height:20px;"
+                  (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
+              </a>
+
+              <!-- <ng-template #tipcontent36>Chat</ng-template>
                 <a [ngbTooltip]="tipcontent36">
                   <img src="assets/Images/chat.png" [routerLink]="['/PharmacyChat',details.pharmacyID,details.patientID]"
                     style="margin: 2%;width: 20px;" />
                 </a> -->
-                <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
-                <a [ngbTooltip]="tipcontent36">
-                  <img src="assets/Images/chat.png" data-toggle="modal" data-target="#asssignss"
-                    style="margin: 2%;width: 20px;" (click)="GetPharmacyPatientID(details.patientID,details.patientemail)" />
-                </a>
-              </td>
-            </tr>
-          </thead>
-        </table><br>
-      </div><br>
+              <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
+              <a [ngbTooltip]="tipcontent36">
+                <img src="assets/Images/chat.png" data-toggle="modal" data-target="#asssignss"
+                  style="margin: 2%;width: 20px;"
+                  (click)="GetPharmacyPatientID(details.patientID,details.patientemail)" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table><br>
     </div><br>
-  </div><br><br><br>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width: 650px;
+  </div><br>
+</div><br><br><br>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 800px;
       height: auto;">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div id="content">
-            <div class="row">
-              <div class="col-lg-8">
-              </div>
-              <div class="col-lg-4">
-                <h5 style="color:#1dbfd2">Doctor Details</h5>
-                <span>{{doctorname}}</span><br>
-                <span>{{docmobile}}</span><br>
-                <span>{{email}}</span><br>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-12">
-                <aside id="info-block">
-                  <section class="file-marker">
-                    <div>
-                      <div class="box-title">
-                        Patient Details
-                      </div>
-                      <div class="box-contents">
-                        <div id="audit-trail">
-                          <label> {{labels[0].name}} : {{patientname}} </label><br>
-                          <label> {{labels[0].phoneNo}} : {{mobilernumber}}</label><br>
-                          <label> {{labels[0].phoneNo}} : {{address}}</label>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </aside>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-12">
-                <h4>RX</h4>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-12">
-                <aside id="info-block">
-                  <section class="file-marker">
-                    <div>
-                      <div class="box-title">
-                       {{labels[0].medicinedetails}}
-                      </div>
-                      <div class="box-contents">
-                        <div id="audit-trail">
-                          <table>
-                            <thead>
-                              <tr>
-                                <th>{{labels[0].medicineType}}</th>
-                                <th>{{labels[0].medicines}}</th>
-                                <th>{{labels[0].quantity}}</th>
-                              </tr>
-                              <tr *ngFor="let medicinelist of myarray">
-                                <td>{{medicinelist.Medicinetype}}</td>
-                                <td>{{medicinelist.medicine}}</td>
-                                <td>{{medicinelist.quantity}}</td>
-                              </tr>
-                            </thead>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </aside>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-9">
-              </div>
-              <div class="col-lg-3">
-                <!-- <img src="{{docsignatureurl}}"> -->
-                {{doctorname}}<br>
-                <span style="text-align:center;">(Signature)</span>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-              data-dismiss="modal" (click)="SavePDF()">Download</button>
-            <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-              data-dismiss="modal">{{labels[0].close}}</button>
-          </div>
-  
-        </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </div>
-  </div>
-  
-  
-  
-  
-  
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width: 800px;
-      height: auto;">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12" id="contentPhoto">
-              <img src="{{prescriptionurl}}" style="height: 100%;width: 100%;">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-            data-dismiss="modal" (click)="SavePdfPhoto()">   {{labels[0].download}}</button>
-  
-          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-            data-dismiss="modal">{{labels[0].close}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width: 600px;
-      height: auto;">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">   {{labels[0].download}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-4">
-              <label>{{labels[0].amountToPay}} :</label>
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" placeholder="{{labels[0].amountToPay}}" [(ngModel)]="amounttopay"
-                name="amounttopay">
-            </div>
-          </div><br>
+      <div class="modal-body">
+        <div id="content">
           <div class="row">
             <div class="col-lg-5">
-  
             </div>
-            <div class="col-lg-2">
-              <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="updatefullyorderdetails()" data-dismiss="modal">{{labels[0].update}}</button>
-            </div>
-            <div class="col-lg-5">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-            data-dismiss="modal">{{labels[0].close}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width: 600px;
-      height: auto;">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{labels[0].uploadpartialprescriptionphoto}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
             <div class="col-lg-4">
-              <label>Photo :</label>
-            </div>
-            <div class="col-lg-5">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
-              </ngx-dropzone>
+              <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+              <span>{{doctorname}}</span><br>
+              <div *ngIf="hospitalid!=590">
+                <span>{{hospitalname}}</span><br>
+              </div>
+           
+              <span>{{docaddress}}</span><br>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-lg-4">
-              <label>{{labels[0].amountToPay}} :</label>
-            </div>
-            <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="{{labels[0].amountToPay}}" [(ngModel)]="amounttopay"
-                name="amounttopay">
+            <div class="col-lg-12">
+              <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
+              <label>{{labels[0].telephoneno}} : {{docmobile}}  </label><br>
+              <label>{{labels[0].mailId}} : {{email}} </label><br>
+              <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
             </div>
           </div><br>
           <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title">
+                      {{labels[0].patientDetails}}
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                        <label> {{labels[0].patientname}} : {{patientname}} </label><br>
+                        <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
+                        <label> {{labels[0].address}} : {{address}}</label>
+                        <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </aside>
             </div>
-            <div class="col-lg-2">
-              <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="updatepartialorders()" data-dismiss="modal">{{labels[0].update}}</button>
+          </div><br>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title">
+                      {{labels[0].medicinedetails}}
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                        <table>
+                          <thead>
+                            <tr>
+                              <!-- <th>{{labels[0].medicineType}}</th> -->
+                              <th>{{labels[0].medicines}}</th>
+                              <th>{{labels[0].sig}}</th>
+                              <th>{{labels[0].quantity}}</th>
+                              <th>{{labels[0].howmanyrefills}}</th>
+                            </tr>
+                            <tr *ngFor="let medicinelist of myarray">
+                              <!-- <td>{{medicinelist.Medicinetype}}</td> -->
+                              <td>{{medicinelist.medicine}}</td>
+                              <td></td>
+                              <td>{{medicinelist.quantity}}</td>
+                              <td></td>
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </aside>
             </div>
-            <div class="col-lg-5">
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-8">
+              <label>{{labels[0].notetoPharmsict}} : </label>
+            </div>
+            <div class="col-lg-4">
+              <!-- <img src="{{docsignatureurl}}"> -->
+              <span style="text-align:center;margin-left: 61px;">(Signature)</span>
+              <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
+              <div style="margin-top: -13px;">
+              <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{docmobile}}</span>
+            </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+            data-dismiss="modal" (click)="SavePDF()">Download</button>
+          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
             data-dismiss="modal">{{labels[0].close}}</button>
         </div>
+
       </div>
     </div>
   </div>
-  
-  <!-- 
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 800px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12" id="contentPhoto">
+            <img src="{{prescriptionurl}}" style="height: 100%;width: 100%;">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal" (click)="SavePdfPhoto()"> {{labels[0].download}}</button>
+
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 600px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> {{labels[0].download}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].amountToPay}} :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="{{labels[0].amountToPay}}" [(ngModel)]="amounttopay"
+              name="amounttopay">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+
+          </div>
+          <div class="col-lg-2">
+            <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+              (click)="updatefullyorderdetails()" data-dismiss="modal">{{labels[0].update}}</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 600px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].uploadpartialprescriptionphoto}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-4">
+            <label>Photo :</label>
+          </div>
+          <div class="col-lg-5">
+            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
+            </ngx-dropzone>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].amountToPay}} :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" placeholder="{{labels[0].amountToPay}}" [(ngModel)]="amounttopay"
+              name="amounttopay">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+              (click)="updatepartialorders()" data-dismiss="modal">{{labels[0].update}}</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
   <div id="asssign" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -419,17 +439,17 @@
     </div>
   </div>
    -->
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <!-- <div id="asssignss" class="modal fade" role="dialog">
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="asssignss" class="modal fade" role="dialog">
     <div class="modal-dialog" style=" position: absolute;
     bottom: 8px;
     right: 16px;">
@@ -519,9 +539,9 @@
         </div>
       </div>
     </div> -->
-  
-  
-  <!-- 
+
+
+<!-- 
   <div class="container">
     <div class="row">
       <div class="panel panel-chat">
@@ -645,99 +665,98 @@
       </div>
     </div>
   </div> -->
-  
-  
-  
-  
-  <div class="chat-popup" id="myForm">
-    <form class="form-container" #chatfrom="ngForm" >
-      <div class="container-fluid card card-hover" style="height: 550px;width:530px;">
-        <br>
-        <div class="row">
-          <div class="col-lg-3">
-            <h5>Chat</h5>
-          </div>
-          <div class="col-lg-7">
-          </div>
-          <div class="col-lg-2">
-            <h5 (click)="GetShowOff()">*</h5>
-          </div>
+
+
+
+
+<div class="chat-popup" id="myForm">
+  <form class="form-container" #chatfrom="ngForm">
+    <div class="container-fluid card card-hover" style="height: 550px;width:530px;">
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <h5>Chat</h5>
         </div>
-        <div class="row">
-          <div class="col-lg-3">
-            <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
-            <!-- <span *ngIf="istyping==true">typing .... </span> -->
-          </div>
+        <div class="col-lg-7">
         </div>
-        <!-- id="chatboxdiv" -->
-        <div style="height: 500px;overflow-y: scroll;"  id="chatboxdiv"> 
-          <div *ngFor='let convo of coversationarray'>
-            <div class="container" *ngIf='convo.user=="doc"'>
-              <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-2"></div>
-                <div class="col-lg-6" style="background-color:darkgray;border-radius: 5px;color:white">
-                  <div *ngIf="convo.msgtype=='1'">
-                    <!-- <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
+        <div class="col-lg-2">
+          <h5 (click)="GetShowOff()">*</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
+          <!-- <span *ngIf="istyping==true">typing .... </span> -->
+        </div>
+      </div>
+      <!-- id="chatboxdiv" -->
+      <div style="height: 500px;overflow-y: scroll;" id="chatboxdiv">
+        <div *ngFor='let convo of coversationarray'>
+          <div class="container" *ngIf='convo.user=="doc"'>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-2"></div>
+              <div class="col-lg-6" style="background-color:darkgray;border-radius: 5px;color:white">
+                <div *ngIf="convo.msgtype=='1'">
+                  <!-- <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
                         float: left;"> -->
-                    <p style="margin-top: 5px;">{{convo.chatmsg}}
-                      <span style="float: right;;margin-top: 5px;">
-                        {{convo.time}}
-                      </span>
-                    </p>
-                  </div>
-                  <div *ngIf="convo.msgtype=='2'">
-                    <img src="{{convo.chatmsg}}" style="width: 100%;">
-                  </div>
+                  <p style="margin-top: 5px;">{{convo.chatmsg}}
+                    <span style="float: right;;margin-top: 5px;">
+                      {{convo.time}}
+                    </span>
+                  </p>
+                </div>
+                <div *ngIf="convo.msgtype=='2'">
+                  <img src="{{convo.chatmsg}}" style="width: 100%;">
                 </div>
               </div>
             </div>
-            <div class="container" *ngIf='convo.user=="pat"'>
-              <div class="row">
-                <div class="col-lg-8" style="background-color:#1ebea5;border-radius: 5px;color:white;margin-top: 1px;">
-                  <div *ngIf="convo.msgtype=='1'">
-                    <p style="margin-top: 5px;">
-                      <!-- <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;"> -->
-                      &nbsp;
-                      {{convo.chatmsg}}
-                      <span style="float: right;;margin-top: 5px;">
-                        {{convo.time}}
-                      </span>
-                    </p>
-                  </div>
-                  <div *ngIf="convo.msgtype=='2'">
-                    <img src="{{convo.chatmsg}}" style="width: 100%;">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
           </div>
+          <div class="container" *ngIf='convo.user=="pat"'>
+            <div class="row">
+              <div class="col-lg-8" style="background-color:#1ebea5;border-radius: 5px;color:white;margin-top: 1px;">
+                <div *ngIf="convo.msgtype=='1'">
+                  <p style="margin-top: 5px;">
+                    <!-- <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;"> -->
+                    &nbsp;
+                    {{convo.chatmsg}}
+                    <span style="float: right;;margin-top: 5px;">
+                      {{convo.time}}
+                    </span>
+                  </p>
+                </div>
+                <div *ngIf="convo.msgtype=='2'">
+                  <img src="{{convo.chatmsg}}" style="width: 100%;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
         </div>
-        <hr>
-        <div class="container-fluid">
-          <form #loginForm="ngForm">
-            <div class="row" style="background-color: white;">
-              <div class="col-lg-8">
-                <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
-                  style=" border-style:none;" placeholder="Type a Message" />
-              </div>
-              <div class="col-lg-4">
-                <button type="submit" class="form-control chat" [disabled]="loginForm.form.invalid"
-                  (click)="dosendmsg()">
-                  Send
-                </button>
-              </div>
-  
-              <!-- <div class="col-lg-2">
+      </div>
+      <hr>
+      <div class="container-fluid">
+        <form #loginForm="ngForm">
+          <div class="row" style="background-color: white;">
+            <div class="col-lg-8">
+              <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
+                style=" border-style:none;" placeholder="Type a Message" />
+            </div>
+            <div class="col-lg-4">
+              <button type="submit" class="form-control chat" [disabled]="loginForm.form.invalid" (click)="dosendmsg()">
+                Send
+              </button>
+            </div>
+
+            <!-- <div class="col-lg-2">
                     <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)"
                       class="dropzone_vendorinvoice" style="height: 50px;">
                     </ngx-dropzone>
                   </div> -->
-  
-            </div>
-          </form>
-        </div><br>
+
+          </div>
+        </form>
       </div><br>
-    </form>
-  </div>
+    </div><br>
+  </form>
+</div>

@@ -88,7 +88,11 @@
 
             <tr>
               <td>
-                {{labels[0].allergies}} : <b>{{allergies}}</b>
+                {{labels[0].allergies}} : <b>{{allergies}}
+
+                  <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                    data-target="#exampleModalCenter" />
+                </b>
               </td>
               <td>
                 {{labels[0].bmi}} : <b>{{bmi}}</b>
@@ -96,9 +100,18 @@
             </tr>
             <tr *ngIf="gender=='Female'">
               <td>
-                {{labels[0].isThePatientPregnant}} : <b></b>
+                {{labels[0].isThePatientPregnant}} : 
+                <b>
+                <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="ispatientpragnent=='2'">{{labels[0].no}}</label></b>
               </td>
-
+              <td>
+                Breast feeding  :  
+                <b>
+                  <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
+                  <label *ngIf="breastFeeding=='2'">{{labels[0].no}}</label></b>
+          
+              </td>
             </tr>
           </table>
         </div>
@@ -179,51 +192,51 @@
                         <option *ngFor="let medicine of medicinelist" value="{{medicine.id}}">{{medicine.name}}</option>
                       </select>
                     </div> -->
-                 
-                    <div class="col-lg-6"  *ngIf="languageid=='1'">
-                      <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
-                        placeholder="{{labels[0].drugName}}">
-                    </div>
-                    <div class="col-lg-6"  *ngIf="languageid=='6'&&manuallydrug=='2'">
-                      <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
+
+                  <div class="col-lg-6" *ngIf="languageid=='1'">
+                    <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                      placeholder="{{labels[0].drugName}}">
+                  </div>
+                  <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='2'">
+                    <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
                         [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
                         (ngModelChange)="GetDrugNameID()" /> -->
 
-                        <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
-                        placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
-                    </div>
+                    <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                      placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+                  </div><br>
 
-                    <div class="row" *ngIf="SerachOn=='1'">
-                      <!-- <div class="col-lg-4">
+                  <div class="row" *ngIf="SerachOn=='1'">
+                    <!-- <div class="col-lg-4">
                       </div> -->
-                      <div class="col-lg-12" style="overflow-y:auto;height:300px">
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>médicament</th>
-                              <th>Dénomination </th>
-                              <th>Dosage</th>
-                              <th>Actions</th>
-                            </tr>
-                            <tr *ngFor="let code of drugnamelist|filter:medicinename">
-                              <td>{{code.medicament}}</td>
-                              <td>{{code.denomination}}</td>
-                              <td>{{code.dosage}}</td>
-                              <td>
-                                <input type="checkbox" (click)="GetDrugID(code.medicinename)">
-                              </td>
-                            </tr>
-                          </thead>
-                        </table>
-                      </div>
-                      <br>
+                    <div class="col-lg-12">
+                      <table style="overflow-y:auto;height:300px">
+                        <thead>
+                          <tr>
+                            <th>médicament</th>
+                            <th>Dénomination </th>
+                            <th>Dosage</th>
+                            <th>Actions</th>
+                          </tr>
+                          <tr *ngFor="let code of drugnamelist|filter:medicinename">
+                            <td>{{code.medicament}}</td>
+                            <td>{{code.denomination}}</td>
+                            <td>{{code.dosage}}</td>
+                            <td>
+                              <input type="checkbox" (click)="GetDrugID(code.medicinename)">
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
                     </div>
+                    <br>
+                  </div>
+                  <br>
+                  <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='1'">
+                    <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                      placeholder="{{labels[0].drugName}}">
+                  </div>
 
-                    <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='1'">
-                      <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
-                        placeholder="{{labels[0].drugName}}">
-                    </div>
-                 
                   <div class="col-lg-6">
                     <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
                       placeholder="{{labels[0].sig}}">
@@ -1022,3 +1035,34 @@
       </div>
     </div>
   </div> -->
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modify Allergies</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].allergies}}</label>
+            </div>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="Updateallergies()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

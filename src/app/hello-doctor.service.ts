@@ -4063,4 +4063,40 @@ export class HelloDoctorService {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/GetDrugNameMaster?LanguageID=' + lid);
   }
+
+  public InsertHospitalCommissions(data) {
+    this.url = this.host + '/Doctor/InsertHospitalCommissions';
+    return this.http.post(this.url, data)
+  }
+
+    public GetHospitalCommissions(lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetHospitalCommissions?LanguageID=' + lid);
+  }
+  
+  public UpdateHospitalCommissions(data) {
+    this.url = this.host + '/Doctor/UpdateHospitalCommissions';
+    return this.http.post(this.url, data)
+  }
+
+
+  public UpdateBookAppointmentKnownAllergies(data) {
+    this.url = this.host + '/Doctor/UpdateBookAppointmentKnownAllergies';
+    return this.http.post(this.url, data)
+  }
+  public InsertSupportForWeb(data) {
+    this.url = this.host + '/Doctor/InsertSupportForWeb';
+    return this.http.post(this.url, data)
+  }
+
+  
+  public GetSupportForWeb(lid,userid,typeid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWeb?LanguageID=' + lid+'&UserID='+userid+'&TypeID='+typeid);
+  }
+  
+  public GetAdmin_SupportForWeb_Labels(lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/LanguageMaster/GetAdmin_SupportForWeb_Labels?LanguageID=' + lid);
+  }
 }

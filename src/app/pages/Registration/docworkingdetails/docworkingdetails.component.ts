@@ -117,7 +117,7 @@ export class DocworkingdetailsComponent implements OnInit {
   ngOnInit() {
     debugger
     
-    this.booktypeid = [1, 2]
+    // this.booktypeid = [1, 2]
     this.dummid = localStorage.getItem('hospitalid');
     this.hosipitalidd = localStorage.getItem('hospitalid');
 
@@ -272,10 +272,18 @@ export class DocworkingdetailsComponent implements OnInit {
     })
   }
 
-  // public GetBookingTpeID(item7: any) {
-  //   debugger
-  //   this.booktypeid.push(item7);
-  // }
+  public GetBookingTpeID(item7: any) {
+    debugger
+    if(item7.id==1)
+    {
+      Swal.fire('On Demand Disabled as of Now')
+      this.booktypeid.push(item7);
+    }
+    else{
+      this.booktypeid.push(item7);
+    }
+  }
+
   public onItemDeSelect7(item7: any) {
     debugger
     this.booktypeid = this.booktypeid.slice(item7.id)

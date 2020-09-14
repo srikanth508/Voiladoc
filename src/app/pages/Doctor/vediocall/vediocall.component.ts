@@ -230,7 +230,7 @@ export class VediocallComponent implements OnInit {
   public showhistoryid: any;
   public savetemplate: any;
   public chatIDlist: any;
-  manuallydrug:any;
+  manuallydrug: any;
   ngOnInit() {
 
     this.minutes = 0;
@@ -316,15 +316,15 @@ export class VediocallComponent implements OnInit {
     //chat
     this.image = 0;
     this.savetemplate = 2;
-    this.manuallydrug=2
-    this.substainable=1;
+    this.manuallydrug = 2
+    this.substainable = 1;
 
     this.getserverdateandtime();
 
     // this.appointmentiddd = 570;
     this.appointmentdatetimee = localStorage.getItem('appdate');
 
-  
+
     this.getserverdateandtime();
 
     // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
@@ -699,6 +699,11 @@ export class VediocallComponent implements OnInit {
 
   }
 
+
+  ispatientpragnent:any;
+  breastFeeding:any;
+
+
   public getpatientdetails() {
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
       data => {
@@ -719,12 +724,13 @@ export class VediocallComponent implements OnInit {
           this.allergies = this.details.knownAllergies,
           this.bmi = this.details.bmi,
           this.age = this.details.age,
-
-
           this.countryid = this.details.countryID,
           this.cityid = this.details.cityID,
           this.areaid = this.details.areaID,
-          this.appointmenttypeid = this.details.appointmentTypeID
+          this.appointmenttypeid = this.details.appointmentTypeID,
+          this.ispatientpragnent=this.details.isPatientPragnent,
+          this.breastFeeding=this.details.breastFeeding,
+
 
         this.SendNotification()
 
@@ -742,6 +748,24 @@ export class VediocallComponent implements OnInit {
       }
     )
   }
+
+
+
+  public Updateallergies() {
+    debugger
+    var entity = {
+      'AppointmentID': this.appointmentid,
+      'KnownAllergies': this.allergies
+    }
+    this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
+      debugger
+      let res = data;
+      Swal.fire('Allergies Updated Successfully');
+      this.getpatientdetails()
+    })
+  }
+
+
 
   public SendNotification() {
     debugger
@@ -983,15 +1007,13 @@ export class VediocallComponent implements OnInit {
           this.docservice.GetPatientRegistrationMisuseEnablebit(this.patientid).subscribe(data => {
           })
         }
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
         }
-        else
-        {
-          Swal.fire('Détails enregistrés','SOAP');
-        } 
-       
+        else {
+          Swal.fire('Détails enregistrés', 'SOAP');
+        }
+
         this.GetSoapNotesByPatientID();
         this.VisitDoctorAppointmentStatus()
         this.clear();
@@ -1022,14 +1044,12 @@ export class VediocallComponent implements OnInit {
     this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
 
       if (data != 0) {
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
         }
-        else
-        {
-          Swal.fire('Détails enregistrés','SOAP');
-        } 
+        else {
+          Swal.fire('Détails enregistrés', 'SOAP');
+        }
       }
     })
   }
@@ -1043,14 +1063,12 @@ export class VediocallComponent implements OnInit {
     }
     this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
       if (data != 0) {
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
         }
-        else
-        {
-          Swal.fire('Détails enregistrés','SOAP');
-        } 
+        else {
+          Swal.fire('Détails enregistrés', 'SOAP');
+        }
 
       }
     })
@@ -1071,14 +1089,12 @@ export class VediocallComponent implements OnInit {
     }
     this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
       if (data != 0) {
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
         }
-        else
-        {
-          Swal.fire('Détails enregistrés','SOAP');
-        } 
+        else {
+          Swal.fire('Détails enregistrés', 'SOAP');
+        }
       }
     })
   }
@@ -1293,7 +1309,7 @@ export class VediocallComponent implements OnInit {
       this.icdcode = list[0].icdCode
       this.icrdescription = list[0].icdDescription
       this.icrcodeid = list[0].icdid,
-      this.substainable=list[0].substainablenotPermitted
+        this.substainable = list[0].substainablenotPermitted
     }
     else {
       this.medicinename = "";
@@ -1307,7 +1323,7 @@ export class VediocallComponent implements OnInit {
       this.howmanyrefills = '';
       this.medicinetemplatename = "",
         this.medicinetemplate = 2;
-        this.substainable=""
+      this.substainable = ""
     }
   }
   icdcodelist: any;
@@ -1362,67 +1378,67 @@ export class VediocallComponent implements OnInit {
 
 
 
-// prescription 
-drugnames:any;
-drugnamelist:any;
+  // prescription 
+  drugnames: any;
+  drugnamelist: any;
 
 
-search1 = (text$: Observable<string>) =>
-text$.pipe(
-  debounceTime(200),
-  distinctUntilChanged(),
-  map(termsss => termsss.length < 1 ? []
-    : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
-)
+  search1 = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(termsss => termsss.length < 1 ? []
+        : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
+    )
 
-public GetDrugnamemaster() {
-debugger
-this.docservice.GetDrugNameMaster(this.languageid).subscribe(
-  data => {
-    this.drugnamelist = data;
+  public GetDrugnamemaster() {
     debugger
-    // this.drugnames = this.drugnamelist.map(x => x.medicament);
-    debugger
-  }, error => {
+    this.docservice.GetDrugNameMaster(this.languageid).subscribe(
+      data => {
+        this.drugnamelist = data;
+        debugger
+        // this.drugnames = this.drugnamelist.map(x => x.medicament);
+        debugger
+      }, error => {
+      }
+    )
   }
-)
-}
 
-// public GetDrugNameID() {
+  // public GetDrugNameID() {
 
-// if (this.medicinename == '') {
-//   this.medicinename = ''
-// }
-// else {
-//   let wqew = this.icdcodelist.filter(v => v.drugnames.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
-//   // this.icdcode = wqew[0].icdCode,
-//   //   this.icrcodeid = wqew[0].id
+  // if (this.medicinename == '') {
+  //   this.medicinename = ''
+  // }
+  // else {
+  //   let wqew = this.icdcodelist.filter(v => v.drugnames.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+  //   // this.icdcode = wqew[0].icdCode,
+  //   //   this.icrcodeid = wqew[0].id
 
-// }
-// }
+  // }
+  // }
 
 
 
-public SerchDrugName(medicinename) {
-  debugger
-  if (medicinename == "") {
-    this.SerachOn = 0;
+  public SerchDrugName(medicinename) {
     debugger
+    if (medicinename == "") {
+      this.SerachOn = 0;
+      debugger
+    }
+    else {
+      this.SerachOn = 1;
+      debugger
+      //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+    }
   }
-  else {
-    this.SerachOn = 1;
+
+
+
+  public GetDrugID(medicinename) {
     debugger
-    //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+    this.medicinename = medicinename
+    this.SerachOn = 0
   }
-}
-
-
-
-public GetDrugID(medicinename) {
-  debugger
-  this.medicinename = medicinename
-  this.SerachOn = 0
-}
 
 
 
@@ -1446,8 +1462,8 @@ public GetDrugID(medicinename) {
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
       'ICDID': this.icrcodeid,
-      'SubstainablenotPermitted':this.substainable,
-      
+      'SubstainablenotPermitted': this.substainable,
+
     }
     this.docservice.InsertDoctorPrescrptionTemplates(entity).subscribe(data => {
       debugger
@@ -1458,7 +1474,7 @@ public GetDrugID(medicinename) {
 
   }
 
-  substainable:any;
+  substainable: any;
 
   public adddetails1() {
     this.tablecuont1 = 1;
@@ -1481,8 +1497,8 @@ public GetDrugID(medicinename) {
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
       'ICDID': this.icrcodeid,
-      'SubstainablenotPermitted':this.substainable,
-     
+      'SubstainablenotPermitted': this.substainable,
+
     }
     this.qwerty2.push(entity1);
 
@@ -1502,7 +1518,7 @@ public GetDrugID(medicinename) {
     this.icrdescription = ""
     this.icrcodeid = ""
     this.medicinetemplate == 2
-    this.substainable=""
+    this.substainable = ""
   }
 
 
@@ -1529,40 +1545,38 @@ public GetDrugID(medicinename) {
     for (let i = 0; this.qwerty2.length; i++) {
       debugger
       var entity = {
-        'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
+        // 'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
         'DoctorID': this.qwerty2[i].DoctorID,
         'PateintID': this.patientid,
         'LanguageID': this.qwerty2[i].LanguageID,
         'Date': new Date(),
         'AppointmentID': this.qwerty2[i].AppointmentID,
         'MedicineName': this.qwerty2[i].MedicineName,
-        'UnitOfMeasure': this.qwerty2[i].UnitOfMeasure,
-        'Dosage': this.qwerty2[i].Dosage,
+        // 'UnitOfMeasure': this.qwerty2[i].UnitOfMeasure,
+        // 'Dosage': this.qwerty2[i].Dosage,
         'SIG': this.qwerty2[i].SIG,
-        'Duration': this.qwerty2[i].Duration,
+        // 'Duration': this.qwerty2[i].Duration,
         'DispenseQuantity': this.qwerty2[i].DispenseQuantity,
         'NoteToPharmasist': this.qwerty2[i].NoteToPharmasist,
-        'Diagnosis': this.qwerty2[i].Diagnosis,
+        // 'Diagnosis': this.qwerty2[i].Diagnosis,
         'HowmanyRefills': this.qwerty2[i].HowmanyRefills,
         'LocalDoctorID': this.localdocid,
         'EndorseBit': this.endorse,
-        'ICDCode': this.qwerty2[i].ICDCode,
-        'ICDDescription': this.qwerty2[i].ICDDescription,
-        'ICDID': this.qwerty2[i].ICDID,
-        'SubstainablenotPermitted':this.qwerty2[i].SubstainablenotPermitted
+        // 'ICDCode': this.qwerty2[i].ICDCode,
+        // 'ICDDescription': this.qwerty2[i].ICDDescription,
+        // 'ICDID': this.qwerty2[i].ICDID,
+        'SubstainablenotPermitted': this.qwerty2[i].SubstainablenotPermitted
       }
       this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
         debugger
         if (data != 0) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Completed', 'Prescription saved successfully', 'success');
           }
-          else
-          {
-            Swal.fire('Détails enregistrés','Ordonnance');
+          else {
+            Swal.fire('Détails enregistrés', 'Ordonnance');
           }
-        
+
           this.tablecuont1 = 0;
           this.qwerty2 = [];
           this.getdoctorpatinetdetails();
@@ -1652,14 +1666,12 @@ public GetDrugID(medicinename) {
         debugger
         if (data != 0) {
 
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
           }
-          else
-          {
-            Swal.fire('Détails enregistrés','Test de laboratoire');
-          } 
+          else {
+            Swal.fire('Détails enregistrés', 'Test de laboratoire');
+          }
           this.tablecount = 0;
           this.qwerty = []
           this.qwerty.length = 0
@@ -1722,7 +1734,7 @@ public GetDrugID(medicinename) {
   //   this.getChat();
   // }
 
-  
+
   public dosendmsg() {
     var entity = {
       // 'ChatID': this.chatID,
@@ -1746,7 +1758,7 @@ public GetDrugID(medicinename) {
     //     this.InsertChatDetails();
     //   }
     //   else {
-     
+
     //   }
     // })
   }
@@ -1836,7 +1848,7 @@ public GetDrugID(medicinename) {
       var objDiv = document.getElementById("chatboxdiv");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
-    
+
 
     this.docservice.GetVideoStatus(this.appointmentiddd).subscribe(res => {
       this.compltedlist = res;
@@ -1882,39 +1894,38 @@ public GetDrugID(medicinename) {
 
   public renewprescription(presdetails) {
     var entity = {
-      'MedicineTypeID': presdetails.medicineTypeID,
+      // 'MedicineTypeID': presdetails.medicineTypeID,
       'DoctorID': this.doctorid,
       'PateintID': this.patientid,
       'LanguageID': this.languageid,
       'Date': new Date(),
       'AppointmentID': this.appointmentid,
       'MedicineName': presdetails.medicineName,
-      'UnitOfMeasure': presdetails.unitOfMeasure,
-      'Dosage': presdetails.dosage,
+      // 'UnitOfMeasure': presdetails.unitOfMeasure,
+      // 'Dosage': presdetails.dosage,
       'SIG': presdetails.sig,
-      'Duration': presdetails.duration,
+      // 'Duration': presdetails.duration,
       'DispenseQuantity': presdetails.dispenseQuantity,
       'NoteToPharmasist': presdetails.noteToPharmasist,
-      'Diagnosis': presdetails.diagnosis,
+      // 'Diagnosis': presdetails.diagnosis,
       'HowmanyRefills': presdetails.howmanyRefills,
       'LocalDoctorID': this.localdocid,
       'EndorseBit': this.endorse,
-      'ICDCode': 0,
-      'ICDDescription': 0,
-      'ICDID': 0,
-      'SubstainablenotPermitted':presdetails.substainablenotPermitted
+      // 'ICDCode': 0,
+      // 'ICDDescription': 0,
+      // 'ICDID': 0,
+      'SubstainablenotPermitted': presdetails.substainablenotPermitted
     }
     this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
       debugger
       if (data != 0) {
         this.getdoctorpatinetdetails()
-        if(this.languageid=1)
-        {
+        if (this.languageid = 1) {
           Swal.fire('Renewed', 'Prescription renewed successfully', 'success');
         }
-      else{
-        Swal.fire('Détails enregistrés','Ordonnance');
-      }
+        else {
+          Swal.fire('Détails enregistrés', 'Ordonnance');
+        }
       }
     })
   }
@@ -1950,12 +1961,12 @@ public GetDrugID(medicinename) {
 
   public highlight(evt) {
     var i, tablinks;
-  
+
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-  
+
     evt.currentTarget.className += " active";
   }
 }

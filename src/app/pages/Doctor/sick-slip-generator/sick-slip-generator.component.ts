@@ -82,11 +82,13 @@ export class SickSlipGeneratorComponent implements OnInit {
     )
 
   }
+  SelectLabel:any;
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginSickSlipGenerator_label(this.languageid).subscribe(
       data => {
         debugger
         this.labels = data;
+        this.SelectLabel = this.labels[0].select;
       }, error => {
       }
     )

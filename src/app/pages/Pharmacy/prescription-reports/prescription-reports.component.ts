@@ -8,6 +8,9 @@ import * as XLSX from 'xlsx';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 import * as FileSaver from 'file-saver';
+import html2canvas from 'html2canvas';
+import { jsPDF } from "jspdf";
+import { timer } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -288,6 +291,26 @@ export class PrescriptionReportsComponent implements OnInit {
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+
+
+  public SavePDF() {
+    debugger
+    let pdfContent = window.document.getElementById("content");
+    var doc = new jsPDF('p', 'mm', "a4");
+
+
+    html2canvas(pdfContent).then(function (canvas) {
+
+
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+      doc.setFontSize(3);
+
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150);
+      doc.save('Medicines.pdf');
+    });
   }
 
 }

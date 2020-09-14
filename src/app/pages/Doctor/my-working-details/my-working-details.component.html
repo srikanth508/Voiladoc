@@ -37,7 +37,7 @@
     </div>
     <div class="col-lg-2">
       <div class="homevisit">
-        <span style="margin-left: 11px;">Home Visit</span>
+        <span style="margin-left: 11px;">{{labels[0].homeVisit}}</span>
       </div>
     </div>
   </div>
@@ -123,14 +123,14 @@
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="deletebydochspid(doc.id,doc.dayID)">
               </a>
-              <ng-template #tipcontent3>{{labels[0].enable}}</ng-template>
+              <!-- <ng-template #tipcontent3>{{labels[0].enable}}</ng-template>
               <a *ngIf="doc.enable==1" [ngbTooltip]="tipcontent3">
                 <img src="assets/Images/dactive.png" style="width: 40px;margin-left: 10px;" (click)="EnableDoctorWorking(doc.dwid)">
               </a>
               <ng-template #tipcontent4>{{labels[0].disable}}</ng-template>
               <a *ngIf="doc.enable==NULL || doc.enable==0" [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/active.png" style="width: 40px;margin-left: 10px;" (click)="DisableDoctorWorking(doc.dwid)">
-              </a>
+              </a> -->
             </td>
           </tr>
         </thead>
@@ -163,12 +163,12 @@
         </p>
 
         <div class="row">
-          <div class="col-lg-1">
-          </div>
-          <div class="col-lg-8">
+          <!-- <div class="col-lg-1">
+          </div> -->
+          <div class="col-lg-12">
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="1"> &nbsp; {{labels[0].inclinic}} &nbsp;
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp; {{labels[0].video}} &nbsp;
-            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp; Home Visit
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp; {{labels[0].homeVisit}}
           </div>
         </div>
         <br>

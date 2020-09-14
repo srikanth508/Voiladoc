@@ -48,6 +48,7 @@ export class HspClidashComponent implements OnInit {
     this.cityid = 0
 
     this.languageid = localStorage.getItem('LanguageID');
+    
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
         debugger

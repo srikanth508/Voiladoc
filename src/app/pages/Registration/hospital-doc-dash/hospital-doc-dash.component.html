@@ -1,0 +1,71 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9" style="margin-top: -2px;">
+      <h5>Commissions Dashboard</h5>
+    </div>
+    <div class="col-lg-3" style="text-align: end;margin-top: 0px;">
+      <!-- <button class="btn btncolor" (click)="getglmasterexcel()" style="margin-right: 10px;">
+        {{labels1[0].exportExcel}}</button> -->
+      <button *ngIf="languageid==1" type="button" routerLink="/HospitalDocCommission" class="btn btncolor">Add
+        Commission
+      </button>
+      <button *ngIf="languageid==6" type="button" routerLink="/HospitalDocCommission"
+        class="btn btncolor">Ajouter</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+<br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
+    </div>
+    <div class="col-lg-3" style="text-align: end;margin-left: -8px;">
+      <!-- <label> {{labels[0].count}} : {{hospitalcount}}</label> -->
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Doc">
+        <thead>
+          <tr>
+            <th>Hospital Name</th>
+            <th>Doctor Commission</th>
+            <th>Nurse Commission</th>
+            <th>Physiotherapist Commission</th>
+            <th>Midwife Commission</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let list of commissionlist|filter:term">
+            <td>{{list.hospital_ClinicName}}</td>
+            <td>{{list.doctorCommission}}</td>
+            <td>{{list.nurseCommision}}</td>
+            <td>{{list.physioCommission}}</td>
+            <td>{{list.midwifecommisiion}}</td>
+            <td>
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/HospitalDocCommission',list.id,list.hospital_ClinicName]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 18px">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div> -->
+  <br>
+</div>
+<br>
+<br>
+<br>

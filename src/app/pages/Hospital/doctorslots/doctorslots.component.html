@@ -1,14 +1,19 @@
 <div class="container-fluid card card-hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-2">
-      <h5>Doctor Slots</h5>
+    <div class="col-lg-5">
+      <h5>{{labels[0].doctorSlots}}</h5>
     </div>
     <div class="col-lg-3">
-      <!-- <input type="text" class="form-control"   min={{todaydate}} [(ngModel)]="filterdate"   name="filterdate" (change)="GetDate($event)"
-        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY',showWeekNumbers:false }"
-        (ngModelChange)="GetDate($event)" bsDatepicker> -->
-      <!-- <input type="text"  bsDatepicker placeholder="Datepicker"  [bsConfig]="{ showWeekNumbers:false }" class="form-control" name="todaydate" (ngModelChange)="GetDate($event)"> -->
-      <input type="date" class="form-control" min={{todaydate}} [(ngModel)]="filterdate"   name="filterdate" (change)="GetDate($event)">
+
+
+      <input *ngIf="languageid==1"  type="text" placeholder="MM/DD/YYYY" class="form-control"
+      [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="filterdate"  name="filterdate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+      bsDatepicker>
+      
+    <input *ngIf="languageid==6" type="text"  placeholder="jj/mm/aa" class="form-control"
+      [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="filterdate"  name="filterdate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+      bsDatepicker>
+      <!-- <input type="date" class="form-control" min={{todaydate}} [(ngModel)]="filterdate"   name="filterdate" (change)="GetDate($event)"> -->
     </div>
   </div>
 </div>

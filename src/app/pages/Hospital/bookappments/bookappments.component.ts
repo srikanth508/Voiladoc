@@ -86,6 +86,12 @@ export class BookappmentsComponent implements OnInit {
     const locale = 'en-US';
     this.appdate = formatDate(myDate, format, locale);
 
+    // const qwer = 'dd-MMM-yyyy';
+    // const pljdjf = 'en-US';
+    // const frdat = this.appointmentate;
+    // this.appdate = formatDate(frdat, qwer, pljdjf);
+   
+
     this.GetPatients()
     this.GetNurses();
     this.getdoctorforadmin();

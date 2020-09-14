@@ -92,9 +92,9 @@
                 (click)="getvedioconferencebydateandtimedemand(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
 
-              <ng-template #tipcontent2099>Home Visit</ng-template>
+              <ng-template #tipcontent2099>{{labels[0].homeVisit}}</ng-template>
               <button type="button" class="homecarebtn" [ngbTooltip]="tipcontent2099"
-                *ngIf="details.appointmentTypeID=='5'">Home Visit
+                *ngIf="details.appointmentTypeID=='5'">{{labels[0].homeVisit}}
               </button>
 
               <ng-template #tipcontent20>{{labels[0].inClinic}}</ng-template>
@@ -105,7 +105,7 @@
               <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
               <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
                 *ngIf="details.appointmentTypeID=='2'"
-                (click)="GetChatShowID(details.patientID,details.appdate,details.slots)">{{labels[0].startchat}}</button>
+                (click)="GetChatShowID(details.patientID,details.appdate,details.slots)">{{labels[0].chat}}</button>
             </td>
             <td>{{details.appointmentID}}</td>
             <td>{{details.pName}}</td>
@@ -1217,8 +1217,8 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Department Name</th>
-                    <th>Doctor Name</th>
+                    <th>{{labels[0].department}}</th>
+                    <th>{{labels[0].doctorName}}</th>
                     <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].test}}</th>
@@ -1263,8 +1263,8 @@
               <table style="font-size: 14px;">
                 <tr>
                   <th>{{labels[0].date}}</th>
-                  <th>Department Name</th>
-                  <th>Doctor Name</th>
+                  <th>{{labels[0].department}}</th>
+                  <th>{{labels[0].doctorName}}</th>
                   <!-- <th>{{labels[0].medicineType}}</th> -->
                   <th>{{labels[0].drugName}}</th>
                   <!-- <th>{{labels[0].unitOfMeasure}}</th>

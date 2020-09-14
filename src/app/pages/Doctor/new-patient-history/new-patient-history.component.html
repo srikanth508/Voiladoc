@@ -118,8 +118,9 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].appointmentDate}}</th>
-            <th>Department Name</th>
-            <th>Doctor Name</th>
+            
+            <th>{{labels1[0].department}}</th>
+            <th>{{labels1[0].doctorName}}</th>
             <th>{{labels[0].prescription}}</th>
           </tr>
           <tr *ngFor="let pre of prescriptionlist">
@@ -144,8 +145,8 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].appointmentDate}}</th>
-            <th>Department Name</th>
-            <th>Doctor Name</th>
+            <th>{{labels1[0].department}}</th>
+            <th>{{labels1[0].doctorName}}</th>
             <th>{{labels[0].test}}</th>
             <th>{{labels[0].testName}}</th>
             <th>{{labels1[0].clinicalInfo}}</th>
@@ -257,8 +258,8 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].appointmentDate}}</th>
-            <th>Department Name</th>
-            <th>Doctor Name</th>
+            <th>{{labels1[0].department}}</th>
+            <th>{{labels1[0].doctorName}}</th>
             <th>{{labels[0].ailment}}</th>
             <th id="imp11">{{labels[0].soqp}}</th>
           </tr>
@@ -269,7 +270,7 @@
             <td>{{soap.reasonForVisit}}</td>
             <td>
               <a [ngbTooltip]="tipcontent10">
-                <img src="assets/Images/soap1.png" (click)="GetSoapID(soap.soapID)" data-toggle="modal"
+                <img src="assets/Images/pmr.png" (click)="GetSoapID(soap.soapID)" data-toggle="modal"
                   data-target="#exampleModal1" style="margin: 2%;width: 20px;" />
               </a>
             </td>

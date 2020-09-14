@@ -47,15 +47,34 @@ export class DoctorslotsComponent implements OnInit {
   dummnightslotsss: any;
   date: any;
   todaydatessss: any;
+  labels: any;
+  serverdateandtime:any;
   ngOnInit() {
     debugger
-
-    const format = 'yyyy-MM-dd';
-    const myDate = new Date();
-    const locale = 'en-US';
-    this.todaydatessss = formatDate(myDate, format, locale);
-
+    // const format = 'MM/dd/yyyy';
+    // const myDate = new Date();
+    // const locale = 'en-US';
+    // this.todaydatessss = formatDate(myDate, format, locale);
+    //  myDate.toLocaleString().split(',')[0];  
+    
+    //  formatDate(myDate, format, locale);
     // this.dayid = (this.date).getDay();
+
+  
+      this.docservice.GetServerDateAndTime().subscribe(
+        data => {
+          this.serverdateandtime = data;
+         
+            this.todaydatessss = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+            // this.selecteddate = this.serverdateandtime.datePickerTodaydate
+        }, error => {
+        }
+      )
+   
+  
+
+
+
     this.activatedroute.params.subscribe(params => {
       debugger;
       this.doctorid = params['doctorID'];
@@ -65,8 +84,15 @@ export class DoctorslotsComponent implements OnInit {
       this.bookingTypeID = params['bookingTypeID'];
       this.languageid = localStorage.getItem('LanguageID');
 
+      this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
+        data => {
+          debugger
+          this.labels = data;
+        }, error => {
+        }
+      )
       this.todaydate = localStorage.getItem('SelectedDate')
-
+      debugger
       this.filterdate = this.todaydate
 
       var gsDayNames = [
@@ -138,10 +164,15 @@ export class DoctorslotsComponent implements OnInit {
     //this.DateofAdmission = this.datepipe.transform(details.admisiionDate, 'yyyy-MM-dd');
   }
 
-
   public GetDate(even) {
     debugger
-    this.selecteddate = even.target.value;
+     this.selecteddate = even.toLocaleString().split(',')[0];
+    // this.selecteddate =new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('/');
+
+    // this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('-');
+    
+    localStorage.setItem('appointmentate', this.selecteddate);
+    // this.selecteddate = even.target.value;
     if (this.selecteddate == this.todaydate) {
       this.dayid = (new Date()).getDay();
       this.getdoctormorningslots();
@@ -166,6 +197,7 @@ export class DoctorslotsComponent implements OnInit {
         debugger
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
+        this.selecteddate = even.toLocaleString().split(',')[0];
         this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.selecteddate, this.dochospitalid).subscribe(
           data => {
             debugger
@@ -200,6 +232,8 @@ export class DoctorslotsComponent implements OnInit {
         )
       })
     }
+
+  
     localStorage.setItem('appointmentate', this.selecteddate);
 
   }

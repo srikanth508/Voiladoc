@@ -4,31 +4,49 @@
     <div class="col-lg-3">
       <select class="form-control" (change)="GetAppointmentTypeID($event)" [(ngModel)]="appointmentypeid"
         name="appointmentypeid">
-        <option value="0" selected>Appointment Type</option>
-        <option value="1">In Clinic</option>
-        <option value="2">Video Conference</option>
+        <option value="0" selected>{{labels[0].appointmentType}}</option>
+        <option value="1">{{labels[0].inclinic}}</option>
+        <option value="2">{{labels[0].vidoecall}}</option>
       </select>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetDepartmentID($event)">
-        <option value="0" selected>Select Department</option>
+        <option value="0" selected>{{labels[0].selectDepartment}}</option>
         <option *ngFor="let department of departmentlist" value={{department.id}}>
           {{department.departmentname}}</option>
       </select>
     </div>
     <div class="col-lg-3">
-      <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)">
+      <!-- <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)"> -->
+      <!-- <input *ngIf="languageid==1"  type="text" placeholder="MM/dd/yyyy" class="form-control"
+      [bsConfig]="{ showWeekNumbers:false }"  name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+      [(ngModel)]="selecteddate" bsDatepicker>
+
+    <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+      [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/dd/yyyy' }"
+       bsDatepicker> -->
+
+        <input *ngIf="languageid==1" type="text" class="form-control" placeholder="DD/MM/YYYY"
+          [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+           bsDatepicker>
+
+        <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+          [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"  (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+          bsDatepicker>
+        <!-- <input type="date" [(ngModel)]="todate" name="todate" class="form-control"> -->
+        <br>
+    
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetSlotID($event)">
-        <option value="0">Select</option>
+        <option value="0">{{labels[0].selectSlot}}</option>
         <option *ngFor="let slot of doctorslots"  value="{{slot.id}}">{{slot.slots}}</option>
       </select>
     </div>
   </div><br>
   <div class="row">
     <div class="col-lg-3" >
-      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="Search" name="Search">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="Search" name="Search">
     </div>
   </div><br>
 </div><br>

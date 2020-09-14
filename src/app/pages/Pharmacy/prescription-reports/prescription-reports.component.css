@@ -10,3 +10,43 @@
     th{
       text-transform: lowercase;
     }
+    .span_botertext
+    {
+      width:30px;
+      margin-top:-10px;
+      margin-left:5px;
+      background:white;
+    }
+
+    .span1
+    {
+      position: fixed;
+      top: 36%;
+      left: 37%;
+      z-index: 1000;
+      background: white;
+    }
+
+    #info-block section {
+      border: 1px solid #1dbfd2;
+      height: 110px;;
+  }
+  
+  .file-marker > div {
+      padding: 0 3px;
+      height: 100px;
+      margin-top: -0.8em;
+      
+  }
+  .box-title {
+      background: white none repeat scroll 0 0;
+      display: inline-block;
+      padding: 0 2px;
+      margin-left: 1em;
+      color:#1dbfd2;
+  }
+
+  #info-block section {
+    border: 1px solid #1dbfd2;
+    height: 110px;;
+}
