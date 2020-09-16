@@ -13,22 +13,35 @@ export class DoctorSupportDashComponent implements OnInit {
   languageid: any;
   issuelist: any;
   term: any;
+  labels: any;
+  dummissuelist: any;
 
   ngOnInit() {
 
     this.doctorid = localStorage.getItem('userid');
-
     this.languageid = localStorage.getItem('LanguageID');
 
     this.GetSupportIssues()
+    this.GetLanguageMaster()
   }
+
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.doctorid, 1).subscribe(res => {
       debugger
-      this.issuelist = res;
+      this.dummissuelist = res
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       debugger
     })
   }
+
+  public GetLanguageMaster() {
+    this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
+      debugger
+      this.labels = res;
+      debugger
+    })
+  }
+
   photourl: any;
 
   public GetImageUrl(photoURL) {

@@ -599,12 +599,11 @@ export class MyappointmentsComponent implements OnInit {
             this.Insertnotificatiaccept();
           })
 
-          Swal.fire('Rendez-vous accepté !.')
+          Swal.fire('Rendez-vous accepté !')
         }
         else {
           this.getbookappointmentbydoctorid();
           this.getbookappointmentbydocid();
-
 
 
         }
@@ -1174,7 +1173,7 @@ export class MyappointmentsComponent implements OnInit {
     this.icdcode = ""
     this.icrdescription = ""
     this.icrcodeid = ""
-    this.substainable = ""
+   
   }
 
 
@@ -1223,6 +1222,7 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertPrscriptionNotifications()
             this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
+            this.qwerty2=[]
           }
           else if (this.languageid == 6) {
             Swal.fire('L’ordonnance a bien été sauvegardée');
@@ -1231,6 +1231,7 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertPrscriptionNotifications()
             this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
+            this.qwerty2=[]
           }
         }
       })

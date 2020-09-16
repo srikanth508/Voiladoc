@@ -19,8 +19,10 @@ export class TreatmentMasterComponent implements OnInit {
   public treatmentservice: any;
   public id: any;
   public showbit: any;
-  public treatmentlist:any;
-
+  public treatmentlist: any;
+  
+  public appointmenttypeid: any;
+  
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
@@ -76,15 +78,18 @@ export class TreatmentMasterComponent implements OnInit {
         debugger
         this.treatmentlist = data;
 
-        var list=this.treatmentlist.filter(x=>x.id==this.id)
-        this.departmentid=list[0].departmentID,
-        this.treatmentservice=list[0].treatmentPlan
+        var list = this.treatmentlist.filter(x => x.id == this.id)
+        this.departmentid = list[0].departmentID,
+          this.treatmentservice = list[0].treatmentPlan
       }, error => {
       }
     )
   }
 
-  
+  public GetAppointmentTypeID(even) {
+    debugger
+    this.appointmenttypeid = even.target.value;
+  }
 
   public insertdetails() {
     if (this.departmentid == 0 || this.departmentid == undefined) {
@@ -109,20 +114,20 @@ export class TreatmentMasterComponent implements OnInit {
 
 
   public updatedetails() {
- 
-      var entity = {
-        'ID':this.id,
-        'LanguageID':this.languageid,
-        'DepartmentID': this.departmentid,
-        'TreatmentPlan': this.treatmentservice,
-      }
-      this.docservice.UpdateTreatmentPlanMaster(entity).subscribe(data => {
-        let res=data;
-          Swal.fire('Success', 'Details Updated Successfully');
-         
-          location.href = "#/TreatmentDash"
-        
-      })
+
+    var entity = {
+      'ID': this.id,
+      'LanguageID': this.languageid,
+      'DepartmentID': this.departmentid,
+      'TreatmentPlan': this.treatmentservice,
     }
-  
+    this.docservice.UpdateTreatmentPlanMaster(entity).subscribe(data => {
+      let res = data;
+      Swal.fire('Success', 'Details Updated Successfully');
+
+      location.href = "#/TreatmentDash"
+
+    })
+  }
+
 }

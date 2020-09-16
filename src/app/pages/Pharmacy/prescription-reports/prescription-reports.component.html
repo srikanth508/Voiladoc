@@ -123,110 +123,133 @@
 
 
 
-
-
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content" style="width: 650px;
-  height: auto;">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div id="content">
-        <div class="row">
-          <div class="col-lg-8">
-          </div>
-          <div class="col-lg-4">
-            <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5>
-            <span>{{doctorname}}</span><br>
-            <span>{{docmobile}}</span><br>
-            <span>{{email}}</span><br>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-lg-12">
-            <aside id="info-block">
-              <section class="file-marker">
-                <div>
-                  <div class="box-title">
-                    {{labels[0].patientDetails}}
-                  </div>
-                  <div class="box-contents">
-                    <div id="audit-trail">
-                      <label> {{labels[0].patientname}} : {{patientname}} </label><br>
-                      <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
-                      <label> {{labels[0].address}} : {{address}}</label>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </aside>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-12">
-            <h4>RX</h4>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-12">
-            <aside id="info-block">
-              <section class="file-marker">
-                <div>
-                  <div class="box-title">
-                   {{labels[0].medicinedetails}}
-                  </div>
-                  <div class="box-contents">
-                    <div id="audit-trail">
-                      <table>
-                        <thead>
-                          <tr>
-                            <!-- <th>{{labels[0].medicineType}}</th> -->
-                            <th>{{labels[0].medicines}}</th>
-                            <th>{{labels[0].quantity}}</th>
-                          </tr>
-                          <tr *ngFor="let medicinelist of myarray">
-                            <!-- <td>{{medicinelist.Medicinetype}}</td> -->
-                            <td>{{medicinelist.medicine}}</td>
-                            <td>{{medicinelist.quantity}}</td>
-                          </tr>
-                        </thead>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </aside>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-lg-9">
-          </div>
-          <div class="col-lg-3">
-            <!-- <img src="{{docsignatureurl}}"> -->
-            {{doctorname}}<br>
-            <span style="text-align:center;">(Signature)</span>
-          </div>
-        </div>
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 800px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-          data-dismiss="modal" (click)="SavePDF()">Download</button>
-        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-          data-dismiss="modal">{{labels[0].close}}</button>
-      </div>
+      <div class="modal-body">
+        <div id="content">
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-4">
+              <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+              <span>{{doctorname}}</span><br>
+              <div *ngIf="hospitalid!=590">
+                <span>{{hospitalname}}</span><br>
+              </div>
 
+              <span>{{docaddress}}</span><br>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-12">
+              <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
+              <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
+              <label>{{labels[0].mailId}} : {{email}} </label><br>
+              <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title">
+                      {{labels[0].patientDetails}}
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                        <label> {{labels[0].patientname}} : {{patientname}} </label><br>
+                        <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
+                        <label> {{labels[0].address}} : {{address}}</label><br>
+                        <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title">
+                      {{labels[0].medicinedetails}}
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                        <table>
+                          <thead>
+                            <tr>
+                              <!-- <th>{{labels[0].medicineType}}</th> -->
+                              <th style="border: 2px solid black; background-color:#FFD300;
+                              color:black;">{{labels[0].medicines}}</th>
+                              <th style="border: 2px solid black; background-color:#FFD300; color:black;">
+                                {{labels[0].sig}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].quantity}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].howmanyrefills}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].notetoPharmsict}}</th>
+                            </tr>
+                            <tr *ngFor="let medicinelist of myarray">
+                              <!-- <td>{{medicinelist.Medicinetype}}</td> -->
+                              <td style="border: 2px solid black;">{{medicinelist.medicine}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.Sig}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.quantity}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.howmanyrefills}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td>
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- <label>{{labels[0].notetoPharmsict}} : </label> -->
+            </div>
+            <div class="col-lg-4">
+              <!-- <img src="{{docsignatureurl}}"> -->
+              <span style="text-align:center;margin-left: 61px;">(Signature)</span>
+              <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
+              <div style="margin-top: -13px;">
+                <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{docmobile}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+            data-dismiss="modal" (click)="SavePDF()">Download</button>
+          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+            data-dismiss="modal">{{labels[0].close}}</button>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
-</div>
+
+
 
 
 

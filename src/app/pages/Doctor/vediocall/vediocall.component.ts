@@ -303,15 +303,15 @@ export class VediocallComponent implements OnInit {
     )
 
 
-    this.docservice.GetVideoStatus(this.appointmentiddd).subscribe(res => {
-      this.compltedlist = res;
-      if (this.compltedlist[0].completed == 2) {
-        if (this.count == 1) {
-          this.count = this.count + 1
-          Swal.fire('Patient Ended The Session');
-        }
-      }
-    })
+    // this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
+    //   this.compltedlist = res;
+    //   if (this.compltedlist[0].completed == 2) {
+    //     if (this.count == 1) {
+    //       this.count = this.count + 1
+    //       Swal.fire('Patient Ended The Session');
+    //     }
+    //   }
+    // })
 
     //chat
     this.image = 0;
@@ -734,6 +734,14 @@ export class VediocallComponent implements OnInit {
 
         this.SendNotification()
 
+        this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
+          data => {
+          
+          }, error => {
+          }
+        )
+
+
         this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
           data => {
             debugger
@@ -766,19 +774,35 @@ export class VediocallComponent implements OnInit {
   }
 
 
-
   public SendNotification() {
     debugger
-    var entity = {
-      'Description': "Doctor Has Started Video Please Join ",
-      'ToUser': this.email,
-    }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
-      if (data != 0) {
-
+    if(this.languageid==1)
+    {
+      var entity = {
+        'Description': "Doctor Has Started Video Please Join ",
+        'ToUser': this.email,
       }
-    })
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+  
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      var entity = {
+        'Description': "Le médecin a commencé la vidéo, veuillez rejoindre",
+        'ToUser': this.email,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+  
+        }
+      })
+
+    }
 
   }
 
@@ -1180,6 +1204,24 @@ export class VediocallComponent implements OnInit {
 
 
   public stoparchive() {
+    debugger
+    this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
+      this.compltedlist = res;
+      if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
+        debugger
+        this.count = this.count + 1
+        Swal.fire('Patient Ended The Call');
+      }
+      else{
+        this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
+          data => {
+    
+          }, error => {
+          }
+        )
+      }
+    })
+
     this.docservice.showvid = 0;
     debugger;
     this.opentokService.stoparchive(this.archiveID).subscribe(res => {
@@ -1190,25 +1232,11 @@ export class VediocallComponent implements OnInit {
       // document.getElementById('viewrecoring').style.display = 'block';
       document.getElementById('subscibre').style.display = 'none';
 
+      
     })
 
-
-    this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
-      data => {
-
-      }, error => {
-      }
-    )
     debugger
-    this.docservice.GetVideoStatus(this.appointmentiddd).subscribe(res => {
-      this.compltedlist = res;
-      if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
-        this.count = this.count + 1
-        Swal.fire('Patient Ended The Call');
-
-      }
-    })
-
+ 
 
 
     this.VisitDoctorAppointmentStatus()

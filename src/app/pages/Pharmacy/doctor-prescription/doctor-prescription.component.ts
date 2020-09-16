@@ -95,7 +95,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       }, error => {
       }
     )
-    // this.oberserableTimer();
+     this.oberserableTimer();
 
   }
   public GetPharmacyOrders() {
@@ -138,7 +138,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   docaddress: any;
   registrationno: any;
   prescriptiondate: any;
-  dateofbirth:any;
+  dateofbirth: any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
@@ -158,17 +158,27 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.hospitalid = this.list[0].hospitalClinicID,
       this.docaddress = this.list[0].docaddress,
       this.registrationno = this.list[0].registrationNo,
-      this.prescriptiondate = this.list[0].prescrptiondate,
-      this.dateofbirth= this.list[0].dateofbirth
+      this.prescriptiondate = this.list[0].prescriptionAddedDate,
+      this.dateofbirth = this.list[0].dateofbirth
 
-      let meds = this.list[0].allMedicines.split(',');
+    let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');
-    let mtype = this.list[0].medicineTypeID.split(',');
+
+    let sig = this.list[0].sig.split(',');
+    let notetopharmacist = this.list[0].noteToPharmacist.split(',');
+    let howmanyrefills = this.list[0].renovolment.split(',');
+    let issubastaible = this.list[0].isSubatianablenotPermittesd.split(',');
+    // let mtype = this.list[0].medicineTypeID.split(',');
+
     for (let i = 0; i < meds.length; i++) {
       var medetty = {
         'medicine': meds[i],
         'quantity': quan[i],
-        'Medicinetype': mtype[i]
+        'Sig': sig[i],
+        'NoteToPharmacist': notetopharmacist[i],
+        'howmanyrefills': howmanyrefills[i],
+        'issubastaible': issubastaible[i]
+        // 'Medicinetype': mtype[i]
       }
       this.myarray.push(medetty);
     }
@@ -830,7 +840,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public Insertnotificationtestazure() {
     debugger
     var entity = {
-      'Description': "Pharmacy Trying To Reach You",
+      'Description': "Pharmacy Trying To Reach You : " + this.chatconversation,
       'ToUser': this.patientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {

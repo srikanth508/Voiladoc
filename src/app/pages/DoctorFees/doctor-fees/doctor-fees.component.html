@@ -57,7 +57,7 @@
     </div>
   </div>
   <br>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].treatmentService}} : </label>
       <span class="requird">*</span>
@@ -69,7 +69,19 @@
       </select>
     </div>
   </div>
-  <br>
+  <br> -->
+  <div class="row">
+    <div class="col-lg-3">
+      <label>{{labels[0].appointmentstype}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" (change)="GetAppointmentID($event)">
+        <option value="0">{{labels[0].select}}</option>
+        <option *ngFor="let app of appointmenttype" value="{{app.id}}">{{app.appointmentType}}</option>
+      </select>
+    </div>
+  </div><br>
   <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].patientCharges}} : </label>
@@ -120,7 +132,8 @@
           <tr>
             <th>{{labels[0].doctor}}</th>
             <th>{{labels[0].hospitalClinic}}</th>
-            <th>{{labels[0].treatmentService}}</th>
+            <!-- <th>{{labels[0].treatmentService}}</th> -->
+            <th>{{labels[0].appointmentstype}}</th>
             <th>{{labels[0].fees}}</th>
             <!-- <th>{{labels[0].doctorCommission}}</th>
             <th>{{labels[0].voildoccommssion}}</th> -->
@@ -129,7 +142,8 @@
           <tr *ngFor="let details of qwerty">
             <td>{{details.DoctorName}}</td>
             <td>{{details.HospitalName}}</td>
-            <td>{{details.TreatmentPlan}}</td>
+            <!-- <td>{{details.TreatmentPlan}}</td> -->
+            <td>{{details.Appointmenttype}}</td>
             <td>{{details.Fees}}</td>
             <!-- <td>{{details.DoctorCommission}}</td>
             <td>{{details.VoilaDocCommisiion}}</td> -->

@@ -284,6 +284,12 @@ import { PhyioSupportComponent } from './pages/physiotherapist/phyio-support/phy
 import { PhyioSupportDashComponent } from './pages/physiotherapist/phyio-support-dash/phyio-support-dash.component';
 import { MidwifsupportComponent } from './pages/Midewife/midwifsupport/midwifsupport.component';
 import { MidwifsupportDashComponent } from './pages/Midewife/midwifsupport-dash/midwifsupport-dash.component';
+import { HospitalSupportComponent } from './pages/Hospital/hospital-support/hospital-support.component';
+import { HospitalSupportDashComponent } from './pages/Hospital/hospital-support-dash/hospital-support-dash.component';
+import { RecpsupportComponent } from './pages/Hospital/recpsupport/recpsupport.component';
+import { RecpsupportDashComponent } from './pages/Hospital/recpsupport-dash/recpsupport-dash.component';
+import { SupportWebComponent } from './pages/Support/support-web/support-web.component';
+import { DocResolvedTicketsComponent } from './pages/Doctor/doc-resolved-tickets/doc-resolved-tickets.component';
 
 
 const routes: Routes = [
@@ -634,12 +640,16 @@ const routes: Routes = [
   { path: 'DoctorSupportDash', component: DoctorSupportDashComponent },
   { path: 'NurseSupport', component: NurseSupportComponent },
   { path: 'NurseSupportDash', component: NurseSupportDashComponent },
-
   { path: 'PhyioSupport', component: PhyioSupportComponent },
   { path: 'PhyioSupportDash', component: PhyioSupportDashComponent },
-
   { path: 'Midwifsupport', component: MidwifsupportComponent },
   { path: 'MidwifsupportDash', component: MidwifsupportDashComponent },
+  { path: 'HospitalSupport', component: HospitalSupportComponent },
+  { path: 'HospitalSupportDash', component: HospitalSupportDashComponent },
+  { path: 'Recpsupport', component: RecpsupportComponent },
+  { path: 'RecpsupportDash', component: RecpsupportDashComponent },
+  { path: 'SupportWeb', component: SupportWebComponent },
+  { path: 'DocResolvedTickets', component: DocResolvedTicketsComponent },
 ];
 
 

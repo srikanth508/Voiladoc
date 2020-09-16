@@ -4099,4 +4099,18 @@ export class HelloDoctorService {
     debugger
     return this.http.get<any[]>(this.host + '/LanguageMaster/GetAdmin_SupportForWeb_Labels?LanguageID=' + lid);
   }
+
+  public GetSupportForWebForSupportLogin(lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWebForSupportLogin?LanguageID=' + lid);
+  }
+  public UpdateAlertbit(aid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateAlertbit?AppointmentID=' + aid);
+  }
+  
+  public UpdateSupportForWebResolvedbit(id) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateSupportForWebResolvedbit?ID=' + id);
+  }
 }

@@ -11,6 +11,7 @@ export class MidwifsupportDashComponent implements OnInit {
   issuelist: any;
   labels: any;
   midwifeid: any;
+  term:any;
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {

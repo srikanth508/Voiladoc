@@ -136,7 +136,7 @@ export class DoctorFeeDashComponent implements OnInit {
   }
 
 
-
+  
   public getdoctorfeess() {
     if (this.hospitalclinicid == undefined) {
       this.docservice.DoctorCommissionFees(this.languageid).subscribe(

@@ -167,7 +167,7 @@ export class LoginComponent implements OnInit {
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].doctorName)
             localStorage.setItem('roleid', '2');
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             localStorage.setItem('MobileNumber', this.result[0].mobileNumber);
             localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
             localStorage.setItem('userid', this.result[0].doctorID);
@@ -195,7 +195,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].hospital_ClinicName)
             localStorage.setItem('roleid', '3');
             localStorage.setItem('hospitalid', this.result[0].hospital_ClinicID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/HospitalRevenue';
             location.reload();
           }
@@ -218,7 +218,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].diagnosticCenterName)
             localStorage.setItem('roleid', '4');
             localStorage.setItem('diagnosticid', this.result[0].diagnosticCenterID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/Profiles';
             location.reload();
           }
@@ -242,7 +242,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].pharmacyName)
             localStorage.setItem('roleid', '5');
             localStorage.setItem('pharmacyid', this.result[0].pharmacyID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/Pharmacyprofile';
             location.reload();
           }
@@ -266,7 +266,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '7');
             localStorage.setItem('nurseid', this.result[0].nurseID);
             localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/NurseProfile';
             location.reload();
           }
@@ -290,7 +290,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '8');
             localStorage.setItem('physioid', this.result[0].physiotherapistID);
             localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/PhysiotherapistProfile';
             location.reload();
           }
@@ -313,7 +313,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].name)
             localStorage.setItem('roleid', '9');
             localStorage.setItem('midwifeid', this.result[0].midWiveID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/MidwifeProfile';
             location.reload();
           }
@@ -336,7 +336,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].companyName)
             localStorage.setItem('roleid', '10');
             localStorage.setItem('deliveryid', this.result[0].deliveryCompanyID);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/DeliverPartnerProfile';
             location.reload();
           }
@@ -360,7 +360,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].doctorName)
             localStorage.setItem('roleid', '11');
             localStorage.setItem('localdocid', this.result[0].id);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/MyProfiles';
             location.reload();
           }
@@ -383,7 +383,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', 'Manny')
             localStorage.setItem('roleid', '12');
             // localStorage.setItem('localdocid', this.result[0].id);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/AdminDash';
             location.reload();
           }
@@ -407,7 +407,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].name)
             localStorage.setItem('roleid', '13');
             // localStorage.setItem('localdocid', this.result[0].id);
-            localStorage.setItem('temp', '1');
+            sessionStorage.setItem('temp', '1');
             location.href = '#/SupportDash';
             location.reload();
           }
@@ -420,6 +420,7 @@ export class LoginComponent implements OnInit {
         }
       )
     }
+    
     if (this.roleid == "14") {
       this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
@@ -430,7 +431,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', this.result[0].hospital_ClinicName)
             localStorage.setItem('roleid', '14');
             localStorage.setItem('hospitalid', this.result[0].hospitalID);
-            localStorage.setItem('temp', '1');
+            localStorage.setItem('Receptionstid', this.result[0].id);
+            localStorage.setItem('receptiostname', this.result[0].name);
+            sessionStorage.setItem('temp', '1');
             location.href = '#/Appointments';
             location.reload();
           }
@@ -444,7 +447,6 @@ export class LoginComponent implements OnInit {
       )
     }
   }
-
 
 
   public onchangeFunction(even) {

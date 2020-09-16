@@ -178,12 +178,19 @@ export class PrescriptionReportsComponent implements OnInit {
   docmobile: any;
   email: any;
   docsignatureurl: any;
+  hospitalname:any;
+  hospitalid:any;
+  docaddress:any;
+  registrationno:any;
+  prescriptiondate:any;
+  dateofbirth:any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
     debugger
     this.listid = id;
     this.list = this.reportlist.filter(x => x.id == this.listid)
+    debugger
     this.patientname = this.list[0].patientName,
       this.mobilernumber = this.list[0].mobileNumber
     this.address = this.list[0].address
@@ -191,18 +198,32 @@ export class PrescriptionReportsComponent implements OnInit {
     this.doctorname = this.list[0].doctorName,
       this.docmobile = this.list[0].docmobile,
       this.email = this.list[0].emailID,
-      this.docsignatureurl = this.list[0].siganatureurl
+      this.docsignatureurl = this.list[0].siganatureurl,
+      this.hospitalname = this.list[0].hospital_ClinicName,
+      this.hospitalid = this.list[0].hospitalClinicID,
+      this.docaddress = this.list[0].docaddress,
+      this.registrationno = this.list[0].registrationNo,
+      this.prescriptiondate = this.list[0].prescriptionAddedDate,
+      this.dateofbirth = this.list[0].dateofbirth
 
-
-    debugger
     let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');
-    let mtype = this.list[0].medicineTypeID.split(',');
+
+    let sig = this.list[0].sig.split(',');
+    let notetopharmacist = this.list[0].noteToPharmacist.split(',');
+    let howmanyrefills = this.list[0].renovolment.split(',');
+    let issubastaible = this.list[0].isSubatianablenotPermittesd.split(',');
+    // let mtype = this.list[0].medicineTypeID.split(',');
+
     for (let i = 0; i < meds.length; i++) {
       var medetty = {
         'medicine': meds[i],
         'quantity': quan[i],
-        'Medicinetype': mtype[i]
+        'Sig': sig[i],
+        'NoteToPharmacist': notetopharmacist[i],
+        'howmanyrefills': howmanyrefills[i],
+        'issubastaible': issubastaible[i]
+        // 'Medicinetype': mtype[i]
       }
       this.myarray.push(medetty);
     }

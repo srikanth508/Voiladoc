@@ -44,6 +44,7 @@
         color:white;
         text-align: center;
         padding: 4px;
+        /* border: 1px solid gray; */
       }
       td {
         border: 1px solid #dddddd;

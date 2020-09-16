@@ -18,11 +18,23 @@ export class DoctorSupportComponent implements OnInit {
   public issuephotourl = [];
   public user: any;
   public languageid: any;
+  public labels:any;
+
   ngOnInit() {
     this.description = ""
     this.doctorid = localStorage.getItem('userid');
     this.user = localStorage.getItem('user');
     this.languageid = localStorage.getItem('LanguageID');
+    this.GetLanguageMaster()
+  }
+
+
+  public GetLanguageMaster() {
+    this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
+      debugger
+      this.labels = res;
+      debugger
+    })
   }
 
 

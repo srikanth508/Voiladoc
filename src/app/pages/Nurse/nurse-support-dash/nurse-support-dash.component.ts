@@ -14,6 +14,7 @@ export class NurseSupportDashComponent implements OnInit {
   languageid:any;
   issuelist:any;
   labels:any;
+  term:any;
   
   ngOnInit() {
     this.nurseid = localStorage.getItem('nurseid');

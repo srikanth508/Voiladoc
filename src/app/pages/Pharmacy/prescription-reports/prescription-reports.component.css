@@ -34,7 +34,7 @@
   
   .file-marker > div {
       padding: 0 3px;
-      height: 100px;
+      height: auto;
       margin-top: -0.8em;
       
   }
@@ -48,5 +48,5 @@
 
   #info-block section {
     border: 1px solid #1dbfd2;
-    height: 110px;;
+    height: auto;
 }

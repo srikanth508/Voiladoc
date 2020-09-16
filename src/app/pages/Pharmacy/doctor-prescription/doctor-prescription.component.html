@@ -31,7 +31,7 @@
             <th *ngIf="languageid=='6'">Format de ordonnance</th>
             <th *ngIf="languageid=='1'">Pick Up Type</th>
             <th *ngIf="languageid=='6'">Retrait et Livraison </th>
-            <th>{{labels[0].substitablenotpermitedd}} </th>
+            <!-- <th>{{labels[0].substitablenotpermitedd}} </th> -->
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}} </th>
             <th>{{labels[0].mailId}}</th>
@@ -51,10 +51,10 @@
               <span *ngIf="details.selfPickUP=='0'">{{labels[0].homeDelivery}}</span>
               <span *ngIf="details.selfPickUP=='1'">{{labels[0].selfpickup}}</span>
             </td>
-            <td>
+            <!-- <td>
               <span *ngIf="details.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
               <span *ngIf="details.substainablenotPermitted=='2'">{{labels[0].no}}</span>
-            </td>
+            </td> -->
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
             <td>{{details.patientemail}}</td>
@@ -96,58 +96,71 @@
                 Paid</label>
             </td>
             <td>
+              <table style="box-shadow:none">
+                <tr>
+                  <td  style="border:none">
+                    <ng-template #tipcontent3>{{labels[0].accept}}</ng-template>
+                    <a [ngbTooltip]="tipcontent3"
+                      *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
+                      <img src="assets/Images/acc.png" style="height:20px;"
+                        (click)="GetAcceptOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" /></a>
+                  </td>
+                  <td  style="border:none">
+                    <ng-template #tipcontent4>{{labels[0].cancel}}</ng-template>
+                    <a [ngbTooltip]="tipcontent4"
+                      *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
+                      <img src="assets/Images/can.png" style="height:20px;"
+                        (click)="GetCancelOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
+                    </a>
+                  </td>
+                  <td  style="border:none">
+                    <ng-template #tipcontent84>{{labels[0].fullyAvailable}}</ng-template>
+                    <a [ngbTooltip]="tipcontent84"
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
+                      <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                        data-target="#exampleModal3" (click)="GetFullyOrderDetails(details)" /></a>
+                  </td>
+                  <td  style="border:none">
 
-              <ng-template #tipcontent3>{{labels[0].accept}}</ng-template>
-              <a [ngbTooltip]="tipcontent3"
-                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
-                <img src="assets/Images/acc.png" style="height:20px;"
-                  (click)="GetAcceptOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" /></a>&nbsp;
-
-              <ng-template #tipcontent4>{{labels[0].cancel}}</ng-template>
-              <a [ngbTooltip]="tipcontent4"
-                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
-                <img src="assets/Images/can.png" style="height:20px;"
-                  (click)="GetCancelOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
-              </a>&nbsp;
-
-              <ng-template #tipcontent84>{{labels[0].fullyAvailable}}</ng-template>
-              <a [ngbTooltip]="tipcontent84"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
-                <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal3"
-                  (click)="GetFullyOrderDetails(details)" /></a>&nbsp;
-
-              <ng-template #tipcontent89>{{labels[0].partailAvailable}}</ng-template>
-              <a [ngbTooltip]="tipcontent89"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
-                <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal4"
-                  (click)="GetPartialOrderDetails(details)" /></a>&nbsp;
-
-
-              <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
-              <a [ngbTooltip]="tipcontent899"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'||details.partialBit=='1'&&details.readyfordelivery=='0'">
-                <img src="assets/Images/edit.png" style="height:20px;"
-                  (click)="GetReadyForDelivery(details.id)" /></a>&nbsp;
-
-
-              <ng-template #tipcontent5>{{labels[0].delivered}}</ng-template>
-              <a [ngbTooltip]="tipcontent5"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'">
-                <img src="assets/Images/deli.png" style="height:20px;"
-                  (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
-              </a>
-
+                    <ng-template #tipcontent89>{{labels[0].partailAvailable}}</ng-template>
+                    <a [ngbTooltip]="tipcontent89"
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
+                      <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                        data-target="#exampleModal4" (click)="GetPartialOrderDetails(details)" /></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td  style="border:none">
+                    <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
+                    <a [ngbTooltip]="tipcontent899"
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'||details.partialBit=='1'&&details.readyfordelivery=='0'">
+                      <img src="assets/Images/edit.png" style="height:20px;"
+                        (click)="GetReadyForDelivery(details.id)" /></a>
+                  </td>
+                  <td  style="border:none">
+                    <ng-template #tipcontent5>{{labels[0].delivered}}</ng-template>
+                    <a [ngbTooltip]="tipcontent5"
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'">
+                      <img src="assets/Images/deli.png" style="height:20px;"
+                        (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
+                    </a>
+                  </td>
+                  <td  style="border:none">
+                    <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
+                    <a [ngbTooltip]="tipcontent36">
+                      <img src="assets/Images/chat.png" data-toggle="modal" data-target="#asssignss"
+                        style="margin: 2%;width: 20px;"
+                        (click)="GetPharmacyPatientID(details.patientID,details.patientemail)" />
+                    </a>
+                  </td>
+                </tr>
+              </table>
               <!-- <ng-template #tipcontent36>Chat</ng-template>
                 <a [ngbTooltip]="tipcontent36">
                   <img src="assets/Images/chat.png" [routerLink]="['/PharmacyChat',details.pharmacyID,details.patientID]"
                     style="margin: 2%;width: 20px;" />
                 </a> -->
-              <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
-              <a [ngbTooltip]="tipcontent36">
-                <img src="assets/Images/chat.png" data-toggle="modal" data-target="#asssignss"
-                  style="margin: 2%;width: 20px;"
-                  (click)="GetPharmacyPatientID(details.patientID,details.patientemail)" />
-              </a>
+             
             </td>
           </tr>
         </thead>
@@ -180,7 +193,7 @@
               <div *ngIf="hospitalid!=590">
                 <span>{{hospitalname}}</span><br>
               </div>
-           
+
               <span>{{docaddress}}</span><br>
             </div>
           </div>
@@ -188,7 +201,7 @@
           <div class="row">
             <div class="col-lg-12">
               <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
-              <label>{{labels[0].telephoneno}} : {{docmobile}}  </label><br>
+              <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
               <label>{{labels[0].mailId}} : {{email}} </label><br>
               <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
             </div>
@@ -205,7 +218,7 @@
                       <div id="audit-trail">
                         <label> {{labels[0].patientname}} : {{patientname}} </label><br>
                         <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
-                        <label> {{labels[0].address}} : {{address}}</label>
+                        <label> {{labels[0].address}} : {{address}}</label><br>
                         <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
                       </div>
                     </div>
@@ -229,17 +242,24 @@
                           <thead>
                             <tr>
                               <!-- <th>{{labels[0].medicineType}}</th> -->
-                              <th>{{labels[0].medicines}}</th>
-                              <th>{{labels[0].sig}}</th>
-                              <th>{{labels[0].quantity}}</th>
-                              <th>{{labels[0].howmanyrefills}}</th>
+                              <th style="border: 2px solid black; background-color:#FFD300;
+                              color:black;">{{labels[0].medicines}}</th>
+                              <th style="border: 2px solid black; background-color:#FFD300; color:black;">
+                                {{labels[0].sig}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].quantity}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].howmanyrefills}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].notetoPharmsict}}</th>
                             </tr>
                             <tr *ngFor="let medicinelist of myarray">
                               <!-- <td>{{medicinelist.Medicinetype}}</td> -->
-                              <td>{{medicinelist.medicine}}</td>
-                              <td></td>
-                              <td>{{medicinelist.quantity}}</td>
-                              <td></td>
+                              <td style="border: 2px solid black;">{{medicinelist.medicine}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.Sig}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.quantity}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.howmanyrefills}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td>
                             </tr>
                           </thead>
                         </table>
@@ -253,15 +273,15 @@
           <br>
           <div class="row">
             <div class="col-lg-8">
-              <label>{{labels[0].notetoPharmsict}} : </label>
+              <!-- <label>{{labels[0].notetoPharmsict}} : </label> -->
             </div>
             <div class="col-lg-4">
               <!-- <img src="{{docsignatureurl}}"> -->
               <span style="text-align:center;margin-left: 61px;">(Signature)</span>
               <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
               <div style="margin-top: -13px;">
-              <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{docmobile}}</span>
-            </div>
+                <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{docmobile}}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -680,7 +700,8 @@
         <div class="col-lg-7">
         </div>
         <div class="col-lg-2">
-          <h5 (click)="GetShowOff()">*</h5>
+          <!-- <h5 (click)="GetShowOff()">*</h5> -->
+          <img src="assets/Images/can.png" (click)="GetShowOff()">
         </div>
       </div>
       <div class="row">

@@ -58,7 +58,7 @@ export class AppComponent {
     }
 
     this.pharmacyid = localStorage.getItem('pharmacyid');
-    this.temp = localStorage.getItem('temp');
+    this.temp = sessionStorage.getItem('temp');
     this.roleid = localStorage.getItem('roleid');
     this.doctorid = localStorage.getItem('userid');
     //  this.oberserableTimer();
@@ -150,6 +150,8 @@ export class AppComponent {
   }
 
   public clear() {
+    
+    sessionStorage.clear();
     localStorage.clear();
     location.href = "#/login";
     location.reload();

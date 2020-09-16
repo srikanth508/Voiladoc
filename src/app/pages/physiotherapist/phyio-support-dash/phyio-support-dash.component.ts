@@ -11,10 +11,11 @@ export class PhyioSupportDashComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
 
 
-  languageid:any;
-  issuelist:any;
-  labels:any;
-  physioid:any;
+  languageid: any;
+  issuelist: any;
+  labels: any;
+  physioid: any;
+  term: any;
   ngOnInit() {
     this.physioid = localStorage.getItem('physioid');
     this.languageid = localStorage.getItem('LanguageID');
