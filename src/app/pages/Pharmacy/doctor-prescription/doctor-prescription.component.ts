@@ -139,6 +139,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   registrationno: any;
   prescriptiondate: any;
   dateofbirth: any;
+  noteetopharmasict:any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
@@ -149,7 +150,6 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.patientname = this.list[0].patientName,
       this.mobilernumber = this.list[0].mobileNumber
     this.address = this.list[0].address
-
     this.doctorname = this.list[0].doctorName,
       this.docmobile = this.list[0].docmobile,
       this.email = this.list[0].emailID,
@@ -159,7 +159,8 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.docaddress = this.list[0].docaddress,
       this.registrationno = this.list[0].registrationNo,
       this.prescriptiondate = this.list[0].prescriptionAddedDate,
-      this.dateofbirth = this.list[0].dateofbirth
+      this.dateofbirth = this.list[0].dateofbirth,
+      this.noteetopharmasict=this.list[0].notetoopharmacistt
 
     let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');

@@ -40,8 +40,9 @@
             style="margin: 2%;width: 20px;" />&nbsp;
           </td>
           <td>
-            <label *ngIf="issue.resolved=='0'" style="color:red">{{labels[0].notResolved}}</label>
-            <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label>
+            <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">Pending</label>
+            <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">Accepted</label>
+            <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
           </td>
           </tr>
         </thead>

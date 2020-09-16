@@ -461,9 +461,6 @@
 
 
 
-
-
-
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -503,13 +500,11 @@
 </div>
 
 
-
 <div class="backdrop" [ngStyle]="{ display: display }"></div>
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content modal-lg">
-      <p class="modal-title" style="line-height: 28px;
-          margin-left: 9px;">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content modal-xl">
+      <p class="modal-title" style="line-height: 28px;">
       </p>
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addPrescription}}</h5>
@@ -517,14 +512,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="height:600px;width:800px;overflow-y: auto;">
+      <div class="modal-body" style="height:600px;overflow-y: auto;">
         <div class="container-fluid">
           <form #medicineForm="ngForm">
             <div class="row">
               <div class="col-lg-4">
                 <h6>{{labels[0].chooseFromtemplate}} </h6>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <select class="form-control" (change)="GetDoctorPrecriptioTemplateID($event)">
                   <option selected="selected" value="0">{{labels[0].select}}</option>
                   <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
@@ -557,7 +552,7 @@
                 <div class="col-lg-4">
                   <label>Entrez manuellement le nom du médicament :</label>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-4">
                   <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="1">&nbsp;
                   {{labels[0].yes}} &nbsp;&nbsp;
                   <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="2">&nbsp;
@@ -572,7 +567,7 @@
                   <label>{{labels[0].drugName}} :</label>
                   <span class="required">*</span>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                   <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
                     placeholder="{{labels[0].drugName}}">
                 </div>
@@ -585,7 +580,7 @@
                   <label>{{labels[0].drugName}} :</label>
                   <span class="required">*</span>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                   <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
                     [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
                     (ngModelChange)="GetDrugNameID()" /> -->
@@ -628,7 +623,7 @@
                   <label>{{labels[0].drugName}} :</label>
                   <span class="required">*</span>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                   <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
                     placeholder="{{labels[0].drugName}}">
                 </div>
@@ -640,7 +635,7 @@
                 <label>{{labels[0].sig}} :</label>
                 <span class="required">*</span>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
                   placeholder="{{labels[0].sig}}">
               </div>
@@ -680,7 +675,7 @@
               <div class="col-lg-4">
                 <label>{{labels[0].dispenseQuantityy}} :</label>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
                   placeholder="{{labels[0].dispenseQuantityy}}">
               </div>
@@ -691,7 +686,7 @@
                 <label>{{labels[0].howmanyRefillss}} :</label>
                 <span class="required">*</span>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
                   placeholder="{{labels[0].howmanyRefillss}}">
               </div>
@@ -702,7 +697,7 @@
                 <label>{{labels[0].substistude}} :</label>
                 <span class="required">*</span>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="1">&nbsp;
                 {{labels[0].yes}} &nbsp;&nbsp;
                 <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="2">&nbsp;
@@ -710,16 +705,7 @@
               </div>
             </div>
             <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].noteToPharmasist}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
-                  placeholder="{{labels[0].noteToPharmasist}}">
-              </div>
-            </div>
-            <br>
+
             <!-- <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].diagnosiss}} :</label>
@@ -730,12 +716,11 @@
             </div>
             <br> -->
 
-
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].saveastemplate}} :</label>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="1">&nbsp;
                 {{labels[0].yes}} &nbsp;&nbsp;
                 <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="2">&nbsp;
@@ -747,7 +732,7 @@
               <div class="col-lg-4">
                 <label>{{labels[0].templateName}} :</label>
               </div>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="text" class="form-control" name="medicinetemplatename" [(ngModel)]="medicinetemplatename"
                   placeholder="{{labels[0].templateName}}">
               </div>
@@ -777,7 +762,7 @@
                       <th>{{labels[0].dispenseQuantity}}</th>
                       <th>{{labels[0].howmanyRefills}}</th>
                       <th>{{labels[0].substistude}} </th>
-                      <th>{{labels[0].noteToPharmasist}}</th>
+                      <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
                       <!-- <th>ICD Code</th> -->
                       <!-- <th>{{labels[0].diagnosis}}</th> -->
 
@@ -794,13 +779,23 @@
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
                       </td>
-                      <td>{{medicinelist.NoteToPharmasist}}</td>
+                      <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->
                       <!-- <td>{{medicinelist.ICDCode}}</td> -->
                       <!-- <td>{{medicinelist.Diagnosis}}</td> -->
 
                     </tr>
                   </thead>
                 </table>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].noteToPharmasist}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
               </div>
             </div>
             <br>

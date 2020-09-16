@@ -148,7 +148,7 @@
                   <td  style="border:none">
                     <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
                     <a [ngbTooltip]="tipcontent36">
-                      <img src="assets/Images/chat.png" data-toggle="modal" data-target="#asssignss"
+                      <img src="assets/Images/chat.png"  *ngIf="details.approved=='1'" data-toggle="modal" data-target="#asssignss"
                         style="margin: 2%;width: 20px;"
                         (click)="GetPharmacyPatientID(details.patientID,details.patientemail)" />
                     </a>
@@ -250,8 +250,8 @@
                                 {{labels[0].quantity}}</th>
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].howmanyrefills}}</th>
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                {{labels[0].notetoPharmsict}}</th>
+                              <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].notetoPharmsict}}</th> -->
                             </tr>
                             <tr *ngFor="let medicinelist of myarray">
                               <!-- <td>{{medicinelist.Medicinetype}}</td> -->
@@ -259,7 +259,7 @@
                               <td style="border: 2px solid black;">{{medicinelist.Sig}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.quantity}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.howmanyrefills}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td>
+                              <!-- <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td> -->
                             </tr>
                           </thead>
                         </table>
@@ -273,7 +273,7 @@
           <br>
           <div class="row">
             <div class="col-lg-8">
-              <!-- <label>{{labels[0].notetoPharmsict}} : </label> -->
+              <label>{{labels[0].notetoPharmsict}} : {{noteetopharmasict}} </label>
             </div>
             <div class="col-lg-4">
               <!-- <img src="{{docsignatureurl}}"> -->

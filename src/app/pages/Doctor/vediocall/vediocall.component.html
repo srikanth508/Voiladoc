@@ -248,10 +248,7 @@
                     <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
                       placeholder="{{labels[0].dispenseQuantity}}">
                   </div>
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" required name="notetopharmacist"
-                      [(ngModel)]="notetopharmacist" placeholder="{{labels[0].noteToPharmasist}}">
-                  </div>
+                 
                   <!-- <div class="col-lg-6">
                       <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
                         placeholder="{{labels[0].unitOfMeasure}}">
@@ -322,7 +319,6 @@
                   </div>
                 </div>
                 <br>
-
                 <div class="row" *ngIf="tablecuont1=='1'" style="overflow: auto;">
                   <div class="col-lg-12">
                     <table>
@@ -334,7 +330,7 @@
                             <th>{{labels[0].duration}}</th> -->
                           <th>{{labels[0].sig}}</th>
                           <th>{{labels[0].dispenseQuantity}}</th>
-                          <th>{{labels[0].noteToPharmasist}}</th>
+                          <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
                           <!-- <th>{{labels[0].diagnosis}}</th> -->
                           <th>{{labels[0].substistude}} </th>
                           <th>{{labels[0].howmanyRefills}}</th>
@@ -347,7 +343,7 @@
                           <td>{{medicinelist.SIG}}</td>
 
                           <td>{{medicinelist.DispenseQuantity}}</td>
-                          <td>{{medicinelist.NoteToPharmasist}}</td>
+                          <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->
                           <td>
                             <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
                             <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
@@ -359,6 +355,12 @@
                     </table>
                   </div>
                 </div><br>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <input type="text" class="form-control"  name="notetopharmacist"
+                      [(ngModel)]="notetopharmacist" placeholder="{{labels[0].noteToPharmasist}}">
+                  </div>
+                </div>
                 <div class="row" *ngIf="tablecuont1=='1'">
                   <div class="col-lg-5">
                   </div>

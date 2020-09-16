@@ -26,15 +26,15 @@
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-3">
-
+    <div class="col-lg-1">
     </div>
-    <div class="col-lg-3" style="text-align: end;
-    ">
-      <label>
-        Total :
-        {{TotalAmount}}
-      </label>
+    <div class="col-lg-3">
+      <label *ngIf="languageid==1" style="margin-left: 124px;">Total Revenue : {{grandtotal}}</label>
+      <label *ngIf="languageid==6" style="margin-left: 124px;">Revenu total : {{grandtotal}}</label>
+    </div>
+    <div class="col-lg-2">
+      <label *ngIf="languageid==1" style="margin-left:90px">Count : {{count}}</label>
+      <label *ngIf="languageid==6" style="margin-left:90px">Nombre : {{count}}</label>
     </div>
   </div>
   <br>

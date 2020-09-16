@@ -144,8 +144,8 @@ export class HospitalRevenueComponent implements OnInit {
       data => {
         debugger
         this.detailslist = data;
-        this.totalreveue = Number(this.detailslist[0].inclinicRevenue) + Number(this.detailslist[0].vedioconferenceRevenue),
-          this.totalappointments = Number(this.detailslist[0].clicniccount) + Number(this.detailslist[0].vedocallappointmentcount)
+        this.totalreveue = Number(this.detailslist[0].inclinicRevenue) + Number(this.detailslist[0].vedioconferenceRevenue) + Number(this.detailslist[0].homeVisitRevenue),
+          this.totalappointments = Number(this.detailslist[0].clicniccount) + Number(this.detailslist[0].vedocallappointmentcount) + Number(this.detailslist[0].homeVisitAppointments)
 
       }, error => {
       }

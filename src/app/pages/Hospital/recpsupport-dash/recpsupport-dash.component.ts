@@ -15,6 +15,7 @@ export class RecpsupportDashComponent implements OnInit {
   labels: any;
   receptionid: any;
   term: any;
+  dummissuelist: any;
   ngOnInit() {
     this.receptionid = localStorage.getItem('Receptionstid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -25,7 +26,9 @@ export class RecpsupportDashComponent implements OnInit {
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.receptionid, 6).subscribe(res => {
       debugger
-      this.issuelist = res;
+
+      this.dummissuelist = res
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       debugger
     })
   }

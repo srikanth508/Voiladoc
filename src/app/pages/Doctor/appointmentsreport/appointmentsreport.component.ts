@@ -287,8 +287,6 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
 
-
-
   file: File;
   contactdata: any;
   arrayBuffer: any;
@@ -321,11 +319,9 @@ export class AppointmentsreportComponent implements OnInit {
     }
   }
 
- 
-
   public Upload_file() {
 debugger
-    this.docservice.InsertICDCodeMaster(this.contactdata).subscribe(data => {
+    this.docservice.InsertDrugNameMaster(this.contactdata).subscribe(data => {
       debugger;
       if (data != undefined || data != null) {
         Swal.fire("Saved Successfully");

@@ -1585,7 +1585,7 @@ export class VediocallComponent implements OnInit {
         'SIG': this.qwerty2[i].SIG,
         // 'Duration': this.qwerty2[i].Duration,
         'DispenseQuantity': this.qwerty2[i].DispenseQuantity,
-        'NoteToPharmasist': this.qwerty2[i].NoteToPharmasist,
+        'NoteToPharmasist': this.notetopharmacist,
         // 'Diagnosis': this.qwerty2[i].Diagnosis,
         'HowmanyRefills': this.qwerty2[i].HowmanyRefills,
         'LocalDoctorID': this.localdocid,

@@ -290,6 +290,12 @@ import { RecpsupportComponent } from './pages/Hospital/recpsupport/recpsupport.c
 import { RecpsupportDashComponent } from './pages/Hospital/recpsupport-dash/recpsupport-dash.component';
 import { SupportWebComponent } from './pages/Support/support-web/support-web.component';
 import { DocResolvedTicketsComponent } from './pages/Doctor/doc-resolved-tickets/doc-resolved-tickets.component';
+import { NurseResolvedTicketsComponent } from './pages/Nurse/nurse-resolved-tickets/nurse-resolved-tickets.component';
+import { PhysioCompletedTicketsComponent } from './pages/physiotherapist/physio-completed-tickets/physio-completed-tickets.component';
+import { MidwifeCompletedTicketsComponent } from './pages/Midewife/midwife-completed-tickets/midwife-completed-tickets.component';
+import { HospitalCompletedTicketsComponent } from './pages/Hospital/hospital-completed-tickets/hospital-completed-tickets.component';
+import { RecpSupportCompletedComponent } from './pages/Hospital/recp-support-completed/recp-support-completed.component';
+import { SupportCometedTicketsComponent } from './pages/Support/support-cometed-tickets/support-cometed-tickets.component';
 
 
 const routes: Routes = [
@@ -650,6 +656,12 @@ const routes: Routes = [
   { path: 'RecpsupportDash', component: RecpsupportDashComponent },
   { path: 'SupportWeb', component: SupportWebComponent },
   { path: 'DocResolvedTickets', component: DocResolvedTicketsComponent },
+  { path: 'NurseResolvedTickets', component: NurseResolvedTicketsComponent },
+  { path: 'PhysioCompletedTickets', component: PhysioCompletedTicketsComponent },
+  { path: 'MidwifeCompletedTickets', component: MidwifeCompletedTicketsComponent },
+  { path: 'HospitalCompletedTickets', component: HospitalCompletedTicketsComponent },
+  { path: 'RecpSupportCompleted', component: RecpSupportCompletedComponent },
+  { path: 'SupportCometedTickets', component: SupportCometedTicketsComponent },
 ];
 
 

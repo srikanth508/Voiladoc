@@ -34,6 +34,8 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   ID: any;
   Revenuelist: any;
   dummRevenuelist: any;
+  grandtotal: any;
+  filterdummrevenuelist; any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -50,7 +52,15 @@ export class TotalHospitalApointmentsComponent implements OnInit {
           data => {
             debugger
             this.Revenuelist = data;
+            this.filterdummrevenuelist = data;
             this.count = this.Revenuelist.length;
+
+
+            // this.grandtotal=0
+            this.grandtotal = this.Revenuelist.map(a => a.paidAmount).reduce(function (a, b) {
+              return a + b;
+            });
+
           }, error => {
           }
         )
@@ -60,6 +70,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
           data => {
             debugger
             this.Revenuelist = data;
+            this.filterdummrevenuelist = data;
             this.count = this.Revenuelist.length;
           }, error => {
           }
@@ -71,6 +82,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
           data => {
             debugger
             this.dummRevenuelist = data;
+
             this.Revenuelist = this.dummRevenuelist.filter(x => x.appointmentTypeID == 5)
             this.count = this.Revenuelist.length;
           }, error => {
@@ -82,6 +94,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
           data => {
             debugger
             this.dummRevenuelist = data;
+
             this.Revenuelist = this.dummRevenuelist.filter(x => x.appointmentTypeID == 5)
             this.count = this.Revenuelist.length;
           }, error => {
@@ -166,4 +179,37 @@ export class TotalHospitalApointmentsComponent implements OnInit {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
+
+  appointmenttypeid: any;
+  public GetAppointmentType(even) {
+    debugger
+    this.appointmenttypeid = even.target.value;
+    if (even.target.value != 0) {
+      this.Revenuelist=this.filterdummrevenuelist.filter(x=>x.appointmentTypeID==this.appointmenttypeid)
+      this.count = this.Revenuelist.length;
+
+      // this.grandtotal=0
+      this.grandtotal = this.Revenuelist.map(a => a.paidAmount).reduce(function (a, b) {
+        return a + b;
+      });
+    }
+    else{
+      this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
+        data => {
+          debugger
+          this.Revenuelist = data;
+          this.filterdummrevenuelist = data;
+          this.count = this.Revenuelist.length;
+
+
+          // this.grandtotal=0
+          this.grandtotal = this.Revenuelist.map(a => a.paidAmount).reduce(function (a, b) {
+            return a + b;
+          });
+
+        }, error => {
+        }
+      )
+    }
+  }
 }

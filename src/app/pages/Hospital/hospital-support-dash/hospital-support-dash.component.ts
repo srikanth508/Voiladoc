@@ -11,13 +11,14 @@ export class HospitalSupportDashComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
 
 
-  languageid:any;
-  issuelist:any;
-  labels:any;
-  hospitalid:any;
-  term:any;
+  languageid: any;
+  issuelist: any;
+  labels: any;
+  hospitalid: any;
+  term: any;
+  dummissuelist: any;
   ngOnInit() {
-   
+
     this.hospitalid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetSupportIssues()
@@ -28,7 +29,8 @@ export class HospitalSupportDashComponent implements OnInit {
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.hospitalid, 5).subscribe(res => {
       debugger
-      this.issuelist = res;
+      this.dummissuelist = res
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       debugger
     })
   }

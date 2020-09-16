@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { shallowEqualArrays } from '@angular/router/src/utils/collection';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-myappointments',
   templateUrl: './myappointments.component.html',
@@ -1001,15 +1002,16 @@ export class MyappointmentsComponent implements OnInit {
         : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
     )
 
+
   public GetDrugnamemaster() {
-    debugger
+    
     this.docservice.GetDrugNameMaster(this.languageid).subscribe(
       data => {
         this.dummdrugnamelist = data;
         this.drugnamelist = data;
-        debugger
+        
         // this.drugnames = this.drugnamelist.map(x => x.medicament);
-        debugger
+        
       }, error => {
       }
     )
@@ -1018,14 +1020,14 @@ export class MyappointmentsComponent implements OnInit {
 
   SerachOn: any;
   public SerchDrugName(medicinename) {
-    debugger
+    
     if (medicinename == "") {
       this.SerachOn = 0;
-      debugger
+      
     }
     else {
       this.SerachOn = 1;
-      debugger
+      
       //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
     }
   }
@@ -1033,7 +1035,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDrugID(medicinename) {
-    debugger
+    
     this.medicinename = medicinename
     this.SerachOn = 0
   }
@@ -1173,7 +1175,7 @@ export class MyappointmentsComponent implements OnInit {
     this.icdcode = ""
     this.icrdescription = ""
     this.icrcodeid = ""
-   
+
   }
 
 
@@ -1202,7 +1204,7 @@ export class MyappointmentsComponent implements OnInit {
         'SIG': this.qwerty2[i].SIG,
         // 'Duration': this.qwerty2[i].Duration,
         'DispenseQuantity': this.qwerty2[i].DispenseQuantity,
-        'NoteToPharmasist': this.qwerty2[i].NoteToPharmasist,
+        'NoteToPharmasist': this.notetopharmacist,
         // 'Diagnosis': this.qwerty2[i].Diagnosis,
         'HowmanyRefills': this.qwerty2[i].HowmanyRefills,
         'LocalDoctorID': this.localdocid,
@@ -1222,7 +1224,7 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertPrscriptionNotifications()
             this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
-            this.qwerty2=[]
+            this.qwerty2 = []
           }
           else if (this.languageid == 6) {
             Swal.fire('L’ordonnance a bien été sauvegardée');
@@ -1231,7 +1233,7 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertPrscriptionNotifications()
             this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
-            this.qwerty2=[]
+            this.qwerty2 = []
           }
         }
       })
@@ -1627,7 +1629,7 @@ export class MyappointmentsComponent implements OnInit {
         else {
           if (this.languageid == 1) {
             Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
-           
+
           }
           else if (this.languageid == 6) {
             Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
@@ -1637,7 +1639,7 @@ export class MyappointmentsComponent implements OnInit {
       else {
         if (this.languageid == 1) {
           Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
-        
+
         }
         else if (this.languageid == 6) {
           Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
@@ -1647,7 +1649,7 @@ export class MyappointmentsComponent implements OnInit {
     else {
       if (this.languageid == 1) {
         Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots + ' on ' + appdate);
-      
+
       }
       else if (this.languageid == 6) {
         Swal.fire('Alert', 'Le rendez-vous n a pas encore commencé ' + slots + ' on ' + appdate);
@@ -3125,13 +3127,13 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetChatShowID(patientid, appdate, slots) {
-    debugger
+    
     this.patientiddd = patientid;
-    debugger
+    
     if (this.serverdate == appdate) {
 
       if (this.servertime >= slots) {
-        debugger
+        
         document.getElementById("myForm").style.display = "block";
 
         this.showwindow = 1

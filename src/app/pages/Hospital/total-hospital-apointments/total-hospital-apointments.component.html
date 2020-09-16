@@ -30,11 +30,28 @@
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-6">
+
+    <div class="col-lg-3">
+      <div *ngIf="ID=='2'||ID=='1'">
+      <select class="form-control" (change)="GetAppointmentType($event)">
+        <option value="0">{{labels[0].selectAppType}}</option>
+        <option value="1">{{labels[0].inclinic}}</option>
+        <option value="2">{{labels[0].vedio}}</option>
+        <option value="5">{{labels[0].homeVisit}}</option>
+      </select>
     </div>
-    <div class="col-lg-3" style="text-align: end;">
-      <label *ngIf="languageid==1">Count : {{count}}</label>
-      <label *ngIf="languageid==6">Nombre : {{count}}</label>
+    </div>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <div *ngIf="ID=='1'">
+      <label *ngIf="languageid==1" style="margin-left: 124px;">Total Revenue : {{grandtotal}}</label>
+      <label *ngIf="languageid==6" style="margin-left: 124px;">Revenu total : {{grandtotal}}</label>
+    </div>
+    </div>
+    <div class="col-lg-2">
+      <label *ngIf="languageid==1" style="margin-left:90px">Count : {{count}}</label>
+      <label *ngIf="languageid==6" style="margin-left:90px">Nombre : {{count}}</label>
     </div>
   </div>
   <br>
@@ -53,8 +70,8 @@
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].mobileNo}}</th>
             <th>{{labels[0].emailID}}</th>
-            <th *ngIf="ID=='4'">{{labels[0].paidAmount}}</th>
-            <th>{{labels[0].status}}</th>
+            <th *ngIf="ID=='4'||ID=='1'">{{labels[0].paidAmount}}</th>
+            <!-- <th>{{labels[0].status}}</th> -->
           </tr>
           <tr *ngFor="let details of Revenuelist|filter:term">
             <td>{{details.appdate}}</td>
@@ -66,11 +83,9 @@
             <td>{{details.pName}}</td>
             <td>{{details.pMobileNo}}</td>
             <td>{{details.emailID}}</td>
-            <td *ngIf="ID=='4'">{{details.paidAmount}}</td>
-            <td>
-              <!-- <label *ngIf="details.isVisited=='1'" style="color:green">{{labels[0].visited}}</label>
-              <label *ngIf="details.noShow=='1'" style="color:yellowgreen">{{labels[0].notVisited}}</label>
-              <label *ngIf="details.cancelled=='1'||details.docCancelled=='1'" style="color:red">{{labels[0].cancel}}</label> -->
+            <td *ngIf="ID=='4'||ID=='1'">{{details.paidAmount}}</td>
+            <!-- <td>
+
               <label
                 *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"
                 style="color: green;">{{labels[0].accepted}}</label>
@@ -83,7 +98,7 @@
                 style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
               <label *ngIf="details.accepted=='1'&&details.noShow=='1'"
                 style="color: red;">{{labels[0].notVisited}}</label>
-            </td>
+            </td> -->
           </tr>
         </thead>
       </table><br><br>

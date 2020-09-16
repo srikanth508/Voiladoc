@@ -15,6 +15,7 @@ export class NurseSupportDashComponent implements OnInit {
   issuelist:any;
   labels:any;
   term:any;
+  dummissuelist:any;
   
   ngOnInit() {
     this.nurseid = localStorage.getItem('nurseid');
@@ -27,7 +28,8 @@ export class NurseSupportDashComponent implements OnInit {
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.nurseid, 2).subscribe(res => {
       debugger
-      this.issuelist = res;
+      this.dummissuelist = res
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       debugger
     })
   }

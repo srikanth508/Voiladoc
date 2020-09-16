@@ -14,9 +14,26 @@
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetTypeID($event)">
+        <option value="0">Select Type</option>
+        <option value="1">Doctor</option>
+        <option value="2">Nurse</option>
+        <option value="3">Physiotherapist</option>
+        <option value="4">Midwife</option>
+        <option value="5">Hospital</option>
+        <option value="6">Receptionist</option>
+      </select>
+    </div>
+    <div class="col-lg-1">
 
     </div>
     <div class="col-lg-2">
@@ -50,14 +67,22 @@
                 data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
             </td>
             <td>
-              <label *ngIf="issue.resolved=='0'" style="color:red">Pending</label>
-              <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">Pending</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:green">Accepted</label>
+              <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
             </td>
             <td>
-              <ng-template #tipcontent2>{{labels[0].resolved}}</ng-template>
+
+              <ng-template #tipcontent2>Accepted</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'"
-                style="height: 20px;"  (click)="UpdateSupportForWebResolvedbit(issue.id)"  />
+                <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="height: 20px;"
+                  (click)="UpdateSupportForWebAcceptedbit(issue.id)" />
+              </a>
+
+              <ng-template #tipcontent4>{{labels[0].resolved}}</ng-template>
+              <a [ngbTooltip]="tipcontent4">
+                <img src="assets/Images/edit.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'" data-toggle="modal"
+                  data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(issue.id)" />
               </a>
             </td>
           </tr>
@@ -89,6 +114,65 @@
           </div>
           <br>
           <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Upload Comments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #supportForm="ngForm">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Photo :</label>
+            </div>
+            <div class="col-lg-4">
+              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              </ngx-dropzone>
+            </div>
+            <br>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Description :</label>
+              <span style="color:red">*</span>
+            </div>
+            <div class="col-lg-6">
+              <ckeditor [editor]="Editor"  [(ngModel)]="description" required name="description" data=""></ckeditor>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" text_align="center" (click)="insertdetails()"
+                class="btn btn-block btn-md allbtns btncolor" [disabled]="supportForm.form.invalid" data-dismiss="modal" >Update</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+          <br>
+          <br>
+        </form>
         </div>
       </div>
       <br>

@@ -11,7 +11,8 @@ export class MidwifsupportDashComponent implements OnInit {
   issuelist: any;
   labels: any;
   midwifeid: any;
-  term:any;
+  term: any;
+  dummissuelist: any;
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
@@ -24,7 +25,8 @@ export class MidwifsupportDashComponent implements OnInit {
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.midwifeid, 4).subscribe(res => {
       debugger
-      this.issuelist = res;
+      this.dummissuelist = res
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       debugger
     })
   }

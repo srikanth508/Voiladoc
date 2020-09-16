@@ -32,6 +32,7 @@ export class VideocallrevenueComponent implements OnInit {
   public departmentlist: any;
   TotalAmount: any
   options: any
+  grandtotal:any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -53,12 +54,12 @@ export class VideocallrevenueComponent implements OnInit {
         debugger
         this.dummlist = data;
         this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2);
-        let total1 = 0;
-        this.cancelledlist.forEach(element => {
-          total1 += element.paidAmount;
-        });
-        this.TotalAmount = total1
         this.count = this.cancelledlist.length;
+
+        // this.grandtotal=0
+        this.grandtotal = this.cancelledlist.map(a => a.paidAmount).reduce(function (a, b) {
+          return a + b;
+        });
       }, error => {
       }
     )

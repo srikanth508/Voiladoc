@@ -4100,17 +4100,29 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/LanguageMaster/GetAdmin_SupportForWeb_Labels?LanguageID=' + lid);
   }
 
-  public GetSupportForWebForSupportLogin(lid) {
+  public GetSupportForWebForSupportLogin(lid,sdate,edate) {
     debugger
-    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWebForSupportLogin?LanguageID=' + lid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWebForSupportLogin?LanguageID=' + lid+'&Sdate='+sdate+'&Edate='+edate);
   }
   public UpdateAlertbit(aid) {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/UpdateAlertbit?AppointmentID=' + aid);
   }
   
-  public UpdateSupportForWebResolvedbit(id) {
-    debugger
-    return this.http.get<any[]>(this.host + '/Doctor/UpdateSupportForWebResolvedbit?ID=' + id);
+
+  public UpdateSupportForWebResolvedbit(data) {
+    this.url = this.host + '/Doctor/UpdateSupportForWebResolvedbit';
+    return this.http.post(this.url, data)
   }
+
+   public InsertDrugNameMaster(data) {
+    this.url = this.host + '/Doctor/InsertDrugNameMaster';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdateSupportForWebAcceptedbit(id) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateSupportForWebAcceptedbit?ID=' + id);
+  }
+
 }

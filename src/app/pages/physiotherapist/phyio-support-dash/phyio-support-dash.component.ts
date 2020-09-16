@@ -16,6 +16,7 @@ export class PhyioSupportDashComponent implements OnInit {
   labels: any;
   physioid: any;
   term: any;
+  dummissuelist:any;
   ngOnInit() {
     this.physioid = localStorage.getItem('physioid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -25,7 +26,8 @@ export class PhyioSupportDashComponent implements OnInit {
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.physioid, 3).subscribe(res => {
       debugger
-      this.issuelist = res;
+      this.dummissuelist = res
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       debugger
     })
   }
