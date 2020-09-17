@@ -229,6 +229,7 @@ export class MyappointmentsComponent implements OnInit {
     this.substainable = 1
     this.manuallydrug = 2
 
+
     this.docservice.showvid = 0;
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -1004,14 +1005,14 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDrugnamemaster() {
-    
+
     this.docservice.GetDrugNameMaster(this.languageid).subscribe(
       data => {
         this.dummdrugnamelist = data;
         this.drugnamelist = data;
-        
+
         // this.drugnames = this.drugnamelist.map(x => x.medicament);
-        
+
       }, error => {
       }
     )
@@ -1020,22 +1021,23 @@ export class MyappointmentsComponent implements OnInit {
 
   SerachOn: any;
   public SerchDrugName(medicinename) {
-    
+    debugger
     if (medicinename == "") {
       this.SerachOn = 0;
-      
+      debugger
     }
     else {
       this.SerachOn = 1;
-      
+      //  this.drugnamelist = this.dummdrugnamelist.filter((x) => x.medicinename.contains(medicinename))
       //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
     }
   }
 
 
 
+
   public GetDrugID(medicinename) {
-    
+
     this.medicinename = medicinename
     this.SerachOn = 0
   }
@@ -1915,21 +1917,29 @@ export class MyappointmentsComponent implements OnInit {
         : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 100))
     )
 
+  showsearchsoap: any;
 
-  public getid() {
+  public SearchIcrCode() {
 
     if (this.icddesc == '') {
       this.icdcode = ''
+      this.showsearchsoap = 0
     }
     else {
-      let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
-      this.icdcode = wqew[0].icdCode,
-        this.icrcodeid = wqew[0].id
+      // let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+      // this.icdcode = wqew[0].icdCode,
+      //   this.icrcodeid = wqew[0].id
+      this.showsearchsoap = 1;
 
     }
   }
 
-
+  public GetIcrCodeID(id, description, icdCode) {
+    this.icdcode = icdCode,
+      this.icrcodeid = id
+      this.icddesc=description
+      this.showsearchsoap = 0
+  }
 
   public insertsoapnotes1() {
 
@@ -3127,13 +3137,13 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetChatShowID(patientid, appdate, slots) {
-    
+
     this.patientiddd = patientid;
-    
+
     if (this.serverdate == appdate) {
 
       if (this.servertime >= slots) {
-        
+
         document.getElementById("myForm").style.display = "block";
 
         this.showwindow = 1

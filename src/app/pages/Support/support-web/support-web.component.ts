@@ -153,7 +153,7 @@ export class SupportWebComponent implements OnInit {
     debugger;
     Swal.fire({
       title: 'Are you sure?',
-      text: "This Want To Accept This Issue!",
+      text: "You Want To Accept This Issue!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

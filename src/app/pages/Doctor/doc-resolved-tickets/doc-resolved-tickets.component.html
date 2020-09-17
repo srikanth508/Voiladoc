@@ -1,7 +1,7 @@
 <div class="container-fluid card card-hover ">
   <div class="row headerspace">
     <div class="col-lg-5">
-      <h5>Completed Tickets</h5>
+      <h5>{{labels[0].completedTickets}}</h5>
     </div>
     <div class="col-lg-5">
     </div>
@@ -27,8 +27,8 @@
             <th>{{labels[0].issue}}</th>
             <!-- <th>{{labels[0].description}}</th>
             <th>{{labels[0].photo}}</th> -->
-            <th>Resolved Description</th>
-            <th>Resolved Photo</th>
+            <th>{{labels[0].resolveDescription}}</th>
+            <th>{{labels[0].resolvePhoto}}</th>
             <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let issue of issuelist|filter:term">
@@ -104,7 +104,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Resolved Photo</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].resolvePhoto}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

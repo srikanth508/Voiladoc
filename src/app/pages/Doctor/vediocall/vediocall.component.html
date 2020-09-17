@@ -100,17 +100,17 @@
             </tr>
             <tr *ngIf="gender=='Female'">
               <td>
-                {{labels[0].isThePatientPregnant}} : 
+                {{labels[0].isThePatientPregnant}} :
                 <b>
-                <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="ispatientpragnent=='2'">{{labels[0].no}}</label></b>
+                  <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
+                  <label *ngIf="ispatientpragnent=='2'">{{labels[0].no}}</label></b>
               </td>
               <td>
-                Breast feeding  :  
+                Breast feeding :
                 <b>
                   <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
                   <label *ngIf="breastFeeding=='2'">{{labels[0].no}}</label></b>
-          
+
               </td>
             </tr>
           </table>
@@ -171,10 +171,10 @@
                   </div>
                 </div>
                 <br>
-                <div *ngIf="languageid=='6'">
+                <div>
                   <div class="row">
                     <div class="col-lg-6">
-                      <label>Entrez manuellement le nom du médicament :</label>
+                      <label>{{labels[0].enterManuallydruname}} :</label>
                     </div>
                     <div class="col-lg-6">
                       <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="1">&nbsp;
@@ -186,69 +186,65 @@
                   <br>
                 </div>
                 <div class="row">
-                  <!-- <div class="col-lg-6">
-                      <select class="form-control" (change)="GetMedicineID($event)">
-                        <option selected="selected" value="">{{labels[0].select}} Medicine Type</option>
-                        <option *ngFor="let medicine of medicinelist" value="{{medicine.id}}">{{medicine.name}}</option>
-                      </select>
-                    </div> -->
-
-                  <div class="col-lg-6" *ngIf="languageid=='1'">
+                  <div class="col-lg-6" *ngIf="languageid=='1'&&manuallydrug=='1'">
                     <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
                       placeholder="{{labels[0].drugName}}">
                   </div>
-                  <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='2'">
-                    <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
-                        [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
-                        (ngModelChange)="GetDrugNameID()" /> -->
-
+                  <div class="col-lg-6" *ngIf="languageid=='1'&&manuallydrug=='2'">
                     <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
                       placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
-                  </div><br>
-
-                  <div class="row" *ngIf="SerachOn=='1'">
-                    <!-- <div class="col-lg-4">
-                      </div> -->
-                    <div class="col-lg-12">
-                      <table style="overflow-y:auto;height:300px">
-                        <thead>
-                          <tr>
-                            <th>médicament</th>
-                            <th>Dénomination </th>
-                            <th>Dosage</th>
-                            <th>Actions</th>
-                          </tr>
-                          <tr *ngFor="let code of drugnamelist|filter:medicinename">
-                            <td>{{code.medicament}}</td>
-                            <td>{{code.denomination}}</td>
-                            <td>{{code.dosage}}</td>
-                            <td>
-                              <input type="checkbox" (click)="GetDrugID(code.medicinename)">
-                            </td>
-                          </tr>
-                        </thead>
-                      </table>
-                    </div>
-                    <br>
                   </div>
-                  <br>
                   <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='1'">
                     <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
                       placeholder="{{labels[0].drugName}}">
                   </div>
 
+                  <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='2'">
+                    <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                      placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+                  </div><br>
+                </div>
+                <div class="row" *ngIf="SerachOn=='1'">
+                  <div class="col-lg-12">
+                    <table style="overflow-y:auto;">
+                      <thead>
+                        <tr>
+                          <th>médicament</th>
+                          <th>Dénomination </th>
+                          <th>Dosage</th>
+                          <th>Actions</th>
+                        </tr>
+                        <tr *ngFor="let code of drugnamelist|filter:medicinename| slice:0:100; let i=index">
+                          <td>{{code.medicament}}</td>
+                          <td>{{code.denomination}}</td>
+                          <td>{{code.dosage}}</td>
+                          <td>
+                            <input type="checkbox" (click)="GetDrugID(code.medicinename)">
+                          </td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <br>
+                </div>
+                <br>
+
+                <div class="row">
                   <div class="col-lg-6">
                     <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
                       placeholder="{{labels[0].sig}}">
                   </div>
-                </div><br>
-                <div class="row">
-
                   <div class="col-lg-6">
                     <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
                       placeholder="{{labels[0].dispenseQuantity}}">
                   </div>
-                 
+                </div><br>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
+                      placeholder="{{labels[0].howmanyRefills}}">
+                  </div>
                   <!-- <div class="col-lg-6">
                       <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
                         placeholder="{{labels[0].unitOfMeasure}}">
@@ -270,10 +266,7 @@
                       <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis"
                         placeholder="{{labels[0].diagnosis}}">
                     </div> -->
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
-                      placeholder="{{labels[0].howmanyRefills}}">
-                  </div>
+
                 </div><br>
                 <div class="row">
                   <div class="col-lg-4">
@@ -357,10 +350,10 @@
                 </div><br>
                 <div class="row">
                   <div class="col-lg-6">
-                    <input type="text" class="form-control"  name="notetopharmacist"
-                      [(ngModel)]="notetopharmacist" placeholder="{{labels[0].noteToPharmasist}}">
+                    <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                      placeholder="{{labels[0].noteToPharmasist}}">
                   </div>
-                </div>
+                </div><br>
                 <div class="row" *ngIf="tablecuont1=='1'">
                   <div class="col-lg-5">
                   </div>
@@ -466,11 +459,12 @@
                 </div><br>
                 <div class="row">
                   <div class="col-lg-6">
-                    <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
-                        placeholder="{{labels[0].diagnosisCode}}" /> -->
-                    <input id="typeahead-basic" type="text" class="form-control"
+                    <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                      placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
+                      (ngModelChange)="SearchIcrCode()"></textarea>
+                    <!-- <input id="typeahead-basic" type="text" class="form-control"
                       placeholder="{{labels[0].diagnposticCode}}" [(ngModel)]="icddesc"
-                      [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search" (ngModelChange)="getid()" />
+                      [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search" (ngModelChange)="getid()" /> -->
                   </div>
                   <div class="col-lg-6">
                     <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
@@ -478,24 +472,40 @@
                   </div>
                 </div>
                 <br>
+                <div class="row" *ngIf="showsearchsoap=='1'">
+                  <!-- <div class="col-lg-1">
+                  </div> -->
+                  <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>{{labels[0].diagnposticCode}}</th>
+                          <th>Actions</th>
+                        </tr>
+                        <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                          <td>
+                            {{code.description}}</td>
+                          <td>
+                            <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                          </td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <br>
+                </div>
                 <div class="row">
-
                   <div class="col-lg-6">
-                    <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="ICD Description"
-                        [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search"
-                        (ngModelChange)="getid()" /> -->
-                    <!-- <textarea rows="4" class="form-control"  placeholder="ICD Code" name="icdcode"
-                        [(ngModel)]="icdcode"></textarea> -->
                     <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
                       [(ngModel)]="icdcode" name="icdcode" placeholder="{{labels[0].diagnosticDescription}}" />
                   </div>
-                </div>
-                <br>
-                <div class="row">
                   <div class="col-lg-6">
                     <input type="text" class="form-control" disabled [(ngModel)]="signature" name="signature"
                       placeholder="{{labels[0].signature}}" />
                   </div>
+                </div>
+                <br>
+                <div class="row">
                   <div class="col-lg-6">
                     <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
                       placeholder="{{labels[0].notes}}"></textarea>

@@ -41,8 +41,8 @@
             </td>
             <td>
               
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">Pending</label>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">Accepted</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">{{labels[0].pending}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">{{labels[0].accepted}}</label>
               <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
             </td>
           </tr>

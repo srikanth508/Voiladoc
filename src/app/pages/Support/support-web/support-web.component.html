@@ -24,20 +24,20 @@
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)">
-        <option value="0">Select Type</option>
-        <option value="1">Doctor</option>
-        <option value="2">Nurse</option>
-        <option value="3">Physiotherapist</option>
-        <option value="4">Midwife</option>
-        <option value="5">Hospital</option>
-        <option value="6">Receptionist</option>
+        <option value="0">{{labels[0].selectType}}</option>
+        <option value="1">{{labels[0].doctor}}</option>
+        <option value="2">{{labels[0].nurse}}</option>
+        <option value="3">{{labels[0].physiotherapist}}</option>
+        <option value="4">{{labels[0].midwife}}</option>
+        <option value="5">{{labels[0].hospital}}</option>
+        <option value="6">{{labels[0].receptioist}}</option>
       </select>
     </div>
     <div class="col-lg-1">
 
     </div>
     <div class="col-lg-2">
-      <label><b style="margin-left: 90px;">Count : {{count}}</b></label>
+      <label><b style="margin-left: 90px;">{{labels[0].count}} : {{count}}</b></label>
     </div>
   </div><br>
   <div class="row" style="overflow: auto;">
@@ -46,13 +46,13 @@
         <thead>
           <tr>
             <th>{{labels[0].raisedDate}}</th>
-            <th>Type</th>
-            <th>Name</th>
+            <th>{{labels[0].type}}</th>
+            <th>{{labels[0].name}}</th>
             <th>{{labels[0].issue}}</th>
             <th>{{labels[0].description}}</th>
             <th>{{labels[0].photo}}</th>
             <th>{{labels[0].status}}</th>
-            <th>Actions</th>
+            <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let issue of issuelist|filter:term">
             <td>{{issue.raiseddate}}</td>
@@ -67,13 +67,13 @@
                 data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
             </td>
             <td>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">Pending</label>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:green">Accepted</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">{{labels[0].pending}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:green">{{labels[0].accepted}}</label>
               <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
             </td>
             <td>
 
-              <ng-template #tipcontent2>Accepted</ng-template>
+              <ng-template #tipcontent2>{{labels[0].accepted}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="height: 20px;"
                   (click)="UpdateSupportForWebAcceptedbit(issue.id)" />
@@ -133,7 +133,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Upload Comments</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].uploadcomments}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -141,38 +141,40 @@
       <div class="modal-body">
         <div class="container-fluid">
           <form #supportForm="ngForm">
-          <div class="row">
-            <div class="col-lg-3">
-              <label>Photo :</label>
-            </div>
-            <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
-              </ngx-dropzone>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].photo}} :</label>
+              </div>
+              <div class="col-lg-4">
+                <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)"
+                  class="dropzone_vendorinvoice">
+                </ngx-dropzone>
+              </div>
+              <br>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].description}} :</label>
+                <span style="color:red">*</span>
+              </div>
+              <div class="col-lg-6">
+                <ckeditor [editor]="Editor" [(ngModel)]="description" required name="description" data=""></ckeditor>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" text_align="center" (click)="insertdetails()"
+                  class="btn btn-block btn-md allbtns btncolor" [disabled]="supportForm.form.invalid"
+                  data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
             </div>
             <br>
-          </div><br>
-          <div class="row">
-            <div class="col-lg-3">
-              <label>Description :</label>
-              <span style="color:red">*</span>
-            </div>
-            <div class="col-lg-6">
-              <ckeditor [editor]="Editor"  [(ngModel)]="description" required name="description" data=""></ckeditor>
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-lg-5">
-            </div>
-            <div class="col-lg-2">
-              <button type="button" text_align="center" (click)="insertdetails()"
-                class="btn btn-block btn-md allbtns btncolor" [disabled]="supportForm.form.invalid" data-dismiss="modal" >Update</button>
-            </div>
-            <div class="col-lg-5">
-            </div>
-          </div>
-          <br>
-          <br>
-        </form>
+            <br>
+          </form>
         </div>
       </div>
       <br>

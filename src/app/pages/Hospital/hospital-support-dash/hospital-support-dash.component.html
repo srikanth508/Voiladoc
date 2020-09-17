@@ -6,7 +6,7 @@
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button style="margin-left: 10px;" type="button" routerLink="/HospitalSupport" class="btn btncolor">Raise Issue
+      <button style="margin-left: 10px;" type="button" routerLink="/HospitalSupport" class="btn btncolor">{{labels[0].raiseIssue}}
       </button>
     </div>
   </div>
@@ -35,13 +35,13 @@
             <span [innerHTML]="issue.description"></span>
           </td>
           <td>
-            <img src="assets/Images/imgicon.png" title="images"
+            <img src="assets/Images/imgicon.png" title="{{labels[0].photo}}"
             (click)="GetImageUrl(issue.photoURL)" data-toggle="modal" data-target="#exampleModalLong2"
             style="margin: 2%;width: 20px;" />&nbsp;
           </td>
           <td>
-            <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">Pending</label>
-            <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">Accepted</label>
+            <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">{{labels[0].pending}}</label>
+            <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">{{labels[0].accepted}}</label>
             <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
           </td>
           </tr>

@@ -247,16 +247,16 @@
         </a>
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='13'" data-target="#Websupportticets">
-            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Web Support Tickets
+            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].webSupportTickets}}
         </a>
 
         <div class="collapse" id="Websupportticets" style="padding-left: 7%;">
 
             <a class="tablinks" (click)="highlight($event)" routerLink="/SupportWeb">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Pending Tickets
+                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].pendingTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/SupportCometedTickets">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Resolved Tickets
+                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].resolvedTickets}}
             </a>
         </div>
 
@@ -394,21 +394,18 @@
         </a>
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='2'" data-target="#DocTickets">
-            <img src="assets/Images/work.png" style="width: 20px;">&nbsp; &nbsp; Support Tickets
+            <img src="assets/Images/work.png" style="width: 20px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
         </a>
-
         <div class="collapse" id="DocTickets" style="padding-left: 7%;">
             <a class="tablinks" (click)="highlight($event)" routerLink="/DoctorSupportDash">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-                Raised Tickets
+                {{labels[0].raiseTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/DocResolvedTickets">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-                Completed Tickets
+                {{labels[0].completedTickets}}
             </a>
         </div>
-
-
 
 
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'&&hospitalid=='590'" routerLink="/MyFees">
@@ -573,15 +570,15 @@
         </div>
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='3'" data-target="#Hospitaltickets">
-            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Support Tickets
+            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
         </a>
 
         <div class="collapse" id="Hospitaltickets" style="padding-left: 7%;">
             <a class="tablinks" (click)="highlight($event)" routerLink="/HospitalSupportDash">
-                <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; Raised Tickets
+                <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].raiseTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/HospitalCompletedTickets">
-                <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; Completed Tickets
+                <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
         </div>
 
@@ -652,15 +649,15 @@
         </a>
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='7'" data-target="#NurseTickets">
-            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Support Tickets
+            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
         </a>
 
         <div class="collapse" id="NurseTickets" style="padding-left: 7%;">
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/NurseSupportDash">
-                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Raised Tickets
+                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].raiseTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/NurseResolvedTickets">
-                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Completed Tickets
+                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
         </div>
 
@@ -689,15 +686,16 @@
         </a>
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='8'" data-target="#PhysioTickets">
-            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Support Tickets
+            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
         </a>
 
         <div class="collapse" id="PhysioTickets" style="padding-left: 7%;">
             <a class="tablinks" (click)="highlight($event)" routerLink="/PhyioSupportDash">
-                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Raised Tickets
+                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].raiseTickets}}
+
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioCompletedTickets">
-                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Completed Tickets
+                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
         </div>
 
@@ -727,16 +725,16 @@
 
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='9'" data-target="#MidwifeTickets">
-            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Support Tickets
+            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
         </a>
 
         <div class="collapse" id="MidwifeTickets" style="padding-left: 7%;">
 
             <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifsupportDash">
-                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Raised Tickets
+                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].raiseTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeCompletedTickets">
-                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Completed Tickets
+                <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
 
         </div>
@@ -816,15 +814,16 @@
         </a>
 
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='14'" data-target="#recptickets">
-            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Support Tickets
+            <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
+
         </a>
         <div class="collapse" id="recptickets" style="padding-left: 7%;">
 
             <a class="tablinks" (click)="highlight($event)" routerLink="/RecpsupportDash">
-                <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; Raised Tickets
+                <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].raiseTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/RecpSupportCompleted">
-                <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; Completed Tickets
+                <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
         </div>
 

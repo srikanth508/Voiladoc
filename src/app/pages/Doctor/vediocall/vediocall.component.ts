@@ -700,8 +700,8 @@ export class VediocallComponent implements OnInit {
   }
 
 
-  ispatientpragnent:any;
-  breastFeeding:any;
+  ispatientpragnent: any;
+  breastFeeding: any;
 
 
   public getpatientdetails() {
@@ -728,15 +728,15 @@ export class VediocallComponent implements OnInit {
           this.cityid = this.details.cityID,
           this.areaid = this.details.areaID,
           this.appointmenttypeid = this.details.appointmentTypeID,
-          this.ispatientpragnent=this.details.isPatientPragnent,
-          this.breastFeeding=this.details.breastFeeding,
+          this.ispatientpragnent = this.details.isPatientPragnent,
+          this.breastFeeding = this.details.breastFeeding,
 
 
-        this.SendNotification()
+          this.SendNotification()
 
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
-          
+
           }, error => {
           }
         )
@@ -776,8 +776,7 @@ export class VediocallComponent implements OnInit {
 
   public SendNotification() {
     debugger
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       var entity = {
         'Description': "Doctor Has Started Video Please Join ",
         'ToUser': this.email,
@@ -785,12 +784,11 @@ export class VediocallComponent implements OnInit {
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
         debugger
         if (data != 0) {
-  
+
         }
       })
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       var entity = {
         'Description': "Le médecin a commencé la vidéo, veuillez rejoindre",
         'ToUser': this.email,
@@ -798,7 +796,7 @@ export class VediocallComponent implements OnInit {
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
         debugger
         if (data != 0) {
-  
+
         }
       })
 
@@ -980,20 +978,40 @@ export class VediocallComponent implements OnInit {
     )
 
 
-  public getid() {
-    debugger
+  // public getid() {
+  //   debugger
+  //   if (this.icddesc == '') {
+  //     this.icdcode = ''
+  //   }
+  //   else {
+  //     let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+  //     this.icdcode = wqew[0].icdCode,
+  //       this.icrcodeid = wqew[0].id
+  //     debugger
+  //   }
+
+  // }
+  showsearchsoap: any;
+
+  public SearchIcrCode() {
+
     if (this.icddesc == '') {
       this.icdcode = ''
+      this.showsearchsoap = 0
     }
     else {
-      let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
-      this.icdcode = wqew[0].icdCode,
-        this.icrcodeid = wqew[0].id
-      debugger
+      this.showsearchsoap = 1;
+
     }
-
   }
+  
 
+  public GetIcrCodeID(id, description, icdCode) {
+    this.icdcode = icdCode,
+      this.icrcodeid = id
+      this.icddesc=description
+      this.showsearchsoap = 0
+  }
 
 
   public insertsoapnotes1() {
@@ -1212,10 +1230,10 @@ export class VediocallComponent implements OnInit {
         this.count = this.count + 1
         Swal.fire('Patient Ended The Call');
       }
-      else{
+      else {
         this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
           data => {
-    
+
           }, error => {
           }
         )
@@ -1232,11 +1250,11 @@ export class VediocallComponent implements OnInit {
       // document.getElementById('viewrecoring').style.display = 'block';
       document.getElementById('subscibre').style.display = 'none';
 
-      
+
     })
 
     debugger
- 
+
 
 
     this.VisitDoctorAppointmentStatus()
@@ -1374,31 +1392,31 @@ export class VediocallComponent implements OnInit {
 
 
 
+  // SerachOn
+  // public SearchIcrCode(event) {
+  //   debugger
+  //   if (event != "") {
+  //     this.SerachOn = 1;
+  //   }
+  //   else {
+  //     this.SerachOn = 0;
+  //   }
+
+  // }
+
+  // public GetIcrCodeID(id, desc, icdCode) {
+  //   debugger
+  //   this.icrcodeid = id;
+  //   this.icrdescription = desc
+  //   this.icdcode = icdCode;
+  //   this.SerachOn = 0;
+  // }
+
+
+
+
+
   SerachOn
-  public SearchIcrCode(event) {
-    debugger
-    if (event != "") {
-      this.SerachOn = 1;
-    }
-    else {
-      this.SerachOn = 0;
-    }
-
-  }
-
-  public GetIcrCodeID(id, desc, icdCode) {
-    debugger
-    this.icrcodeid = id;
-    this.icrdescription = desc
-    this.icdcode = icdCode;
-    this.SerachOn = 0;
-  }
-
-
-
-
-
-
 
 
 
@@ -1459,7 +1477,6 @@ export class VediocallComponent implements OnInit {
       //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
     }
   }
-
 
 
   public GetDrugID(medicinename) {
