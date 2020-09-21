@@ -203,11 +203,12 @@ public totaladdmoney:any;
       'PatientID': this.canpatientid,
       'Notification': "Appointment Cancelled By Physiotherapist.",
       'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
-      'NotificationTypeID': 21,
+      'NotificationTypeID': 26,
       'Date': this.todaydate,
       'LanguageID': this.languageid,
+      'AppointmentID':this.canappointmentid
     }
-    this.docservice.InsertNotifications(entity).subscribe(data => {
+    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
       debugger
       if (data != 0) {
 
@@ -221,11 +222,12 @@ public totaladdmoney:any;
       'PatientID': this.canpatientid,
       'Notification': "Rendez-vous annulé par un physiothérapeute.",
       'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.Hemos cargado su billetera con Ar" + this.paidamount + " Utilice el mismo para la próxima reserva",
-      'NotificationTypeID': 21,
+      'NotificationTypeID': 26,
       'Date': this.todaydate,
       'LanguageID': this.languageid,
+      'AppointmentID':this.canappointmentid
     }
-    this.docservice.InsertNotifications(entity).subscribe(data => {
+    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
       debugger
       if (data != 0) {
 
@@ -332,11 +334,13 @@ public totaladdmoney:any;
       'PatientID': this.acceptpatientid,
       'Notification': "Appointment Accepted By Physiotherapist.",
       'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots +" has been Accepted.",
-      'NotificationTypeID': 20,
+      'NotificationTypeID': 26,
       'Date': this.todaydate,
       'LanguageID': this.languageid,
+      'AppointmentID':this.acceptappointmentid
+      
     }
-    this.docservice.InsertNotifications(entity).subscribe(data => {
+    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
       debugger
       if (data != 0) {
       }
@@ -348,11 +352,12 @@ public totaladdmoney:any;
       'PatientID': this.acceptpatientid,
       'Notification': "Rendez-vous accepté par un physiothérapeute.",
       'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots +" a été accepté.",
-      'NotificationTypeID': 20,
+      'NotificationTypeID': 26,
       'Date': this.todaydate,
       'LanguageID': this.languageid,
+      'AppointmentID':this.acceptappointmentid
     }
-    this.docservice.InsertNotifications(entity).subscribe(data => {
+    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
       debugger
       if (data != 0) {
 
@@ -408,7 +413,7 @@ public totaladdmoney:any;
     debugger
     var entity = {
       'AppointmentID': this.acceptappointmentid,
-      'AvailabilityTime':  this.time + ' ' + this.ampmtime 
+      'AvailabilityTime':  this.time
     }
     this.docservice.UpdatePhysiotherapist_AvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
@@ -425,7 +430,7 @@ public totaladdmoney:any;
     this.time = even.target.value;
   }
 
-
+  visitid:any;
 
   public UpdateVisitedbit(id,bookedTime,appdate,name,patientID,emailID) {
     this.slottime=bookedTime;
@@ -433,6 +438,7 @@ public totaladdmoney:any;
     this.visiname=name;
     this.vispatientid=patientID;
     this.visiemail=emailID;
+    this.visitid=id
     debugger;
     if(this.serverdate>=this.slottime)
     {
@@ -523,11 +529,12 @@ public totaladdmoney:any;
         'PatientID': this.vispatientid,
         'Notification': "Appointment Visited",
         'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime +" has been Visited.",
-        'NotificationTypeID': 12,
+        'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.visitid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
         }
@@ -539,11 +546,12 @@ public totaladdmoney:any;
         'PatientID': this.vispatientid,
         'Notification': "Rendez-vous accepté par un physiothérapeute.",
         'Description': "Votre rendez-vous avec " + this.visiname + " prévu pour " + this.slottime +"a été visité.",
-        'NotificationTypeID': 12,
+        'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.visitid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
   

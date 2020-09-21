@@ -407,6 +407,10 @@
             </a>
         </div>
 
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DoctorNotifications">
+            <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+            {{labels[0].notifications}}
+        </a>
 
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'&&hospitalid=='590'" routerLink="/MyFees">
             <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorFees}}
@@ -660,6 +664,10 @@
                 <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
         </div>
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/NurseNotifications">
+            <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Notifications
+        </a>
+
 
         <!-- PHYSIOTHERAPIST -->
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='8'" routerLink="/PhysiotherapistProfile">
@@ -698,6 +706,9 @@
                 <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].completedTickets}}
             </a>
         </div>
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='8'" routerLink="/PhysioNotification">
+            <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Notification
+        </a>
 
 
         <!-- MIDWIFE -->
@@ -738,6 +749,10 @@
             </a>
 
         </div>
+
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'" routerLink="/Midwifenotifications">
+            <img src="assets/Images/mywork.png" style="width: 15px;">&nbsp; &nbsp; Notification
+        </a>
 
 
         <!-- DELIVERY -->

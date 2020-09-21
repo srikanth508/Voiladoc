@@ -8,7 +8,7 @@ import { pipeDef } from '@angular/core/src/view';
 })
 
 export class HelloDoctorService {
-  //public host = "http://localhost:4199/";
+ // public host = "http://localhost:4199/";
   //public host1 = "http://localhost:4199/";
   //latestsoln date 29-07-2020
   debugger
@@ -3247,10 +3247,10 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  public GetDoctorReferals(lid, TypeID,sdate,edate) {
+  public GetDoctorReferals(lid, TypeID, sdate, edate) {
     debugger;
     return this.http.get<any[]>(
-      this.host + "/Doctor/GetDoctorReferals?DoctorID=" + lid + '&TypeID=' + TypeID+'&Sdate='+sdate+'&Edate='+edate
+      this.host + "/Doctor/GetDoctorReferals?DoctorID=" + lid + '&TypeID=' + TypeID + '&Sdate=' + sdate + '&Edate=' + edate
     );
   }
 
@@ -3958,7 +3958,7 @@ export class HelloDoctorService {
 
   public GetICDCodeMaster(lid) {
     debugger
-    return this.http.get<any[]>(this.host + '/Doctor/GetICDCodeMaster?LanguageID='+lid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetICDCodeMaster?LanguageID=' + lid);
   }
 
 
@@ -4046,7 +4046,7 @@ export class HelloDoctorService {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/UpdateCollectBit?MedicineOrderID=' + OrderID);
   }
-  
+
   public UpdateRefundAmount(data) {
 
     this.url = this.host + '/Doctor/UpdateRefundAmount';
@@ -4069,11 +4069,11 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-    public GetHospitalCommissions(lid) {
+  public GetHospitalCommissions(lid) {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/GetHospitalCommissions?LanguageID=' + lid);
   }
-  
+
   public UpdateHospitalCommissions(data) {
     this.url = this.host + '/Doctor/UpdateHospitalCommissions';
     return this.http.post(this.url, data)
@@ -4089,33 +4089,33 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  
-  public GetSupportForWeb(lid,userid,typeid) {
+
+  public GetSupportForWeb(lid, userid, typeid,sdate,edate) {
     debugger
-    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWeb?LanguageID=' + lid+'&UserID='+userid+'&TypeID='+typeid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWeb?LanguageID=' + lid + '&UserID=' + userid + '&TypeID=' + typeid+'&Sdate='+sdate+'&Edate='+edate);
   }
-  
+
   public GetAdmin_SupportForWeb_Labels(lid) {
     debugger
     return this.http.get<any[]>(this.host + '/LanguageMaster/GetAdmin_SupportForWeb_Labels?LanguageID=' + lid);
   }
 
-  public GetSupportForWebForSupportLogin(lid,sdate,edate) {
+  public GetSupportForWebForSupportLogin(lid, sdate, edate) {
     debugger
-    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWebForSupportLogin?LanguageID=' + lid+'&Sdate='+sdate+'&Edate='+edate);
+    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWebForSupportLogin?LanguageID=' + lid + '&Sdate=' + sdate + '&Edate=' + edate);
   }
   public UpdateAlertbit(aid) {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/UpdateAlertbit?AppointmentID=' + aid);
   }
-  
+
 
   public UpdateSupportForWebResolvedbit(data) {
     this.url = this.host + '/Doctor/UpdateSupportForWebResolvedbit';
     return this.http.post(this.url, data)
   }
 
-   public InsertDrugNameMaster(data) {
+  public InsertDrugNameMaster(data) {
     this.url = this.host + '/Doctor/InsertDrugNameMaster';
     return this.http.post(this.url, data)
   }
@@ -4123,6 +4123,32 @@ export class HelloDoctorService {
   public UpdateSupportForWebAcceptedbit(id) {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/UpdateSupportForWebAcceptedbit?ID=' + id);
+  }
+
+  public GetNotifications_DoctorByDoctorIDWeb(doctorid, sdate, edate, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetNotifications_DoctorByDoctorIDWeb?DoctorID=' + doctorid + '&Sdate=' + sdate + '&Edate=' + edate + '&LanguageID=' + lid);
+  }
+
+  public GetNotifications_NPMWeb(userid, sdate, edate, typeid, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetNotifications_NPMWeb?UserID=' + userid + '&Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid + '&LanguageID=' + lid);
+  }
+
+
+  public InsertNotificationsNotifications_NPMWeb(data) {
+    this.url = this.host + '/Doctor/InsertNotificationsNotifications_NPMWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public GetNotifications_NPMWebCOunt(userid,typeid, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetNotifications_NPMWebCOunt?UserID=' + userid + '&TypeID=' + typeid + '&LanguageID=' + lid);
+  }
+
+  public UpdateNotifications_NPMSeenBit(id) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateNotifications_NPMSeenBit?ID=' + id);
   }
 
 }

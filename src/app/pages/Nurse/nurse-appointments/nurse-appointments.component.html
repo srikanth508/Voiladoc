@@ -69,37 +69,35 @@
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2"
                 *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
-                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
+                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1" 
                   (click)="GetAcceptAppointmentID(app.id,app.nurseID,app.bookedTime,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID)"
-                  style="height:30px;" />
-              </a>
+                  style="height:19px;" />
+              </a>&nbsp;
               <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
               <a [ngbTooltip]="tipcontent3"
                 *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
-                <img src="assets/Images/can.png" style="height:30px;" data-toggle="modal" data-target="#exampleModal"
+                <img src="assets/Images/can.png" style="height:19px;" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.paidAmount,app.walletAmount)" />
-              </a>
+              </a>&nbsp;
               <ng-template #tipcontent4>{{labels[0].visited}}</ng-template>
               <a [ngbTooltip]="tipcontent4"
                 *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/Visit.png" style="height:30px;"
+                <img src="assets/Images/Visit.png" style="height:19px;"
                   (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID)" />
-              </a>
+              </a>&nbsp;
 
               <ng-template #tipcontent8>{{labels[0].notVisited}}</ng-template>
               <a [ngbTooltip]="tipcontent8"
                 *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/notvisit.png" style="height:30px;" (click)="updateNotVisitBit(app.id)" />
-              </a>
-
+                <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
+              </a>&nbsp;
 
               <ng-template #tipcontent9>Illness Photos</ng-template>
               <a [ngbTooltip]="tipcontent9">
                 <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
                   style="height:30px;" (click)="GetIllnessPhotos(app.id)" />
               </a>
-
-
+              &nbsp;
             </td>
           </tr>
         </thead>
@@ -181,13 +179,13 @@
               <input type="time" [(ngModel)]="availabletime" (change)="GetTime($event)" name="availabletime"
                 class="form-control">
             </div>
-            <div class="col-lg-3">
+            <!-- <div class="col-lg-3">
               <select class="form-control" (change)="getfromampm($event)">
                 <option value="">{{labels[0].select}}</option>
                 <option value="am">am</option>
                 <option value="pm">pm</option>
               </select>
-            </div>
+            </div> -->
           </div>
           <br>
           <div class="row">

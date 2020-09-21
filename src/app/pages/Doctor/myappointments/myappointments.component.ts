@@ -528,6 +528,7 @@ export class MyappointmentsComponent implements OnInit {
 
     this.misusecomments = doctorComments;
   }
+  accappointmentID: any;
 
   public Appointmentstatus(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID) {
 
@@ -536,7 +537,8 @@ export class MyappointmentsComponent implements OnInit {
       this.slotsname = notificationdate;
       this.patientidddd = patientID;
       this.hspitalclinicname = hospital_ClinicName;
-      this.paemailid = emailID
+      this.paemailid = emailID,
+        this.accappointmentID = appointmentID
         ;
       Swal.fire({
         title: 'Are you sure?',
@@ -580,7 +582,8 @@ export class MyappointmentsComponent implements OnInit {
       this.slotsname = notificationdate;
       this.patientidddd = patientID;
       this.hspitalclinicname = hospital_ClinicName;
-      this.paemailid = emailID
+      this.paemailid = emailID;
+      this.accappointmentID = appointmentID
         ;
       Swal.fire({
         title: 'Êtes-vous sûr(e) ?',
@@ -640,6 +643,7 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
 
+
   public InsertNotifiaction() {
 
     if (this.languageid == '1') {
@@ -650,8 +654,9 @@ export class MyappointmentsComponent implements OnInit {
         'NotificationTypeID': 10,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID': this.accappointmentID
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
         if (data != 0) {
 
@@ -666,8 +671,9 @@ export class MyappointmentsComponent implements OnInit {
         'NotificationTypeID': 10,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID': this.accappointmentID
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
         if (data != 0) {
 
@@ -767,8 +773,9 @@ export class MyappointmentsComponent implements OnInit {
         'NotificationTypeID': 11,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID': this.appid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
         if (data != 0) {
         }
@@ -782,8 +789,9 @@ export class MyappointmentsComponent implements OnInit {
         'NotificationTypeID': 11,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID': this.appid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
         if (data != 0) {
 
@@ -1037,7 +1045,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDrugID(medicinename) {
-
+    debugger
     this.medicinename = medicinename
     this.SerachOn = 0
   }
@@ -1133,7 +1141,6 @@ export class MyappointmentsComponent implements OnInit {
 
       }
     })
-
   }
 
   public adddetails1() {
@@ -1428,9 +1435,13 @@ export class MyappointmentsComponent implements OnInit {
   public GetDiagnosticTestssID(even) {
 
     this.testssid = even.target.value;
-    for (let i = 0; i < this.tsetssslist.length; i++) {
-      if (this.tsetssslist[i].id == this.testssid) {
-        this.diagnostictestname = this.tsetssslist[i].short
+    if (this.testssid == 59 || this.testssid == 60) {
+    }
+    else {
+      for (let i = 0; i < this.tsetssslist.length; i++) {
+        if (this.tsetssslist[i].id == this.testssid) {
+          this.diagnostictestname = this.tsetssslist[i].short
+        }
       }
     }
   }
@@ -1453,6 +1464,7 @@ export class MyappointmentsComponent implements OnInit {
     this.diatest = "";
     this.testslist.length = 0;
     this.tsetssslist.length = 0;
+    this.diagnostictestname = ""
     this.getdiagnosticcentertests();
 
   }
@@ -1937,8 +1949,8 @@ export class MyappointmentsComponent implements OnInit {
   public GetIcrCodeID(id, description, icdCode) {
     this.icdcode = icdCode,
       this.icrcodeid = id
-      this.icddesc=description
-      this.showsearchsoap = 0
+    this.icddesc = description
+    this.showsearchsoap = 0
   }
 
   public insertsoapnotes1() {

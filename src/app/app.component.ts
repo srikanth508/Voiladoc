@@ -43,28 +43,34 @@ export class AppComponent {
   public isMobileResolution: boolean;
   public isDescktopResolution: boolean;
   public showsidebar: any;
+  public nurseid: any;
+  public midwifeid: any;
+  public physioid: any;
 
   ngOnInit() {
     this.show = 1;
     this.showsidebar = 0;
     this.languageid = localStorage.getItem('LanguageID');
     debugger
-    this.vid=this.docservice.showvid;
+    this.vid = this.docservice.showvid;
     if (this.languageid == 1) {
 
     }
     else {
       this.localeService.use('fr');
     }
-
-    this.pharmacyid = localStorage.getItem('pharmacyid');
     this.temp = sessionStorage.getItem('temp');
+    this.pharmacyid = localStorage.getItem('pharmacyid');
+
     this.roleid = localStorage.getItem('roleid');
     this.doctorid = localStorage.getItem('userid');
-    //  this.oberserableTimer();
+    this.nurseid = localStorage.getItem('nurseid');
+    this.midwifeid = localStorage.getItem('midwifeid');
+    this.physioid = localStorage.getItem('physioid');
+    // this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
-    this.GetDoctorNotifications();
+    // this.GetDoctorNotifications();
 
     if (window.innerWidth < 600) {
       this.isMobileResolution = true;
@@ -85,56 +91,56 @@ export class AppComponent {
     )
   }
   oberserableTimer() {
-    this.GetDoctorNotifications();
+
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
       if (this.doctorid != null) {
+        this.GetDoctorNotifications();
+
+        this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
+          this.doctorNotifications = data;
+          this.notificationcount = data[0].notifycount;
+        })
         this.docservice.GetChatForNotificationForDoctor(this.doctorid).subscribe(
           data => {
             debugger
             let alldata = data;
-            // this.notificationcount = 0
+            this.notificationcount = 0
             this.notifications = [];
             this.notificationcount = data[0].notifycount;
             this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe
               (datas => {
                 this.doctorNotifications = datas;
-                this.notificationcount = Number(this.notificationcount) + (this.doctorNotifications[0].notifycount);
+                this.notificationcount =(this.doctorNotifications[0].notifycount);
               })
-            for (let n = 0; n < alldata.length; n++) {
-              var chatttty = {
-                'Msg': alldata[n].patientName + ' has left you a message.',
-                'PatientID': alldata[n].patientID,
-                'DoctorID': this.doctorid
-              }
-              this.notifications.push(chatttty);
-            }
+         
           }, error => {
           }
         )
-        // this.GetDoctorNotifications();
-
-
+        this.GetDoctorNotifications();
       }
-      else if (this.pharmacyid != null && this.pharmacyid != undefined) {
-        this.docservice.GetChatForNotificationForPharmacy(this.pharmacyid).subscribe(
-          data => {
+      else if (this.nurseid != null && this.nurseid != undefined) {
+        debugger
+        this.docservice.GetNotifications_NPMWebCOunt(this.nurseid, 25, this.languageid).subscribe
+          (datas => {
             debugger
-            let alldata = data;
-            this.notificationcount = 0
-            this.phanotifications = [];
-            this.notificationcount = data[0].notifycount;
-            for (let n = 0; n < alldata.length; n++) {
-              var chatttty = {
-                'Msg': alldata[n].patientName + ' has left you a message.',
-                'PatientID': alldata[n].patientID,
-                'PharmacyID': this.pharmacyid
-              }
-              this.phanotifications.push(chatttty);
-            }
-          }, error => {
-          }
-        )
+            this.doctorNotifications = datas;
+            this.notificationcount = Number(this.doctorNotifications[0].notifycount);
+          })
+      }
+      else if (this.midwifeid != null && this.midwifeid != undefined) {
+        this.docservice.GetNotifications_NPMWebCOunt(this.midwifeid, 27, this.languageid).subscribe
+          (datas => {
+            this.doctorNotifications = datas;
+            this.notificationcount = Number(this.doctorNotifications[0].notifycount);
+          })
+      }
+      else if (this.physioid != null && this.physioid != undefined) {
+        this.docservice.GetNotifications_NPMWebCOunt(this.physioid, 26, this.languageid).subscribe
+          (datas => {
+            this.doctorNotifications = datas;
+            this.notificationcount = Number(this.doctorNotifications[0].notifycount);
+          })
       }
     });
   }
@@ -150,7 +156,7 @@ export class AppComponent {
   }
 
   public clear() {
-    
+
     sessionStorage.clear();
     localStorage.clear();
     location.href = "#/login";
@@ -208,6 +214,22 @@ export class AppComponent {
 
   public updateseenbit(id) {
     this.docservice.UpdateNotifications_DoctorSeenBit(id).subscribe(
+      data => {
+        debugger
+        // Swal.fire('Completed', 'Visited Successfully');
+
+        //  this.InservisitNotification()
+        this.oberserableTimer()
+        this.ngOnInit()
+
+      }, error => {
+      }
+    )
+  }
+
+
+  public UpdateNursePhysiomidwifeseenbit(id) {
+    this.docservice.UpdateNotifications_NPMSeenBit(id).subscribe(
       data => {
         debugger
         // Swal.fire('Completed', 'Visited Successfully');

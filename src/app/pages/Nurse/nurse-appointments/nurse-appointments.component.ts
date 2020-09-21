@@ -259,14 +259,15 @@ export class NurseAppointmentsComponent implements OnInit {
     debugger
     if (this.languageid == '1') {
       var entity = {
-        'PatientID': this.acceppatientid,
+        'PatientID': this.canpatientid,
         'Notification': "Appointment Accepted By Nurse.",
         'Description': "Your Appointment with " + this.acceptnursename + " scheduled for " + this.aaceptslots + " at " + this.accepthospital + "has been Accepted.",
-        'NotificationTypeID': 18,
+        'NotificationTypeID': 25,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.acceptappointmentid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
 
@@ -275,14 +276,15 @@ export class NurseAppointmentsComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'PatientID': this.acceppatientid,
+        'PatientID': this.canpatientid,
         'Notification': "Rendez-vous accepté par l'infirmière.",
         'Description': "Votre rendez-vous avec " + this.acceptnursename + " prévu pour " + this.aaceptslots + "a été accepté.",
-        'NotificationTypeID': 18,
+        'NotificationTypeID': 25,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.acceptappointmentid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
 
@@ -330,7 +332,7 @@ export class NurseAppointmentsComponent implements OnInit {
     debugger
     var entity = {
       'AppointmentID': this.acceptappointmentid,
-      'AvailabilityTime': this.time + ' ' + this.ampmtime
+      'AvailabilityTime': this.time 
     }
     this.docservice.UpdateNurse_AvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
@@ -362,6 +364,7 @@ export class NurseAppointmentsComponent implements OnInit {
     debugger
     this.time = even.target.value;
   }
+  visitappid:any;
 
   public UpdateVisitedbit(id, bookedtime, apptDatetime, nurseName, hospital_ClinicName, patientID, emailID) {
     this.slottime = bookedtime;
@@ -369,6 +372,7 @@ export class NurseAppointmentsComponent implements OnInit {
       this.visitnurse = nurseName;
     this.visithospital = hospital_ClinicName,
       this.visitpatientid = patientID;
+      this.visitappid=id;
     this.visitemail = emailID,
       this.getserverdateandtime()
     if (this.serverdate >= this.appdate) {
@@ -424,8 +428,10 @@ export class NurseAppointmentsComponent implements OnInit {
         'NotificationTypeID': 19,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.canappointmentid
+        
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
 
@@ -441,8 +447,9 @@ export class NurseAppointmentsComponent implements OnInit {
         'NotificationTypeID': 19,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.canappointmentid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
 
@@ -515,11 +522,12 @@ export class NurseAppointmentsComponent implements OnInit {
         'PatientID': this.visitpatientid,
         'Notification': "Patient Visited By Successfully.",
         'Description': "Your Appointment with " + this.visitnurse + " scheduled for " + this.slottime + " has been Visited.",
-        'NotificationTypeID': 12,
+        'NotificationTypeID': 25,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.visitappid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
         }
@@ -530,11 +538,12 @@ export class NurseAppointmentsComponent implements OnInit {
         'PatientID': this.visitpatientid,
         'Notification': "Patient visité par avec succès.",
         'Description': "Votre rendez-vous avec " + this.visitnurse + " prévu pour " + this.slottime + " a été visité.",
-        'NotificationTypeID': 12,
+        'NotificationTypeID': 25,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
+        'AppointmentID':this.visitappid
       }
-      this.docservice.InsertNotifications(entity).subscribe(data => {
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
         debugger
         if (data != 0) {
 

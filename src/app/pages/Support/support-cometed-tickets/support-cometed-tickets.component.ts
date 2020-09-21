@@ -4,6 +4,11 @@ import Swal from 'sweetalert2';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import { formatDate } from "@angular/common";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+import * as XLSX from 'xlsx';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
+import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-support-cometed-tickets',
   templateUrl: './support-cometed-tickets.component.html',
@@ -122,6 +127,43 @@ export class SupportCometedTicketsComponent implements OnInit {
 
   public GetResolvePhotoUrl(resolveDescription) {
     this.resolvephotourl = resolveDescription
+  }
+
+
+  public getglmasterexcel() {
+    let hhh = this.tableToJson(document.getElementById('Appointment'));
+    this.exportAsExcelFile(hhh, "Support Reports");
+  }
+
+  public tableToJson(table) {
+    debugger
+    var data = []; // first row needs to be headers
+    var headers = [];
+    for (var i = 0; i < table.rows[0].cells.length; i++) {
+      headers[i] = table.rows[0].cells[i].innerHTML.toUpperCase().replace(/ /gi, '');
+    }
+    // go through cells 
+    for (var i = 1; i < table.rows.length; i++) {
+      var tableRow = table.rows[i];
+      var rowData = {};
+      for (var j = 0; j < tableRow.cells.length - 2; j++) {
+        rowData[headers[j]] = tableRow.cells[j].innerHTML;
+      } data.push(rowData);
+    }
+    return data;
+  }
+
+  public exportAsExcelFile(json: any[], excelFileName: string): void {
+    debugger;
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
 }

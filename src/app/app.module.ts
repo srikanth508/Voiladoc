@@ -319,6 +319,10 @@ import { MidwifeCompletedTicketsComponent } from './pages/Midewife/midwife-compl
 import { HospitalCompletedTicketsComponent } from './pages/Hospital/hospital-completed-tickets/hospital-completed-tickets.component';
 import { RecpSupportCompletedComponent } from './pages/Hospital/recp-support-completed/recp-support-completed.component';
 import { SupportCometedTicketsComponent } from './pages/Support/support-cometed-tickets/support-cometed-tickets.component';
+import { DoctorNotificationsComponent } from './pages/Doctor/doctor-notifications/doctor-notifications.component';
+import { NurseNotificationsComponent } from './pages/Nurse/nurse-notifications/nurse-notifications.component';
+import { MidwifenotificationsComponent } from './pages/Midewife/midwifenotifications/midwifenotifications.component';
+import { PhysioNotificationComponent } from './pages/physiotherapist/physio-notification/physio-notification.component';
 
 
 
@@ -633,7 +637,11 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MidwifeCompletedTicketsComponent,
     HospitalCompletedTicketsComponent,
     RecpSupportCompletedComponent,
-    SupportCometedTicketsComponent
+    SupportCometedTicketsComponent,
+    DoctorNotificationsComponent,
+    NurseNotificationsComponent,
+    MidwifenotificationsComponent,
+    PhysioNotificationComponent
   ],
   imports: [
     BrowserModule,

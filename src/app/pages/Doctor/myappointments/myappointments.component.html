@@ -83,7 +83,7 @@
             <td>
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
               <button type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
-                [disabled]="details.isVisited=='1' && details.completed=='2'" *ngIf="details.bookingTypeID=='2'"
+                [disabled]="details.isVisited=='1' && details.completed=='2'||details.cancelled=='1'||details.docCancelled=='1'" *ngIf="details.bookingTypeID=='2'"
                 (click)="getvedioconferencebydateandtime(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
 
@@ -885,16 +885,27 @@
               </div>
             </div>
             <br>
-            <div class="row" *ngIf="testid==2">
+            <div *ngIf="testssid=='59'||testssid=='60'">
+            <div class="row" >
+              <div class="col-lg-5">
+                <label>{{labels[0].testName}} :</label>
+              </div>
+              <div class="col-lg-7">
+               <input type="text" class="form-control" [(ngModel)]="diagnostictestname" name="diagnostictestname">
+              </div>
+            </div> <br>
+          </div>
+           <div *ngIf="testid==2">
+            <div class="row" >
               <div class="col-lg-5">
                 <label>{{labels[0].clinicalInfo}} :</label>
               </div>
               <div class="col-lg-7">
                 <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
                   [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
-              </div>
+              </div> 
             </div>
-            <br>
+          </div><br>
             <div class="row">
               <div class="col-lg-5">
               </div>
@@ -930,14 +941,13 @@
                   </thead>
                 </table>
               </div>
-
             </div>
             <br>
             <div class="row" *ngIf="tablecount=='1'">
               <div class="col-lg-5">
               </div>
               <div class="col-lg-2">
-                <button type="button" class="btn btn-secondary"
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
                   (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
               </div>
               <div class="col-lg-5">

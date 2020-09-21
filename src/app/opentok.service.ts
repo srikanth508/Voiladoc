@@ -57,13 +57,16 @@ export class OpentokService {
   }
 
 
-  startArchive(){
+   startArchive(){
+    debugger
     let url = config.SAMPLE_SERVER_BASE_URL+'/archive/start';
     let data= JSON.stringify({ 'sessionId': this.session.sessionId });
     return this.http.post(url, data)
     // this.session.on('archiveStarted',(event)=>{
     //   this.archiveID = event.id;
     // })
+    debugger
+    
   }
 
 

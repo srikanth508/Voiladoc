@@ -231,6 +231,7 @@ export class VediocallComponent implements OnInit {
   public savetemplate: any;
   public chatIDlist: any;
   manuallydrug: any;
+  user: any;
   ngOnInit() {
 
     this.minutes = 0;
@@ -285,7 +286,7 @@ export class VediocallComponent implements OnInit {
     this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sidate;
 
     this.languageid = localStorage.getItem('LanguageID');
-
+    this.user = localStorage.getItem('user');
     this.getlanguage();
     document.getElementById('stoprecoring').style.display = 'none';
     // document.getElementById('viewrecoring').style.display = 'none';
@@ -1004,13 +1005,13 @@ export class VediocallComponent implements OnInit {
 
     }
   }
-  
+
 
   public GetIcrCodeID(id, description, icdCode) {
     this.icdcode = icdCode,
       this.icrcodeid = id
-      this.icddesc=description
-      this.showsearchsoap = 0
+    this.icddesc = description
+    this.showsearchsoap = 0
   }
 
 
@@ -1057,6 +1058,7 @@ export class VediocallComponent implements OnInit {
         }
 
         this.GetSoapNotesByPatientID();
+        this.InsertNotificationSoapnotes()
         this.VisitDoctorAppointmentStatus()
         this.clear();
         this.icdcode = ""
@@ -1068,6 +1070,43 @@ export class VediocallComponent implements OnInit {
   }
 
 
+  public InsertNotificationSoapnotes() {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientid,
+        'Notification': "Doctor Added SOAP Notes For You.",
+        'Description': this.user + " Added  SOAP Notes For You",
+        'NotificationTypeID': 29,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientiddd,
+        'Notification': "Le docteur a ajouté des notes SOAP pour vous.",
+        'Description': this.user + " a ajouté des notes SOAP pour vous.",
+        'NotificationTypeID': 29,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
 
 
 
@@ -1626,11 +1665,58 @@ export class VediocallComponent implements OnInit {
           this.qwerty2 = [];
           this.getdoctorpatinetdetails();
           this.GetDoctorPrescrptionTemplates()
+          this.InsertPrscriptionNotifications()
         }
       })
     }
 
   }
+
+
+
+
+
+
+  
+  public InsertPrscriptionNotifications() {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientiddd,
+        'Notification': "Doctor Added Prescription.",
+        'Description': this.user + " Added Prescription For You",
+        'NotificationTypeID': 28,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientiddd,
+        'Notification': "Prescription ajoutée par le médecin.",
+        'Description': this.user + " Added Prescription For You",
+        'NotificationTypeID': 28,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+
 
   public getdiagnosticcentertests() {
     debugger
@@ -1723,10 +1809,57 @@ export class VediocallComponent implements OnInit {
           this.testid.length = 0;
           this.testssid = 0;
           this.getpatient_diagnosticdetails()
+          this.Insertnotificationtest()
         }
       })
     }
   }
+
+
+
+  public Insertnotificationtest() {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.diapatientid,
+        'Notification': "Doctor Added Diagnostic Test For You.",
+        'Description': this.user + " Added Diagnostic Test For You.",
+        'NotificationTypeID': 30,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.diapatientid,
+        'Notification': "Le médecin a ajouté un test de diagnostic pour vous.",
+        'Description': this.user + " a ajouté un test de diagnostic pour vous.",
+        'NotificationTypeID': 30,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+
+
+
+
+
   public delete(Sno) {
     debugger
     for (let i = 0; i < this.qwerty.length; i++) {

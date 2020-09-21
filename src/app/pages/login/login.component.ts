@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('roleid', '1');
               this.adminid = this.result.id;
               const random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-              localStorage.setItem('temp', '1');
+              sessionStorage.setItem('temp', '1');
               // localStorage.setItem('userid', this.result[0].id);
               location.href = '#/Docdash';
               location.reload();

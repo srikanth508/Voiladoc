@@ -296,6 +296,10 @@ import { MidwifeCompletedTicketsComponent } from './pages/Midewife/midwife-compl
 import { HospitalCompletedTicketsComponent } from './pages/Hospital/hospital-completed-tickets/hospital-completed-tickets.component';
 import { RecpSupportCompletedComponent } from './pages/Hospital/recp-support-completed/recp-support-completed.component';
 import { SupportCometedTicketsComponent } from './pages/Support/support-cometed-tickets/support-cometed-tickets.component';
+import { DoctorNotificationsComponent } from './pages/Doctor/doctor-notifications/doctor-notifications.component';
+import { NurseNotificationsComponent } from './pages/Nurse/nurse-notifications/nurse-notifications.component';
+import { MidwifenotificationsComponent } from './pages/Midewife/midwifenotifications/midwifenotifications.component';
+import { PhysioNotificationComponent } from './pages/physiotherapist/physio-notification/physio-notification.component';
 
 
 const routes: Routes = [
@@ -662,6 +666,10 @@ const routes: Routes = [
   { path: 'HospitalCompletedTickets', component: HospitalCompletedTicketsComponent },
   { path: 'RecpSupportCompleted', component: RecpSupportCompletedComponent },
   { path: 'SupportCometedTickets', component: SupportCometedTicketsComponent },
+  { path: 'DoctorNotifications', component: DoctorNotificationsComponent },
+  { path: 'NurseNotifications', component: NurseNotificationsComponent },
+  { path: 'Midwifenotifications', component: MidwifenotificationsComponent },
+  { path: 'PhysioNotification', component: PhysioNotificationComponent },
 ];
 
 

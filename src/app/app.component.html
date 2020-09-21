@@ -766,7 +766,7 @@
 </div>
 
 <div id="notification" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -795,16 +795,22 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="row card card-hover newcard" *ngFor="let docnoti of doctorNotifications">
+                <div class="row card card-hover newcard" *ngFor="let docnoti of doctorNotifications"
+                    style="overflow: auto;">
                     <div class="col-lg-12">
                         <p><b>{{docnoti.notification}}</b></p>
                         <p>{{docnoti.description}}</p>
                         <p style="float:right"><b>{{docnoti.date}}</b></p>
                         <p style="float:left"><b>{{docnoti.notificationtime}}</b></p><br>
                         <br>
-                        <button class="chatnow"  data-dismiss="modal"
-                            style="float: left;" (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button>
-
+                        <div *ngIf="doctorid!=undefined">
+                            <button class="chatnow" data-dismiss="modal" style="float: left;"
+                                (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button>
+                        </div>
+                        <div *ngIf="nurseid!=undefined||midwifeid!=undefined||physioid!=undefined">
+                            <button class="chatnow" data-dismiss="modal" style="float: left;"
+                                (click)="UpdateNursePhysiomidwifeseenbit(docnoti.id)">{{labels[0].seen}}</button>
+                        </div>
                         <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
                             style="float: left;"
                             (click)="RejectVedioAppointment(docnoti.doctorID)">{{labels[0].reject}}</button>
