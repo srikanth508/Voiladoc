@@ -33,6 +33,10 @@
             <th>{{labels[0].patientname}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
+            <!-- <th>Is Patient Pragnent</th>
+            <th>Is Patient Breast Feed</th> -->
+            <th>Date Of Birth</th>
+            <th>National Identity No</th>
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].reason}}</th>
@@ -46,6 +50,20 @@
             <td>{{app.patientName}}</td>
             <td>{{app.mobileNumber}}</td>
             <td>{{app.emailID}}</td>
+            <!-- <td *ngIf="app.genderID=='2'">
+              <span *ngIf="app.isPatientPragnent=='1'">Yes</span>
+              <span *ngIf="app.isPatientPragnent=='0'">No</span>
+            </td>
+            <td *ngIf="app.genderID=='2'">
+              <span *ngIf="app.ispatientbrestfeeding=='1'">Yes</span>
+              <span *ngIf="app.ispatientbrestfeeding=='0'">No</span>
+            </td> -->
+            <td>
+              {{app.dateofbirth}}
+            </td>
+            <td>
+              {{app.nationalIdebtificationID}}
+            </td>
             <td>{{app.address}}</td>
             <td>{{app.bookedTime}}</td>
             <td>{{app.reasonForVisit}}</td>
@@ -69,7 +87,7 @@
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2"
                 *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
-                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1" 
+                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
                   (click)="GetAcceptAppointmentID(app.id,app.nurseID,app.bookedTime,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID)"
                   style="height:19px;" />
               </a>&nbsp;
@@ -96,6 +114,13 @@
               <a [ngbTooltip]="tipcontent9">
                 <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
                   style="height:30px;" (click)="GetIllnessPhotos(app.id)" />
+              </a>
+              &nbsp;
+
+              <ng-template #tipcontent9>Patient Details</ng-template>
+              <a [ngbTooltip]="tipcontent9">
+                <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal" data-target="#Patientdetails"
+                  style="height:30px;" (click)="GetPatientPragnentornot(app.isPatientPragnent,app.ispatientbrestfeeding)" />
               </a>
               &nbsp;
             </td>
@@ -237,6 +262,54 @@
           </div>
           <br>
         </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="Patientdetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"> Patient Details</h5>
+      
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <p>Is patient Pragnent  :  <span *ngIf="ispatientpragnent=='1'">Yes</span>
+                <span *ngIf="ispatientpragnent=='0'">No</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p>Is patient Breast Feed  :  <span *ngIf="ispatientbreastfeed=='1'">Yes</span>
+                <span *ngIf="ispatientbreastfeed=='0'">No</span></p>
+            </div>
+          </div>
+          <br>
+        </div>
+
+
       </div>
       <br>
       <div class="modal-footer">

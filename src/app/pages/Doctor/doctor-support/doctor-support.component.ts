@@ -18,7 +18,7 @@ export class DoctorSupportComponent implements OnInit {
   public issuephotourl = [];
   public user: any;
   public languageid: any;
-  public labels:any;
+  public labels: any;
 
   ngOnInit() {
     this.description = ""
@@ -36,7 +36,7 @@ export class DoctorSupportComponent implements OnInit {
       debugger
     })
   }
-
+  removetgdescription:any;
 
   public insertdetails() {
     debugger
@@ -45,9 +45,11 @@ export class DoctorSupportComponent implements OnInit {
       Swal.fire('Please upload image')
     }
     else {
+      document.getElementById("qwerty").innerHTML = this.description;
+      this.removetgdescription = document.getElementById("qwerty").innerText;
       var entity = {
         'Issue': this.issuename,
-        'Description': this.description,
+        'Description': this.removetgdescription,
         'Photo': this.issuephotourl[0],
         'TypeID': 1,
         'DoctorID': this.doctorid,
@@ -61,8 +63,9 @@ export class DoctorSupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
+          this.insertnotification()
           Swal.fire('Issue Raised Successflly')
-          location.href="#/DoctorSupportDash"
+          location.href = "#/DoctorSupportDash"
         }
       })
     }
@@ -91,5 +94,31 @@ export class DoctorSupportComponent implements OnInit {
     })
     // this.sendattachment();
   }
+
+
+
+  public insertnotification() {
+
+    var entity = {
+      'NotificationName': 'Doctor Raised A issue',
+      'NotificationTypeID': 1,
+      'Notification': this.user + ' Raised a issue. Please Check',
+      'DoctorID': this.doctorid,
+      'NurseID': 0,
+      'PhysioID': 0,
+      'MidwifeID': 0,
+      'RcepID': 0,
+      'HospitalID': 0,
+      'TypeID': 1,
+      'LanguageID': this.languageid
+    }
+    this.docservice.InsertSupportForWebNotifications(entity).subscribe(data => {
+      if (data != 0) {
+
+      }
+    })
+
+  }
+
 
 }

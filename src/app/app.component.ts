@@ -46,6 +46,7 @@ export class AppComponent {
   public nurseid: any;
   public midwifeid: any;
   public physioid: any;
+  public supportid: any;
 
   ngOnInit() {
     this.show = 1;
@@ -67,6 +68,7 @@ export class AppComponent {
     this.nurseid = localStorage.getItem('nurseid');
     this.midwifeid = localStorage.getItem('midwifeid');
     this.physioid = localStorage.getItem('physioid');
+    this.supportid = localStorage.getItem('supportid')
     // this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
@@ -111,9 +113,9 @@ export class AppComponent {
             this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe
               (datas => {
                 this.doctorNotifications = datas;
-                this.notificationcount =(this.doctorNotifications[0].notifycount);
+                this.notificationcount = (this.doctorNotifications[0].notifycount);
               })
-         
+
           }, error => {
           }
         )
@@ -137,6 +139,13 @@ export class AppComponent {
       }
       else if (this.physioid != null && this.physioid != undefined) {
         this.docservice.GetNotifications_NPMWebCOunt(this.physioid, 26, this.languageid).subscribe
+          (datas => {
+            this.doctorNotifications = datas;
+            this.notificationcount = Number(this.doctorNotifications[0].notifycount);
+          })
+      }
+      else if (this.supportid != null && this.supportid != undefined) {
+        this.docservice.GetSupportForWebNotifications(this.languageid).subscribe
           (datas => {
             this.doctorNotifications = datas;
             this.notificationcount = Number(this.doctorNotifications[0].notifycount);
@@ -214,6 +223,22 @@ export class AppComponent {
 
   public updateseenbit(id) {
     this.docservice.UpdateNotifications_DoctorSeenBit(id).subscribe(
+      data => {
+        debugger
+        // Swal.fire('Completed', 'Visited Successfully');
+
+        //  this.InservisitNotification()
+        this.oberserableTimer()
+        this.ngOnInit()
+
+      }, error => {
+      }
+    )
+  }
+
+
+  public updatesupportseenbit(id) {
+    this.docservice.UpdateSupportForWebNotificationsSeenBit(id).subscribe(
       data => {
         debugger
         // Swal.fire('Completed', 'Visited Successfully');

@@ -184,8 +184,8 @@
             {{labels[0].video}}
 
             &nbsp;
-            <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="5"> &nbsp;
-            {{labels[0].homeVisit}}
+            <input type="radio" *ngIf="departmentid!='16'" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="5"> &nbsp;
+            <label *ngIf="departmentid!='16'">{{labels[0].homeVisit}}</label>
           </div>
         </label>
         <br>
@@ -204,8 +204,8 @@
             <input type="radio" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="2"> &nbsp;
             {{labels[0].video}} &nbsp;
 
-            <input type="radio" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="5"> &nbsp;
-            {{labels[0].homeVisit}}
+            <input type="radio"  *ngIf="departmentid!='16'" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="5"> &nbsp;
+            <label *ngIf="departmentid!='16'">{{labels[0].homeVisit}}</label>
           </div>
         </label>
         <br>
@@ -228,8 +228,8 @@
             {{labels[0].inclinic}} &nbsp;
             <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="2"> &nbsp;
             {{labels[0].video}} &nbsp;
-            <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="5"> &nbsp;
-            {{labels[0].homeVisit}}
+            <input type="radio" *ngIf="departmentid!='16'" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="5"> &nbsp;
+            <label *ngIf="departmentid!='16'">{{labels[0].homeVisit}}</label>
           </div>
         </label>
         <br>
@@ -248,11 +248,10 @@
             &nbsp;
             <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="2"> &nbsp;
             {{labels[0].video}} &nbsp;
-            <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="5"> &nbsp;
-            {{labels[0].homeVisit}}
+            <input type="radio" *ngIf="departmentid!='16'" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="5"> &nbsp;
+            <label *ngIf="departmentid!='16'">{{labels[0].homeVisit}}</label>
           </div>
         </label>
-
         <br>
         <ng-multiselect-dropdown [placeholder]="SelectLabel" name="cleardropdown4" [disabled]="dis3==1"
           [(ngModel)]="cleardropdown4" [data]="slotslist3" [settings]="slotsdd3" (onSelect)="GetNightSlotsID($event)"

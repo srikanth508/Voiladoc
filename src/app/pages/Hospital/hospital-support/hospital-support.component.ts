@@ -19,10 +19,10 @@ export class HospitalSupportComponent implements OnInit {
   public languageid: any;
 
   public labels: any;
-  hospitalid:any;
+  hospitalid: any;
   ngOnInit() {
     this.description = ""
-  
+
     this.user = localStorage.getItem('user');
     this.hospitalid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -36,7 +36,7 @@ export class HospitalSupportComponent implements OnInit {
       debugger
     })
   }
-
+  removetgdescription: any;
 
   public insertdetails() {
     debugger
@@ -45,9 +45,12 @@ export class HospitalSupportComponent implements OnInit {
       Swal.fire('Please upload image')
     }
     else {
+      document.getElementById("qwerty").innerHTML = this.description;
+      this.removetgdescription = document.getElementById("qwerty").innerText;
+
       var entity = {
         'Issue': this.issuename,
-        'Description': this.description,
+        'Description': this.removetgdescription,
         'Photo': this.issuephotourl[0],
         'TypeID': 5,
         'DoctorID': 0,
@@ -61,6 +64,7 @@ export class HospitalSupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
+          this.insertnotification()
           Swal.fire('Issue Raised Successflly')
           location.href = "#/HospitalSupportDash"
         }
@@ -90,5 +94,30 @@ export class HospitalSupportComponent implements OnInit {
       debugger
     })
     // this.sendattachment();
+  }
+
+
+
+
+  public insertnotification() {
+    var entity = {
+      'NotificationName': 'Hospital Raised A issue',
+      'NotificationTypeID': 1,
+      'Notification': this.user + ' Raised a issue. Please Check',
+      'DoctorID': 0,
+      'NurseID': 0,
+      'PhysioID': 0,
+      'MidwifeID': 0,
+      'RcepID': 0,
+      'HospitalID': this.hospitalid,
+      'TypeID': 5,
+      'LanguageID': this.languageid
+    }
+    this.docservice.InsertSupportForWebNotifications(entity).subscribe(data => {
+      if (data != 0) {
+
+      }
+    })
+
   }
 }

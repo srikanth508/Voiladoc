@@ -11,14 +11,14 @@ export class PhyioSupportComponent implements OnInit {
   public Editor = ClassicEditor;
   constructor(public docservice: HelloDoctorService) { }
 
-  
+
   description: any;
   issuename: any;
   public issuephoto = [];
   public issuephotourl = [];
   public user: any;
   public languageid: any;
- public physioid:any;
+  public physioid: any;
   public labels: any;
   ngOnInit() {
     this.description = ""
@@ -35,7 +35,7 @@ export class PhyioSupportComponent implements OnInit {
       debugger
     })
   }
-
+  removetgdescription: any;
 
   public insertdetails() {
     debugger
@@ -44,9 +44,12 @@ export class PhyioSupportComponent implements OnInit {
       Swal.fire('Please upload image')
     }
     else {
+
+      document.getElementById("qwerty").innerHTML = this.description;
+      this.removetgdescription = document.getElementById("qwerty").innerText;
       var entity = {
         'Issue': this.issuename,
-        'Description': this.description,
+        'Description': this.removetgdescription,
         'Photo': this.issuephotourl[0],
         'TypeID': 3,
         'DoctorID': 0,
@@ -60,6 +63,7 @@ export class PhyioSupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
+          this.insertnotification()
           Swal.fire('Issue Raised Successflly')
           location.href = "#/PhyioSupportDash"
         }
@@ -88,5 +92,27 @@ export class PhyioSupportComponent implements OnInit {
       debugger
     })
     // this.sendattachment();
+  }
+
+  public insertnotification() {
+    var entity = {
+      'NotificationName': 'Physiotherapist Raised A issue',
+      'NotificationTypeID': 1,
+      'Notification': this.user + ' Raised a issue. Please Check',
+      'DoctorID': 0,
+      'NurseID': 0,
+      'PhysioID': this.physioid,
+      'MidwifeID': 0,
+      'RcepID': 0,
+      'HospitalID': 0,
+      'TypeID': 3,
+      'LanguageID': this.languageid
+    }
+    this.docservice.InsertSupportForWebNotifications(entity).subscribe(data => {
+      if (data != 0) {
+
+      }
+    })
+
   }
 }

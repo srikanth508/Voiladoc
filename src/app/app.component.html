@@ -811,6 +811,10 @@
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="UpdateNursePhysiomidwifeseenbit(docnoti.id)">{{labels[0].seen}}</button>
                         </div>
+                        <div *ngIf="supportid!=undefined">
+                            <button class="chatnow" data-dismiss="modal" style="float: left;"
+                                (click)="updatesupportseenbit(docnoti.id)">{{labels[0].seen}}</button>
+                        </div>
                         <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
                             style="float: left;"
                             (click)="RejectVedioAppointment(docnoti.doctorID)">{{labels[0].reject}}</button>

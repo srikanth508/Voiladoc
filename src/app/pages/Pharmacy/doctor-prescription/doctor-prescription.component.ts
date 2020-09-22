@@ -166,9 +166,9 @@ export class DoctorPrescriptionComponent implements OnInit {
     let quan = this.list[0].quantity.split(',');
 
     let sig = this.list[0].sig.split(',');
-    let notetopharmacist = this.list[0].noteToPharmacist.split(',');
+    // let notetopharmacist = this.list[0].noteToPharmacist.split(',');
     let howmanyrefills = this.list[0].renovolment.split(',');
-    let issubastaible = this.list[0].isSubatianablenotPermittesd.split(',');
+    // let issubastaible = this.list[0].isSubatianablenotPermittesd.split(',');
     // let mtype = this.list[0].medicineTypeID.split(',');
 
     for (let i = 0; i < meds.length; i++) {
@@ -176,9 +176,9 @@ export class DoctorPrescriptionComponent implements OnInit {
         'medicine': meds[i],
         'quantity': quan[i],
         'Sig': sig[i],
-        'NoteToPharmacist': notetopharmacist[i],
+        // 'NoteToPharmacist': notetopharmacist[i],
         'howmanyrefills': howmanyrefills[i],
-        'issubastaible': issubastaible[i]
+        // 'issubastaible': issubastaible[i]
         // 'Medicinetype': mtype[i]
       }
       this.myarray.push(medetty);

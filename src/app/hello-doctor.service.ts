@@ -4151,4 +4151,25 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/UpdateNotifications_NPMSeenBit?ID=' + id);
   }
 
+  public InsertSupportForWebNotifications(data) {
+    this.url = this.host + '/Doctor/InsertSupportForWebNotifications';
+    return this.http.post(this.url, data)
+  }
+
+  public GetSupportForWebNotifications(id) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetSupportForWebNotifications?LanguageID=' + id);
+  }
+
+  
+  public UpdateSupportForWebNotificationsSeenBit(id) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateSupportForWebNotificationsSeenBit?ID=' + id);
+  }
+
+  public DoctorPostGCMNotifications(data) {
+    debugger
+    this.url = this.host + '/Doctor/DoctorPostGCMNotifications';
+    return this.http.post(this.url, data)
+  }
 }

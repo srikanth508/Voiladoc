@@ -35,6 +35,7 @@ export class NurseSupportComponent implements OnInit {
     })
   }
 
+  removetgdescription:any;
 
   public insertdetails() {
     debugger
@@ -43,9 +44,11 @@ export class NurseSupportComponent implements OnInit {
       Swal.fire('Please upload image')
     }
     else {
+      document.getElementById("qwerty").innerHTML = this.description;
+      this.removetgdescription = document.getElementById("qwerty").innerText;
       var entity = {
         'Issue': this.issuename,
-        'Description': this.description,
+        'Description': this.removetgdescription,
         'Photo': this.issuephotourl[0],
         'TypeID': 2,
         'DoctorID': 0,
@@ -59,6 +62,7 @@ export class NurseSupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
+          this.insertnotification()
           Swal.fire('Issue Raised Successflly')
           location.href = "#/NurseSupportDash"
         }
@@ -89,4 +93,30 @@ export class NurseSupportComponent implements OnInit {
     })
     // this.sendattachment();
   }
+
+
+
+  public insertnotification() {
+
+    var entity = {
+      'NotificationName': 'Nurse Raised A issue',
+      'NotificationTypeID': 1,
+      'Notification': this.user + ' Raised a issue. Please Check',
+      'DoctorID': 0,
+      'NurseID': this.nurseid,
+      'PhysioID': 0,
+      'MidwifeID': 0,
+      'RcepID': 0,
+      'HospitalID': 0,
+      'TypeID': 2,
+      'LanguageID': this.languageid
+    }
+    this.docservice.InsertSupportForWebNotifications(entity).subscribe(data => {
+      if (data != 0) {
+
+      }
+    })
+
+  }
+
 }

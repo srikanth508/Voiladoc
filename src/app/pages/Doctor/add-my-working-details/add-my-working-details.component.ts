@@ -376,7 +376,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     for (let j = 0; j < this.booktypeid.length; j++) {
       var entity = {
         'DoctorHospitalID': this.docid,
-        'BookingTypeID': this.booktypeid[j]
+        'BookingTypeID': this.booktypeid[j].id
       }
       this.docservice.InsertBookingType(entity).subscribe(data => {
         if (data != undefined) {

@@ -549,5 +549,13 @@ export class MidwifeAppointmentsComponent implements OnInit {
       })
     }
   }
+  
+  ispatientpragnent: any;
+  ispatientbreastfeed: any;
 
+  public GetPatientPragnentornot(isPatientPragnent, ispatientbrestfeeding) {
+    this.ispatientpragnent = isPatientPragnent;
+    this.ispatientbreastfeed = ispatientbrestfeeding
+
+  }
 }

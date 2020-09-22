@@ -116,7 +116,7 @@ export class DocworkingdetailsComponent implements OnInit {
   nightcolorcode: any;
   ngOnInit() {
     debugger
-    
+
     // this.booktypeid = [1, 2]
     this.dummid = localStorage.getItem('hospitalid');
     this.hosipitalidd = localStorage.getItem('hospitalid');
@@ -274,12 +274,11 @@ export class DocworkingdetailsComponent implements OnInit {
 
   public GetBookingTpeID(item7: any) {
     debugger
-    if(item7.id==1)
-    {
+    if (item7.id == 1) {
       Swal.fire('On Demand Disabled as of Now')
       this.booktypeid.push(item7);
     }
-    else{
+    else {
       this.booktypeid.push(item7);
     }
   }
@@ -294,20 +293,20 @@ export class DocworkingdetailsComponent implements OnInit {
   //   this.appontmenttypeid.push(item8);
   //   this.showid = item8.id
   // }
-    // if (this.showid == 1 && this.showid != 2) {
-    //   this.mrngAppointmenttype = 1
-    //   this.afternoonappointmentType = 1
-    //   this.eveningappointmentType = 1
-    //   this.nightappointmenttype = 1
-    // }
-    // else {
-    //   this.mrngAppointmenttype = 0
-    //   this.afternoonappointmentType = 0
-    //   this.eveningappointmentType = 0
-    //   this.nightappointmenttype = 0
-    // }
+  // if (this.showid == 1 && this.showid != 2) {
+  //   this.mrngAppointmenttype = 1
+  //   this.afternoonappointmentType = 1
+  //   this.eveningappointmentType = 1
+  //   this.nightappointmenttype = 1
+  // }
+  // else {
+  //   this.mrngAppointmenttype = 0
+  //   this.afternoonappointmentType = 0
+  //   this.eveningappointmentType = 0
+  //   this.nightappointmenttype = 0
+  // }
 
-  
+
   public onItemDeSelect8(item8: any) {
     debugger
     this.appontmenttypeid = this.appontmenttypeid.slice(item8.id)
@@ -318,7 +317,7 @@ export class DocworkingdetailsComponent implements OnInit {
     for (let j = 0; j < this.booktypeid.length; j++) {
       var entity = {
         'DoctorHospitalID': this.docid,
-        'BookingTypeID': this.booktypeid[j]
+        'BookingTypeID': this.booktypeid[j].id
       }
       this.docservice.InsertBookingType(entity).subscribe(data => {
         if (data != undefined) {
@@ -402,13 +401,15 @@ export class DocworkingdetailsComponent implements OnInit {
   }
 
   slottypeid: any;
+  departmentid: any;
 
   public GetDoctorID(item: any) {
     debugger
     debugger
     this.doctorid = item.id;
     var list = this.dummlist.filter(x => x.id == this.doctorid)
-    this.slottypeid = list[0].slotDurationID
+    this.slottypeid = list[0].slotDurationID,
+      this.departmentid = list[0].departmentID
 
     if (this.slottypeid != null) {
       this.GetMorningSlotsMasterbyid();
@@ -626,177 +627,176 @@ export class DocworkingdetailsComponent implements OnInit {
     if (this.dayid == null || this.dayid == 0) {
       Swal.fire('Please Select Day')
     }
-   else if (this.doctorid == null || this.doctorid == 0) {
+    else if (this.doctorid == null || this.doctorid == 0) {
       Swal.fire('Please Select Doctor')
     }
-    else 
-    {
-    this.tablecount = 1;
+    else {
+      this.tablecount = 1;
 
-    for (let i = 0; i < this.morningslots.length; i++) {
-      this.morningslotarray.push(this.morningslots[i].slots);
+      for (let i = 0; i < this.morningslots.length; i++) {
+        this.morningslotarray.push(this.morningslots[i].slots);
 
-      this.morningslotidarray.push(this.morningslots[i].id)
+        this.morningslotidarray.push(this.morningslots[i].id)
+      }
+
+      this.slotname = this.morningslotarray;
+      this.mrng = this.slotname.join(' to ')
+      this.slotnameid = this.morningslotidarray;
+      this.mrngid = this.slotnameid.join(',')
+
+
+      for (let i = 0; i < this.aftrenoonslots.length; i++) {
+        this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
+
+        this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
+      }
+
+      this.slotname1 = this.afternoonslotarray;
+      this.afternoon = this.slotname1.join(' to ');
+      this.slotnameid1 = this.afternoonslotidarray;
+      this.afternoonid = this.slotnameid1.join(',');
+
+
+      for (let i = 0; i < this.eveningslots.length; i++) {
+        this.eveningarray.push(this.eveningslots[i].slots);
+
+        this.eveningarrayid.push(this.eveningslots[i].id);
+      }
+
+      this.slotname2 = this.eveningarray;
+      this.evening = this.slotname2.join(' to ');
+      this.slotnameid2 = this.eveningarrayid;
+      this.eveningid = this.slotnameid2.join(',');
+
+      for (let i = 0; i < this.nightslots.length; i++) {
+        this.nightslotsarray.push(this.nightslots[i].slots);
+
+        this.nightslotsarrayid.push(this.nightslots[i].id);
+      }
+
+      this.slotname3 = this.nightslotsarray;
+      this.night = this.slotname3.join(' to ');
+      this.slotnameid3 = this.nightslotsarrayid;
+      this.nightid = this.slotnameid3.join(',');
+      debugger
+
+      if (this.mrngAppointmenttype == '1') {
+        this.mrngcolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.mrngAppointmenttype == '2') {
+        this.mrngcolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.mrngAppointmenttype == '5') {
+        this.mrngcolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
+      }
+
+
+      if (this.afternoonappointmentType == '1') {
+        this.afternooncolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.afternoonappointmentType == '2') {
+        this.afternooncolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.afternoonappointmentType == '5') {
+        this.afternooncolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
+      }
+
+
+
+      if (this.eveningappointmentType == '1') {
+        this.evengcolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.eveningappointmentType == '2') {
+        this.evengcolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.eveningappointmentType == '5') {
+        this.evengcolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
+      }
+
+      if (this.nightappointmenttype == '1') {
+        this.nightcolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.nightappointmenttype == '2') {
+        this.nightcolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.nightappointmenttype == '5') {
+        this.nightcolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
+      }
+
+      var entity = {
+        'Sno': this.idcount,
+        'DoctorID': this.doctorid,
+        'DoctorAvailability': this.name,
+        'DoctorAvailabilityID': this.availabilityid,
+        'Hospital_Clinic': this.hospital_ClinicName,
+        'Hospital_ClinicID': this.hosipitalidd,
+        'Day': this.day,
+        'DayID': this.dayid,
+        'Fees': this.fees,
+        'Session1': this.session1,
+        'Session2': this.session2,
+        'Morning': this.mrng,
+        'Afternoon': this.afternoon,
+        'Evening': this.evening,
+        'Night': this.night,
+        'Morningid': this.mrngid,
+        'Afternoonid': this.afternoonid,
+        'Eveningid': this.eveningid,
+        'Nightid': this.nightid,
+        'mrngAppointmenttype': this.mrngAppointmenttype,
+        'afternoonappointmentType': this.afternoonappointmentType,
+        'eveningappointmentType': this.eveningappointmentType,
+        'nightappointmenttype': this.nightappointmenttype,
+        'MrngColorCode': this.mrngcolorcode,
+        'Afternooncolorcode': this.afternooncolorcode,
+        'Evngcolorcode': this.evengcolorcode,
+        'Nightcolorcode': this.nightcolorcode,
+      }
+      debugger
+      this.qwerty.push(entity);
+      this.idcount = this.idcount + 1;
+      this.session1 = "";
+      this.session2 = "";
+      this.cleardropdown1 = [];
+      this.cleardropdown2 = [];
+      this.cleardropdown3 = [];
+      this.cleardropdown4 = [];
+      this.abcd = "";
+      this.dis2 = "";
+      this.dis1 = "";
+      this.dis3 = "";
+      this.eveningslots.length = 0;
+      this.morningslotarray.length = 0;
+      this.morningslotidarray.length = 0;
+      this.eveningarray.length = 0;
+      this.afternoonslotarray.length = 0;
+      this.nightslotsarray.length = 0;
+      this.nightslots.length = 0;
+      this.morningslots.length = 0;
+      this.eveningslots.length = 0;
+      this.aftrenoonslots.length = 0;
+      this.mrngcolorcode = ""
+      this.afternooncolorcode = ""
+      this.evengcolorcode = ""
+      this.nightcolorcode = ""
+      this.mrngAppointmenttype = "",
+        this.eveningappointmentType = "",
+        this.afternoonappointmentType = "",
+        this.nightappointmenttype = ""
     }
-
-    this.slotname = this.morningslotarray;
-    this.mrng = this.slotname.join(' to ')
-    this.slotnameid = this.morningslotidarray;
-    this.mrngid = this.slotnameid.join(',')
-
-
-    for (let i = 0; i < this.aftrenoonslots.length; i++) {
-      this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
-
-      this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
-    }
-
-    this.slotname1 = this.afternoonslotarray;
-    this.afternoon = this.slotname1.join(' to ');
-    this.slotnameid1 = this.afternoonslotidarray;
-    this.afternoonid = this.slotnameid1.join(',');
-
-
-    for (let i = 0; i < this.eveningslots.length; i++) {
-      this.eveningarray.push(this.eveningslots[i].slots);
-
-      this.eveningarrayid.push(this.eveningslots[i].id);
-    }
-
-    this.slotname2 = this.eveningarray;
-    this.evening = this.slotname2.join(' to ');
-    this.slotnameid2 = this.eveningarrayid;
-    this.eveningid = this.slotnameid2.join(',');
-
-    for (let i = 0; i < this.nightslots.length; i++) {
-      this.nightslotsarray.push(this.nightslots[i].slots);
-
-      this.nightslotsarrayid.push(this.nightslots[i].id);
-    }
-
-    this.slotname3 = this.nightslotsarray;
-    this.night = this.slotname3.join(' to ');
-    this.slotnameid3 = this.nightslotsarrayid;
-    this.nightid = this.slotnameid3.join(',');
-    debugger
-
-    if (this.mrngAppointmenttype == '1') {
-      this.mrngcolorcode = '#bae6fb'
-      this.appontmenttypeid.push(1)
-    }
-    else if (this.mrngAppointmenttype == '2') {
-      this.mrngcolorcode = '#4e66b0'
-      this.appontmenttypeid.push(2)
-    }
-    else if (this.mrngAppointmenttype == '5') {
-      this.mrngcolorcode = '#90EE90'
-      this.appontmenttypeid.push(5)
-    }
-
-
-    if (this.afternoonappointmentType == '1') {
-      this.afternooncolorcode = '#bae6fb'
-      this.appontmenttypeid.push(1)
-    }
-    else if (this.afternoonappointmentType == '2') {
-      this.afternooncolorcode = '#4e66b0'
-      this.appontmenttypeid.push(2)
-    }
-    else if (this.afternoonappointmentType == '5') {
-      this.afternooncolorcode = '#90EE90'
-      this.appontmenttypeid.push(5)
-    }
-
-
-
-    if (this.eveningappointmentType == '1') {
-      this.evengcolorcode = '#bae6fb'
-      this.appontmenttypeid.push(1)
-    }
-    else if (this.eveningappointmentType == '2') {
-      this.evengcolorcode = '#4e66b0'
-      this.appontmenttypeid.push(2)
-    }
-    else if (this.eveningappointmentType == '5') {
-      this.evengcolorcode = '#90EE90'
-      this.appontmenttypeid.push(5)
-    }
-
-    if (this.nightappointmenttype == '1') {
-      this.nightcolorcode = '#bae6fb'
-      this.appontmenttypeid.push(1)
-    }
-    else if (this.nightappointmenttype == '2') {
-      this.nightcolorcode = '#4e66b0'
-      this.appontmenttypeid.push(2)
-    }
-    else if (this.nightappointmenttype == '5') {
-      this.nightcolorcode = '#90EE90'
-      this.appontmenttypeid.push(5)
-    }
-
-    var entity = {
-      'Sno': this.idcount,
-      'DoctorID': this.doctorid,
-      'DoctorAvailability': this.name,
-      'DoctorAvailabilityID': this.availabilityid,
-      'Hospital_Clinic': this.hospital_ClinicName,
-      'Hospital_ClinicID': this.hosipitalidd,
-      'Day': this.day,
-      'DayID': this.dayid,
-      'Fees': this.fees,
-      'Session1': this.session1,
-      'Session2': this.session2,
-      'Morning': this.mrng,
-      'Afternoon': this.afternoon,
-      'Evening': this.evening,
-      'Night': this.night,
-      'Morningid': this.mrngid,
-      'Afternoonid': this.afternoonid,
-      'Eveningid': this.eveningid,
-      'Nightid': this.nightid,
-      'mrngAppointmenttype': this.mrngAppointmenttype,
-      'afternoonappointmentType': this.afternoonappointmentType,
-      'eveningappointmentType': this.eveningappointmentType,
-      'nightappointmenttype': this.nightappointmenttype,
-      'MrngColorCode': this.mrngcolorcode,
-      'Afternooncolorcode': this.afternooncolorcode,
-      'Evngcolorcode': this.evengcolorcode,
-      'Nightcolorcode': this.nightcolorcode,
-    }
-    debugger
-    this.qwerty.push(entity);
-    this.idcount = this.idcount + 1;
-    this.session1 = "";
-    this.session2 = "";
-    this.cleardropdown1 = [];
-    this.cleardropdown2 = [];
-    this.cleardropdown3 = [];
-    this.cleardropdown4 = [];
-    this.abcd = "";
-    this.dis2 = "";
-    this.dis1 = "";
-    this.dis3 = "";
-    this.eveningslots.length = 0;
-    this.morningslotarray.length = 0;
-    this.morningslotidarray.length = 0;
-    this.eveningarray.length = 0;
-    this.afternoonslotarray.length = 0;
-    this.nightslotsarray.length = 0;
-    this.nightslots.length = 0;
-    this.morningslots.length = 0;
-    this.eveningslots.length = 0;
-    this.aftrenoonslots.length = 0;
-    this.mrngcolorcode = ""
-    this.afternooncolorcode = ""
-    this.evengcolorcode = ""
-    this.nightcolorcode = ""
-    this.mrngAppointmenttype = "",
-      this.eveningappointmentType = "",
-      this.afternoonappointmentType = "",
-      this.nightappointmenttype = ""
   }
-}
 
   public insertdetails() {
     debugger

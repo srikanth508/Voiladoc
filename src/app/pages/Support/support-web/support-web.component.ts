@@ -181,33 +181,62 @@ export class SupportWebComponent implements OnInit {
     })
   }
   resolveid: any;
+  useremail: any;
 
-  public GetSupportResolveID(id) {
+  public GetSupportResolveID(id, useremail) {
+    debugger
     this.resolveid = id
+    this.useremail = useremail
+   
   }
   description: any;
-
+  removetgdescription: any;
 
   public insertdetails() {
+
+    document.getElementById("qwerty").innerHTML = this.description;
+    this.removetgdescription = document.getElementById("qwerty").innerText;
     debugger
     var entity = {
       'ID': this.resolveid,
       'ResolvePhotoUrl': this.issuephotourl[0],
-      'ResolveDescription': this.description
+      'ResolveDescription': this.removetgdescription
     }
     this.docservice.UpdateSupportForWebResolvedbit(entity).subscribe(data => {
       let res = data;
+      this.insertazurenotification()
       Swal.fire('Issue Resolved Successflly')
-      this.description=""
-      this.issuephotourl=[]
+      this.description = ""
+      this.issuephotourl = []
       this.GetSupportIssues();
     })
   }
 
 
+
+  public insertazurenotification() {
+    debugger
+    var entity = {
+      'Descriptions': "Your issue has Resolved. Please Check",
+      'Email': this.useremail,
+    }
+    this.docservice.DoctorPostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+
+  identityattachmentsurlssss=[]
+  showidentityproof=[];
+
   public onattachmentUpload(abcd) {
     debugger
     for (let i = 0; i < abcd.length; i++) {
+      this.identityattachmentsurlssss = []
       this.issuephoto.push(abcd[i]);
       this.uploadid();
     }
@@ -219,10 +248,11 @@ export class SupportWebComponent implements OnInit {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
       debugger
       this.issuephotourl.push(res);
-      let a = this.issuephotourl[0].slice(2);
+      this.identityattachmentsurlssss.push(res);
+      let a = this.identityattachmentsurlssss[0].slice(2);
       debugger
       let b = 'http://14.192.17.225' + a;
-
+      this.showidentityproof.push(b)
       debugger
     })
     // this.sendattachment();

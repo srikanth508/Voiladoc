@@ -589,4 +589,15 @@ public totaladdmoney:any;
       })
     }
     }
+
+
+    
+  ispatientpragnent: any;
+  ispatientbreastfeed: any;
+
+  public GetPatientPragnentornot(isPatientPragnent, ispatientbrestfeeding) {
+    this.ispatientpragnent = isPatientPragnent;
+    this.ispatientbreastfeed = ispatientbrestfeeding
+
+  }
 }
