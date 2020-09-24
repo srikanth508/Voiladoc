@@ -65,7 +65,7 @@ export class VediocallComponent implements OnInit {
   public historyofillness: any;
   public medcondition: any;
   public meditations: any;
-  public allergies: any;
+
   public pastsix: any;
   public socialhx: any;
   public assessment: any;
@@ -329,7 +329,7 @@ export class VediocallComponent implements OnInit {
     this.getserverdateandtime();
 
     // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
-    //   debugger;
+    //   ;
     //   this.chatIDlist = res;
     //   this.chatID = this.chatIDlist[0].chatID
     //   this.getPreviousChat();
@@ -341,7 +341,7 @@ export class VediocallComponent implements OnInit {
     //   this.getPreviousChat();
     //   this.oberserableTimer();
     // })
-    debugger;
+    ;
     // this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
     this.getpatientdetails();
@@ -359,8 +359,8 @@ export class VediocallComponent implements OnInit {
 
     this.pddddd = 1;
     this.pdpd = 1;
-    debugger;
-    debugger
+    ;
+
 
     let jjj = document.getElementById("Completed");
     if (jjj != null) {
@@ -371,7 +371,7 @@ export class VediocallComponent implements OnInit {
     this.opentokService.getsessionandtoken().subscribe(res => {
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-      debugger
+
       this.insertvedioeconferencedetails();
     })
 
@@ -390,7 +390,7 @@ export class VediocallComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels = data;
         this.endsession = this.labels[0].endsession
       }, error => {
@@ -402,7 +402,7 @@ export class VediocallComponent implements OnInit {
   public GetSoapNotesByPatientID() {
     this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
       data => {
-        debugger
+
         this.soaplist1 = data;
       }, error => {
       }
@@ -419,13 +419,13 @@ export class VediocallComponent implements OnInit {
       'SessionID': config.SESSION_ID
     }
     this.docservice.InsertBook_DoctorPatientBookedVideoConference(entity).subscribe(data => {
-      debugger;
+      ;
       if (data != 0) {
         this.opentokService.initSession().then((session: OT.Session) => {
           this.session = session;
 
           this.session.on('streamCreated', (event) => {
-            debugger;
+            ;
             this.streams.push(event.stream);
             document.getElementById('stoprecoring').style.display = 'block';
             this.startarchive();
@@ -433,7 +433,7 @@ export class VediocallComponent implements OnInit {
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
-            debugger
+
             const idx = this.streams.indexOf(event.stream);
 
             if (idx > -1) {
@@ -442,14 +442,14 @@ export class VediocallComponent implements OnInit {
             }
           });
           this.session.on('archiveStarted', (event) => {
-            debugger
+
             this.archiveID = event.id;
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
-            debugger;
+            ;
             this.archiveID = event.id;
-            debugger
+
           });
         })
 
@@ -471,7 +471,7 @@ export class VediocallComponent implements OnInit {
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
-            debugger;
+            ;
             this.stoparchive();
 
             const idx = this.streams.indexOf(event.stream);
@@ -633,7 +633,7 @@ export class VediocallComponent implements OnInit {
   }
 
   public soap() {
-    debugger
+
     this.pddddd = 0;
     this.soapddddd = 1;
     this.showchat = 0;
@@ -703,11 +703,14 @@ export class VediocallComponent implements OnInit {
 
   ispatientpragnent: any;
   breastFeeding: any;
-
+  allallergies = []
+  allergieslist: any;
+  public allergies = []
 
   public getpatientdetails() {
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
       data => {
+        debugger
         this.details = data[0];
         this.patientname = this.details.pName,
           this.mobileno = this.details.mobileNumber,
@@ -722,7 +725,6 @@ export class VediocallComponent implements OnInit {
           this.dateofbirth = this.details.dateofbirth,
           this.height = this.details.height,
           this.wight = this.details.weight,
-          this.allergies = this.details.knownAllergies,
           this.bmi = this.details.bmi,
           this.age = this.details.age,
           this.countryid = this.details.countryID,
@@ -731,9 +733,18 @@ export class VediocallComponent implements OnInit {
           this.appointmenttypeid = this.details.appointmentTypeID,
           this.ispatientpragnent = this.details.isPatientPragnent,
           this.breastFeeding = this.details.breastFeeding,
+          this.allergieslist = this.details.knownAllergies.split(',')
+        debugger
+        this.allergies=[]
+        for (let i = 0; i < this.allergieslist.length; i++) {
+          var wtt = {
+            displayValue: this.allergieslist[i]
+          }
+          debugger
+          this.allergies.push(wtt);
+        }
 
-
-          this.SendNotification()
+        this.SendNotification()
 
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
@@ -745,7 +756,7 @@ export class VediocallComponent implements OnInit {
 
         this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
           data => {
-            debugger
+
             this.localdoclist = data;
 
             this.localdocid = this.localdoclist[0].id
@@ -762,28 +773,40 @@ export class VediocallComponent implements OnInit {
 
   public Updateallergies() {
     debugger
+    this.allergies = this.allergies.map(x => x.displayValue);
+    this.allergieslist = this.allergies.join(',');
     var entity = {
       'AppointmentID': this.appointmentid,
-      'KnownAllergies': this.allergies
+      'KnownAllergies': this.allergieslist
     }
     this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
-      debugger
+
       let res = data;
-      Swal.fire('Allergies Updated Successfully');
-      this.getpatientdetails()
+      if(this.languageid==1)
+      {
+        Swal.fire('Allergies Updated Successfully');
+        this.allergieslist=[];
+        this.getpatientdetails()
+      }
+      else if(this.languageid==6)
+      {
+        Swal.fire('Allergies détails enregistrés');
+        this.allergieslist=[];
+        this.getpatientdetails()
+      }
     })
   }
 
 
   public SendNotification() {
-    debugger
+
     if (this.languageid == 1) {
       var entity = {
         'Description': "Doctor Has Started Video Please Join ",
         'ToUser': this.email,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -795,7 +818,7 @@ export class VediocallComponent implements OnInit {
         'ToUser': this.email,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -813,7 +836,7 @@ export class VediocallComponent implements OnInit {
 
     this.docservice.GetPatientCurrentMedicationByID(this.appointmentid).subscribe(
       data => {
-        debugger
+
         this.medicationlist = data;
       }, error => {
       }
@@ -849,7 +872,7 @@ export class VediocallComponent implements OnInit {
 
     this.docservice.UpdateVisitedBitByDoctor(this.appointmentid).subscribe(
       data => {
-        debugger
+
       }, error => {
       }
     )
@@ -860,12 +883,12 @@ export class VediocallComponent implements OnInit {
   misuse: any;
 
   public GetPateintMisUseCheck(even) {
-    debugger
+
     if (even.target.checked == true) {
       this.misuse = 1;
     }
     else {
-      debugger
+
       this.misuse = 0;
     }
   }
@@ -874,7 +897,7 @@ export class VediocallComponent implements OnInit {
   miscomments: any;
 
   public updatecomments() {
-    debugger
+
     var entity = {
       'ID': this.patientid,
       'MisUseComments': this.miscomments
@@ -889,8 +912,8 @@ export class VediocallComponent implements OnInit {
 
 
   public InsertDoctorSoapNoteTemplate() {
-    debugger
-    debugger
+
+
     var entity = {
       'DoctorID': this.doctorid,
       'TemplateName': this.templatename,
@@ -908,7 +931,7 @@ export class VediocallComponent implements OnInit {
       'IcrID': this.icrcodeid
 
     }
-    debugger
+
     this.docservice.InsertDoctorSoapNotesTemplates(entity).subscribe(data => {
       if (data != 0) {
 
@@ -920,10 +943,10 @@ export class VediocallComponent implements OnInit {
   }
 
   public GetDoctorSoapNotesTemplates() {
-    debugger
+
     this.docservice.GetDoctorSoapNotesTemplates().subscribe(
       data => {
-        debugger
+
         this.doctemplatelist = data;
         this.templatelist = this.doctemplatelist.filter(x => x.doctorID == this.doctorid)
       }, error => {
@@ -938,7 +961,7 @@ export class VediocallComponent implements OnInit {
 
   public GetTemplateID(even) {
     if (even.target.value != 0) {
-      debugger
+
       this.templateid = even.target.value;
       var list = this.doctemplatelist.filter(x => x.id == this.templateid)
       this.subjective = list[0].subjective,
@@ -980,7 +1003,7 @@ export class VediocallComponent implements OnInit {
 
 
   // public getid() {
-  //   debugger
+  //   
   //   if (this.icddesc == '') {
   //     this.icdcode = ''
   //   }
@@ -988,7 +1011,7 @@ export class VediocallComponent implements OnInit {
   //     let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
   //     this.icdcode = wqew[0].icdCode,
   //       this.icrcodeid = wqew[0].id
-  //     debugger
+  //     
   //   }
 
   // }
@@ -1028,7 +1051,7 @@ export class VediocallComponent implements OnInit {
       'ICRDescription': this.icddesc,
       'ICRID': this.icrcodeid
     }
-    debugger
+
     this.docservice.InsertDoctor_PatientSoapNotes1(entity).subscribe(data => {
       if (data != 0) {
         this.soapid = data;
@@ -1041,7 +1064,7 @@ export class VediocallComponent implements OnInit {
         this.GetDoctorSoapNotesTemplates()
 
         if (this.misuse == 1) {
-          debugger
+
           this.docservice.GetPatientRegistrationMisuseBit(this.patientid).subscribe(data => {
           })
           this.updatecomments();
@@ -1181,7 +1204,7 @@ export class VediocallComponent implements OnInit {
   }
 
   public getdoctorpatientdetailsbydocidandpatientid() {
-    debugger
+
     this.docservice.GetBookappointmentByDoctorIDandPatientID(this.doctorid, this.patientid).subscribe(
       data => {
         this.soaplist = data;
@@ -1191,11 +1214,11 @@ export class VediocallComponent implements OnInit {
   }
 
   public GetSoapID(soapid) {
-    debugger
+
     this.soapid = soapid;
     this.docservice.GetSoapNotesByID(this.soapid, this.languageid).subscribe(
       data => {
-        debugger
+
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist == undefined || this.soaplist.length == 0) {
           this.subjective = "";
@@ -1250,9 +1273,9 @@ export class VediocallComponent implements OnInit {
     this.interval = setInterval(() => {
       this.time++;
     }, 1000)
-    debugger;
+      ;
     this.opentokService.startArchive().subscribe(res => {
-      debugger;
+      ;
       let result = JSON.parse(res.toString());
       this.archiveID = result.id;
     })
@@ -1261,11 +1284,11 @@ export class VediocallComponent implements OnInit {
 
 
   public stoparchive() {
-    debugger
+
     this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
       this.compltedlist = res;
       if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
-        debugger
+
         this.count = this.count + 1
         Swal.fire('Patient Ended The Call');
       }
@@ -1280,9 +1303,9 @@ export class VediocallComponent implements OnInit {
     })
 
     this.docservice.showvid = 0;
-    debugger;
+    ;
     this.opentokService.stoparchive(this.archiveID).subscribe(res => {
-      debugger;
+      ;
       let result = res;
       this.opentokService.disconnect_1();
       document.getElementById('stoprecoring').style.display = 'none';
@@ -1292,7 +1315,7 @@ export class VediocallComponent implements OnInit {
 
     })
 
-    debugger
+
 
 
 
@@ -1309,10 +1332,10 @@ export class VediocallComponent implements OnInit {
   //schedule
 
   public GetWhenConsumemedicals() {
-    debugger
+
     this.docservice.GetWhenToConsumeMasterMedicalsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.consumelist = data;
       }, error => {
       }
@@ -1320,10 +1343,10 @@ export class VediocallComponent implements OnInit {
   }
 
   public Getmedicinetypemaster() {
-    debugger
+
     this.docservice.GetMedicineTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.medicinelist = data;
       }, error => {
       }
@@ -1332,7 +1355,7 @@ export class VediocallComponent implements OnInit {
 
 
   public GetMedicineID(even) {
-    debugger
+
     this.medicineid = even.target.value;
     for (let i = 0; i < this.medicinelist.length; i++) {
       if (this.medicinelist[i].id == this.medicineid) {
@@ -1343,7 +1366,7 @@ export class VediocallComponent implements OnInit {
 
 
   public GetConsumeID(even) {
-    debugger
+
     this.consumeid = even.target.value;
     for (let i = 0; i < this.consumelist.length; i++) {
       if (this.consumelist[i].id == this.consumeid) {
@@ -1360,10 +1383,10 @@ export class VediocallComponent implements OnInit {
 
 
   public GetDoctorPrescrptionTemplates() {
-    debugger
+
     this.docservice.GetDoctorPrescrptionTemplates().subscribe(
       data => {
-        debugger
+
         this.docpretemplates = data;
         this.docprtemplateslist = this.docpretemplates.filter(x => x.doctorID == this.doctorid)
       }, error => {
@@ -1418,7 +1441,7 @@ export class VediocallComponent implements OnInit {
   public geticdcode() {
     this.docservice.GetICDCodeMaster(this.languageid).subscribe(
       data => {
-        debugger;
+        ;
         this.icrcodedummlist = data;
         this.icdcodelist = data;
         this.states = this.icdcodelist.map(x => x.description);
@@ -1433,7 +1456,7 @@ export class VediocallComponent implements OnInit {
 
   // SerachOn
   // public SearchIcrCode(event) {
-  //   debugger
+  //   
   //   if (event != "") {
   //     this.SerachOn = 1;
   //   }
@@ -1444,7 +1467,7 @@ export class VediocallComponent implements OnInit {
   // }
 
   // public GetIcrCodeID(id, desc, icdCode) {
-  //   debugger
+  //   
   //   this.icrcodeid = id;
   //   this.icrdescription = desc
   //   this.icdcode = icdCode;
@@ -1477,13 +1500,13 @@ export class VediocallComponent implements OnInit {
     )
 
   public GetDrugnamemaster() {
-    debugger
+
     this.docservice.GetDrugNameMaster(this.languageid).subscribe(
       data => {
         this.drugnamelist = data;
-        debugger
+
         // this.drugnames = this.drugnamelist.map(x => x.medicament);
-        debugger
+
       }, error => {
       }
     )
@@ -1505,21 +1528,21 @@ export class VediocallComponent implements OnInit {
 
 
   public SerchDrugName(medicinename) {
-    debugger
+
     if (medicinename == "") {
       this.SerachOn = 0;
-      debugger
+
     }
     else {
       this.SerachOn = 1;
-      debugger
+
       //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
     }
   }
 
 
   public GetDrugID(medicinename) {
-    debugger
+
     this.medicinename = medicinename
     this.SerachOn = 0
   }
@@ -1550,7 +1573,7 @@ export class VediocallComponent implements OnInit {
 
     }
     this.docservice.InsertDoctorPrescrptionTemplates(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -1607,7 +1630,7 @@ export class VediocallComponent implements OnInit {
 
 
   public InsertPrescription() {
-    debugger
+
     // if (this.appointmenttypeid == '2') {
     //   this.endorse = 0;
     // }
@@ -1627,7 +1650,7 @@ export class VediocallComponent implements OnInit {
       this.endorse = 1;
     }
     for (let i = 0; this.qwerty2.length; i++) {
-      debugger
+
       var entity = {
         // 'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
         'DoctorID': this.qwerty2[i].DoctorID,
@@ -1652,7 +1675,7 @@ export class VediocallComponent implements OnInit {
         'SubstainablenotPermitted': this.qwerty2[i].SubstainablenotPermitted
       }
       this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Prescription saved successfully', 'success');
@@ -1677,7 +1700,7 @@ export class VediocallComponent implements OnInit {
 
 
 
-  
+
   public InsertPrscriptionNotifications() {
 
     if (this.languageid == '1') {
@@ -1719,10 +1742,10 @@ export class VediocallComponent implements OnInit {
 
 
   public getdiagnosticcentertests() {
-    debugger
+
     this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+
         this.testslist = data;
       }, error => {
       }
@@ -1730,10 +1753,10 @@ export class VediocallComponent implements OnInit {
   }
 
   public GetDiagnosticTestID(even) {
-    debugger
+
     this.testid = even.target.value;
     for (let i = 0; i < this.testslist.length; i++) {
-      debugger
+
       if (this.testslist[i].id == this.testid) {
         this.diagnostictesttypename = this.testslist[i].name
       }
@@ -1743,22 +1766,29 @@ export class VediocallComponent implements OnInit {
   public getdiagnostictests() {
     this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
       data => {
-        debugger
+
         this.tsetssslist = data;
       }, error => {
       }
     )
   }
   public GetDiagnosticTestssID(even) {
-    debugger
     this.testssid = even.target.value;
-    for (let i = 0; i < this.tsetssslist.length; i++) {
-      if (this.tsetssslist[i].id == this.testssid) {
-        this.diagnostictestname = this.tsetssslist[i].short
+    // for (let i = 0; i < this.tsetssslist.length; i++) {
+    //   if (this.tsetssslist[i].id == this.testssid) {
+    //     this.diagnostictestname = this.tsetssslist[i].short
+    //   }
+    // }
+    if (this.testssid == 59 || this.testssid == 60) {
+    }
+    else {
+      for (let i = 0; i < this.tsetssslist.length; i++) {
+        if (this.tsetssslist[i].id == this.testssid) {
+          this.diagnostictestname = this.tsetssslist[i].short
+        }
       }
     }
   }
-
 
   public adddetails() {
     this.tablecount = 1;
@@ -1777,10 +1807,11 @@ export class VediocallComponent implements OnInit {
     this.testslist.length = 0;
     this.tsetssslist.length = 0;
     this.getdiagnosticcentertests()
+    this.diagnostictestname=""
   }
 
   public insertDiagnostictestdetails() {
-    debugger
+
 
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
@@ -1794,7 +1825,7 @@ export class VediocallComponent implements OnInit {
         'ClinicalInfo': this.qwerty[i].ClinicalInfo
       }
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
           if (this.languageid == 1) {
@@ -1861,11 +1892,11 @@ export class VediocallComponent implements OnInit {
 
 
   public delete(Sno) {
-    debugger
+
     for (let i = 0; i < this.qwerty.length; i++) {
-      debugger
+
       if (Sno == this.qwerty[i].Sno) {
-        debugger
+
         this.qwerty.splice(i, 1);
       }
     }
@@ -1921,16 +1952,16 @@ export class VediocallComponent implements OnInit {
       // 'Read_Me': 0
     }
     this.docservice.InsertChatMaster(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
         this.chatID = data;
         this.InsertChatDetails();
       }
     })
 
-    // debugger
+    // 
     // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(ressss => {
-    //   debugger;
+    //   ;
     //   if (ressss.length > 1) {
     //     this.chatID = ressss;
     //     this.InsertChatDetails();
@@ -1943,7 +1974,7 @@ export class VediocallComponent implements OnInit {
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-    debugger;
+    ;
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -1955,7 +1986,7 @@ export class VediocallComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -1976,7 +2007,7 @@ export class VediocallComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entitys).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -1991,22 +2022,22 @@ export class VediocallComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
-        debugger
+
         if (Chatconversation[i].sender == 'Patient') {
           this.coversationarray.push({
             chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
           })
         }
-        debugger
+
         if (Chatconversation[i].sender == 'Doctor') {
           this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
       }
-      debugger
+
 
     })
   }
@@ -2043,7 +2074,7 @@ export class VediocallComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -2055,15 +2086,15 @@ export class VediocallComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
-      debugger
+
     })
     // this.sendattachment();
   }
@@ -2095,7 +2126,7 @@ export class VediocallComponent implements OnInit {
       'SubstainablenotPermitted': presdetails.substainablenotPermitted
     }
     this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
         this.getdoctorpatinetdetails()
         if (this.languageid = 1) {
@@ -2112,7 +2143,7 @@ export class VediocallComponent implements OnInit {
 
 
   public Openmodel() {
-    debugger;
+    ;
     this.display = "block";
   }
 
@@ -2124,13 +2155,13 @@ export class VediocallComponent implements OnInit {
 
   showid: any;
   public GetSelectedID(even) {
-    debugger
+
     this.showid = even.target.value;
   }
 
 
   public GetSelectedHistoryID(even) {
-    debugger
+
     this.showhistoryid = even.target.value;
   }
 

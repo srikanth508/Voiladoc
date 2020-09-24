@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
-import { formatDate } from "@angular/common";
+import { DatePipe, formatDate } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
+import { TotalHospitalApointmentsComponent } from '../total-hospital-apointments/total-hospital-apointments.component';
 @Component({
   selector: 'app-bookappointment',
   templateUrl: './bookappointment.component.html',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookappointmentComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, public datepipe: DatePipe) { }
 
   public departmentlist: any;
   public languageid: any;
@@ -34,35 +35,46 @@ export class BookappointmentComponent implements OnInit {
   public doctorslots: any;
   public slotid: any;
   serverdateandtime: any;
-
+  todaydatesss: any;
+  Selecteddate2: any;
+  todaydatesssssss:any;
   ngOnInit() {
-    debugger
-    // const format = 'MM/DD/YYYY';
+    // debugger
+    // const format = 'yyyy-MM-dd';
     // const myDate = new Date();
     // const locale = 'en-US';
-    // // this.todaydate = formatDate(myDate, format, locale);
-    // // this.selecteddate = formatDate(myDate, format, locale);
-    // debugger
-
-    // this.todaydate = myDate.toLocaleString().split(',')[0];
-    // // formatDate(myDate, format, locale);
-    // this.selecteddate = myDate.toLocaleString().split(',')[0];
-    // //  formatDate(myDate, format, locale);
+    // this.todaydate = formatDate(myDate, format, locale);
+    // this.selecteddate = formatDate(myDate, format, locale);
     // this.filterdate = this.selecteddate
+    // localStorage.setItem('SelectedDate', this.selecteddate)
 
-   
-      this.docservice.GetServerDateAndTime().subscribe(
-        data => {
-          this.serverdateandtime = data;
-         debugger
-            this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
-            this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
-            localStorage.setItem('SelectedDate', this.selecteddate)
-        }, error => {
+    this.docservice.GetServerDateAndTime().subscribe(
+      data => {
+        this.serverdateandtime = data;
+        if (this.languageid == 1) {
+          debugger
+          this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+          this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+          this.Selecteddate2 = this.serverdateandtime.todaydatesss.toLocaleString()
+          // this.Selecteddate2=this.datepipe.transform(this.todaydatesss, 'dd/MM/yyyy')
+
+          this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
+          this.todaydatesssssss=this.serverdateandtime.todaydateeeesss.toLocaleString()
+
+          localStorage.setItem('SelectedDate', this.todaydatesss)
+
         }
-      )
-    
-  
+        else if (this.languageid == 6) {
+          debugger
+          this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+          this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+          this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
+          this.todaydatesssssss=this.serverdateandtime.todaydateeeesss.toLocaleString()
+          localStorage.setItem('SelectedDate', this.todaydatesss)
+        }
+      }, error => {
+      }
+    )
 
     // var gsDayNames = [
     //   'Sunday',
@@ -165,59 +177,122 @@ export class BookappointmentComponent implements OnInit {
 
 
   selecteddate: any;
-  getday:any;
+  getday: any;
 
-
+  selecteddates1: any;
   public GetDate(even) {
-    debugger
-    //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
-    // this.selecteddate = even.target.value;
-    // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
-    debugger
-     this.selecteddate = even.toLocaleString().split(',')[0];
 
-    localStorage.setItem('SelectedDate', this.selecteddate)
-    var gsDayNames = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday'
-    ];
-
-    var d = new Date(this.selecteddate);
-    var dayName = gsDayNames[d.getDay()];
-    this.docservice.GetDayID(dayName).subscribe(data => {
+    if (this.languageid == 1) {
       debugger
-      this.dayidslist = data;
-      this.dayid = this.dayidslist[0].dayID;
+      //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
+      // this.selecteddate = even.target.value;
+      // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
+      debugger
+      this.selecteddates1 = even.toLocaleString().split(',')[0];
+      this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
+      // this.selecteddate = even.target.value;
+      // localStorage.setItem('SelectedDate', this.selecteddate)
 
-      this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
-        data => {
-          debugger
-          this.doctorslist = data;
-          this.dummdoctorslist = data;
+      localStorage.setItem('SelectedDate', this.selecteddates1)
+      var gsDayNames = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
 
-          if (this.selecteddate == this.todaydate) {
-            this.getdoctorslots()
+      var d = new Date(this.selecteddates1);
+      var dayName = gsDayNames[d.getDay()];
+      this.docservice.GetDayID(dayName).subscribe(data => {
+        debugger
+        this.dayidslist = data;
+        this.dayid = this.dayidslist[0].dayID;
+
+        this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
+          data => {
+            debugger
+            this.doctorslist = data;
+            this.dummdoctorslist = data;
+            this.selecteddates1 = even.toLocaleString().split(',')[0];
+            this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
+            debugger
+            if (this.selecteddates1 == this.todaydatesssssss) {
+              this.getdoctorslots()
+            }
+            else {
+              this.getdoctotsbyid()
+            }
+          }, error => {
           }
-          else {
-            this.getdoctotsbyid()
+        )
+      })
+
+
+    }
+    else if (this.languageid == 6) {
+      debugger
+      //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
+      // this.selecteddate = even.target.value;
+      // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
+      debugger
+      this.selecteddates1 = even.toLocaleString().split(',')[0];
+
+      this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
+      // this.selecteddate = even.target.value;
+      // localStorage.setItem('SelectedDate', this.selecteddate)
+
+      localStorage.setItem('SelectedDate', this.selecteddates1)
+      var gsDayNames = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
+
+      var d = new Date(this.selecteddates1);
+      var dayName = gsDayNames[d.getDay()];
+      this.docservice.GetDayID(dayName).subscribe(data => {
+        debugger
+        this.dayidslist = data;
+        this.dayid = this.dayidslist[0].dayID;
+
+        this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
+          data => {
+            debugger
+            this.doctorslist = data;
+            this.dummdoctorslist = data;
+
+            if (this.selecteddates1 == this.todaydatesssssss) {
+              this.getdoctorslots()
+            }
+            else {
+              this.getdoctotsbyid()
+            }
+          }, error => {
           }
-        }, error => {
-        }
-      )
-    })
+        )
+      })
+    }
+
   }
 
   dummdoctorslots: any;
+  hours: any;
+  minutes: any;
 
   public getdoctorslots() {
+    debugger
     let d = new Date();
-    let h = (d.getHours() < 10 ? '0' : '') + d.getHours();
-    let m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+    this.hours = d.getHours() + 2
+    this.minutes = d.getMinutes() + 30
+    let h = (d.getHours() < 10 ? '0' : '') + this.hours;
+    let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
     let cts = h + ':' + m;
 
     this.docservice.GetSlotsMasterSlots().subscribe(
@@ -244,7 +319,7 @@ export class BookappointmentComponent implements OnInit {
 
   public GetSlotID(even) {
     this.slotid = even.target.value;
-    this.docservice.GetDoctorDetails_ForVideoConferenceForWeb2(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.slotid, this.selecteddate).subscribe(
+    this.docservice.GetDoctorDetails_ForVideoConferenceForWeb2(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.slotid, this.selecteddates1).subscribe(
       data => {
         debugger
         this.doctorslist = data;

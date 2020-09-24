@@ -127,7 +127,12 @@ export class LoginComponent implements OnInit {
   public login() {
     debugger
     if (this.roleid == null || this.roleid == undefined) {
-      Swal.fire('Error', 'Please select role!');
+      if (this.languageid == 1) {
+        Swal.fire('Error', 'Please select role!');
+      }
+      if (this.languageid == 6) {
+        Swal.fire('Erreur', 'Sélectionner une fonction!');
+      }
     }
     if (this.uname == null || this.pwd == undefined) {
       Swal.fire('Error', 'Please Enter UserName and Password!');
@@ -420,7 +425,7 @@ export class LoginComponent implements OnInit {
         }
       )
     }
-    
+
     if (this.roleid == "14") {
       this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {

@@ -5,15 +5,14 @@
     </div>
     <div class="col-lg-3">
 
+      <input *ngIf="languageid==1" type="text" placeholder="MM/DD/YYYY" class="form-control"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="filterdate" name="filterdate"
+        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" bsDatepicker>
 
-      <input *ngIf="languageid==1"  type="text" placeholder="MM/DD/YYYY" class="form-control"
-      [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="filterdate"  name="filterdate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-      bsDatepicker>
-      
-    <input *ngIf="languageid==6" type="text"  placeholder="jj/mm/aa" class="form-control"
-      [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="filterdate"  name="filterdate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-      bsDatepicker>
-      <!-- <input type="date" class="form-control" min={{todaydate}} [(ngModel)]="filterdate"   name="filterdate" (change)="GetDate($event)"> -->
+      <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="filterdate" name="filterdate"
+        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        <!-- <input type="date" class="form-control" min={{todaydatessss}} [(ngModel)]="filterdate"   name="filterdate" (change)="GetDate($event)"> -->
     </div>
   </div>
 </div>
@@ -32,8 +31,8 @@
     <div class="row" style="margin-left: 5px;">
       <br>
       <div class="col-lg-2" style="margin-left: 15px; " *ngFor="let slot of doctorslots">
-        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
-          style="border: 1px solid lightgray;height:28px;width:65px">{{slot.slotName}}</label>
+        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]" 
+        style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
         <br>
       </div>
       <br>
@@ -54,7 +53,7 @@
     <div class="row" style="margin-left: 5px;">
       <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of afternoonslots">
         <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
-          style="border: 1px solid lightgray;height:28px;width:65px">{{slot.slotName}}</label>
+        style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
       </div>
       <br>
     </div>
@@ -74,7 +73,7 @@
     <div class="row" style="margin-left: 5px;">
       <div class="col-lg-2" style="margin-left: 15px; " *ngFor="let slot of eveningslosts">
         <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
-          style="border: 1px solid lightgray;height:28px;width:65px">{{slot.slotName}}</label>
+        style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
       </div>
       <br>
     </div>
@@ -94,7 +93,7 @@
     <div class="row" style="margin-left: 5px;">
       <div class="col-lg-2" style="margin-left: 15px; " *ngFor="let slot of nightslots">
         <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
-          style="border: 1px solid lightgray;height:28px;width:65px">{{slot.slotName}}</label>
+        style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
       </div>
       <br>
     </div>

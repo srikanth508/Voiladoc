@@ -4172,4 +4172,14 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/DoctorPostGCMNotifications';
     return this.http.post(this.url, data)
   }
+
+  public GetPatientRegistrationDetails() {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatientRegistrationDetails');
+  }
+
+  public UpdatePatientRegistrationMobileNumber(data) {
+    this.url = this.host + '/Doctor/UpdatePatientRegistrationMobileNumber';
+    return this.http.post(this.url, data)
+  }
 }

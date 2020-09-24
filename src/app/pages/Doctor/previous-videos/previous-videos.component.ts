@@ -56,4 +56,9 @@ export class PreviousVideosComponent implements OnInit {
       }
     ) 
   }
+
+  public GoBackPage()
+  {
+    location.href="#/MedicalHistory"
+  }
 }

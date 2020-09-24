@@ -204,8 +204,16 @@ export class PatientRegComponent implements OnInit {
       this.patientid = data;
       if (data != 0) {
         this.patientwalletdetails();
-        Swal.fire("Patient Registred Successfully")
-        location.href = "#/Ptientregdash"
+        if(this.languageid=='1')
+        {
+          Swal.fire("Patient Registred Successfully")
+          location.href = "#/Ptientregdash"
+        }
+        else if(this.languageid=='6')
+        {
+          Swal.fire('Patient enregistré avec succès')
+          location.href = "#/Ptientregdash"
+        }
       }
       else {
         Swal.fire("Mobile Number Already Registered With US ");

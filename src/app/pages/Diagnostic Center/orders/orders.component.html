@@ -77,33 +77,33 @@
                 *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
                 <img src="assets/Images/can.png" data-toggle="modal" data-target="#exampleModal"
                   (click)="cancelmedicine(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
-                  style="height:30px;">
-              </a>
+                  style="height:19px;">
+              </a>&nbsp;
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2"
                 *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
                 <img src="assets/Images/acc.png"
                   (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
-                  style="height:30px;">
-              </a>
+                  style="height:19px;">
+              </a>&nbsp;
               <ng-template #tipcontent3>{{labels[0].visited}}</ng-template>
               <a [ngbTooltip]="tipcontent3"
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'">
                 <img src="assets/Images/approve.png"
                   (click)="Approvestatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
-                  style="height:30px;">
-              </a>
+                  style="height:19px;">
+              </a>&nbsp;
               <ng-template #tipcontent5>{{labels[0].notVisited}}</ng-template>
               <a [ngbTooltip]="tipcontent5"
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'">
                 <img src="assets/Images/notvisit.png" (click)="UpdateDiagnosticAppointmentsNotVisitedBit(details.id)"
-                  style="height:30px;">
-              </a>
+                  style="height:19px;">
+              </a>&nbsp;
               <ng-template #tipcontent8>{{labels[0].uploadreport}}</ng-template>
               <a [ngbTooltip]="tipcontent8"
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'||details.approved=='1'&&details.notVisited=='0'">
                 <img src="assets/Images/report.png" data-toggle="modal" data-target="#exampleModal1"
-                  style="height:30px;"
+                  style="height:19px;"
                   (click)="GetUploadReportID(details.id,details.patientID,details.diagnosticCenterID)">
               </a>
             </td>
@@ -237,7 +237,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"  data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -276,7 +276,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"  data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

@@ -910,8 +910,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate
     this.prepatientemail = pemail;
     this.getserverdateandtime();
-    if (this.serverdate >= this.appdate) {
-
+    if (this.serverdate == this.appdate) {
       if (this.servertime > this.preslots) {
         this.patientiddd = patientID,
           this.preappointmentid = appointmentID;
@@ -944,13 +943,26 @@ export class MyappointmentsComponent implements OnInit {
         )
       }
       else {
-        Swal.fire('Alert', 'It is Still not yet Time to Add A Prescription.');
-        this.display = "none";
+        if (this.languageid == 1) {
+          Swal.fire('Alert', 'It is still not yet time to add a prescription.');
+          this.display = "none";
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Alert', 'Vous ne pouvez pas faire une ordonnance avant la consultation.');
+          this.display = "none";
+        }
       }
     }
     else {
-      Swal.fire('Alert', 'It is Still not yet Time to Add A Prescription.');
-      this.display = "none";
+      if (this.languageid == 1) {
+        Swal.fire('Alert', 'This appointment date is Over. you can not add prescription .');
+        this.display = "none";
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Alert', 'Cette date de rendez-vous est terminée. vous ne pouvez pas ajouter de prescription.');
+        this.display = "none";
+      }
+
     }
 
   }
@@ -1170,6 +1182,7 @@ export class MyappointmentsComponent implements OnInit {
     if (this.medicinetemplate == 1) {
       this.AddDoctorPrescriptionTemplates()
     }
+
     this.medicinename = "";
     this.unitofmeasure = "";
     this.dosage = "";
@@ -1378,7 +1391,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate
     this.slots = slots,
       this.testpatientemail = pemail
-    if (this.serverdate >= this.appdate) {
+    if (this.serverdate == this.appdate) {
       if (this.servertime > this.slots) {
         this.testdisplay = "block";
         this.diapatientid = patientID;
@@ -1387,13 +1400,30 @@ export class MyappointmentsComponent implements OnInit {
         this.slots = slots
       }
       else {
-        Swal.fire('Alert', 'It is Still not yet Time to Add A Diagnostic Test.');
-        this.testdisplay = "none";
+        if(this.languageid==1)
+        {
+          Swal.fire('Alert', 'It is still not yet time to add a diagnostic test.');
+          this.testdisplay = "none";
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('Alert', 'Il n est pas encore temps d ajouter un test de diagnostic');
+          this.testdisplay = "none";
+        }
       }
     }
     else {
-      Swal.fire('Alert', 'It is Still not yet Time to Add A  Diagnostic Test..');
-      this.testdisplay = "none";
+      if(this.languageid==1)
+      {
+        Swal.fire('Alert', 'This appointment date is Over. you can not add diagnostic test.');
+        this.testdisplay = "none";
+      }
+      else if(this.languageid==6)
+      {
+        Swal.fire('Alert', 'Cette date de rendez-vous est terminée. vous ne pouvez pas ajouter de test de diagnostic');
+        this.testdisplay = "none";
+      }
+    
     }
 
   }
@@ -1436,6 +1466,7 @@ export class MyappointmentsComponent implements OnInit {
 
     this.testssid = even.target.value;
     if (this.testssid == 59 || this.testssid == 60) {
+      this.diagnostictestname=""
     }
     else {
       for (let i = 0; i < this.tsetssslist.length; i++) {
@@ -1484,17 +1515,33 @@ export class MyappointmentsComponent implements OnInit {
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
 
         if (data != 0) {
-          Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
-          this.qwerty = [];
-          this.qwerty.length = 0
-          this.VisitDoctorAppointmentStatus(this.diaappointmentID);
-          this.Insertnotificationtestazure()
-          this.Insertnotificationtest()
-          this.tablecount = 0;
-          this.testid.length = 0;
-          this.tsetssslist = 0;
-          this.testssid = 0;
-
+          if(this.languageid==1)
+          {
+            Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+            this.qwerty = [];
+            this.qwerty.length = 0
+            this.VisitDoctorAppointmentStatus(this.diaappointmentID);
+            this.Insertnotificationtestazure()
+            this.Insertnotificationtest()
+            this.tablecount = 0;
+            this.testid.length = 0;
+            this.tsetssslist = 0;
+            this.testssid = 0;
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
+            this.qwerty = [];
+            this.qwerty.length = 0
+            this.VisitDoctorAppointmentStatus(this.diaappointmentID);
+            this.Insertnotificationtestazure()
+            this.Insertnotificationtest()
+            this.tablecount = 0;
+            this.testid.length = 0;
+            this.tsetssslist = 0;
+            this.testssid = 0;
+          }
+   
         }
       })
     }
@@ -1760,7 +1807,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate;
     this.pemailsoap = pemail;
     this.slots = slots
-    if (this.serverdate >= this.appdate) {
+    if (this.serverdate == this.appdate) {
       if (this.servertime > this.slots) {
         this.soapdisplay = "block"
 
@@ -1779,13 +1826,31 @@ export class MyappointmentsComponent implements OnInit {
         this.ailment = list[0].reasonForVisit
       }
       else {
-        Swal.fire('Alert', 'It is Still not yet Time to Add A Soap Notes.');
-        this.soapdisplay = "none"
+        if(this.languageid==1)
+        {
+          Swal.fire('Alert', 'It is still not yet time to add a soap notes.');
+          this.soapdisplay = "none"
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('Alert', 'Il n est pas encore temps d ajouter des notes de savon.');
+          this.soapdisplay = "none"
+        }
+      
       }
     }
     else {
-      Swal.fire('Alert', 'It is Still not yet Time to Add A Soap Notes.');
-      this.soapdisplay = "none"
+      if(this.languageid==1)
+        {
+          Swal.fire('Alert', 'This appointment date is over. you can not add soap notes');
+          this.soapdisplay = "none"
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('Alert', 'Cette date de rendez-vous est terminée. vous ne pouvez pas ajouter de notes de savon');
+          this.soapdisplay = "none"
+        }
+      
     }
     // for(let i=0;i<this.appointmentlist.length;i++)
     // {
@@ -1800,8 +1865,6 @@ export class MyappointmentsComponent implements OnInit {
     // }
 
   }
-
-
 
   // public InsertSickSlipGenarator() {
   //   
@@ -2438,7 +2501,7 @@ export class MyappointmentsComponent implements OnInit {
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+         'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
         // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>OBJET: ' + this.leavefor + ' Je vous référe le patient </b></p><p> ' + this.patientname + ' </p><p style="text-align: center !important;">Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.wwwwXrr</p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
         'AppointmentID': 0,
         'DoctorID': this.doctorid,
@@ -2447,8 +2510,6 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid
       }
     }
-
-
     this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
       if (res != 0) {
         this.doctorid = localStorage.getItem('userid');
@@ -2481,7 +2542,13 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.SendMail(mailentity).subscribe(data => {
 
-      Swal.fire('Mail sent successfully.');
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
+
       this.leavefor = "";
       this.ailment = "";
       document.getElementById('close').click();
@@ -2729,7 +2796,12 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.SendMail(mailentity).subscribe(data => {
 
-      Swal.fire('Mail sent successfully.');
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
     })
   }
 
@@ -2802,7 +2874,12 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.SendMail(mailentity).subscribe(data => {
 
-      Swal.fire('Mail sent successfully.');
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
     })
   }
 
@@ -2829,7 +2906,12 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.SendMail(mailentity).subscribe(data => {
 
-      Swal.fire('Mail sent successfully.');
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
     })
   }
 
@@ -2970,6 +3052,10 @@ export class MyappointmentsComponent implements OnInit {
   hospital_ClinicName: any;
   adate: any;
   signatureURL: any;
+  docaddres:any;
+  nationaidno:any;
+  regno:any;
+  patientaddress:any;
   public GenerateReciept(data) {
     ;
     this.appointmentID = data.appointmentID;
@@ -2982,7 +3068,12 @@ export class MyappointmentsComponent implements OnInit {
     this.mobileNumber = data.mobileNumber;
     this.hospital_ClinicName = data.hospital_ClinicName;
     this.adate = data.reciptdate;
-    this.signatureURL = data.signatureURL
+    this.signatureURL = data.signatureURL,
+    this.docaddres=data.docaddress,
+    this.nationaidno=data.nationalIdentityNo,
+    this.regno=data.registrationNo,
+    this.patientaddress=data.patientaddress
+
   }
 
   display: any;
@@ -3009,31 +3100,62 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetFolloupVistID(id) {
-    ;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to This Appointment Follow Up Again!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Follow Up!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.UpdateBookAppointmentFollowupVisit(id).subscribe(res => {
-          let test = res;
-          this.getbookappointmentbydocid;
-        })
-        Swal.fire(
-          'Success!',
-          'This Appointment Follow Up Again',
-          'success'
-        )
-      }
-      else {
-        this.getbookappointmentbydocid();
-      }
-    })
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to This Appointment Follow Up Again!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Follow Up!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateBookAppointmentFollowupVisit(id).subscribe(res => {
+            let test = res;
+            this.getbookappointmentbydocid;
+          })
+          Swal.fire(
+            'Success!',
+            'This Appointment Follow Up Again',
+            'success'
+          )
+          this.getbookappointmentbydocid();
+        }
+        else {
+          this.getbookappointmentbydocid();
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Etes-vous sûr?',
+        text: "Vous voulez à nouveau suivre ce rendez-vous!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, visite de suivi!',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateBookAppointmentFollowupVisit(id).subscribe(res => {
+            let test = res;
+            this.getbookappointmentbydocid;
+          })
+          Swal.fire(
+            'Succès!',
+            'Ce rendez-vous fait le suivi',
+            'success'
+          )
+          this.getbookappointmentbydocid();
+        }
+        else {
+          this.getbookappointmentbydocid();
+        }
+      })
+    }
+
   }
 
 
@@ -3142,9 +3264,6 @@ export class MyappointmentsComponent implements OnInit {
     document.getElementById("myForm").style.display = "none";
 
 
-
-
-
   }
 
 
@@ -3176,11 +3295,22 @@ export class MyappointmentsComponent implements OnInit {
         })
       }
       else {
-        Swal.fire('It is Still not yet Time to Do The Chat. You Can Start At ' + slots)
+        if (this.languageid == 1) {
+          Swal.fire('Alert','It is still not yet time to the chat. you can start at ' + slots)
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Alert','Il n est pas encore temps de discuter. vous pouvez commencer à ' + slots)
+        }
       }
     }
     else {
-      Swal.fire('Your Appointment Date Is Over.You can not do chat now')
+      if (this.languageid == 1) {
+        Swal.fire('Alert','Your Appointment Date Is Over.You can not do chat now')
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Alert','Votre date de rendez-vous est terminée. Vous ne pouvez pas discuter maintenant')
+      }
+
     }
   }
 

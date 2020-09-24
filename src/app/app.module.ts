@@ -324,7 +324,8 @@ import { NurseNotificationsComponent } from './pages/Nurse/nurse-notifications/n
 import { MidwifenotificationsComponent } from './pages/Midewife/midwifenotifications/midwifenotifications.component';
 import { PhysioNotificationComponent } from './pages/physiotherapist/physio-notification/physio-notification.component';
 
-
+import { NgxTagsInputModule } from 'ngx-tags-input';
+import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge-patientdata.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -641,7 +642,8 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DoctorNotificationsComponent,
     NurseNotificationsComponent,
     MidwifenotificationsComponent,
-    PhysioNotificationComponent
+    PhysioNotificationComponent,
+    MergePatientdataComponent
   ],
   imports: [
     BrowserModule,
@@ -662,6 +664,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NgMultiSelectDropDownModule.forRoot(),
     [BrowserModule, NgxPaginationModule],
     CKEditorModule,
+    NgxTagsInputModule,
 
     TranslatorModule.forRoot({
       providedLanguages: ['en', 'fr'],

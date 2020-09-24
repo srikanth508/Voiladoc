@@ -218,35 +218,72 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.accdate = date;
     this.accemail = emailID;
     debugger;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Accept This Order!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Accept it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.ApprovedPatientMedicineDetails(id).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Accept This Order!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Accept it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.ApprovedPatientMedicineDetails(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+            this.InsertAccptNotification();
+            this.InsertNotiFicationAccpt();
+  
+          })
+          Swal.fire(
+            'Completed!',
+            'Order has been Accepted.',
+            'success'
+          )
+        }
+        else {
           this.GetPharmacyOrders();
           this.getpharmacyorders();
-          this.InsertAccptNotification();
-          this.InsertNotiFicationAccpt();
-
-        })
-        Swal.fire(
-          'Completed!',
-          'Order has been Accepted.',
-          'success'
-        )
-      }
-      else {
-        this.GetPharmacyOrders();
-        this.getpharmacyorders();
-      }
-    })
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire({
+        title: 'Etes-vous sûr ?',
+        text: "Accepter cette commande!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui!',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.ApprovedPatientMedicineDetails(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+            this.InsertAccptNotification();
+            this.InsertNotiFicationAccpt();
+  
+          })
+          Swal.fire(
+            'Commande acceptée!',
+            'Détails enregistrés.',
+            'success'
+          )
+        }
+        else {
+          this.GetPharmacyOrders();
+          this.getpharmacyorders();
+        }
+      })
+    }
+   
   }
 
 

@@ -26,26 +26,25 @@
       [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/dd/yyyy' }"
        bsDatepicker> -->
 
-        <input *ngIf="languageid==1" type="text" class="form-control" placeholder="DD/MM/YYYY"
-          [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-           bsDatepicker>
+      <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate2" name="Selecteddate2"
+        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
-        <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-          [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"  (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-          bsDatepicker>
-        <!-- <input type="date" [(ngModel)]="todate" name="todate" class="form-control"> -->
-        <br>
-    
+      <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"
+        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+      <!-- <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)"> -->
+      <br>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetSlotID($event)">
         <option value="0">{{labels[0].selectSlot}}</option>
-        <option *ngFor="let slot of doctorslots"  value="{{slot.id}}">{{slot.slots}}</option>
+        <option *ngFor="let slot of doctorslots" value="{{slot.id}}">{{slot.slots}}</option>
       </select>
     </div>
   </div><br>
   <div class="row">
-    <div class="col-lg-3" >
+    <div class="col-lg-3">
       <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="Search" name="Search">
     </div>
   </div><br>

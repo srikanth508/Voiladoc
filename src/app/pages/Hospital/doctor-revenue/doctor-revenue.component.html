@@ -34,9 +34,9 @@
   <div class="row">
     <div class="col-lg-3">
       <select class="form-control" (change)="SelectAppointmentType($event)">
-        <option value="0">Select Appointment Type</option>
-        <option  value="1">In Clinic</option>
-        <option  value="2">Video Call</option>
+        <option value="0">{{labels[0].selectAppointmentType}}</option>
+        <option  value="1">{{labels[0].inClinic}}</option>
+        <option  value="2">{{labels[0].vedioConference}}</option>
       </select>
     </div>
     <div class="col-lg-3"></div>

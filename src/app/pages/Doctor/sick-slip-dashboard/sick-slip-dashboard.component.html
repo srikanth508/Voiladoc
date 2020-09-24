@@ -63,14 +63,14 @@
             <!-- <img src="assets/Images/logo.png" style="float: right;margin-bottom: -10%;"> -->
             <br>
           </div>
-          <div class="col-lg-12" [innerHTML]="desc">
-
+          <div class="col-lg-12">
+            <p [innerHTML]="desc"></p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
-          style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button>
+        <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
+          style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button> -->
         <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
       </div>

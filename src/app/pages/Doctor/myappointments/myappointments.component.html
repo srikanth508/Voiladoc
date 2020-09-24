@@ -83,7 +83,8 @@
             <td>
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
               <button type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
-                [disabled]="details.isVisited=='1' && details.completed=='2'||details.cancelled=='1'||details.docCancelled=='1'" *ngIf="details.bookingTypeID=='2'"
+                [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
+                *ngIf="details.bookingTypeID=='2'"
                 (click)="getvedioconferencebydateandtime(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
 
@@ -104,7 +105,7 @@
               <!-- [routerLink]="['/Mychats',details.doctorID,details.patientID]" -->
               <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
               <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
-                *ngIf="details.appointmentTypeID=='2'"
+                *ngIf="details.appointmentTypeID=='2'&&details.disableall=='1'"
                 (click)="GetChatShowID(details.patientID,details.appdate,details.slots)">{{labels[0].chat}}</button>
             </td>
             <td>{{details.appointmentID}}</td>
@@ -163,9 +164,9 @@
                     </a>
                   </td>
                   <td style="border:none">
-                    <ng-template #tipcontent567>Upload Prescription</ng-template>
+                    <ng-template #tipcontent567>{{labels[0].uploadprescription}}</ng-template>
                     <a [ngbTooltip]="tipcontent567"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.disableall=='1'">
                       <img src=" assets/Images/uploadfile.png" style="height:25px;" data-toggle="modal"
                         data-target="#UploadPhotos" (click)="GetPrescriptionPhoto(details)" />
                     </a>
@@ -175,7 +176,7 @@
                   <td style="border:none">
                     <ng-template #tipcontent5>{{labels[0].addPrescription}}</ng-template>
                     <a [ngbTooltip]="tipcontent5"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
                       <img src="assets/Images/pre.png" data-toggle="modal" data-target="#exampleModalLong"
                         style="height:25px;"
                         (click)="GetPatientid(details.patientID,details.appointmentID,details.appointmentTypeID,details.countryID,details.cityID,details.areaID,details.slots,details.appdate,details.pEmail)" />
@@ -184,7 +185,7 @@
                   <td style="border:none">
                     <ng-template #tipcontent7>{{labels[0].addTest}}</ng-template>
                     <a [ngbTooltip]="tipcontent7"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
                       <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
                         style="height:25px;"
                         (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
@@ -193,7 +194,7 @@
                   <td style="border:none">
                     <ng-template #tipcontent10>{{labels[0].addSoapNotes}}</ng-template>
                     <a [ngbTooltip]="tipcontent10"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
                         (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
@@ -796,6 +797,7 @@
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
                       </td>
+
                       <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->
                       <!-- <td>{{medicinelist.ICDCode}}</td> -->
                       <!-- <td>{{medicinelist.Diagnosis}}</td> -->
@@ -886,26 +888,27 @@
             </div>
             <br>
             <div *ngIf="testssid=='59'||testssid=='60'">
-            <div class="row" >
-              <div class="col-lg-5">
-                <label>{{labels[0].testName}} :</label>
-              </div>
-              <div class="col-lg-7">
-               <input type="text" class="form-control" [(ngModel)]="diagnostictestname" name="diagnostictestname">
-              </div>
-            </div> <br>
-          </div>
-           <div *ngIf="testid==2">
-            <div class="row" >
-              <div class="col-lg-5">
-                <label>{{labels[0].clinicalInfo}} :</label>
-              </div>
-              <div class="col-lg-7">
-                <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
-                  [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
-              </div> 
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].testName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
+                    [(ngModel)]="diagnostictestname" name="diagnostictestname">
+                </div>
+              </div> <br>
             </div>
-          </div><br>
+            <div *ngIf="testid==2">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].clinicalInfo}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
+                    [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
+                </div>
+              </div>
+            </div><br>
             <div class="row">
               <div class="col-lg-5">
               </div>
@@ -1445,13 +1448,13 @@
           <br>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].patientname}}: </b>
+                {{labels1[0].patientname}} :
               </label>
               <span style="color: red;">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <input type="text" [(ngModel)]="patientname" placeholder="{{labels1[0].patientname}}" name="patientname"
                 disabled class="form-control">
               <br>
@@ -1459,13 +1462,13 @@
           </div>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].patientNumber}} :</b>
+                {{labels1[0].patientNumber}} :
               </label>
               <span style="color: red;">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <input type="text" [(ngModel)]="phonenumber" placeholder="{{labels1[0].patientNumber}}" name="phonenumber"
                 disabled class="form-control">
               <br>
@@ -1473,12 +1476,12 @@
           </div>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].email}}</b> :</label>
+                {{labels1[0].email}} :</label>
               <span style="color: red;">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <input type="text" [(ngModel)]="email" placeholder="{{labels1[0].email}}" name="email" disabled
                 class="form-control">
               <br>
@@ -1486,13 +1489,13 @@
           </div>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].from}} :</b>
+                {{labels1[0].from}} :
               </label>
               <span style="color: red;">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
                 [bsConfig]="{ showWeekNumbers:false }" name="fromdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="fromdate" bsDatepicker>
@@ -1505,12 +1508,12 @@
           </div>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].to}}</b> :</label>
+                {{labels1[0].to}} :</label>
               <span style="color: red;">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
                 [bsConfig]="{ showWeekNumbers:false }" name="todate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="todate" bsDatepicker>
@@ -1523,9 +1526,9 @@
           </div>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].leaveOfAbsence}} :</b>
+                {{labels1[0].leaveOfAbsence}} :
               </label>
               <span style="color: red;">*</span>
             </div>
@@ -1541,13 +1544,13 @@
           <br>
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <label>
-                <b>{{labels1[0].ailment}} :</b>
+                {{labels1[0].ailment}} :
               </label>
               <span style="color: red;">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <textarea rows="4" [(ngModel)]="ailment" placeholder="{{labels1[0].ailment}}" name="ailment"
                 class="form-control"></textarea>
               <!-- <input type="text" [(ngModel)]="ailment" placeholder="Ailment" name="ailment" class="form-control"><br> -->
@@ -1622,7 +1625,7 @@
               <label class="dname_label">{{labels[0].patintIDd}} :</label>
               <span class="required">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <input type="text" placeholder="Patient ID" disabled class="form-control" [(ngModel)]="patientidd"
                 name="patientidd">
             </div>
@@ -1633,7 +1636,7 @@
               <label class="dname_label">{{labels[0].patientName}} :</label>
               <span class="required">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <input type="text" placeholder="Patient Name" disabled class="form-control" [(ngModel)]="patientname"
                 name="patientname">
             </div>
@@ -1644,7 +1647,7 @@
               <label class="dname_label">{{labels[0].phoneNoo}} :</label>
               <span class="required">*</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <input type="number" name="mobileno" [(ngModel)]="mobileno" disabled class="form-control">
             </div>
           </div>
@@ -1653,7 +1656,7 @@
             <div class="col-lg-3">
               <label class="dname_label">{{labels[0].emaill}} :</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <input type="text" class="form-control" disabled name="email" [(ngModel)]="email">
             </div>
           </div>
@@ -1673,142 +1676,146 @@
             </div>
           </div>
           <br>
-
-          <div class="row" *ngIf="referaltypeid=='1'">
-            <div class="col-lg-12">
-              <div class="row">
-                <div class="col-lg-3">
-                  <label *ngIf="languageid==1" class="dname_label">Country :</label>
-                  <label *ngIf="languageid==6" class="dname_label">Pays :</label>
-                </div>
-                <div class="col-lg-4">
-                  <!-- <select class="form-control" (change)="GetCountryID($event)">
+          <div *ngIf="referaltypeid=='1'">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label *ngIf="languageid==1" class="dname_label">Country :</label>
+                    <label *ngIf="languageid==6" class="dname_label">Pays :</label>
+                  </div>
+                  <div class="col-lg-6">
+                    <!-- <select class="form-control" (change)="GetCountryID($event)">
                         <option value="0">{{labels1[0].selectCountry}}</option>
                         <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
                     </select> -->
 
-                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="countrylist" [settings]="countrydd"
-                    (onSelect)="GetCountryID($event)">
-                  </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="countrylist" [settings]="countrydd"
+                      (onSelect)="GetCountryID($event)">
+                    </ng-multiselect-dropdown>
+                  </div>
                 </div>
-              </div>
-              <br>
+                <br>
 
-              <div class="row">
-                <div class="col-lg-3">
-                  <label class="dname_label">Province :</label>
-                </div>
-                <div class="col-lg-4">
-                  <!-- <select class="form-control"  (change)="GetCityID($event)">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label class="dname_label">Province :</label>
+                  </div>
+                  <div class="col-lg-6">
+                    <!-- <select class="form-control"  (change)="GetCityID($event)">
                         <option value="0">{{labels1[0].selectProvince}}</option>
                         <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
                     </select> -->
-                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="citylist" [settings]="citydd"
-                    (onSelect)="GetCityID($event)">
-                  </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="citylist" [settings]="citydd"
+                      (onSelect)="GetCityID($event)">
+                    </ng-multiselect-dropdown>
+                  </div>
                 </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col-lg-3">
-                  <label class="dname_label">{{labels2[0].city}} :</label>
-                </div>
-                <div class="col-lg-4">
-                  <!-- <select class="form-control"  (change)="GetAreaID($event)">
+                <br>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label class="dname_label">{{labels2[0].city}} :</label>
+                  </div>
+                  <div class="col-lg-6">
+                    <!-- <select class="form-control"  (change)="GetAreaID($event)">
                         <option value="0">{{labels1[0].selectCity}}</option>
                         <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
                     </select> -->
-                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="arealist" [settings]="areadd"
-                    (onSelect)="GetAreaID($event)">
-                  </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="arealist" [settings]="areadd"
+                      (onSelect)="GetAreaID($event)">
+                    </ng-multiselect-dropdown>
 
+                  </div>
                 </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col-lg-3">
-                  <label class="dname_label">{{labels[0].department}} :</label>
+                <br>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label class="dname_label">{{labels[0].department}} :</label>
+                  </div>
+                  <div class="col-lg-6">
+                    <select class="form-control" (change)="GetDepartmentID($event)" required [(ngModel)]="departmentid"
+                      name="departmentid">
+                      <option value="0" selected>{{labels[0].selectDepartment}}</option>
+                      <option *ngFor="let department of departmentlist" value={{department.id}}>
+                        {{department.departmentname}}
+                      </option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-lg-4">
-                  <select class="form-control" (change)="GetDepartmentID($event)" required [(ngModel)]="departmentid"
-                    name="departmentid">
-                    <option value="0" selected>{{labels[0].selectDepartment}}</option>
-                    <option *ngFor="let department of departmentlist" value={{department.id}}>
-                      {{department.departmentname}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col-lg-3">
-                  <label *ngIf="languageid==1" class="dname_label">Doctor :</label>
-                  <label *ngIf="languageid==6" class="dname_label">Médecin :</label>
-                  <span class="required">*</span>
-                </div>
-                <div class="col-lg-4">
-                  <!-- <select class="form-control" (change)="GetDoctorID($event)">
+                <br>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label *ngIf="languageid==1" class="dname_label">Doctor :</label>
+                    <label *ngIf="languageid==6" class="dname_label">Médecin :</label>
+                    <span class="required">*</span>
+                  </div>
+                  <div class="col-lg-6">
+                    <!-- <select class="form-control" (change)="GetDoctorID($event)">
                         <option>{{labels[0].selectDoctor}}</option>
                         <option *ngFor="let doc of referdoctorlist" value="{{doc.id}}">{{doc.doctorName}}</option>
                     </select> -->
-                  <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="referdoctorlist" [settings]="docdd"
-                    (onSelect)="GetDoctorID($event)">
-                  </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown [placeholder]="selectlabel" [data]="referdoctorlist" [settings]="docdd"
+                      (onSelect)="GetDoctorID($event)">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label class="Email_label">SOAP Notes :</label>
+
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="radio" name="soap" [(ngModel)]="soap" [value]="1">&nbsp;{{labels[0].yes}} &nbsp;
+                    <input type="radio" name="soap" [(ngModel)]="soap" [value]="0">&nbsp;{{labels[0].no}}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row" *ngIf="referaltypeid=='2'">
-            <div class="col-lg-3">
-              <label class="dname_label">{{labels[0].doctorName}} :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="doctorname" name="doctorname"
-                (ngModelChange)="Getdocname(doctorname)" placeholder="{{labels[0].doctorName}}">
-            </div>
-          </div>
-          <br>
-          <div class="row" *ngIf="referaltypeid=='2'">
-            <div class="col-lg-3">
-              <label class="dname_label">{{labels[0].email}} :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" placeholder="{{labels[0].email}}" name="doctoremail"
-                [(ngModel)]="doctoremail">
-            </div>
-          </div>
-          <br>
-          <div class="row" *ngIf="referaltypeid=='2'">
-            <div class="col-lg-3">
-              <label class="dname_label">{{labels[0].phoneNo}} :</label>
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" name="docphoneno" placeholder="{{labels[0].phoneNo}}"
-                [(ngModel)]="docphoneno">
-            </div>
-          </div>
-          <br>
+          </div><br>
 
-          <div class="row" *ngIf="referaltypeid=='1'">
-            <div class="col-lg-3">
-              <label class="Email_label">SOAP Notes :</label>
 
+          <div *ngIf="referaltypeid=='2'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label class="dname_label">{{labels[0].doctorName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="doctorname" name="doctorname"
+                  (ngModelChange)="Getdocname(doctorname)" placeholder="{{labels[0].doctorName}}">
+              </div>
             </div>
-            <div class="col-lg-3">
-              <input type="radio" name="soap" [(ngModel)]="soap" [value]="1">&nbsp;{{labels[0].yes}} &nbsp;
-              <input type="radio" name="soap" [(ngModel)]="soap" [value]="0">&nbsp;{{labels[0].no}}
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label class="dname_label">{{labels[0].email}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" placeholder="{{labels[0].email}}" name="doctoremail"
+                  [(ngModel)]="doctoremail">
+              </div>
             </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label class="dname_label">{{labels[0].phoneNo}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="docphoneno" placeholder="{{labels[0].phoneNo}}"
+                  [(ngModel)]="docphoneno">
+              </div>
+            </div>
+            <br>
+            <br>
           </div>
-          <br>
           <div class="row">
             <div class="col-lg-3">
               <label *ngIf="languageid==1" class="dname_label">Notes :</label>
               <label *ngIf="languageid==6" class="dname_label">Remarques :</label>
               <span class="required">*</span>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
               <ckeditor [editor]="Editor" [(ngModel)]="referalnotes" name="referalnotes" data=""></ckeditor>
             </div>
           </div>
@@ -1818,7 +1825,7 @@
               <label *ngIf="languageid==1" class="reglabel">Upload file :</label>
               <label *ngIf="languageid==6" class="reglabel">Télécharger des fichiers :</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)"
                 class="dropzone_vendorinvoice">
               </ngx-dropzone>
@@ -1865,19 +1872,31 @@
       </div>
       <div class="modal-body">
         <div class="row">
-
-          <div class="col-lg-12" style="    margin-left: 31px;">
+          <div class="col-lg-6">
+            <div><b>Date</b> : {{adate}}</div>
+            <div><b>{{labels[0].receiptNo}}</b> : {{appointmentID}} </div>
+            <div><b>{{labels[0].patientName}}</b> : {{patientName}}</div>
+            <div><b>{{labels[0].nationalIDNo}}</b> : {{nationaidno}}</div>
+            <div><b>{{labels[0].address}}</b> : {{patientaddress}}</div>
+          </div>
+          <div class="col-lg-2">
+          </div>
+          <div class="col-lg-4">
             <!-- <label>Video Call Reciept</label> -->
+            <div>{{doctorName}}</div>
+            <div>{{regno}} </div>
+            <div>{{hospital_ClinicName}}</div>
+            <div>{{docaddres}}</div>
 
-            <div>{{labels[0].hospitalClinicName}} : {{hospital_ClinicName}}</div>
+            <!-- <div>{{labels[0].phoneNoo}} : {{mobileNumber}}</div>
 
-            <div>{{labels[0].phoneNoo}} : {{mobileNumber}}</div>
+            <div>{{labels[0].patientName}} : {{patientName}}</div> -->
 
-            <div>{{labels[0].patientName}} : {{patientName}}</div>
+          </div>
+        </div>
+        <hr>
 
-            <hr>
-
-            <!-- <label>Slot : {{slots}}</label>
+        <!-- <label>Slot : {{slots}}</label>
   
               <label>Name : {{patientName}}</label>
   
@@ -1885,46 +1904,43 @@
   
               <label>Paid Amount: {{videoAmount}}</label> -->
 
-            <div class="row">
-              <div class="col-lg-4">
-                Date
-              </div>
-              <div class="col-lg-4">
-                Description
-              </div>
-              <div class="col-lg-4">
-                {{labels[0].charge}}
-              </div>
-
-            </div>
-
-            <div class="row">
-              <div class="col-lg-4">
-                {{adate}}
-              </div>
-              <div class="col-lg-4">
-                Video Call Payment Reciept
-              </div>
-              <div class="col-lg-4">
-                {{videoAmount}}
-              </div>
-
-            </div>
-            <br>
-            <div style="text-align: end;
-              margin-top: 81px;
-              margin-right: 46px;"> {{labels[0].totalCharges}} : {{videoAmount}}</div>
-            <br>
-            <br>
-            <br>
-            <div style="margin-top: -83px;">
-              {{labels[0].doctorr}} : {{doctorName}}
-            </div>
-            <img src="{{signatureURL}}" style="height: 69px;">
+        <div class="row">
+          <div class="col-lg-4">
+            Description
+          </div>
+          <div class="col-lg-4">
 
           </div>
+          <div class="col-lg-4">
+            {{labels[0].charge}} : {{videoAmount}}
+          </div>
         </div>
+        <div class="row">
+
+          <div class="col-lg-4">
+            {{labels[0].vediocallreciept}}
+          </div>
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+            <!-- {{videoAmount}} -->
+          </div>
+
+        </div>
+        <br>
+        <div style="text-align: end;
+              margin-top: 81px;
+              margin-right: 46px;"> {{labels[0].totalCharges}} : {{videoAmount}}</div>
+
+
+        <div style="margin-top: -83px;">
+          {{labels[0].doctorr}} : {{doctorName}}
+        </div>
+        <img src="{{signatureURL}}" style="height: 69px;">
+
       </div>
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
         <button type="button" class="btn btn-md allbtns btncolor" (click)="SendReciept()"
@@ -1941,7 +1957,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload Prescription</h5>
+        <h5 class="modal-title" *ngIf="languageid=='1'" id="exampleModalLabel">Upload Prescription</h5>
+        <h5 class="modal-title" *ngIf="languageid=='6'" id="exampleModalLabel">Télécharger l’ordonnance</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

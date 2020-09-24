@@ -4,13 +4,16 @@
         <br>
         <hr style="color: aliceblue;border: solid 1px;"> -->
         <a class="tablinks" (click)="highlight($event)" routerLink="/AdminDash" *ngIf="roleid=='12'">
-            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].registredEntityDetails}}
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Registered Entityes
+            <!-- {{labels[0].registredEntityDetails}} -->
         </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/AdminAllAppointments" *ngIf="roleid=='12'">
-            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].appointments}}
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Appointments
+             <!-- {{labels[0].appointments}} -->
         </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/AdminRevenue" *ngIf="roleid=='12'">
-            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].revenue}}
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Revenue
+             <!-- {{labels[0].revenue}} -->
         </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/SupportRegDash" *ngIf="roleid=='12'">
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportReg}}
@@ -18,18 +21,25 @@
         <a class="tablinks" (click)="highlight($event)" routerLink="/DeliveryPartnerDashboard" *ngIf="roleid=='12'">
             <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].deliveryCompany}}
         </a>
+        <a class="tablinks" (click)="highlight($event)" routerLink="/MergePatientdata" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Merge Patient Data
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/Faq" *ngIf="roleid=='12'">
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].faq}}
         </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/HowToUseVoilaDOc" *ngIf="roleid=='12'">
-            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].howToUseVoilaDoc}}
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; How to use voiladoc
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
         </a>
+
         <a class="tablinks" (click)="highlight($event)" routerLink="/DoctorTipsAndTricks" *ngIf="roleid=='12'">
-            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorTips}}
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Doctor tips
+            <!-- {{labels[0].doctorTips}} -->
         </a>
-        <a class="tablinks" (click)="highlight($event)" routerLink="/HowToUseDoctors" *ngIf="roleid=='12'">
+        <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/HowToUseDoctors" *ngIf="roleid=='12'">
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].howtoUseDoc}}
-        </a>
+        </a> -->
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='1'" data-target="#REGISTRATION">
             <img src="assets/Images/docreg.png" style="width: 20px;">&nbsp; &nbsp; {{labels[0].registration}}
         </a>
@@ -229,14 +239,17 @@
 
 
         <a class="tablinks" (click)="highlight($event)" routerLink="/RegisterPatients" *ngIf="roleid=='12'">
-            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].registeredPatients}}
+            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Registered Patients
+            <!-- {{labels[0].registeredPatients}} --> 
         </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/PatientWallet" *ngIf="roleid=='12'">
-            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].patientWallet}}
+            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Wallet
+            <!-- {{labels[0].patientWallet}} -->
         </a>
 
         <a class="tablinks" (click)="highlight($event)" routerLink="/SalesDash" *ngIf="roleid=='12'">
-            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].salesUsers}}
+            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Sales users
+            <!-- {{labels[0].salesUsers}} -->
         </a>
 
         <a class="tablinks" (click)="highlight($event)" routerLink="/SupportProfile" *ngIf="roleid=='13'">
@@ -250,7 +263,7 @@
             <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].webSupportTickets}}
         </a>
 
-        <div class="collapse" id="Websupportticets" style="padding-left: 7%;">
+        <div class="collapse" id="Websupportticets" style="padding-left: 2%;">
 
             <a class="tablinks" (click)="highlight($event)" routerLink="/SupportWeb">
                 <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].pendingTickets}}
@@ -261,10 +274,12 @@
         </div>
 
         <a class="tablinks" (click)="highlight($event)" routerLink="/AnnounseDash" *ngIf="roleid=='12'">
-            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].announcements}}
+            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Announcements
+            <!-- {{labels[0].announcements}} -->
         </a>
         <a class="tablinks" (click)="highlight($event)" routerLink="/ArticleDash" *ngIf="roleid=='12'">
-            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; ARTICLES
+            <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Articles
+            
         </a>
         <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='12'" data-target="#Masters">
             <img src="assets/Images/sponser.png" style="width: 20px;">&nbsp; &nbsp; {{labels[0].masters}}

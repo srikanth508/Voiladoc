@@ -103,7 +103,7 @@
             </td>
             <td *ngIf="roleid==14">
               <!-- id="details.appointmentID" name="details.appointmentID"  -->
-              <textarea rows="4" [(ngModel)]="details.ReasonForCancel"
+              <textarea rows="4" placeholder="{{labels[0].reasonForCancel}}" [(ngModel)]="details.ReasonForCancel"
                 *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'"></textarea>
             </td>
             <td *ngIf="roleid==14">

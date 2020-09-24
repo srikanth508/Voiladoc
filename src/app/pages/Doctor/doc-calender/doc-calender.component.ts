@@ -147,7 +147,7 @@ export class DocCalenderComponent implements OnInit {
               this.timeSheetTablearray[t]["date"] = zz[i].date;
               this.timeSheetTablearray[t]["niighttimeid"] = zz[i].timeID;
             }
-            
+
             else {
 
               this.timeSheetTablearray[t]["mrngtimeid"] = 6
@@ -210,10 +210,10 @@ export class DocCalenderComponent implements OnInit {
             this.timeSheetTablearray[t]["afternoonAppointmentTypeID"] = kk[0].afternoonAppointmentTypeID;
             this.timeSheetTablearray[t]["eveningAppointmentTypeID"] = kk[0].eveningAppointmentTypeID;
             this.timeSheetTablearray[t]["nightAppointmentTypeID"] = kk[0].nightAppointmentTypeID;
-            this.timeSheetTablearray[t]["mtextcolor"] = kk[0].mtextcolor;
-            this.timeSheetTablearray[t]["atextcolor"] = kk[0].atextcolor;
-            this.timeSheetTablearray[t]["etextcolor"] = kk[0].etextcolor;
-            this.timeSheetTablearray[t]["ntextcolor"] = kk[0].ntextcolor;
+            // this.timeSheetTablearray[t]["mtextcolor"] = kk[0].mtextcolor;
+            // this.timeSheetTablearray[t]["atextcolor"] = kk[0].atextcolor;
+            // this.timeSheetTablearray[t]["etextcolor"] = kk[0].etextcolor;
+            // this.timeSheetTablearray[t]["ntextcolor"] = kk[0].ntextcolor;
 
             this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
 
@@ -246,9 +246,16 @@ export class DocCalenderComponent implements OnInit {
       'Date': this.date
     }
     this.docservice.InsertDoctorDisabledSlots(entity).subscribe(data => {
-      Swal.fire('Disabled Successfully');
-      this.GetDoctorHospitalDetails();
-      this.getGetDoctorDisabledSlots()
+      if (this.languageid == 1) {
+        Swal.fire('Disabled Successfully');
+        this.GetDoctorHospitalDetails();
+        this.getGetDoctorDisabledSlots()
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Désactivé avec succès');
+        this.GetDoctorHospitalDetails();
+        this.getGetDoctorDisabledSlots()
+      }
 
     })
   }
@@ -266,10 +273,16 @@ export class DocCalenderComponent implements OnInit {
   public getdeleteslots() {
     debugger
     this.docservice.DeleteDisableSlots(this.dochosptailid, this.doctorid, this.timeid, this.date).subscribe(data => {
-      Swal.fire('Enabled Successfully');
-      this.GetDoctorHospitalDetails();
-      this.getGetDoctorDisabledSlots()
-
+      if (this.languageid == 1) {
+        Swal.fire('Enabled Successfully');
+        this.GetDoctorHospitalDetails();
+        this.getGetDoctorDisabledSlots()
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Détails enregistrés');
+        this.GetDoctorHospitalDetails();
+        this.getGetDoctorDisabledSlots()
+      }
 
     })
   }
@@ -289,9 +302,17 @@ export class DocCalenderComponent implements OnInit {
     for (let i = 0; i < 4; i++) {
       this.timeid = this.timeid + 1
       this.docservice.DeleteDisableSlots(this.dochosptailid, this.doctorid, this.timeid, this.date).subscribe(data => {
-        Swal.fire('Enabled Successfully');
-        this.GetDoctorHospitalDetails();
-        this.getGetDoctorDisabledSlots()
+
+        if (this.languageid == 1) {
+          Swal.fire('Enabled Successfully');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Détails enregistrés');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
 
       })
     }
@@ -320,9 +341,17 @@ export class DocCalenderComponent implements OnInit {
         'Date': this.date
       }
       this.docservice.InsertDoctorDisabledSlots(entity).subscribe(data => {
-        Swal.fire('Disabled Successfully');
-        this.GetDoctorHospitalDetails();
-        this.getGetDoctorDisabledSlots()
+        if (this.languageid == 1) {
+          Swal.fire('Disabled Successfully');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Désactivé avec succès');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+
       })
     }
   }

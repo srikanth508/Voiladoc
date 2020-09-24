@@ -85,10 +85,13 @@
                 {{labels[0].weight}} : <b>{{wight}}</b>
               </td>
             </tr>
-
             <tr>
               <td>
-                {{labels[0].allergies}} : <b>{{allergies}}
+                {{labels[0].allergies}} : <b>
+
+                  <ngx-tags-input class="form-control input-lg" style="height: 50px;" [(ngModel)]="allergies"
+                    name="allergies"></ngx-tags-input>
+                  <!-- {{allergies}} -->
 
                   <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
                     data-target="#exampleModalCenter" />
@@ -157,7 +160,6 @@
             </div>
           </div>
 
-
           <div *ngIf="showid=='1'" style="height: 350px;overflow-y: auto;">
             <div class="container-fluid">
               <form #medicineForm="ngForm">
@@ -168,6 +170,12 @@
                       <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
                       </option>
                     </select>
+                  </div>
+                  <div class="col-g-4">
+                  </div>
+                  <div class="col-lg-2">
+                    <img src="assets/Images/arrowtop.jpg" style="margin-left: 291px;
+                    width: 44%;">
                   </div>
                 </div>
                 <br>
@@ -203,6 +211,7 @@
                     <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
                       placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
                   </div><br>
+
                 </div>
                 <div class="row" *ngIf="SerachOn=='1'">
                   <div class="col-lg-12">
@@ -386,6 +395,22 @@
                     <textarea *ngIf="testid=='2'" class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
                       placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
                     <br>
+                    <div *ngIf="testssid=='59'||testssid=='60'">
+
+                      <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
+                        [(ngModel)]="diagnostictestname" name="diagnostictestname">
+
+                    </div><br>
+                    <!-- <div *ngIf="testssid=='59'||testssid=='60'">
+                      <div class="row">
+                        <div class="col-lg-5">
+                          <label>{{labels[0].testName}} :</label>
+                        </div>
+                       
+                      </div> <br>
+                    </div> -->
+
+
                     <button type="button" class="btn btn-default " [disabled]="diaForm.form.invalid"
                       style="background-color: #f18235;color: white;" (click)="adddetails()">{{labels[0].add}}</button>
                   </div>
@@ -423,7 +448,6 @@
           </div>
 
 
-
           <div *ngIf="showid=='3'" style="height: 350px;overflow-y: auto;">
             <div class="container-fluid">
               <form #soapForm="ngForm">
@@ -433,6 +457,11 @@
                       <option value="0">{{labels[0].chooseFromtemplate}}</option>
                       <option *ngFor="let temp of templatelist" value="{{temp.id}}">{{temp.templateName}}</option>
                     </select>
+                  </div>
+                  <div class="col-g-4">
+                  </div>
+                  <div class="col-lg-2">
+                    <img src="assets/Images/arrowtop.jpg" style=" width: 43%; margin-left: 284px;">
                   </div>
                 </div>
                 <br>
@@ -624,6 +653,13 @@
                       </tr>
                     </thead>
                   </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-5">
+                </div>
+                <div class="col-lg-3">
+                  <img src="assets/Images/arrowleft.jpg">
                 </div>
               </div>
             </div>
@@ -1054,7 +1090,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modify Allergies</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -1066,14 +1102,16 @@
               <label>{{labels[0].allergies}}</label>
             </div>
             <div class="col-lg-8">
-              <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies">
+              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
+              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
+                name="allergies"></ngx-tags-input>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="Updateallergies()">Update</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
       </div>
     </div>
   </div>
