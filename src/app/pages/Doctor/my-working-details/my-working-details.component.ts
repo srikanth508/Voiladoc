@@ -344,6 +344,7 @@ export class MyWorkingDetailsComponent implements OnInit {
 
         Swal.fire('Success', 'Updated Successfully')
         this.GetDoctorHospitalDetails()
+        this.insertbookappointmenttype()
       })
 
     }
@@ -545,10 +546,22 @@ export class MyWorkingDetailsComponent implements OnInit {
         this.GetDoctorHospitalDetails()
       }
 
-
       //location.href="#/MyWorkingDetails";
       //this.GetDoctorHospitalDetails();
     }
+  }
+
+  public insertbookappointmenttype() {
+      var entity = {
+        'DoctorHospitalID': this.dochspid,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.InsertBookAppointmentType(entity).subscribe(data => {
+        if (data != undefined) {
+
+        }
+      })
+    
   }
 
 

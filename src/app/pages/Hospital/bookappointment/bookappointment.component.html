@@ -26,7 +26,7 @@
       [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/dd/yyyy' }"
        bsDatepicker> -->
 
-      <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+      <input *ngIf="languageid==1" type="text" min="{{todaydatesssssss}}"  class="form-control" placeholder="MM/DD/YYYY"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate2" name="Selecteddate2"
         (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
@@ -82,7 +82,7 @@
         <br>
         <button class="btn btncolor" style="height: 33px;
         width: 124px;"
-          [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID]">{{labels[0].book}}</button>
+          [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID,doc.feesNumber]">{{labels[0].book}}</button>
       </div>
     </div>
   </div>

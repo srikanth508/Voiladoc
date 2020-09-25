@@ -61,7 +61,7 @@ export class BookappointmentComponent implements OnInit {
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss=this.serverdateandtime.todaydateeeesss.toLocaleString()
 
-          localStorage.setItem('SelectedDate', this.todaydatesss)
+          localStorage.setItem('SelectedDate', this.todaydatesssssss)
 
         }
         else if (this.languageid == 6) {
@@ -70,7 +70,7 @@ export class BookappointmentComponent implements OnInit {
           this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss=this.serverdateandtime.todaydateeeesss.toLocaleString()
-          localStorage.setItem('SelectedDate', this.todaydatesss)
+          localStorage.setItem('SelectedDate', this.todaydatesssssss)
         }
       }, error => {
       }

@@ -28,6 +28,13 @@ export class DocCalenderComponent implements OnInit {
     this.doctorid = localStorage.getItem('userid');
     this.languageid = localStorage.getItem('LanguageID');
 
+
+    this.docservice.GetDoctorHospitalDetailsWeb(this.doctorid, this.languageid).subscribe(
+      data => {
+        ;
+        this.workingdetails = data;
+      })
+      
     this.getlanguage()
 
     this.timeSheetTablearray = [];
@@ -76,6 +83,16 @@ export class DocCalenderComponent implements OnInit {
       let fulldate = subfulldate.toISOString();
 
       let montdata = { _day: day, _date: date, _month: month, _fulldate: fulldate, hrs: 0 };
+
+      // let kkk = this.timeSheetTablearray[t]._fulldate;
+      // let validatedate = kkk.substring(0, 10);
+    
+      // let validatedate = kkk.substring(0, 10);
+      // this.timeSheetTablearray[t]["_day"] = validatedate;
+      // let kk = this.workingdetails.filter(x => x.day == validatedate);
+
+
+
       this.timeSheetTablearray.push(montdata);
 
 
@@ -156,7 +173,6 @@ export class DocCalenderComponent implements OnInit {
               this.timeSheetTablearray[t]["niighttimeid"] = 6
 
             }
-
           }
 
           debugger
@@ -193,7 +209,10 @@ export class DocCalenderComponent implements OnInit {
           let kk = this.workingdetails.filter(x => x.day == validatedate);
 
           if (kk.length > 0) {
-            this.timeSheetTablearray[t]["day"] = kk[0].day;
+            if (kk[0].dayOfTheWeek != undefined)
+            {
+              debugger
+             this.timeSheetTablearray[t]["day"] = kk[0].day;
             this.timeSheetTablearray[t]["mrngStartTime"] = kk[0].mrngStartTime;
             this.timeSheetTablearray[t]["mrngEndTime"] = kk[0].mrngEndTime;
             this.timeSheetTablearray[t]["noonStartTime"] = kk[0].noonStartTime;
@@ -218,6 +237,7 @@ export class DocCalenderComponent implements OnInit {
             this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
 
           }
+        }
         }
 
       }, error => {

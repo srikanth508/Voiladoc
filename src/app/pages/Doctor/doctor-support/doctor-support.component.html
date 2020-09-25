@@ -27,7 +27,7 @@
       <label class="dname_label">{{labels[0].description}} :</label>
       <span class="required">*</span>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-4">
       <ckeditor [editor]="Editor"  [(ngModel)]="description" name="description" data=""></ckeditor>
     </div>
   </div>
@@ -38,8 +38,11 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+      <ngx-dropzone  [multiple]="false" (filesAdded)="onattachmentUpload($event)"
+      >
+       <!-- <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label> -->
       </ngx-dropzone>
+      <!-- class="dropzone_vendorinvoice" -->
     </div>
   </div>
   <br>

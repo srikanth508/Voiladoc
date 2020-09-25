@@ -58,19 +58,20 @@ export class BookappmentsComponent implements OnInit {
     )
     this.doctorid = localStorage.getItem('doctorid');
 
-    this.docservice.DoctorCommissionFees(this.languageid).subscribe(
-      data => {
-        debugger;
-        let temp = data.filter(x => x.doctorID == this.doctorid);
-        this.PaidAmount = data[0].fees;
-      },
-      error => { }
-    );
+    // this.docservice.DoctorCommissionFees(this.languageid).subscribe(
+    //   data => {
+    //     debugger;
+    //     let temp = data.filter(x => x.doctorID == this.doctorid);
+    //     this.PaidAmount = data[0].fees;
+    //   },
+    //   error => { }s
+    // );
     debugger;
     this.doctorhospitalid = localStorage.getItem('doctorhospitalid');
     this.appointmentate = localStorage.getItem('appointmentate')
     this.appoentmenTypeid = localStorage.getItem('Appointmenttypeid');
     this.bookingtypeid = localStorage.getItem('BookingTypeID');
+    this.PaidAmount = localStorage.getItem('fees');
 
     if (this.appoentmenTypeid == 1) {
       this.combinationvalue = 'In Clinic';
@@ -90,7 +91,7 @@ export class BookappmentsComponent implements OnInit {
     // const pljdjf = 'en-US';
     // const frdat = this.appointmentate;
     // this.appdate = formatDate(frdat, qwer, pljdjf);
-   
+
 
     this.GetPatients()
     this.GetNurses();
@@ -199,8 +200,8 @@ export class BookappmentsComponent implements OnInit {
       })
     }
   }
-  
-  
+
+
 
   public insertpaymentDetails() {
     var entity = {

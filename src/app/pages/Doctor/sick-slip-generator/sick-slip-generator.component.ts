@@ -93,6 +93,7 @@ export class SickSlipGeneratorComponent implements OnInit {
       }
     )
   }
+  regno:any;
   
   public GetPatientdetails(item:any) {
     debugger
@@ -103,6 +104,7 @@ export class SickSlipGeneratorComponent implements OnInit {
     this.email = qwerty[0].emailID;
     this.address = qwerty[0].address;
     this.doctorname = qwerty[0].doctorName;
+    this.regno=qwerty[0].registrationNo;
 
   }
   public getpatientdetail(pid) {
@@ -162,7 +164,7 @@ export class SickSlipGeneratorComponent implements OnInit {
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.regno + "<br>",
         //'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + this.leavefor + ' Arrêt de travail (Arrêt maladie)</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br>' + 'Date de commencement :' + this.fromdate + ',<br>Date de fin :' + this.todate + '<br>Meilleures Salutations,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
         'AppointmentID': 0,
         'DoctorID': this.doctorid,
@@ -179,7 +181,7 @@ export class SickSlipGeneratorComponent implements OnInit {
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
         // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : '+ this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : '+ this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.regno + "<br>",
         'AppointmentID': 0,
         'DoctorID': this.doctorid,
         'LeaveFor': this.leavefor,

@@ -783,6 +783,7 @@
                       <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
                       <!-- <th>ICD Code</th> -->
                       <!-- <th>{{labels[0].diagnosis}}</th> -->
+                      <th>Actions</th>
 
                     </tr>
                     <tr *ngFor="let medicinelist of qwerty2">
@@ -796,6 +797,13 @@
                       <td>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
+                      </td>
+                      <td>
+                        <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                        <a [ngbTooltip]="tipcontent2">
+                          <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                            (click)="deleteMedicines(medicinelist.Sno)">
+                        </a>
                       </td>
 
                       <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->

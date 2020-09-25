@@ -55,6 +55,7 @@ export class AddMyFeesComponent implements OnInit {
       }, error => {
       }
     )
+    this.GetAppointmentType()
   }
   SelectLabel
   public GetAllDoctors() {
@@ -168,7 +169,7 @@ export class AddMyFeesComponent implements OnInit {
   }
 
   public adddetails() {
-    if (this.doctorid == undefined || this.hospitalid == undefined || this.treatmentID == undefined || this.fees == undefined) {
+    if (this.doctorid == undefined || this.hospitalid == undefined || this.appointmentypeid == undefined || this.fees == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please complete all mandatory fields");
       }
@@ -191,7 +192,9 @@ export class AddMyFeesComponent implements OnInit {
         'TreatmentID': this.treatmentID,
         'Fees': this.fees,
         'DoctorCommission': this.doccommission,
-        'VoilaDocCommisiion': this.voiladoccommission
+        'VoilaDocCommisiion': this.voiladoccommission,
+        'Appointmenttype': this.appointmenttypename,
+        'AppointmentTypeID': this.appointmentypeid
       }
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
@@ -210,12 +213,13 @@ export class AddMyFeesComponent implements OnInit {
         'TreatmentID': this.qwerty[i].TreatmentID,
         'Fees': this.qwerty[i].Fees,
         'DoctorCommission': this.qwerty[i].DoctorCommission,
-        'VoilaDocCommisiion': this.qwerty[i].VoilaDocCommisiion
+        'VoilaDocCommisiion': this.qwerty[i].VoilaDocCommisiion,
+        'AppointmentTypeID':this.qwerty[i].AppointmentTypeID,
       }
       this.docservice.InsertDoctorCommissionFees(entity).subscribe(data => {
         if (data != 0) {
           Swal.fire('Success', 'Details Saved Successfully');
-          location.href = "#/DoctorFeeDash"
+          location.href = "#/MyFees"
         }
         else {
           if (this.languageid == 1) {
@@ -231,8 +235,28 @@ export class AddMyFeesComponent implements OnInit {
       })
     }
   }
+  appointmenttype:any;
+  dummappointmenttype:any;
 
 
+  public GetAppointmentType() {
+    this.docservice.GetBookAppointmentTypeMasterWebByLanguageID(this.languageid).subscribe(data => {
+      this.appointmenttype = data;
+      this.dummappointmenttype = data;
+
+    }, error => {
+    })
+  }
+  appointmentypeid: any;
+  appointmenttypename: any;
+
+  public GetAppointmentID(even) {
+    debugger
+    this.appointmentypeid = even.target.value;
+
+    var applist = this.dummappointmenttype.filter(x => x.id == this.appointmentypeid)
+    this.appointmenttypename = applist[0].appointmentType
+  }
 
 
   public delete(Sno) {

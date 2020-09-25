@@ -49,6 +49,7 @@ export class DoctorslotsComponent implements OnInit {
   todaydatessss: any;
   labels: any;
   serverdateandtime: any;
+  doctorfees: any;
   ngOnInit() {
     debugger
     this.languageid = localStorage.getItem('LanguageID');
@@ -87,7 +88,8 @@ export class DoctorslotsComponent implements OnInit {
         this.hospitalclinicid = params['hospital_ClinicID'];
         this.appointmenttypeid = params['appointmentTypeID'];
         this.bookingTypeID = params['bookingTypeID'];
-      
+        this.doctorfees = params['feesNumber'];
+
 
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
           data => {
@@ -99,7 +101,7 @@ export class DoctorslotsComponent implements OnInit {
 
         this.todaydate = localStorage.getItem('SelectedDate');
 
-        this.filterdate =  this.todaydate
+        this.filterdate = this.todaydate
         debugger
         //this.filterdate = this.todaydate
         var gsDayNames = [
@@ -123,6 +125,7 @@ export class DoctorslotsComponent implements OnInit {
           localStorage.setItem('appointmentate', this.todaydate);
           localStorage.setItem('Appointmenttypeid', this.appointmenttypeid);
           localStorage.setItem('BookingTypeID', this.bookingTypeID);
+          localStorage.setItem('fees', this.doctorfees);
 
           if (this.todaydate == this.todaydatessss) {
             this.getdoctormorningslots();
@@ -170,8 +173,7 @@ export class DoctorslotsComponent implements OnInit {
       )
       //this.DateofAdmission = this.datepipe.transform(details.admisiionDate, 'yyyy-MM-dd');
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       this.activatedroute.params.subscribe(params => {
         debugger;
         this.doctorid = params['doctorID'];
@@ -179,8 +181,11 @@ export class DoctorslotsComponent implements OnInit {
         this.hospitalclinicid = params['hospital_ClinicID'];
         this.appointmenttypeid = params['appointmentTypeID'];
         this.bookingTypeID = params['bookingTypeID'];
+        this.doctorfees = params['feesNumber'];
         this.languageid = localStorage.getItem('LanguageID');
-  
+     
+
+
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
           data => {
             debugger
@@ -188,9 +193,9 @@ export class DoctorslotsComponent implements OnInit {
           }, error => {
           }
         )
-  
+
         this.todaydate = localStorage.getItem('SelectedDate');
-  
+
         this.filterdate = this.datepipe.transform(this.todaydate, 'dd/MM/yyyy');
         debugger
         //this.filterdate = this.todaydate
@@ -209,13 +214,14 @@ export class DoctorslotsComponent implements OnInit {
           debugger
           this.dayidslist = data;
           this.dayid = this.dayidslist[0].dayID;
-  
+
           localStorage.setItem('doctorid', this.doctorid)
           localStorage.setItem('doctorhospitalid', this.dochospitalid);
           localStorage.setItem('appointmentate', this.todaydate);
           localStorage.setItem('Appointmenttypeid', this.appointmenttypeid);
           localStorage.setItem('BookingTypeID', this.bookingTypeID);
-  
+          localStorage.setItem('fees', this.doctorfees);
+          
           if (this.todaydate == this.todaydatessss) {
             this.getdoctormorningslots();
             this.getafternoonslots();
@@ -256,7 +262,7 @@ export class DoctorslotsComponent implements OnInit {
               }
             )
           }
-  
+
         })
       }
       )

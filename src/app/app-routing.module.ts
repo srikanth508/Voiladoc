@@ -582,7 +582,7 @@ const routes: Routes = [
 
 
   { path: 'Bookappointment', component: BookappointmentComponent },
-  { path: 'Doctorslots/:doctorID/:id/:hospital_ClinicID/:appointmentTypeID/:bookingTypeID', component: DoctorslotsComponent },
+  { path: 'Doctorslots/:doctorID/:id/:hospital_ClinicID/:appointmentTypeID/:bookingTypeID/:feesNumber', component: DoctorslotsComponent },
   { path: 'Bookappments/:doctorSlotID/:slotName', component: BookappmentsComponent },
 
 

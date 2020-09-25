@@ -122,6 +122,12 @@ export class SickSlipDashboardComponent implements OnInit {
   }
   clickedsickslipid
   sickslipid
+
+  docmobileno: any;
+  registrationNo: any;
+  hospital_ClinicName: any;
+
+
   public getdesc(sickslip) {
     debugger
     this.clickedsickslipid = sickslip.patientID;
@@ -129,6 +135,11 @@ export class SickSlipDashboardComponent implements OnInit {
     //let qwerty = this.sicksliplist.filter(x => x.patientID == this.clickedsickslipid);
     let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
     this.desc = qwertyq[0].description;
+    this.doctorname = qwertyq[0].doctorName;
+    this.docmobileno = qwertyq[0].docmobileno;
+    this.registrationNo = qwertyq[0].registrationNo;
+    this.hospital_ClinicName = qwertyq[0].hospital_ClinicName;
+    this.address = qwertyq[0].address;
   }
 
 
