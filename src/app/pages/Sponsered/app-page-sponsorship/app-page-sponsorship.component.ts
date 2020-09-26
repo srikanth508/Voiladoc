@@ -16,6 +16,7 @@ export class AppPageSponsorshipComponent implements OnInit {
   languageid
   value;
   term;
+  dropzonelable
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private datePipe: DatePipe) { }
   paramid
   ngOnInit() {
@@ -36,6 +37,14 @@ export class AppPageSponsorshipComponent implements OnInit {
 
     }
     )
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
   public getsponsradd(id) {
     debugger
@@ -58,10 +67,10 @@ export class AppPageSponsorshipComponent implements OnInit {
   public attachmentsurl = [];
   public onattachmentUpload1(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

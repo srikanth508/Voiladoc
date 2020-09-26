@@ -212,8 +212,9 @@
               <br>
               <div class="row">
                 <div class="col-lg-4" *ngIf="mulbit=='1'">
-                  <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)"
+                  <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
                     class="dropzone_vendorinvoice">
+                    <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                   </ngx-dropzone>
                   <br>
                 </div>
@@ -236,7 +237,8 @@
             <br>
             <br>
             <div class="col-lg-8" *ngIf="showdrop=='1'">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let hspphoto of showphoto">
                 <img src="{{hspphoto}}">
@@ -265,8 +267,9 @@
             <label>PHOTOS:</label>
           </div>
           <div class="col-lg-4">
-            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUploadhospitals($event)"
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUploadhospitals($event)"
               class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
             </ngx-dropzone>
           </div>
         </div>

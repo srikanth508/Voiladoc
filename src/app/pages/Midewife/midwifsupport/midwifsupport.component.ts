@@ -12,21 +12,29 @@ export class MidwifsupportComponent implements OnInit {
   public Editor = ClassicEditor;
   constructor(public docservice: HelloDoctorService) { }
 
-    
+
   description: any;
   issuename: any;
   public issuephoto = [];
   public issuephotourl = [];
   public user: any;
   public languageid: any;
- public midwifeid:any;
+  public midwifeid: any;
   public labels: any;
+  dropzonelable: any;
   ngOnInit() {
     this.description = ""
     this.midwifeid = localStorage.getItem('midwifeid');
     this.user = localStorage.getItem('user');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetLanguageMaster()
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
@@ -35,7 +43,7 @@ export class MidwifsupportComponent implements OnInit {
       debugger
     })
   }
-  removetgdescription:any;
+  removetgdescription: any;
 
   public insertdetails() {
     debugger
@@ -72,10 +80,10 @@ export class MidwifsupportComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.issuephoto.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

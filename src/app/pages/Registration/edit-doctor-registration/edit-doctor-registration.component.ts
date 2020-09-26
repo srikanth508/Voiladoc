@@ -70,6 +70,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
   public languageid: any;
   public labels: any;
   public speaklanguages: any;
+  dropzonelable: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
       debugger;
@@ -91,6 +92,13 @@ export class EditDoctorRegistrationComponent implements OnInit {
     this.meditt = 0;
     this.identiyyyds = 0;
     this.getlanguage();
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
 
@@ -181,7 +189,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.areaid = this.details.areaID,
           this.pincode = this.details.pincode,
           this.docmedicalid = this.details.docmedicalid,
-          this.speaklanguages=this.details.spokenLanguages
+          this.speaklanguages = this.details.spokenLanguages
         this.GetCountryMaster()
         this.getcitymaster();
         this.getareamasterbyid();
@@ -279,10 +287,10 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
   public onattachmentUpload1(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -351,10 +359,10 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
   public onattachmentUpload2(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments2.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments2.push(abcd.addedFiles[0]);
       this.uploadattachments2();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -420,10 +428,10 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

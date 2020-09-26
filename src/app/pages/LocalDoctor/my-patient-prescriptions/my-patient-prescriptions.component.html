@@ -177,7 +177,8 @@
               <label>New Prescription :</label>
             </div>
             <div class="col-lg-6">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
             </div>
           </div>

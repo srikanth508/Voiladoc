@@ -54,6 +54,7 @@ export class PhysiotherapistComponent implements OnInit {
   public education: any;
   public spokenlanguages: any;
   public dummdepartmentlist: any;
+  dropzonelable:any;
   ngOnInit() {
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -109,6 +110,15 @@ export class PhysiotherapistComponent implements OnInit {
     this.GetCountryMaster();
     this.getlanguage();
     this.gethosptilclinicforadmin()
+
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
 
   public getlanguage() {
@@ -204,10 +214,10 @@ export class PhysiotherapistComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -242,10 +252,10 @@ export class PhysiotherapistComponent implements OnInit {
 
   public onidUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.idproof.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

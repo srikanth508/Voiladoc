@@ -95,7 +95,8 @@
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5">
-                <ngx-dropzone [multiple]="true" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone [multiple]="true" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                    <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
             </div>
         </div>

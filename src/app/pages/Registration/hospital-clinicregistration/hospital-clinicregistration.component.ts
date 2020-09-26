@@ -59,6 +59,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public monthlysubription: any;
   public hspwebsite: any;
   public hospitalfulltimebit: any;
+  public dropzonelable:any;
 
   ngOnInit() {
 
@@ -78,6 +79,15 @@ export class HospitalClinicregistrationComponent implements OnInit {
         }
       )
 
+      if(this.languageid==1)
+      {
+        this.dropzonelable="Upload file"
+      }
+      else if(this.languageid==6)
+      {
+        this.dropzonelable="Télécharger des fichiers"
+      }
+    
   }
 
 

@@ -34,6 +34,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
   public attachmentsurl = [];
   public notes: any;
   public appointmentsid: any;
+  dropzonelable:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
 
@@ -84,6 +85,15 @@ export class MyPatientPrescriptionsComponent implements OnInit {
       }
     )
     this.getprescriptions()
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
+  
 
   }
 
@@ -167,14 +177,12 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
 
 
-
-
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

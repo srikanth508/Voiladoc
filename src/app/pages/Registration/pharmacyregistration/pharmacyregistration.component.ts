@@ -52,11 +52,20 @@ export class PharmacyregistrationComponent implements OnInit {
   public hspwebsite: any;
   public hospitalfulltimebit: any;
   SelectLabel
+  dropzonelable:any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
     this.GetCountryMaster()
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
@@ -220,10 +229,10 @@ export class PharmacyregistrationComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

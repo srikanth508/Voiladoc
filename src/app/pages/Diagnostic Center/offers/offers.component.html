@@ -26,7 +26,8 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].offerNames}}" name="offername" required [(ngModel)]="offername" class="form-control"
+        <input type="text" placeholder="{{labels[0].offerNames}}" name="offername" required [(ngModel)]="offername"
+          class="form-control"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode>=48&&event.charCode<=57'>
       </div>
     </div>
@@ -37,8 +38,8 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <textarea id="textarea1" rows="4" cols="47" name="descripton" required [(ngModel)]="descripton" placeholder="{{labels[0].offerDescription}}"
-          class="form-control"></textarea>
+        <textarea id="textarea1" rows="4" cols="47" name="descripton" required [(ngModel)]="descripton"
+          placeholder="{{labels[0].offerDescription}}" class="form-control"></textarea>
       </div>
     </div>
     <br>
@@ -61,10 +62,12 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <input *ngIf="languageid==1" type="text" placeholder="DD/DD/YYYY" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-          name="sdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="sdate" (change)="GetClearDate()" bsDatepicker>
-        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-          name="sdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="sdate" (change)="GetClearDate()" bsDatepicker>
+        <input *ngIf="languageid==1" type="text" placeholder="DD/DD/YYYY" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="sdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="sdate" (change)="GetClearDate()" bsDatepicker>
+        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="sdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="sdate" (change)="GetClearDate()" bsDatepicker>
         <!-- <input type="date" name="sdate" min='{{todaydate}}' required [(ngModel)]="sdate" class="form-control" (change)="GetClearDate()"> -->
       </div>
     </div>
@@ -75,10 +78,12 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <input *ngIf="languageid==1" type="text" placeholder="DD/DD/YYYY" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-          name="edate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="edate" bsDatepicker>
-        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-          name="edate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="edate" bsDatepicker>
+        <input *ngIf="languageid==1" type="text" placeholder="DD/DD/YYYY" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="edate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="edate" bsDatepicker>
+        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+          [bsConfig]="{ showWeekNumbers:false }" name="edate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="edate" bsDatepicker>
         <!-- <input type="date" [(ngModel)]="edate" min='{{sdate}}' name="edate" required class="form-control"> -->
       </div>
     </div>
@@ -99,7 +104,9 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
       </div>
       <div class="col-lg-5 ">
@@ -113,7 +120,8 @@
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="offersForm.form.invalid" (click)="insertdetails()">
+        <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="offersForm.form.invalid"
+          (click)="insertdetails()">
           {{labels[0].save}}</button>
       </div>
       <div class="col-lg-5">

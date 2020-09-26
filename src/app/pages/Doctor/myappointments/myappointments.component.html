@@ -113,10 +113,11 @@
             <td>{{details.pMobileNo}}</td>
             <td>{{details.reasonForVisit}}</td>
             <td>
-              <img src="assets/Images/imgicon.png" title="{{labels[0].images}}"
+              <img src="assets/Images/imgicon.png" title="{{labels[0].images}}" *ngIf="details.photoexist=='1'"
                 (click)="GetImagesID(details.appointmentID)" data-toggle="modal" data-target="#exampleModalLong2"
                 style="margin: 2%;width: 20px;" />&nbsp;
-              <img src="assets/Images/showvedio.png" *ngIf="details.appointmentTypeID=='2'" data-toggle="modal"
+
+              <img src="assets/Images/showvedio.png" *ngIf="details.appointmentTypeID=='2'&&details.videoexist=='1'" data-toggle="modal"
                 data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetVedioID(details.appointmentID)" />&nbsp;
             </td>
@@ -504,7 +505,7 @@
 <div class="backdrop" [ngStyle]="{ display: display }"></div>
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
   <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content modal-xl">
+    <div class="modal-content modal-xl" style="margin-left: 114px;width: auto;">
       <p class="modal-title" style="line-height: 28px;">
       </p>
       <div class="modal-header">
@@ -981,11 +982,10 @@
 
 
 
-
 <div class="backdrop" [ngStyle]="{ display: soapdisplay }"></div>
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: soapdisplay }">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content modal-xl">
+  <div class="modal-dialog modal-xl" role="document" >
+    <div class="modal-content modal-xl" style="margin-left: 114px;width: auto;">
       <p class="modal-title" style="line-height: 28px;
          ">
       </p>
@@ -1288,9 +1288,9 @@
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content" style="width:1000px">
-      <div class="modal-header modal-lg">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" style="width:1000px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].previousPrescription}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -1834,8 +1834,9 @@
               <label *ngIf="languageid==6" class="reglabel">Télécharger des fichiers :</label>
             </div>
             <div class="col-lg-6">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)"
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)"
                 class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
             </div>
             <div>
@@ -1976,7 +1977,8 @@
           <!-- <label>Upload Photo</label> -->
 
           <div class="col-lg-12">
-            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
             </ngx-dropzone>
           </div>
         </div>

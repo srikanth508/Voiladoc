@@ -53,6 +53,7 @@ export class NurseComponent implements OnInit {
   public dummid: any;
   public education: any;
   public spokenlanguages: any;
+  dropzonelable:any;
 
   ngOnInit() {
     debugger
@@ -108,6 +109,14 @@ export class NurseComponent implements OnInit {
     this.GetCountryMaster();
 
     this.gethosptilclinicforadmin()
+
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
 
@@ -220,10 +229,10 @@ export class NurseComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -246,10 +255,10 @@ export class NurseComponent implements OnInit {
 
   public onidUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.idproof.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -319,8 +328,8 @@ export class NurseComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID': this.countryid,
       'HospitalClinicID': this.hospitalclinicid,
-      'Education':this.education,
-      'SpokenLanguages':this.spokenlanguages
+      'Education': this.education,
+      'SpokenLanguages': this.spokenlanguages
     }
     this.docservice.InsertNurseRegistration(entity).subscribe(data => {
       debugger

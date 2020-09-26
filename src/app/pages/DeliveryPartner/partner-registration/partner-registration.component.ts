@@ -31,6 +31,7 @@ export class PartnerRegistrationComponent implements OnInit {
 
   public labels: any;
   public languageid: any;
+  dropzonelable:any;
   ngOnInit() {
     this.StaffTypeID = 0;
     this.dcid = localStorage.getItem('deliveryid');
@@ -39,6 +40,15 @@ export class PartnerRegistrationComponent implements OnInit {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
+
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
 
 
@@ -57,10 +67,10 @@ export class PartnerRegistrationComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -82,10 +92,10 @@ export class PartnerRegistrationComponent implements OnInit {
 
   public onidUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.idproof.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

@@ -182,7 +182,8 @@
       </div>
     </div><br><br>
     <div class="col-lg-3" *ngIf="pffbit=='1'">
-        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
         <span *ngFor="let pic of showphoto">
           <img src="{{pic}}" style="width: 40px;height:40px;">

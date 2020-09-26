@@ -20,6 +20,7 @@ export class ItemsComponent implements OnInit {
   Categorylist: any;
   Subcategorylist: any;
   ID: any
+  dropzonelable: any;
   constructor(public service: HelloDoctorService, private _router: Router, private route: ActivatedRoute) { }
   languageid: any;
   ngOnInit() {
@@ -53,6 +54,13 @@ export class ItemsComponent implements OnInit {
         }
       )
     });
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
 
@@ -118,10 +126,10 @@ export class ItemsComponent implements OnInit {
   attachments = [];
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
 
-    }
+    // }
     this.uploadattachments();
     Swal.fire('Added Successfully');
     abcd.length = 0;

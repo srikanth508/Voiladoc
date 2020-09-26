@@ -68,7 +68,8 @@
       <label for="" class="reglabel">Photo:</label>
     </div>
     <div class="col-lg-4">
-      <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+      <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
       </ngx-dropzone>
       <!-- <div>
         <span *ngFor="let docphoto of showdocphoto">

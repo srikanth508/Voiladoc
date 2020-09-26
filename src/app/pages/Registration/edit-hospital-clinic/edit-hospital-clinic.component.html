@@ -23,7 +23,7 @@
             <label>{{labels[0].hospitalPhoneNo}}: </label>
           </div>
           <div class="col-lg-6">
-            <input type="text" maxlength="13"  [(ngModel)]="phno" name="phno" class="form-control"
+            <input type="text" maxlength="13" [(ngModel)]="phno" name="phno" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
@@ -32,28 +32,28 @@
             <label>{{labels[0].contactPersonName}}: </label>
           </div>
           <div class="col-lg-6">
-            <input type="text" placeholder="{{labels[0].contactPersonName}}"  [(ngModel)]="contactpersonname" name="contactpersonname"
-              class="form-control"
-           >
+            <input type="text" placeholder="{{labels[0].contactPersonName}}" [(ngModel)]="contactpersonname"
+              name="contactpersonname" class="form-control">
           </div>
         </div><br>
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].contactPersonPhoneNumber}}:</label>
-          
+
           </div>
           <div class="col-lg-6">
-            <input type="text" placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13"  [(ngModel)]="contactpersonphno"
-              name="contactpersonphno" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            <input type="text" placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13"
+              [(ngModel)]="contactpersonphno" name="contactpersonphno" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].email}}:</label>
-         
+
           </div>
           <div class="col-lg-6">
-            <input type="email" [(ngModel)]="emailid"  name="emailid" class="form-control"
+            <input type="email" [(ngModel)]="emailid" name="emailid" class="form-control"
               (ngModelChange)="onChange($event)">
           </div>
         </div><br>
@@ -74,7 +74,7 @@
           </div>
           <div class="col-lg-6">
             <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
-              <option value=""  selected>{{labels[0].select}}</option>
+              <option value="" selected>{{labels[0].select}}</option>
               <option *ngFor="let cou of countrylist" value="{{cou.id}}">{{cou.short}}</option>
             </select>
           </div>
@@ -108,7 +108,7 @@
             <label>{{labels[0].zipCode}}: </label>
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="zipcode" maxlength="6"  name="zipcode" class="form-control"
+            <input type="text" [(ngModel)]="zipcode" maxlength="6" name="zipcode" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
@@ -183,13 +183,15 @@
           </div><br><br>
         </div><br><br>
         <div class="row">
-            <div class="col-lg-4" *ngIf="mulbit=='1'">
-                <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
-                </ngx-dropzone><br>
-              </div><br><br><br>
-              <div class="col-lg-9" *ngIf="mulbit=='1'">
-                <button class="btn btncolor" (click)="UpdateMultiplePhotos()">{{labels[0].update}}</button>
-              </div>
+          <div class="col-lg-4" *ngIf="mulbit=='1'">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone><br>
+          </div><br><br><br>
+          <div class="col-lg-9" *ngIf="mulbit=='1'">
+            <button class="btn btncolor" (click)="UpdateMultiplePhotos()">{{labels[0].update}}</button>
+          </div>
         </div>
       </form>
     </div><br>
@@ -197,7 +199,8 @@
       <img src="{{photourl}}" style="width:90%;height:auto;" /><br><br>
       <button class="btn   btncolor" (click)="GetID()">{{labels[0].edit}}</button><br><br>
       <div class="col-lg-8" *ngIf="showdrop=='1'">
-        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
         <span *ngFor="let hspphoto of showphoto">
           <img src="{{hspphoto}}">

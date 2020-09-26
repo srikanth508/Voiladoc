@@ -20,6 +20,7 @@ export class HospitalSupportComponent implements OnInit {
 
   public labels: any;
   hospitalid: any;
+  dropzonelable: any;
   ngOnInit() {
     this.description = ""
 
@@ -27,6 +28,13 @@ export class HospitalSupportComponent implements OnInit {
     this.hospitalid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetLanguageMaster()
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
   public GetLanguageMaster() {
@@ -75,10 +83,10 @@ export class HospitalSupportComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.issuephoto.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

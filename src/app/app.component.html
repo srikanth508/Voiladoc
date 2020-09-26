@@ -16,10 +16,10 @@
         </div>
     </div>
     <div class="row" *ngIf="isDescktopResolution==true">
-        <div class="col-lg-2" style="overflow-y: auto;height: 90vh;">
+        <div class="col-lg-2" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;">
             <app-sidebar></app-sidebar>
         </div>
-        <div class="col-lg-10" style="overflow-y: auto;height: 90vh;">
+        <div class="col-lg-10" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;">
             <router-outlet (activate)="onActivate($event)"></router-outlet>
         </div>
     </div>

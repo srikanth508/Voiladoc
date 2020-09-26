@@ -73,6 +73,8 @@ export class NurseSupportDashComponent implements OnInit {
 
     this.GetSupportIssues()
     this.GetLanguageMaster()
+
+    
   }
 
   public GetSupportIssues() {

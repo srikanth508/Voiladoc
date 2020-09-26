@@ -89,6 +89,7 @@ export class DoctorregistrationComponent implements OnInit {
   public hospitadd = {};
   public dummid: any;
   public speaklanguages: any;
+  dropzonelable:any;
 
   ngOnInit() {
     this.dummid = localStorage.getItem('hospitalid');
@@ -112,6 +113,14 @@ export class DoctorregistrationComponent implements OnInit {
     this.mallprcise = 1;
     this.chat = 1;
 
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
 
 
@@ -409,10 +418,10 @@ export class DoctorregistrationComponent implements OnInit {
 
   public onidUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.idproof.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -544,11 +553,11 @@ export class DoctorregistrationComponent implements OnInit {
 
   public onSignaturUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
+    // for (let i = 0; i < abcd.length; i++) {
       this.dummshowsignatureurl = []
-      this.signatureattachmentssss.push(abcd[i]);
+      this.signatureattachmentssss.push(abcd.addedFiles[0]);
       this.DoctorSignatureUpload();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -579,12 +588,11 @@ export class DoctorregistrationComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-
+    // for (let i = 0; i < abcd.length; i++) {
       this.identityattachmentsurlssss = []
-      this.attachments.push(abcd[i]);
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -612,12 +620,11 @@ export class DoctorregistrationComponent implements OnInit {
   dummsttchmentursl = []
   public onattachmentUpload1(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
+    // for (let i = 0; i < abcd.length; i++) {
       this.dummsttchmentursl = []
-
-      this.attachments1.push(abcd[i]);
+      this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -647,11 +654,11 @@ export class DoctorregistrationComponent implements OnInit {
 
   public onattachmentUpload2(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
+    // for (let i = 0; i < abcd.length; i++) {
       this.identityshowphoto = []
-      this.attachments2.push(abcd[i]);
+      this.attachments2.push(abcd.addedFiles[0]);
       this.uploadattachments2();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

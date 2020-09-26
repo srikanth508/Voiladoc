@@ -267,7 +267,10 @@ export class DocCalenderComponent implements OnInit {
     }
     this.docservice.InsertDoctorDisabledSlots(entity).subscribe(data => {
       if (this.languageid == 1) {
-        Swal.fire('Disabled Successfully');
+        //Swal.fire('Disabled Successfully');
+        Swal.fire(
+          '',
+          'Disabled Successfully')
         this.GetDoctorHospitalDetails();
         this.getGetDoctorDisabledSlots()
       }

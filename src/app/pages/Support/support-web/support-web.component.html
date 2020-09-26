@@ -151,8 +151,9 @@
                 <label>{{labels[0].photo}} :</label>
               </div>
               <div class="col-lg-4">
-                <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)"
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
                   class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
               </div>
               <div class="col-lg-2">

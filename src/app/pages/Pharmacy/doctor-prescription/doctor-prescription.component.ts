@@ -45,6 +45,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public deliemail: any;
   public delipharmacyname: any;
   public partnerlist: any;
+  dropzonelable: any;
 
   ngOnInit() {
 
@@ -95,8 +96,13 @@ export class DoctorPrescriptionComponent implements OnInit {
       }, error => {
       }
     )
-     this.oberserableTimer();
-
+    this.oberserableTimer();
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
   public GetPharmacyOrders() {
     debugger
@@ -139,7 +145,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   registrationno: any;
   prescriptiondate: any;
   dateofbirth: any;
-  noteetopharmasict:any;
+  noteetopharmasict: any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
@@ -160,7 +166,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.registrationno = this.list[0].registrationNo,
       this.prescriptiondate = this.list[0].prescriptionAddedDate,
       this.dateofbirth = this.list[0].dateofbirth,
-      this.noteetopharmasict=this.list[0].notetoopharmacistt
+      this.noteetopharmasict = this.list[0].notetoopharmacistt
 
     let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');
@@ -218,8 +224,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.accdate = date;
     this.accemail = emailID;
     debugger;
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You Want to Accept This Order!",
@@ -236,7 +241,7 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.getpharmacyorders();
             this.InsertAccptNotification();
             this.InsertNotiFicationAccpt();
-  
+
           })
           Swal.fire(
             'Completed!',
@@ -250,8 +255,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         }
       })
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire({
         title: 'Etes-vous sûr ?',
         text: "Accepter cette commande!",
@@ -269,11 +273,11 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.getpharmacyorders();
             this.InsertAccptNotification();
             this.InsertNotiFicationAccpt();
-  
+
           })
           Swal.fire(
-            'Commande acceptée!',
-            'Détails enregistrés.',
+            'Détails enregistrés',
+            'Commande acceptée',
             'success'
           )
         }
@@ -283,7 +287,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         }
       })
     }
-   
+
   }
 
 
@@ -631,11 +635,11 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public onattachmentUpload2(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
+    // for (let i = 0; i < abcd.length; i++) {
 
-      this.attachments2.push(abcd[i]);
-      this.uploadattachments2();
-    }
+    this.attachments2.push(abcd.addedFiles[0]);
+    this.uploadattachments2();
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

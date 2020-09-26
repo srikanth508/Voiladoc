@@ -34,10 +34,22 @@ export class LocalDoctorRegistrationComponent implements OnInit {
   public username: any;
   public password: any;
   SelectLabel:any
+  dropzonelable:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
     this.GetCountryMaster();
+
+    
+ if(this.languageid==1)
+ {
+   this.dropzonelable="Upload file"
+ }
+ else if(this.languageid==6)
+ {
+   this.dropzonelable="Télécharger des fichiers"
+ }
+
   }
 
   public getlanguage() {
@@ -135,10 +147,10 @@ export class LocalDoctorRegistrationComponent implements OnInit {
 
   public onattachmentUpload1(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

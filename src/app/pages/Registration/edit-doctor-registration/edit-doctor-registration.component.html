@@ -30,8 +30,8 @@
                 <label>{{labels[0].phoneNo}}:</label>
               </div>
               <div class="col-lg-6">
-                <input type="text"  maxlength="13" [(ngModel)]="phno" name="phno"
-                  class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                <input type="text" maxlength="13" [(ngModel)]="phno" name="phno" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
               <br>
             </div>
@@ -39,10 +39,10 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].email}}:</label>
-              
+
               </div>
               <div class="col-lg-6">
-                <input type="email"  [(ngModel)]="emailid" (ngModelChange)="onChange($event)" name="emailid"
+                <input type="email" [(ngModel)]="emailid" (ngModelChange)="onChange($event)" name="emailid"
                   class="form-control">
               </div>
               <br>
@@ -61,10 +61,10 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].address}}:</label>
-           
+
               </div>
               <div class="col-lg-6">
-                <textarea id="textarea1"  rows="4" cols="45" [(ngModel)]="address" name="address"
+                <textarea id="textarea1" rows="4" cols="45" [(ngModel)]="address" name="address"
                   class="form-control"></textarea>
               </div>
             </div>
@@ -83,7 +83,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].province}} :</label> 
+                <label>{{labels[0].province}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
@@ -125,52 +125,52 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].experience}}:</label>
-              
+
               </div>
               <div class="col-lg-6">
-                <input type="text"  maxlength="2" [(ngModel)]="experience" name="experience"
-                  class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                <input type="text" maxlength="2" [(ngModel)]="experience" name="experience" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].isHomeVisitIsAvailable}} :</label>
-             
+
               </div>
               <div class="col-lg-6">
-                <input type="radio" name="homevisit"  [(ngModel)]="homevisit" [value]="true">{{labels[0].yes}} &nbsp;
-                <input type="radio" name="homevisit"  [(ngModel)]="homevisit" [value]="false">{{labels[0].no}}
+                <input type="radio" name="homevisit" [(ngModel)]="homevisit" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="homevisit" [(ngModel)]="homevisit" [value]="false">{{labels[0].no}}
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].description}}:</label>
-              
+
               </div>
               <div class="col-lg-6">
-                <textarea id="textarea1"  rows="7" cols="45" [(ngModel)]="description" name="description"
+                <textarea id="textarea1" rows="7" cols="45" [(ngModel)]="description" name="description"
                   class="form-control"></textarea>
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label class="Email_label">{{labels[0].documentVerified}} :</label>
-            
+
               </div>
               <div class="col-lg-6">
-                <input type="radio" name="dcoverify"  [(ngModel)]="dcoverify" [value]="true">{{labels[0].yes}} &nbsp;
-                <input type="radio" name="dcoverify"  [(ngModel)]="dcoverify" [value]="false">{{labels[0].no}}
+                <input type="radio" name="dcoverify" [(ngModel)]="dcoverify" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="dcoverify" [(ngModel)]="dcoverify" [value]="false">{{labels[0].no}}
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label class="Email_label">{{labels[0].mallpractiece}} :</label>
-              
+
               </div>
               <div class="col-lg-6">
-                <input type="radio" name="mallprcise"  [(ngModel)]="mallprcise" [value]="true">{{labels[0].yes}} &nbsp;
-                <input type="radio" name="mallprcise"  [(ngModel)]="mallprcise" [value]="false">{{labels[0].no}}
+                <input type="radio" name="mallprcise" [(ngModel)]="mallprcise" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="mallprcise" [(ngModel)]="mallprcise" [value]="false">{{labels[0].no}}
               </div>
             </div><br>
             <!-- <div class="row">
@@ -196,7 +196,8 @@
           <img src={{photourl}} style="width: 100%;height: auto;" /><br><br>
           <button class="btn  btncolor" (click)="GetEditPhoto()">{{labels[0].edit}}</button><br><br>
           <div class="col-lg-8" *ngIf="editbit=='1'">
-            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
             </ngx-dropzone><br>
 
             <span *ngFor="let pic of showdocphoto">
@@ -219,7 +220,8 @@
           <button class="btn  btncolor" (click)="GetMedicalPhotoEdit(mphoto.id)">{{labels[0].edit}}</button><br><br>
 
           <div class="col-lg-4" *ngIf="meditt=='1'">
-            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
             </ngx-dropzone>
             <span *ngFor="let sds of photodetail">
               <img src="{{sds}}" style="height: 20px;width: 30px;">
@@ -239,7 +241,8 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br>
+          <button type="button" style="float: right" class="btn dashbtn btncolor"
+            awNextStep>{{labels[0].next}}</button><br>
         </div>
       </div>
     </div><br><br>
@@ -254,10 +257,10 @@
 
               <div class="col-lg-5">
                 <label>{{labels[0].registrationNo}}:</label>
-              
+
               </div>
               <div class="col-lg-5">
-                <input type="text" placeholder="registration no" maxlength="15"  [(ngModel)]="registrationno"
+                <input type="text" placeholder="registration no" maxlength="15" [(ngModel)]="registrationno"
                   name="registrationno" class="form-control"
                   onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
               </div>
@@ -266,10 +269,10 @@
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].registrationCouncil}}:</label>
-           
+
               </div>
               <div class="col-lg-5">
-                <input type="text" placeholder="registration council"  [(ngModel)]="registrationcouncil"
+                <input type="text" placeholder="registration council" [(ngModel)]="registrationcouncil"
                   name="registrationcouncil" class="form-control"
                   onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
               </div>
@@ -278,10 +281,10 @@
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].registrationYear}}:</label>
-               
+
               </div>
               <div class="col-lg-5">
-                <input type="text" placeholder="registration year" minlength="4" maxlength="4" 
+                <input type="text" placeholder="registration year" minlength="4" maxlength="4"
                   [(ngModel)]="registrationyear" name="registrationyear" class="form-control"
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
@@ -292,7 +295,8 @@
               </div>
               <div class="col-lg-2">
                 <button type="button" [disabled]="doctorsForm.form.invalid" text_align="center"
-                  class="btn btn-block btn-md allbtns btncolor" (click)="updatemedicalregistration()">{{labels[0].update}}</button>
+                  class="btn btn-block btn-md allbtns btncolor"
+                  (click)="updatemedicalregistration()">{{labels[0].update}}</button>
               </div>
               <div class="col-lg-5">
               </div>
@@ -308,8 +312,10 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <button type="button" style="float: left" class="btn dashbtn btncolor" awPreviousStep>{{labels[0].previous}}</button>
-          <button type="button" style="float:right;" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br><br>
+          <button type="button" style="float: left" class="btn dashbtn btncolor"
+            awPreviousStep>{{labels[0].previous}}</button>
+          <button type="button" style="float:right;" class="btn dashbtn btncolor"
+            awNextStep>{{labels[0].next}}</button><br><br>
         </div>
       </div>
     </div>
@@ -337,7 +343,8 @@
             <!-- <span class="required">*</span> -->
           </div>
           <div class="col-lg-4">
-            <input type="text" placeholder="{{labels[0].college}}" name="colleagename" [(ngModel)]="colleagename" class="form-control"
+            <input type="text" placeholder="{{labels[0].college}}" name="colleagename" [(ngModel)]="colleagename"
+              class="form-control"
               onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
           </div>
         </div><br>
@@ -347,8 +354,8 @@
             <!-- <span class="required">*</span> -->
           </div>
           <div class="col-lg-4">
-            <input type="text" placeholder="{{labels[0].yearOfPassing}}" maxlength="4" name="yearofpassing" maxlength="4"
-              [(ngModel)]="yearofpassing" class="form-control"
+            <input type="text" placeholder="{{labels[0].yearOfPassing}}" maxlength="4" name="yearofpassing"
+              maxlength="4" [(ngModel)]="yearofpassing" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
@@ -385,7 +392,9 @@
             <img src="{{identiy.photoURL}}" style="height:100px;width:100px;"><br><br>
             <button class="btn  btncolor" (click)="GetidentityID(identiy.id)">{{labels[0].edit}}</button><br><br>
             <div class="col-lg-12" *ngIf="identiyyyds=='1'">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let dsffs of showidentityproof">
                 <img src="{{dsffs}}" style="height: 20px;width: 20px;">
@@ -405,9 +414,11 @@
         </div>
         <div class="row">
           <div class="col-lg-12">
-            <button type="button" style="float: left" class="btn dashbtn btncolor" awPreviousStep>{{labels[0].previous}}</button>
+            <button type="button" style="float: left" class="btn dashbtn btncolor"
+              awPreviousStep>{{labels[0].previous}}</button>
 
-            <button type="button" style="float:right;" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br><br>
+            <button type="button" style="float:right;" class="btn dashbtn btncolor"
+              awNextStep>{{labels[0].next}}</button><br><br>
           </div>
         </div>
       </form>
@@ -422,7 +433,8 @@
           <label class="DEPARTMENT_label">{{labels[0].department}}:</label>
         </div>
         <div class="col-lg-4">
-          <select class="form-control" disabled (change)="GetDepartmentID($event)" [(ngModel)]="departmentid" name="departmentid">
+          <select class="form-control" disabled (change)="GetDepartmentID($event)" [(ngModel)]="departmentid"
+            name="departmentid">
             <option valu="" selected>{{labels[0].select}}</option>
             <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
             </option>
@@ -467,7 +479,8 @@
       </div><br>
       <div class="row">
         <div class="col-lg-12">
-          <button type="button" style="float: left" class="btn dashbtn btncolor" awPreviousStep>{{labels[0].previous}}</button>
+          <button type="button" style="float: left" class="btn dashbtn btncolor"
+            awPreviousStep>{{labels[0].previous}}</button>
           <!-- <button type="button" style="float:right;" class="btn dashbtn nextbtncolor" awNextStep>{{labels[0].next}}</button><br><br> -->
         </div>
       </div><br>

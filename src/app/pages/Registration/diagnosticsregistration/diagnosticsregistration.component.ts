@@ -57,6 +57,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public hospitalclinicid: any;
   public hspwebsite: any;
   public hospitalfulltimebit: any;
+  dropzonelable:any;
   ngOnInit() {
 
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -65,6 +66,14 @@ export class DiagnosticsregistrationComponent implements OnInit {
     this.GetCountryMaster();
 
     this.getlanguage()
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
 
@@ -279,10 +288,10 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

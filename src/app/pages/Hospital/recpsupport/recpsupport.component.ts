@@ -20,6 +20,7 @@ export class RecpsupportComponent implements OnInit {
 
   public labels: any;
   public receptionid: any;
+  dropzonelable:any;
   ngOnInit() {
     this.description = ""
 
@@ -27,6 +28,15 @@ export class RecpsupportComponent implements OnInit {
     this.receptionid = localStorage.getItem('Receptionstid');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetLanguageMaster()
+
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
 
   public GetLanguageMaster() {
@@ -74,10 +84,10 @@ export class RecpsupportComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.issuephoto.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

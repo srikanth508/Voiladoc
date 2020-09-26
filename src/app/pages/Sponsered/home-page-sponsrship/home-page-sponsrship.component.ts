@@ -16,6 +16,7 @@ export class HomePageSponsrshipComponent implements OnInit {
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private datePipe: DatePipe) { }
   paramid;
   value;
+  dropzonelable:any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -34,6 +35,15 @@ export class HomePageSponsrshipComponent implements OnInit {
 
     }
     )
+
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
   public getsponsradd(id) {
     debugger
@@ -56,10 +66,10 @@ export class HomePageSponsrshipComponent implements OnInit {
   public attachmentsurl = [];
   public onattachmentUpload1(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

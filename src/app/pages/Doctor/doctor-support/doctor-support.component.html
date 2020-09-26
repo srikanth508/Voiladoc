@@ -38,10 +38,12 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <ngx-dropzone  [multiple]="false" (filesAdded)="onattachmentUpload($event)"
+      <ngx-dropzone  [multiple]="false" (change)="onattachmentUpload($event)"
       >
        <!-- <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label> -->
+       <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
       </ngx-dropzone>
+      
       <!-- class="dropzone_vendorinvoice" -->
     </div>
   </div>

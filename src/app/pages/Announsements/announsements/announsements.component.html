@@ -19,8 +19,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].announsementName}}" required class="form-control" [(ngModel)]="announsementname"
-          name="announsementname">
+        <input type="text" placeholder="{{labels[0].announsementName}}" required class="form-control"
+          [(ngModel)]="announsementname" name="announsementname">
       </div>
     </div>
     <br>
@@ -61,12 +61,13 @@
     <div class="row">
       <div class="col-lg-3">
         <label class="dname_label">{{labels[0].description}}:</label>
-      <span class="required">*</span>
+        <span class="required">*</span>
       </div>
       <div class="col-lg-6">
         <!-- <textarea class="form-control" rows="4" required [(ngModel)]="description" name="description" placeholder="{{labels[0].description}}"></textarea> -->
-     
-        <ckeditor [editor]="Editor"  [(ngModel)]="description" name="description" data=""></ckeditor> </div>
+
+        <ckeditor [editor]="Editor" [(ngModel)]="description" name="description" data=""></ckeditor>
+      </div>
     </div>
     <br>
     <div class="row">
@@ -74,7 +75,9 @@
         <label for="" class="reglabel">{{labels[0].photo}}:</label>
       </div>
       <div class="col-lg-4">
-        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
         <div>
           <span *ngFor="let docphoto of showdocphoto">
@@ -93,7 +96,7 @@
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" text_align="center" [disabled]="nurseForm.form.invalid" 
+        <button type="button" text_align="center" [disabled]="nurseForm.form.invalid"
           class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
       </div>
       <div class="col-lg-5">

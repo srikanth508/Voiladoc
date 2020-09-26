@@ -28,6 +28,7 @@ export class AnnounsementsComponent implements OnInit {
   public showdocphoto = [];
   public announsementname: any;
   public description: any;
+  dropzonelable:any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -40,6 +41,16 @@ export class AnnounsementsComponent implements OnInit {
       }
     )
     this.GetCountryMaster();
+
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
+  
   }
 
   public GetCountryMaster() {
@@ -128,10 +139,10 @@ export class AnnounsementsComponent implements OnInit {
 
   public onattachmentUpload1(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd[i]);
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
-    }
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;

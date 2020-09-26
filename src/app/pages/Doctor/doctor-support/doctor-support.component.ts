@@ -19,13 +19,21 @@ export class DoctorSupportComponent implements OnInit {
   public user: any;
   public languageid: any;
   public labels: any;
-
+  dropzonelable: any;
   ngOnInit() {
     this.description = ""
     this.doctorid = localStorage.getItem('userid');
     this.user = localStorage.getItem('user');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetLanguageMaster()
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
+
   }
 
 
@@ -36,7 +44,7 @@ export class DoctorSupportComponent implements OnInit {
       debugger
     })
   }
-  removetgdescription:any;
+  removetgdescription: any;
 
   public insertdetails() {
     debugger
@@ -74,10 +82,10 @@ export class DoctorSupportComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.issuephoto.push(abcd[i]);
-      this.uploadid();
-    }
+    // for (let i = 0; i < abcd.length; i++) {
+    this.issuephoto.push(abcd.addedFiles[0]);
+    this.uploadid();
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

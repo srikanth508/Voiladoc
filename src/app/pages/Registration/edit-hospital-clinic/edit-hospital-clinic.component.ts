@@ -43,14 +43,15 @@ export class EditHospitalClinicComponent implements OnInit {
   public pincode: any;
   public areaid: any;
   public mulbit: any;
-  public countrylist:any;
-  public countryid:any;
+  public countrylist: any;
+  public countryid: any;
 
-  public languageid:any;
-  public labels:any;
+  public languageid: any;
+  public labels: any;
+  public dropzonelable: any;
   ngOnInit() {
     // this.hospitalid = localStorage.getItem('hospitalid');
-    this.languageid=localStorage.getItem('LanguageID');
+    this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
       debugger;
       this.id = params['id'];
@@ -62,7 +63,7 @@ export class EditHospitalClinicComponent implements OnInit {
     this.GetMultiplePhotos();
     this.GetCountryMaster()
 
-   
+
 
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
@@ -71,11 +72,19 @@ export class EditHospitalClinicComponent implements OnInit {
       }, error => {
       }
     )
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
+
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
 
 
-  
+
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
@@ -93,9 +102,8 @@ export class EditHospitalClinicComponent implements OnInit {
     debugger
   }
 
-  public getcitymaster()
-  {
-    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
+  public getcitymaster() {
+    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
         debugger
         this.citylist = data;
@@ -110,10 +118,10 @@ export class EditHospitalClinicComponent implements OnInit {
     this.getareamasterbyid()
   }
 
-  
+
 
   public gethospitalclinicdetailsbyid() {
-    this.docservice.GetHospital_ClinicDetailsForAdminByLanguageID(this.id,this.languageid).subscribe(
+    this.docservice.GetHospital_ClinicDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
         debugger;
         this.details = data[0];
@@ -133,23 +141,23 @@ export class EditHospitalClinicComponent implements OnInit {
           this.description = this.details.description,
           this.photourl = this.details.photoURL,
           this.areaid = this.details.areaID,
-          this.pincode=this.details.pincode,
+          this.pincode = this.details.pincode,
           this.countryid = this.details.countryID,
           this.areaid = this.details.areaID,
           this.pincode = this.details.pincode
-          this.GetCountryMaster();
-          this.getcitymaster()
+        this.GetCountryMaster();
+        this.getcitymaster()
         this.getareamasterbyid();
 
       }, error => {
       }
     )
   }
-  
+
   public updatedetails() {
     debugger
     var entity = {
-      'LanguageID':this.languageid,
+      'LanguageID': this.languageid,
       'Hospital_ClinicID': this.id,
       'PhoneNo': this.phno,
       'ContactPersonName': this.contactpersonname,
@@ -165,7 +173,7 @@ export class EditHospitalClinicComponent implements OnInit {
       'Description': this.description,
       'AreaID': this.areaid,
       'Pincode': this.pincode,
-      'CountryID':this.countryid
+      'CountryID': this.countryid
     }
     this.docservice.UpdateHospitalClinicProfile(entity).subscribe(res => {
       let test = res;
@@ -183,10 +191,10 @@ export class EditHospitalClinicComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
-      this.uploadattachments();
-    }
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -204,7 +212,7 @@ export class EditHospitalClinicComponent implements OnInit {
       debugger
     })
     // this.sendattachment();
-  }s
+  } s
   public updatephoto() {
     debugger
     var entity = {
@@ -215,7 +223,7 @@ export class EditHospitalClinicComponent implements OnInit {
       let test = res;
       Swal.fire(' Updated Successfully');
       this.gethospitalclinicdetailsbyid();
-      this.showdrop=0;
+      this.showdrop = 0;
     })
   }
   public GetMultiplePhotos() {
@@ -231,7 +239,7 @@ export class EditHospitalClinicComponent implements OnInit {
 
   public getareamasterbyid() {
     debugger
-    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
+    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
         debugger
         this.arealist = data;
@@ -268,7 +276,7 @@ export class EditHospitalClinicComponent implements OnInit {
       Swal.fire('Updated Successfully');
 
       this.GetMultiplePhotos();
-      this.mulbit=0;
+      this.mulbit = 0;
     })
   }
 }

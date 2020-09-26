@@ -283,10 +283,16 @@ export class VediocallComponent implements OnInit {
     this.sidate = formatDate(sigdate, llll, locales);
 
     this.docname = localStorage.getItem('user');
-    this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sidate;
+
 
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
+    if (this.languageid == 1) {
+      this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sidate;
+    }
+    else if (this.languageid == 6) {
+      this.signature = 'Signature électronique du ' + this.docname + ' ' + this.sidate;
+    }
     this.getlanguage();
     document.getElementById('stoprecoring').style.display = 'none';
     // document.getElementById('viewrecoring').style.display = 'none';
@@ -735,7 +741,7 @@ export class VediocallComponent implements OnInit {
           this.breastFeeding = this.details.breastFeeding,
           this.allergieslist = this.details.knownAllergies.split(',')
         debugger
-        this.allergies=[]
+        this.allergies = []
         for (let i = 0; i < this.allergieslist.length; i++) {
           var wtt = {
             displayValue: this.allergieslist[i]
@@ -782,16 +788,14 @@ export class VediocallComponent implements OnInit {
     this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
 
       let res = data;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Allergies Updated Successfully');
-        this.allergieslist=[];
+        this.allergieslist = [];
         this.getpatientdetails()
       }
-      else if(this.languageid==6)
-      {
+      else if (this.languageid == 6) {
         Swal.fire('Allergies détails enregistrés');
-        this.allergieslist=[];
+        this.allergieslist = [];
         this.getpatientdetails()
       }
     })
@@ -1586,6 +1590,7 @@ export class VediocallComponent implements OnInit {
   public adddetails1() {
     this.tablecuont1 = 1;
     var entity1 = {
+      'Sno': this.idcount,
       'MedicineTypeID': this.medicineid,
       'DoctorID': this.doctorid,
       'PateintID': this.patientiddd,
@@ -1608,7 +1613,7 @@ export class VediocallComponent implements OnInit {
 
     }
     this.qwerty2.push(entity1);
-
+    this.idcount = this.idcount + 1;
     if (this.medicinetemplate == 1) {
       this.AddDoctorPrescriptionTemplates()
     }
@@ -1625,9 +1630,20 @@ export class VediocallComponent implements OnInit {
     this.icrdescription = ""
     this.icrcodeid = ""
     this.medicinetemplate == 2
-    this.substainable = ""
+  
   }
 
+  public deleteMedicines(Sno) {
+
+    for (let i = 0; i < this.qwerty2.length; i++) {
+
+      if (Sno == this.qwerty2[i].Sno) {
+
+        this.qwerty2.splice(i, 1);
+      }
+    }
+
+  }
 
   public InsertPrescription() {
 
@@ -1807,7 +1823,7 @@ export class VediocallComponent implements OnInit {
     this.testslist.length = 0;
     this.tsetssslist.length = 0;
     this.getdiagnosticcentertests()
-    this.diagnostictestname=""
+    this.diagnostictestname = ""
   }
 
   public insertDiagnostictestdetails() {

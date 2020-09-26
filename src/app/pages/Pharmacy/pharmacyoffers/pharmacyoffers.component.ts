@@ -24,8 +24,9 @@ export class PharmacyoffersComponent implements OnInit {
 
   public attachments = [];
   public attachmentsurl = [];
-  public languageid:any;
-  public labels:any;
+  public languageid: any;
+  public labels: any;
+  dropzonelable: any;
   ngOnInit() {
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -36,6 +37,12 @@ export class PharmacyoffersComponent implements OnInit {
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
   public insertdetails() {
     debugger
@@ -61,7 +68,7 @@ export class PharmacyoffersComponent implements OnInit {
             debugger
             if (data != 0) {
               Swal.fire('Added Successfully.');
-            
+
             }
           })
         }
@@ -71,23 +78,22 @@ export class PharmacyoffersComponent implements OnInit {
     })
 
   }
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
         debugger
         this.labels = data;
       }, error => {
       }
-    ) 
+    )
   }
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
-      this.uploadattachments();
-    }
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -103,18 +109,16 @@ export class PharmacyoffersComponent implements OnInit {
     // this.sendattachment();
   }
 
-public clear()
-{
-  this.offername='';
-  this.descripton='';
-  this.startdate='';
-  this.enddate='';
-  this.offername='';
-  this.offer='';
+  public clear() {
+    this.offername = '';
+    this.descripton = '';
+    this.startdate = '';
+    this.enddate = '';
+    this.offername = '';
+    this.offer = '';
 
-}
- public GetDateClear()
- {
-   this.enddate="";
- }
+  }
+  public GetDateClear() {
+    this.enddate = "";
+  }
 }

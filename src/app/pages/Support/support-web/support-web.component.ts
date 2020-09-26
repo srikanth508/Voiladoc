@@ -35,6 +35,7 @@ export class SupportWebComponent implements OnInit {
   public dummissuelist: any;
   public issuephoto = [];
   public issuephotourl = [];
+  dropzonelable:any;
   ngOnInit() {
 
     this.options = {
@@ -69,6 +70,15 @@ export class SupportWebComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.GetSupportIssues()
     this.GetLanguageMaster()
+
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
 
 
@@ -235,11 +245,11 @@ export class SupportWebComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
+    // for (let i = 0; i < abcd.length; i++) {
       this.identityattachmentsurlssss = []
-      this.issuephoto.push(abcd[i]);
+      this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
-    }
+    // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }

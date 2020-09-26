@@ -25,8 +25,9 @@ export class OffersComponent implements OnInit {
   public attachmentsurl = [];
   public todaydate: any;
   public CurrentTime: any;
-  public languageid:any;
-  public labels:any;
+  public languageid: any;
+  public labels: any;
+  dropzonelable: any;
 
 
   ngOnInit() {
@@ -37,23 +38,29 @@ export class OffersComponent implements OnInit {
     this.todaydate = formatDate(myDate, format, locale);
     debugger
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
-    
+
     this.diagnosticid = localStorage.getItem('diagnosticid');
     this.getdiagnostictestmaster();
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
 
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
         debugger
         this.labels = data;
       }, error => {
       }
-    ) 
+    )
   }
 
   public getdiagnostictestmaster() {
@@ -109,10 +116,10 @@ export class OffersComponent implements OnInit {
   }
   public onattachmentUpload(abcd) {
     debugger
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
-      this.uploadattachments();
-    }
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+    // }
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -126,16 +133,14 @@ export class OffersComponent implements OnInit {
     })
     // this.sendattachment();
   }
-  public clear()
-  {
-    this.offername='';
-    this.descripton='';
-    this.sdate='';
-    this.edate='';
-    this.offer='';
+  public clear() {
+    this.offername = '';
+    this.descripton = '';
+    this.sdate = '';
+    this.edate = '';
+    this.offer = '';
   }
-  public GetClearDate()
-  {
-    this.edate="";
+  public GetClearDate() {
+    this.edate = "";
   }
 }
