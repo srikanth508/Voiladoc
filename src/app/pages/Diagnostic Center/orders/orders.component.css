@@ -30,6 +30,8 @@
     th::first-letter{
         text-transform: uppercase;
     }
-
+    #imp{
+        text-transform: none;
+      }
   
     

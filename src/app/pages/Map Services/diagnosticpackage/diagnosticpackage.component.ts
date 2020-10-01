@@ -36,9 +36,14 @@ export class DiagnosticpackageComponent implements OnInit {
   public diadd = {};
   public labels: any;
   public languageid: any;
+  public dummdiagnosticid: any;
+
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.diagnosticid = localStorage.getItem('diagnosticid')
+    this.dummdiagnosticid = localStorage.getItem('diagnosticid')
+    this.diagnosticname = localStorage.getItem('user')
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();
     this.tablecount = 0;
@@ -88,10 +93,11 @@ export class DiagnosticpackageComponent implements OnInit {
           singleSelection: false,
           idField: 'id',
           textField: 'short',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
+          // selectAllText: 'Select All',
+          // unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false
         };
       }, error => {
       }

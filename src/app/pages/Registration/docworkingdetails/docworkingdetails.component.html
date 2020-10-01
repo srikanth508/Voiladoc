@@ -143,7 +143,7 @@
           <option *ngFor="let days of  dayslist" value={{days.id}}>{{days.dayOfTheWeek}}</option>
         </select> -->
 
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="dayslist" [settings]="daysdd"
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="cleardropdown5" name="cleardropdown5" [data]="dayslist" [settings]="daysdd"
           (onSelect)="GetDaysID($event)" (onDeSelect)="GetDaysID($event)">
         </ng-multiselect-dropdown>
       </div>

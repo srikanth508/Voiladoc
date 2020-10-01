@@ -326,6 +326,7 @@ import { PhysioNotificationComponent } from './pages/physiotherapist/physio-noti
 
 import { NgxTagsInputModule } from 'ngx-tags-input';
 import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge-patientdata.component';
+import { EditDiagnosticTestComponent } from './pages/Diagnostic Center/edit-diagnostic-test/edit-diagnostic-test.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -643,7 +644,8 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NurseNotificationsComponent,
     MidwifenotificationsComponent,
     PhysioNotificationComponent,
-    MergePatientdataComponent
+    MergePatientdataComponent,
+    EditDiagnosticTestComponent
   ],
   imports: [
     BrowserModule,

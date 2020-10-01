@@ -6,7 +6,7 @@
   </div>
 </div>
 <br>
-<div class="container-fluid card card-hover divspacee">
+<div class="container-fluid card card-hover">
   <form #diagnostocForm="ngForm">
     <div class="row">
       <div class="col-lg-8">
@@ -16,7 +16,8 @@
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="diagnosticcentername" disabled name="diagnosticcentername" class="form-control">
+            <input type="text" [(ngModel)]="diagnosticcentername" disabled name="diagnosticcentername"
+              class="form-control">
           </div>
 
         </div>
@@ -27,7 +28,8 @@
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <input type="text" class="form-control" maxlength="10" required [(ngModel)]="phno" name="phno" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            <input type="text" class="form-control" maxlength="10" required [(ngModel)]="phno" name="phno"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
         <br>
@@ -37,7 +39,8 @@
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="contactperson" required name="contactperson" class="form-control" onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+            <input type="text" [(ngModel)]="contactperson" required name="contactperson" class="form-control"
+              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
           </div>
         </div>
         <br>
@@ -47,8 +50,8 @@
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="contactpersonphno" maxlength="10" required name="contactpersonphno" class="form-control"
-              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            <input type="text" [(ngModel)]="contactpersonphno" maxlength="10" required name="contactpersonphno"
+              class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
         <br>
@@ -58,7 +61,8 @@
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="licenseno" required name="licenseno" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            <input type="text" [(ngModel)]="licenseno" required name="licenseno" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
         <br>
@@ -80,7 +84,8 @@
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <input type="email" [(ngModel)]="emailid" required name="emailid" class="form-control" (ngModelChange)="onChange($event)">
+            <input type="email" [(ngModel)]="emailid" required name="emailid" class="form-control"
+              (ngModelChange)="onChange($event)">
           </div>
         </div>
         <br>
@@ -138,7 +143,8 @@
             <label>{{labels[0].zipCode}} :</label>
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="zipcode" maxlength="6" name="zipcode" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            <input type="text" [(ngModel)]="zipcode" maxlength="6" name="zipcode" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
         <br>
@@ -149,7 +155,8 @@
 
           </div>
           <div class="col-lg-6">
-            <input type="text" [(ngModel)]="website" name="website" class="form-control" onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+            <input type="text" [(ngModel)]="website" name="website" class="form-control"
+              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
           </div>
         </div>
         <br>
@@ -170,20 +177,21 @@
 
           </div>
           <div class="col-lg-6">
-            <textarea class="form-control" [(ngModel)]="description" name="description" rows="4" cols="30" onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode>=48 && event.charCode<=57'></textarea>
+            <textarea class="form-control" [(ngModel)]="description" name="description" rows="4" cols="30"
+              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode>=48 && event.charCode<=57'></textarea>
           </div>
         </div>
       </div>
       <div class="col-lg-2">
-        <img src={{photourl}} style="width:80%;height:150px;margin-top: 20px;" />
+        <img src={{photourl}} style="width:100%;height:auto;margin-top: 20px;" />
       </div>
     </div>
     <br>
     <div class="row">
-      <div class="col-lg-3">
+      <div class="col-lg-4">
       </div>
       <div class="col-lg-2">
-        <button type="button" [disabled]="diagnostocForm.form.invalid||validEmail==false" class="btn btn-block btn-md allbtns btncolor"
+        <button type="button" [disabled]="diagnostocForm.form.invalid||validEmail==false" class="btn btncolor"
           (click)="updatedetails()">{{labels[0].update}}</button>
       </div>
       <div class="col-lg-5">
@@ -196,7 +204,8 @@
         <img src="{{photo.photoURL}}" style="height:80px;width:100px">
         <br>
         <br>
-        <button class="btn btncolor" style="width:57%" (click)="GetDiagphotoId(photo.diasid)">{{labels[0].edit}}</button>
+        <button class="btn btncolor" style="width:57%"
+          (click)="GetDiagphotoId(photo.diasid)">{{labels[0].edit}}</button>
         <br>
         <br>
       </div>

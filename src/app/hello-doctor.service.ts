@@ -4182,4 +4182,45 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/UpdatePatientRegistrationMobileNumber';
     return this.http.post(this.url, data)
   }
+
+  
+  public GetSoapNotesByApointmentID(patientid,lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetSoapNotesByApointmentID?ID=' + patientid+'&LanguageID='+lid);
+  }
+
+
+  public GetBooked_DoctorPatientBookedVideoConferencebyppointmentID(appointmentid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetBooked_DoctorPatientBookedVideoConferencebyppointmentID?AppointmentID=' + appointmentid);
+  }
+
+  public InsertDiagnosticRelatedSlotsStartTimeEndTime(data) {
+    this.url = this.host + '/Diagnostic/InsertDiagnosticRelatedSlotsStartTimeEndTime';
+    return this.http.post(this.url, data)
+  }
+
+  public GetDiagnosticRelatedSlotsStartTimeEndTime(lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticRelatedSlotsStartTimeEndTime?LanguageID=' + lid);
+  }
+
+
+  public UpdateDiagnosticRelatedSlotsStartTimeEndTime(data) {
+    this.url = this.host + '/Diagnostic/UpdateDiagnosticRelatedSlotsStartTimeEndTime';
+    return this.http.post(this.url, data)
+  }
+  public DeleteDiagnosticRelatedSlotsStartTimeEndTime(diaid,dayid,timeid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Diagnostic/DeleteDiagnosticRelatedSlotsStartTimeEndTime?DiagnosticCenterID=' + diaid+'&DayID='+dayid+'&TimeID='+timeid);
+  }
+  public DeleteADiagnosticRelatedSlotsStartTimeEndTimeDay(diaid,dayid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Diagnostic/DeleteADiagnosticRelatedSlotsStartTimeEndTimeDay?DiagnosticCenterID=' + diaid+'&DayID='+dayid);
+  }
+
+  public UpdateDiagnosticCenterTests(data) {
+    this.url = this.host + '/Diagnostic/UpdateDiagnosticCenterTests';
+    return this.http.post(this.url, data)
+  }
 }

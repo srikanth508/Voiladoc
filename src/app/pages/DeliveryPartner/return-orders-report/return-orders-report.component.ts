@@ -34,6 +34,7 @@ export class ReturnOrdersReportComponent implements OnInit {
   public orderlist: any;
   p: number = 1;
   term: any;
+  labels1
   ngOnInit() {
 
     this.Ordertypeid = 0;
@@ -46,7 +47,6 @@ export class ReturnOrdersReportComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-
 
 
     let date = new Date();
@@ -70,8 +70,18 @@ export class ReturnOrdersReportComponent implements OnInit {
     this.enddate = formatDate(lll, format, locale);
     this.deliverycompanyid = localStorage.getItem('deliveryid');
 
-
     this.languageid = localStorage.getItem('LanguageID');
+
+    
+    this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
+      }, error => {
+      }
+    )
+
+   
     this.getlanguage()
 
     this.GetOrdersForDeliveryCompany()

@@ -374,6 +374,26 @@ export class VediocallComponent implements OnInit {
     }
     // tok bok vamsi  start
 
+   
+    // this.docservice.GetBooked_DoctorPatientBookedVideoConferencebyppointmentID(this.appointmentid).subscribe(
+    //   data => {
+    //     if (data.length > 0) {
+    //       debugger
+    //       config.SESSION_ID = data[0].sessionID,
+    //         config.TOKEN = data[0].token
+    //       this.insertvedioeconferencedetails();
+    //     }
+    //     else {
+    //       this.opentokService.getsessionandtoken().subscribe(res => {
+    //         config.SESSION_ID = res['sessionid'];
+    //         config.TOKEN = res['token'];
+
+    //         this.insertvedioeconferencedetails();
+    //       })
+    //     }
+    //   }, error => {
+    //   }
+    // )
     this.opentokService.getsessionandtoken().subscribe(res => {
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
@@ -384,7 +404,7 @@ export class VediocallComponent implements OnInit {
     // tok bok vamsi End
     this.GetSoapNotesByPatientID();
     this.medicinetemplate = 2;
-
+    this.oberserableTimer();
   }
 
 
@@ -716,7 +736,7 @@ export class VediocallComponent implements OnInit {
   public getpatientdetails() {
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
       data => {
-        debugger
+        
         this.details = data[0];
         this.patientname = this.details.pName,
           this.mobileno = this.details.mobileNumber,
@@ -740,13 +760,13 @@ export class VediocallComponent implements OnInit {
           this.ispatientpragnent = this.details.isPatientPragnent,
           this.breastFeeding = this.details.breastFeeding,
           this.allergieslist = this.details.knownAllergies.split(',')
-        debugger
+        
         this.allergies = []
         for (let i = 0; i < this.allergieslist.length; i++) {
           var wtt = {
             displayValue: this.allergieslist[i]
           }
-          debugger
+          
           this.allergies.push(wtt);
         }
 
@@ -778,7 +798,7 @@ export class VediocallComponent implements OnInit {
 
 
   public Updateallergies() {
-    debugger
+    
     this.allergies = this.allergies.map(x => x.displayValue);
     this.allergieslist = this.allergies.join(',');
     var entity = {
@@ -1630,7 +1650,7 @@ export class VediocallComponent implements OnInit {
     this.icrdescription = ""
     this.icrcodeid = ""
     this.medicinetemplate == 2
-  
+
   }
 
   public deleteMedicines(Sno) {

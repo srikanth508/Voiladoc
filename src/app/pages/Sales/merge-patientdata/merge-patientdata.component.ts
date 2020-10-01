@@ -14,7 +14,8 @@ export class MergePatientdataComponent implements OnInit {
   public patientname: any;
   searchon: any;
   patientdetails: any;
-
+  pino: any;
+  pinno: any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -43,12 +44,14 @@ export class MergePatientdataComponent implements OnInit {
 
   }
   patientid: any;
+  patientpinno: any;
 
-  public GetPatientID(id, mobileNumber,patientName) {
+  public GetPatientID(id, mobileNumber, patientName, pinno) {
     this.patientid = id
     this.oldmobilenumber = mobileNumber
     this.searchon = 0
-    this.patientname=patientName;
+    this.patientname = patientName;
+    this.patientpinno = pinno
   }
 
   newmobilenumber: any;
@@ -56,21 +59,39 @@ export class MergePatientdataComponent implements OnInit {
 
 
   public updatemobilenmber() {
-    debugger
-    var entity = {
-      'ID': this.patientid,
-      'MobileNumber': this.newmobilenumber,
-      'NewmobileNumber': this.newmobilenumber,
-      'OldmobileNumber': this.oldmobilenumber
-    }
-    this.docservice.UpdatePatientRegistrationMobileNumber(entity).subscribe(data => {
+debugger
+    if (this.patientpinno == this.pinno) {
       debugger
-      let res = data;
-      this.GetPatientDetails()
-      Swal.fire('Updated Successfully');
-      this.newmobilenumber=""
-      this.patientname=""
-    })
+      var entity = {
+        'ID': this.patientid,
+        'MobileNumber': this.newmobilenumber,
+        'NewmobileNumber': this.newmobilenumber,
+        'OldmobileNumber': this.oldmobilenumber
+      }
+      this.docservice.UpdatePatientRegistrationMobileNumber(entity).subscribe(data => {
+        debugger
+        if (data == 0) {
+          this.GetPatientDetails()
+          Swal.fire('Mobile Number Already Exists');
+          // this.newmobilenumber=""
+          // this.patientname=""
+        }
+        if (data != 0) {
+          this.GetPatientDetails()
+          Swal.fire('Updated Successfully');
+          this.newmobilenumber = ""
+          this.patientname = ""
+        }
+      })
+    }
+    else {
+      debugger
+      Swal.fire('','Pin is invalid')
+      this.pinno=""
+    }
+
+
   }
+
 
 }

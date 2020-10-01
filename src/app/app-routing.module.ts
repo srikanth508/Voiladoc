@@ -301,6 +301,7 @@ import { NurseNotificationsComponent } from './pages/Nurse/nurse-notifications/n
 import { MidwifenotificationsComponent } from './pages/Midewife/midwifenotifications/midwifenotifications.component';
 import { PhysioNotificationComponent } from './pages/physiotherapist/physio-notification/physio-notification.component';
 import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge-patientdata.component';
+import { EditDiagnosticTestComponent } from './pages/Diagnostic Center/edit-diagnostic-test/edit-diagnostic-test.component';
 
 
 const routes: Routes = [
@@ -672,6 +673,7 @@ const routes: Routes = [
   { path: 'Midwifenotifications', component: MidwifenotificationsComponent },
   { path: 'PhysioNotification', component: PhysioNotificationComponent },
   { path: 'MergePatientdata', component: MergePatientdataComponent },
+  { path: 'EditDiagnosticTest/:id', component: EditDiagnosticTestComponent },
 ];
 
 

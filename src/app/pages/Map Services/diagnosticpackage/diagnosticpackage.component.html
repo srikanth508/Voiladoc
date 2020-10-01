@@ -16,21 +16,33 @@
 </div>
 <div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
   <form #diagnosticForm="ngForm">
-    <div class="row" style="margin-top:20px;">
-      <div class="col-lg-3">
-        <label>{{labels[0].diagnosticCenter}} : </label>
-      </div>
-      <div class="col-lg-4">
-        <!-- <select class="form-control" [disabled]="tablecount=='1'"  (change)="GetDiagnosticID($event)">
+    <div *ngIf="dummdiagnosticid=='undefined'">
+      <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+          <label>{{labels[0].diagnosticCenter}} : </label>
+        </div>
+        <div class="col-lg-4">
+          <!-- <select class="form-control" [disabled]="tablecount=='1'"  (change)="GetDiagnosticID($event)">
         <option valu="" selected>Select</option>
         <option *ngFor="let diagnostic of diagnosticlist" value={{diagnostic.id}}>{{diagnostic.diagnosticCenterName}}</option>
       </select> -->
 
-        <ng-multiselect-dropdown [disabled]="tablecount=='1'" [placeholder]="SelectLabel" [data]="diagnosticlist"
-          [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
-        </ng-multiselect-dropdown>
-      </div>
-    </div><br>
+          <ng-multiselect-dropdown [disabled]="tablecount=='1'" [placeholder]="SelectLabel" [data]="diagnosticlist"
+            [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
+          </ng-multiselect-dropdown>
+        </div>
+      </div><br>
+    </div>
+    <div *ngIf="dummdiagnosticid!='undefined'">
+      <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+          <label>{{labels[0].diagnosticCenter}} : </label>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" disabled class="form-control" [(ngModel)]="diagnosticname" name="diagnosticname">
+        </div>
+      </div><br>
+    </div>
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].packageName}} :</label>
@@ -43,7 +55,7 @@
     </div><br>
     <div class="row">
       <div class="col-lg-3">
-        <label>{{labels[0].test}} : </label>
+        <label >Test : </label>
       </div>
       <div class="col-lg-4">
         <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="selectedItemsRoot" [data]="testlist"
@@ -53,11 +65,12 @@
     </div><br>
     <div class="row">
       <div class="col-lg-3">
-        <label>{{labels[0].packagePrice}}  : </label>
+        <label>{{labels[0].packagePrice}} : </label>
       </div>
       <div class="col-lg-4">
         <input type="text" [disabled]="tablecount=='1'" name="packageprice" required class="form-control"
-          [(ngModel)]="packageprice" placeholder="{{labels[0].packagePrice}}" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          [(ngModel)]="packageprice" placeholder="{{labels[0].packagePrice}}"
+          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div><br>
     <div class="row">

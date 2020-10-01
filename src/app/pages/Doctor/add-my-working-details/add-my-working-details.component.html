@@ -119,7 +119,7 @@
       </div>
     </div>
  
-    <!-- <div class="row">
+     <div class="row">
       <div class="col-lg-2">
         <label>{{labels[0].fees}}  : </label>
       </div>
@@ -141,7 +141,7 @@
         </select> -->
 
         <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="dayslist" [settings]="daysdd"
-          (onSelect)="GetDaysID($event)" (onDeSelect)="GetDaysID($event)">
+          (onSelect)="GetDaysID($event)" [(ngModel)]="cleardropdown5" name="cleardropdown5" (onDeSelect)="GetDaysID($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>

@@ -30,7 +30,7 @@ export class ReturnOrdersComponent implements OnInit {
   public partnerlist: any;
   public term: any;
   p: number = 1;
-
+  labels1:any;
   ngOnInit() {
 
     this.Ordertypeid = 0;
@@ -81,6 +81,14 @@ export class ReturnOrdersComponent implements OnInit {
       }
     )
 
+
+    this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
+      }, error => {
+      }
+    )
 
   }
 

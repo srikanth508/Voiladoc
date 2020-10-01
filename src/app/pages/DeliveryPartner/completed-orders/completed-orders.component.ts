@@ -39,6 +39,7 @@ export class CompletedOrdersComponent implements OnInit {
   value: any;
   SDate = new Date();
   EDate = new Date();
+  labels1:any;
   ngOnInit() {
     this.Ordertypeid = 0;
     this.options = {
@@ -89,6 +90,16 @@ export class CompletedOrdersComponent implements OnInit {
       }, error => {
       }
     )
+
+    
+this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+  data => {
+    debugger
+    this.labels1 = data;
+  }, error => {
+  }
+)
+
 
 
     this.getlanguage();

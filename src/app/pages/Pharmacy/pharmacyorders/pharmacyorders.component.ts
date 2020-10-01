@@ -30,11 +30,13 @@ export class PharmacyordersComponent implements OnInit {
   enddate: any;
   value: any;
   public dummlist:any;
+  labels1:any;
+  languageid:any;
   ngOnInit() {
 
     this.pharmacyid = localStorage.getItem('pharmacyid');
 
-
+    this.languageid = localStorage.getItem('LanguageID');
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -68,6 +70,10 @@ export class PharmacyordersComponent implements OnInit {
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
     this.getmedicineorderdetailsbyphrmacyid();
+
+    
+
+
   }
 
   public getmedicineorderdetailsbyphrmacyid() {

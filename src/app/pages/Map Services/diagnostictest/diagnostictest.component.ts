@@ -31,9 +31,13 @@ export class DiagnostictestComponent implements OnInit {
   public diadd = {};
   public labels: any;
   public languageid: any;
+  dummdiagnosticid: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.diagnosticid = localStorage.getItem('diagnosticid')
+    this.dummdiagnosticid = localStorage.getItem('diagnosticid')
+    this.diagnosticname = localStorage.getItem('user')
     this.getlanguage();
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();

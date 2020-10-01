@@ -1532,8 +1532,8 @@ export class MyappointmentsComponent implements OnInit {
     this.tsetssslist.length = 0;
     this.diagnostictestname = ""
     this.getdiagnosticcentertests();
-
   }
+  
 
   public insertDiagnostictestdetails() {
     for (let i = 0; i < this.qwerty.length; i++) {
@@ -1542,7 +1542,7 @@ export class MyappointmentsComponent implements OnInit {
         'PateintID': this.diapatientid,
         'DiagnosticTestTypeID': this.qwerty[i].DiagnosticTestTypeID,
         'DiagnosticTestName': this.qwerty[i].TestName,
-        'LanguageID': 1,
+        'LanguageID': this.languageid,
         'AppointmentID': this.diaappointmentID,
         'TestsID': this.qwerty[i].TestID,
         'ClinicalInfo': this.qwerty[i].ClinicalInfo
@@ -1718,7 +1718,10 @@ export class MyappointmentsComponent implements OnInit {
       if (this.servertime >= slots) {
         if (this.servertime <= endtime) {
           this.docservice.showvid = 1;
-          location.href = '#/Vediocall';
+         // location.
+         location.href = '#/Vediocall';
+          // window.open("//" + "#/Vediocall", '_blank');
+          // window.open("#/Vediocall", "_blank");
         }
         else {
           if (this.languageid == 1) {
@@ -2588,7 +2591,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetReferralID(details) {
-
+    debugger
     this.patientid = details.patientID;
     this.appointmentid = details.appointmentID;
     if (this.languageid == 1) {
@@ -2712,7 +2715,7 @@ export class MyappointmentsComponent implements OnInit {
   public user: any;
   public soap: any;
   public insertdetails1() {
-
+    debugger
     if (this.referaltypeid == 1 || this.referaltypeid == 2) {
       debugger
       if (this.doctorname == null) {
@@ -3506,5 +3509,43 @@ export class MyappointmentsComponent implements OnInit {
 
   public GetShowOff() {
     document.getElementById("myForm").style.display = "none";
+  }
+
+  sopapatientid: any;
+  soaplist1: any;
+  dummsopailist: any;
+
+  public GetSoapPatientID(patientid) {
+    this.sopapatientid = patientid
+    if (this.departmentid != 14) {
+      debugger
+      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
+        data => {
+          this.dummsopailist = data;
+          this.soaplist1 = this.dummsopailist.filter(x => x.departmentID! = 14)
+          debugger
+        }, error => {
+        }
+      )
+    }
+    else if (this.departmentid == 14) {
+      debugger
+      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
+        data => {
+          this.soaplist1 = data;
+          debugger
+        }, error => {
+        }
+      )
+    }
+
+  }
+  viewdetaillist: any;
+
+  public GetViewDetails(id) {
+    debugger
+    this.appointmentid = id
+    this.viewdetaillist = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
+    debugger
   }
 }

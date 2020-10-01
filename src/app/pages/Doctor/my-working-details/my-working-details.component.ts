@@ -515,7 +515,6 @@ export class MyWorkingDetailsComponent implements OnInit {
           })
         }
 
-
         for (let i = 0; i < this.qwerty.length; i++) {
           var entitys = {
             'Hospital_ClinicID': this.hspcliid,

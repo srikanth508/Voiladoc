@@ -27,7 +27,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
   public languageid: any;
   public ordertype: any;
   public todaydate: any;
-
+  labels1:any;
   startdate: any;
   enddate: any;
   value: any;
@@ -77,6 +77,13 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
       }
     )
 
+    this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
+      }, error => {
+      }
+    )
 
     this.getlanguage();
   }

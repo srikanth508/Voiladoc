@@ -1,7 +1,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-3">
-      <h5>Pharmacy Orders</h5>
+      <h5>{{labels2[0].pharmacydeliveryorders}}</h5>
     </div>
   </div>
 </div><br>
@@ -27,16 +27,16 @@
           <tr>
             <th>{{labels[0].orderDate}}</th>
             <th>{{labels[0].orderNumber}}</th>
-            <th>Prescription Type</th>
-            <th>Pharmacy Name</th>
+            <th>{{labels[0].prescriptiontype}}</th>
+            <th>{{labels[0].pharmacyname}}</th>
             <!-- <th>{{labels[0].phoneNo}} </th> -->
-            <th>Pick Up Address</th>
-            <th>Customer Name</th>
-            <th>Customer Phone No</th>
+            <th>{{labels[0].pickupaddress}}</th>
+            <th>{{labels[0].customername}}</th>
+            <th>{{labels[0].customerphoneno}}</th>
             <th>{{labels[0].deliveryAddress}}</th>
-            <th>Order Status</th>
-            <th>Assign To</th>
-            <th>Assign Phone No</th>
+            <th>{{labels[0].orderstatus}}</th>
+            <th>{{labels[0].assignto}}</th>
+            <th>{{labels[0].assignphoneno}}</th>
             <th>Actions</th>
             <!-- <th>{{labels[0].medicines}}</th> -->
             <!-- <th>{{labels[0].status}}</th>

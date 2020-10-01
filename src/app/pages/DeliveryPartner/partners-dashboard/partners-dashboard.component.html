@@ -30,8 +30,10 @@
             <th>{{labels[0].email}}</th>
           </tr>
           <tr *ngFor="let details of partnerlist|filter:term">
-            <td *ngIf="details.staffType==1">Delivery Supervisor</td>
-            <td *ngIf="details.staffType==2">Delivery Executive</td>
+            <td *ngIf="details.staffType==1&&languageid==1">Delivery Supervisor</td>
+            <td *ngIf="details.staffType==2&&languageid==1">Delivery Executive</td>
+            <td *ngIf="details.staffType==1&&languageid==6">Responsable livraison</td>
+            <td *ngIf="details.staffType==2&&languageid==6">Personnel de livraison</td>
             <td>{{details.name}}</td>
             <td>{{details.phoneNo}}</td>
             <td>{{details.emailID}}</td>

@@ -46,6 +46,7 @@ export class PharmacyOrdersComponent implements OnInit {
   public partnerlist: any;
   public labels1: any;
   public deliverycompanyid: any;
+  public labels2:any;
 
   ngOnInit() {
 
@@ -93,6 +94,16 @@ export class PharmacyOrdersComponent implements OnInit {
       }, error => {
       }
     )
+
+
+    
+this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+  data => {
+    debugger
+    this.labels2 = data;
+  }, error => {
+  }
+)
 
 
   }

@@ -1,3 +1,4 @@
+<br>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-8">
@@ -44,7 +45,7 @@
             <td>{{details.address}}</td>
             <td>
               <input type="checkbox" data-toggle="modal" data-target="#myModal"
-                (click)="GetPatientID(details.id,details.mobileNumber,details.patientName)">
+                (click)="GetPatientID(details.id,details.mobileNumber,details.patientName,details.pinno)">
             </td>
           </tr>
         </thead>
@@ -65,6 +66,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <form #regForm="ngForm">
         <div class="row">
           <div class="col-lg-3">
             <label>Mobile Number</label>
@@ -75,10 +77,18 @@
         </div><br>
         <div class="row">
           <div class="col-lg-3">
+            <label>Pin no</label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" required minlength="4" placeholder="Pin no" [(ngModel)]="pinno" name="pinno">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
             <label>New Mobile Number</label>
           </div>
           <div class="col-lg-6">
-            <input type="text" class="form-control" placeholder="New Mobile Number" [(ngModel)]="newmobilenumber" name="newmobilenumber">
+            <input type="text" class="form-control" required minlength="10" placeholder="New Mobile Number" [(ngModel)]="newmobilenumber" name="newmobilenumber">
           </div>
         </div><br>
         <div class="row">
@@ -86,12 +96,13 @@
           </div>
           <div class="col-lg-2">
             <button type="button" class="btn btncolor" style="background-color: #f18235;"
-            (click)="updatemobilenmber()"  data-dismiss="modal">Update</button>
+            (click)="updatemobilenmber()" [disabled]="regForm.form.invalid">Update</button>
           </div>
           <div class="col-lg-5">
 
           </div>
         </div>
+      </form>
       </div>
       <div class="modal-footer">
         <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"

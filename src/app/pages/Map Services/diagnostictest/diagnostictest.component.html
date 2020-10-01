@@ -11,6 +11,7 @@
 <br>
 <div class="container-fluid card card:hover divspacee">
   <form #testForm="ngForm">
+    <div *ngIf="dummdiagnosticid=='undefined'">
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
         <label>{{labels[0].diagnosticCenter}} : </label>
@@ -25,6 +26,18 @@
         </ng-multiselect-dropdown>
       </div>
     </div><br>
+  </div>
+    <div *ngIf="dummdiagnosticid!='undefined'">
+      <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+          <label>{{labels[0].diagnosticCenter}} : </label>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" class="form-control" disabled [(ngModel)]="diagnosticname" name="diagnosticname">
+        </div>
+      </div><br>
+    </div>
+
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].test}} :</label>
@@ -41,8 +54,8 @@
         <label>{{labels[0].testPrice}} : </label>
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control" name="price" required [(ngModel)]="price" placeholder="{{labels[0].testPrice}}"
-          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+        <input type="text" class="form-control" name="price" required [(ngModel)]="price"
+          placeholder="{{labels[0].testPrice}}" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div><br>
     <div class="row">
@@ -50,8 +63,8 @@
         <label>{{labels[0].testDescription}} : </label>
       </div>
       <div class="col-lg-4">
-        <textarea rows="4" placeholder="{{labels[0].testDescription}}" name="description" required [(ngModel)]="description"
-          class="form-control"></textarea>
+        <textarea rows="4" placeholder="{{labels[0].testDescription}}" name="description" required
+          [(ngModel)]="description" class="form-control"></textarea>
       </div>
     </div><br><br>
     <div class="row">

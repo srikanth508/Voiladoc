@@ -69,7 +69,7 @@ export class AppComponent {
     this.midwifeid = localStorage.getItem('midwifeid');
     this.physioid = localStorage.getItem('physioid');
     this.supportid = localStorage.getItem('supportid')
-  //  this.oberserableTimer();
+  // this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
     // this.GetDoctorNotifications();

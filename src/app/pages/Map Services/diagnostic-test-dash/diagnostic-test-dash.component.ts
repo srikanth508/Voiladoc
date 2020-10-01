@@ -25,8 +25,11 @@ export class DiagnosticTestDashComponent implements OnInit {
   public countrylist: any;
   public count: any;
   public labels2: any;
+  diagnosticenterid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.diagnosticenterid = localStorage.getItem('diagnosticid')
+
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
         debugger;
@@ -47,7 +50,7 @@ export class DiagnosticTestDashComponent implements OnInit {
     this.GetDiagnosticServices();
 
     this.getlanguage();
-    this.GetCountryMaster()
+
     this.countryid = 0
     this.cityid = 0
   }
@@ -64,17 +67,32 @@ export class DiagnosticTestDashComponent implements OnInit {
   }
 
   public GetDiagnosticServices() {
-
     debugger
-    this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
-      data => {
-        debugger
-        this.servicelist = data;
-        this.dummlist = this.servicelist
-        this.count = this.servicelist.length
-      }, error => {
-      }
-    )
+    if (this.diagnosticenterid != undefined) {
+      this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
+        data => {
+          debugger
+          this.dummlist = data;
+     
+          this.servicelist = this.dummlist.filter(x => x.diagnosticCenterID == this.diagnosticenterid)
+          this.count = this.servicelist.length
+        }, error => {
+        }
+      )
+    }
+    else {
+      this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
+        data => {
+          debugger
+          this.servicelist = data;
+          this.dummlist = this.servicelist
+          this.count = this.servicelist.length
+      
+        }, error => {
+        }
+      )
+    }
+
   }
   public DeleteDiagnostocServces(id) {
     debugger
@@ -101,85 +119,85 @@ export class DiagnosticTestDashComponent implements OnInit {
 
 
 
-  public GetCountryMaster() {
-    this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
-      data => {
-        debugger
-        this.countrylist = data;
+  // public GetCountryMaster() {
+  //   this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
+  //     data => {
+  //       debugger
+  //       this.countrylist = data;
 
-      }, error => {
-      }
-    )
-  }
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
-  public GetCountryID(even) {
-    if (even.target.value != 0) {
-      debugger
-      this.countryid = even.target.value;
+  // public GetCountryID(even) {
+  //   if (even.target.value != 0) {
+  //     debugger
+  //     this.countryid = even.target.value;
 
-      this.servicelist = this.dummlist.filter(x => x.countryID == this.countryid)
-      this.count = this.servicelist.length
-      this.getcity();
-    }
-    else if (even.target.value == 0) {
-      this.GetDiagnosticServices()
-      this.countryid = 0
+  //     this.servicelist = this.dummlist.filter(x => x.countryID == this.countryid)
+  //     this.count = this.servicelist.length
+  //     this.getcity();
+  //   }
+  //   else if (even.target.value == 0) {
+  //     this.GetDiagnosticServices()
+  //     this.countryid = 0
 
-    }
-  }
-  public getcity() {
-    debugger
-    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
-      data => {
-        debugger
-        this.citylist = data;
-      }, error => {
-      }
-    )
-  }
-
-
-  public GetCityID(even) {
-    if (even.target.value != 0) {
-      debugger
-      this.cityid = even.target.value;
-      this.getareamasterbyid()
-      this.servicelist = this.dummlist.filter(x => x.cityID == this.cityid)
-      this.count = this.servicelist.length
-    }
-    else if (even.target.value == 0) {
-      this.getcity();
-      this.areaid = 0;
-      this.cityid = 0
-    }
-  }
+  //   }
+  // }
+  // public getcity() {
+  //   debugger
+  //   this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
+  //     data => {
+  //       debugger
+  //       this.citylist = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
 
+  // public GetCityID(even) {
+  //   if (even.target.value != 0) {
+  //     debugger
+  //     this.cityid = even.target.value;
+  //     this.getareamasterbyid()
+  //     this.servicelist = this.dummlist.filter(x => x.cityID == this.cityid)
+  //     this.count = this.servicelist.length
+  //   }
+  //   else if (even.target.value == 0) {
+  //     this.getcity();
+  //     this.areaid = 0;
+  //     this.cityid = 0
+  //   }
+  // }
 
-  public getareamasterbyid() {
-    debugger
-    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
-      data => {
-        debugger
-        this.arealist = data;
-
-      }, error => {
-      }
-    )
-  }
 
 
-  public GetAreaID(even) {
-    if (even.target.value != 0) {
-      debugger
-      this.areaid = even.target.value;
-      this.servicelist = this.dummlist.filter(x => x.areaID == this.areaid)
-      this.count = this.servicelist.length
-    }
-    else if (even.target.value == 0) {
-      this.GetDiagnosticServices()
-    }
-  }
+  // public getareamasterbyid() {
+  //   debugger
+  //   this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
+  //     data => {
+  //       debugger
+  //       this.arealist = data;
+
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+
+  // public GetAreaID(even) {
+  //   if (even.target.value != 0) {
+  //     debugger
+  //     this.areaid = even.target.value;
+  //     this.servicelist = this.dummlist.filter(x => x.areaID == this.areaid)
+  //     this.count = this.servicelist.length
+  //   }
+  //   else if (even.target.value == 0) {
+  //     this.GetDiagnosticServices()
+  //   }
+  // }
 
 
 

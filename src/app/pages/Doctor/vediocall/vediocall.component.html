@@ -87,15 +87,23 @@
             </tr>
             <tr>
               <td>
-                {{labels[0].allergies}} : <b>
+                <div class="row">
+                  <div class="col-lg-12">
+                    {{labels[0].allergies}} :
+                  </div>
 
-                  <ngx-tags-input class="form-control input-lg" style="height: 50px;" [(ngModel)]="allergies"
-                    name="allergies"></ngx-tags-input>
-                  <!-- {{allergies}} -->
-
-                  <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
-                    data-target="#exampleModalCenter" />
-                </b>
+                </div>
+                <div class="row">
+                  <div class="col-lg-10">
+                    <ngx-tags-input class="form-control input-xl" style="height: 40px;" [(ngModel)]="allergies"
+                      name="allergies"></ngx-tags-input>
+                  </div>
+                  <div class="col-lg-2">
+                    <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                      data-target="#exampleModalCenter" />
+                  </div>
+                </div>
+                <!-- {{allergies}} -->
               </td>
               <td>
                 {{labels[0].bmi}} : <b>{{bmi}}</b>
@@ -174,8 +182,8 @@
                   <div class="col-g-4">
                   </div>
                   <div class="col-lg-2">
-                    <img src="assets/Images/arrowtop.jpg" style="margin-left: 291px;
-                    width: 44%;">
+                    <!-- <img src="assets/Images/arrowtop.jpg" style="margin-left: 291px;
+                    width: 44%;"> -->
                   </div>
                 </div>
                 <br>
@@ -218,18 +226,18 @@
                     <table style="overflow-y:auto;">
                       <thead>
                         <tr>
+                          <th>Actions</th>
                           <th>médicament</th>
                           <th>Dénomination </th>
                           <th>Dosage</th>
-                          <th>Actions</th>
                         </tr>
                         <tr *ngFor="let code of drugnamelist|filter:medicinename| slice:0:100; let i=index">
-                          <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
-                          <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
-                          <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
                           <td>
                             <input type="checkbox" (click)="GetDrugID(code.medicinename)">
                           </td>
+                          <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
+                          <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
+                          <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
                         </tr>
                       </thead>
                     </table>
@@ -435,12 +443,12 @@
                         <td>{{diagtest.DiagnosticTestTypeName}}</td>
                         <td>{{diagtest.TestName}}</td>
                         <td>
-                            <ng-template #tipcontent2>Delete</ng-template>
-                            <a [ngbTooltip]="tipcontent2">
-                              <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                                (click)="delete(diagtest.Sno)">
-                            </a>
-                          </td>
+                          <ng-template #tipcontent2>Delete</ng-template>
+                          <a [ngbTooltip]="tipcontent2">
+                            <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                              (click)="delete(diagtest.Sno)">
+                          </a>
+                        </td>
                       </tr>
                     </table>
                     <br>
@@ -468,7 +476,7 @@
                   <div class="col-g-4">
                   </div>
                   <div class="col-lg-2">
-                    <img src="assets/Images/arrowtop.jpg" style=" width: 43%; margin-left: 284px;">
+                    <!-- <img src="assets/Images/arrowtop.jpg" style=" width: 43%; margin-left: 284px;"> -->
                   </div>
                 </div>
                 <br>
@@ -666,7 +674,7 @@
                 <div class="col-lg-5">
                 </div>
                 <div class="col-lg-3">
-                  <img src="assets/Images/arrowleft.jpg">
+                  <!-- <img src="assets/Images/arrowleft.jpg"> -->
                 </div>
               </div>
             </div>
@@ -1112,6 +1120,14 @@
               <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
               <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
                 name="allergies"></ngx-tags-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+           
+            </div>
+            <div  class="col-lg-8">
+              <p>{{labels[0].alergesmessage}}</p>
             </div>
           </div>
         </div>

@@ -32,12 +32,12 @@
     <div class="col-lg-12">
       <table class="table" id="Appointment" style="overflow: auto;">
         <thead>
-          <tr style="height: 20px">
+          <tr>
             <th>Date</th>
             <th>{{labels[0].time}}</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].notificationType}}</th>
-            <th>{{labels[0].notification}}</th>
+            <th style="width: 42%;">{{labels[0].notification}}</th>
           </tr>
           <tr *ngFor="let noti of Notificationslist|filter:term">
             <td>{{noti.date}}</td>

@@ -52,6 +52,7 @@ export class PharmacyReturnordersComponent implements OnInit {
   public dummorderlist: any;
   public retunphotos: any;
   public count: any;
+  public labels2:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.deliverycompanyid = localStorage.getItem('deliveryid');
@@ -97,6 +98,16 @@ export class PharmacyReturnordersComponent implements OnInit {
       }, error => {
       }
     )
+
+    
+this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+  data => {
+    debugger
+    this.labels2 = data;
+  }, error => {
+  }
+)
+
 
   }
 
