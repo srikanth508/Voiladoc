@@ -30,7 +30,7 @@ export class MidwifeLoginComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetMidWivesRegistratingLogins(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.midwifelist = data;
 
           this.middd = {
@@ -49,7 +49,7 @@ export class MidwifeLoginComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWivesRegistratingLogins(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummmidwifelist = data;
           this.midwifelist = this.dummmidwifelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
@@ -73,7 +73,7 @@ export class MidwifeLoginComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -83,7 +83,7 @@ export class MidwifeLoginComponent implements OnInit {
 
 
   public Getmidewifeid(item: any) {
-    debugger
+   
     this.midewifeid = item.id;
   }
 
@@ -95,11 +95,11 @@ export class MidwifeLoginComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp = 1;
       }
       else {
-        debugger
+       
         var entity = {
           'MidWiveID': this.midewifeid,
           'UserName': this.username,
@@ -108,7 +108,7 @@ export class MidwifeLoginComponent implements OnInit {
         this.username = '';
         this.password = '';
         this.docservice.InsertMidWivesLogin(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
             this.pp = 0;

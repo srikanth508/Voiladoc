@@ -52,7 +52,7 @@ export class DoctorNotificationsComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -68,7 +68,7 @@ export class DoctorNotificationsComponent implements OnInit {
 
     this.docservice.GetNotifications_DoctorByDoctorIDWeb(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.Notificationslist = data;
         this.count = this.Notificationslist.length
       }, error => {
@@ -80,15 +80,15 @@ export class DoctorNotificationsComponent implements OnInit {
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-      debugger
+     
       this.labels = res;
-      debugger
+     
     })
   }
 
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -98,7 +98,7 @@ export class DoctorNotificationsComponent implements OnInit {
 
     this.docservice.GetNotifications_DoctorByDoctorIDWeb(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.Notificationslist = data;
         this.count = this.Notificationslist.length
       }, error => {

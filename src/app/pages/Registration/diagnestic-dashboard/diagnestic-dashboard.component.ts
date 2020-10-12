@@ -42,7 +42,7 @@ export class DiagnesticDashboardComponent implements OnInit {
     this.enddate = localStorage.getItem('EndDate');
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
     }
     )
@@ -52,7 +52,7 @@ export class DiagnesticDashboardComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetDiagnosticForAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.diagnosticlist = data;
           this.dummlist = this.diagnosticlist
           this.diagnosticlist = this.diagnosticlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
@@ -64,7 +64,7 @@ export class DiagnesticDashboardComponent implements OnInit {
     else {
       this.docservice.GetDiagnosticDetailsForWeb(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.diagnosticlist = data;
           this.dummlist = this.diagnosticlist
           this.count = this.diagnosticlist.length;
@@ -76,7 +76,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -89,10 +89,10 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public getdiagnosticforadmin() {
-    debugger
+   
     this.docservice.GetDiagnosticForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
 
         this.dummlist = this.diagnosticlist
@@ -105,7 +105,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DiagnosticRegistration_LabelBYLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -118,7 +118,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -128,7 +128,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.diagnosticlist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -143,10 +143,10 @@ export class DiagnesticDashboardComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -156,7 +156,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.diagnosticlist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -172,10 +172,10 @@ export class DiagnesticDashboardComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -185,7 +185,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.diagnosticlist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.diagnosticlist.length
@@ -196,7 +196,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public deletediagnosticcenter(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Diagnostic Center!",
@@ -229,7 +229,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -247,7 +247,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -264,7 +264,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

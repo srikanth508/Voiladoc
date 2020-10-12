@@ -75,7 +75,7 @@ export class MideWifeReportsComponent implements OnInit {
     this.edate = localStorage.getItem('EndDate');
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.listid = params['id']
     }
@@ -87,7 +87,7 @@ export class MideWifeReportsComponent implements OnInit {
     else {
       this.docservice.GetBook_Book_Midwives_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.appointmentreportlist = data;
           this.dummlist = this.appointmentreportlist
         }, error => {
@@ -102,7 +102,7 @@ export class MideWifeReportsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -110,10 +110,10 @@ export class MideWifeReportsComponent implements OnInit {
   }
 
   public GetAppointmentReportsList() {
-    debugger
+   
     this.docservice.GetBook_Book_Midwives_AppointmentReports(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentreportlist = data;
         this.dummlist = this.appointmentreportlist
       }, error => {
@@ -123,7 +123,7 @@ export class MideWifeReportsComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate= sdate[1]
@@ -139,7 +139,7 @@ export class MideWifeReportsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -157,7 +157,7 @@ export class MideWifeReportsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -171,30 +171,30 @@ export class MideWifeReportsComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+   
     if (even.target.value == 1) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.isVisited == 1);
-      debugger
+     
       this.appointmentreportlist = dfsfd;
 
     }
     if (even.target.value == 3) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.midwivesCancelled == 1 || x.cancelled == 1);
-      debugger
+     
       this.appointmentreportlist = dfsfd;
 
     }
     if (even.target.value == 4) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.notVisited == 1);
-      debugger
+     
       this.appointmentreportlist = dfsfd;
 
     }
     if (even.target.value == 5) {
-      debugger
+     
       this.GetAppointmentReportsList();
     }
   }

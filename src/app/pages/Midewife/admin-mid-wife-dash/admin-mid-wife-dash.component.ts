@@ -79,10 +79,10 @@ export class AdminMidWifeDashComponent implements OnInit {
     this.getmidwifeappointments()
   }
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -94,7 +94,7 @@ export class AdminMidWifeDashComponent implements OnInit {
   public getmidwifeappointments() {
     this.docservice.GetBook_Book_Midwives_Appointment(this.midwifeid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
         this.count = this.appointmentist.length;
 
@@ -124,7 +124,7 @@ export class AdminMidWifeDashComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger;
+   
     // var sdate = data.split("-");
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];

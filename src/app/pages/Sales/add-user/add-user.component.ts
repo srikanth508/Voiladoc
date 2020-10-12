@@ -21,7 +21,7 @@ export class AddUserComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -37,7 +37,7 @@ export class AddUserComponent implements OnInit {
       'Password': this.password
     }
     this.docservice.InsertSalesRegistration(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         // Swal.fire('Added Successfully.');
         Swal.fire('Completed', 'User saved successfully', 'success');

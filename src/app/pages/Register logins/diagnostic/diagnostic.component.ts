@@ -27,7 +27,7 @@ export class DiagnosticComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -48,7 +48,7 @@ export class DiagnosticComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -57,11 +57,11 @@ export class DiagnosticComponent implements OnInit {
   }
   SelectLabel
   public GetDiagnosticID(item1:any) {
-    debugger
+   
     this.diagnosticid =item1.id;
   }
   public insertdetails() {
-    debugger
+   
     if (this.diagnosticid == undefined) {
       Swal.fire("Please Select Diagnostic Center");
     }
@@ -69,7 +69,7 @@ export class DiagnosticComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp=1;
       }
     else {
@@ -79,7 +79,7 @@ export class DiagnosticComponent implements OnInit {
         'Password': this.password
       }
       this.docservice.InsertDiagnosticCenterAdminRegistration(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           location.href="#/Diagnosticdash"

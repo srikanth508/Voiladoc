@@ -17,10 +17,10 @@ export class MedicalPatientHistoryComponent implements OnInit {
     this.getbookappointmentbydoctorid();
   }
   public getbookappointmentbydoctorid() {
-    debugger
+   
     this.docservice.GetBookAppointmentByDistinictDoctorID(this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.appointmentlist = data;
        
       }, error => {

@@ -29,7 +29,7 @@ export class EditDiagnosticTestComponent implements OnInit {
     // this.diagnosticname = localStorage.getItem('user')
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
       this.getdiagnosticservices()
     }
@@ -40,10 +40,10 @@ export class EditDiagnosticTestComponent implements OnInit {
   }
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -56,7 +56,7 @@ export class EditDiagnosticTestComponent implements OnInit {
   public getdiagnosticservices() {
     this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummlist = data;
         var list = this.dummlist.filter(x => x.id == this.id)
         this.diagnosticname = list[0].diagnosticCenterName
@@ -71,10 +71,10 @@ export class EditDiagnosticTestComponent implements OnInit {
   }
 
   public getdiagnostictestmaster() {
-    debugger
+   
     this.docservice.GetDiagnosticTestMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.testlist = data;
       }, error => {
       }
@@ -82,18 +82,18 @@ export class EditDiagnosticTestComponent implements OnInit {
   }
 
   public GetTestID(even) {
-    debugger
+   
     this.testid = even.target.value;
   }
   // for (let i = 0; i < this.testlist.length; i++) {
-  //   debugger
+  //  
   //   if (this.testlist[i].id == this.testid) {
   //     this.testname = this.testlist[i].short
   //   }
   // }
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'DiagnosticCenterID': this.diagnosticid,
@@ -102,10 +102,19 @@ export class EditDiagnosticTestComponent implements OnInit {
       'Price': this.price
     }
     this.docservice.UpdateDiagnosticCenterTests(entity).subscribe(data => {
-      debugger
+     
       let res = data;
-      Swal.fire('Success', 'Updated successfully')
-      location.href = "#/DiagnosticTestDash"
+      if(this.languageid=='1')
+      {
+        Swal.fire('Success', 'Updated successfully')
+        location.href = "#/DiagnosticTestDash"
+      }
+      else if(this.languageid==6)
+      {
+        Swal.fire('Mis à jour avec succés')
+        location.href = "#/DiagnosticTestDash"
+      }
+   
 
     })
 

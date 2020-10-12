@@ -42,14 +42,14 @@ export class BookappmentsComponent implements OnInit {
     this.user = localStorage.getItem('user');
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.doctorslotid = params['doctorSlotID'];
       this.slotname = params['slotName'];
     }
     )
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
 
@@ -60,13 +60,13 @@ export class BookappmentsComponent implements OnInit {
 
     // this.docservice.DoctorCommissionFees(this.languageid).subscribe(
     //   data => {
-    //     debugger;
+    //    
     //     let temp = data.filter(x => x.doctorID == this.doctorid);
     //     this.PaidAmount = data[0].fees;
     //   },
     //   error => { }s
     // );
-    debugger;
+   
     this.doctorhospitalid = localStorage.getItem('doctorhospitalid');
     this.appointmentate = localStorage.getItem('appointmentate')
     this.appoentmenTypeid = localStorage.getItem('Appointmenttypeid');
@@ -100,10 +100,10 @@ export class BookappmentsComponent implements OnInit {
 
 
   public getdoctorforadmin() {
-    debugger
+   
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
 
         var list = this.doctorlist.filter(x => x.id == this.doctorid)
@@ -120,7 +120,7 @@ export class BookappmentsComponent implements OnInit {
   public GetNurses() {
     this.docservice.GetNurseRegistrationAdmin().subscribe(
       data => {
-        debugger;
+       
         this.NurseList = data;
       },
       error => { }
@@ -129,7 +129,7 @@ export class BookappmentsComponent implements OnInit {
   public GetPatients() {
     this.docservice.GetPatientRegistrationBook().subscribe(
       data => {
-        debugger;
+       
         this.patientslist = data;
 
         this.patientdd = {
@@ -148,7 +148,7 @@ export class BookappmentsComponent implements OnInit {
 
 
   public GetPatientID(item: any) {
-    debugger
+   
     this.patientid = item.id;
     var list = this.patientslist.filter(x => x.id == this.patientid)
     this.patientname = list[0].patientName
@@ -163,7 +163,7 @@ export class BookappmentsComponent implements OnInit {
   ReasonForVisit;
   PaidAmount;
   public bookappointment() {
-    debugger
+   
     if (this.patientid == null || this.patientid == undefined) {
       Swal.fire("Please Select Patient")
     }
@@ -221,7 +221,7 @@ export class BookappmentsComponent implements OnInit {
 
 
   public InsertNotifiaction() {
-    debugger
+   
 
     var entity = {
       'PatientID': this.patientid,
@@ -232,7 +232,7 @@ export class BookappmentsComponent implements OnInit {
       'LanguageID': this.languageid,
     }
     this.docservice.InsertNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -242,13 +242,13 @@ export class BookappmentsComponent implements OnInit {
 
 
   public SendNotification() {
-    debugger
+   
     var entity = {
       'Description': "Thank you. Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname + "," + this.user,
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -264,16 +264,16 @@ export class BookappmentsComponent implements OnInit {
       ContentType: "text/html",
       Content: "You have New appointment with  " + this.patientname + " is scheduled for " + this.appdate + ", " + this.slotname + "<br><br>Regards,<br>" + this.user,
     };
-    debugger
+   
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+     
       Swal.fire('Mail sent successfully.');
     })
   }
 
 
   public GetPaymentTypeID(even) {
-    debugger
+   
     this.PaymentTypeID = even.target.value;
   }
 

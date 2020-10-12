@@ -29,10 +29,10 @@ export class CategorydashboardComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.GetCategorydashboard_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -40,17 +40,17 @@ export class CategorydashboardComponent implements OnInit {
   }
 
   Getcategoryfordashboard() {
-    debugger
+   
     this.docservice.Getcategoryfordashboard().subscribe((res) => {
       this.catgeorylist = res;
     });
   }
 
   public DeleteCategory(id) {
-    debugger
+   
     this.docservice.DeleteCategory(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire("Deleted Successfully");
         this.Getcategoryfordashboard()
       }, error => {

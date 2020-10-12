@@ -77,7 +77,7 @@ export class CompletedOrdersComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -85,7 +85,7 @@ export class CompletedOrdersComponent implements OnInit {
     this.GetOrdersForDeliveryCompany();
     this.docservice.GetDeliveryPartnersByID(this.deliverycompanyid).subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -94,7 +94,7 @@ export class CompletedOrdersComponent implements OnInit {
     
 this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   data => {
-    debugger
+   
     this.labels1 = data;
   }, error => {
   }
@@ -108,7 +108,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public getlanguage() {
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -119,7 +119,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -127,7 +127,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public GetOrdersForDeliveryCompany() {
     this.docservice.GetOrdersForDeliveryCompany(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.orderlist = temp.filter(x => x.deliveredBit == 1);
       }, error => {
@@ -135,7 +135,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate=data.split('-')
     // this.startdate=sdate[0]
     // this.enddate=sdate[1]
@@ -152,7 +152,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
     if (type == 1) {
       this.docservice.AccpetMedicineDeliveryByDeliveryCompany(medicalOrderID, ar, id).subscribe(
         data => {
-          debugger
+         
           Swal.fire('Complete', 'Action Completed');
           this.GetOrdersForDeliveryCompany();
         }, error => {
@@ -162,7 +162,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
     else {
       this.docservice.AccpetShoppingDeliveryByDeliveryCompany(ar, id).subscribe(
         data => {
-          debugger
+         
           Swal.fire('Complete', 'Action Completed');
           this.GetOrdersForDeliveryCompany();
         }, error => {
@@ -216,7 +216,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -234,7 +234,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -254,7 +254,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
     else {
       this.docservice.GetOrdersForDeliveryCompany(this.startdate, this.enddate).subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.orderlist = temp.filter(x => x.deliveredBit == 1 && x.ordertypeid == this.Ordertypeid);
         }, error => {

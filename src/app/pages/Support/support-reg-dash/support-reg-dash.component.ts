@@ -30,7 +30,7 @@ export class SupportRegDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -38,7 +38,7 @@ export class SupportRegDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -49,7 +49,7 @@ export class SupportRegDashComponent implements OnInit {
     this.cityid = 0
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -58,7 +58,7 @@ export class SupportRegDashComponent implements OnInit {
   public GetSupport() {
     this.docservice.GetSupportRegistration(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.localdoclist = data;
         this.dummlist = this.localdoclist
         this.count = this.localdoclist.length
@@ -71,7 +71,7 @@ export class SupportRegDashComponent implements OnInit {
 
 
   public DeleteSupportRegistration(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This One!",
@@ -104,7 +104,7 @@ export class SupportRegDashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -114,7 +114,7 @@ export class SupportRegDashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.localdoclist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -128,10 +128,10 @@ export class SupportRegDashComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -141,7 +141,7 @@ export class SupportRegDashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.localdoclist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -157,10 +157,10 @@ export class SupportRegDashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -171,7 +171,7 @@ export class SupportRegDashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.localdoclist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.localdoclist.length

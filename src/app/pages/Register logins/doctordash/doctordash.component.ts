@@ -33,7 +33,7 @@ export class DoctordashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -44,7 +44,7 @@ export class DoctordashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorloginlist = data;
           this.count = this.doctorloginlist.length;
         }, error => {
@@ -54,7 +54,7 @@ export class DoctordashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummdcotorlogins = data;
           this.doctorloginlist = this.dummdcotorlogins.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.doctorloginlist.length;
@@ -66,7 +66,7 @@ export class DoctordashComponent implements OnInit {
   public disabledoctor(docid) {
     this.docservice.DisableDoctorLogin(docid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Doctor has been Disabled');
         this.getdoctorloginfordash();
 
@@ -77,7 +77,7 @@ export class DoctordashComponent implements OnInit {
   public enabledoctor(id) {
     this.docservice.EnableDoctorLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Doctor has been Enabled');
         this.getdoctorloginfordash();
 
@@ -87,7 +87,7 @@ export class DoctordashComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

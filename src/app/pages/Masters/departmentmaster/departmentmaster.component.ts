@@ -28,7 +28,7 @@ export class DepartmentmasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -56,7 +56,7 @@ export class DepartmentmasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -65,7 +65,7 @@ export class DepartmentmasterComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -77,15 +77,15 @@ export class DepartmentmasterComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -115,10 +115,10 @@ else{
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
         var list = this.departmentlist.filter(x => x.id == this.id)
         this.departmentname = list[0].departmentname,

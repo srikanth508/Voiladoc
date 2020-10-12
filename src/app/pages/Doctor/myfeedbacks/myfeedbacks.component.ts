@@ -36,14 +36,14 @@ public labels:any;
   {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     ) 
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -51,7 +51,7 @@ public labels:any;
   {
     this.docservice.GetNewDoctorFeedBackByDoctorID(this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.feedlist = data;
         this.dummlist= this.feedbacklist
       }, error => {
@@ -66,7 +66,7 @@ public labels:any;
 //   {
 //     this.docservice.GetDoctorFeedById(this.doctorid,this.languageid).subscribe(
 //       data => {
-//         debugger
+//        
 //         this.feedbacklist = data;
 //         this.dummlist= this.feedbacklist
 //       }, error => {
@@ -75,7 +75,7 @@ public labels:any;
 //   }
 
 //   public UpdateDoctorFeedbackRejectedBit(appointmentID) {
-//     debugger;
+//    
 //     Swal.fire({
 //       title: 'Are you sure?',
 //       text: "You Want to Reject This Appointment!",
@@ -105,7 +105,7 @@ public labels:any;
 
   
 //   public UpdateDoctorFeedbackAcceptedBit(appointmentID) {
-//     debugger;
+//    
 //     Swal.fire({
 //       title: 'Are you sure?',
 //       text: "You Want to Accept This Feedback!",
@@ -138,18 +138,18 @@ public labels:any;
 
 //   public getget(even) {
 //     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-//     debugger
+//    
 //     if (even.target.value == 1) {
-//       debugger
+//      
 //       let dfsfd = this.dummlist.filter(x => x.accepted == 1);
-//       debugger
+//      
 //       this.feedbacklist = dfsfd;
      
 //     }
 //     if (even.target.value == 2) {
-//       debugger
+//      
 //       let dfsfd = this.dummlist.filter(x => x.rejected == 1);
-//       debugger
+//      
 //       this.feedbacklist = dfsfd;
      
 //     }
@@ -164,7 +164,7 @@ public labels:any;
 
 
 //   public UpdateDoctorFeedbackSwitchEnable(appointmentID) {
-//     debugger;
+//    
 //     Swal.fire({
 //       title: 'Are you sure?',
 //       text: "You Want to Enable This Feedback!",
@@ -192,7 +192,7 @@ public labels:any;
 //   }
 
 //   public UpdateDoctorFeedbackSwitchDisable(appointmentID) {
-//     debugger;
+//    
 //     Swal.fire({
 //       title: 'Are you sure?',
 //       text: "You Want to Disable This Feedback!",
@@ -221,7 +221,7 @@ public labels:any;
 
 //   public GetFeedbackID(id)
 //   {
-//     debugger
+//    
 //     this.feedid=id;
 //     var list=this.feedbacklist.filter(x=>x.id=this.feedid)
 //     this.recomand=list[0].isDoctorRecomended,

@@ -24,10 +24,10 @@ export class OffersDashboardComponent implements OnInit {
     this.getlanguage()
   }
   public getpharmacyoffersbypharmacyid() {
-    debugger
+   
     this.docservice.GetPharmacyOfferByPharmacyID(this.pharmacyid).subscribe(
       data => {
-        debugger
+       
         this.offerslist = data;
       }, error => {
       }
@@ -37,7 +37,7 @@ export class OffersDashboardComponent implements OnInit {
   {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -45,10 +45,10 @@ export class OffersDashboardComponent implements OnInit {
   }
   public deletepharmacyoffer(id)
   {
-    debugger
+   
     this.docservice.DeletePharmacyOffer(id).subscribe(
       data => {
-        debugger
+       
        Swal.fire("Deleted Successfully");
        this.getpharmacyoffersbypharmacyid();
       }, error => {
@@ -56,7 +56,7 @@ export class OffersDashboardComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

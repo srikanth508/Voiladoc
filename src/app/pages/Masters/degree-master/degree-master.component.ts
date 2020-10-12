@@ -22,7 +22,7 @@ export class DegreeMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -39,17 +39,17 @@ export class DegreeMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public getdegreemaster() {
-    debugger
+   
     this.docservice.GetDegreeMasterBylanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.degreelist = data;
         var list=this.degreelist.filter(x=>x.id==this.id)
         this.degreename=list[0].short

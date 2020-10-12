@@ -42,7 +42,7 @@ export class EditNurseComponent implements OnInit {
   public labels:any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
 
     }
@@ -50,7 +50,7 @@ export class EditNurseComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetNurseRegistrationByIDAndLanguageID(this.id,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.nursedetails = data;
         this.name = this.nursedetails[0].nurseName;
         this.phno = this.nursedetails[0].phoneNo;
@@ -83,21 +83,21 @@ export class EditNurseComponent implements OnInit {
   {
     this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )  
   }
   public GetDepartmentID(even) {
-    debugger
+   
     this.deptid = even.target.value;
   }
 
   public getdepartment() {
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -107,7 +107,7 @@ export class EditNurseComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -115,10 +115,10 @@ export class EditNurseComponent implements OnInit {
     )
   }
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
     this.getcitymasterbyid()
-    debugger
+   
 
   }
 
@@ -126,7 +126,7 @@ export class EditNurseComponent implements OnInit {
   public getcitymasterbyid() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
       }, error => {
@@ -134,16 +134,16 @@ export class EditNurseComponent implements OnInit {
     )
   }
   public GetCityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
       }, error => {
       }
@@ -151,12 +151,12 @@ export class EditNurseComponent implements OnInit {
   }
 
   public GetAreaID(even) {
-    debugger
+   
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -164,7 +164,7 @@ export class EditNurseComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'LanguageID':this.languageid,
       'ID': this.id,
@@ -182,7 +182,7 @@ export class EditNurseComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID': this.countryid
     }
-    debugger
+   
     this.docservice.UpdateNurseRegistration(entity).subscribe(data => {
       if (data != undefined) {
         Swal.fire("Updated Successfully");

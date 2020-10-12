@@ -22,10 +22,10 @@ export class MedicalHistoryComponent implements OnInit {
     this.getlanguage();
   }
   public getbookappointmentbydoctorid() {
-    debugger
+   
     this.docservice.GetBookAppointmentByDistinictDoctorID(this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.appointmentlist = data;
        
       }, error => {
@@ -36,7 +36,7 @@ export class MedicalHistoryComponent implements OnInit {
   {
     this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }

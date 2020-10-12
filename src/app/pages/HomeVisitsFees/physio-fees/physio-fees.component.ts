@@ -29,7 +29,7 @@ export class PhysioFeesComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class PhysioFeesComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.physiolist = data;
         }, error => {
         }
@@ -50,7 +50,7 @@ export class PhysioFeesComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummphysiolist = data;
           this.physiolist = this.dummphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         }, error => {
@@ -62,7 +62,7 @@ export class PhysioFeesComponent implements OnInit {
   }
 
   public GetphysioID(even) {
-    debugger
+   
     this.physioid = even.target.value;
     this.gethospitals();
   }
@@ -70,7 +70,7 @@ export class PhysioFeesComponent implements OnInit {
   public gethospitals() {
     this.docservice.GetPhysiotherapyHospitalDetailsByHospitals(this.physioid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalist = data;
       }, error => {
       }
@@ -78,7 +78,7 @@ export class PhysioFeesComponent implements OnInit {
   }
 
   public GetHospitalID(even) {
-    debugger
+   
     this.hospitalid = even.target.value;
 
 
@@ -89,9 +89,9 @@ export class PhysioFeesComponent implements OnInit {
 
 
   public GetDoccommission(physiofees) {
-    debugger
+   
     this.voiladoccommission = 100 - Number(physiofees);
-    debugger
+   
   }
 
 
@@ -107,7 +107,7 @@ export class PhysioFeesComponent implements OnInit {
     // }
 
     else {
-      debugger
+     
       var entity = {
         'PhysioID': this.physioid,
         'PhysioHospitalID': this.physihospitalid,

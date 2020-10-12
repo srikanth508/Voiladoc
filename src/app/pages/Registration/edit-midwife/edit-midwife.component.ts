@@ -39,7 +39,7 @@ export class EditMidwifeComponent implements OnInit {
 
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
       this.languageid = localStorage.getItem('LanguageID');
       this.Getmidwifedetails()
@@ -55,7 +55,7 @@ export class EditMidwifeComponent implements OnInit {
   {
     this.docservice.GetAdmin_MidWifeRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -93,7 +93,7 @@ export class EditMidwifeComponent implements OnInit {
   {
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -104,7 +104,7 @@ export class EditMidwifeComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
      
       }, error => {
@@ -112,7 +112,7 @@ export class EditMidwifeComponent implements OnInit {
     )
   }
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
     this.getcitymaster();
    
@@ -122,7 +122,7 @@ export class EditMidwifeComponent implements OnInit {
   {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
       }, error => {
@@ -132,15 +132,15 @@ export class EditMidwifeComponent implements OnInit {
 
 
   public GetcityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
  
       }, error => {
@@ -149,23 +149,23 @@ export class EditMidwifeComponent implements OnInit {
   }
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.deptid = even.target.value;
   }
 
   public GetAreaID(even) {
-    debugger
+   
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
   }
   public updatedetails() {
-    debugger
+   
     var entity = {
       'LanguageID':this.languageid,
       'ID':this.id,
@@ -183,7 +183,7 @@ export class EditMidwifeComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID':this.countryid
     }
-    debugger
+   
     this.docservice.UpdateMidWivesRegistration(entity).subscribe(data=>{
       if(data!=undefined)
       {

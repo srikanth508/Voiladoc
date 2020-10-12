@@ -1,0 +1,58 @@
+<br>
+<div class="container-fluid card card:hover">
+  <br />
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>SMS dashboard</h5>
+    </div>
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+  </div>
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{ labels[0].search }}" />
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-2">
+      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>{{ labels[0].patientName }}</th>
+            <th>Mobile Number</th>
+            <th>Message</th>
+            <th>{{ labels[0].emailID }}</th>
+          </tr>
+          <tr *ngFor="let list of Patientlist|filter:search">
+            <td>{{list.date}}</td>
+            <td>{{list.patientName}}</td>
+            <td>{{list.mobileNumber}}</td>
+            <td>{{list.message}}</td>
+            <td>{{list.emailID}}</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br /><br />
+  </div>
+  <br /><br />
+  <br />
+</div>
+<br /><br /><br /><br />

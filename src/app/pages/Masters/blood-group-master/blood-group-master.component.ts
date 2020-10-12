@@ -20,7 +20,7 @@ export class BloodGroupMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -37,7 +37,7 @@ export class BloodGroupMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -48,7 +48,7 @@ export class BloodGroupMasterComponent implements OnInit {
   public getbloodgroups() {
     this.docservice.GetBloodGroupMasterWeb(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.bloodlist = data;
         var list = this.bloodlist.filter(x => x.id == this.id)
         this.bloodgroup = list[0].bloodGroup

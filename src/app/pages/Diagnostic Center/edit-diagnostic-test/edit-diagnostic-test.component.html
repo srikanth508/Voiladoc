@@ -49,8 +49,11 @@
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" text_align="center" [disabled]="testForm.form.invalid"
+        <button type="button" text_align="center" *ngIf="languageid=='1'"  [disabled]="testForm.form.invalid"
           class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">Update</button>
+
+          <button type="button" text_align="center" *ngIf="languageid=='6'"  [disabled]="testForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">Mettre à jour</button>
       </div>
       <div class="col-lg-5">
       </div>

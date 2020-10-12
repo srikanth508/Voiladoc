@@ -51,7 +51,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     this.endtime = 0
     this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         let temp1: any = temp.filter(x => x.midWifeID == this.widwifeid);
         this.hsp_clinicID = temp1[0].hospitalClinicID;
@@ -61,14 +61,14 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     )
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-        debugger
+       
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
     )
     this.getlanguage();
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.active = 1;
       this.widwifeid = params['id'];
     }
@@ -78,7 +78,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -88,7 +88,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-        debugger
+       
         this.Timeings = data;
       }, error => {
       }
@@ -98,7 +98,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     if (this.dummid == undefined) {
       this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.midwifelist = data;
         }, error => {
         }
@@ -107,7 +107,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     else if (this.dummid != undefined) {
       this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.midwifelist = this.dummlist.filter(x => x.hospitalClinicID == this.hsp_clinicID)
         }, error => {
@@ -121,17 +121,17 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
   }
 
   public Getworktypeid(even) {
-    debugger
+   
     this.worktypeid = even.target.value;
     this.GetAllHospitalclinicById();
 
   }
 
   public GetAllHospitalclinicById() {
-    debugger
+   
     this.docservice.GetAllHospital_ClinicListByID(this.worktypeid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
       }, error => {
       }
@@ -142,7 +142,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     this.hsp_clinicID = even.target.value;
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-        debugger
+       
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
@@ -152,7 +152,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -160,7 +160,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
   }
 
   public GetDaysID(even) {
-    debugger
+   
     this.dayid = even.target.value;
 
     for (let i = 0; i < this.dayslist.length; i++) {
@@ -173,7 +173,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
   public adddetails() {
     this.table = 1;
-    debugger
+   
     var detailsentity = {
       'Sno': this.idcount,
       'MidwifeID': this.widwifeid,
@@ -194,21 +194,21 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
   }
 
   public delete(Sno) {
-    debugger
+   
     for (let i = 0; i < this.detailsarray.length; i++) {
-      debugger
+     
       if (Sno == this.detailsarray[i].Sno) {
-        debugger
+       
         this.detailsarray.splice(i, 1);
       }
     }
     if (this.detailsarray.length == 0) {
       this.table = 0;
     }
-    debugger
+   
   }
   public InsertPhysiotherapyHospitalDetailsAdmin() {
-    debugger
+   
     var entity = {
       'MidWifeID': this.detailsarray[0].MidwifeID,
       'Fees': this.detailsarray[0].Fees,
@@ -216,10 +216,10 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertMidWifeHospitalDetails(entity).subscribe(data => {
-      debugger
+     
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
-        debugger
+       
         var entity = {
           'MidWifeHospitalDetailsID': qqq,
           'MidWifeID': this.detailsarray[i].MidwifeID,
@@ -228,7 +228,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertMidWifeWorkingDetails(entity).subscribe(data => {
-          debugger
+         
 
         })
       }
@@ -246,7 +246,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
   }
   public InsertPhysiotherapyHospitalDetails() {
-    debugger
+   
     var entity = {
       'MidWifeID': this.detailsarray[0].MidwifeID,
       'Fees': this.detailsarray[0].Fees,
@@ -254,10 +254,10 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertMidWifeHospitalDetails(entity).subscribe(data => {
-      debugger
+     
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
-        debugger
+       
         var entity = {
           'MidWifeHospitalDetailsID': qqq,
           'MidWifeID': this.detailsarray[i].MidwifeID,
@@ -266,7 +266,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertMidWifeWorkingDetails(entity).subscribe(data => {
-          debugger
+         
 
         })
       }

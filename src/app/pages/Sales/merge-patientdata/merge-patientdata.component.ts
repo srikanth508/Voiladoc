@@ -25,7 +25,7 @@ export class MergePatientdataComponent implements OnInit {
   public GetPatientDetails() {
     this.docservice.GetPatientRegistrationDetails().subscribe(
       data => {
-        debugger
+       
         this.patientdetails = data;
       }, error => {
       }
@@ -61,7 +61,7 @@ export class MergePatientdataComponent implements OnInit {
   public updatemobilenmber() {
 debugger
     if (this.patientpinno == this.pinno) {
-      debugger
+     
       var entity = {
         'ID': this.patientid,
         'MobileNumber': this.newmobilenumber,
@@ -69,7 +69,7 @@ debugger
         'OldmobileNumber': this.oldmobilenumber
       }
       this.docservice.UpdatePatientRegistrationMobileNumber(entity).subscribe(data => {
-        debugger
+       
         if (data == 0) {
           this.GetPatientDetails()
           Swal.fire('Mobile Number Already Exists');
@@ -85,7 +85,7 @@ debugger
       })
     }
     else {
-      debugger
+     
       Swal.fire('','Pin is invalid')
       this.pinno=""
     }

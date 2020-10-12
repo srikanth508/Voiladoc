@@ -50,7 +50,7 @@ export class InclinicRevenuComponent implements OnInit {
     this.getdepartmentmaster();
     this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
       data => {
-        debugger
+       
         this.dummlist = data;
         this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 1);
         let total1 = 0;
@@ -65,10 +65,10 @@ export class InclinicRevenuComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -80,7 +80,7 @@ export class InclinicRevenuComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -89,13 +89,13 @@ export class InclinicRevenuComponent implements OnInit {
   startdate: any
   enddate: any
   selectedDate(data) {
-    debugger
+   
     var sdate = data.split('-')
     this.startdate = sdate[0];
     this.enddate = sdate[1];
     this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
       data => {
-        debugger
+       
         this.dummlist = data;
         this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 1);
         let total1 = 0;
@@ -116,7 +116,7 @@ export class InclinicRevenuComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -134,7 +134,7 @@ export class InclinicRevenuComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

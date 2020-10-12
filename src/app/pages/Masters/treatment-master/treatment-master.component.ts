@@ -26,7 +26,7 @@ export class TreatmentMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -45,7 +45,7 @@ export class TreatmentMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -54,10 +54,10 @@ export class TreatmentMasterComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -65,17 +65,17 @@ export class TreatmentMasterComponent implements OnInit {
   }
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.departmentid = even.target.value;
   }
 
 
 
   public GetTreatments() {
-    debugger
+   
     this.docservice.GetTreatmentPlanMaster(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.treatmentlist = data;
 
         var list = this.treatmentlist.filter(x => x.id == this.id)
@@ -87,7 +87,7 @@ export class TreatmentMasterComponent implements OnInit {
   }
 
   public GetAppointmentTypeID(even) {
-    debugger
+   
     this.appointmenttypeid = even.target.value;
   }
 

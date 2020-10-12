@@ -29,7 +29,7 @@ export class OffersdashComponent implements OnInit {
   {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -40,10 +40,10 @@ export class OffersdashComponent implements OnInit {
 
 
   public getdiagnosticofferbydiagnosticid() {
-    debugger
+   
     this.docservice.GetDiagnosticOfferByDiagnosticID(this.diagnosticid).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
       }, error => {
       }
@@ -51,10 +51,10 @@ export class OffersdashComponent implements OnInit {
   }
   public deletediagnosticoffers(id)
   {
-    debugger
+   
     this.docservice.DeleteDiagnosticOffer(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire("Deleted Successfully");
         this.getdiagnosticofferbydiagnosticid();
       }, error => {
@@ -63,7 +63,7 @@ export class OffersdashComponent implements OnInit {
 
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

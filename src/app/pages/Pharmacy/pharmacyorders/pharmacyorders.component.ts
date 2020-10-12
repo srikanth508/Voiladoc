@@ -79,7 +79,7 @@ export class PharmacyordersComponent implements OnInit {
   public getmedicineorderdetailsbyphrmacyid() {
     this.docservice.GetReOrderMedicinesByPhrmacyID(this.pharmacyid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.orderlist = data;
         this.dummlist=this.orderlist ;
       }, error => {
@@ -88,7 +88,7 @@ export class PharmacyordersComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
 
     var sdate = data.split('-')
 
@@ -96,7 +96,7 @@ export class PharmacyordersComponent implements OnInit {
     var e = sdate[1]
     this.docservice.GetReOrderMedicinesByPhrmacyID(this.pharmacyid, s, e).subscribe(
       data => {
-        debugger
+       
         this.orderlist = data;
         this.dummlist=this.orderlist ;
       }, error => {
@@ -105,14 +105,14 @@ export class PharmacyordersComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
   public medicinedeliver(medicalOrderID) {
     this.docservice.UpdateReOrderMedicinesDelivery(medicalOrderID).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Completed', 'Medicines Delivered');
         this.getmedicineorderdetailsbyphrmacyid();
         this.selectedDate(data);
@@ -124,7 +124,7 @@ export class PharmacyordersComponent implements OnInit {
 
 
   public UpdateAcceptedBitReOrderMedicines(medicalOrderID) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Accept This Order!",
@@ -157,7 +157,7 @@ export class PharmacyordersComponent implements OnInit {
 
 
   public UpdateReOrderMedicinesNotVisitedBit(medicalOrderID) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "Not Visited This Order!",
@@ -188,14 +188,14 @@ export class PharmacyordersComponent implements OnInit {
 
 
   public cancelmedicine(medicalOrderID) {
-    debugger
+   
     this.cancelid = medicalOrderID;
   }
 
   public cancelmedicineorder() {
     this.docservice.CancelledReOrderMedicines(this.cancelid).subscribe(
       data => {
-        debugger
+       
         this.getmedicineorderdetailsbyphrmacyid();
         this.updatereson();
       }, error => {
@@ -214,7 +214,7 @@ export class PharmacyordersComponent implements OnInit {
 
   }
   public GetPhotoID(imgurl) {
-    debugger
+   
     this.imgtoshow = imgurl;
     // this.photoid = medicalOrderID;
     // this.GetPhotobyID();
@@ -222,7 +222,7 @@ export class PharmacyordersComponent implements OnInit {
   public GetPhotobyID() {
     this.docservice.GetMedicineOrderDetailsPhoto(this.photoid).subscribe(
       data => {
-        debugger
+       
         this.photos = data;
         //  this.showphoto=this.photos[0].photoUrl
       }, error => {
@@ -235,25 +235,25 @@ export class PharmacyordersComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+   
     if (even.target.value == 1) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.delivery == 1);
-      debugger
+     
       this.orderlist = dfsfd;
     
     }
     if (even.target.value == 2) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.notVisited == 1);
-      debugger
+     
       this.orderlist = dfsfd;
      
     }
     if (even.target.value == 3) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
-      debugger
+     
       this.orderlist = dfsfd;
      
     }

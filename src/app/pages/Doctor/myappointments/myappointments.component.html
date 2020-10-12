@@ -81,10 +81,21 @@
             <td>{{details.apptDateTime}}</td>
             <td>{{details.slots}}</td>
             <td>
+
+              <!-- early call -->
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
-              <button type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
+              <button
                 [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
-                *ngIf="details.bookingTypeID=='2'"
+                type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
+                *ngIf="details.bookingTypeID=='2'&&details.earlycall=='2'"
+                (click)="GetVideoconfrenceEarlycall(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
+              </button>
+
+              <!-- normal call -->
+              <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
+              <button [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
+                type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
+                *ngIf="details.bookingTypeID=='2'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'"
                 (click)="getvedioconferencebydateandtime(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
 
@@ -106,7 +117,7 @@
               <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
               <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
                 *ngIf="details.appointmentTypeID=='2'&&details.disableall=='1'"
-                (click)="GetChatShowID(details.patientID,details.appdate,details.slots)">{{labels[0].chat}}</button>
+                (click)="GetChatShowID(details.patientID,details.appdate,details.slots,details.pEmail)">{{labels[0].chat}}</button>
             </td>
             <td>{{details.appointmentID}}</td>
             <td>{{details.pName}}</td>
@@ -121,9 +132,10 @@
                 data-toggle="modal" data-target="#exampleModalLong3" title="{{labels[0].video}}"
                 style="margin: 2%;width: 20px;" (click)="GetVedioID(details.appointmentID)" />&nbsp;
 
-                <ng-template #tipcontent300>{{labels[0].viewdetils}}</ng-template>
-                <img src="assets/Images/view.jpg"  [ngbTooltip]="tipcontent300"
-                style="margin: 2%;width: 20px;"   data-toggle="modal" data-target="#exampleModalLong78" (click)="GetViewDetails(details.appointmentID)"  />&nbsp;
+              <ng-template #tipcontent300>{{labels[0].viewdetils}}</ng-template>
+              <img src="assets/Images/view.jpg" [ngbTooltip]="tipcontent300" style="margin: 2%;width: 20px;"
+                data-toggle="modal" data-target="#exampleModalLong78"
+                (click)="GetViewDetails(details.appointmentID)" />&nbsp;
             </td>
             <td>
               <table style="box-shadow:none">
@@ -221,9 +233,17 @@
                         data-target="#exampleModalCenterSickSlip" (click)="GetSickSlipID(details.patientID)" />
                     </a>
                   </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent201>Early call reminder</ng-template>
+                    <a [ngbTooltip]="tipcontent201"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.appointmentTypeID=='2'&&details.earlycall=='0'&&details.earlycallvalidation=='0'">
+                      <img src="assets/Images/medical.png" style="height:25px;" data-toggle="modal"
+                        data-target="#exampleealycall"
+                        (click)="GetEarlycallPatientID(details.patientID,details.pEmail,details.appointmentID)" />
+                    </a>
+                  </td>
                 </tr>
               </table>
-
               <!-- <ng-template #tipcontent4>Visit</ng-template>
                   <a [ngbTooltip]="tipcontent4"
                     *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.cancelled=='0'">
@@ -1420,8 +1440,8 @@
             <div class="col-lg-6" *ngFor="let showvedio of showvedioes">
               <br>
               <div class="video">
-                <video controls id="videoPlayer" autoplay>
-                  <source src="{{showvedio.videoUrl}}" type="video/mp4" style="height:auto; width: 100%;" /> Browser not
+                <video controls id="videoPlayer" autoplay style="height:auto; width: 100%;">
+                  <source src="{{showvedio.videoUrl}}" type="video/mp4"  /> Browser not
                   supported
                 </video>
               </div>
@@ -1642,8 +1662,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-6">
-              <input type="text" placeholder="Patient ID" [ngModelOptions]="{standalone: true}" disabled class="form-control" [(ngModel)]="patientidd"
-                name="patientidd">
+              <input type="text" placeholder="Patient ID" [ngModelOptions]="{standalone: true}" disabled
+                class="form-control" [(ngModel)]="patientidd" name="patientidd">
             </div>
           </div>
           <br>
@@ -1653,8 +1673,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-6">
-              <input type="text" placeholder="Patient Name"  [ngModelOptions]="{standalone: true}" disabled class="form-control" [(ngModel)]="patientname"
-                name="patientname">
+              <input type="text" placeholder="Patient Name" [ngModelOptions]="{standalone: true}" disabled
+                class="form-control" [(ngModel)]="patientname" name="patientname">
             </div>
           </div>
           <br>
@@ -1664,7 +1684,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-6">
-              <input type="number" name="mobileno"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="mobileno" disabled class="form-control">
+              <input type="number" name="mobileno" [ngModelOptions]="{standalone: true}" [(ngModel)]="mobileno" disabled
+                class="form-control">
             </div>
           </div>
           <br>
@@ -1673,7 +1694,8 @@
               <label class="dname_label">{{labels[0].emaill}} :</label>
             </div>
             <div class="col-lg-6">
-              <input type="text" class="form-control"  [ngModelOptions]="{standalone: true}" disabled name="email" [(ngModel)]="email">
+              <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" disabled name="email"
+                [(ngModel)]="email">
             </div>
           </div>
           <br>
@@ -1797,8 +1819,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control"  [ngModelOptions]="{standalone: true}" [(ngModel)]="doctorname" name="doctorname"
-                  (ngModelChange)="Getdocname(doctorname)" placeholder="{{labels[0].doctorName}}">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="doctorname"
+                  name="doctorname" (ngModelChange)="Getdocname(doctorname)" placeholder="{{labels[0].doctorName}}">
               </div>
             </div>
             <br>
@@ -1808,8 +1830,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control"  [ngModelOptions]="{standalone: true}" placeholder="{{labels[0].email}}" name="doctoremail"
-                  [(ngModel)]="doctoremail">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                  placeholder="{{labels[0].email}}" name="doctoremail" [(ngModel)]="doctoremail">
               </div>
             </div>
             <br>
@@ -1818,8 +1840,8 @@
                 <label class="dname_label">{{labels[0].phoneNo}} :</label>
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control"  [ngModelOptions]="{standalone: true}" name="docphoneno" placeholder="{{labels[0].phoneNo}}"
-                  [(ngModel)]="docphoneno">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" name="docphoneno"
+                  placeholder="{{labels[0].phoneNo}}" [(ngModel)]="docphoneno">
               </div>
             </div>
             <br>
@@ -1832,7 +1854,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-8">
-              <ckeditor [editor]="Editor" [(ngModel)]="referalnotes"  [ngModelOptions]="{standalone: true}" name="referalnotes" data=""></ckeditor>
+              <ckeditor [editor]="Editor" [(ngModel)]="referalnotes" [ngModelOptions]="{standalone: true}"
+                name="referalnotes" data=""></ckeditor>
             </div>
           </div>
           <br>
@@ -2231,3 +2254,47 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<div class="modal fade" id="exampleealycall" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter15"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Early call</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+              <textarea class="form-control" [(ngModel)]="earlycallnotes" name="earlycallnotes" rows="5"
+                cols="30"></textarea>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                data-dismiss="modal" (click)="InsertPatientEarlyCall()">{{labels[0].send}}</button>
+            </div>
+            <div class="col-lg-5">
+            </div><br>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
+            data-dismiss="modal">{{labels[0].close}}</button>
+        </div>
+      </div>
+    </div>
+  </div>

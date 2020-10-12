@@ -31,7 +31,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -42,7 +42,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.midwifelist = data;
           this.count = this.midwifelist.length;
 
@@ -53,7 +53,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummmidwifelist = data;
           this.midwifelist = this.dummmidwifelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.midwifelist.length;
@@ -66,7 +66,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public DisableMidWivesLogin(id) {
     this.docservice.DisableMidWivesLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'MidWife has been Disabled');
         this.GetMidWivesLoginAdmin();
 
@@ -78,7 +78,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public EnableMidWivesLogin(id) {
     this.docservice.EnableMidWivesLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'MidWife has been Enabled');
         this.GetMidWivesLoginAdmin();
 
@@ -88,7 +88,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     this.p = even;
   }
 

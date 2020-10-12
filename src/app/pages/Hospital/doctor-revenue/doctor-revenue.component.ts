@@ -85,10 +85,10 @@ export class DoctorRevenueComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     if (even.target.value != 0) {
-      debugger
-      debugger
+     
+     
       this.term = even.target.value;
       this.doctorlist = this.dummlist.filter(x => x.departmentname == this.term)
       this.count = this.doctorlist.length;
@@ -106,7 +106,7 @@ export class DoctorRevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -114,10 +114,10 @@ export class DoctorRevenueComponent implements OnInit {
   }
   GrandTotal: any;
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
         this.dummlist = data;
         this.count = this.doctorlist.length;
@@ -130,7 +130,7 @@ export class DoctorRevenueComponent implements OnInit {
     )
   }
   public deletedoctorhosiptaldetails() {
-    debugger
+   
     this.docservice.DeleteDoctorHospitalDetails(this.hospitalid).subscribe(
       data => {
         Swal.fire("Deleted Succesfully");
@@ -140,10 +140,10 @@ export class DoctorRevenueComponent implements OnInit {
     )
   }
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -154,7 +154,7 @@ export class DoctorRevenueComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
 
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
@@ -163,10 +163,10 @@ export class DoctorRevenueComponent implements OnInit {
 
 
   public GetHospitalDoctors() {
-    debugger
+   
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.DropDowndoctorlist = data;
       }, error => {
       }
@@ -176,7 +176,7 @@ export class DoctorRevenueComponent implements OnInit {
 
   public GetDoctorName(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.doctorname = even.target.value;
       this.doctorlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
       this.count = this.doctorlist.length;

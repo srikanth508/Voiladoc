@@ -28,10 +28,10 @@ export class WritearticleComponent implements OnInit {
   ngOnInit() {
 
     this.doctorid = localStorage.getItem('userid');
-    debugger
+   
     this.docservice.GetArticleCategory(1).subscribe(
       data => {
-        debugger
+       
         this.categorylist = data;
       }, error => {
       }
@@ -44,19 +44,19 @@ export class WritearticleComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public GetCategoryID(even) {
-    debugger
+   
     this.categoryid = even.target.value;
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -67,17 +67,17 @@ export class WritearticleComponent implements OnInit {
   }
 
   public uploadattachments() {
-    debugger
+   
     this.docservice.ArticlePhoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
   public insertdetails() {
-    debugger
+   
     document.getElementById("qwerty").innerHTML = this.writeup;
     this.mobilewriteup = document.getElementById("qwerty").innerText;
     var entity = {
@@ -91,7 +91,7 @@ export class WritearticleComponent implements OnInit {
       'MobileWriteup':this.mobilewriteup
       }
     this.docservice.InsertArticle(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         Swal.fire("Details Added Succesfully");
         location.href="#/Myarticles"

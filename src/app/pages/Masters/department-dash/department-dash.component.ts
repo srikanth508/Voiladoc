@@ -21,7 +21,7 @@ export class DepartmentDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -29,10 +29,10 @@ export class DepartmentDashComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class DepartmentDashComponent implements OnInit {
 
 
   public DeleteDepartmentMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Departmenrt!",

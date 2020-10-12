@@ -32,12 +32,12 @@ export class AddcampComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+   
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
 
     this.docservice.GetHospital_ClinicForAdmin().subscribe(
       data => {
-        debugger
+       
         this.hospitallist = data;
       }, error => {
       }
@@ -48,7 +48,7 @@ export class AddcampComponent implements OnInit {
     this.hospitalid = even.target.value;
   }
   public insertdetails() {
-    debugger  
+     
     var entity = {
       'Hospital_ClinicID': this.hospitalid,
       'CampName': this.campname,
@@ -63,7 +63,7 @@ export class AddcampComponent implements OnInit {
       'Address': this.address
     }
     this.docservice.InsertHospital_ClinicCamp(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.clear();

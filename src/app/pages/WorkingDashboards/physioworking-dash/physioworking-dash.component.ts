@@ -35,7 +35,7 @@ export class PhysioworkingDashComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlistphysiolist = data;
           this.physioist = this.dummlistphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.physioist.length
@@ -47,7 +47,7 @@ export class PhysioworkingDashComponent implements OnInit {
 
       this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.physioist = data;
           this.dummlist = this.physioist
           this.count = this.physioist.length
@@ -62,7 +62,7 @@ export class PhysioworkingDashComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -72,7 +72,7 @@ export class PhysioworkingDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -82,7 +82,7 @@ export class PhysioworkingDashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetPhysiotherapyWorkingDetails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.workinglist = data;
         }, error => {
         }
@@ -91,7 +91,7 @@ export class PhysioworkingDashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetPhysiotherapyWorkingDetails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummworkinglist = data;
           this.workinglist = this.dummworkinglist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         }, error => {
@@ -107,7 +107,7 @@ export class PhysioworkingDashComponent implements OnInit {
     this.physioid = even.target.value;
     this.docservice.GetPhysiotherapyWorkingDetails(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummworkinglist = data;
         this.workinglist = this.dummworkinglist.filter(x => x.physiotherapistID == this.physioid)
       }, error => {

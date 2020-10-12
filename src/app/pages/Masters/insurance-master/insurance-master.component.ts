@@ -21,7 +21,7 @@ export class InsuranceMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -38,7 +38,7 @@ export class InsuranceMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -47,10 +47,10 @@ export class InsuranceMasterComponent implements OnInit {
 
 
   public getinsurancemaster() {
-    debugger
+   
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.insurancelist = data;
         var list = this.insurancelist.filter(x => x.id == this.id)
         this.insurancename = list[0].short

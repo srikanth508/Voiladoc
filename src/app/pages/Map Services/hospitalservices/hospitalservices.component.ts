@@ -35,10 +35,10 @@ export class HospitalservicesComponent implements OnInit {
     this.getdepartmentmaster();
   }
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServices_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
@@ -48,17 +48,17 @@ export class HospitalservicesComponent implements OnInit {
   }
   SelectLabel:any
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
     )
   }
   public GetDepartmentID(even) {
-    debugger
+   
     this.departmentid = even.target.value;
     this.getservicemaster();
   }
@@ -68,7 +68,7 @@ export class HospitalservicesComponent implements OnInit {
   public getservicemaster() {
     this.docservice.GetServiceMasterByDepartmentIDAndLanguageID(this.departmentid, this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp:any=data;
         this.servicelist = temp.filter(x=>x.typeID==5);
         this.servicedd = {
@@ -88,10 +88,10 @@ export class HospitalservicesComponent implements OnInit {
   }
   public gethosptilclinicforadmin() {
     if (this.hospitalid == undefined) {
-      debugger
+     
       this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.hospitalcliniclist = data;
           this.hospitadd = {
             singleSelection: true,
@@ -107,10 +107,10 @@ export class HospitalservicesComponent implements OnInit {
       )
     }
     else if (this.hospitalid != undefined) {
-      debugger
+     
       this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummhospitallist = data;
           this.hospitalcliniclist = this.dummhospitallist.filter(x => x.id == this.hospitalclinicid)
           this.hospitadd = {
@@ -129,11 +129,11 @@ export class HospitalservicesComponent implements OnInit {
 
   }
   public GetServiceID(item: any) {
-    debugger
+   
     this.serviceid.push(item);
   }
   public GetHospitalID(item: any) {
-    debugger
+   
     this.hospitalid = item.id;
   }
   public insertdetails() {
@@ -145,7 +145,7 @@ export class HospitalservicesComponent implements OnInit {
         'DepartmentID': this.departmentid
       }
       this.docservice.InsertHospitalClinicServices(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.serviceid.length = 0;

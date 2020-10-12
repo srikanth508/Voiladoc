@@ -26,9 +26,9 @@ export class MyarticlesComponent implements OnInit {
 
     this.docservice.GetArticleForAdminByDocID(this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.details = data;
-        debugger
+       
         // this.topic=this.details.topic,
         // this.subtopic=this.details.subTopic,
         // this.writeup=this.details.writeup,
@@ -45,7 +45,7 @@ export class MyarticlesComponent implements OnInit {
   {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }

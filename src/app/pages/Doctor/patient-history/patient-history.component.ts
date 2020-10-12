@@ -63,11 +63,12 @@ export class PatientHistoryComponent implements OnInit {
   public notes: any;
   public preid:any;
   public diaid:any;
+  languageid
 
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.patientid = params['patientID'];
       this.Getpatientdetails();
       // this.getsoapnotesbypatientid();
@@ -81,10 +82,10 @@ export class PatientHistoryComponent implements OnInit {
     this.getbookappointmentbydoctoridandpatientid();
   }
   public Getpatientdetails() {
-    debugger
-    this.docservice.GetPatientDetails(this.patientid).subscribe(
+   
+    this.docservice.GetPatientDetails(this.patientid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.details = data;
         this.patientname = this.details.patientName,
         this.mobileno = this.details.mobileNumber,
@@ -107,10 +108,10 @@ export class PatientHistoryComponent implements OnInit {
 
 
   public getdoctorpatinetdetails() {
-    debugger
+   
     this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.doctorid, this.patientid).subscribe(
       data => {
-        debugger
+       
         this.prescrptionlist = data;
       }, error => {
       }
@@ -118,10 +119,10 @@ export class PatientHistoryComponent implements OnInit {
   }
 public getbookappointmentbydoctoridandpatientid()
 {
-  debugger
+ 
     this.docservice.GetBookappointmentByPatientDetails(this.patientid).subscribe(
       data => {
-        debugger
+       
         this.appointmentlist = data;
       }, error => {
       }
@@ -129,10 +130,10 @@ public getbookappointmentbydoctoridandpatientid()
 }
 // public getsoapnotesbypatientid()
 // {
-//   debugger
+//  
 //     this.docservice.GetSoapNotesByPatientID(this.patientid).subscribe(
 //       data => {
-//         debugger
+//        
 //         this.soappatientlist = data;
 //       }, error => {
 //       }
@@ -140,10 +141,10 @@ public getbookappointmentbydoctoridandpatientid()
 // }
 // public getdoctorpatientprescriptiondetails()
 // {
-//   debugger
+//  
 //     this.docservice.GetDoctor_PatientPrescriptionbyPatientDeatails(this.patientid).subscribe(
 //       data => {
-//         debugger
+//        
 //         this.prescriptionlist = data;
 //       }, error => {
 //       }
@@ -158,10 +159,10 @@ public GetdiaID(appointmentID)
 }
 public getdiagnostictestsdetails()
 {
-  debugger
+ 
   this.docservice.GetDoctor_PatientDiagnosticsbyAppointmentID(this.diaid).subscribe(
     data => {
-      debugger
+     
       this.diagnosticlist = data;
     }, error => {
     }
@@ -170,17 +171,17 @@ public getdiagnostictestsdetails()
 
 public GetSoapID(soapid)
 {
-  debugger
+ 
   this.soapid=soapid;
   this.getSoapNotesByID()
 }
 
 public getSoapNotesByID()
 {
-  debugger
+ 
   this.docservice.GetSoapNotesByAppointmentID(this.soapid).subscribe(
     data => {
-      debugger
+     
       this.soaplist = data[0];
       if(this.soaplist==null)
       {
@@ -247,7 +248,7 @@ public clear()
 
 public GetprscriptionID(id)
 {
-  debugger
+ 
   this.preid=id;
   this.getprescriptionbyid()
 }
@@ -255,7 +256,7 @@ public getprescriptionbyid()
 {
   this.docservice.GetDoctor_PatientPrescriptionByAppointmentID(this.preid).subscribe(
     data => {
-      debugger
+     
       this.prescrptionlist1 = data;
     }, error => {
     }
@@ -266,11 +267,11 @@ public getprescriptionbyid()
 
 
 public GetImagesID(id) {
-  debugger
+ 
   this.imageid = id;
   this.docservice.GetPatient_Illnessphotos(this.imageid).subscribe(
     data => {
-      debugger
+     
       this.showimages = data;
     }, error => {
     }

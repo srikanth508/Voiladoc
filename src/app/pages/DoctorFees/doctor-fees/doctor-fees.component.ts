@@ -49,7 +49,7 @@ export class DoctorFeesComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -73,7 +73,7 @@ export class DoctorFeesComponent implements OnInit {
   appointmenttypename: any;
 
   public GetAppointmentID(even) {
-    debugger
+   
     this.appointmentypeid = even.target.value;
 
     var applist = this.dummappointmenttype.filter(x => x.id == this.appointmentypeid)
@@ -86,7 +86,7 @@ export class DoctorFeesComponent implements OnInit {
     if (this.hospitalid == undefined) {
       this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorlist = data;
 
           this.docdd = {
@@ -105,7 +105,7 @@ export class DoctorFeesComponent implements OnInit {
     else if (this.hospitalid != undefined) {
       this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.doctorlist = this.dummlist.filter(x => x.hosid == this.hospitalid)
 
@@ -126,18 +126,18 @@ export class DoctorFeesComponent implements OnInit {
   }
 
   public GetDoctorID(item: any) {
-    debugger
+   
     this.doctorid = item.doctorID;
-    debugger
+   
     var list = this.doctorlist.filter(x => x.doctorID == this.doctorid)
-    debugger
+   
     this.departmentid = list[0].departmentID,
       this.departmentname = list[0].departmentname,
       this.doctorname = list[0].doctorName
 
     this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.hosptalist = data;
         this.hospitalid = this.hosptalist[0].hospital_ClinicID,
           this.dochospitalid = this.hosptalist[0].id,
@@ -153,7 +153,7 @@ export class DoctorFeesComponent implements OnInit {
   public GetAllHospital() {
     this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.hosptalist = data;
         this.hospitalid = this.hosptalist[0].hospital_ClinicID,
           this.dochospitalid = this.hosptalist[0].id
@@ -165,14 +165,14 @@ export class DoctorFeesComponent implements OnInit {
   public GetALlTreatmentPlans() {
     this.docservice.GetTreatementPlanMaster(this.languageid, this.departmentid).subscribe(
       data => {
-        debugger
+       
         this.treatmentlist = data;
       }, error => {
       }
     )
   }
   public GetTreatmentID(even) {
-    debugger
+   
     this.treatmentID = even.target.value;
     var list = this.treatmentlist.filter(x => x.id == this.treatmentID)
     this.treatmentname = list[0].treatmentPlan
@@ -180,14 +180,14 @@ export class DoctorFeesComponent implements OnInit {
 
 
   public GetDoccommission(doccommission) {
-    debugger
+   
     this.voiladoccommission = 100 - Number(doccommission);
-    debugger
+   
   }
 
 
   public GetHospitalID(even) {
-    debugger
+   
     this.hospitalid = even.target.value;
 
     var list = this.hosptalist.filter(x => x.hospital_ClinicID == this.hospitalid)
@@ -196,7 +196,7 @@ export class DoctorFeesComponent implements OnInit {
   }
 
   public adddetails() {
-    debugger
+   
     if (this.doctorid == undefined || this.hospitalid == undefined || this.appointmentypeid == undefined || this.fees == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please complete all mandatory fields");
@@ -266,14 +266,14 @@ export class DoctorFeesComponent implements OnInit {
 
 
   public delete(Sno) {
-    debugger
+   
     for (let i = 0; i < this.qwerty.length; i++) {
-      debugger
+     
       if (Sno == this.qwerty[i].Sno) {
-        debugger
+       
         this.qwerty.splice(i, 1);
       }
     }
-    debugger
+   
   }
 }

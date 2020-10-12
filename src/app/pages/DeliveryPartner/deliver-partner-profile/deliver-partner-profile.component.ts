@@ -42,7 +42,7 @@ export class DeliverPartnerProfileComponent implements OnInit {
   {
     this.docservice.GetAdmin_CompanyDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -52,7 +52,7 @@ export class DeliverPartnerProfileComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
        
       }, error => {
@@ -83,16 +83,16 @@ export class DeliverPartnerProfileComponent implements OnInit {
   }
 
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
     this.getareamaster()
    
   }
 public getareamaster()
-{ debugger
+{
   this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
     data => {
-      debugger
+     
       this.citylist = data;
 
     
@@ -103,15 +103,15 @@ public getareamaster()
 }
 
   public GetcityID(even) {
-    debugger
+   
     this.cityid = even.target.value
     this.getareamasterbyid();
   }
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
        
       }, error => {
@@ -120,18 +120,18 @@ public getareamaster()
   }
 
   public GetAreaID(even) {
-    debugger
+   
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
   }
   public updatedetails() {
-    debugger
+   
     var entity = {
       'LanguageID':this.languageid,
       'ID':this.id,
@@ -145,7 +145,7 @@ public getareamaster()
       'AreaID': this.areaid,
       'Pincode': this.pincode
     }
-    debugger
+   
     this.docservice.UpdateDeliveryCompany(entity).subscribe(data=>{
       if(data!=undefined)
       {

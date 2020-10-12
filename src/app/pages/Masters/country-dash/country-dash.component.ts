@@ -23,7 +23,7 @@ export class CountryDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -32,7 +32,7 @@ export class CountryDashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class CountryDashComponent implements OnInit {
 
 
   public DeleteCountryMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Country!",

@@ -32,11 +32,11 @@ export class ItemsComponent implements OnInit {
       this.ID = params['id'];
       this.service.GetItems().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           let temp1: any = temp.filter(x => x.id == this.ID);
           this.service.GetItemCategory().subscribe(data => {
-            debugger;
+           
             this.Categorylist = data;
           })
           this.CategoryID = temp1[0].categoryID;
@@ -66,10 +66,10 @@ export class ItemsComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.service.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -79,7 +79,7 @@ export class ItemsComponent implements OnInit {
   SubcategoryID;
   insertdetail() {
 
-    debugger;
+   
     let entity = {
       productname: this.productname,
       CategoryID: this.CategoryID,
@@ -90,10 +90,10 @@ export class ItemsComponent implements OnInit {
       Quantity: 10,
       photourl: 'NULL'
     };
-    debugger;
+   
     this.service.insertItems(entity).subscribe(data => {
       if (data >= 0) {
-        debugger;
+       
         this.inserthspphotos(data);
         location.href = '#/ItemMaster';
         //this._router.navigate(['/ItemMaster']);
@@ -105,16 +105,16 @@ export class ItemsComponent implements OnInit {
   }
 
   getCategory() {
-    debugger;
+   
     this.service.GetItemCategory().subscribe(data => {
-      debugger;
+     
       this.Categorylist = data;
     })
   }
 
   getCategoryID(eve) {
     let cid = eve.target.value
-    debugger;
+   
     this.service.GetsubcategoryByCategoryID(cid).subscribe(data => {
       this.Subcategorylist = data;
     })
@@ -125,7 +125,7 @@ export class ItemsComponent implements OnInit {
 
   attachments = [];
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
 
@@ -138,34 +138,34 @@ export class ItemsComponent implements OnInit {
   attachmentsurl = [];
   showphoto = [];
   public uploadattachments() {
-    debugger;
+   
     this.service.ItemsPhotosUpload(this.attachments).subscribe(res => {
-      debugger;
+     
 
       for (let i = 0; i < res.length; i++) {
         this.attachmentsurl.push(res[i]);
         let a = this.attachmentsurl[0].slice(2);
-        debugger
+       
         let b = 'http://14.192.17.225' + a;
         this.showphoto.push(b)
       }
 
       this.attachments.length = 0;
-      debugger
+     
     })
 
   }
 
 
   public inserthspphotos(ID) {
-    debugger
+   
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       let entity = {
         'ItemsID': ID,
         'PhotoUrl': this.attachmentsurl[i]
       }
       this.service.Insert_ItemPhotos(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -177,7 +177,7 @@ export class ItemsComponent implements OnInit {
     }
 
     this.service.UpdateProductImages(Entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         Swal.fire('Saved Sucessfully')
       }
@@ -186,7 +186,7 @@ export class ItemsComponent implements OnInit {
 
 
   Updatedetail() {
-    debugger;
+   
     let entity = {
       'ID': this.ID,
       'ProductName': this.productname,
@@ -196,7 +196,7 @@ export class ItemsComponent implements OnInit {
       'ProductCode': this.productCode,
       'ProductPrice': this.productprice
     };
-    debugger;
+   
     this.service.UpdateProducts(entity).subscribe(data => {
       if (data != 0) {
         Swal.fire('Updated Successfully');

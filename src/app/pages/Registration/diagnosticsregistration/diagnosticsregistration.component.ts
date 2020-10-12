@@ -81,7 +81,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DiagnosticRegistration_LabelBYLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -90,10 +90,10 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
   SelectLabel
   public getinsurancemaster() {
-    debugger
+   
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.insurancelist = data;
 
         this.insurancedd = {
@@ -115,7 +115,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -132,12 +132,12 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -158,21 +158,21 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
   onItemDeSelect3(item1: any) {
-    debugger
+   
     this.cityid = this.cityid.slice(item1.id)
     this.getareamasterbyid()
   }
 
 
   public GetInuranceID(item: any) {
-    debugger
+   
     this.insuranceid.push(item);
-    debugger
+   
   }
 
 
@@ -187,11 +187,11 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public insertdetails() {
 
     // if (this.attachmentsurl.length == 0) {
-    //   debugger
+    //  
     //   Swal.fire("Please Upload Photo")
     // }
     if (this.countryid == undefined || this.countryid.length == 0) {
-      debugger
+     
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -201,7 +201,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
       Swal.fire("Please Select City");
     }
     else {
-      debugger
+     
       this.spinner.show();
       this.timings = this.tone + ' ' + ' TO ' + this.ttwo + ' ';
       this.hspwebsite = 'https://' + '' + this.website
@@ -231,7 +231,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'Hospitalfulltimebit': this.hospitalfulltimebit
       }
       this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           this.diagnosticid = data;
           this.inserthspphotos();
@@ -262,7 +262,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'InsuranceID': this.insuranceid[i].id
       }
       this.docservice.InsertDiagnosticCenterInsurances(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -272,14 +272,14 @@ export class DiagnosticsregistrationComponent implements OnInit {
     if (this.attachmentsurl.length == 0) {
       this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DiagnosticCenterPhotos\\Diagnostics.jpg'
     }
-    debugger
+   
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
         'DiagnosticCenterID': this.diagnosticid,
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertInsertDiagnosticCenterPhotos(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -287,7 +287,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -298,15 +298,15 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.DiagnosticPhotos(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -330,10 +330,10 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -349,12 +349,12 @@ export class DiagnosticsregistrationComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }

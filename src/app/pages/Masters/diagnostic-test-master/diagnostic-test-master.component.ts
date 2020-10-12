@@ -23,7 +23,7 @@ export class DiagnosticTestMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -42,7 +42,7 @@ export class DiagnosticTestMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -51,10 +51,10 @@ export class DiagnosticTestMasterComponent implements OnInit {
 
 
   public getdiagnosticcentertests() {
-    debugger
+   
     this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.testslist = data;
       }, error => {
       }
@@ -62,7 +62,7 @@ export class DiagnosticTestMasterComponent implements OnInit {
   }
 
   public GetTestsID(even) {
-    debugger
+   
     this.testsid = even.target.value;
   }
 
@@ -72,7 +72,7 @@ export class DiagnosticTestMasterComponent implements OnInit {
   public getdiatests() {
     this.docservice.GetDiagnosticTestMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diatests = data;
         var list = this.diatests.filter(x => x.id == this.id)
 

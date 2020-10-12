@@ -22,17 +22,17 @@ export class FacilityMasterDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public getfacilititymaster() {
-    debugger
+   
     this.docservice.GetFacilitiesMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.facilitylist = data;
 
   
@@ -41,7 +41,7 @@ export class FacilityMasterDashComponent implements OnInit {
     )
   }
   public DeleteFacilitiesMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Facility!",

@@ -21,7 +21,7 @@ export class SpecilizationDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -30,10 +30,10 @@ export class SpecilizationDashComponent implements OnInit {
 
 
   public getspecilicationmaster() {
-    debugger
+   
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.specilisationlist = data;
 
 
@@ -42,7 +42,7 @@ export class SpecilizationDashComponent implements OnInit {
     )
   }
   public DeleteSpecilaizationMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Specilization!",

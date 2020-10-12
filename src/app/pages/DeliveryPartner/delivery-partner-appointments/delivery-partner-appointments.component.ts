@@ -71,7 +71,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
     this.GetOrdersForDeliveryCompany();
     this.docservice.GetDeliveryPartnersByID(this.deliverycompanyid).subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -79,7 +79,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
 
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -91,7 +91,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -102,7 +102,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
 
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -110,7 +110,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
   public GetOrdersForDeliveryCompany() {
     this.docservice.GetOrdersForDeliveryCompany(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.orderlist = temp.filter(x => x.deliveredBit != 1);
       }, error => {
@@ -118,7 +118,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -134,7 +134,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
     if (type == 1) {
       this.docservice.AccpetMedicineDeliveryByDeliveryCompany(medicalOrderID, ar, id).subscribe(
         data => {
-          debugger
+         
           Swal.fire('Complete', 'Action Completed');
           this.GetOrdersForDeliveryCompany();
         }, error => {
@@ -144,7 +144,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
     else {
       this.docservice.AccpetShoppingDeliveryByDeliveryCompany(ar, id).subscribe(
         data => {
-          debugger
+         
           Swal.fire('Complete', 'Action Completed');
           this.GetOrdersForDeliveryCompany();
         }, error => {
@@ -162,7 +162,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
   }
 
   public asssign(pid) {
-    debugger
+   
     if (this.ordertype == 1) {
       var entity = {
         'MedicineOrderID': this.medicalorderid,
@@ -177,7 +177,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
       })
     }
     else {
-      debugger
+     
       var entitytwo = {
         'OrderID': this.medicalorderid,
         'DeliveryCompanyID': this.deliverycompanyid,
@@ -200,7 +200,7 @@ export class DeliveryPartnerAppointmentsComponent implements OnInit {
     else {
       this.docservice.GetOrdersForDeliveryCompany(this.startdate, this.enddate).subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.orderlist = temp.filter(x => x.deliveredBit != 1 && x.ordertypeid == this.Ordertypeid);
         }, error => {

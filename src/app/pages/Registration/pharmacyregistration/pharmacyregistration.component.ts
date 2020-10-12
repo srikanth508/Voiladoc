@@ -70,7 +70,7 @@ export class PharmacyregistrationComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].selectt;
 
@@ -85,7 +85,7 @@ export class PharmacyregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -102,12 +102,12 @@ export class PharmacyregistrationComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -126,7 +126,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -142,12 +142,12 @@ export class PharmacyregistrationComponent implements OnInit {
 
   public insertdetails() {
 
-    debugger
+   
     // if (this.attachmentsurl.length == 0) {
     //   Swal.fire("Please Upload Photo")
     // }
     if (this.countryid == undefined || this.countryid.length == 0) {
-      debugger
+     
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -158,7 +158,7 @@ export class PharmacyregistrationComponent implements OnInit {
     }
     else {
       this.spinner.show();
-      debugger
+     
       this.timings = this.tone + ' TO '  + this.toampm;
 
       this.hspwebsite = 'https://' + '' + this.website
@@ -190,7 +190,7 @@ export class PharmacyregistrationComponent implements OnInit {
         'Hospitalfulltimebit': this.hospitalfulltimebit
       }
       this.docservice.InsertPharmacyRegistration(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           this.pharmacyid = data;
           this.insertphoto();
@@ -216,7 +216,7 @@ export class PharmacyregistrationComponent implements OnInit {
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertPharmacyPhotos(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -228,7 +228,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -240,15 +240,15 @@ export class PharmacyregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -277,10 +277,10 @@ export class PharmacyregistrationComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -297,12 +297,12 @@ export class PharmacyregistrationComponent implements OnInit {
   }
 
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }

@@ -56,7 +56,7 @@ export class SupportWebComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -84,20 +84,20 @@ export class SupportWebComponent implements OnInit {
 
   public GetSupportIssues() {
     this.docservice.GetSupportForWebForSupportLogin(this.languageid, this.startdate, this.enddate).subscribe(res => {
-      debugger
+     
       this.issuelist = res;
       this.dummissuelist = res;
 
       this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       this.count = this.issuelist.length;
-      debugger
+     
     })
   }
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-      debugger
+     
       this.labels = res;
-      debugger
+     
     })
   }
 
@@ -105,13 +105,13 @@ export class SupportWebComponent implements OnInit {
   photourl: any;
 
   public GetImageUrl(photoURL) {
-    debugger
+   
     this.photourl = photoURL
   }
 
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -135,7 +135,7 @@ export class SupportWebComponent implements OnInit {
   }
 
   // public UpdateSupportForWebResolvedbit(id) {
-  //   debugger;
+  //  
   //   Swal.fire({
   //     title: 'Are you sure?',
   //     text: "This Issue Has Resolved!",
@@ -164,7 +164,7 @@ export class SupportWebComponent implements OnInit {
 
 
   public UpdateSupportForWebAcceptedbit(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want To Accept This Issue!",
@@ -194,7 +194,7 @@ export class SupportWebComponent implements OnInit {
   useremail: any;
 
   public GetSupportResolveID(id, useremail) {
-    debugger
+   
     this.resolveid = id
     this.useremail = useremail
    
@@ -206,7 +206,7 @@ export class SupportWebComponent implements OnInit {
 
     document.getElementById("qwerty").innerHTML = this.description;
     this.removetgdescription = document.getElementById("qwerty").innerText;
-    debugger
+   
     var entity = {
       'ID': this.resolveid,
       'ResolvePhotoUrl': this.issuephotourl[0],
@@ -225,7 +225,7 @@ export class SupportWebComponent implements OnInit {
 
 
   public insertazurenotification() {
-    debugger
+   
     var entity = {
       'Descriptions': "Your issue has Resolved. Please Check",
       'Email': this.useremail,
@@ -244,7 +244,7 @@ export class SupportWebComponent implements OnInit {
   showidentityproof=[];
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.identityattachmentsurlssss = []
       this.issuephoto.push(abcd.addedFiles[0]);
@@ -256,14 +256,14 @@ export class SupportWebComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-      debugger
+     
       this.issuephotourl.push(res);
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showidentityproof.push(b)
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -275,7 +275,7 @@ export class SupportWebComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -293,7 +293,7 @@ export class SupportWebComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

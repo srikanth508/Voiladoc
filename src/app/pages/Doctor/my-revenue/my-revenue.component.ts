@@ -52,11 +52,11 @@ export class MyRevenueComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
     var lll = this.EDate.setDate(this.EDate.getDate() + 0);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -66,12 +66,12 @@ export class MyRevenueComponent implements OnInit {
     // To display "0" as "12" 
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
-    debugger
+   
 
 
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
 
     }
@@ -91,7 +91,7 @@ export class MyRevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -101,7 +101,7 @@ export class MyRevenueComponent implements OnInit {
   public GetInclinicCommissionCount() {
     this.docservice.GetDoctorCommissionFeesByAdminRevenueByInclinRevenueByDocID(this.startdate, this.enddate, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.inclinicount = data;
       }, error => {
       }
@@ -113,7 +113,7 @@ export class MyRevenueComponent implements OnInit {
   public GetVideoCommssionfee() {
     this.docservice.GetPatientPaymentDetailsDoctorsCommissionByDoctorID(this.startdate, this.enddate, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.inclicncommssion = data;
       }, error => {
       }
@@ -124,7 +124,7 @@ export class MyRevenueComponent implements OnInit {
   public GetVideoAllCommsiionRevenue() {
     this.docservice.GetDoctorCommissionFeesByAdminRevenueByVedoevenueByDocID(this.startdate, this.enddate, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.vediocountcommision = data;
       }, error => {
       }
@@ -133,10 +133,10 @@ export class MyRevenueComponent implements OnInit {
   GrandTotal: any;
   doctorlist: any;
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, '2020-01-01', '2020-12-31', this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data.filter(x => x.doctorID == this.doctorID);
         this.GrandTotal = 0;
         for (let i = 0; i < this.doctorlist.length; i++) {
@@ -151,7 +151,7 @@ export class MyRevenueComponent implements OnInit {
   public GetVediocommission() {
     this.docservice.GetPatientPaymentDetailsDoctorsCommissionByDoctorIDVedioappts(this.startdate, this.enddate, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.videocommission = data;
       }, error => {
       }
@@ -160,7 +160,7 @@ export class MyRevenueComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -177,7 +177,7 @@ export class MyRevenueComponent implements OnInit {
     localStorage.setItem('EDATE',this.enddate)
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data.filter(x => x.doctorID == this.doctorID);
         this.GrandTotal = 0;
         for (let i = 0; i < this.doctorlist.length; i++) {

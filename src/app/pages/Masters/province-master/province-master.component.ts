@@ -22,7 +22,7 @@ export class ProvinceMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.getprobincelist();
       this.id = params['id'];
       if (this.id == undefined) {
@@ -40,7 +40,7 @@ export class ProvinceMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -52,7 +52,7 @@ export class ProvinceMasterComponent implements OnInit {
   public getprobincelist() {
     this.docservice.GetCityMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.provincelist = data;
         var list = this.provincelist.filter(x => x.id == this.id)
         this.countryid = list[0].countryID,
@@ -66,14 +66,14 @@ export class ProvinceMasterComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
       }, error => {
       }
     )
   }
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
   }
 

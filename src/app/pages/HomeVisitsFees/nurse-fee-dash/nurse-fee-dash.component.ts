@@ -32,14 +32,14 @@ export class NurseFeeDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -54,7 +54,7 @@ export class NurseFeeDashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetNurseCommissionDeatails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.nursefeelist = data;
           this.dummlist = this.nursefeelist
         }, error => {
@@ -64,7 +64,7 @@ export class NurseFeeDashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseCommissionDeatails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummnursefeelist = data;
           this.nursefeelist = this.dummnursefeelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.dummlist = this.nursefeelist
@@ -78,7 +78,7 @@ export class NurseFeeDashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -88,7 +88,7 @@ export class NurseFeeDashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.nursefeelist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -102,10 +102,10 @@ export class NurseFeeDashComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -115,7 +115,7 @@ export class NurseFeeDashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.nursefeelist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -131,10 +131,10 @@ export class NurseFeeDashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -145,7 +145,7 @@ export class NurseFeeDashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.nursefeelist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.nursefeelist.length
@@ -158,7 +158,7 @@ export class NurseFeeDashComponent implements OnInit {
 
 
   public DeleteNurseCommissionDeatails(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Nurse Fee!",

@@ -83,7 +83,7 @@ export class CancelledAppointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -93,10 +93,10 @@ export class CancelledAppointmentsComponent implements OnInit {
 
 
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
       }, error => {
       }
@@ -106,7 +106,7 @@ export class CancelledAppointmentsComponent implements OnInit {
   public GetDoctorName(even) {
 
     if (even.target.value != 0) {
-      debugger
+     
       this.doctorname = even.target.value;
       this.appointmentlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
       this.count = this.appointmentlist.length;
@@ -118,10 +118,10 @@ export class CancelledAppointmentsComponent implements OnInit {
 
 
   public getbookappointmentbyhospitalbyhospitalid() {
-    debugger
+   
     this.docservice.GetCancelledAppointmentByHospital_ClinicID(this.hospitalid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentlist = data.filter(x => x.refundBit != 1);
         this.dummlist = this.appointmentlist;
         this.count = this.appointmentlist.length;
@@ -131,7 +131,7 @@ export class CancelledAppointmentsComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -143,19 +143,19 @@ export class CancelledAppointmentsComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
     )
   }
   public GetDepartmentName(even) {
-    debugger
+   
     if (even.target.value != 0) {
-      debugger
+     
       this.term = even.target.value;
       this.appointmentlist = this.dummlist.filter(x => x.departmentname == this.term)
       this.count = this.appointmentlist.length;
@@ -165,7 +165,7 @@ export class CancelledAppointmentsComponent implements OnInit {
     }
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -175,7 +175,7 @@ export class CancelledAppointmentsComponent implements OnInit {
 
 
   // public cancelappoinement(id) {
-  //   debugger;
+  //  
   //   Swal.fire({
   //     title: 'Are you sure?',
   //     text: "You Want to Cancel This Appointment!",
@@ -205,7 +205,7 @@ export class CancelledAppointmentsComponent implements OnInit {
 
   PaymentTypeID: any
   public GetPaymentTypeID(evn) {
-    debugger;
+   
     this.PaymentTypeID = evn.target.value;
   }
 
@@ -214,7 +214,7 @@ export class CancelledAppointmentsComponent implements OnInit {
   paidAmount;
   paidAmount1;
   public RefundAmount(details) {
-    debugger;
+   
 
     this.appointmentID = details.appointmentID;
     this.paidAmount = details.paidAmount
@@ -238,7 +238,7 @@ export class CancelledAppointmentsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -256,7 +256,7 @@ export class CancelledAppointmentsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

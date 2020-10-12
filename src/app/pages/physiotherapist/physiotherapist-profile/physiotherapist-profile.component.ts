@@ -39,7 +39,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
     this.id = localStorage.getItem('physioid');
     
     this.languageid = localStorage.getItem('LanguageID');
-    debugger
+   
     this.GetCountryMaster();
     this.GetDepartmentmaster();
     this.getpsytherapydetails()
@@ -49,7 +49,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
   {
     this.docservice.GetAdmin_PhysiotherapistRegistration_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -59,7 +59,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
   {
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -98,7 +98,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -114,7 +114,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
     )
   }
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
     this.getcitymaster();
    
@@ -124,7 +124,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
   {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -143,15 +143,15 @@ export class PhysiotherapistProfileComponent implements OnInit {
 
 
   public GetcityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -168,24 +168,24 @@ export class PhysiotherapistProfileComponent implements OnInit {
   }
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.deptid = even.target.value;
   }
 
   public GetAreaID(even) {
-    debugger
+   
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
   }
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'LanguageID':this.languageid,
       'ID':this.id,
@@ -203,7 +203,7 @@ export class PhysiotherapistProfileComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID':this.countryid
     }
-    debugger
+   
     this.docservice.UpdatephysiotherapyRegistration(entity).subscribe(data=>{
       if(data!=undefined)
       {

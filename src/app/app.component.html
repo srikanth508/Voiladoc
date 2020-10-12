@@ -2,11 +2,18 @@
     <div class="row" style="height: 10vh;" *ngIf="isDescktopResolution==true">
         <div class="col-lg-2">
             <img src="assets/Images/logo.png" style="margin-top:10px;width: 150px;">
+            <!-- 
+            <img src="assets/Images/ham.png" *ngIf="showsidebar1==0" (click)="openNav1()"
+            style="margin-left: 1%;float: right;height:30px;margin-top: 21px;">
+        <img src="assets/Images/ham.png" *ngIf="showsidebar1==1" (click)="closeNav2()"
+            style="margin-left: 1%;float: right;height:30px;margin-top: 21px;"> -->
         </div>
-
-        <div class="col-lg-10">
+        <div class="col-lg-6" >
+            <marquee *ngFor="let noti of docnoti" style="margin-top:18px;color:red">{{noti.description}}</marquee>
+        </div>
+        <div class="col-lg-4" id="vidpagehead">
             <img src="assets/Images/logout.png" title="{{labels[0].logout}}"
-                style="float: right;padding: 2%;cursor: pointer;height:70px;margin-top: 8px;" (click)="clear()"><br>
+                style="float: right;padding: 2%;cursor: pointer;height:62px;margin-top: 9px;" (click)="clear()"><br>
             <span class="badge" style="float: right;cursor: pointer;background-color: green;color: aliceblue;
                 margin-left: 0%;">{{notificationcount}}</span>
             <img src="assets/icons/bell.png" data-toggle="modal" data-target="#notification"
@@ -15,11 +22,12 @@
                 <b>{{user}}</b></label>
         </div>
     </div>
+
     <div class="row" *ngIf="isDescktopResolution==true">
-        <div class="col-lg-2" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;">
+        <div class="col-lg-2" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;" id="sidbarid">
             <app-sidebar></app-sidebar>
         </div>
-        <div class="col-lg-10" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;">
+        <div class="col-lg-10" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;" id="vidiv">
             <router-outlet (activate)="onActivate($event)"></router-outlet>
         </div>
     </div>

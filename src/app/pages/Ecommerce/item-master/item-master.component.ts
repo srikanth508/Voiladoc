@@ -24,7 +24,7 @@ export class ItemMasterComponent implements OnInit {
 
     this.service.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.CategoryList = temp;
       }, error => {
@@ -36,10 +36,10 @@ export class ItemMasterComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.service.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -51,7 +51,7 @@ export class ItemMasterComponent implements OnInit {
   Filtereditemlist: any;
   getitem() {
     this.service.GetItems().subscribe(data => {
-      debugger
+     
       let temp: any = data;
       this.itemlist = temp;
       this.Filtereditemlist = this.itemlist;
@@ -67,7 +67,7 @@ export class ItemMasterComponent implements OnInit {
     if (this.catid == 0) {
       this.service.GetItems().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.Filtereditemlist = this.itemlist;
         }, error => {
@@ -77,7 +77,7 @@ export class ItemMasterComponent implements OnInit {
     else {
       this.service.GetItems().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.Filtereditemlist = this.itemlist.filter(x => x.categoryID == this.catid);
         }, error => {
@@ -87,7 +87,7 @@ export class ItemMasterComponent implements OnInit {
 
     this.service.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.SubCategoryList = temp.filter(x => x.categoryID == this.catid);
       }, error => {
@@ -102,7 +102,7 @@ export class ItemMasterComponent implements OnInit {
     if (this.scatid == 0) {
       this.service.GetItems().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.Filtereditemlist = this.itemlist.filter(x => x.categoryID == this.catid);
         }, error => {
@@ -112,7 +112,7 @@ export class ItemMasterComponent implements OnInit {
     else {
       this.service.GetItems().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.Filtereditemlist = this.itemlist.filter(x => x.categoryID == this.catid && x.subcategoryID == this.scatid);
         }, error => {
@@ -133,7 +133,7 @@ export class ItemMasterComponent implements OnInit {
 
     this.service.GetProductsImagesByID(this.AppointmentID).subscribe(
       data => {
-        debugger
+       
         this.showimages = data;
         if (this.showimages.length == 0) {
           this.nophoto = 1
@@ -150,17 +150,17 @@ export class ItemMasterComponent implements OnInit {
 
 
   public Edit(evn) {
-    debugger;
+   
     let ID = evn;
     this._router.navigate(['/items', evn]);
   }
 
   Deleteitem(id) {
-    debugger;
+   
     this.service.deleteItems(id).subscribe(data => {
-      debugger;
+     
       if (data >= 0) {
-        debugger;
+       
         this._router.navigate(['/ItemMaster']);
         location.reload();
       }

@@ -30,7 +30,7 @@ export class NurseLoginDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -42,7 +42,7 @@ export class NurseLoginDashboardComponent implements OnInit {
     {
       this.docservice.GetNurseLoginAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.nurseloginlist = data;
           this.count= this.nurseloginlist.length;
         }, error => {
@@ -53,7 +53,7 @@ export class NurseLoginDashboardComponent implements OnInit {
     {
       this.docservice.GetNurseLoginAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummnurseloginlist = data;
           this.nurseloginlist=this.dummnurseloginlist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
           this.count= this.nurseloginlist.length;
@@ -66,10 +66,10 @@ export class NurseLoginDashboardComponent implements OnInit {
 
 
   public DisableNurseLogin(id) {
-    debugger
+   
     this.docservice.DisableNurseLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Nurse has been Disabled');
         this.GetNurseLoginAdmin();
 
@@ -81,7 +81,7 @@ export class NurseLoginDashboardComponent implements OnInit {
   public EnableNurseLogin(id) {
     this.docservice.EnableNurseLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Nurse has been Enabled');
         this.GetNurseLoginAdmin();
 
@@ -91,7 +91,7 @@ export class NurseLoginDashboardComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     this.p = even;
   }
 

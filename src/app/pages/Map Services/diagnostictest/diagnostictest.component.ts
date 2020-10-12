@@ -46,10 +46,10 @@ export class DiagnostictestComponent implements OnInit {
 
   }
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -58,10 +58,10 @@ export class DiagnostictestComponent implements OnInit {
   }
   SelectLabel
   public getdiagnosticforadmin() {
-    debugger
+   
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -78,21 +78,21 @@ export class DiagnostictestComponent implements OnInit {
     )
   }
   public getdiagnostictestmaster() {
-    debugger
+   
     this.docservice.GetDiagnosticTestMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.testlist = data;
       }, error => {
       }
     )
   }
   public GetTestID(even) {
-    debugger
+   
     this.testid = even.target.value;
 
     for (let i = 0; i < this.testlist.length; i++) {
-      debugger
+     
       if (this.testlist[i].id == this.testid) {
         this.testname = this.testlist[i].short
       }
@@ -103,9 +103,9 @@ export class DiagnostictestComponent implements OnInit {
 
     // this.docservice.GetDiagnosticCenterTests(this.testid).subscribe(
     //   data => {
-    //     debugger;
+    //    
     //     this.details = data[0];
-    //     debugger;
+    //    
     //     this.diagnotictestname = this.details.short
 
     //   }, error => {
@@ -114,13 +114,13 @@ export class DiagnostictestComponent implements OnInit {
 
   }
   public GetDiagnosticID(item2: any) {
-    debugger
+   
     this.diagnosticid = item2.id;
     this.docservice.GetDiagnosticCenterDetailsByID(this.diagnosticid).subscribe(
       data => {
-        debugger;
+       
         this.details = data[0];
-        debugger;
+       
         this.diagnosticname = this.details.diagnosticCenterName
 
       }, error => {
@@ -146,7 +146,7 @@ export class DiagnostictestComponent implements OnInit {
     this.price = "";
   }
   public insertdetails() {
-    debugger
+   
     this.spinner.show();
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
@@ -156,7 +156,7 @@ export class DiagnostictestComponent implements OnInit {
         'Price': this.qwerty[i].Price,
       }
       this.docservice.InsertDiagnosticCenterTests(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.tablecount = 0;
@@ -172,11 +172,11 @@ export class DiagnostictestComponent implements OnInit {
     }
   }
   public delete(sno) {
-    debugger
+   
     for (let i = 0; i < this.qwerty.length; i++) {
-      debugger
+     
       if (sno == this.qwerty[i].Sno) {
-        debugger
+       
         this.qwerty.splice(i, 1);
       }
     }

@@ -118,7 +118,7 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].appointmentDate}}</th>
-            
+
             <th>{{labels1[0].department}}</th>
             <th>{{labels1[0].doctorName}}</th>
             <th>{{labels[0].prescription}}</th>
@@ -234,7 +234,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button"  style="background-color: #f18235;color: white;" class="btn btn-default" data-dismiss="modal">{{labels1[0].close}}</button>
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels1[0].close}}</button>
       </div>
     </div>
   </div>
@@ -406,6 +407,22 @@
               <div class="col-lg-7">
                 <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
                   placeholder="{{labels1[0].diagnosisCode}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">
+                  <b>Diagnosis description</b>
+                </label>
+                <label *ngIf="languageid=='6'">
+                  <b>Description du diagnostic</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="icrdescription" name="icrdescription"
+                  />
               </div>
             </div>
             <br>

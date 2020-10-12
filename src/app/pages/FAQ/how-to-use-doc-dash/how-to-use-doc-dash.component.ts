@@ -19,7 +19,7 @@ export class HowToUseDocDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -31,7 +31,7 @@ export class HowToUseDocDashComponent implements OnInit {
   {
     this.docservice.GetHowToUseDoctorsWeb(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.howtouselist = data;
       }, error => {
       }
@@ -40,7 +40,7 @@ export class HowToUseDocDashComponent implements OnInit {
 
 
   public DeleteHowToUseDoctorsWeb(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Item!",
@@ -69,7 +69,7 @@ export class HowToUseDocDashComponent implements OnInit {
 
   
   public DisableHowToUseDoctorsWeb(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Disable This Item!",
@@ -97,7 +97,7 @@ export class HowToUseDocDashComponent implements OnInit {
   }
 
   public EnableHowToUseDoctorsWeb(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This Item!",

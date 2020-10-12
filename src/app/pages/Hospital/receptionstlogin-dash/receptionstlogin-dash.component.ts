@@ -24,10 +24,10 @@ export class ReceptionstloginDashComponent implements OnInit {
   }
 
   public getreceptionlogin() {
-    debugger
+   
     this.docservice.GetReceiptionistLoginDash(this.hospitalclinicid).subscribe(
       data => {
-        debugger
+       
         this.receptionistlogins = data;
         this.count = this.receptionistlogins.length;
       }, error => {
@@ -38,7 +38,7 @@ export class ReceptionstloginDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageID).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {

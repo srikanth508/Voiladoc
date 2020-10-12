@@ -38,11 +38,11 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   HomepageSponsrships: any
   public Getsponrshipofhomepage() {
 
-    debugger;
-    debugger
+   
+   
     this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.HomepageSponsrships = temp;
       }, error => {
@@ -51,10 +51,10 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   }
   PhotoUrl
   public GetPhotoUrl(id) {
-    debugger
+   
     this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         let temp1: any = temp.filter(x => x.id == id);
         this.PhotoUrl = temp1[0].photoURL;
@@ -65,7 +65,7 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   startdate
   enddate
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
@@ -73,7 +73,7 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetSponcered_AddsMobileByDate(this.startdate, this.enddate,this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.HomepageSponsrships = temp;
       }, error => {
@@ -84,7 +84,7 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
 
 
   public DeleteServiceMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",

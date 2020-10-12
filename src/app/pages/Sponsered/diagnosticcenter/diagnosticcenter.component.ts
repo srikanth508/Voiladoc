@@ -26,14 +26,14 @@ export class DiagnosticcenterComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+   
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
-    // debugger
+    //
     // this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
     //   data => {
-    //     debugger
+    //    
     //     this.diagnosticlist = data;
     //   }, error => {
     //   }
@@ -46,7 +46,7 @@ export class DiagnosticcenterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -56,10 +56,10 @@ export class DiagnosticcenterComponent implements OnInit {
   SelectLabel
 
   public getdiagnosticforadmin() {
-    debugger
+   
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -78,11 +78,11 @@ export class DiagnosticcenterComponent implements OnInit {
 
 
   public GetDiagnosticID(item2: any) {
-    debugger
+   
     this.diagnosticid = item2.id;
   }
   public insertdetails() {
-    debugger
+   
     if (this.diagnosticid == undefined) {
       Swal.fire("Please Select Diagnostic Center");
 
@@ -94,7 +94,7 @@ export class DiagnosticcenterComponent implements OnInit {
         'EDate': this.enddate
       }
       this.docservice.InsertSponsoredDiagnosticCenter(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.clear();

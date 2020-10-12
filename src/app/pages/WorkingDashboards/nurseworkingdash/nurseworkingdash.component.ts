@@ -47,7 +47,7 @@ export class NurseworkingdashComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.nurselist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.nurselist.length
@@ -62,7 +62,7 @@ export class NurseworkingdashComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -72,7 +72,7 @@ export class NurseworkingdashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -82,7 +82,7 @@ export class NurseworkingdashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.workinglist = data;
 
         }, error => {
@@ -92,7 +92,7 @@ export class NurseworkingdashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummworkinglist = data;
           this.workinglist = this.dummworkinglist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
@@ -104,11 +104,11 @@ export class NurseworkingdashComponent implements OnInit {
   }
 
   public GetNurseID(even) {
-    debugger
+   
     this.nurseid = even.target.value;
     this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummworkinglist = data;
         this.workinglist = this.dummworkinglist.filter(x => x.id == this.nurseid)
 

@@ -69,9 +69,9 @@ export class NewPatientHistoryComponent implements OnInit {
   dummvedioslist: any;
   ngOnInit() {
 
-    debugger
+   
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.patientid = params['patientID'];
       this.doctorid = localStorage.getItem('userid');
       this.languageid = localStorage.getItem('LanguageID');
@@ -81,10 +81,10 @@ export class NewPatientHistoryComponent implements OnInit {
     )
 
     if (this.departmentid == 14) {
-      debugger
+     
       this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.soaplist1 = data;
         }, error => {
         }
@@ -93,7 +93,7 @@ export class NewPatientHistoryComponent implements OnInit {
     else if (this.departmentid != 14) {
       this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummsoaplist = data;
           this.soaplist1 = this.dummsoaplist.filter(x => x.departmentID!= 14);
         }, error => {
@@ -101,9 +101,9 @@ export class NewPatientHistoryComponent implements OnInit {
       )
     }
 
-    this.docservice.GetPatientDetails(this.patientid).subscribe(
+    this.docservice.GetPatientDetails(this.patientid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.details = data;
         this.patientname = this.details.patientName,
           this.mobileno = this.details.mobileNumber,
@@ -123,10 +123,10 @@ export class NewPatientHistoryComponent implements OnInit {
     )
 
     if (this.departmentid == 14) {
-      debugger
+     
       this.docservice.GetDoctor_PatientPrescriptionbyPatientDeatails(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.prescriptionlist = data;
         }, error => {
         }
@@ -135,7 +135,7 @@ export class NewPatientHistoryComponent implements OnInit {
     else if (this.departmentid != 14) {
       this.docservice.GetDoctor_PatientPrescriptionbyPatientDeatails(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummprescrptiolist = data;
           this.prescriptionlist = this.dummprescrptiolist.filter(x => x.departmentID != 14)
         }, error => {
@@ -146,7 +146,7 @@ export class NewPatientHistoryComponent implements OnInit {
     if (this.departmentid == 14) {
       this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dialist = data;
         }, error => {
         }
@@ -155,7 +155,7 @@ export class NewPatientHistoryComponent implements OnInit {
     else if (this.departmentid! = 14) {
       this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummdialist = data;
           this.dialist = this.dummdialist.filter(x => x.departmentID != 14);
         }, error => {
@@ -168,7 +168,7 @@ export class NewPatientHistoryComponent implements OnInit {
     if (this.departmentid == 14) {
       this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(
         data => {
-          debugger
+         
           this.vedioslist = data;
         }, error => {
         }
@@ -178,7 +178,7 @@ export class NewPatientHistoryComponent implements OnInit {
 
       this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(
         data => {
-          debugger
+         
           this.dummvedioslist = data;
           this.vedioslist = this.dummvedioslist.filter(x => x.departmentID != 14)
         }, error => {
@@ -193,7 +193,7 @@ export class NewPatientHistoryComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -204,7 +204,7 @@ export class NewPatientHistoryComponent implements OnInit {
   public getlanguagesssss() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -212,11 +212,11 @@ export class NewPatientHistoryComponent implements OnInit {
   }
 
   public GetprscriptionID(id) {
-    debugger
+   
     this.prescriptionid = id;
     this.docservice.GetDoctor_PatientPrescriptionByID(this.prescriptionid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.prelist = data;
       }, error => {
       }
@@ -224,12 +224,13 @@ export class NewPatientHistoryComponent implements OnInit {
     //this.getDoctorPatientPrescriptions()
   }
 
+  icrdescription
   public GetSoapID(soapid) {
-    debugger
+   
     this.soapid = soapid;
     this.docservice.GetSoapNotesByID(this.soapid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist.length == 0 || this.soaplist == undefined) {
           this.subjective = "";
@@ -243,6 +244,7 @@ export class NewPatientHistoryComponent implements OnInit {
           this.signature = "";
           this.objective = "";
           this.signature = "";
+          this.icrdescription=""
         }
         else {
           this.subjective = this.soaplist[0].subjective,
@@ -252,7 +254,9 @@ export class NewPatientHistoryComponent implements OnInit {
             this.followupplan = this.soaplist[0].followUpPlan,
             this.notes = this.soaplist[0].notes,
             this.neurological = this.soaplist[0].neurological,
-            this.objective = this.soaplist[0].objective
+            this.objective = this.soaplist[0].objective,
+            this.icrdescription = this.soaplist[0].icrDescription
+
         }
 
       }, error => {
@@ -260,9 +264,9 @@ export class NewPatientHistoryComponent implements OnInit {
     )
   }
   public GetArchiveID(archiveID) {
-    debugger
+   
     // window.location.href = 'https://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view';
     window.open('https://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view', '_blank');
-    debugger
+   
   }
 }

@@ -30,7 +30,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
     {
       this.docservice.GetPhysiotherapyRegistringLogins(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.physiolist = data;
           this.phydd = {
             singleSelection: true,
@@ -49,7 +49,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
     {
       this.docservice.GetPhysiotherapyRegistringLogins(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummphysiolist = data;
            this.physiolist=this.dummphysiolist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
 
@@ -75,7 +75,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -84,7 +84,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
   }
   SelectLabel
   public GetphysioID(item1:any) {
-    debugger
+   
     this.physioid = item1.id;
   }
 
@@ -96,11 +96,11 @@ export class PhysiotherapistLoginComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp=1;
       }
     else {
-      debugger
+     
       var entity = {
         'PhysiotherapistID': this.physioid,
         'UserName': this.username,
@@ -109,7 +109,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
       this.username = '';
       this.password = '';
       this.docservice.InsertPhysiotherapistLogin(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           location.href="#/PhysiotherapistLoginDashboard"

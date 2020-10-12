@@ -27,7 +27,7 @@ export class ReceptionstloginComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageID).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -47,7 +47,7 @@ export class ReceptionstloginComponent implements OnInit {
       'PhoneNo': this.phoneno
     }
     this.docservice.InsertReceiptionistLogin(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         // Swal.fire('Added Successfully.');
         Swal.fire('Completed', 'Receptionist saved successfully', 'success');

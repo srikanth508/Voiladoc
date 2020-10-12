@@ -100,7 +100,7 @@ export class NurseAppointmentsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getnurselist();
     this.getserverdateandtime();
-    debugger
+   
     this.timingsss = this.datePipe.transform(this.availabletime, 'h:mm a');
     this.getlanguage()
   }
@@ -108,7 +108,7 @@ export class NurseAppointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -120,7 +120,7 @@ export class NurseAppointmentsComponent implements OnInit {
   public getnurselist() {
     this.docservice.GetBook_Nurse_Appointment(this.nurseid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
 
       }, error => {
@@ -130,7 +130,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -143,7 +143,7 @@ export class NurseAppointmentsComponent implements OnInit {
   public getnurseappointments() {
     this.docservice.GetBook_Nurse_Appointment(this.nurseid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
 
       }, error => {
@@ -155,10 +155,10 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public getserverdateandtime() {
-    debugger
+   
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
-        debugger
+       
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
@@ -168,7 +168,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public GetCancelAppointmentID(id, bookedTime, appdate, nurseName, hospital_ClinicName, patientID, emailID, paidAmount, walletAmount) {
-    debugger
+   
     this.canappointmentid = id
     this.canslots = bookedTime;
     this.cannursename = nurseName;
@@ -178,9 +178,9 @@ export class NurseAppointmentsComponent implements OnInit {
     this.paidamount = paidAmount;
     this.walletamount = walletAmount
 
-    debugger
+   
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
-    debugger
+   
 
   }
 
@@ -201,7 +201,7 @@ export class NurseAppointmentsComponent implements OnInit {
   public CancelAppointment() {
     this.docservice.UpdateBook_Nurse_AppointmentCancelledBit(this.canappointmentid).subscribe(
       data => {
-        debugger
+       
 
       }, error => {
       }
@@ -211,7 +211,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public updatereson() {
-    debugger
+   
     var entity = {
       'ID': this.canappointmentid,
       'ReasonForCancel': this.reason
@@ -229,7 +229,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public GetAcceptAppointmentID(id, nurseid, bookedTime, nurseName, hospital_ClinicName, patientID, emailID) {
-    debugger
+   
     this.acceptappointmentid = id;
     this.acceptnurseid = nurseid;
     this.aaceptslots = bookedTime;
@@ -243,20 +243,20 @@ export class NurseAppointmentsComponent implements OnInit {
   public acceptappointment() {
     this.docservice.UpdateBook_Nurse_AppointmentAcceptedBit(this.acceptappointmentid).subscribe(
       data => {
-        debugger
+       
 
       }, error => {
       }
     )
     this.InsertNextAvailableSlots();
-    debugger
+   
     this.insertAcceptNursenotoification();
-    debugger
+   
     this.InsertNotificationFORAccept();
   }
 
   public insertAcceptNursenotoification() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.acceppatientid,
@@ -268,7 +268,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'AppointmentID': this.acceptappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -285,7 +285,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'AppointmentID': this.acceptappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -294,13 +294,13 @@ export class NurseAppointmentsComponent implements OnInit {
   }
   public InsertNotificationFORAccept() {
     if (this.languageid == '1') {
-      debugger
+     
       var entity = {
         'Description': "Your Appointment with " + this.acceptnursename + " scheduled for " + this.aaceptslots + "has been Accepted.",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -312,7 +312,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -322,14 +322,14 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public getfromampm(even) {
-    debugger
+   
     this.ampmtime = even.target.value;
   }
 
 
   public InsertNextAvailableSlots() {
 
-    debugger
+   
     var entity = {
       'AppointmentID': this.acceptappointmentid,
       'AvailabilityTime': this.time
@@ -346,7 +346,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   // public InsertNextAvailableSlots() {
-  //   debugger
+  //  
   //   var entity = {
   //     'NurseID': this.acceptnurseid,
   //     'AppointmentID': this.acceptappointmentid,
@@ -361,7 +361,7 @@ export class NurseAppointmentsComponent implements OnInit {
   //   })
   // }
   public GetTime(even) {
-    debugger
+   
     this.time = even.target.value;
   }
   visitappid: any;
@@ -377,7 +377,7 @@ export class NurseAppointmentsComponent implements OnInit {
       this.getserverdateandtime()
     if (this.serverdate >= this.appdate) {
       if (this.servertime >= this.slottime) {
-        debugger;
+       
         Swal.fire({
           title: 'Are you sure?',
           text: "The Patient has Visited!",
@@ -419,7 +419,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public InsertCancellNotification() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
@@ -432,7 +432,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -450,7 +450,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'AppointmentID': this.canappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -462,13 +462,13 @@ export class NurseAppointmentsComponent implements OnInit {
 
   public InsertNotiFicationCancel() {
     if (this.languageid == '1') {
-      debugger
+     
       var entity = {
         'Description': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled..We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -481,7 +481,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -497,7 +497,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
     this.docservice.GetPatient_Nurse_Illnessphotos(this.AppointmentID).subscribe(
       data => {
-        debugger
+       
         this.showimages = data;
         if (this.showimages.length == 0) {
           this.nophoto = 1
@@ -516,7 +516,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public InsertVisitNotification() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.visitpatientid,
@@ -528,7 +528,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'AppointmentID': this.visitappid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -544,7 +544,7 @@ export class NurseAppointmentsComponent implements OnInit {
         'AppointmentID': this.visitappid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -554,26 +554,26 @@ export class NurseAppointmentsComponent implements OnInit {
   }
   public InsertNotiFicationVisited() {
     if (this.languageid == '1') {
-      debugger
+     
       var entity = {
         'Description': "Your Appointment with " + this.visitnurse + " scheduled for " + this.slottime + " has been Visited.",
         'ToUser': this.visitemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
       })
     }
     else if (this.languageid == '6') {
-      debugger
+     
       var entity = {
         'Description': "Votre rendez-vous avec " + this.visitnurse + " prévu pour " + this.slottime + " a été visité.",
         'ToUser': this.visitemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -582,7 +582,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public updateNotVisitBit(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "The Patient has Not Visited!",

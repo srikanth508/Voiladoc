@@ -29,7 +29,7 @@ export class NurseLoginComponent implements OnInit {
     if (this.hospitalclinicid == null) {
       this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.nurselist = data;
           this.nursedd = {
             singleSelection: true,
@@ -47,7 +47,7 @@ export class NurseLoginComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummnurselist = data;
           this.nurselist=this.dummnurselist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
 
@@ -73,7 +73,7 @@ export class NurseLoginComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -82,7 +82,7 @@ export class NurseLoginComponent implements OnInit {
   }
 
   public GetnurseID(item1: any) {
-    debugger
+   
     this.nurseid = item1.id;
   }
 
@@ -94,11 +94,11 @@ export class NurseLoginComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp = 1;
       }
       else {
-        debugger
+       
         var entity = {
           'NurseID': this.nurseid,
           'UserName': this.username,
@@ -107,7 +107,7 @@ export class NurseLoginComponent implements OnInit {
         this.username = '';
         this.password = '';
         this.docservice.InsertNurseLogin(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
             location.href="#/NurseLoginDashboard"

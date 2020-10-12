@@ -54,7 +54,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
     this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         let temp1: any = temp.filter(x => x.nurseID == this.nurseid);
         this.hospital_ClinicName = temp1[0].hospital_ClinicName;
@@ -64,7 +64,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     )
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-        debugger
+       
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
@@ -72,7 +72,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
     this.getlanguage();
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.active = 1;
       this.nurseid = params['id'];
 
@@ -83,7 +83,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -93,7 +93,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     if (this.hsp_clinicID == undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.nurselist = data;
         }, error => {
         }
@@ -102,7 +102,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     else if (this.hsp_clinicID != undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummnurselist = data;
           this.nurselist = this.dummnurselist.filter(x => x.hospitalClinicID == this.hsp_clinicID)
         }, error => {
@@ -116,17 +116,17 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public Getworktypeid(even) {
-    debugger
+   
     this.worktypeid = even.target.value;
     this.GetAllHospitalclinicById();
 
   }
 
   public GetAllHospitalclinicById() {
-    debugger
+   
     this.docservice.GetAllHospital_ClinicListByID(this.worktypeid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
       }, error => {
       }
@@ -137,7 +137,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.hsp_clinicID = even.target.value;
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-        debugger
+       
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
@@ -147,7 +147,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -157,7 +157,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-        debugger
+       
         this.Timeings = data;
       }, error => {
       }
@@ -165,7 +165,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public GetDaysID(even) {
-    debugger
+   
     this.dayid = even.target.value;
 
     for (let i = 0; i < this.dayslist.length; i++) {
@@ -178,7 +178,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
   public adddetails() {
     this.table = 1;
-    debugger
+   
     var detailsentity = {
       'Sno': this.idcount,
       'NurseID': this.nurseid,
@@ -198,22 +198,22 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public delete(Sno) {
-    debugger
+   
     for (let i = 0; i < this.detailsarray.length; i++) {
-      debugger
+     
       if (Sno == this.detailsarray[i].Sno) {
-        debugger
+       
         this.detailsarray.splice(i, 1);
       }
     }
     if (this.detailsarray.length == 0) {
       this.table = 0;
     }
-    debugger
+   
   }
 
   public InsertNurseHospitalDetailsAdmin() {
-    debugger
+   
     var entity = {
       'NurseID': this.detailsarray[0].NurseID,
       'Fees': this.detailsarray[0].Fees,
@@ -223,9 +223,9 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
 
       let qqqq = data;
-      debugger
+     
       for (let i = 0; i < this.detailsarray.length; i++) {
-        debugger
+       
         var entity1 = {
           'NurseHospitalDetailsID': qqqq,
           'NurseID': this.detailsarray[i].NurseID,
@@ -234,7 +234,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
-          debugger
+         
 
         })
       }
@@ -253,7 +253,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public InsertNurseHospitalDetailsAdmindash() {
-    debugger
+   
     var entity = {
       'NurseID': this.detailsarray[0].NurseID,
       'Fees': this.detailsarray[0].Fees,
@@ -263,9 +263,9 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
 
       let qqqq = data;
-      debugger
+     
       for (let i = 0; i < this.detailsarray.length; i++) {
-        debugger
+       
         var entity1 = {
           'NurseHospitalDetailsID': qqqq,
           'NurseID': this.detailsarray[i].NurseID,
@@ -274,7 +274,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
-          debugger
+         
 
         })
       }

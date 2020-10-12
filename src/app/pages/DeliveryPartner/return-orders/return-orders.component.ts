@@ -75,7 +75,7 @@ export class ReturnOrdersComponent implements OnInit {
 
     this.docservice.GetDeliveryPartnersByID(this.deliverycompanyid).subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -84,7 +84,7 @@ export class ReturnOrdersComponent implements OnInit {
 
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -95,7 +95,7 @@ export class ReturnOrdersComponent implements OnInit {
   public getlanguage() {
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -106,7 +106,7 @@ export class ReturnOrdersComponent implements OnInit {
   public GetOrdersForDeliveryCompany() {
     this.docservice.GetOrdersForDeliveryCompany(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.orderlist = temp.filter(x => x.returnBit == 1 && x.refundBit == 0);
       }, error => {
@@ -114,7 +114,7 @@ export class ReturnOrdersComponent implements OnInit {
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -135,15 +135,15 @@ export class ReturnOrdersComponent implements OnInit {
   returnimage: any;
 
   public GetReturnImage(returnImage) {
-    debugger
+   
     this.returnimage = returnImage;
   }
 
 
 
   public asssign(pid) {
-    debugger
-    debugger
+   
+   
     var entitytwo = {
       'OrderID': this.medicalorderid,
       'ReturnPatnerID': pid
@@ -184,7 +184,7 @@ export class ReturnOrdersComponent implements OnInit {
 
 
   public GetRefundAmount(patientID, totalPrice, walletAmount, id, email) {
-    debugger
+   
     this.patientid = patientID,
       this.totalprice = totalPrice;
     this.walletAmount = walletAmount;
@@ -194,14 +194,14 @@ export class ReturnOrdersComponent implements OnInit {
 
 
   public GetAddMoneyToWallet(money) {
-    debugger
+   
     if (this.totalprice < money) {
       Swal.fire('Amount Should be less than Paid Amount')
       this.money = ""
       money = ""
     }
     else {
-      debugger
+     
       this.payingwallet = Number(this.walletAmount) + Number(this.money)
     }
 
@@ -215,14 +215,14 @@ export class ReturnOrdersComponent implements OnInit {
 
 
   public updatedateails() {
-    debugger
+   
     var entity = {
       'PatientID': this.patientid,
       'WalletAmount': this.payingwallet
     }
     this.docservice.UpdatePatientWalletDetails(entity).subscribe(data => {
       let res = data;
-      debugger
+     
       this.UpdateRefundAmountItems()
       this.Insertnotification()
       // Swal.fire('Success', 'Wallet Balance Updated Successfully');
@@ -232,13 +232,13 @@ export class ReturnOrdersComponent implements OnInit {
 
 
   public Insertnotification() {
-    debugger
+   
     var entity = {
       'Description': "Your Return Order Amount Refunded Your Wallet With Amount" + this.money,
       'ToUser': this.patientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -247,7 +247,7 @@ export class ReturnOrdersComponent implements OnInit {
 
 
   public UpdateRefundAmountItems() {
-    debugger
+   
     var entity = {
       'OrderID': this.orderid,
       'RefundAmount': this.money,
@@ -263,7 +263,7 @@ export class ReturnOrdersComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

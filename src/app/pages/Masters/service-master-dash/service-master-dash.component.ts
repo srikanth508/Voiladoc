@@ -21,7 +21,7 @@ export class ServiceMasterDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -31,7 +31,7 @@ export class ServiceMasterDashComponent implements OnInit {
   public GetServicemaster() {
     this.docservice.GetServiceMasterWeb(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.servicelist = data;
       }, error => {
       }
@@ -39,7 +39,7 @@ export class ServiceMasterDashComponent implements OnInit {
   }
   
   public DeleteServiceMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",

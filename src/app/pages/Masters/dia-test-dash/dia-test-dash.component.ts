@@ -21,7 +21,7 @@ export class DiaTestDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -31,7 +31,7 @@ export class DiaTestDashComponent implements OnInit {
   public getdiatests() {
     this.docservice.GetDiagnosticTestMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diatests = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class DiaTestDashComponent implements OnInit {
 
   
   public DeleteDiagnosticTestMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Test!",

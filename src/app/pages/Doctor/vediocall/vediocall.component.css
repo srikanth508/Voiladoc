@@ -2,6 +2,9 @@
       .OT_subscriber{
         height: 350px !important;
       }
+      /* .OT_publisher, .OT_subscriber{
+        width: 360px !important;
+      } */
       
       .tab {
         overflow: hidden;

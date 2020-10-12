@@ -91,7 +91,7 @@ export class DiagnosticReportsComponent implements OnInit {
     this.edate = localStorage.getItem('EndDate');
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.diffid = params['id']
     }
@@ -100,10 +100,10 @@ export class DiagnosticReportsComponent implements OnInit {
       this.GetApprovelist()
     }
     else {
-      debugger
+     
       this.docservice.GetDiagnosticAppointmentsByApprovedReportsWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.Approvelist = data;
           this.dummlist = this.Approvelist
           this.count = this.Approvelist.length
@@ -120,14 +120,14 @@ export class DiagnosticReportsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DiagnosticLoginOrdersAndOrderReport_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -135,10 +135,10 @@ export class DiagnosticReportsComponent implements OnInit {
   }
   labels1
   public GetApprovelist() {
-    debugger
+   
     this.docservice.GetDiagnosticAppointmentsByApprovedReports(this.diagnosticid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.Approvelist = data;
         this.dummlist = this.Approvelist
         this.count = this.Approvelist.length
@@ -149,7 +149,7 @@ export class DiagnosticReportsComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // var s = sdate[0]
     // var e = sdate[1]
@@ -159,7 +159,7 @@ export class DiagnosticReportsComponent implements OnInit {
 
     this.docservice.GetDiagnosticAppointmentsByApprovedReports(this.diagnosticid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.Approvelist = data;
         this.dummlist = this.Approvelist
         this.count = this.Approvelist.length
@@ -171,20 +171,20 @@ export class DiagnosticReportsComponent implements OnInit {
 
 
   // public GetunApprovelist() {
-  //   debugger
+  //  
   //   this.docservice.GetDiagnosticAppointmentsByUnApprovedReports(this.diagnosticid, this.startdate, this.enddate).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.unApprovelist = data;
   //     }, error => {
   //     }
   //   )
   // }
   // public Getcancellist() {
-  //   debugger
+  //  
   //   this.docservice.GetDiagnosticAppointmentsByCancelledReports(this.diagnosticid, this.startdate, this.enddate).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.cancellist = data;
   //     }, error => {
   //     }
@@ -199,39 +199,39 @@ export class DiagnosticReportsComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+   
     if (even.target.value == 2) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.approved == 1);
-      debugger
+     
       this.Approvelist = dfsfd;
       this.count = this.Approvelist.length
 
     }
     if (even.target.value == 3) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.notVisited == 1);
-      debugger
+     
       this.Approvelist = dfsfd;
       this.count = this.Approvelist.length
 
     }
     if (even.target.value == 4) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.cancelled == 1 || x.diagnosticCancelled == 1);
-      debugger
+     
       this.Approvelist = dfsfd;
       this.count = this.Approvelist.length
 
     }
     if (even.target.value == 1) {
-      debugger
+     
 
       this.GetApprovelist();
 
       this.docservice.GetDiagnosticAppointmentsByApprovedReportsWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.Approvelist = data;
           this.dummlist = this.Approvelist
           this.count = this.Approvelist.length
@@ -258,7 +258,7 @@ export class DiagnosticReportsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -276,7 +276,7 @@ export class DiagnosticReportsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -297,7 +297,7 @@ export class DiagnosticReportsComponent implements OnInit {
 
 
   public GetTestsID(id) {
-    debugger
+   
     this.diatestid = id;
     this.GetDiaTests()
   }
@@ -305,7 +305,7 @@ export class DiagnosticReportsComponent implements OnInit {
   public GetDiaTests() {
     this.docservice.GetDiagnosticTestsByAppointmentIDWeb(1, this.diatestid).subscribe(
       data => {
-        debugger
+       
         this.testslist = data;
       }, error => {
       }
@@ -314,7 +314,7 @@ export class DiagnosticReportsComponent implements OnInit {
 
 
   public GetPackageID(id) {
-    debugger
+   
     this.packageid = id;
     this.GetPackageTests();
   }
@@ -322,7 +322,7 @@ export class DiagnosticReportsComponent implements OnInit {
   public GetPackageTests() {
     this.docservice.GetDiagnosticPackagesByAppointmentIDWeb(1, this.packageid).subscribe(
       data => {
-        debugger
+       
         this.packagelist = data;
       }, error => {
       }
@@ -331,7 +331,7 @@ export class DiagnosticReportsComponent implements OnInit {
 
 
   public GetReportID(id) {
-    debugger
+   
     this.reportid = id;
     this.getreportid()
   }
@@ -339,7 +339,7 @@ export class DiagnosticReportsComponent implements OnInit {
   public getreportid() {
     this.docservice.GetPatientDiagnosticsReportsByAppointmentID(this.reportid).subscribe(
       data => {
-        debugger
+       
         this.reports = data[0];
         this.reportimage = this.reports.fileURL
         // window.location.href = this.reportimage;

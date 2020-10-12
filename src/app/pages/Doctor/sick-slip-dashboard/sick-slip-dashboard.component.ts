@@ -56,13 +56,13 @@ export class SickSlipDashboardComponent implements OnInit {
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 20);
     var lll = this.EDate.setDate(this.EDate.getDate() + 20);
-    debugger
+   
 
 
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -76,7 +76,7 @@ export class SickSlipDashboardComponent implements OnInit {
     this.doctorid = localStorage.getItem('userid');
     this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.sicksliplist = data.filter(x => x.languageID == this.languageid);
       }, error => {
       }
@@ -84,14 +84,14 @@ export class SickSlipDashboardComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     var sdate = data.split('-')
     this.startdate = sdate[0]
     this.enddate = sdate[1]
 
     this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.sicksliplist = data.filter(x => x.languageID == this.languageid);
       }, error => {
       }
@@ -107,14 +107,14 @@ export class SickSlipDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginSickSlipGenerator_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_DoctorLoginSickSlipGenerator_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -129,7 +129,7 @@ export class SickSlipDashboardComponent implements OnInit {
 
 
   public getdesc(sickslip) {
-    debugger
+   
     this.clickedsickslipid = sickslip.patientID;
     this.sickslipid = sickslip.id;
     //let qwerty = this.sicksliplist.filter(x => x.patientID == this.clickedsickslipid);
@@ -145,7 +145,7 @@ export class SickSlipDashboardComponent implements OnInit {
 
   leavefor
   public UpdateSickSlip() {
-    debugger
+   
     const qwer = 'dd-MMM-yyyy';
     const pljdjf = 'en-US';
     const frdat = this.fromdate;
@@ -162,9 +162,9 @@ export class SickSlipDashboardComponent implements OnInit {
         'LeaveFor': this.leavefor,
         'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
       }
-      debugger
+     
       this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
-        debugger;
+       
 
         if (this.languageid == 1) {
           document.getElementById('close1').click();
@@ -189,9 +189,9 @@ export class SickSlipDashboardComponent implements OnInit {
         'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + ' Arrêt maladie(' + this.leavefor + ')' + '</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement :' + this.fromdate + ',<br><br>Date de fin :' + this.todate + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
         //'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
       }
-      debugger
+     
       this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
-        debugger;
+       
 
         if (this.languageid == 1) {
           Swal.fire('Updated successfully.');
@@ -216,9 +216,9 @@ export class SickSlipDashboardComponent implements OnInit {
       'emailbody': dets.description,
       'attachmenturl': this.attachmentsurl
     }
-    debugger
+   
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger;
+     
 
       if (this.languageid == 1) {
         Swal.fire('Mail sent successfully.');
@@ -235,12 +235,12 @@ export class SickSlipDashboardComponent implements OnInit {
   sickslippatientid
   patientlist: any
   public GetSickSlipID() {
-    debugger
+   
     document.getElementById('close').click();
     this.sickslippatientid = this.clickedsickslipid;
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.patientlist = data;
         this.getpatientdetail(this.sickslippatientid);
       }
@@ -258,7 +258,7 @@ export class SickSlipDashboardComponent implements OnInit {
   description
   sicksliplist1
   public getpatientdetail(pid) {
-    debugger
+   
     if (this.languageid == 6) {
       this.patientid = pid;
       let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
@@ -269,7 +269,7 @@ export class SickSlipDashboardComponent implements OnInit {
       this.doctorname = qwerty[0].doctorName;
       this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
         data => {
-          debugger
+         
           this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
           let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
           this.fromdate = temp[0].fromDatee.toLocaleString();
@@ -291,7 +291,7 @@ export class SickSlipDashboardComponent implements OnInit {
       this.doctorname = qwerty[0].doctorName;
       this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
         data => {
-          debugger
+         
           this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
           let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
           this.fromdate = temp[0].fromDateee;

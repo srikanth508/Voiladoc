@@ -38,7 +38,7 @@ export class DeliveryPartnerComponent implements OnInit {
   dropzonelable: any;
 
   ngOnInit() {
-    debugger
+   
     this.languageid = localStorage.getItem('LanguageID');
     this.GetCountryMaster()
 
@@ -55,7 +55,7 @@ export class DeliveryPartnerComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_CompanyDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -63,13 +63,13 @@ export class DeliveryPartnerComponent implements OnInit {
   }
 
   public GetDeliveryTypeID(even) {
-    debugger
+   
     this.deliverytypeid = even.target.value;
   }
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -86,12 +86,12 @@ export class DeliveryPartnerComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -110,7 +110,7 @@ export class DeliveryPartnerComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -119,7 +119,7 @@ export class DeliveryPartnerComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -131,24 +131,24 @@ export class DeliveryPartnerComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -165,12 +165,12 @@ export class DeliveryPartnerComponent implements OnInit {
   }
 
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -193,7 +193,7 @@ export class DeliveryPartnerComponent implements OnInit {
 
     }
     this.docservice.InsertDeliveryCompany(entity).subscribe(data => {
-      debugger
+     
       Swal.fire('Registration Completed', 'Details saved successfully', 'success');
       this.spinner.hide();
       location.href = '#/DeliveryPartnerDashboard';

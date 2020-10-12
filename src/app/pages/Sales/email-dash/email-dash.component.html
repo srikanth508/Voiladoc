@@ -1,0 +1,144 @@
+<br>
+<div class="container-fluid card card:hover">
+  <br />
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>Email dashboard</h5>
+    </div>
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+  </div>
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
+        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{ labels[0].search }}" />
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-2">
+      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>{{ labels[0].patientName }}</th>
+            <th>Subject</th>
+            <th>{{ labels[0].emailID }}</th>
+            <th>Message</th>
+            <th>Attachments</th>
+          </tr>
+          <tr *ngFor="let list of Patientlist|filter:search">
+            <td>{{list.date}}</td>
+            <td>{{list.receiverName}}</td>
+            <td>{{list.subject}}</td>
+            <td>{{list.emailID}}</td>
+            <td>
+              <ng-template #tipcontent12>Message</ng-template>
+              <a [ngbTooltip]="tipcontent12" style="color:black">
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#exampleModalLong3"
+                  (click)="GetMessage(list.message)" style="width: 20px">
+              </a>
+            </td>
+            <td>
+              <ng-template #tipcontent1>Attachments</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#exampleModalLong2"
+                  (click)="GetAttachmentID(list.id)" style="width: 20px">
+              </a>
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br /><br />
+  </div>
+  <br /><br />
+  <br />
+</div>
+<br /><br /><br /><br />
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Attachments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6" *ngFor="let showphoto of attchmentlist">
+              <br>
+              <img src="{{showphoto.attchmentUrl}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+          <p [innerHTML]="{{message}}"></p> 
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

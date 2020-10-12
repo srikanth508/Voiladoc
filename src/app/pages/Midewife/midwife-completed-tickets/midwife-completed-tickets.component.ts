@@ -54,7 +54,7 @@ export class MidwifeCompletedTicketsComponent implements OnInit {
 
   this.startdate = formatDate(kkk, format, locale);
   this.enddate = formatDate(lll, format, locale);
-  debugger
+ 
   let date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -71,18 +71,18 @@ export class MidwifeCompletedTicketsComponent implements OnInit {
 
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.midwifeid, 4,this.startdate,this.enddate).subscribe(res => {
-      debugger
+     
       this.dummissuelist = res
       this.issuelist = this.dummissuelist.filter(x => x.resolved == 1)
       this.count=this.issuelist.length;
-      debugger
+     
     })
   }
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-      debugger
+     
       this.labels = res;
-      debugger
+     
     })
   }
 
@@ -90,7 +90,7 @@ export class MidwifeCompletedTicketsComponent implements OnInit {
   photourl: any;
 
   public GetImageUrl(photoURL) {
-    debugger
+   
     this.photourl = photoURL
   }
 
@@ -101,7 +101,7 @@ export class MidwifeCompletedTicketsComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -116,7 +116,7 @@ public getglmasterexcel() {
 }
 
 public tableToJson(table) {
-  debugger
+ 
   var data = []; // first row needs to be headers
   var headers = [];
   for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -134,7 +134,7 @@ public tableToJson(table) {
 }
 
 public exportAsExcelFile(json: any[], excelFileName: string): void {
-  debugger;
+ 
   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
   const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

@@ -41,7 +41,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.ID = params["id"];
       this.hospitalid = localStorage.getItem('hospitalid');
       this.startdate = localStorage.getItem("StartDate");
@@ -50,7 +50,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 1) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-            debugger
+           
             this.Revenuelist = data;
             this.filterdummrevenuelist = data;
             this.count = this.Revenuelist.length;
@@ -68,7 +68,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 2) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-            debugger
+           
             this.Revenuelist = data;
             this.filterdummrevenuelist = data;
             this.count = this.Revenuelist.length;
@@ -80,7 +80,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 3) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-            debugger
+           
             this.dummRevenuelist = data;
 
             this.Revenuelist = this.dummRevenuelist.filter(x => x.appointmentTypeID == 5)
@@ -92,7 +92,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 4) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-            debugger
+           
             this.dummRevenuelist = data;
 
             this.Revenuelist = this.dummRevenuelist.filter(x => x.appointmentTypeID == 5)
@@ -108,7 +108,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -121,13 +121,13 @@ export class TotalHospitalApointmentsComponent implements OnInit {
 
 
   // selectedDate(data) {
-  //   debugger
+  //  
   //   var sdate = data.split('-')
   //   this.startdate = sdate[0];
   //   this.enddate = sdate[1];
   //   this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.dummlist = data;
   //       this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2);
   //       let total1 = 0;
@@ -149,7 +149,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -167,7 +167,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -182,7 +182,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
 
   appointmenttypeid: any;
   public GetAppointmentType(even) {
-    debugger
+   
     this.appointmenttypeid = even.target.value;
     if (even.target.value != 0) {
       this.Revenuelist=this.filterdummrevenuelist.filter(x=>x.appointmentTypeID==this.appointmenttypeid)
@@ -196,7 +196,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
     else{
       this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
         data => {
-          debugger
+         
           this.Revenuelist = data;
           this.filterdummrevenuelist = data;
           this.count = this.Revenuelist.length;

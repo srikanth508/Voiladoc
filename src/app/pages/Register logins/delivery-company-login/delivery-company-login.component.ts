@@ -26,7 +26,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetDeliveryCompanyAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dclist = data;
 
         this.diadd = {
@@ -48,7 +48,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -57,7 +57,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
   }
   SelectLabel
   public GetdcID(item:any) {
-    debugger
+   
     this.dcid = item.id;
   }
 
@@ -69,11 +69,11 @@ export class DeliveryCompanyLoginComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp=1;
       }
     else {
-      debugger
+     
       var entity = {
         'DeliveryCompanyID': this.dcid,
         'UserName': this.username,
@@ -82,7 +82,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
       this.username = '';
       this.password = '';
       this.docservice.InsertDeliveryCompanyLogin(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.pp=0;

@@ -26,10 +26,10 @@ export class InventoryComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -44,22 +44,22 @@ export class InventoryComponent implements OnInit {
   public item: any;
   SubCatID: any;
   public GetInvByID(paramID) {
-    debugger
+   
     this.docservice.GetInvByID(paramID).subscribe((data) => {
-      debugger;
+     
       this.category = data;
       this.categoryID = data[0].categoryID;
       this.SubCatID = data[0].subCategoryID;
       this.docservice.GetSubcategory().subscribe(
         data => {
-          debugger
+         
           this.SubcategoryLists = data.filter(x => x.categoryID == data[0].categoryID);
         }, error => {
         }
       )
       this.docservice.GetInventoryByID(data[0].categoryID, data[0].subCategoryID).subscribe(
         data => {
-          debugger
+         
           this.InventoryLists = data;
         }, error => {
         }
@@ -75,7 +75,7 @@ export class InventoryComponent implements OnInit {
   public GetItemCategory() {
     this.docservice.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         this.CategoryList = data;
       }, error => {
       }
@@ -86,11 +86,11 @@ export class InventoryComponent implements OnInit {
   CategoryID;
   SubcategoryLists;
   public GetCategoryID(evn) {
-    debugger;
+   
     this.CategoryID = evn.target.value;
     this.docservice.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         this.SubcategoryLists = data.filter(x => x.categoryID == this.CategoryID);
       }, error => {
       }
@@ -100,12 +100,12 @@ export class InventoryComponent implements OnInit {
   SubCategoryID;
   InventoryLists;
   public GetSubCategoryID(evn) {
-    debugger;
+   
     this.SubCategoryID = evn.target.value;
 
     this.docservice.GetInventoryByID(this.CategoryID, this.SubCategoryID).subscribe(
       data => {
-        debugger
+       
         this.InventoryLists = data;
       }, error => {
       }
@@ -139,7 +139,7 @@ export class InventoryComponent implements OnInit {
 
 
   public Update() {
-    debugger;
+   
     let Entity = {
       'ID': this.paramID,
       'CategoryID': this.categoryID,

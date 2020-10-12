@@ -52,7 +52,7 @@ export class OrdersComponent implements OnInit {
   public visdianame: any;
   public visslotName: any;
   public visiemail: any;
-  dropzonelable:any;
+  dropzonelable: any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -90,27 +90,25 @@ export class OrdersComponent implements OnInit {
 
     this.getlanguage()
 
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
 
   public getlanguage() {
     this.docservice.GetAdmin_DiagnosticLoginOrdersAndOrderReport_Label(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels1 = data;
       }, error => {
       }
@@ -118,17 +116,17 @@ export class OrdersComponent implements OnInit {
   }
   labels1
   public getdiagnosticAppointmentsbyid() {
-    debugger
+
     this.docservice.GetDiagnosticAppointmentsByDiagnosticID(this.diagnosticid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+
         this.diagnosticlist = data;
       }, error => {
       }
     )
   }
   selectedDate(data) {
-    debugger
+
     //   var sdate=data.split('-')
     //   this.startdate=sdate[0]
     //  this.enddate=sdate[1]
@@ -140,7 +138,7 @@ export class OrdersComponent implements OnInit {
   public getdiagnosticAppointment() {
     this.docservice.GetDiagnosticAppointmentsByDiagnosticID(this.diagnosticid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+
         this.diagnosticlist = data;
       }, error => {
       }
@@ -150,7 +148,7 @@ export class OrdersComponent implements OnInit {
 
 
   public cancelmedicine(id, patientID, diagnosticCenterName, slotName, emailID) {
-    debugger
+
     this.cancelid = id;
     this.canpatientid = patientID;
     this.candiagnostic = diagnosticCenterName;
@@ -159,70 +157,141 @@ export class OrdersComponent implements OnInit {
   }
 
   public Appointmentstatus(appointmentID, patientID, diagnosticCenterName, slotName, emailID) {
-    debugger;
+
     this.accpatientid = patientID;
     this.acceptcenter = diagnosticCenterName;
     this.accslot = slotName;
     this.acpaemail = emailID;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Accept This Order!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Accept it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.UpdateDiagnosticAppointments(appointmentID).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to accept this order ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Accept it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateDiagnosticAppointments(appointmentID).subscribe(res => {
+            let test = res;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+            this.InsertAccptNotification()
+            this.InsertNotiFicationAccpt()
+          })
+          Swal.fire(
+            'Accepted!',
+            'Order has been Accepted.',
+            'success'
+          )
+        }
+        else {
           this.getdiagnosticAppointmentsbyid();
           this.getdiagnosticAppointment();
-          this.InsertAccptNotification()
-          this.InsertNotiFicationAccpt()
-        })
-        Swal.fire(
-          'Accepted!',
-          'Order has been Accepted.',
-          'success'
-        )
-      }
-      else {
-        this.getdiagnosticAppointmentsbyid();
-        this.getdiagnosticAppointment();
-      }
-    })
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Voulez-vous accepter cette commande ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Qui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateDiagnosticAppointments(appointmentID).subscribe(res => {
+            let test = res;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+            this.InsertAccptNotification()
+            this.InsertNotiFicationAccpt()
+          })
+          Swal.fire(
+            'Enregistré!',
+            'Commande acceptée',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticAppointmentsbyid();
+          this.getdiagnosticAppointment();
+        }
+      })
+    }
+
   }
 
 
   public UpdateDiagnosticAppointmentsNotVisitedBit(appointmentID) {
-    debugger;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "This Patient has Not Visited!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Not Visited!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.UpdateDiagnosticAppointmentsNotVisitedBit(appointmentID).subscribe(res => {
-          let test = res;
+
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "This Patient has Not Visited!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Not Visited!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateDiagnosticAppointmentsNotVisitedBit(appointmentID).subscribe(res => {
+            let test = res;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+          })
+          Swal.fire(
+            'Accepted!',
+            'Patient has been Not  Visited.',
+            'success'
+          )
+        }
+        else {
           this.getdiagnosticAppointmentsbyid();
           this.getdiagnosticAppointment();
-        })
-        Swal.fire(
-          'Accepted!',
-          'Patient has been Not  Visited.',
-          'success'
-        )
-      }
-      else {
-        this.getdiagnosticAppointmentsbyid();
-        this.getdiagnosticAppointment();
-      }
-    })
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Le patient ne s’est pas présenté ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Qui',
+        cancelButtonText: 'Annuler'
+
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateDiagnosticAppointmentsNotVisitedBit(appointmentID).subscribe(res => {
+            let test = res;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+          })
+          Swal.fire(
+            'Enregistré!',
+            '',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticAppointmentsbyid();
+          this.getdiagnosticAppointment();
+        }
+      })
+    }
+
   }
 
 
@@ -234,43 +303,77 @@ export class OrdersComponent implements OnInit {
     this.visdianame = diagnosticCenterName,
       this.visslotName = slotName;
     this.visiemail = emailID;
-    debugger;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Appointment has Visited!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Accept it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.UpdateDiagnosticAppointmentsApproveBit(appointmentID).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Has the patient visited ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Accept it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateDiagnosticAppointmentsApproveBit(appointmentID).subscribe(res => {
+            let test = res;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+            this.InsertVisitNotification();
+            this.InsertNotiFicationVisitt()
+          })
+          Swal.fire(
+            'Visited!',
+            'Appointment has been Visited.',
+            'success'
+          )
+        }
+        else {
           this.getdiagnosticAppointmentsbyid();
           this.getdiagnosticAppointment();
-          this.InsertVisitNotification();
-          this.InsertNotiFicationVisitt()
-        })
-        Swal.fire(
-          'Visited!',
-          'Appointment has been Visited.',
-          'success'
-        )
-      }
-      else {
-        this.getdiagnosticAppointmentsbyid();
-        this.getdiagnosticAppointment();
-      }
-    })
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire({
+        // title: 'Are you sure?',
+        text: "Le patient s'est-il présenté ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Qui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateDiagnosticAppointmentsApproveBit(appointmentID).subscribe(res => {
+            let test = res;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+            this.InsertVisitNotification();
+            this.InsertNotiFicationVisitt()
+          })
+          Swal.fire(
+            'Enregistré !',
+            '',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticAppointmentsbyid();
+          this.getdiagnosticAppointment();
+        }
+      })
+    }
+
   }
 
 
   public canclediagnosticappointment() {
-    debugger
+
     this.docservice.UpdateDiagnosticAppointmentsByDiaCanceeled(this.cancelid).subscribe(
       data => {
-        debugger
+
         this.updatereson();
         this.getdiagnosticAppointmentsbyid();
         this.getdiagnosticAppointment();
@@ -283,10 +386,10 @@ export class OrdersComponent implements OnInit {
   }
 
   // public Appointmentstatus(appointmentID) {
-  //   debugger
+  //  
   //   this.docservice.UpdateDiagnosticAppointments(appointmentID).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       Swal.fire('Completed', 'Appointment Completed', 'success');
 
   //       this.getdiagnosticAppointmentsbyid();
@@ -296,7 +399,7 @@ export class OrdersComponent implements OnInit {
   //   )
   // }
   public pageChanged(even) {
-    debugger
+
     let fgdgfgd = even;
     this.p = even;
   }
@@ -316,7 +419,7 @@ export class OrdersComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -327,21 +430,21 @@ export class OrdersComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.DiagnosticRecordUploads(this.attachments).subscribe(res => {
-      debugger
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+
       let b = 'http://14.192.17.225' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+
     })
     // this.sendattachment();
   }
 
 
   public GetUploadReportID(id, patientid, diagnosticCenterID) {
-    debugger
+
     this.appointmentsid = id;
     this.patientid = patientid;
     this.diaid = diagnosticCenterID;
@@ -352,7 +455,7 @@ export class OrdersComponent implements OnInit {
 
 
   public insertdiagnosticupload() {
-    debugger
+
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
         'DiagnosticID': this.diaid,
@@ -363,7 +466,7 @@ export class OrdersComponent implements OnInit {
 
       }
       this.docservice.InsertPatient_DiagnosticUploads(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
           Swal.fire('Success', 'Report Added Successfully');
           this.VisitOrder(this.appointmentsid);
@@ -383,10 +486,10 @@ export class OrdersComponent implements OnInit {
   }
 
   public VisitOrder(appointmentsid) {
-    debugger
+
     this.docservice.UpdateDiagnosticAppointmentsApproveBit(appointmentsid).subscribe(
       data => {
-        debugger
+
         this.getdiagnosticAppointmentsbyid();
         this.getdiagnosticAppointment();
         this.InsertVisitNotification();
@@ -396,7 +499,7 @@ export class OrdersComponent implements OnInit {
     )
   }
   public UpdateDiaReport() {
-    debugger
+
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
         'AppointmentID': this.appointmentsid,
@@ -404,7 +507,7 @@ export class OrdersComponent implements OnInit {
         'Notes': this.notes
       }
       this.docservice.UpdatePatient_DiagnosticUploads(entity).subscribe(data => {
-        debugger
+
         if (data != undefined) {
           Swal.fire('Success', 'Report Updated Successfully');
           this.notes = "";
@@ -419,7 +522,7 @@ export class OrdersComponent implements OnInit {
 
 
   public GetTestsID(id) {
-    debugger
+
     this.diatestid = id;
     this.GetDiaTests()
   }
@@ -427,7 +530,7 @@ export class OrdersComponent implements OnInit {
   public GetDiaTests() {
     this.docservice.GetDiagnosticTestsByAppointmentIDWeb(this.languageid, this.diatestid).subscribe(
       data => {
-        debugger
+
         this.testslist = data;
       }, error => {
       }
@@ -436,7 +539,7 @@ export class OrdersComponent implements OnInit {
 
 
   public GetPackageID(id) {
-    debugger
+
     this.packageid = id;
     this.GetPackageTests();
   }
@@ -444,7 +547,7 @@ export class OrdersComponent implements OnInit {
   public GetPackageTests() {
     this.docservice.GetDiagnosticPackagesByAppointmentIDWeb(this.languageid, this.packageid).subscribe(
       data => {
-        debugger
+
         this.packagelist = data;
       }, error => {
       }
@@ -459,7 +562,7 @@ export class OrdersComponent implements OnInit {
 
   public InsertAccptNotification() {
     if (this.languageid == '1') {
-      debugger
+
       var entity = {
         'PatientID': this.accpatientid,
         'Notification': "Appointment Accepted By Diagnostics",
@@ -469,7 +572,7 @@ export class OrdersComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -486,7 +589,7 @@ export class OrdersComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -498,14 +601,14 @@ export class OrdersComponent implements OnInit {
 
 
   public InsertNotiFicationAccpt() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + " has been Accepted.",
         'ToUser': this.acpaemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -517,7 +620,7 @@ export class OrdersComponent implements OnInit {
         'ToUser': this.acpaemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -530,7 +633,7 @@ export class OrdersComponent implements OnInit {
 
   public InsertCancelNotification() {
     if (this.languageid == '1') {
-      debugger
+
       var entity = {
         'PatientID': this.canpatientid,
         'Notification': "Appointment Cancelled By Diagnostics",
@@ -540,7 +643,7 @@ export class OrdersComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -557,7 +660,7 @@ export class OrdersComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -567,14 +670,14 @@ export class OrdersComponent implements OnInit {
   }
 
   public InsertNotiFicationCancel() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.canpatientid + " scheduled for " + this.canslot + " has been Cancelled.",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -586,7 +689,7 @@ export class OrdersComponent implements OnInit {
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -600,7 +703,7 @@ export class OrdersComponent implements OnInit {
 
   public InsertVisitNotification() {
     if (this.languageid == '1') {
-      debugger
+
       var entity = {
         'PatientID': this.vispatientID,
         'Notification': "Appointment Visited",
@@ -610,7 +713,7 @@ export class OrdersComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -627,7 +730,7 @@ export class OrdersComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -639,14 +742,14 @@ export class OrdersComponent implements OnInit {
 
 
   public InsertNotiFicationVisitt() {
-    debugger
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.visdianame + " scheduled for " + this.visslotName + " has been Visited.",
         'ToUser': this.visiemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }
@@ -658,7 +761,7 @@ export class OrdersComponent implements OnInit {
         'ToUser': this.visiemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+
         if (data != 0) {
 
         }

@@ -52,7 +52,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
 
     this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
       data => {
-        debugger
+       
 
         let temp: any = data;
         let temp1: any = temp.filter(x => x.physiotherapyID == this.physioid);
@@ -64,14 +64,14 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     )
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-        debugger
+       
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
     )
     this.getlanguage()
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.active = 1;
       this.physioid = params['id'];
     }
@@ -80,7 +80,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -90,7 +90,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     if (this.dummid == undefined) {
       this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.physiolist = data;
         }, error => {
         }
@@ -99,7 +99,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     else if (this.dummid != undefined) {
       this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.physiolist = this.dummlist.filter(x => x.hospitalClinicID == this.hsp_clinicID)
         }, error => {
@@ -114,17 +114,17 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   }
 
   public Getworktypeid(even) {
-    debugger
+   
     this.worktypeid = even.target.value;
     this.GetAllHospitalclinicById();
 
   }
 
   public GetAllHospitalclinicById() {
-    debugger
+   
     this.docservice.GetAllHospital_ClinicListByID(this.worktypeid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
       }, error => {
       }
@@ -135,7 +135,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     this.hsp_clinicID = even.target.value;
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-        debugger
+       
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
@@ -145,7 +145,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -153,7 +153,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   }
 
   public GetDaysID(even) {
-    debugger
+   
     this.dayid = even.target.value;
 
     for (let i = 0; i < this.dayslist.length; i++) {
@@ -166,7 +166,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-        debugger
+       
         this.Timeings = data;
       }, error => {
       }
@@ -177,7 +177,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
 
   public adddetails() {
     this.table = 1;
-    debugger
+   
     var detailsentity = {
       'Sno': this.idcount,
       'PhyioID': this.physioid,
@@ -198,22 +198,22 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   }
 
   public delete(Sno) {
-    debugger
+   
     for (let i = 0; i < this.detailsarray.length; i++) {
-      debugger
+     
       if (Sno == this.detailsarray[i].Sno) {
-        debugger
+       
         this.detailsarray.splice(i, 1);
       }
     }
     if (this.detailsarray.length == 0) {
       this.table = 0;
     }
-    debugger
+   
   }
 
   public InsertPhysiotherapyHospitalDetailsAdmin() {
-    debugger
+   
     var entity = {
       'physiotherapyID': this.detailsarray[0].PhyioID,
       'Fees': this.detailsarray[0].Fees,
@@ -221,10 +221,10 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertPhysiotherapyHospitalDetailsAdmin(entity).subscribe(data => {
-      debugger
+     
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
-        debugger
+       
         var entity = {
           'PhysiotherapyHospitalDetailsID': qqq,
           'PhysiotherapistID': this.detailsarray[i].PhyioID,
@@ -233,7 +233,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertPhysiotherapistWorkingDetails(entity).subscribe(data => {
-          debugger
+         
 
         })
       }
@@ -249,7 +249,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     })
   }
   public InsertPhysiotherapyHospitalDetails() {
-    debugger
+   
     var entity = {
       'physiotherapyID': this.detailsarray[0].PhyioID,
       'Fees': this.detailsarray[0].Fees,
@@ -257,10 +257,10 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertPhysiotherapyHospitalDetailsAdmin(entity).subscribe(data => {
-      debugger
+     
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
-        debugger
+       
         var entity = {
           'PhysiotherapyHospitalDetailsID': qqq,
           'PhysiotherapistID': this.detailsarray[i].PhyioID,
@@ -269,7 +269,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertPhysiotherapistWorkingDetails(entity).subscribe(data => {
-          debugger
+         
 
         })
       }

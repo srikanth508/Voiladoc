@@ -71,7 +71,7 @@ export class SoapdashComponent implements OnInit {
   ngOnInit() {
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.patientid = params['patientID'];
       this.languageid = localStorage.getItem('LanguageID');
       this.docdepartmentid = localStorage.getItem('departmentid')
@@ -84,7 +84,7 @@ export class SoapdashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -92,11 +92,11 @@ export class SoapdashComponent implements OnInit {
   }
 
   public GetSoapNotes() {
-    debugger
+   
     if (this.docdepartmentid == 14) {
       this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.soaplist1 = data;
         }, error => {
         }
@@ -105,7 +105,7 @@ export class SoapdashComponent implements OnInit {
     else if (this.docdepartmentid != 14) {
       this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummsoaplist1 = data;
           this.soaplist1 = this.dummsoaplist1.filter(x => x.departmentID == this.docdepartmentid)
         }, error => {
@@ -116,15 +116,15 @@ export class SoapdashComponent implements OnInit {
 
 
   public GetID(id) {
-    debugger
+   
     this.id = id;
     this.GetSoapNotesByID();
   }
   public GetSoapNotesByID() {
-    debugger
+   
     this.docservice.GetSoapNotesByID(this.id, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist == undefined || this.soaplist.length == 0) {
           this.subjective = "";
@@ -172,7 +172,7 @@ export class SoapdashComponent implements OnInit {
 
 
   public deletesoap(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Appointment!",

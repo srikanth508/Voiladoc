@@ -19,7 +19,8 @@
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <!-- <link rel="stylesheet" href="style.css"> -->
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
     integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
@@ -44,11 +45,118 @@
   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js" charset="utf-8"></script>
   <script src="bower_components/angular-bootstrap-multiselect/dist/angular-bootstrap-multiselect.min.js"></script>
-  
-  
+
+  <script>
+    setTimeout(function(){
+      debugger
+        customnotify();
+    },5000); // 5000 milliseconds means 5 seconds.
+ </script>
+
+  <script>
+    window.onload = function () {
+      setTimeout(function () {
+        customnotify();
+      }, 2000);
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+
+      }
+    });
+
+
+    var HttpClient = function () {
+      this.get = function (aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.onreadystatechange = function () {
+          if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+            aCallback(anHttpRequest.responseText);
+        }
+
+        anHttpRequest.open("GET", aUrl, true);
+        anHttpRequest.send(null);
+      }
+    }
+
+
+    function setCookie(cname, cvalue) {
+      var d = new Date();
+      //d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      //var expires = "expires="+ d.toUTCString();
+      // document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+      document.cookie = cname + "=" + cvalue;
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function customnotify() {
+      debugger;
+
+      userid = localStorage.getItem('userid');
+      if (userid != undefined || userid != null || userid != "") {
+        if (getCookie("doc_id") == "") {
+          setCookie("doc_id", userid);
+        }
+      }
+      if (getCookie("doc_id") != "") {
+
+
+        var client = new HttpClient();
+        client.get(localStorage.getItem('WebUrl') + '/Doctor/GetNotifications_DoctorByDoctorID?DoctorID=' + getCookie("doc_id"), function (response) {
+          debugger;
+          var res = JSON.parse(response);
+          for (var i = 0; i < res.length; i++) {
+            // do something with response
+            var notification = new Notification(res[i].notification, {
+              icon: '/assets/Images/logo.png',
+              body: res[i].description,
+            });
+
+            /* Remove the notification from Notification Center when clicked.*/
+            notification.onclick = function () {
+              debugger;
+              // window.open(url);
+            };
+
+            /* Callback function when the notification is closed. */
+            notification.onclose = function () {
+              debugger;
+              console.log('Notification closed');
+            };
+          }
+
+        });
+
+
+      }
+
+    } 
+  </script>
+
+
+
 </head>
 
 <body>
+
   <app-root></app-root>
 </body>
 

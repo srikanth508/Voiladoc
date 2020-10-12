@@ -68,7 +68,7 @@ export class ReferredDoctorComponent implements OnInit {
     this.user = localStorage.getItem('user');
     this.departmentid = 0
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.patientid = params['patientID'];
       this.appointmentid = params['appointmentID'];
       this.getpatientdetails();
@@ -76,7 +76,7 @@ export class ReferredDoctorComponent implements OnInit {
     )
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels2 = data;
       }, error => {
       }
@@ -93,7 +93,7 @@ export class ReferredDoctorComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -123,10 +123,10 @@ export class ReferredDoctorComponent implements OnInit {
   }
 
   public getdoctorforadmin() {
-    debugger
+   
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
         this.dummlist = this.doctorlist
 
@@ -137,7 +137,7 @@ export class ReferredDoctorComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
         this.countrydd = {
@@ -155,9 +155,9 @@ export class ReferredDoctorComponent implements OnInit {
     )
   }
   public GetCountryID(item: any) {
-    debugger
+   
     // if (item.target.value != 0) {
-    debugger
+   
     this.countryid = item.id;
 
     this.doctorlist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -174,10 +174,10 @@ export class ReferredDoctorComponent implements OnInit {
 
 
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -196,7 +196,7 @@ export class ReferredDoctorComponent implements OnInit {
 
   public GetCityID(item: any) {
     // if (item.target.value != 0) {
-    debugger
+   
     this.cityid = item.id;
     this.getareamasterbyid()
     this.doctorlist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -210,10 +210,10 @@ export class ReferredDoctorComponent implements OnInit {
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
         this.areadd = {
@@ -235,7 +235,7 @@ export class ReferredDoctorComponent implements OnInit {
 
   public GetAreaID(item: any) {
     // if (item.target.value != 0) {
-    //   debugger
+    //  
     this.areaid = item.id;
     this.doctorlist = this.dummlist.filter(x => x.areaID == this.areaid)
     this.departmentid = 0;
@@ -249,7 +249,7 @@ export class ReferredDoctorComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -257,7 +257,7 @@ export class ReferredDoctorComponent implements OnInit {
   }
 
   public GetReferencetypeID(even) {
-    debugger
+   
     this.referaltypeid = even.target.value;
     if (this.referaltypeid == '2') {
       this.doctorname = "",
@@ -269,10 +269,10 @@ export class ReferredDoctorComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -281,7 +281,7 @@ export class ReferredDoctorComponent implements OnInit {
 
 
   public GetDoctorID(item: any) {
-    debugger
+   
     this.doctorid = item.id
     var list = this.dummlist.filter(x => x.id == this.doctorid)
     this.doctorname = list[0].doctorName,
@@ -294,7 +294,7 @@ export class ReferredDoctorComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.departmentid = even.target.value;
 
     this.list = this.dummlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
@@ -312,7 +312,7 @@ export class ReferredDoctorComponent implements OnInit {
   }
 
   public Getdocname(doctorname) {
-    debugger
+   
     this.doctorname = doctorname
     this.referalnotes = "<p>Voiladoc<br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p>Voiladoc</p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
   }
@@ -334,7 +334,7 @@ export class ReferredDoctorComponent implements OnInit {
   }
 
   public insertdetails() {
-    debugger
+   
     if (this.referaltypeid == 1 || this.referaltypeid == 2) {
       if (this.doctorname == null) {
         Swal.fire("Please Select Or Enter Doctor Name")
@@ -346,9 +346,9 @@ export class ReferredDoctorComponent implements OnInit {
         Swal.fire("Please Enter Referral Notes")
       }
       else {
-        debugger
+       
         if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-          debugger
+         
           this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
         }
         if (this.referaltypeid == 3) {
@@ -374,10 +374,10 @@ export class ReferredDoctorComponent implements OnInit {
         this.docservice.InsertDoctorReferals(entity).subscribe(data => {
           if (data != 0) {
             this.InsertDoctorRefererlas();
-            debugger
+           
             this.SendNotification();
             // this.senmailToPatient();
-            debugger
+           
             if (this.referaltypeid == 1 || this.referaltypeid == 2) {
               this.sendmail();
             }
@@ -392,9 +392,9 @@ export class ReferredDoctorComponent implements OnInit {
       }
     }
     if (this.referaltypeid == 3) {
-      debugger
+     
       // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-      //   debugger
+      //  
       //   this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
       // }
       if (this.referaltypeid == 3) {
@@ -420,10 +420,10 @@ export class ReferredDoctorComponent implements OnInit {
       this.docservice.InsertDoctorReferals(entity).subscribe(data => {
         if (data != 0) {
           this.InsertDoctorRefererlas();
-          debugger
+         
           this.SendNotification();
           // this.senmailToPatient();
-          debugger
+         
           // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
           //   this.sendmail();
           // }
@@ -444,22 +444,22 @@ export class ReferredDoctorComponent implements OnInit {
       ContentType: "text/html",
       Content: this.referalnotes,
     };
-    debugger
+   
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+     
       Swal.fire('Mail sent successfully.');
     })
   }
 
   // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user
   public SendNotification() {
-    debugger
+   
     var entity = {
       'Description': "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -475,13 +475,13 @@ export class ReferredDoctorComponent implements OnInit {
         'AttachmentUrl': this.attachmentsurl1[i],
       }
       this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
       })
     }
-    debugger
+   
   }
 
 
@@ -501,9 +501,9 @@ export class ReferredDoctorComponent implements OnInit {
 
 
   public senmailToPatient() {
-    debugger
+   
     // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
-    debugger
+   
     // var mailentity = {
     //   'emailto': 'srikanthreddy0905@gmail.com',
     //   'emailsubject': 'Patient Referred By' + this.doctorname,
@@ -517,9 +517,9 @@ export class ReferredDoctorComponent implements OnInit {
       Content: "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
       // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
     };
-    debugger
+   
     this.docservice.SendMail(mailentity).subscribe(data => {
-      debugger
+     
       Swal.fire('Mail sent successfully.');
     })
   }
@@ -527,7 +527,7 @@ export class ReferredDoctorComponent implements OnInit {
 
 
   public onattachmentUpload1(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments1.push(abcd[i]);
       this.uploadattachments1();
@@ -538,17 +538,17 @@ export class ReferredDoctorComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-      debugger
+     
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       // this.showdocphoto.push(b)
-      debugger
+     
 
       this.attachments1.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }

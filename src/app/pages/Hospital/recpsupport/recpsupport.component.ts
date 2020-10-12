@@ -41,17 +41,17 @@ export class RecpsupportComponent implements OnInit {
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-      debugger
+     
       this.labels = res;
-      debugger
+     
     })
   }
   removetgdescription: any;
 
   public insertdetails() {
-    debugger
+   
     if (this.issuephotourl == null && this.issuephotourl.length == 0 && this.issuephotourl == undefined) {
-      debugger
+     
       Swal.fire('Please upload image')
     }
     else {
@@ -83,7 +83,7 @@ export class RecpsupportComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
@@ -94,13 +94,13 @@ export class RecpsupportComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-      debugger
+     
       this.issuephotourl.push(res);
       let a = this.issuephotourl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
-      debugger
+     
     })
     // this.sendattachment();
   }

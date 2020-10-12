@@ -1,4 +1,5 @@
-<div class="row tab" id="mySidenav">
+<div class="container-fluid" id="mySidenav">
+<div class="row tab" >
     <div class="col-md-2 sidenav" style="overflow-y: auto;margin-top: 10vh;border-top-right-radius: 5px;">
         <!-- <h6 style="float: left;color: aliceblue;margin-top: 3px;">Welcome Saamurott,</h6>
         <br>
@@ -25,6 +26,25 @@
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Merge Patient Data
             <!-- {{labels[0].howToUseVoilaDoc}} -->
         </a>
+        <a class="tablinks" (click)="highlight($event)" routerLink="/Sendemails" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Emails
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
+        
+        <a class="tablinks" (click)="highlight($event)" routerLink="/EmailDash" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Email Dash
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
+        <a class="tablinks" (click)="highlight($event)" routerLink="/SendSms" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Sms
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
+        
+        <a class="tablinks" (click)="highlight($event)" routerLink="/SmsDash" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Sms Dash
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
+        
         <a class="tablinks" (click)="highlight($event)" routerLink="/Faq" *ngIf="roleid=='12'">
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].faq}}
         </a>
@@ -433,6 +453,11 @@
             <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorFees}}
         </a>
 
+
+        <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/TestvideocallPage">
+            <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+            Test
+        </a> -->
         <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/PatientChat">
             <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; Patient Chat
         </a> -->
@@ -615,9 +640,6 @@
             <img src="assets/Images/orderreport32x32.png" style="width: 15px;">&nbsp;
             &nbsp;{{labels[0].digorederReports}}
         </a>
-        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/Offers">
-            <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].offers}}
-        </a>
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiagnosticTestDash">
             <img src="assets/Images/dt.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticTest}}
         </a>
@@ -626,6 +648,9 @@
         </a>
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiagnosticSlotsDash">
             <img src="assets/Images/diaslot.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticSlots}}
+        </a>
+        <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/Offers">
+            <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].offers}}
         </a>
 
         <!-- PHARMACY -->
@@ -866,9 +891,11 @@
         <!-- <button *ngIf="this.docservice.showvid == 1" (click)="show()">show</button>
         <button *ngIf="this.docservice.showvid == 1" (click)="hide()">hide</button>
         <br> -->
-        <div *ngIf="this.docservice.showvid == 1">
+        <!-- <div *ngIf="this.docservice.showvid == 1">
             <app-publisher [session]="session" id="publishme" [ngStyle]="{ display: block}"></app-publisher>
             <p style="color: aliceblue; margin-left: 25px;">{{labels[0].doctorVideo}}</p>
-        </div>
+        </div> -->
     </div>
+</div>
+
 </div>

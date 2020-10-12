@@ -37,7 +37,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
 
     this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummlist = data;
         this.midwifelist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         this.count = this.midwifelist.length;
@@ -47,16 +47,16 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
     // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
     // var Lastdate;
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    // debugger
+    //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    debugger
+   
     this.month = date.getMonth();
     this.year = date.getFullYear();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-    debugger
+   
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
 
@@ -78,15 +78,15 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
     // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
     // var Lastdate;
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    // debugger
+    //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    debugger
+   
     // this.month = date.getMonth();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-    debugger
+   
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
 
@@ -106,7 +106,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
 
 
       let date = startdate.getDate();
-      debugger
+     
       this.showmonth = new Date(startdate).toDateString().substring(4, 7);
       let month = new Date(startdate).toDateString().substring(4, 7);
 
@@ -132,7 +132,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.Select = this.labels[0].selectt;
       }, error => {
@@ -209,16 +209,16 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
       this.disablelist = data;
 
       for (let t = 0; t < this.timeSheetTablearray.length; t++) {
-        debugger
+       
 
         let kkk = this.timeSheetTablearray[t]._fulldate;
         let validatedate = kkk.substring(0, 10);
-        debugger
+       
         this.timeSheetTablearray[t]["_fulldate"] = validatedate;
 
         let zz = this.disablelist.filter(x => x.date == validatedate && x.midWifeID == this.midwifeid);
-        debugger
-        debugger
+       
+       
         if (zz.length > 0) {
           this.timeSheetTablearray[t]["disabled"] = 1
 
@@ -233,7 +233,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
 
 
   public GetDeleteSlots(date) {
-    debugger
+   
     this.docservice.DeleteMidWifeDisabledSlots(this.midwifeid, date).subscribe(data => {
 
       Swal.fire('Enabled Successfully')
@@ -246,7 +246,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
 
 
   public ChangeMonth(even) {
-    debugger
+   
     this.month = even.target.value;
 
     this.timeSheetTablearray = [];
@@ -257,15 +257,15 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
     // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
     // var Lastdate;
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    // debugger
+    //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    debugger
+   
     // this.month = date.getMonth();
 
     var startdate = new Date(date.getFullYear(), this.month, 1);
     var Lastdate;
     var firstDay = new Date(date.getFullYear(), this.month, 1).getDate();
-    debugger
+   
     var lastDay = new Date(date.getFullYear(), this.month + 1, 0).getDate();
 
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
@@ -284,7 +284,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
       }
 
       let date = startdate.getDate();
-      debugger
+     
 
       let month = new Date(startdate).toDateString().substring(4, 7);
 
@@ -316,15 +316,15 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
     // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
     // var Lastdate;
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    // debugger
+    //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    debugger
+   
     // this.month = date.getMonth();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-    debugger
+   
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
 
@@ -344,7 +344,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
 
 
       let date = startdate.getDate();
-      debugger
+     
       this.showmonth = new Date(startdate).toDateString().substring(4, 7);
       let month = new Date(startdate).toDateString().substring(4, 7);
 

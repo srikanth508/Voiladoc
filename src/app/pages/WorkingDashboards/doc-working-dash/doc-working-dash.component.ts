@@ -38,7 +38,7 @@ export class DocWorkingDashComponent implements OnInit {
     if (this.hospitalid != undefined) {
       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
 
@@ -49,10 +49,10 @@ export class DocWorkingDashComponent implements OnInit {
   }
 
   public getdoctorforadmin() {
-    debugger
+   
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
         this.dummlist = this.doctorlist
 
@@ -66,7 +66,7 @@ export class DocWorkingDashComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -75,7 +75,7 @@ export class DocWorkingDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -86,7 +86,7 @@ export class DocWorkingDashComponent implements OnInit {
     if (this.hospitalid == undefined) {
       this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
         data => {
-          debugger;
+         
           this.workingdetails = data;
 
 
@@ -97,7 +97,7 @@ export class DocWorkingDashComponent implements OnInit {
     else if (this.hospitalid != undefined) {
       this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
         data => {
-          debugger;
+         
           this.dummworkingdetails = data;
           this.workingdetails = this.dummworkingdetails.filter(x => x.hospitalClinicID == this.hospitalid)
           this.workingdetailscopy = this.workingdetails;
@@ -112,12 +112,12 @@ export class DocWorkingDashComponent implements OnInit {
 
 
   public GetDoctorID(even) {
-    debugger
+   
     this.doctorid = even.target.value
 
     this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.dummworkingdetails = data;
         this.workingdetails = this.dummworkingdetails.filter(x => x.doctorID == this.doctorid)
       }, error => {

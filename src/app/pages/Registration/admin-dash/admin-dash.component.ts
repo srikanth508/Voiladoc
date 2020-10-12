@@ -42,11 +42,11 @@ export class AdminDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
     var lll = this.EDate.setDate(this.EDate.getDate() + 30);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -56,7 +56,7 @@ export class AdminDashComponent implements OnInit {
     // To display "0" as "12" 
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
-    debugger
+   
     this.GetCounts();
     localStorage.setItem('StartDate', this.startdate)
     localStorage.setItem('EndDate', this.enddate)
@@ -66,7 +66,7 @@ export class AdminDashComponent implements OnInit {
   public GetCounts() {
     this.docservice.GetAdminDashboardCounts(this.languageid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.allcounts = data;
       }, error => {
       }
@@ -76,7 +76,7 @@ export class AdminDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -87,7 +87,7 @@ export class AdminDashComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

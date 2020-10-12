@@ -29,7 +29,7 @@ export class DoctorServicesDashComponent implements OnInit {
     if (this.languageid == 1) {
       this.docservice.GetDepartmentMaster().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.DepartmentList = temp;
         }, error => {
@@ -39,7 +39,7 @@ export class DoctorServicesDashComponent implements OnInit {
     else {
       this.docservice.GetDepartmentMaster_French().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.DepartmentList = temp;
         }, error => {
@@ -51,7 +51,7 @@ export class DoctorServicesDashComponent implements OnInit {
 
     this.docservice.GetDoctorListByLanguageID(1).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.doctorlist = temp.filter(x => x.hospitalClinicID == this.hospitalclinicid)
       }, error => {
@@ -63,10 +63,10 @@ export class DoctorServicesDashComponent implements OnInit {
   }
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServices_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -75,20 +75,20 @@ export class DoctorServicesDashComponent implements OnInit {
 
   public GetDoctorServices() {
     if (this.hospitalclinicid == undefined) {
-      debugger
+     
       this.docservice.GetDoctorServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.servicelist = data;
         }, error => {
         }
       )
     }
     else if (this.hospitalclinicid != undefined) {
-      debugger
+     
       this.docservice.GetDoctorServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummservicelist = data;
           this.servicelist = this.dummservicelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         }, error => {
@@ -97,10 +97,10 @@ export class DoctorServicesDashComponent implements OnInit {
     }
   }
   public DeleteDiagnostocServces(id) {
-    debugger
+   
     this.docservice.DeleteDoctorServices(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire("Deleted Successfully");
         this.GetDoctorServices();
       }, error => {
@@ -108,13 +108,13 @@ export class DoctorServicesDashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
   departmentid
   public GetDepartmentID(event) {
-    debugger
+   
     this.departmentid = event.target.value;
     if (this.departmentid == 0) {
       this.GetDoctorServices();
@@ -122,7 +122,7 @@ export class DoctorServicesDashComponent implements OnInit {
     else {
       this.docservice.GetDoctorServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummservicelist = data;
           this.servicelist = this.dummservicelist.filter(x => x.hospitalClinicID == this.hospitalclinicid && x.departmentID == this.departmentid)
         }, error => {
@@ -132,7 +132,7 @@ export class DoctorServicesDashComponent implements OnInit {
   }
   doctorID
   public GetDoctorID(event) {
-    debugger
+   
     this.doctorID = event.target.value;
     if (this.doctorID == 0) {
       this.GetDoctorServices();
@@ -140,7 +140,7 @@ export class DoctorServicesDashComponent implements OnInit {
     else {
       this.docservice.GetDoctorServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummservicelist = data;
           this.servicelist = this.dummservicelist.filter(x => x.hospitalClinicID == this.hospitalclinicid && x.departmentID == this.departmentid && x.doctorID == this.doctorID)
         }, error => {

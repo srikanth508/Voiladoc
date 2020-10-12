@@ -26,7 +26,7 @@ export class HospitalDocCommissionComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'],
         this.hospitalclinicname = params['hospital_ClinicName'];
         this.gethospitalcommssions()
@@ -46,10 +46,10 @@ export class HospitalDocCommissionComponent implements OnInit {
 
 
   public gethosptilclinicforadmin() {
-    debugger
+   
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
         this.hospitadd = {
           singleSelection: true,
@@ -67,7 +67,7 @@ export class HospitalDocCommissionComponent implements OnInit {
 
 
   public GetHospitalID(item: any) {
-    debugger
+   
     this.hospitalclinicid = item.id;
   }
 
@@ -77,7 +77,7 @@ export class HospitalDocCommissionComponent implements OnInit {
       Swal.fire('Please Select Hospital Clinic')
     }
     else {
-      debugger
+     
       var entity = {
         'HospitalClinicID': this.hospitalclinicid,
         'DoctorCommission': this.doccommission,
@@ -101,7 +101,7 @@ export class HospitalDocCommissionComponent implements OnInit {
   public gethospitalcommssions() {
     this.docservice.GetHospitalCommissions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.commissionlist = data;
         var list=this.commissionlist.filter(x=>x.id==this.id)
         this.doccommission=list[0].doctorCommission,
@@ -116,7 +116,7 @@ export class HospitalDocCommissionComponent implements OnInit {
 
 
   public updatedetails() {
-      debugger
+     
       var entity = {
         'ID': this.id,
         'DoctorCommission': this.doccommission,

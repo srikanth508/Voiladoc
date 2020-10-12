@@ -111,7 +111,7 @@ export class ReferredPatientsComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -128,7 +128,7 @@ export class ReferredPatientsComponent implements OnInit {
 
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -143,7 +143,7 @@ export class ReferredPatientsComponent implements OnInit {
   public getkang() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels4 = data;
       }, error => {   
       }
@@ -152,7 +152,7 @@ export class ReferredPatientsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -162,7 +162,7 @@ export class ReferredPatientsComponent implements OnInit {
   public GetDoctorRefererals() {
     this.docservice.GetDoctorReferals(this.doctorid, 2, this.startdate, this.enddate).subscribe(
       data => {
-        debugger;
+       
         let temp: any = data
         this.docreferels = temp.filter(x => x.doctorID == this.doctorid && x.languageID == this.languageid);
         this.count = this.docreferels.length
@@ -176,7 +176,7 @@ export class ReferredPatientsComponent implements OnInit {
   public GetAppointmentID(appointmentid) {
     this.docservice.GetDoctorReferalAttachments(appointmentid).subscribe(
       data => {
-        debugger;
+       
         this.attachments = data;
       },
       error => { }
@@ -184,13 +184,13 @@ export class ReferredPatientsComponent implements OnInit {
   }
 
   public GetPdf(attchments) {
-    debugger
+   
     window.open(attchments, '_blank');
   }
 
 
   public UpdateDoctorReferalsCompletedBit(id) {
-    debugger;
+   
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -259,15 +259,15 @@ export class ReferredPatientsComponent implements OnInit {
 
 
   public GetSopaNotesID(id) {
-    debugger
+   
     this.id = id;
     this.GetSoapNotesByID();
   }
   public GetSoapNotesByID() {
-    debugger
+   
     this.docservice.GetSoapNotesByPatientRefereal(this.id, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist == undefined || this.soaplist.length == 0) {
           this.subjective = "";
@@ -318,7 +318,7 @@ export class ReferredPatientsComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]

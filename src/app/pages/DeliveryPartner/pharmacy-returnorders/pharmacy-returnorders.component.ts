@@ -93,7 +93,7 @@ export class PharmacyReturnordersComponent implements OnInit {
 
     this.docservice.GetDeliveryPartnersByID(this.deliverycompanyid).subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -102,7 +102,7 @@ export class PharmacyReturnordersComponent implements OnInit {
     
 this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   data => {
-    debugger
+   
     this.labels2 = data;
   }, error => {
   }
@@ -112,10 +112,10 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   public GetPharmacyOrders() {
-    debugger
+   
     this.docservice.GetPatient_TextMedicineDetailsForDeliverCompany(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummorderlist = data;
         this.orderlist = this.dummorderlist.filter(x => x.returnBit == 1);
         this.count = this.orderlist.length;
@@ -128,14 +128,14 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -143,7 +143,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   selectedDate(data) {
-    debugger
+   
 
     // var sdate = data.split('-')
     // this.startdate= sdate[0]
@@ -164,7 +164,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public asssign(pid) {
-    debugger
+   
     var entity = {
       'MedicineOrderID': this.orderid,
       'PartnerID': pid
@@ -179,7 +179,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public GetReturnImage(id) {
     this.docservice.GetPrescriptionReturnedPhotos(id).subscribe(
       data => {
-        debugger
+       
         this.retunphotos = data;
 
       }, error => {
@@ -192,7 +192,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public UpdateCollecteditem(id) {
     this.docservice.UpdateCollectBit(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Success', 'Items Collected Successfully');
         this.GetPharmacyOrders()
 
@@ -225,7 +225,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public GetRefundAmount(patientID, totalPrice, walletAmount, id, email) {
-    debugger
+   
     this.patientid = patientID,
       this.totalprice = totalPrice;
     this.walletAmount = walletAmount;
@@ -235,14 +235,14 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public GetAddMoneyToWallet(money) {
-    debugger
+   
     if (this.totalprice < money) {
       Swal.fire('Amount Should be less than Paid Amount')
       this.money = ""
       money = ""
     }
     else {
-      debugger
+     
       this.payingwallet = Number(this.walletAmount) + Number(this.money)
     }
 
@@ -256,14 +256,14 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public updatedateails() {
-    debugger
+   
     var entity = {
       'PatientID': this.patientid,
       'WalletAmount': this.payingwallet
     }
     this.docservice.UpdatePatientWalletDetails(entity).subscribe(data => {
       let res = data;
-      debugger
+     
       this.UpdateRefundAmountItems()
       this.Insertnotification()
       // Swal.fire('Success', 'Wallet Balance Updated Successfully');
@@ -273,13 +273,13 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public Insertnotification() {
-    debugger
+   
     var entity = {
       'Description': "Your Return Order Amount Refunded Your Wallet With Amount" + this.money,
       'ToUser': this.patientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -288,7 +288,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public UpdateRefundAmountItems() {
-    debugger
+   
     var entity = {
       'MedicineOrderID': this.orderid,
       'RefundAmount': this.money,
@@ -311,7 +311,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -329,7 +329,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

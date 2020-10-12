@@ -46,11 +46,11 @@ export class NurserevenueComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
     var lll = this.EDate.setDate(this.EDate.getDate() + 0);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -60,7 +60,7 @@ export class NurserevenueComponent implements OnInit {
     // To display "0" as "12" 
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
-    debugger
+   
     this.getlanguage()
     this.GetAllNurseAmount();
     this.GetTotalCommissions();
@@ -71,7 +71,7 @@ export class NurserevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -82,7 +82,7 @@ export class NurserevenueComponent implements OnInit {
   public GetAllNurseAmount() {
     this.docservice.GetNurseCommissionDeatailsAdminRevenueByNurseID(this.startdate, this.enddate, this.nurseid).subscribe(
       data => {
-        debugger
+       
         this.totalamount = data;
       }, error => {
       }
@@ -92,7 +92,7 @@ export class NurserevenueComponent implements OnInit {
   public GetTotalCommissions() {
     this.docservice.GetNurse_PatientPaymentDetailsNurseRevenueByNurseID(this.startdate, this.enddate, this.nurseid).subscribe(
       data => {
-        debugger
+       
         this.totalcommissions = data;
       }, error => {
       }
@@ -101,7 +101,7 @@ export class NurserevenueComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

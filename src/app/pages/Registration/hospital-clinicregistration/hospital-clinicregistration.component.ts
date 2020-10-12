@@ -72,7 +72,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
       this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.labels = data;
           this.SelectLabel = this.labels[0].select;
         }, error => {
@@ -97,7 +97,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -114,18 +114,18 @@ export class HospitalClinicregistrationComponent implements OnInit {
   }
 
   onItemDeSelect(item: any) {
-    debugger;
+   
     var index = this.countryid.findIndex(x => x.id == item.id)
     this.countryid.splice(index, 1);
   }
 
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -148,10 +148,10 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
 
   public getfacilititymaster() {
-    debugger
+   
     this.docservice.GetFacilitiesMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.facilitylist = data;
 
         this.facilitydd = {
@@ -169,10 +169,10 @@ export class HospitalClinicregistrationComponent implements OnInit {
     )
   }
   public getinsurancemaster() {
-    debugger
+   
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.insurancelist = data;
         this.insurancedd = {
           singleSelection: false,
@@ -189,17 +189,17 @@ export class HospitalClinicregistrationComponent implements OnInit {
     )
   }
   public GetFacilityID(item: any) {
-    debugger
+   
     this.facilityid.push(item);
-    debugger
+   
   }
   public GetInuranceID(item: any) {
-    debugger
+   
     this.insuranceid.push(item);
-    debugger
+   
   }
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -215,9 +215,9 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger;
+   
     if (this.countryid == undefined || this.countryid.length == 0) {
-      debugger
+     
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -260,7 +260,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'Hospitalfulltimebit': this.hospitalfulltimebit
       }
       this.docservice.InsertHospitalClinicDetailsMaster(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           this.hospitalclinicid = data;
           this.inserthspphotos();
@@ -289,7 +289,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertHospital_ClinicPhotos(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -305,7 +305,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'VideoURL': this.videosurl[i]
       }
       this.docservice.InsertHospital_ClinicVideos(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -320,7 +320,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'FacilityID': this.facilityid[i].id
       }
       this.docservice.InsertHospital_ClinicFacilities(entity1).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -335,7 +335,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'InsuranceID': this.insuranceid[i].id
       }
       this.docservice.InsertHospital_ClinicInsurance(entity2).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -344,7 +344,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   }
 
   // public onvideoupload(abcd) {
-  //   debugger
+  //  
   //   for (let i = 0; i < abcd.length; i++) {
   //     this.videos.push(abcd[i]);
   //     this.uploadattachments();
@@ -356,22 +356,22 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
   // public uploadvideos() {
   //   this.docservice.HospitalClinicVideos(this.videos).subscribe(res => {
-  //     debugger
+  //    
   //     this.videosurl.push(res);
   //     let a = this.videosurl[0].slice(2);
-  //     debugger
+  //    
   //     let b = 'http://14.192.17.225' + a;
 
   //     // this.showphoto.push(b)
 
-  //     debugger
+  //    
   //   })
   //   // this.sendattachment();
   // }
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -384,14 +384,14 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -415,10 +415,10 @@ export class HospitalClinicregistrationComponent implements OnInit {
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -434,12 +434,12 @@ export class HospitalClinicregistrationComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }

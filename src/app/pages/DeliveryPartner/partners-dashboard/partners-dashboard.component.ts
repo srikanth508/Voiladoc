@@ -22,7 +22,7 @@ export class PartnersDashboardComponent implements OnInit {
     this.dcid = localStorage.getItem('deliveryid');
     this.docservice.GetDeliveryPartnersByID(this.dcid).subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -36,7 +36,7 @@ export class PartnersDashboardComponent implements OnInit {
   {
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }

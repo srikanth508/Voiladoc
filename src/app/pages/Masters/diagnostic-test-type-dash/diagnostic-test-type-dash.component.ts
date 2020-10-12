@@ -21,17 +21,17 @@ export class DiagnosticTestTypeDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public getdiagnosticcentertests() {
-    debugger
+   
     this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.testslist = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class DiagnosticTestTypeDashComponent implements OnInit {
 
 
   public DeleteDiagnosticTestTypeMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Test!",

@@ -100,13 +100,13 @@ export class MyWorkingDetailsComponent implements OnInit {
   public appointmentypeid: any;
 
   ngOnInit() {  
-    debugger
+   
     this.doctorid = localStorage.getItem('userid');
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalClinicID')
     this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.workingdetails = data;
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
         this.slottypeid=list[0].slotDurationID
@@ -130,7 +130,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -144,7 +144,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.Select = this.labels[0].selectt;
       }, error => {
@@ -153,10 +153,10 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   public GetDoctorHospitalDetails() {
-    debugger;
+   
     this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.workingdetails = data;
 
       }, error => {
@@ -169,7 +169,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   public GetDoctorHospitalDetailsHospital() {
     this.docservice.GetDoctorHospitalDetailsWebHospital(this.doctorid).subscribe(
       data => {
-        debugger;
+       
         this.hopitsllist = data;
       }, error => {
       }
@@ -177,10 +177,10 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   public GetMorningSlotsMasterbyid() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist = data;
         this.slotsdd = {
           singleSelection: false,
@@ -197,10 +197,10 @@ export class MyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetAfternoonSlotsMasterbyID() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(2, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist1 = data;
         this.slotsdd1 = {
           singleSelection: false,
@@ -217,10 +217,10 @@ export class MyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetEveningSlotsMasterByID() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(3, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist2 = data;
         this.slotsdd2 = {
           singleSelection: false,
@@ -237,10 +237,10 @@ export class MyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetNightSlotsMasterByID() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(4, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist3 = data;
         this.slotsdd3 = {
           singleSelection: false,
@@ -259,7 +259,7 @@ export class MyWorkingDetailsComponent implements OnInit {
 
 
   public GetMorningSlotsID(item: any) {
-    debugger
+   
     this.morningslots.push(item);
 
     if (this.morningslots.length == 2) {
@@ -268,12 +268,12 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect(item: any) {
-    debugger
+   
     this.morningslots = this.morningslots.slice(item.id)
   }
 
   public GetAfternoonSlotsID(item1: any) {
-    debugger
+   
     this.aftrenoonslots.push(item1);
 
     if (this.aftrenoonslots.length == 2) {
@@ -283,12 +283,12 @@ export class MyWorkingDetailsComponent implements OnInit {
 
 
   onItemDeSelect1(item1: any) {
-    debugger
+   
     this.aftrenoonslots = this.aftrenoonslots.slice(item1.id)
   }
 
   public GetEveningSlotsID(item2: any) {
-    debugger
+   
     this.eveningslots.push(item2);
 
     if (this.eveningslots.length == 2) {
@@ -297,13 +297,13 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect2(item2: any) {
-    debugger
+   
     this.eveningslots = this.eveningslots.slice(item2.id)
   }
 
 
   public GetNightSlotsID(item3: any) {
-    debugger
+   
     this.nightslots.push(item3);
     if (this.nightslots.length == 2) {
       this.dis3 = 1;
@@ -311,12 +311,12 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect3(item3: any) {
-    debugger
+   
     this.eveningslots = this.eveningslots.slice(item3.id)
   }
 
   public gettimeid(tid, dochspid, hspcliid, dayid, appointmentypeid) {
-    debugger
+   
     this.timeid = tid;
     this.dochspid = dochspid;
     this.hspcliid = hspcliid;
@@ -325,12 +325,12 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   public addnew() {
-    debugger
+   
     location.href = '#/AddMyWorkingDetails/' + this.doctorid + '/' + this.hospitalid
   }
 
   public adddetails() {
-    debugger
+   
     if (this.morningslots.length == 0 && this.aftrenoonslots.length == 0 && this.eveningslots.length == 0 && this.nightslots.length == 0) {
 
       var entitysds = {
@@ -350,13 +350,13 @@ export class MyWorkingDetailsComponent implements OnInit {
     }
     else {
       this.tablecount = 1;
-      debugger
+     
       for (let i = 0; i < this.morningslots.length; i++) {
         this.morningslotarray.push(this.morningslots[i].slots);
-        debugger
+       
         this.morningslotidarray.push(this.morningslots[i].id)
       }
-      debugger
+     
       this.slotname = this.morningslotarray;
       this.mrng = this.slotname.join(' to ')
       this.slotnameid = this.morningslotidarray;
@@ -365,10 +365,10 @@ export class MyWorkingDetailsComponent implements OnInit {
 
       for (let i = 0; i < this.aftrenoonslots.length; i++) {
         this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
-        debugger
+       
         this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
       }
-      debugger
+     
       this.slotname1 = this.afternoonslotarray;
       this.afternoon = this.slotname1.join(' to ');
       this.slotnameid1 = this.afternoonslotidarray;
@@ -377,10 +377,10 @@ export class MyWorkingDetailsComponent implements OnInit {
 
       for (let i = 0; i < this.eveningslots.length; i++) {
         this.eveningarray.push(this.eveningslots[i].slots);
-        debugger
+       
         this.eveningarrayid.push(this.eveningslots[i].id);
       }
-      debugger
+     
       this.slotname2 = this.eveningarray;
       this.evening = this.slotname2.join(' to ');
       this.slotnameid2 = this.eveningarrayid;
@@ -388,15 +388,15 @@ export class MyWorkingDetailsComponent implements OnInit {
 
       for (let i = 0; i < this.nightslots.length; i++) {
         this.nightslotsarray.push(this.nightslots[i].slots);
-        debugger
+       
         this.nightslotsarrayid.push(this.nightslots[i].id);
       }
-      debugger
+     
       this.slotname3 = this.nightslotsarray;
       this.night = this.slotname3.join(' to ');
       this.slotnameid3 = this.nightslotsarrayid;
       this.nightid = this.slotnameid3.join(',');
-      debugger
+     
       var entity = {
         'Sno': this.idcount,
         'DoctorID': this.doctorid,
@@ -447,7 +447,7 @@ export class MyWorkingDetailsComponent implements OnInit {
 
         for (let s = 0; s < this.qwerty.length; s++) {
 
-          debugger
+         
           let mrng = this.qwerty[s].Morning;
           let ms = mrng.split(" to ", 3);
           let mst = ms[0];
@@ -467,7 +467,7 @@ export class MyWorkingDetailsComponent implements OnInit {
           let nys = nyt.split(" to ", 3);
           let nyst = nys[0];
           let nyet = nys[1];
-          debugger
+         
 
           if (this.timeid == 1) {
             var entityssssss = {
@@ -510,7 +510,7 @@ export class MyWorkingDetailsComponent implements OnInit {
             }
           }
           this.docservice.UpdateDoctorSlotStartAndEndTime(entityssssss).subscribe(data => {
-            debugger
+           
             this.GetDoctorHospitalDetails()
           })
         }
@@ -531,7 +531,7 @@ export class MyWorkingDetailsComponent implements OnInit {
             'NightAppointmentTypeID': this.appointmentypeid
           }
           this.docservice.InsertDoctorSlotByID(entitys).subscribe(data => {
-            debugger
+           
             this.GetDoctorHospitalDetails();
           })
         }
@@ -681,7 +681,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   public DeleteDoctorSlots(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Day Slot!",
@@ -709,7 +709,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   }
 
   public GetHospital(even) {
-    debugger
+   
     this.hopitslname = even.target.value;
   }
 
@@ -720,7 +720,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   public DisableDoctorWorking(docid) {
     this.docservice.DisableDoctorWorking(docid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Doctor Working Details has been Disabled');
         this.GetDoctorHospitalDetails();
       }, error => {
@@ -730,7 +730,7 @@ export class MyWorkingDetailsComponent implements OnInit {
   public EnableDoctorWorking(id) {
     this.docservice.EnableDoctorWorking(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Doctor Working Details has has been Enabled');
         this.GetDoctorHospitalDetails();
       }, error => {

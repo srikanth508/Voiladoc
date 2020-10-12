@@ -21,7 +21,7 @@ export class WhenToConsumeMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -29,10 +29,10 @@ export class WhenToConsumeMasterComponent implements OnInit {
   }
 
   public GetWhenConsumemedicals() {
-    debugger
+   
     this.docservice.GetWhenToConsumeMasterMedicalsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.consumelist = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class WhenToConsumeMasterComponent implements OnInit {
 
 
   public DeleteWhenToConsumeMasterMedicals(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Consume Name!",

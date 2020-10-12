@@ -21,21 +21,21 @@ export class FaqComponent implements OnInit {
 
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
       }
     )
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
        if (this.id != undefined) {
        
         this.docservice.GetFrequentlyAskedQuestions(this.id).subscribe(
           data => {
-            debugger
+           
             this.faq = data;
             this.faq=this.faq.filter(x=>x.enableDisable==0)
           }, error => {
@@ -55,7 +55,7 @@ export class FaqComponent implements OnInit {
   {
     this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.faq = data;
         this.faq=this.faq.filter(x=>x.enableDisable==0)
       }, error => {

@@ -35,7 +35,7 @@ export class MidWifeTimingsComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetMidWifeHospitalDetailsByHospitals(this.midwifeid, this.languageid,).subscribe(
       data => {
-        debugger
+       
         this.hopitsllist = data;
       }, error => {
       }
@@ -47,7 +47,7 @@ export class MidWifeTimingsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -57,7 +57,7 @@ export class MidWifeTimingsComponent implements OnInit {
   public getdaysmaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -66,7 +66,7 @@ export class MidWifeTimingsComponent implements OnInit {
   public getmidwifelist() {
     this.docservice.GetMidWifeHospitalDetailsWeb(this.id, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.workinglist = data;
       }, error => {
       }
@@ -76,7 +76,7 @@ export class MidWifeTimingsComponent implements OnInit {
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-        debugger
+       
         this.Timeings = data;
       }, error => {
       }
@@ -84,13 +84,13 @@ export class MidWifeTimingsComponent implements OnInit {
   }
 
   public GetDayID(even) {
-    debugger
+   
     this.dayid = even.target.value;
   }
 
 
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, id) {
-    debugger
+   
     this.midwifehospitalid = nurseHospitalDetailsID;
     this.dayid = dayID,
       this.startdatetime = startime,
@@ -101,7 +101,7 @@ export class MidWifeTimingsComponent implements OnInit {
 
   }
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.midid,
       'MidWifeHospitalDetailsID': this.midwifehospitalid,
@@ -109,7 +109,7 @@ export class MidWifeTimingsComponent implements OnInit {
       'StartTimee': this.startdatetime,
       'EndTimee': this.enddatetime
     }
-    debugger
+   
     this.docservice.UpdateMidWifeWorkingDetails(entity).subscribe(data => {
       if (data != undefined) {
         Swal.fire("Updated Successfully");
@@ -121,7 +121,7 @@ export class MidWifeTimingsComponent implements OnInit {
   }
 
   public DeleteMidWifeWorkingDetails(mid, dayid) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Day Slot!",
@@ -154,7 +154,7 @@ export class MidWifeTimingsComponent implements OnInit {
   }
   hopitslname
   public GetHospital(even) {
-    debugger
+   
     this.hopitslname = even.target.value;
   }
 
@@ -166,7 +166,7 @@ export class MidWifeTimingsComponent implements OnInit {
   public DisableMidWifeWorkingDetails(id) {
     this.docservice.DisableMidWifeWorkingDetails(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'MidWife Working Details has been Disabled');
         this.getmidwifelist();
       }, error => {
@@ -176,7 +176,7 @@ export class MidWifeTimingsComponent implements OnInit {
   public EnableMidWifeWorkingDetails(id) {
     this.docservice.EnableMidWifeWorkingDetails(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'MidWife Working Details has has been Enabled');
         this.getmidwifelist();
 

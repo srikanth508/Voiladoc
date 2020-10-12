@@ -25,17 +25,17 @@ export class TreatmentDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public GetTreatments() {
-    debugger
+   
     this.docservice.GetTreatmentPlanMaster(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.treatmentlist = data;
       }, error => {
       }
@@ -44,7 +44,7 @@ export class TreatmentDashComponent implements OnInit {
 
 
   public DeleteService(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",

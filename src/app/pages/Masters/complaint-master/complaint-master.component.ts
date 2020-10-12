@@ -22,7 +22,7 @@ export class ComplaintMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.getcomplaintmaster();
       this.id = params['id'];
       if (this.id == undefined) {
@@ -38,7 +38,7 @@ export class ComplaintMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -49,7 +49,7 @@ export class ComplaintMasterComponent implements OnInit {
   public getcomplaintmaster() {
     this.docservice.GetCompalintMasterLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.complaints = data;
         var list = this.complaints.filter(x => x.id == this.id)
         this.complaint = list[0].name,

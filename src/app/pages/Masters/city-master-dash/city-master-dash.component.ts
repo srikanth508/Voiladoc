@@ -29,7 +29,7 @@ this.cityid = 0
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -38,7 +38,7 @@ this.cityid = 0
   public getcitymasters() {
     this.docservice.GetAreaMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.cityslist = data;
         this.dummlist= this.cityslist
       }, error => {
@@ -50,7 +50,7 @@ this.cityid = 0
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -59,7 +59,7 @@ this.cityid = 0
   }
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.cityslist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -72,10 +72,10 @@ this.cityid = 0
   }
 
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -85,7 +85,7 @@ this.cityid = 0
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
 
       this.cityslist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -96,7 +96,7 @@ this.cityid = 0
     }
   }
   public DeleteAreaMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This City!",

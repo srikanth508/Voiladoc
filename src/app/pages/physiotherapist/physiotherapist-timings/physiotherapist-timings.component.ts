@@ -33,7 +33,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetPhysiotherapyHospitalDetailsByHospitals(this.physioid, this.languageid,).subscribe(
       data => {
-        debugger
+       
         this.hopitsllist = data;
       }, error => {
       }
@@ -42,7 +42,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -52,7 +52,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   public getdaysmaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -61,7 +61,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   public getphysiolist() {
     this.docservice.GetPhysiotherapyHospitalDetailsWeb(this.physioid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.workinglist = data;
       }, error => {
       }
@@ -72,19 +72,19 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-        debugger
+       
         this.Timeings = data;
       }, error => {
       }
     )
   }
   public GetDayID(even) {
-    debugger
+   
     this.dayid = even.target.value;
   }
 
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, id) {
-    debugger
+   
     this.phsyhospitadetailsid = nurseHospitalDetailsID;
     this.dayid = dayID,
       this.startdatetime = startime,
@@ -93,7 +93,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
 
   }
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'PhysiotherapyHospitalDetailsID': this.phsyhospitadetailsid,
@@ -101,7 +101,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
       'StartTimee': this.startdatetime,
       'EndTimee': this.enddatetime
     }
-    debugger
+   
     this.docservice.UpdatePhysiotherapistWorkingDetails(entity).subscribe(data => {
       if (data != undefined) {
         Swal.fire("Updated Successfully");
@@ -113,7 +113,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   }
 
   public DeletePhysiotherapistWorkingDetails(nsid, dayid) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Day Slot!",
@@ -145,7 +145,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   }
   hopitslname
   public GetHospital(even) {
-    debugger
+   
     this.hopitslname = even.target.value;
   }
 
@@ -157,7 +157,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   public DisablePhysiotherapistWorkingDetails(id) {
     this.docservice.DisablePhysiotherapistWorkingDetails(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Physiotherapist Working Details has been Disabled');
         this.getphysiolist();
 
@@ -168,7 +168,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   public EnablePhysiotherapistWorkingDetails(id) {
     this.docservice.EnablePhysiotherapistWorkingDetails(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Physiotherapist Working Details has has been Enabled');
         this.getphysiolist();
 

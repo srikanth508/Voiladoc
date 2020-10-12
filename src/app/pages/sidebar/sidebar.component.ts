@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   public hospitalid: any;
 
   ngOnInit() {
-    debugger
+   
     this.display = "none";
     this.roleid = localStorage.getItem('roleid');
     this.languageid = localStorage.getItem('LanguageID')
@@ -31,14 +31,14 @@ export class SidebarComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public show() {
-    debugger;
+   
     if (this.docservice.showvid == 1) {
       this.display = "block";
     }

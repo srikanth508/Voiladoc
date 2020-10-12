@@ -32,7 +32,7 @@ export class DiagnosticTestDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
 
@@ -41,7 +41,7 @@ export class DiagnosticTestDashComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels2 = data;
       }, error => {
       }
@@ -56,10 +56,10 @@ export class DiagnosticTestDashComponent implements OnInit {
   }
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -67,11 +67,11 @@ export class DiagnosticTestDashComponent implements OnInit {
   }
 
   public GetDiagnosticServices() {
-    debugger
+   
     if (this.diagnosticenterid != undefined) {
       this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
      
           this.servicelist = this.dummlist.filter(x => x.diagnosticCenterID == this.diagnosticenterid)
@@ -83,7 +83,7 @@ export class DiagnosticTestDashComponent implements OnInit {
     else {
       this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.servicelist = data;
           this.dummlist = this.servicelist
           this.count = this.servicelist.length
@@ -95,18 +95,26 @@ export class DiagnosticTestDashComponent implements OnInit {
 
   }
   public DeleteDiagnostocServces(id) {
-    debugger
+   
     this.docservice.DeleteDiagnosticCenterTestsForDash(id).subscribe(
       data => {
-        debugger
+       if(this.languageid==1)
+       {
         Swal.fire("Deleted Successfully");
         this.GetDiagnosticServices();
+       }
+       else if(this.languageid==6)
+       {
+        Swal.fire("Supprimé avec succès");
+        this.GetDiagnosticServices();
+       }
+       
       }, error => {
       }
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -122,7 +130,7 @@ export class DiagnosticTestDashComponent implements OnInit {
   // public GetCountryMaster() {
   //   this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.countrylist = data;
 
   //     }, error => {
@@ -132,7 +140,7 @@ export class DiagnosticTestDashComponent implements OnInit {
 
   // public GetCountryID(even) {
   //   if (even.target.value != 0) {
-  //     debugger
+  //    
   //     this.countryid = even.target.value;
 
   //     this.servicelist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -146,10 +154,10 @@ export class DiagnosticTestDashComponent implements OnInit {
   //   }
   // }
   // public getcity() {
-  //   debugger
+  //  
   //   this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.citylist = data;
   //     }, error => {
   //     }
@@ -159,7 +167,7 @@ export class DiagnosticTestDashComponent implements OnInit {
 
   // public GetCityID(even) {
   //   if (even.target.value != 0) {
-  //     debugger
+  //    
   //     this.cityid = even.target.value;
   //     this.getareamasterbyid()
   //     this.servicelist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -175,10 +183,10 @@ export class DiagnosticTestDashComponent implements OnInit {
 
 
   // public getareamasterbyid() {
-  //   debugger
+  //  
   //   this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.arealist = data;
 
   //     }, error => {
@@ -189,7 +197,7 @@ export class DiagnosticTestDashComponent implements OnInit {
 
   // public GetAreaID(even) {
   //   if (even.target.value != 0) {
-  //     debugger
+  //    
   //     this.areaid = even.target.value;
   //     this.servicelist = this.dummlist.filter(x => x.areaID == this.areaid)
   //     this.count = this.servicelist.length

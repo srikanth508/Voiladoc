@@ -29,7 +29,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -38,10 +38,10 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
 
   public GetPhysiotherapistLoginAdmin() {
     if (this.hospitalclinicid == undefined) {
-      debugger
+     
       this.docservice.GetPhysiotherapistLoginAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.physiologinlist = data;
           this.count=this.physiologinlist.length;
         }, error => {
@@ -51,7 +51,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetPhysiotherapistLoginAdmin(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummphysiolist = data;
           this.physiologinlist = this.dummphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count=this.physiologinlist.length;
@@ -65,7 +65,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public DisablePhysiotherapistLogin(id) {
     this.docservice.DisablePhysiotherapistLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Physiotherapist has been Disabled');
         this.GetPhysiotherapistLoginAdmin();
 
@@ -77,7 +77,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public EnablePhysiotherapistLogin(id) {
     this.docservice.EnablePhysiotherapistLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Physiotherapist has been Enabled');
         this.GetPhysiotherapistLoginAdmin();
 
@@ -87,7 +87,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     this.p = even;
   }
 

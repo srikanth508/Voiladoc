@@ -28,7 +28,7 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -38,7 +38,7 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
   public GetDeliveryCompanyLoginAdmin() {
     this.docservice.GetDeliveryCompanyLoginAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.physiologinlist = data;
       }, error => {
       }
@@ -48,7 +48,7 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
   public DisableDeliveryCompanyLogin(id) {
     this.docservice.DisableDeliveryCompanyLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Delivery Company has been Disabled');
         this.GetDeliveryCompanyLoginAdmin();
 
@@ -60,7 +60,7 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
   public EnableDeliveryCompanyLogin(id) {
     this.docservice.EnableDeliveryCompanyLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Delivery Company has been Enabled');
         this.GetDeliveryCompanyLoginAdmin();
 
@@ -70,7 +70,7 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
   }
 
   public pageChanged(even) {
-    debugger
+   
     this.p = even;
   }
 

@@ -56,7 +56,7 @@ export class PartnerRegistrationComponent implements OnInit {
   public getlanguage() {
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -66,7 +66,7 @@ export class PartnerRegistrationComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -77,21 +77,21 @@ export class PartnerRegistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'https://14.192.17.225' + a;
       this.photo = 1;
       this.showphoto = b;
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
 
   public onidUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
@@ -102,15 +102,15 @@ export class PartnerRegistrationComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
-      debugger
+     
       this.idproofurl.push(res);
       let a = this.idproofurl[0].slice(2);
-      debugger
+     
       let b = 'https://14.192.17.225' + a;
       this.idprof = 1;
       this.showidproof = b;
       this.idproof.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -129,14 +129,14 @@ export class PartnerRegistrationComponent implements OnInit {
       'StaffType':this.StaffTypeID
     }
     this.docservice.InsertDeliveryPartners(entity).subscribe(data => {
-      debugger
+     
       Swal.fire('Registration Completed', 'Details saved successfully', 'success');
       location.href = '#/PartnersDashboard';
     })
   }
 
   public GetStaffTypeID(event) {
-    debugger
+   
     this.StaffTypeID=event.target.value;
   }
 

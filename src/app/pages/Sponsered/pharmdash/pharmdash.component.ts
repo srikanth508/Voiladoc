@@ -37,7 +37,7 @@ public value;
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -45,20 +45,20 @@ public value;
   }
 
   public getsponserpharmacyforadmin() {
-    debugger
+   
     this.docservice.GetSponsoredPharmacyForAdmin().subscribe(
       data => {
-        debugger
+       
         this.pharmacylist = data;
       }, error => {
       }
     )
   }
   public diasblePharmacy(id) {
-    debugger
+   
     this.docservice.DisableSponsoredPharmacy(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Pharmacy has been Disabled');
         this.getsponserpharmacyforadmin();
       }, error => {
@@ -66,10 +66,10 @@ public value;
     )
   }
   public enablePharmacy(id) {
-    debugger
+   
     this.docservice.EnableSponsoredPharmacy(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Pharmacy has been Enabled');
         this.getsponserpharmacyforadmin();
       }, error => {
@@ -77,7 +77,7 @@ public value;
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -85,7 +85,7 @@ public value;
   startdate
   enddate
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
@@ -94,7 +94,7 @@ public value;
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetSponsoredPharmacyForAdminByDate(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.pharmacylist = data;
       }, error => {
       }

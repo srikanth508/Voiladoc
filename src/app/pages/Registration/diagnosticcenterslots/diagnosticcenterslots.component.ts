@@ -62,6 +62,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public dayid = []
   public dummdiagnosticid: any;
   public diagnosticname: any;
+  public search:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
@@ -81,7 +82,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
 
         this.daysdd = {
@@ -100,19 +101,19 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   }
 
   public GetDaysID(item10: any) {
-    debugger
+   
     // this.dayid = item10.id;
     this.dayid.push(item10)
-    debugger
+   
 
   }
 
 
   public getdiagnosticCenterList() {
-    debugger
+   
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
         this.diadnosticdd = {
           singleSelection: true,
@@ -121,7 +122,9 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -130,23 +133,24 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
   }
   SelectLabel
   public GetDiagnosticID(item7: any) {
-    debugger
+   
     this.diagnosticid = item7.id;
   }
   public GetdicgnosticMasterSlotByID() {
-    debugger
+   
     this.docservice.GetDiagnosticSlotMasterByTimeID(1).subscribe(
       data => {
-        debugger
+       
         this.slotslist = data;
         this.slotsdd = {
           singleSelection: false,
@@ -155,17 +159,19 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
   }
   public GetdicgnosticAfternoonSlotsMaster() {
-    debugger
+   
     this.docservice.GetDiagnosticSlotMasterByTimeID(2).subscribe(
       data => {
-        debugger
+       
         this.slotslist1 = data;
         this.slotsdd1 = {
           singleSelection: false,
@@ -174,17 +180,19 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
   }
   public GetDiagnosticEveningSlotsMaster() {
-    debugger
+   
     this.docservice.GetDiagnosticSlotMasterByTimeID(3).subscribe(
       data => {
-        debugger
+       
         this.slotslist2 = data;
         this.slotsdd2 = {
           singleSelection: false,
@@ -193,7 +201,9 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -202,7 +212,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public GetDiagnosticNightSlotsMaster() {
     this.docservice.GetDiagnosticSlotMasterByTimeID(4).subscribe(
       data => {
-        debugger
+       
         this.slotslist3 = data;
         this.slotsdd3 = {
           singleSelection: false,
@@ -211,7 +221,9 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -224,7 +236,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   dis3
   dis4
   public GetMrngSlotsID(item: any) {
-    debugger
+   
     this.mrngslots.push(item);
 
     if (this.mrngslots.length == 2) {
@@ -232,7 +244,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     }
   }
   public GetAfternoonSlotsID(item1: any) {
-    debugger
+   
     this.afternoonslots.push(item1);
 
     if (this.afternoonslots.length == 2) {
@@ -240,14 +252,14 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     }
   }
   public GetEvngSlotsID(item2) {
-    debugger
+   
     this.evngslots.push(item2);
     if (this.evngslots.length == 2) {
       this.dis3 = 1;
     }
   }
   public GetNightSlotsID(item3: any) {
-    debugger
+   
     this.nightslots.push(item3);
     if (this.nightslots.length == 2) {
       this.dis4 = 1;
@@ -255,50 +267,50 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   }
   // public AddDetails() {
 
-  //   debugger
+  //  
   //   for (let i = 0; i < this.mrngslots.length; i++) {
   //     this.mrngslotarray.push(this.mrngslots[i].slotName)
-  //     debugger
+  //    
   //     this.mrngslotarrayid.push(this.mrngslots[i].id)
   //   }
-  //   debugger
+  //  
   //   this.slotname = this.mrngslotarray;
   //   this.mrng = this.slotname.join(' to ')
   //   this.slotnameid = this.mrngslotarrayid;
   //   this.mrngid = this.slotnameid.join(',')
 
-  //   debugger
+  //  
   //   for (let i = 0; i < this.afternoonslots.length; i++) {
   //     this.afternoonslotarray.push(this.afternoonslots[i].slotName)
-  //     debugger
+  //    
   //     this.afternoonslotarrayid.push(this.afternoonslots[i].id)
   //   }
-  //   debugger
+  //  
   //   this.slotname1 = this.afternoonslotarray;
   //   this.afternoon = this.slotname1.join(' to ')
   //   this.slotnameid1 = this.afternoonslotarrayid;
   //   this.afternoonid = this.slotnameid1.join(',')
 
 
-  //   debugger
+  //  
   //   for (let i = 0; i < this.evngslots.length; i++) {
   //     this.evngslotarray.push(this.evngslots[i].slotName)
-  //     debugger
+  //    
   //     this.evngslotarrayid.push(this.evngslots[i].id)
   //   }
-  //   debugger
+  //  
   //   this.slotname2 = this.evngslotarray;
   //   this.evng = this.slotname2.join(' to ')
   //   this.slotnameid12 = this.evngslotarrayid;
   //   this.evngid = this.slotnameid12.join(',')
 
-  //   debugger
+  //  
   //   for (let i = 0; i < this.nightslots.length; i++) {
   //     this.nightslotarray.push(this.nightslots[i].slotName)
-  //     debugger
+  //    
   //     this.nightslotarrayid.push(this.nightslots[i].id)
   //   }
-  //   debugger
+  //  
   //   this.slotname3 = this.nightslotarray;
   //   this.night = this.slotname3.join(' to ')
   //   this.slotnameid13 = this.nightslotarrayid;
@@ -313,49 +325,49 @@ export class DiagnosticcenterslotsComponent implements OnInit {
       Swal.fire("Please Select Diagnostic Center")
     }
     else {
-      debugger
+     
       for (let i = 0; i < this.mrngslots.length; i++) {
         this.mrngslotarray.push(this.mrngslots[i].slotName)
-        debugger
+       
         this.mrngslotarrayid.push(this.mrngslots[i].id)
       }
-      debugger
+     
       this.slotname = this.mrngslotarray;
       this.mrng = this.slotname.join(' to ')
       this.slotnameid = this.mrngslotarrayid;
       this.mrngid = this.slotnameid.join(',')
 
-      debugger
+     
       for (let i = 0; i < this.afternoonslots.length; i++) {
         this.afternoonslotarray.push(this.afternoonslots[i].slotName)
-        debugger
+       
         this.afternoonslotarrayid.push(this.afternoonslots[i].id)
       }
-      debugger
+     
       this.slotname1 = this.afternoonslotarray;
       this.afternoon = this.slotname1.join(' to ')
       this.slotnameid1 = this.afternoonslotarrayid;
       this.afternoonid = this.slotnameid1.join(',')
 
-      debugger
+     
       for (let i = 0; i < this.evngslots.length; i++) {
         this.evngslotarray.push(this.evngslots[i].slotName)
-        debugger
+       
         this.evngslotarrayid.push(this.evngslots[i].id)
       }
-      debugger
+     
       this.slotname2 = this.evngslotarray;
       this.evng = this.slotname2.join(' to ')
       this.slotnameid12 = this.evngslotarrayid;
       this.evngid = this.slotnameid12.join(',')
 
-      debugger
+     
       for (let i = 0; i < this.nightslots.length; i++) {
         this.nightslotarray.push(this.nightslots[i].slotName)
-        debugger
+       
         this.nightslotarrayid.push(this.nightslots[i].id)
       }
-      debugger
+     
       this.slotname3 = this.nightslotarray;
       this.night = this.slotname3.join(' to ')
       this.slotnameid13 = this.nightslotarrayid;
@@ -365,7 +377,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
       for (let i = 0; i < this.dayid.length; i++) {
 
-        debugger
+       
         let mrng = this.mrng;
         let ms = mrng.split(" to ", 3);
         let mst = ms[0];
@@ -411,7 +423,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           'Night': this.nightid,
         }
         this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-          debugger
+         
           if(this.languageid==1)
           {
             Swal.fire('','Added Successfully');
@@ -427,7 +439,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
 
         // if (this.mrngslots != undefined) {
-        //   debugger
+        //  
         //   for (let i = 0; i < this.mrngslots.length; i++) {
         //     var entity = {
         //       'DiagnosticCenterID': this.diagnosticid,
@@ -435,7 +447,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         //       'DayID': this.dayid[i].id
         //     }
         //     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-        //       debugger
+        //      
         //       if (data != 0) {
         //         Swal.fire('Completed', 'Slots saved successfully', 'success');
         //         this.dropdownclear2 = [];
@@ -454,7 +466,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
 
         // if (this.mrngslots != undefined) {
-        //   debugger
+        //  
         //   for (let i = 0; i < this.mrngslots.length; i++) {
         //     var entity = {
         //       'DiagnosticCenterID': this.diagnosticid,
@@ -462,7 +474,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         //       'DayID': this.dayid[i].id
         //     }
         //     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-        //       debugger
+        //      
         //       if (data != 0) {
         //         Swal.fire('Completed', 'Slots saved successfully', 'success');
         //         this.dropdownclear2 = [];
@@ -476,14 +488,14 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
         // if (this.afternoonslots != undefined) {
         //   for (let i = 0; i < this.afternoonslots.length; i++) {
-        //     debugger
+        //    
         //     var entity = {
         //       'DiagnosticCenterID': this.diagnosticid,
         //       'DiagnosticSlotID': this.afternoonslots[i].id,
         //       'DayID': this.dayid[i].id
         //     }
         //     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-        //       debugger
+        //      
         //       if (data != 0) {
         //         Swal.fire('Completed', 'Slots saved successfully', 'success');
         //         this.dropdownclear2 = [];
@@ -496,7 +508,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         //   }
         // }
         // if (this.evngslots != undefined) {
-        //   debugger
+        //  
         //   for (let i = 0; i < this.evngslots.length; i++) {
         //     var entity = {
         //       'DiagnosticCenterID': this.diagnosticid,
@@ -504,7 +516,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         //       'DayID': this.dayid[i].id
         //     }
         //     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-        //       debugger
+        //      
         //       if (data != 0) {
         //         Swal.fire('Completed', 'Slots saved successfully', 'success');
         //         this.dropdownclear2 = [];
@@ -517,14 +529,14 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         // }
         // if (this.nightslots != undefined) {
         //   for (let i = 0; i < this.nightslots.length; i++) {
-        //     debugger
+        //    
         //     var entity = {
         //       'DiagnosticCenterID': this.diagnosticid,
         //       'DiagnosticSlotID': this.nightslots[i].id,
         //       'DayID': this.dayid[i].id
         //     }
         //     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-        //       debugger
+        //      
         //       if (data != 0) {
         //         Swal.fire('Completed', 'Slots saved successfully', 'success');
         //         this.dropdownclear2 = [];

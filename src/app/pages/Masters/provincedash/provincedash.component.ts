@@ -27,7 +27,7 @@ export class ProvincedashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -36,7 +36,7 @@ export class ProvincedashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -45,7 +45,7 @@ export class ProvincedashComponent implements OnInit {
   }
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.provincelist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -58,10 +58,10 @@ export class ProvincedashComponent implements OnInit {
   }
 
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -71,7 +71,7 @@ export class ProvincedashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
 
       this.provincelist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -88,7 +88,7 @@ export class ProvincedashComponent implements OnInit {
   public getprobincelist() {
     this.docservice.GetCityMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.provincelist = data;
         this.dummlist=this.provincelist
       }, error => {
@@ -100,7 +100,7 @@ export class ProvincedashComponent implements OnInit {
 
 
   public DeleteCityMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Province!",
@@ -131,7 +131,7 @@ export class ProvincedashComponent implements OnInit {
   // {
   //   this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.citylist = data;
 
         

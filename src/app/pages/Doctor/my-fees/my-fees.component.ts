@@ -34,14 +34,14 @@ export class MyFeesComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -52,7 +52,7 @@ export class MyFeesComponent implements OnInit {
 
     this.docservice.DoctorCommissionFees(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummlistsss = data;
         this.doccommissionlist = this.dummlistsss.filter(x => x.doctorID == this.doctorid)
         this.dummlist = this.doccommissionlist

@@ -32,7 +32,7 @@ export class PhysiFeedashComponent implements OnInit {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class PhysiFeedashComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -58,7 +58,7 @@ export class PhysiFeedashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -68,7 +68,7 @@ export class PhysiFeedashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.physiolist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -82,10 +82,10 @@ export class PhysiFeedashComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -95,7 +95,7 @@ export class PhysiFeedashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.physiolist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -111,10 +111,10 @@ export class PhysiFeedashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -125,7 +125,7 @@ export class PhysiFeedashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.physiolist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.physiolist.length
@@ -140,7 +140,7 @@ export class PhysiFeedashComponent implements OnInit {
     {
       this.docservice.GetPhsyioTherapistCommissionDeatails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.physiolist = data;
           this.dummlist = this.physiolist
           this.count = this.physiolist.length
@@ -152,7 +152,7 @@ export class PhysiFeedashComponent implements OnInit {
     {
       this.docservice.GetPhsyioTherapistCommissionDeatails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.physiolist =this.dummlist.filter(x=>x.hospitalClinicID==this.hospitalclinicid);
           this.count = this.physiolist.length;
@@ -165,7 +165,7 @@ export class PhysiFeedashComponent implements OnInit {
 
 
   public DeletePhsyioTherapistCommissionDeatails(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Physio Fee!",

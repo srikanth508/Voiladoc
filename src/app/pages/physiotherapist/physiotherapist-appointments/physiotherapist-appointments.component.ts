@@ -112,7 +112,7 @@ public totaladdmoney:any;
   {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -123,7 +123,7 @@ public totaladdmoney:any;
   public getphysiolist() {
     this.docservice.GetBook_Physio_Appointment(this.physioid,this.startdate,this.enddate,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
       }, error => {
       }
@@ -131,10 +131,10 @@ public totaladdmoney:any;
   }
 
   public getserverdateandtime() {
-    debugger
+   
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
-        debugger
+       
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
@@ -143,7 +143,7 @@ public totaladdmoney:any;
     )
   }
   selectedDate(data){
-    debugger
+   
       // var sdate=data.split('-')
       // this.startdate=sdate[0]
       // this.enddate=sdate[1]
@@ -156,7 +156,7 @@ public totaladdmoney:any;
   {
     this.docservice.GetBook_Physio_Appointment(this.physioid,this.startdate,this.enddate,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
       }, error => {
       }
@@ -165,7 +165,7 @@ public totaladdmoney:any;
 
   
   public GetCancelAppointmentID(id,bookedTime,name,patientID,emailID,hospital_ClinicName,paidAmount,walletAmount) {
-    debugger
+   
     this.canappointmentid = id,
     this.canslots = bookedTime;
     this.canphysioname=name;
@@ -175,9 +175,9 @@ public totaladdmoney:any;
     this.paidamount=paidAmount;
     this.walletamount=walletAmount;
 
-    debugger
+   
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
-    debugger
+   
   }
 
   
@@ -196,7 +196,7 @@ public totaladdmoney:any;
   //accept notificatiom
 
   public InsertCancelNotification() {
-    debugger
+   
     if(this.languageid=='1')
     {
     var entity = {
@@ -209,7 +209,7 @@ public totaladdmoney:any;
       'AppointmentID':this.canappointmentid
     }
     this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -228,7 +228,7 @@ public totaladdmoney:any;
       'AppointmentID':this.canappointmentid
     }
     this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -237,7 +237,7 @@ public totaladdmoney:any;
   }
   }
   public InsertNotiFicationCancel() {
-    debugger
+   
     if(this.languageid=='1')
     {
     var entity = {
@@ -245,7 +245,7 @@ public totaladdmoney:any;
       'ToUser': this.canemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -258,7 +258,7 @@ public totaladdmoney:any;
       'ToUser': this.canemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -272,7 +272,7 @@ public totaladdmoney:any;
   public CancelAppointment() {
     this.docservice.UpdateBook_Physio_AppointmentcancelledBit(this.canappointmentid).subscribe(
       data => {
-        debugger
+       
         Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
       }, error => {
       }
@@ -287,7 +287,7 @@ public totaladdmoney:any;
 
 
   public updatereson() {
-    debugger
+   
     var entity = {
       'ID': this.canappointmentid,
       'ReasonForCancel': this.reason
@@ -315,7 +315,7 @@ public totaladdmoney:any;
   {
     this.docservice.UpdateBook_Physio_AppointmentAcceptedBit(this.acceptappointmentid).subscribe(
       data => {
-        debugger
+       
      
       }, error => {
       }
@@ -327,7 +327,7 @@ public totaladdmoney:any;
 
 
   public InsertAcceptNotification() {
-    debugger
+   
     if(this.languageid=='1')
     {
     var entity = {
@@ -341,7 +341,7 @@ public totaladdmoney:any;
       
     }
     this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
       }
     })
@@ -358,7 +358,7 @@ public totaladdmoney:any;
       'AppointmentID':this.acceptappointmentid
     }
     this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -367,7 +367,7 @@ public totaladdmoney:any;
   }
   }
   public InsertNotiFicationAccept() {
-    debugger
+   
     if(this.languageid=='1')
     {
     var entity = {
@@ -375,7 +375,7 @@ public totaladdmoney:any;
       'ToUser': this.acceptemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -388,7 +388,7 @@ public totaladdmoney:any;
       'ToUser': this.acceptemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -402,7 +402,7 @@ public totaladdmoney:any;
 
   public getfromampm(even)
   {
-    debugger
+   
     this.ampmtime=even.target.value;
   }
 
@@ -410,7 +410,7 @@ public totaladdmoney:any;
 
 
   public InsertNextAvailableSlots() {
-    debugger
+   
     var entity = {
       'AppointmentID': this.acceptappointmentid,
       'AvailabilityTime':  this.time
@@ -426,7 +426,7 @@ public totaladdmoney:any;
 
 
   public GetTime(even) {
-    debugger
+   
     this.time = even.target.value;
   }
 
@@ -439,7 +439,7 @@ public totaladdmoney:any;
     this.vispatientid=patientID;
     this.visiemail=emailID;
     this.visitid=id
-    debugger;
+   
     if(this.serverdate>=this.slottime)
     {
       if(this.servertime>=this.servertime)
@@ -522,7 +522,7 @@ public totaladdmoney:any;
 
 
     public InsertVisitedNotification() {
-      debugger
+     
       if(this.languageid=='1')
       {
       var entity = {
@@ -535,7 +535,7 @@ public totaladdmoney:any;
         'AppointmentID':this.visitid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -552,7 +552,7 @@ public totaladdmoney:any;
         'AppointmentID':this.visitid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
   
         }
@@ -561,7 +561,7 @@ public totaladdmoney:any;
     }
     }
     public InsertNotiFicationVisited() {
-      debugger
+     
       if(this.languageid=='1')
       {
       var entity = {
@@ -569,7 +569,7 @@ public totaladdmoney:any;
         'ToUser': this.visiemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
   
         }
@@ -582,7 +582,7 @@ public totaladdmoney:any;
         'ToUser': this.visiemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
   
         }

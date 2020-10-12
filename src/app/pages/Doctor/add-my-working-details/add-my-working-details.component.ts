@@ -123,14 +123,14 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
 
     this.activatedroute.params.subscribe(params => {
-      debugger
-      debugger;
+     
+     
       this.doctorid = params['id'];
       this.hosipitalidd = params['hospitalid'];
 
       // this.docservice.GetDoctorHospitalDetailsDoctors(1).subscribe(
       //   data => {
-      //     debugger
+      //    
       //     this.dummdoclist = data;
       //     var list = this.dummdoclist.filter(x => x.doctorID == this.doctorid);
       //     this.hosipitalidd = list[0].hosid
@@ -146,7 +146,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
       this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorlist = data;
           var list = this.doctorlist.filter(x => x.id == this.doctorid)
           this.slottypeid = list[0].slotDurationID
@@ -158,7 +158,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
             this.GetNightSlotsMasterByID();
           }
           if (this.slottypeid == null) {
-            debugger
+           
             this.slotslist.length = 0;
             this.slotslist1.lenght = 0;
             this.slotslist2.length = 0;
@@ -175,7 +175,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
     }
     )
-    debugger
+   
 
 
     this.doctorname = localStorage.getItem('user');
@@ -187,7 +187,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hosipitalidd).subscribe(
       data => {
-        debugger
+       
         this.details = data;
         this.hospital_ClinicName = this.details[0].hospital_ClinicName
       }, error => {
@@ -196,13 +196,13 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
 
-    debugger
+   
 
     this.languageid = localStorage.getItem('LanguageID');
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
@@ -220,7 +220,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     this.idcount = 1;
     this.tablecount = 0;
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.active = 1;
       this.doctorid = params['id'];
     }
@@ -240,11 +240,11 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   // public Getdoctorlist() {
-  //   debugger
+  //  
   //   if (this.dummid == undefined) {
   //     this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
   //       data => {
-  //         debugger
+  //        
   //         this.doctorlist = data;
   //         this.docdd = {
   //           singleSelection: true,
@@ -261,10 +261,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   //     )
   //   }
   //   else if (this.dummid != undefined) {
-  //     debugger
+  //    
   //     this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
   //       data => {
-  //         debugger
+  //        
   //         this.dummlist = data;
   //         this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hosipitalidd)
   //         this.docdd = {
@@ -291,7 +291,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -332,7 +332,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetBookingTpeID(item7: any) {
-    debugger
+   
     if (item7.id == 1) {
       Swal.fire('On Demand Disabled As of Now')
       this.booktypeid.push(item7);
@@ -343,12 +343,12 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public onItemDeSelect7(item7: any) {
-    debugger
+   
     this.booktypeid = this.booktypeid.slice(item7.id)
   }
 
   public GetAppointmentTypeID(item8: any) {
-    debugger
+   
     this.appontmenttypeid.push(item8);
     this.showid = item8.id
 
@@ -367,7 +367,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
   }
   public onItemDeSelect8(item8: any) {
-    debugger
+   
     this.appontmenttypeid = this.appontmenttypeid.slice(item8.id)
   }
 
@@ -410,7 +410,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
 
         this.daysdd = {
@@ -429,10 +429,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetDaysID(item10: any) {
-    debugger
+   
     // this.dayid = item10.id;
     this.dayid.push(item10)
-    debugger
+   
     // for (let i = 0; i < this.dayslist.length; i++) {
     //   if (this.dayslist[i].id == this.dayid) {
     //     this.day = this.dayslist[i].dayOfTheWeek;
@@ -440,7 +440,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     // }
   }
   public GetAvailabilityID(even) {
-    debugger
+   
     this.availabilityid = even.target.value;
 
     for (let i = 0; i < this.availabilitylist.length; i++) {
@@ -452,10 +452,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetAvailabilityMaster() {
-    debugger
+   
     this.docservice.GetAvailabilityMaster(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.availabilitylist = data;
       }, error => {
       }
@@ -464,7 +464,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   public GetDoctorID(item: any) {
-    debugger
+   
     this.doctorid = item.id;
   }
   public GetHosiptalid(even) {
@@ -472,7 +472,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetMorningSlotsID(item: any) {
-    debugger
+   
     this.morningslots.push(item);
 
     if (this.morningslots.length == 2) {
@@ -481,12 +481,12 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect(item: any) {
-    debugger
+   
     this.morningslots = this.morningslots.slice(item.id)
   }
 
   public GetAfternoonSlotsID(item1: any) {
-    debugger
+   
     this.aftrenoonslots.push(item1);
 
     if (this.aftrenoonslots.length == 2) {
@@ -496,16 +496,16 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   onItemDeSelect1(item1: any) {
-    debugger
+   
     this.aftrenoonslots = this.aftrenoonslots.slice(item1.id)
   }
 
   public GetHospitalID(item: any) {
-    debugger
+   
     this.hosipitalidd = item.id;
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hosipitalidd).subscribe(
       data => {
-        debugger
+       
         this.details = data;
         this.hospital_ClinicName = this.details[0].hospital_ClinicName
       }, error => {
@@ -513,7 +513,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetEveningSlotsID(item2: any) {
-    debugger
+   
     this.eveningslots.push(item2);
 
     if (this.eveningslots.length == 2) {
@@ -522,13 +522,13 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect2(item2: any) {
-    debugger
+   
     this.eveningslots = this.eveningslots.slice(item2.id)
   }
 
 
   public GetNightSlotsID(item3: any) {
-    debugger
+   
     this.nightslots.push(item3);
     if (this.nightslots.length == 2) {
       this.dis3 = 1;
@@ -536,14 +536,14 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect3(item3: any) {
-    debugger
+   
     this.eveningslots = this.eveningslots.slice(item3.id)
   }
 
 
 
   public GetHospitalClinicid(even) {
-    debugger
+   
     this.hospitalid = even.target.value;
     if (this.hospitalid == 3) {
       this.hosipitalidd = 590
@@ -557,10 +557,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetAllHospitalclinicById() {
-    debugger
+   
     this.docservice.GetAllHospital_ClinicListByIDByLanguageID(this.hospitalid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitallist = data;
 
         this.hosdd = {
@@ -580,10 +580,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   public GetMorningSlotsMasterbyid() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist = data;
         this.slotsdd = {
           singleSelection: false,
@@ -600,10 +600,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetAfternoonSlotsMasterbyID() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(2, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist1 = data;
         this.slotsdd1 = {
           singleSelection: false,
@@ -620,10 +620,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetEveningSlotsMasterByID() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(3, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist2 = data;
         this.slotsdd2 = {
           singleSelection: false,
@@ -640,10 +640,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetNightSlotsMasterByID() {
-    debugger
+   
     this.docservice.GetSlotsMasterByID(4, this.slottypeid).subscribe(
       data => {
-        debugger
+       
         this.slotslist3 = data;
         this.slotsdd3 = {
           singleSelection: false,
@@ -717,7 +717,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       this.night = this.slotname3.join(' to ');
       this.slotnameid3 = this.nightslotsarrayid;
       this.nightid = this.slotnameid3.join(',');
-      debugger
+     
 
       for (let i = 0; i < this.dayid.length; i++) {
 
@@ -800,7 +800,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
           'Evngcolorcode': this.evengcolorcode,
           'Nightcolorcode': this.nightcolorcode
         }
-        debugger
+       
         this.qwerty.push(entity);
         this.idcount = this.idcount + 1;
       }
@@ -839,7 +839,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public insertdetails() {
-    debugger
+   
 
     var entity = {
       'DoctorID': this.doctorid,
@@ -851,20 +851,20 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       'DoctorAvailabilityID': this.availabilityid,
     }
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
-        debugger
+       
         if (this.availabilityid == '1' || this.availabilityid == '2') {
-          debugger
+         
           this.inserdoctorsessiondetails();
         }
         if (this.availabilityid == '3') {
           for (let s = 0; s < this.qwerty.length; s++) {
 
-            debugger
+           
             let mrng = this.qwerty[s].Morning;
             let ms = mrng.split(" to ", 3);
             let mst = ms[0];
@@ -884,7 +884,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
             let nys = nyt.split(" to ", 3);
             let nyst = nys[0];
             let nyet = nys[1];
-            debugger
+           
             var entity = {
               'DoctorHospitalDetailsID': this.docid,
               'MrngStartTime': mst,
@@ -902,7 +902,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
             }
             this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
-              debugger
+             
               if (data != 0) {
                 if (this.languageid == 1) {
                   Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -916,7 +916,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               }
             })
           }
-          debugger
+         
           this.insertdoctorslotsbyid();
         }
         if (this.languageid == 1) {
@@ -942,7 +942,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   public insertdetailsadmin() {
-    debugger
+   
 
     var entity = {
       'DoctorID': this.doctorid,
@@ -954,20 +954,20 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       'DoctorAvailabilityID': this.availabilityid,
     }
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
-        debugger
+       
         if (this.availabilityid == '1' || this.availabilityid == '2') {
-          debugger
+         
           this.inserdoctorsessiondetails();
         }
         if (this.availabilityid == '3') {
           for (let s = 0; s < this.qwerty.length; s++) {
 
-            debugger
+           
             let mrng = this.qwerty[s].Morning;
             let ms = mrng.split(" to ", 3);
             let mst = ms[0];
@@ -987,7 +987,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
             let nys = nyt.split(" to ", 3);
             let nyst = nys[0];
             let nyet = nys[1];
-            debugger
+           
             var entity = {
               'DoctorHospitalDetailsID': this.docid,
               'MrngStartTime': mst,
@@ -1005,7 +1005,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
             }
             this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
-              debugger
+             
               if (data != 0) {
                 if (this.languageid == 1) {
                   Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -1018,7 +1018,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               }
             })
           }
-          debugger
+         
           this.insertdoctorslotsbyid();
         }
         if (this.languageid == 1) {
@@ -1038,9 +1038,9 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public inserdoctorsessiondetails() {
-    debugger
+   
     for (let i = 0; i < this.qwerty.length; i++) {
-      debugger
+     
       var entity = {
         'DoctorID': this.qwerty[i].DoctorID,
         'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
@@ -1050,7 +1050,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
         'LanguageID': 1
       }
       this.docservice.InsertDoctorSessionDetails(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -1070,7 +1070,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     }
   }
   public insertdoctorslotsbyid() {
-    debugger
+   
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
@@ -1087,7 +1087,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
         'NightAppointmentTypeID': this.qwerty[i].nightappointmenttype
       }
       this.docservice.InsertDoctorSlotByID(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -1104,14 +1104,14 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public delete(Sno) {
-    debugger
+   
     for (let i = 0; i < this.qwerty.length; i++) {
-      debugger
+     
       if (Sno == this.qwerty[i].Sno) {
-        debugger
+       
         this.qwerty.splice(i, 1);
       }
     }
-    debugger
+   
   }
 }

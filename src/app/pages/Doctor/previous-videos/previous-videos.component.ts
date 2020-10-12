@@ -25,16 +25,16 @@ export class PreviousVideosComponent implements OnInit {
   
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.archiveid = params['archiveID'];    
       this.patientid = params['patientID']; 
-    debugger
+   
      this.videiourl.push('https://amazintchtokbox.herokuapp.com/archive/' + this.archiveid + '/view')
     }
     )
     this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(
       data => {
-        debugger
+       
         this.vedioslist = data[0];
         this.appdate=this.vedioslist.appdate,
         this.patientname=this.vedioslist.patientName,
@@ -50,7 +50,7 @@ export class PreviousVideosComponent implements OnInit {
   {
     this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }

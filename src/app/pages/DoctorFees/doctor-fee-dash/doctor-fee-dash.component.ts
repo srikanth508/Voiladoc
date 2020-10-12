@@ -35,14 +35,14 @@ export class DoctorFeeDashComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -55,7 +55,7 @@ export class DoctorFeeDashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -65,7 +65,7 @@ export class DoctorFeeDashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.doccommissionlist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -82,10 +82,10 @@ export class DoctorFeeDashComponent implements OnInit {
 
 
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -95,7 +95,7 @@ export class DoctorFeeDashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.doccommissionlist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -111,10 +111,10 @@ export class DoctorFeeDashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -125,7 +125,7 @@ export class DoctorFeeDashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.doccommissionlist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.doccommissionlist.length
@@ -141,7 +141,7 @@ export class DoctorFeeDashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.DoctorCommissionFees(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doccommissionlist = data;
           this.dummlist = this.doccommissionlist
           this.count = this.doccommissionlist.length
@@ -152,7 +152,7 @@ export class DoctorFeeDashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.DoctorCommissionFees(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlistsss = data;
           this.doccommissionlist = this.dummlistsss.filter(x => x.hosid == this.hospitalclinicid)
           this.dummlist = this.doccommissionlist
@@ -167,7 +167,7 @@ export class DoctorFeeDashComponent implements OnInit {
 
 
   public DeleteDoctorCommissionFees(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",

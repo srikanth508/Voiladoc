@@ -302,6 +302,11 @@ import { MidwifenotificationsComponent } from './pages/Midewife/midwifenotificat
 import { PhysioNotificationComponent } from './pages/physiotherapist/physio-notification/physio-notification.component';
 import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge-patientdata.component';
 import { EditDiagnosticTestComponent } from './pages/Diagnostic Center/edit-diagnostic-test/edit-diagnostic-test.component';
+import { SendemailsComponent } from './pages/Sales/sendemails/sendemails.component';
+import { EmailDashComponent } from './pages/Sales/email-dash/email-dash.component';
+import { TestvideocallPageComponent } from './pages/Doctor/testvideocall-page/testvideocall-page.component';
+import { SendSmsComponent } from './pages/Sales/send-sms/send-sms.component';
+import { SmsDashComponent } from './pages/Sales/sms-dash/sms-dash.component';
 
 
 const routes: Routes = [
@@ -674,8 +679,12 @@ const routes: Routes = [
   { path: 'PhysioNotification', component: PhysioNotificationComponent },
   { path: 'MergePatientdata', component: MergePatientdataComponent },
   { path: 'EditDiagnosticTest/:id', component: EditDiagnosticTestComponent },
+  { path: 'Sendemails', component: SendemailsComponent },
+  { path: 'EmailDash', component: EmailDashComponent },
+  { path: 'TestvideocallPage', component: TestvideocallPageComponent },
+  { path: 'SendSms', component: SendSmsComponent },
+  { path: 'SmsDash', component: SmsDashComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

@@ -36,7 +36,7 @@ export class OffersComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
 
     this.diagnosticid = localStorage.getItem('diagnosticid');
@@ -56,7 +56,7 @@ export class OffersComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels = data;
       }, error => {
       }
@@ -64,22 +64,22 @@ export class OffersComponent implements OnInit {
   }
 
   public getdiagnostictestmaster() {
-    debugger
+
     this.docservice.GetDiagnosticTestMaster().subscribe(
       data => {
-        debugger
+
         this.diagnosticlist = data;
       }, error => {
       }
     )
   }
   public GetTestID(even) {
-    debugger
+
     this.testid = even.target.value;
 
   }
   public insertdetails() {
-    debugger
+
     var entity = {
       'DiagnosticCenterID': this.diagnosticid,
       'OfferName': this.offername,
@@ -91,7 +91,7 @@ export class OffersComponent implements OnInit {
     }
 
     this.docservice.InsertDiagnosticCenterOffers(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
         this.diagnosticofferid = data;
         for (let i = 0; i < this.attachmentsurl.length; i++) {
@@ -101,35 +101,59 @@ export class OffersComponent implements OnInit {
             'PhotoURL': this.attachmentsurl[i]
           }
           this.docservice.InsertDiagnosticCenterOfferPhotos(entity).subscribe(data => {
-            debugger
+
             if (data != 0) {
-              Swal.fire('Added Successfully.');
-              this.clear();
+            
+              if (this.languageid == 1) {
+                Swal.fire('Added Successfully');
+              
+                this.clear();
+              }
+              else if (this.languageid == 6) {
+                Swal.fire('Mis à jour avec succés');
+              
+                this.clear();
+              }
             }
           })
         }
-        Swal.fire('Added Successfully.');
-        this.clear();
+        if (this.languageid == 1) {
+          Swal.fire('Added Successfully');
+        
+          this.clear();
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succés');
+        
+          this.clear();
+        }
 
       }
     })
   }
+
   public onattachmentUpload(abcd) {
-    debugger
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
   }
   public uploadattachments() {
     this.docservice.DiagnosticPhotosUpload(this.attachments).subscribe(res => {
-      debugger
+
       this.attachmentsurl.push(res);
       this.attachments.length = 0;
-      debugger
+
     })
     // this.sendattachment();
   }

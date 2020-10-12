@@ -24,7 +24,7 @@ export class PharmacyComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetPharmacyForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.pharmacylist = data;
         this.pharmacydd = {
           singleSelection: true,
@@ -45,7 +45,7 @@ export class PharmacyComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -55,7 +55,7 @@ export class PharmacyComponent implements OnInit {
   SelectLabel
   public GetPharmacyID(item2:any)
   {
-    debugger
+   
     this.pharmacyid=item2.id;
   }
 
@@ -68,7 +68,7 @@ export class PharmacyComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.password1=1;
       }
     else{
@@ -78,7 +78,7 @@ export class PharmacyComponent implements OnInit {
         'Password': this.password
       }
       this.docservice.InsertPharmacyAdminRegistration(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           location.href="#/Pharmacydash"

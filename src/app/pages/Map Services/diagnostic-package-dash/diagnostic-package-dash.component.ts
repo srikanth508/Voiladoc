@@ -41,7 +41,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -49,7 +49,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels2 = data;
       }, error => {
       }
@@ -62,10 +62,10 @@ export class DiagnosticPackageDashComponent implements OnInit {
     this.getlanguage();
   }
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -73,11 +73,11 @@ export class DiagnosticPackageDashComponent implements OnInit {
   }
   public GetDiagnosticPackages() {
 
-    debugger
+   
     if (this.diagnosticenterid != undefined) {
       this.docservice.GetDiagnosticCenterPackages(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummpackagelist = data;
           this.packagelist = this.dummpackagelist.filter(x => x.diagnosticCenterID == this.diagnosticenterid)
           this.count= this.packagelist.length;
@@ -88,7 +88,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
     else {
       this.docservice.GetDiagnosticCenterPackages(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummpackagelist = data;
           this.packagelist =  this.dummpackagelist
           this.count= this.packagelist.length;
@@ -100,10 +100,10 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
   }
   public DeleteDiagnostocServces(id) {
-    debugger
+   
     this.docservice.DeleteDiagnosticCenterPackages(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire("Deleted Successfully");
         this.GetDiagnosticPackages();
       }, error => {
@@ -111,7 +111,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -122,7 +122,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
   // public GetCountryMaster() {
   //   this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.countrylist = data;
 
   //     }, error => {
@@ -132,7 +132,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
   // public GetCountryID(even) {
   //   if (even.target.value != 0) {
-  //     debugger
+  //    
   //     this.countryid = even.target.value;
 
   //     this.packagelist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -146,10 +146,10 @@ export class DiagnosticPackageDashComponent implements OnInit {
   //   }
   // }
   // public getcity() {
-  //   debugger
+  //  
   //   this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.citylist = data;
   //     }, error => {
   //     }
@@ -159,7 +159,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
   // public GetCityID(even) {
   //   if (even.target.value != 0) {
-  //     debugger
+  //    
   //     this.cityid = even.target.value;
   //     this.getareamasterbyid()
   //     this.packagelist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -175,10 +175,10 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
 
   // public getareamasterbyid() {
-  //   debugger
+  //  
   //   this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.arealist = data;
 
   //     }, error => {
@@ -189,7 +189,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
   // public GetAreaID(even) {
   //   if (even.target.value != 0) {
-  //     debugger
+  //    
   //     this.areaid = even.target.value;
   //     this.packagelist = this.dummlist.filter(x => x.areaID == this.areaid)
   //     this.count = this.packagelist.length

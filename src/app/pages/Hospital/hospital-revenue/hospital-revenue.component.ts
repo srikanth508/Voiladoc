@@ -76,7 +76,7 @@ export class HospitalRevenueComponent implements OnInit {
 
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -84,7 +84,7 @@ export class HospitalRevenueComponent implements OnInit {
     )
     this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.detailslist1 = data;
         this.homecarerevenuecount = this.detailslist1.length;
         let total1 = 0;
@@ -102,7 +102,7 @@ export class HospitalRevenueComponent implements OnInit {
   public homecarerevenue() {
     this.docservice.GetNurse_PatientPaymentDetails(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.NurseRevenueCount = data[0].nurseRevenue;
 
       }, error => {
@@ -110,7 +110,7 @@ export class HospitalRevenueComponent implements OnInit {
     )
     this.docservice.GetPhysiotherapist_PatientPaymentDetails(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.PhysioRevenue = data[0].physioRevenue;
       }, error => {
       }
@@ -122,14 +122,14 @@ export class HospitalRevenueComponent implements OnInit {
   public homecareAppointments() {
     this.docservice.GetNurse_AppointmentCounts(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.NurseAppointmentsCount = data[0].nurseApptCount;
       }, error => {
       }
     )
     this.docservice.GetPhysio_AppointmentCounts(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.physioAppointmentsCount = data[0].apptCount;
 
       }, error => {
@@ -142,7 +142,7 @@ export class HospitalRevenueComponent implements OnInit {
   public GetHospitalRevenue() {
     this.docservice.GetHospitalRevenueandCounts(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.detailslist = data;
         this.totalreveue = Number(this.detailslist[0].inclinicRevenue) + Number(this.detailslist[0].vedioconferenceRevenue) + Number(this.detailslist[0].homeVisitRevenue),
           this.totalappointments = Number(this.detailslist[0].clicniccount) + Number(this.detailslist[0].vedocallappointmentcount) + Number(this.detailslist[0].homeVisitAppointments)
@@ -153,7 +153,7 @@ export class HospitalRevenueComponent implements OnInit {
   }
   data: any
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];
@@ -161,7 +161,7 @@ export class HospitalRevenueComponent implements OnInit {
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.detailslist1 = data;
         this.homecarerevenuecount = this.detailslist1.length;
         let total1 = 0;
@@ -180,10 +180,10 @@ export class HospitalRevenueComponent implements OnInit {
 
   NurseRevenueCount
   public GetNurse_PatientPaymentDetails() {
-    debugger
+   
     this.docservice.GetNurse_PatientPaymentDetails(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.NurseRevenueCount = data[0].nurseRevenue;
       }, error => {
       }
@@ -195,7 +195,7 @@ export class HospitalRevenueComponent implements OnInit {
   public GetNurse_AppointmentCounts() {
     this.docservice.GetNurse_AppointmentCounts(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.NurseAppointmentsCount = data[0].nurseApptCount;
 
       }, error => {
@@ -207,7 +207,7 @@ export class HospitalRevenueComponent implements OnInit {
   public GetPhysio_AppointmentCounts() {
     this.docservice.GetPhysio_AppointmentCounts(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.physioAppointmentsCount = data[0].apptCount;
 
       }, error => {
@@ -219,7 +219,7 @@ export class HospitalRevenueComponent implements OnInit {
   public GetPhysiotherapist_PatientPaymentDetails() {
     this.docservice.GetPhysiotherapist_PatientPaymentDetails(this.hospitalid).subscribe(
       data => {
-        debugger
+       
         this.PhysioRevenue = data[0].physioRevenue;
 
       }, error => {

@@ -47,12 +47,16 @@ export class AppComponent {
   public midwifeid: any;
   public physioid: any;
   public supportid: any;
+  setvideosidebar: any;
+  hidesidebar
+  docnoti
 
   ngOnInit() {
     this.show = 1;
     this.showsidebar = 0;
     this.languageid = localStorage.getItem('LanguageID');
-    debugger
+
+
     this.vid = this.docservice.showvid;
     if (this.languageid == 1) {
 
@@ -69,11 +73,11 @@ export class AppComponent {
     this.midwifeid = localStorage.getItem('midwifeid');
     this.physioid = localStorage.getItem('physioid');
     this.supportid = localStorage.getItem('supportid')
-  // this.oberserableTimer();
+    this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
-    // this.GetDoctorNotifications();
-
+    this.GetDoctorNotifications();
+    this.GetDocnoti()
     if (window.innerWidth < 600) {
       this.isMobileResolution = true;
       this.isDescktopResolution = false;
@@ -86,7 +90,7 @@ export class AppComponent {
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+
         this.labels = data;
       }, error => {
       }
@@ -105,7 +109,7 @@ export class AppComponent {
         })
         this.docservice.GetChatForNotificationForDoctor(this.doctorid).subscribe(
           data => {
-            debugger
+
             let alldata = data;
             this.notificationcount = 0
             this.notifications = [];
@@ -122,10 +126,10 @@ export class AppComponent {
         this.GetDoctorNotifications();
       }
       else if (this.nurseid != null && this.nurseid != undefined) {
-        debugger
+
         this.docservice.GetNotifications_NPMWebCOunt(this.nurseid, 25, this.languageid).subscribe
           (datas => {
-            debugger
+
             this.doctorNotifications = datas;
             this.notificationcount = Number(this.doctorNotifications[0].notifycount);
           })
@@ -160,6 +164,16 @@ export class AppComponent {
       this.notificationcount = data[0].notifycount;
     })
   }
+
+  public GetDocnoti() {
+
+
+    this.docservice.GetNotifications_DoctorByDoctorIDTop1(this.doctorid).subscribe(data => {
+      this.docnoti = data;
+      // this.notificationcount = data[0].notifycount;
+    })
+
+  }
   onActivate(event) {
     window.scroll(0, 0);
   }
@@ -172,13 +186,13 @@ export class AppComponent {
     location.reload();
   }
   public Update_appointmentFordemand(doctorHospitalDetailsID, doctorID, appointmentID, notificationID, emailID, doctorName, date) {
-    debugger
+
     this.doctorname = doctorName,
       this.email = emailID,
       this.date = date
 
     this.docservice.Update_AppointmentForOnDemandVideoConferenceForDoctor(doctorHospitalDetailsID, doctorID, appointmentID, notificationID).subscribe(data => {
-      debugger
+
       if (data != undefined) {
         this.GetDoctorNotifications();
         this.Insertvisitnotificatiaccept()
@@ -190,13 +204,13 @@ export class AppComponent {
 
 
   public Insertvisitnotificatiaccept() {
-    debugger
+
     var entity = {
       'Description': "Your Video Conference Request is Accepted By Doctor : " + this.doctorname + ", Date " + this.date + ".",
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+
       if (data != 0) {
 
       }
@@ -210,7 +224,7 @@ export class AppComponent {
   public RejectVedioAppointment(appointmentID) {
     this.docservice.UpdateNotifications_DoctorRejectedBit(appointmentID).subscribe(
       data => {
-        debugger
+
         // Swal.fire('Completed', 'Visited Successfully');
 
         //  this.InservisitNotification()
@@ -224,7 +238,7 @@ export class AppComponent {
   public updateseenbit(id) {
     this.docservice.UpdateNotifications_DoctorSeenBit(id).subscribe(
       data => {
-        debugger
+
         // Swal.fire('Completed', 'Visited Successfully');
 
         //  this.InservisitNotification()
@@ -240,7 +254,7 @@ export class AppComponent {
   public updatesupportseenbit(id) {
     this.docservice.UpdateSupportForWebNotificationsSeenBit(id).subscribe(
       data => {
-        debugger
+
         // Swal.fire('Completed', 'Visited Successfully');
 
         //  this.InservisitNotification()
@@ -256,7 +270,7 @@ export class AppComponent {
   public UpdateNursePhysiomidwifeseenbit(id) {
     this.docservice.UpdateNotifications_NPMSeenBit(id).subscribe(
       data => {
-        debugger
+
         // Swal.fire('Completed', 'Visited Successfully');
 
         //  this.InservisitNotification()
@@ -279,10 +293,28 @@ export class AppComponent {
   }
 
   public closeNav() {
-    debugger
+
     this.show = 1;
     this.showsidebar = 0;
     document.getElementById("sidenav").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
   }
+
+  // show1
+  // showsidebar1
+  // public openNav1() {
+  //  
+  //   this.show1 = 0;
+  //   this.showsidebar1 = 1;
+  //   document.getElementById("mySidenav").style.width = "230px";
+  //   document.getElementById("main").style.marginLeft = "230px";
+  // }
+
+  // public closeNav1() {
+  //  
+  //   this.show1 = 1;
+  //   this.showsidebar1 = 0;
+  //   document.getElementById("mySidenav").style.width = "0";
+  //   document.getElementById("main").style.marginLeft = "0";
+  // }
 }

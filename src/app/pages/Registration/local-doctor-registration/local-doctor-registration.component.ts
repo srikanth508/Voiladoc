@@ -55,7 +55,7 @@ export class LocalDoctorRegistrationComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
 
@@ -67,7 +67,7 @@ export class LocalDoctorRegistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -84,12 +84,12 @@ export class LocalDoctorRegistrationComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -108,17 +108,17 @@ export class LocalDoctorRegistrationComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -134,19 +134,19 @@ export class LocalDoctorRegistrationComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
   }
 
   public onattachmentUpload1(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
@@ -158,17 +158,17 @@ export class LocalDoctorRegistrationComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-      debugger
+     
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showdocphoto.push(b)
-      debugger
+     
 
       this.attachments1.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -176,7 +176,7 @@ export class LocalDoctorRegistrationComponent implements OnInit {
 
   public insertdetails() {
     if (this.countryid == undefined || this.countryid.length == 0) {
-      debugger
+     
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -190,7 +190,7 @@ export class LocalDoctorRegistrationComponent implements OnInit {
         ``
         this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
       }
-      debugger
+     
       var entity = {
         'DoctorName': this.doctorname,
         'MobileNumber': this.phoneno,

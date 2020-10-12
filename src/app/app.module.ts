@@ -327,6 +327,11 @@ import { PhysioNotificationComponent } from './pages/physiotherapist/physio-noti
 import { NgxTagsInputModule } from 'ngx-tags-input';
 import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge-patientdata.component';
 import { EditDiagnosticTestComponent } from './pages/Diagnostic Center/edit-diagnostic-test/edit-diagnostic-test.component';
+import { SendemailsComponent } from './pages/Sales/sendemails/sendemails.component';
+import { EmailDashComponent } from './pages/Sales/email-dash/email-dash.component';
+import { TestvideocallPageComponent } from './pages/Doctor/testvideocall-page/testvideocall-page.component';
+import { SendSmsComponent } from './pages/Sales/send-sms/send-sms.component';
+import { SmsDashComponent } from './pages/Sales/sms-dash/sms-dash.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -645,7 +650,12 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MidwifenotificationsComponent,
     PhysioNotificationComponent,
     MergePatientdataComponent,
-    EditDiagnosticTestComponent
+    EditDiagnosticTestComponent,
+    SendemailsComponent,
+    EmailDashComponent,
+    TestvideocallPageComponent,
+    SendSmsComponent,
+    SmsDashComponent
   ],
   imports: [
     BrowserModule,

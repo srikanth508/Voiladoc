@@ -37,7 +37,7 @@ export class EditCampComponent implements OnInit {
 
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
       this.getcampdetailsbyid();
     }
@@ -47,12 +47,12 @@ export class EditCampComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+   
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
 
     this.docservice.GetHospital_ClinicForAdmin().subscribe(
       data => {
-        debugger
+       
         this.hospitallist = data;
       }, error => {
       }
@@ -63,9 +63,9 @@ export class EditCampComponent implements OnInit {
 
     this.docservice.GetHospital_ClinicCampByID(this.id).subscribe(
       data => {
-        debugger;
+       
         this.details = data[0];
-        debugger;
+       
    
         this.hospitalid = this.details.hospital_ClinicName,
           this.campname = this.details.campName,
@@ -80,7 +80,7 @@ export class EditCampComponent implements OnInit {
           this.address = this.details.address
           this.docservice.GetHospital_ClinicForAdmin().subscribe(
             data => {
-              debugger
+             
               this.hospitallist = data;
             }, error => {
             }
@@ -90,7 +90,7 @@ export class EditCampComponent implements OnInit {
     )
   }
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID':this.id,
       'CampName': this.campname,
@@ -104,7 +104,7 @@ export class EditCampComponent implements OnInit {
       'Timings': this.time,
       'Address': this.address
     }
-    debugger
+   
     this.docservice.UpdateHospital_ClinicCamps(entity).subscribe(res => {
       let test = res;
      

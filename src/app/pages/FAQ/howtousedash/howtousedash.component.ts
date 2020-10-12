@@ -20,7 +20,7 @@ export class HowtousedashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -32,7 +32,7 @@ export class HowtousedashComponent implements OnInit {
   {
     this.docservice.GetHowToUseVoilaDoc(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.howtouselist = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class HowtousedashComponent implements OnInit {
 
 
   public DeleteHowToUseVoilaDoc(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Item!",
@@ -76,7 +76,7 @@ export class HowtousedashComponent implements OnInit {
 
   
   public DisableHowToUseVoilaDoc(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Disable This Item!",
@@ -109,7 +109,7 @@ export class HowtousedashComponent implements OnInit {
 
 
   public EnableHowToUseVoilaDoc(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This Item!",

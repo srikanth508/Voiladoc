@@ -27,7 +27,7 @@ export class PharmacydashComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -38,7 +38,7 @@ export class PharmacydashComponent implements OnInit {
   public getpharmacyloginfordash() {
     this.docservice.GetPharmacyLoginForDash(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.pharmacylist = data;
       }, error => {
       }
@@ -47,7 +47,7 @@ export class PharmacydashComponent implements OnInit {
   public disablepharmacy(id) {
     this.docservice.DisablePharmacyLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Pharmacy has been Disabled');
         this.getpharmacyloginfordash();
       }, error => {
@@ -57,7 +57,7 @@ export class PharmacydashComponent implements OnInit {
   public enablepharmacy(id) {
     this.docservice.EnablePharmacyLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Pharmacy has been Enabled');
         this.getpharmacyloginfordash();
       }, error => {
@@ -65,7 +65,7 @@ export class PharmacydashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

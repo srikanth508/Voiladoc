@@ -53,7 +53,7 @@ export class SupportDashComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -71,7 +71,7 @@ export class SupportDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -81,7 +81,7 @@ export class SupportDashComponent implements OnInit {
   public getsupport() {
     this.docservice.GetSupport(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.supportlist = data;
         this.dummlist = this.supportlist
         this.count = this.supportlist.length
@@ -92,7 +92,7 @@ export class SupportDashComponent implements OnInit {
 
 
   public GetSupportResolvedBit(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "This Issue Has Resolved!",
@@ -120,7 +120,7 @@ export class SupportDashComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -132,23 +132,23 @@ export class SupportDashComponent implements OnInit {
 
   public GetResolvedStatus(even) {
     if (even.target.value == '1') {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.resolve == 1);
-      debugger
+     
       this.supportlist = dfsfd;
       this.count = this.supportlist.length
 
     }
     if (even.target.value == '2') {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.resolve == 0);
-      debugger
+     
       this.supportlist = dfsfd;
       this.count = this.supportlist.length
 
     }
     if (even.target.value == '0') {
-      debugger
+     
       this.getsupport();
     }
   }

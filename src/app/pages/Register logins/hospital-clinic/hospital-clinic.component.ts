@@ -26,7 +26,7 @@ export class HospitalClinicComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitallist = data;
         this.hospdd = {
           singleSelection: true,
@@ -47,7 +47,7 @@ export class HospitalClinicComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -56,7 +56,7 @@ export class HospitalClinicComponent implements OnInit {
   }
   SelectLabel
   public GetHospitalID(item2:any) {
-    debugger
+   
     this.hospitalid = item2.id;
   }
   public insertdetails() {
@@ -67,12 +67,12 @@ export class HospitalClinicComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp=1;
      
       }
     else {
-      debugger
+     
       var entity = {
         'Hospital_ClinicID': this.hospitalid,
         'UserName': this.username,
@@ -81,7 +81,7 @@ export class HospitalClinicComponent implements OnInit {
       this.username = '';
       this.password = '';
       this.docservice.InsertHospitalClinicAdminRegistration(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           location.href="#/Hspdash"

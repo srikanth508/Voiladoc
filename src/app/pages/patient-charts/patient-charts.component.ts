@@ -47,11 +47,11 @@ export class PatientChartsComponent implements OnInit {
   {
     this.docservice.Get12MonthsPatientRegistrationDetails(2020).subscribe(
       data => {
-        debugger
+       
         this.countlist = data;
         this.jancount=this.countlist[0].jancount
         this.febcount=this.countlist[0].febcount
-        debugger;
+       
         this.countlist = data;
         // let testdata = [];
         // let testlables = [];
@@ -59,7 +59,7 @@ export class PatientChartsComponent implements OnInit {
         //   testdata.push(this.countlist[i].closing_Blance);
 
         //   testlables.push(this.countlist[i].jancount);
-        //   debugger;
+        //  
       }, error => {
       }
     )

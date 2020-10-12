@@ -56,7 +56,7 @@ export class NurseComponent implements OnInit {
   dropzonelable:any;
 
   ngOnInit() {
-    debugger
+   
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -64,7 +64,7 @@ export class NurseComponent implements OnInit {
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -72,7 +72,7 @@ export class NurseComponent implements OnInit {
 
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.specilisationlist = data;
 
         this.specilisatiodd = {
@@ -90,7 +90,7 @@ export class NurseComponent implements OnInit {
     )
     this.docservice.GetServiceMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.servicelist = temp.filter(x => x.typeID == 2);
 
@@ -121,10 +121,10 @@ export class NurseComponent implements OnInit {
 
 
   public gethosptilclinicforadmin() {
-    debugger
+   
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
         this.hospitadd = {
           singleSelection: true,
@@ -142,13 +142,13 @@ export class NurseComponent implements OnInit {
 
 
   public GetHospitalID(item: any) {
-    debugger
+   
     this.hospitalclinicid = item.id;
   }
   public getlanguage() {
     this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -163,7 +163,7 @@ export class NurseComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -179,12 +179,12 @@ export class NurseComponent implements OnInit {
     )
   }
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -203,7 +203,7 @@ export class NurseComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -211,24 +211,24 @@ export class NurseComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.deptid = even.target.value;
   }
 
   public GetSpecilizationID(item: any) {
-    debugger
+   
     this.specilisationid.push(item);
-    debugger
+   
   }
 
   public GetServiceID(item: any) {
-    debugger
+   
     this.serviceid.push(item);
-    debugger
+   
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -240,21 +240,21 @@ export class NurseComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
 
   public onidUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
@@ -265,23 +265,23 @@ export class NurseComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
-      debugger
+     
       this.idproofurl.push(res);
       let a = this.idproofurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showidproof.push(b)
       this.idproof.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -298,12 +298,12 @@ export class NurseComponent implements OnInit {
   }
 
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -332,7 +332,7 @@ export class NurseComponent implements OnInit {
       'SpokenLanguages': this.spokenlanguages
     }
     this.docservice.InsertNurseRegistration(entity).subscribe(data => {
-      debugger
+     
 
       let nurseid = data;
 

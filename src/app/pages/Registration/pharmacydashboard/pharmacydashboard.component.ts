@@ -40,7 +40,7 @@ export class PharmacydashboardComponent implements OnInit {
     this.enddate = localStorage.getItem('EndDate');
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id']
     }
@@ -56,7 +56,7 @@ export class PharmacydashboardComponent implements OnInit {
     {
       this.docservice.GetPharmacyForAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist= data;
           this.pharmacylist = this.dummlist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
           this.pharmacycount= this.pharmacylist.length;
@@ -65,10 +65,10 @@ export class PharmacydashboardComponent implements OnInit {
       )
     }
     else{
-         debugger
+        
     this.docservice.GetPhamacyDetailsForWeb(this.startdate,this.enddate,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.pharmacylist = data;
         this.dummlist= this.pharmacylist
         this.pharmacycount= this.pharmacylist.length;
@@ -78,7 +78,7 @@ export class PharmacydashboardComponent implements OnInit {
     }
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => {}
@@ -94,7 +94,7 @@ export class PharmacydashboardComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -104,7 +104,7 @@ export class PharmacydashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.pharmacylist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -118,10 +118,10 @@ export class PharmacydashboardComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -131,7 +131,7 @@ export class PharmacydashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.pharmacylist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -147,10 +147,10 @@ export class PharmacydashboardComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -161,7 +161,7 @@ export class PharmacydashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.pharmacylist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.pharmacycount = this.pharmacylist.length
@@ -177,7 +177,7 @@ export class PharmacydashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -186,10 +186,10 @@ export class PharmacydashboardComponent implements OnInit {
 
 
   public getpharmacyforadmin() {
-    debugger
+   
     this.docservice.GetPharmacyForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.pharmacylist = data;
         this.dummlist= this.pharmacylist
         this.pharmacycount= this.pharmacylist.length;
@@ -199,7 +199,7 @@ export class PharmacydashboardComponent implements OnInit {
   }
 
   public deletepharmacy(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Pharmacy!",
@@ -233,7 +233,7 @@ export class PharmacydashboardComponent implements OnInit {
   }
   
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -251,7 +251,7 @@ export class PharmacydashboardComponent implements OnInit {
   }
   
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -267,7 +267,7 @@ export class PharmacydashboardComponent implements OnInit {
 
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

@@ -46,7 +46,7 @@ export class AnnounseDashComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -61,7 +61,7 @@ export class AnnounseDashComponent implements OnInit {
 
     this.docservice.GetAdmin_LocalDoctor_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -71,7 +71,7 @@ export class AnnounseDashComponent implements OnInit {
 
 
   public DeleteAnnouncements(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Announcement!",
@@ -100,14 +100,14 @@ export class AnnounseDashComponent implements OnInit {
   public getannounsements() {
     this.docservice.GetAnnouncements(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.annousments = data;
       }, error => {
       }
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -121,7 +121,7 @@ export class AnnounseDashComponent implements OnInit {
   
   
   public DisableAnnouncements(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Announcement This Item!",
@@ -154,7 +154,7 @@ export class AnnounseDashComponent implements OnInit {
 
 
   public EnableAnnouncements(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This Announcement!",

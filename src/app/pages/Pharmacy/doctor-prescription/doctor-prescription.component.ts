@@ -50,7 +50,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   ngOnInit() {
 
 
-    debugger
+   
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
@@ -85,13 +85,13 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     this.GetPharmacyOrders();
 
 
     this.docservice.GetDeliveryPartnersWeb().subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -105,10 +105,10 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
   }
   public GetPharmacyOrders() {
-    debugger
+   
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.orderlist = data;
       }, error => {
       }
@@ -118,14 +118,14 @@ export class DoctorPrescriptionComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -146,13 +146,14 @@ export class DoctorPrescriptionComponent implements OnInit {
   prescriptiondate: any;
   dateofbirth: any;
   noteetopharmasict: any;
-
+  referencenumber:any;
+  
   public GetMedicines(id) {
     this.myarray.length = 0;
-    debugger
+   
     this.listid = id;
     this.list = this.orderlist.filter(x => x.id == this.listid)
-    debugger
+   
     this.patientname = this.list[0].patientName,
       this.mobilernumber = this.list[0].mobileNumber
     this.address = this.list[0].address
@@ -166,10 +167,13 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.registrationno = this.list[0].registrationNo,
       this.prescriptiondate = this.list[0].prescriptionAddedDate,
       this.dateofbirth = this.list[0].dateofbirth,
-      this.noteetopharmasict = this.list[0].notetoopharmacistt
+      this.noteetopharmasict = this.list[0].notetoopharmacistt,
+      this.referencenumber=this.list[0].referenceNumber
 
     let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');
+
+   
 
     let sig = this.list[0].sig.split(',');
     // let notetopharmacist = this.list[0].noteToPharmacist.split(',');
@@ -184,16 +188,17 @@ export class DoctorPrescriptionComponent implements OnInit {
         'Sig': sig[i],
         // 'NoteToPharmacist': notetopharmacist[i],
         'howmanyrefills': howmanyrefills[i],
+      
         // 'issubastaible': issubastaible[i]
         // 'Medicinetype': mtype[i]
       }
       this.myarray.push(medetty);
     }
-    debugger
+   
   }
 
   selectedDate(data) {
-    debugger
+   
 
     // var sdate = data.split('-')
     // this.startdate= sdate[0]
@@ -208,7 +213,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public getpharmacyorders() {
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.orderlist = data;
       }, error => {
       }
@@ -223,7 +228,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.accpharmacyname = pharmacyName;
     this.accdate = date;
     this.accemail = emailID;
-    debugger;
+   
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -297,7 +302,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.canpatientid = patientID;
     this.canpharmacyname = pharmacyName;
     this.canemailID = emailID
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Cancel This Order!",
@@ -335,7 +340,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.delipatientid = patientID;
     this.delipharmacyname = pharmacyName;
     this.deliemail = emailID;
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "Order has been delivered!",
@@ -375,7 +380,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertAccptNotification() {
     if (this.languageid == '1') {
-      debugger
+     
       var entity = {
         'PatientID': this.accpatientid,
         'Notification': "Order Accepted By Pharmacy",
@@ -385,7 +390,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -402,7 +407,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -414,14 +419,14 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public InsertNotiFicationAccpt() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Medicine Order with " + this.accpharmacyname + " has been Accepted.",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -433,7 +438,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -451,7 +456,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertCancelNotification() {
     if (this.languageid == '1') {
-      debugger
+     
       var entity = {
         'PatientID': this.canpatientid,
         'Notification': "Order Cancelled By Pharmacy",
@@ -461,7 +466,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -478,7 +483,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -490,14 +495,14 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public InsertNotiFicationcancel() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Medicine Order with " + this.canpharmacyname + " has been Cancelled.",
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -509,7 +514,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -527,7 +532,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertDeliverNotification() {
     if (this.languageid == '1') {
-      debugger
+     
       var entity = {
         'PatientID': this.delipatientid,
         'Notification': "Order Delivered By Pharmacy",
@@ -537,7 +542,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -554,7 +559,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -564,14 +569,14 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
   public InsertNotiFicationDeliver() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Medicine Order with " + this.delipharmacyname + " has been Delivered.",
         'ToUser': this.deliemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -583,7 +588,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'ToUser': this.deliemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -634,7 +639,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public onattachmentUpload2(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
 
     this.attachments2.push(abcd.addedFiles[0]);
@@ -646,19 +651,19 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
   public uploadattachments2() {
     this.docservice.DoctorMedicalProof(this.attachments2).subscribe(res => {
-      debugger
+     
       this.attachmentsurl2.push(res);
       // this.identityshowphoto.push(res);
-      // debugger
+      //
       // let a = this.identityshowphoto[0].slice(2);
-      // debugger
+      //
       // let b = 'http://14.192.17.225' + a;
 
       // this.photodetail.push(b)
-      // debugger
+      //
 
       this.attachments2.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -694,7 +699,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public GetReadyForDelivery(id) {
 
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "This Order Is Ready For Delivery!",
@@ -728,7 +733,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   // public asssign(pid, deliverycompanyid) {
-  //   debugger
+  //  
   //   var entity = {
   //     'MedicineOrderID': this.orderid,
   //     'DeliveryCompanyID': deliverycompanyid,
@@ -746,7 +751,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public SavePDF() {
-    debugger
+   
     let pdfContent = window.document.getElementById("content");
     var doc = new jsPDF('p', 'mm', "a4");
 
@@ -767,7 +772,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   // public SavePdfPhoto() {
-  //   debugger
+  //  
   //   let pdfContent1 = window.document.getElementById("contentPhoto");
   //   var docs = new jsPDF('p', 'mm', "a4");
 
@@ -825,7 +830,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.getserverdateandtime()
     this.oberserableTimer();
     this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
-      debugger;
+     
       this.chatID = res[0].chatID;
       this.getPreviousChat();
     })
@@ -853,7 +858,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public getChat() {
     this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
-      debugger;
+     
 
       if (res.length > 0) {
         this.chatID = res[0].chatID;
@@ -866,7 +871,7 @@ export class DoctorPrescriptionComponent implements OnInit {
           'PatientID': this.patientid
         }
         this.docservice.InserPharmacy_ChatMaster(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             this.chatID = data;
             this.InsertChatDetails();
@@ -880,13 +885,13 @@ export class DoctorPrescriptionComponent implements OnInit {
   patientemail: any;
 
   public Insertnotificationtestazure() {
-    debugger
+   
     var entity = {
       'Description': "Pharmacy Trying To Reach You : " + this.chatconversation,
       'ToUser': this.patientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
 
       }
@@ -899,7 +904,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-    debugger;
+   
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -911,7 +916,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertPharmacy_ChatDetails(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           this.Insertnotificationtestazure()
         }
@@ -933,7 +938,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertPharmacy_ChatDetails(entitys).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           this.Insertnotificationtestazure()
         }
@@ -950,7 +955,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetPharmacy_ChatDetails(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+     
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
@@ -1020,14 +1025,14 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   // public getusertyping() {
   //   this.docservice.getChat(this.pharmacyid, this.patientid).subscribe(res => {
-  //     debugger;
+  //    
   //     let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
   //     this.istyping = isUserTyping[0].isTyping;
   //   })
   // }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -1039,15 +1044,15 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }

@@ -29,7 +29,7 @@ export class DoctorComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetDoctorRegistratingLogins(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorlist = data;
           this.docdd = {
             singleSelection: true,
@@ -47,7 +47,7 @@ export class DoctorComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetDoctorRegistratingLogins(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummdoctorlist = data;
           this.doctorlist = this.dummdoctorlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
@@ -71,7 +71,7 @@ export class DoctorComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -80,13 +80,13 @@ export class DoctorComponent implements OnInit {
   }
   SelectLabel
   public GetDoctorID(item2: any) {
-    debugger
+   
     this.doctorid = item2.id;
 
   }
   public insertdetails() {
 
-    debugger
+   
     if (this.doctorid == undefined) {
       Swal.fire("please select Doctor");
     }
@@ -94,7 +94,7 @@ export class DoctorComponent implements OnInit {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-        debugger;
+       
         this.pp = 1;
       }
       else {
@@ -106,7 +106,7 @@ export class DoctorComponent implements OnInit {
         this.username = '';
         this.password = '';
         this.docservice.InsertDoctorLogin(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             // Swal.fire('Added Successfully.');
             Swal.fire('Completed', 'Doctor saved successfully', 'success');

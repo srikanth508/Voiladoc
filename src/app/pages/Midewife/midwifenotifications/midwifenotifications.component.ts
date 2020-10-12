@@ -51,7 +51,7 @@ public term:any;
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -67,7 +67,7 @@ public term:any;
 
     this.docservice.GetNotifications_NPMWeb(this.midwifeid, this.startdate, this.enddate, 27,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.Notificationslist = data;
         this.count = this.Notificationslist.length
       }, error => {
@@ -78,15 +78,15 @@ public term:any;
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-      debugger
+     
       this.labels = res;
-      debugger
+     
     })
   }
 
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -96,7 +96,7 @@ public term:any;
 
     this.docservice.GetNotifications_NPMWeb(this.midwifeid, this.startdate, this.enddate, 27,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.Notificationslist = data;
         this.count = this.Notificationslist.length
       }, error => {

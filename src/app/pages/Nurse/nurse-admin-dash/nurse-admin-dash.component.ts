@@ -88,10 +88,10 @@ export class NurseAdminDashComponent implements OnInit {
 
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -99,10 +99,10 @@ export class NurseAdminDashComponent implements OnInit {
   }
 
   public GetAppointmentReportsList() {
-    debugger
+   
     this.docservice.GetBook_Nurse_AppointmentReports(this.nurseid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentreportlist = data;
         this.dummlist = this.appointmentreportlist
         this.count = this.appointmentreportlist.length;
@@ -133,7 +133,7 @@ export class NurseAdminDashComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger;
+   
     // var sdate = data.split("-");
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];

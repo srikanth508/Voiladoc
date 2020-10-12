@@ -26,7 +26,7 @@ export class SalesDashComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -38,20 +38,20 @@ export class SalesDashComponent implements OnInit {
   {
     this.docservice.GetSalesRegistration().subscribe(
       data => {
-        debugger
+       
         this.saleslist = data;
       }, error => {
       }
     )  
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
 
   public DisableSalesRegistration(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This User!",
@@ -80,7 +80,7 @@ export class SalesDashComponent implements OnInit {
 
 
   public EnableSalesRegistration(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Disable This User!",

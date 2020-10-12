@@ -47,19 +47,19 @@ export class DocdashComponent implements OnInit {
       this.spinner.hide();
     }, 800);
     this.getdoctorsbycityforexcel()
-    debugger
+   
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels2 = data;
       }, error => {
       }
@@ -68,7 +68,7 @@ export class DocdashComponent implements OnInit {
     this.enddate = localStorage.getItem('EndDate');
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id']
     }
@@ -79,7 +79,7 @@ export class DocdashComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.doctorlist.length
@@ -88,10 +88,10 @@ export class DocdashComponent implements OnInit {
       )
     }
     else {
-      debugger
+     
       this.docservice.GetDoctorForAdminByLanguageIDWeb(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorlist = data;
           this.dummlist = this.doctorlist
           this.count = this.doctorlist.length
@@ -101,7 +101,7 @@ export class DocdashComponent implements OnInit {
     }
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -120,15 +120,15 @@ export class DocdashComponent implements OnInit {
 
 
   // public GetDepartmentID(even) {
-  //   debugger
+  //  
   //   this.hospitalclinicid = localStorage.getItem('hospitalid');
   //   if (this.hospitalclinicid! = 'undefined') {
   //     if (even.target.value != 0) {
-  //       debugger
+  //      
   //       this.departmentid = even.target.value;
   //       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
   //         data => {
-  //           debugger
+  //          
   //           this.dummlist = data;
   //           this.doctorlistsss = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
@@ -141,7 +141,7 @@ export class DocdashComponent implements OnInit {
   //     else {
   //       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
   //         data => {
-  //           debugger
+  //          
   //           this.dummlist = data;
   //           this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
   //           this.count = this.doctorlist.length
@@ -152,7 +152,7 @@ export class DocdashComponent implements OnInit {
   //   }
   //   else {
   //     if (even.target.value != 0) {
-  //       debugger
+  //      
   //       this.departmentid = even.target.value;
   //       this.doctorlist = this.dummlist.filter(x => x.departmentID = this.departmentid)
   //       this.count = this.doctorlist.length;
@@ -167,7 +167,7 @@ export class DocdashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -177,10 +177,10 @@ export class DocdashComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -189,7 +189,7 @@ export class DocdashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.doctorlist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -203,10 +203,10 @@ export class DocdashComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -216,7 +216,7 @@ export class DocdashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.doctorlist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -232,10 +232,10 @@ export class DocdashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -246,7 +246,7 @@ export class DocdashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.doctorlist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.doctorlist.length
@@ -259,10 +259,10 @@ export class DocdashComponent implements OnInit {
 
 
   public getdoctorsbycityforexcel() {
-    debugger
+   
     this.docservice.getdoctorsbycityforexcel().subscribe(
       data => {
-        debugger
+       
         this.docount = data;
 
       }, error => {
@@ -274,10 +274,10 @@ export class DocdashComponent implements OnInit {
 
 
   public getdoctorforadmin() {
-    debugger
+   
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
         this.dummlist = this.doctorlist
         this.count = this.doctorlist.length
@@ -287,10 +287,10 @@ export class DocdashComponent implements OnInit {
   }
   // public deletedoctorregistration(id)
   // {
-  //   debugger
+  //  
   //   this.docservice.DeleteDoctorRegistration(id).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       Swal.fire("Deleted Successfully");
   //       this.getdoctorforadmin();
   //     }, error => {
@@ -302,7 +302,7 @@ export class DocdashComponent implements OnInit {
 
 
   public deletedoctorregistration(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Doctor!",
@@ -334,7 +334,7 @@ export class DocdashComponent implements OnInit {
 
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -345,7 +345,7 @@ export class DocdashComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -363,7 +363,7 @@ export class DocdashComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -377,7 +377,7 @@ export class DocdashComponent implements OnInit {
 
 
   // public GetDepartmentID(even) {
-  //   debugger
+  //  
   //   if (even.target.value != 0) {
   //     this.departmentid = even.target.value;
   //     this.doctorlist = this.dummlist.filter(x => x.departmentID == this.departmentid)

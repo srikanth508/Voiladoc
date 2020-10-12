@@ -58,7 +58,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -72,14 +72,14 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
     this.docservice.GetAdmin_LocalDoctor_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -98,7 +98,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -111,7 +111,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
   public getprescriptions() {
     this.docservice.GetDoctor_PatientPrescriptionbyLocalDOcID(this.docid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentslist = data;
         this.count = this.appointmentslist.length
       }, error => {
@@ -121,18 +121,18 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
 
   public GetprscriptionID(id) {
-    debugger
+   
     this.prescriptionid = id;
     this.docservice.GetDoctor_PatientPrescriptionByID(this.prescriptionid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.prelist = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -144,7 +144,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
 
   public GetEndorseID(appointmentID) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Endorse This Prescription!",
@@ -178,7 +178,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -189,14 +189,14 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.DiagnosticRecordUploads(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -204,14 +204,14 @@ export class MyPatientPrescriptionsComponent implements OnInit {
 
 
   public GetAppointmentID(appointmentID) {
-    debugger
+   
     this.appointmentsid = appointmentID;
   }
 
 
 
   public UpdateNewPrescription() {
-    debugger
+   
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
         'AppointmentID': this.appointmentsid,
@@ -219,7 +219,7 @@ export class MyPatientPrescriptionsComponent implements OnInit {
         'Notes': this.notes
       }
       this.docservice.UpdateDoctor_PatientPrescriptionNewPrescription(entity).subscribe(data => {
-        debugger
+       
         if (data != undefined) {
           Swal.fire('Success', 'Prescription Successfully');
           this.notes = "";

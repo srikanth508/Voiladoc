@@ -23,9 +23,9 @@ export class DocDashboardDetailsComponent implements OnInit {
 
 
   ngOnInit() {
-    debugger;
+   
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.ID = params["id"];
       this.doctorid = localStorage.getItem("userid");
       this.startdate = localStorage.getItem("startdate");
@@ -37,15 +37,15 @@ export class DocDashboardDetailsComponent implements OnInit {
   }
 
   public GetAppointmetbyDociD() {
-    debugger;
+   
     this.docservice
       .GetBookAppointmentByDocID(this.startdate, this.enddate, this.doctorid, this.languageid)
       .subscribe(
         data => {
-          debugger;
+         
           if (this.ID == 1) {
             this.appointmentlist = data;
-            debugger;
+           
             this.count = this.appointmentlist.length;
           }
           if (this.ID == 2) {
@@ -121,7 +121,7 @@ export class DocDashboardDetailsComponent implements OnInit {
       .GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid)
       .subscribe(
         data => {
-          debugger;
+         
           this.labels = data;
         },
         error => { }

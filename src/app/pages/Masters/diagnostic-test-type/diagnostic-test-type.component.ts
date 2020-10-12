@@ -23,7 +23,7 @@ export class DiagnosticTestTypeComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
       if (this.id == undefined) {
         this.showbit = 0;
@@ -39,17 +39,17 @@ export class DiagnosticTestTypeComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public getdiagnosticcentertests() {
-    debugger
+   
     this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.testslist = data;
         var list=this.testslist.filter(x=>x.id==this.id)
         this.test=list[0].name

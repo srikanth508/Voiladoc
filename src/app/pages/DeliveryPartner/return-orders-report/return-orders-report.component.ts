@@ -75,7 +75,7 @@ export class ReturnOrdersReportComponent implements OnInit {
     
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -89,7 +89,7 @@ export class ReturnOrdersReportComponent implements OnInit {
   public getlanguage() {
     this.docservice.Getadmin_DeliveryLoginsOrdersEmployee_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -100,7 +100,7 @@ export class ReturnOrdersReportComponent implements OnInit {
   public GetOrdersForDeliveryCompany() {
     this.docservice.GetOrdersForDeliveryCompany(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.orderlist = temp.filter(x => x.returnBit == 1 && x.refundBit == 1);
       }, error => {
@@ -108,7 +108,7 @@ export class ReturnOrdersReportComponent implements OnInit {
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -127,7 +127,7 @@ export class ReturnOrdersReportComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -145,7 +145,7 @@ export class ReturnOrdersReportComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -159,7 +159,7 @@ export class ReturnOrdersReportComponent implements OnInit {
 
 
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

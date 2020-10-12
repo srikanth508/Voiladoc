@@ -32,7 +32,7 @@ export class MidwifeFeesComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -45,7 +45,7 @@ if(this.dummid==undefined)
 {
   this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
     data => {
-      debugger
+     
       this.midwifes = data;
     }, error => {
     }
@@ -55,7 +55,7 @@ else if(this.dummid!=undefined)
 {
   this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
     data => {
-      debugger
+     
       this.dummlist = data;
       this.midwifes=this.dummlist.filter(x=>x.hospitalClinicID==this.hospitalid)
     }, error => {
@@ -66,7 +66,7 @@ else if(this.dummid!=undefined)
 
 
   public GetMidwifeID(even) {
-    debugger
+   
     this.midwifeid = even.target.value;
     this.getmidwifehosiptals();
   }
@@ -75,7 +75,7 @@ else if(this.dummid!=undefined)
   public getmidwifehosiptals() {
     this.docservice.GetMidWifeHospitalDetailsByHospitals(this.midwifeid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalist = data;
       }, error => {
       }
@@ -83,18 +83,18 @@ else if(this.dummid!=undefined)
   }
 
   public GetDoccommission(midwifefee) {
-    debugger
+   
     this.voiladoccommission = 100 - Number(midwifefee);
-    debugger
+   
   }
 
 
   public GetHospitalID(even) {
-    debugger
+   
     this.hospitalid = even.target.value;
-    debugger
+   
     var list = this.hospitalist.filter(x => x.hospitalClinicID == this.hospitalid)
-    debugger
+   
     this.midwifehospitalid = list[0].id
   }
 
@@ -111,7 +111,7 @@ else if(this.dummid!=undefined)
     // }
 
     else {
-      debugger
+     
       var entity = {
         'MidwifeID': this.midwifeid,
         'MidWifeHospitalID': this.midwifehospitalid,

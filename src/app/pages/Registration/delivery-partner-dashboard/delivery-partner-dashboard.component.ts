@@ -31,7 +31,7 @@ export class DeliveryPartnerDashboardComponent implements OnInit {
     
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => {}
@@ -46,7 +46,7 @@ this.cityid=0
   {
     this.docservice.GetAdmin_CompanyDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -55,7 +55,7 @@ this.cityid=0
   public getdeliverylist() {
     this.docservice.GetDeliveryCompanyAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.deliverycompanylist = data;
         this.dummlist=this.deliverycompanylist
       }, error => {
@@ -67,7 +67,7 @@ this.cityid=0
 
 
   public deletedeliverycopmany(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Delivery Company!",
@@ -102,7 +102,7 @@ this.cityid=0
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -112,7 +112,7 @@ this.cityid=0
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.deliverycompanylist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -126,10 +126,10 @@ this.cityid=0
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -139,7 +139,7 @@ this.cityid=0
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.deliverycompanylist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -155,10 +155,10 @@ this.cityid=0
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -169,7 +169,7 @@ this.cityid=0
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.deliverycompanylist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.deliverycompanylist.length

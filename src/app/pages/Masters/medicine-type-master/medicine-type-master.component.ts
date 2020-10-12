@@ -21,7 +21,7 @@ export class MedicineTypeMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -38,7 +38,7 @@ export class MedicineTypeMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -47,10 +47,10 @@ export class MedicineTypeMasterComponent implements OnInit {
 
 
   public Getmedicinetypemaster() {
-    debugger
+   
     this.docservice.GetMedicineTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.medicinelist = data;
         var list = this.medicinelist.filter(x => x.id == this.id)
         this.medicine = list[0].name

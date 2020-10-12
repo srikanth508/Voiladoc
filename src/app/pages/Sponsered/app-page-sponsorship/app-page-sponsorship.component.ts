@@ -25,12 +25,12 @@ export class AppPageSponsorshipComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+   
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
-    debugger
+   
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.paramid = params['id'];
       this.languageid = localStorage.getItem('LanguageID');
       this.getsponsradd(this.paramid);
@@ -47,10 +47,10 @@ export class AppPageSponsorshipComponent implements OnInit {
     }
   }
   public getsponsradd(id) {
-    debugger
+   
     this.docservice.GetAppPageSponsorship().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         let temp1: any = temp.filter(x => x.id == id)
         this.ClientName = temp1[0].clientName;
@@ -66,7 +66,7 @@ export class AppPageSponsorshipComponent implements OnInit {
   public attachments1 = [];
   public attachmentsurl = [];
   public onattachmentUpload1(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments1.push(abcd.addedFiles[0]);
       this.uploadattachments1();
@@ -78,9 +78,9 @@ export class AppPageSponsorshipComponent implements OnInit {
   PhotoURL: any
   public uploadattachments1() {
     this.docservice.ArticlePhoto(this.attachments1).subscribe(res => {
-      debugger
+     
       this.PhotoURL = res;
-      debugger
+     
     })
   }
   ClientName
@@ -89,7 +89,7 @@ export class AppPageSponsorshipComponent implements OnInit {
   StartDate
   EndDate
   public insertdetails() {
-    debugger
+   
 
     var entity = {
       'ClientName': this.ClientName,
@@ -100,7 +100,7 @@ export class AppPageSponsorshipComponent implements OnInit {
       'EndDate': this.EndDate
     }
     this.docservice.InsertAppPageSponsorship(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         Swal.fire('Completed', 'Details saved successfully', 'success');
         location.href = "#/AppPageSponsorshipDashBoard";
@@ -109,7 +109,7 @@ export class AppPageSponsorshipComponent implements OnInit {
 
   }
   public UpdateDetails() {
-    debugger
+   
 
     var entity = {
       'ID': this.paramid,
@@ -120,7 +120,7 @@ export class AppPageSponsorshipComponent implements OnInit {
       'EndDate': this.EndDate
     }
     this.docservice.UpdateAppPageSponsorship(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         Swal.fire('Completed', 'Details Updated successfully', 'success');
         location.href = "#/AppPageSponsorshipDashBoard";

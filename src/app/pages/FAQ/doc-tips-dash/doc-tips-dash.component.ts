@@ -20,7 +20,7 @@ export class DocTipsDashComponent implements OnInit {
     
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -32,7 +32,7 @@ export class DocTipsDashComponent implements OnInit {
   {
     this.docservice.GetDoctorTipsAndTricks(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.tipslist = data;
       }, error => {
       }
@@ -42,7 +42,7 @@ export class DocTipsDashComponent implements OnInit {
 
    
   public DeleteDoctorTipsAndTricks(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Item!",
@@ -76,7 +76,7 @@ export class DocTipsDashComponent implements OnInit {
 
   
   public DisableDoctorTipsAndTricks(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Disable This Item!",
@@ -109,7 +109,7 @@ export class DocTipsDashComponent implements OnInit {
 
 
   public EnableDoctorTipsAndTricks(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This Item!",

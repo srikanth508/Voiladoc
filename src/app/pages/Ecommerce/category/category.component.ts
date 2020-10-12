@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit {
 
     this.paramID = this.ActivatedRoute.snapshot.params['id'];
     this.GetCategoryById(this.paramID);
-    debugger;
+   
 
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage1(this.languageid);
@@ -32,10 +32,10 @@ export class CategoryComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.GetCategorydashboard_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -45,7 +45,7 @@ export class CategoryComponent implements OnInit {
 
   attachments = [];
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
 
@@ -59,20 +59,20 @@ export class CategoryComponent implements OnInit {
   attachmentsurl = [];
   showphoto = [];
   public uploadattachments() {
-    debugger;
+   
     this.docservice.ItemsPhotosUpload(this.attachments).subscribe(res => {
-      debugger;
+     
 
       for (let i = 0; i < res.length; i++) {
         this.attachmentsurl.push(res[i]);
         let a = this.attachmentsurl[0].slice(2);
-        debugger
+       
         let b = 'http://14.192.17.225' + a;
         this.showphoto.push(b)
       }
 
       this.attachments.length = 0;
-      debugger
+     
     })
 
   }
@@ -80,7 +80,7 @@ export class CategoryComponent implements OnInit {
 
 
   public insertdetail() {
-    debugger;
+   
     let entity = {
       CategoryName: this.categoryname,
       Description: this.description,
@@ -89,7 +89,7 @@ export class CategoryComponent implements OnInit {
     }
     this.docservice.InsertCategoryItem(entity).subscribe(x => {
       if (x >= 0) {
-        debugger;
+       
         Swal.fire("Saved Successfully");
         this._router.navigate(['/Categorydashboard']);
       }
@@ -99,9 +99,9 @@ export class CategoryComponent implements OnInit {
     });
   }
   public GetCategoryById(paramID) {
-    debugger
+   
     this.docservice.GetCategoryById(paramID).subscribe((data) => {
-      debugger;
+     
       this.category = data;
       this.categoryname = data[0].categoryName;
       this.description = data[0].description;
@@ -109,7 +109,7 @@ export class CategoryComponent implements OnInit {
     });
   }
   public update() {
-    debugger;
+   
     let entity = {
       Id: this.paramID,
       CategoryName: this.categoryname,
@@ -117,7 +117,7 @@ export class CategoryComponent implements OnInit {
     }
     this.docservice.UpdateCategory(entity).subscribe(data => {
       if (data != undefined) {
-        debugger;
+       
         this._router.navigate(['/Categorydashboard']);
       }
       else {

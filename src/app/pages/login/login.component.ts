@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
     this.docservice.GetCountrySwitch().subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
       }, error => {
       }
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
-    //     debugger
+    //    
     //     this.languagelist = data;
     //   }, error => {
     //   }
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   public getlang(url) {
     this.docservice.GetLanguageMaster(url).subscribe(
       data => {
-        debugger
+       
         this.languagelist = data;
       }, error => {
       }
@@ -71,16 +71,16 @@ export class LoginComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
       this.docservice.GetCountrySwitchByCountryID(this.countryid).subscribe(
         data => {
-          debugger
+         
           this.countrydetails = data;
-          debugger
+         
           localStorage.setItem('WebUrl', this.countrydetails[0].webBaseURL);
           // this.host = this.docservice.host;
-          debugger
+         
           this.getlang(this.countrydetails[0].webBaseURL)
         }, error => {
         }
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
   }
 
   public GetLanguageID(even) {
-    debugger
+   
     this.LanguageID = even.target.value;
     this.getlanguage();
     localStorage.setItem('LanguageID', this.LanguageID);
@@ -105,10 +105,10 @@ export class LoginComponent implements OnInit {
   }
 
   public getroletypemaster() {
-    debugger
+   
     this.docservice.GetRoleTypesMasterBYID(this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
       data => {
-        debugger
+       
         this.rolelist = data;
       }, error => {
       }
@@ -117,7 +117,7 @@ export class LoginComponent implements OnInit {
   public getlanguage() {
     this.docservice.Getloginlabel(this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -125,7 +125,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    debugger
+   
     if (this.roleid == null || this.roleid == undefined) {
       if (this.languageid == 1) {
         Swal.fire('Error', 'Please select role!');
@@ -141,9 +141,9 @@ export class LoginComponent implements OnInit {
       if (this.roleid == "1") {
         this.docservice.GetSalesRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
           data => {
-            debugger
+           
             this.result = data;
-            debugger
+           
             if (this.result != null) {
               localStorage.setItem('user', '')
               localStorage.setItem('roleid', '1');
@@ -166,9 +166,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "2") {
       this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].doctorName)
             localStorage.setItem('roleid', '2');
@@ -193,9 +193,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "3") {
       this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].hospital_ClinicName)
             localStorage.setItem('roleid', '3');
@@ -216,9 +216,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "4") {
       this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].diagnosticCenterName)
             localStorage.setItem('roleid', '4');
@@ -240,9 +240,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "5") {
       this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].pharmacyName)
             localStorage.setItem('roleid', '5');
@@ -263,9 +263,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "7") {
       this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].nurseName)
             localStorage.setItem('roleid', '7');
@@ -287,9 +287,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "8") {
       this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].name)
             localStorage.setItem('roleid', '8');
@@ -311,9 +311,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "9") {
       this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].name)
             localStorage.setItem('roleid', '9');
@@ -334,9 +334,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "10") {
       this.docservice.GetDeliveryCompanyLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].companyName)
             localStorage.setItem('roleid', '10');
@@ -358,9 +358,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "11") {
       this.docservice.GetLocalDoctorRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].doctorName)
             localStorage.setItem('roleid', '11');
@@ -381,9 +381,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "12") {
       this.docservice.GetMeridionalAdmin_LoginUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', 'Manny')
             localStorage.setItem('roleid', '12');
@@ -404,9 +404,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "13") {
       this.docservice.GetSupportRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('supportid', this.result[0].id)
             localStorage.setItem('user', this.result[0].name)
@@ -429,9 +429,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "14") {
       this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-          debugger
+         
           this.result = data;
-          debugger
+         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].hospital_ClinicName)
             localStorage.setItem('roleid', '14');
@@ -455,7 +455,7 @@ export class LoginComponent implements OnInit {
 
 
   public onchangeFunction(even) {
-    debugger
+   
     this.roleid = even.target.value;
     localStorage.setItem('roleid', this.roleid);
   }

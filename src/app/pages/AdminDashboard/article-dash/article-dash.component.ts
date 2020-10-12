@@ -19,7 +19,7 @@ export class ArticleDashComponent implements OnInit {
   public GetArticles() {
     this.docservice.GetArticleForAdminForWeb().subscribe(
       data => {
-        debugger;
+       
         this.articlelist = data;
       },
       error => {}
@@ -30,7 +30,7 @@ export class ArticleDashComponent implements OnInit {
 
 
   public GetDisableArticle(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Disable This Article!",
@@ -59,7 +59,7 @@ export class ArticleDashComponent implements OnInit {
 
 
   public GetEnableArticle(id) {
-    debugger;
+   ;
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This Article!",

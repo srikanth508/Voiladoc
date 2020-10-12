@@ -220,6 +220,7 @@ export class MyappointmentsComponent implements OnInit {
   chatIDlist: any;
   manuallydrug: any;
   dropzonelable: any;
+  earlycallnotes: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -230,7 +231,6 @@ export class MyappointmentsComponent implements OnInit {
     this.medicineid = 0
     this.substainable = 1
     this.manuallydrug = 2
-
 
     this.docservice.showvid = 0;
     const format = 'yyyy-MM-dd';
@@ -243,12 +243,12 @@ export class MyappointmentsComponent implements OnInit {
     const locales = 'en-US';
     this.sigdate = formatDate(sigdate, llll, locales);
 
-
-
     this.docname = localStorage.getItem('user');
     this.MobileNumber = localStorage.getItem('MobileNumber');
 
     this.user = localStorage.getItem('user');
+
+    this.earlycallnotes = this.user + " is available now. can you start video call now"
 
     if (this.languageid == 1) {
       this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sigdate;
@@ -1065,10 +1065,10 @@ export class MyappointmentsComponent implements OnInit {
 
   SerachOn: any;
   public SerchDrugName(medicinename) {
-    debugger
+   
     if (medicinename == "") {
       this.SerachOn = 0;
-      debugger
+     
     }
     else {
       this.SerachOn = 1;
@@ -1081,7 +1081,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDrugID(medicinename) {
-    debugger
+   
     this.medicinename = medicinename
     this.SerachOn = 0
   }
@@ -1533,7 +1533,7 @@ export class MyappointmentsComponent implements OnInit {
     this.diagnostictestname = ""
     this.getdiagnosticcentertests();
   }
-  
+
 
   public insertDiagnostictestdetails() {
     for (let i = 0; i < this.qwerty.length; i++) {
@@ -1706,22 +1706,37 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
+
+  //early video call
+
+
+
+
+  public GetVideoconfrenceEarlycall(patientID, appointmentID, appdate, slots, endtime) {
+    localStorage.setItem('patientID', patientID);
+    localStorage.setItem('appointmentID', appointmentID);
+    localStorage.setItem('appdate', appdate);
+
+    this.docservice.showvid = 1;
+    window.open("#/Vediocall", "_blank");
+
+  }
+
   public getvedioconferencebydateandtime(patientID, appointmentID, appdate, slots, endtime) {
     localStorage.setItem('patientID', patientID);
     localStorage.setItem('appointmentID', appointmentID);
     localStorage.setItem('appdate', appdate);
 
+    // this.docservice.showvid = 1;
 
+    //  window.open("#/Vediocall", "_blank");
     this.getserverdateandtime();
     if (this.serverdate == appdate) {
-
       if (this.servertime >= slots) {
         if (this.servertime <= endtime) {
           this.docservice.showvid = 1;
-         // location.
-         location.href = '#/Vediocall';
-          // window.open("//" + "#/Vediocall", '_blank');
-          // window.open("#/Vediocall", "_blank");
+
+          window.open("#/Vediocall", "_blank");
         }
         else {
           if (this.languageid == 1) {
@@ -2417,12 +2432,14 @@ export class MyappointmentsComponent implements OnInit {
   public GetVedioID(id) {
 
     this.vedioid = id;
+   
     this.docservice.GetPatient_IllnessVedioes(this.vedioid).subscribe(
       data => {
-
+       
         this.showvedioes = data;
         if (this.showvedioes.length == 0) {
           this.novideo = 1
+         
         }
         else if (this.showvedioes.length != 0) {
           this.novideo = 0
@@ -2591,7 +2608,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public GetReferralID(details) {
-    debugger
+   
     this.patientid = details.patientID;
     this.appointmentid = details.appointmentID;
     if (this.languageid == 1) {
@@ -2715,15 +2732,15 @@ export class MyappointmentsComponent implements OnInit {
   public user: any;
   public soap: any;
   public insertdetails1() {
-    debugger
+   
     if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-      debugger
+     
       if (this.doctorname == null) {
         if (this.languageid == 1) {
           Swal.fire('', 'Please select or enter doctor name')
         }
         else if (this.languageid == 6) {
-          debugger
+         
           Swal.fire('', 'Sélectionnez ou entrez le nom du médecin')
         }
       }
@@ -3316,61 +3333,78 @@ export class MyappointmentsComponent implements OnInit {
 
 
   }
+  chatpatientemail
 
-
-  public GetChatShowID(patientid, appdate, slots) {
+  public GetChatShowID(patientid, appdate, slots,pEmail) {
 
     this.patientiddd = patientid;
+    this.chatpatientemail=pEmail
 
-    if (this.serverdate == appdate) {
+    document.getElementById("myForm").style.display = "block";
 
-      if (this.servertime >= slots) {
 
-        document.getElementById("myForm").style.display = "block";
 
-        this.showwindow = 1
+    this.showwindow = 1
 
-        this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-          ;
-          this.chatIDlist = res;
-          this.chatID = this.chatIDlist[0].chatID
-          this.getPreviousChat();
-          this.oberserableTimer();
-          this.getserverdateandtime();
-          // this.appointmentiddd = 570;
-          this.appointmentdatetimee = localStorage.getItem('appdate');
-          this.getserverdateandtime();
-          this.getPreviousChat();
-          this.oberserableTimer();
+    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+      ;
+      this.chatIDlist = res;
+      this.chatID = this.chatIDlist[0].chatID
+      this.getPreviousChat();
+      this.oberserableTimer();
+      this.getserverdateandtime();
+      // this.appointmentiddd = 570;
+      this.appointmentdatetimee = localStorage.getItem('appdate');
+      this.getserverdateandtime();
+      this.getPreviousChat();
+      this.oberserableTimer();
 
-        })
-      }
-      else {
-        if (this.languageid == 1) {
-          Swal.fire('Alert', 'It is still not yet time to the chat. you can start at ' + slots)
-        }
-        else if (this.languageid == 6) {
-          Swal.fire('Alert', 'Il n est pas encore temps de discuter. vous pouvez commencer à ' + slots)
-        }
-      }
-    }
-    else {
-      if (this.languageid == 1) {
-        Swal.fire('Alert', 'Your Appointment Date Is Over.You can not do chat now')
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Alert', 'Votre date de rendez-vous est terminée. Vous ne pouvez pas discuter maintenant')
-      }
+    })
 
-    }
+    // if (this.serverdate == appdate) {
+
+    //   if (this.servertime >= slots) {
+
+
+
+    //   }
+    //   else {
+    //     if (this.languageid == 1) {
+    //       Swal.fire('Alert', 'It is still not yet time to the chat. you can start at ' + slots)
+    //     }
+    //     else if (this.languageid == 6) {
+    //       Swal.fire('Alert', 'Il n est pas encore temps de discuter. vous pouvez commencer à ' + slots)
+    //     }
+    //   }
+    // }
+    // else {
+    //   if (this.languageid == 1) {
+    //     Swal.fire('Alert', 'Your Appointment Date Is Over.You can not do chat now')
+    //   }
+    //   else if (this.languageid == 6) {
+    //     Swal.fire('Alert', 'Votre date de rendez-vous est terminée. Vous ne pouvez pas discuter maintenant')
+    //   }
+
+    // }
   }
-
 
 
   // public dosendmsg() {
   //   this.getChat();
   //   
   // }
+
+  public InsertChatnotificationazure() {
+    var entity = {
+      'Description': this.user +' Trying to reach you. Please open your voiladoc app : '+ this.chatconversation ,
+      'ToUser': this.chatpatientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+      }
+    })
+  }
 
   public dosendmsg() {
     var entity = {
@@ -3380,10 +3414,10 @@ export class MyappointmentsComponent implements OnInit {
       // 'Read_Me': 0
     }
     this.docservice.InsertChatMaster(entity).subscribe(data => {
-
       if (data != 0) {
         this.chatID = data;
         this.InsertChatDetails();
+        this.InsertChatnotificationazure()
       }
     })
     // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
@@ -3518,22 +3552,22 @@ export class MyappointmentsComponent implements OnInit {
   public GetSoapPatientID(patientid) {
     this.sopapatientid = patientid
     if (this.departmentid != 14) {
-      debugger
+     
       this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
         data => {
           this.dummsopailist = data;
           this.soaplist1 = this.dummsopailist.filter(x => x.departmentID! = 14)
-          debugger
+         
         }, error => {
         }
       )
     }
     else if (this.departmentid == 14) {
-      debugger
+     
       this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
         data => {
           this.soaplist1 = data;
-          debugger
+         
         }, error => {
         }
       )
@@ -3543,9 +3577,85 @@ export class MyappointmentsComponent implements OnInit {
   viewdetaillist: any;
 
   public GetViewDetails(id) {
-    debugger
+   
     this.appointmentid = id
     this.viewdetaillist = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
-    debugger
+   
   }
+
+
+  earlycallpatientid: any;
+  earlypatientemail: any;
+  earlyappointmentid: any;
+
+  public GetEarlycallPatientID(patientID, pEmail, id) {
+    this.earlycallpatientid = patientID,
+      this.earlypatientemail = pEmail,
+      this.earlyappointmentid = id
+
+  }
+
+
+  public InsertnotificationForEarlyCall() {
+    var entity = {
+      'Description': this.earlycallnotes,
+      'ToUser': this.earlypatientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+  public InsertPatientEarlyCall() {
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.earlycallpatientid,
+        'Notification': "Early call",
+        'Description': this.earlycallnotes,
+        'NotificationTypeID': 28,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.earlyappointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+          this.InsertnotificationForEarlyCall()
+          this.docservice.GetBookAppointmentEarlyCallbit(this.earlyappointmentid).subscribe(data => {
+            Swal.fire(
+              'success', 'Details registered Successfully')
+            this.getbookappointmentbydoctorid()
+          })
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.earlycallpatientid,
+        'Notification': "Early call.",
+        'Description': this.earlycallnotes,
+        'NotificationTypeID': 28,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.earlyappointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+          this.InsertnotificationForEarlyCall()
+          this.docservice.GetBookAppointmentEarlyCallbit(this.earlyappointmentid).subscribe(data => {
+            Swal.fire('Succès', 'Détails enregistrés avec succès')
+            this.getbookappointmentbydoctorid()
+          })
+        }
+
+      })
+    }
+  }
+
+
 }

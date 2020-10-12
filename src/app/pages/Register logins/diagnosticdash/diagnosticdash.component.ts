@@ -25,7 +25,7 @@ export class DiagnosticdashComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -36,7 +36,7 @@ export class DiagnosticdashComponent implements OnInit {
   {
     this.docservice.GetDiagnosticLoginForDash(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.diagnoticloginlist = data;
       }, error => {
       }
@@ -45,7 +45,7 @@ export class DiagnosticdashComponent implements OnInit {
   public disablediagnostic(docid) {
     this.docservice.DisableDiagnosticLogin(docid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
 
         this.getdiagnosticloginfordash();
@@ -57,7 +57,7 @@ export class DiagnosticdashComponent implements OnInit {
   public enablediagnostic(id) {
     this.docservice.EnableDiagnosticLogin(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
 
         this.getdiagnosticloginfordash();
@@ -67,7 +67,7 @@ export class DiagnosticdashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

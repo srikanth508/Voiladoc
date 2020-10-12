@@ -14,7 +14,7 @@
 <div class="container-fluid card card-hover">
   <div class="row" style="margin-top:10px;">
     <div class="col-lg-3">
-      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="term" name="term">
+      <input type="text" class="form-control" placeholder="{{labels1[0].search}}" [(ngModel)]="term" name="term">
     </div>
   </div>
   <br>
@@ -107,7 +107,8 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Edit Slots</h4>
+        <h4 class="modal-title" *ngIf="languageid=='1'">Edit Slots</h4>
+        <h4 class="modal-title" *ngIf="languageid=='6'">Modifier les horaires</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -141,8 +142,11 @@
           </div>
 
           <div class="col-lg-4">
-            <button type="button" data-dismiss="modal" class="btn btn-block btncolor"
+            <button type="button" *ngIf="languageid=='1'" data-dismiss="modal" class="btn btn-block btncolor"
               (click)="insertdetails()">Update</button>
+
+              <button type="button" *ngIf="languageid=='6'" data-dismiss="modal" class="btn btn-block btncolor"
+              (click)="insertdetails()">Valider</button>
           </div>
           <div class="col-lg-4">
 

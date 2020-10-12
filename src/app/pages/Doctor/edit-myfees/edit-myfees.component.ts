@@ -44,7 +44,7 @@ export class EditMyfeesComponent implements OnInit {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
     }
     )
@@ -54,7 +54,7 @@ export class EditMyfeesComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -70,7 +70,7 @@ export class EditMyfeesComponent implements OnInit {
 
     this.docservice.DoctorCommissionFees(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummlistsss = data;
         var list = this.dummlistsss.filter(x => x.id == this.id)
         this.doctorid = list[0].doctorID,
@@ -98,7 +98,7 @@ export class EditMyfeesComponent implements OnInit {
     if (this.hospitalid == undefined) {
       this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorlist = data;
 
           this.docdd = {
@@ -117,7 +117,7 @@ export class EditMyfeesComponent implements OnInit {
     else if (this.hospitalid != undefined) {
       this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.doctorlist = this.dummlist.filter(x => x.hosid == this.hospitalid)
 
@@ -138,18 +138,18 @@ export class EditMyfeesComponent implements OnInit {
   }
 
   public GetDoctorID(item: any) {
-    debugger
+   
     this.doctorid = item.doctorID;
-    debugger
+   
     var list = this.doctorlist.filter(x => x.doctorID == this.doctorid)
-    debugger
+   
     this.departmentid = list[0].departmentID,
       this.departmentname = list[0].departmentname,
       this.doctorname = list[0].doctorName
 
     this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.hosptalist = data;
         this.hospitalid = this.hosptalist[0].hospital_ClinicID,
           this.dochospitalid = this.hosptalist[0].id,
@@ -165,7 +165,7 @@ export class EditMyfeesComponent implements OnInit {
   public GetAllHospital() {
     this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.hosptalist = data;
         this.hospitalid = this.hosptalist[0].hospital_ClinicID,
           this.dochospitalid = this.hosptalist[0].id
@@ -177,14 +177,14 @@ export class EditMyfeesComponent implements OnInit {
   public GetALlTreatmentPlans() {
     this.docservice.GetTreatementPlanMaster(this.languageid, this.departmentid).subscribe(
       data => {
-        debugger
+       
         this.treatmentlist = data;
       }, error => {
       }
     )
   }
   public GetTreatmentID(even) {
-    debugger
+   
     this.treatmentID = even.target.value;
     var list = this.treatmentlist.filter(x => x.id == this.treatmentID)
     this.treatmentname = list[0].treatmentPlan
@@ -192,14 +192,14 @@ export class EditMyfeesComponent implements OnInit {
 
 
   public GetDoccommission(doccommission) {
-    debugger
+   
     this.voiladoccommission = 100 - Number(doccommission);
-    debugger
+   
   }
 
 
   public GetHospitalID(even) {
-    debugger
+   
     this.hospitalid = even.target.value;
 
     var list = this.hosptalist.filter(x => x.hospital_ClinicID == this.hospitalid)
@@ -209,7 +209,7 @@ export class EditMyfeesComponent implements OnInit {
 
 
   public adddetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'DoctorHospitalID': this.dochospitalid,

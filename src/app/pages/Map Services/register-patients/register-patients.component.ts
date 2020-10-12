@@ -49,11 +49,11 @@ export class RegisterPatientsComponent implements OnInit {
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
     var lll = this.EDate.setDate(this.EDate.getDate() + 30);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -74,7 +74,7 @@ export class RegisterPatientsComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -84,7 +84,7 @@ export class RegisterPatientsComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.countryid = even.target.value;
 
       this.patientslist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -96,10 +96,10 @@ export class RegisterPatientsComponent implements OnInit {
     }
   }
   public getcity() {
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -109,7 +109,7 @@ export class RegisterPatientsComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.patientslist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -123,10 +123,10 @@ export class RegisterPatientsComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
 
       }, error => {
@@ -137,7 +137,7 @@ export class RegisterPatientsComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.areaid = even.target.value;
       this.patientslist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.patientslist.length
@@ -151,7 +151,7 @@ export class RegisterPatientsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -161,7 +161,7 @@ export class RegisterPatientsComponent implements OnInit {
   public Getregisterdpatients() {
     this.docservice.GetPatientRegistration(this.startdate, this.enddate).subscribe(
       data => {
-        debugger;
+       
         this.patientslist = data;
         this.dummlist = this.patientslist
         this.count = this.patientslist.length
@@ -171,7 +171,7 @@ export class RegisterPatientsComponent implements OnInit {
   }
 
   public deletepatient(id) {
-    debugger;
+   
     this.docservice.DeletePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Disabled Successfully");
@@ -181,7 +181,7 @@ export class RegisterPatientsComponent implements OnInit {
     });
   }
   public Enablepatient(id) {
-    debugger;
+   
     this.docservice.EnablePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Enabled Successfully");
@@ -195,7 +195,7 @@ export class RegisterPatientsComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

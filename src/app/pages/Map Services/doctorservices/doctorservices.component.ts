@@ -35,10 +35,10 @@ export class DoctorservicesComponent implements OnInit {
   }
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServices_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -51,10 +51,10 @@ export class DoctorservicesComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -64,7 +64,7 @@ export class DoctorservicesComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.departmentid = even.target.value;
     this.getservicemaster();
   }
@@ -72,11 +72,11 @@ export class DoctorservicesComponent implements OnInit {
 
 
   public getdoctorforadmin() {
-    debugger
+   
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.doctorlist = data;
           this.doctordd = {
             singleSelection: true,
@@ -94,7 +94,7 @@ export class DoctorservicesComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummdoctorlist = data;
           this.doctorlist = this.dummdoctorlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.doctordd = {
@@ -115,7 +115,7 @@ export class DoctorservicesComponent implements OnInit {
   public getservicemaster() {
     this.docservice.GetServiceMasterByDepartmentIDAndLanguageID(this.departmentid, this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.servicelist = temp.filter(x => x.typeID == 1);
         this.servicedd = {
@@ -133,20 +133,20 @@ export class DoctorservicesComponent implements OnInit {
     )
   }
   public GetServiceID(item: any) {
-    debugger
+   
     this.serviceid.push(item);
   }
 
   onItemDeSelect(item: any) {
-    debugger;
+   
     var index = this.serviceid.findIndex(x => x.id == item.id)
     this.serviceid.splice(index, 1);
 
   }
   public GetDoctorID(item1: any) {
-    debugger
+   
     this.doctorid = item1.id;
-    debugger
+   
     var dept = this.doctorlist.filter(x => x.id == this.doctorid)
     this.departmentid = dept[0].departmentID
     this.getdepartmentmaster()
@@ -161,7 +161,7 @@ export class DoctorservicesComponent implements OnInit {
       }
 
       this.docservice.InsertDoctorServices(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.dropdown = [];

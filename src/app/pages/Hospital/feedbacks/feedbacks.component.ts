@@ -72,29 +72,29 @@ export class FeedbacksComponent implements OnInit {
   {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     ) 
   }
   public gethospitalclinicfeedback() {
-    debugger
+   
     this.docservice.GetHospital_ClinicFeedback(this.hospitalid,this.startdate,this.enddate).subscribe(
       data => {
-        debugger
+       
         this.feedbacklist = data;
       }, error => {
       }
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
   selectedDate(data) {
-    debugger
+   
     var sdate = data.split('-')
     this.startdate = sdate[0]
     this.enddate = sdate[1]

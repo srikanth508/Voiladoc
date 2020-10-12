@@ -52,11 +52,11 @@ export class AdminRevenueComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
     var lll = this.EDate.setDate(this.EDate.getDate() + 0);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -66,7 +66,7 @@ export class AdminRevenueComponent implements OnInit {
     // To display "0" as "12" 
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
-    debugger
+   
     this.getlanguage()
     this.GetCounts()
     this.GetNursamount();
@@ -81,7 +81,7 @@ export class AdminRevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -91,7 +91,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetCounts() {
     this.docservice.GetDoctorCommissionFeesByAdminRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.allcounts = data;
 
       }, error => {
@@ -102,7 +102,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetDoctorCommission() {
     this.docservice.GetPatientPaymentDetailsAdminDoctorsCommission(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.doccommissioncount = data;
 
       }, error => {
@@ -114,7 +114,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetNursamount() {
     this.docservice.GetNurseCommissionDeatailsAdminRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.nursecount = data;
       }, error => {
       }
@@ -125,7 +125,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetMidWifesTotalCountAmount() {
     this.docservice.GetMidWifeCommissionDeatailsAdminRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.midwifecount = data;
       }, error => {
       }
@@ -135,7 +135,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetPhyiotherapistAmount() {
     this.docservice.GetPhsyioTherapistCommissionDeatailsAdminRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.physiocount = data;
       }, error => {
       }
@@ -145,7 +145,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetNurseCommissionCount() {
     this.docservice.GetNurse_PatientPaymentDetailsNurseRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.Nursecommssioncount = data;
       }, error => {
       }
@@ -155,7 +155,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetidwifeommissionsRevenue() {
     this.docservice.GetMidWife_PatientPaymentDetailsAdminRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.midwifecommissioncount = data;
       }, error => {
       }
@@ -165,7 +165,7 @@ export class AdminRevenueComponent implements OnInit {
   public GetPhysiotherapistcount() {
     this.docservice.GetPhysiotherapist_PatientPaymentDetailsAdminRevenue(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.physiocommissioncount = data;
       }, error => {
       }
@@ -174,7 +174,7 @@ export class AdminRevenueComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

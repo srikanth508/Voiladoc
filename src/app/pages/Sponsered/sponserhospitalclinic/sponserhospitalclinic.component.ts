@@ -29,13 +29,13 @@ export class SponserhospitalclinicComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+   
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
     this.languageid = localStorage.getItem('LanguageID');
 
     // this.docservice.GetSponsoredHospitalsForAdmin().subscribe(
     //   data => {
-    //     debugger
+    //    
     //     this.hospitallist = data;
     //   }, error => {
     //   }
@@ -48,7 +48,7 @@ export class SponserhospitalclinicComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
       }, error => {
@@ -56,11 +56,11 @@ export class SponserhospitalclinicComponent implements OnInit {
     )
   }
   handleChange(event) {
-    debugger
+   
     this.hspcliid=event.target.value;
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp:any=data;
         this.hospitalcliniclist = temp.filter(x=>x.hospital_ClinicID==this.hspcliid);
         this.hospitaldd = {
@@ -77,10 +77,10 @@ export class SponserhospitalclinicComponent implements OnInit {
     )
   }
   // public gethosptilclinicforadmin() {
-  //   debugger
+  //  
   //   this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.hospitalcliniclist = data;
   //       this.hospitaldd = {
   //         singleSelection: true,
@@ -99,11 +99,11 @@ export class SponserhospitalclinicComponent implements OnInit {
 
 
   public GetHospitalID(item3: any) {
-    debugger
+   
     this.hospitalid = item3.id;
   }
   public insertdetails() {
-    debugger
+   
     if (this.hospitalid == undefined) {
       Swal.fire("Please Select Hospital/Clinic")
     }
@@ -114,7 +114,7 @@ export class SponserhospitalclinicComponent implements OnInit {
         'EDate': this.enddate
       }
       this.docservice.InsertSponsoredHospitals(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.clear();

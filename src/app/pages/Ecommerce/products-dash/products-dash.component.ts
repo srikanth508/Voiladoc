@@ -23,7 +23,7 @@ export class ProductsDashComponent implements OnInit {
   public GetSubcategory() {
     this.docservice.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         this.SubcategoryLists = data;
       }, error => {
       }

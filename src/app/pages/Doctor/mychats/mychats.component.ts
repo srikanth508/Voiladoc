@@ -46,7 +46,7 @@ export class MychatsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.doctorid = params['docid'];
       this.patientiddd = params['patid'];
 
@@ -55,7 +55,7 @@ export class MychatsComponent implements OnInit {
     this.image = 0;
 
     this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
+     
       this.chatIDlist = res;
       this.chatID = this.chatIDlist[0].chatID
       this.getPreviousChat();
@@ -78,7 +78,7 @@ export class MychatsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -98,7 +98,7 @@ export class MychatsComponent implements OnInit {
   }
 
   public GetDetails() {
-    debugger
+   
     this.docservice.GetBookAppointmentDetailsByID(this.appointmentiddd, this.doctorid, this.patientiddd).subscribe(
       data => {
 
@@ -119,7 +119,7 @@ export class MychatsComponent implements OnInit {
 
   public getChat() {
     this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
+     
 
       if (res.length > 1) {
         this.chatID = res;
@@ -133,7 +133,7 @@ export class MychatsComponent implements OnInit {
           // 'Read_Me': 0
         }
         this.docservice.InsertChatMaster(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             this.chatID = data;
             this.InsertChatDetails();
@@ -145,7 +145,7 @@ export class MychatsComponent implements OnInit {
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-    debugger;
+   
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -157,7 +157,7 @@ export class MychatsComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -178,7 +178,7 @@ export class MychatsComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertChatDetails(entitys).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -194,22 +194,22 @@ export class MychatsComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+     
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
-        debugger
+       
         if (Chatconversation[i].sender == 'Patient') {
           this.coversationarray.push({
             chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
           })
         }
-        debugger
+       
         if (Chatconversation[i].sender == 'Doctor') {
           this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
       }
-      debugger
+     
       // for (let i = 0; i < Chatconversation.length; i++) {
 
       //   Chatconversation[i]['Message']=Chatconversation[i].Chatconversation;
@@ -238,11 +238,11 @@ export class MychatsComponent implements OnInit {
       //     this.coversationarray.push({ user: 'pat', chatmsg: msg, time: chattime, msgtype: Chatconversation[i].MessageType })
       //   }
       //   else {
-      //     debugger
+      //    
       //     if (Chatconversation[i].Sender == 'Patient') {
       //       this.coversationarray.push({ user: 'pat', chatmsg: Chatconversation[i].Message, time: chattime, msgtype: Chatconversation[i].MessageType })
       //     }
-      //     debugger
+      //    
       //     if (Chatconversation[i].Sender == 'Doctor') {
       //       this.coversationarray.push({ user: 'doc', chatmsg: Chatconversation[i].Message, time: chattime, msgtype: Chatconversation[i].MessageType })
       //     }
@@ -277,14 +277,14 @@ export class MychatsComponent implements OnInit {
 
   // public getusertyping() {
   //   this.docservice.getChat(this.doctorid, this.patientiddd).subscribe(res => {
-  //     debugger;
+  //    
   //     let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
   //     this.istyping = isUserTyping[0].isTyping;
   //   })
   // }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -295,16 +295,16 @@ export class MychatsComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
       this.attachmentsurl = [];
-      debugger
+     
     })
     // this.sendattachment();
   }

@@ -29,7 +29,7 @@ export class HospitalServicesDashComponent implements OnInit {
     if (this.languageid == 1) {
       this.docservice.GetDepartmentMaster().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.DepartmentList = temp;
         }, error => {
@@ -39,7 +39,7 @@ export class HospitalServicesDashComponent implements OnInit {
     else {
       this.docservice.GetDepartmentMaster_French().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.DepartmentList1 = temp;
         }, error => {
@@ -49,21 +49,21 @@ export class HospitalServicesDashComponent implements OnInit {
   }
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_MapServices_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public GetHospitalClinicServices() {
-    debugger
+   
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetHospital_ClinicServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.hospitallist = data;
         }, error => {
         }
@@ -72,7 +72,7 @@ export class HospitalServicesDashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetHospital_ClinicServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummhospitalist = data;
           this.hospitallist = this.dummhospitalist.filter(x => x.hospital_ClinicDetailsID == this.hospitalclinicid)
         }, error => {
@@ -83,10 +83,10 @@ export class HospitalServicesDashComponent implements OnInit {
 
   }
   public DeletehospitalClinicServices(id) {
-    debugger
+   
     this.docservice.DeleteHospital_ClinicServices(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire("Deleted Successfully");
         this.GetHospitalClinicServices()
       }, error => {
@@ -94,13 +94,13 @@ export class HospitalServicesDashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
   departmentid
   public GetDepartmentID(event) {
-    debugger
+   
     this.departmentid = event.target.value;
     if (this.departmentid == 0) {
       this.GetHospitalClinicServices();
@@ -108,7 +108,7 @@ export class HospitalServicesDashComponent implements OnInit {
     else {
       this.docservice.GetHospital_ClinicServices(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummhospitalist = data;
           this.hospitallist = this.dummhospitalist.filter(x => x.hospital_ClinicDetailsID == this.hospitalclinicid && x.departmentID == this.departmentid)
         }, error => {

@@ -23,7 +23,7 @@ export class HospitalDocDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -34,7 +34,7 @@ export class HospitalDocDashComponent implements OnInit {
   public gethospitalcommssions() {
     this.docservice.GetHospitalCommissions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.commissionlist = data;
       }, error => {
       }

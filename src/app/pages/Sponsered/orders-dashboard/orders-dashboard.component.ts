@@ -29,7 +29,7 @@ export class OrdersDashboardComponent implements OnInit {
     this.GetOrders();
     this.docservice.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.CategoryList = temp;
       }, error => {
@@ -41,10 +41,10 @@ export class OrdersDashboardComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -52,10 +52,10 @@ export class OrdersDashboardComponent implements OnInit {
   }
   Orderslist
   public GetOrders() {
-    debugger
+   
     this.docservice.GetProducts_cart().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.Orderslist = temp;
       }, error => {
@@ -65,7 +65,7 @@ export class OrdersDashboardComponent implements OnInit {
   startdate
   enddate
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
@@ -73,7 +73,7 @@ export class OrdersDashboardComponent implements OnInit {
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetProducts_cartByDate(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.Orderslist = temp;
       }, error => {
@@ -88,7 +88,7 @@ export class OrdersDashboardComponent implements OnInit {
 
     this.docservice.GetProducts_cart().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.Orderslist = temp.filter(x => x.categoryID == this.catid);
       }, error => {
@@ -96,7 +96,7 @@ export class OrdersDashboardComponent implements OnInit {
     )
     this.docservice.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.SubCategoryList = temp.filter(x => x.categoryID == this.catid);
       }, error => {
@@ -109,7 +109,7 @@ export class OrdersDashboardComponent implements OnInit {
 
     this.docservice.GetProducts_cart().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.Orderslist = temp.filter(x => x.categoryID == this.catid && x.subCategoryID == this.scatid);
       }, error => {

@@ -45,7 +45,7 @@ export class PharmacyprofileComponent implements OnInit {
   public labels:any;
   dropzonelable:any;
   ngOnInit() {
-    debugger
+   
     this.id = localStorage.getItem('pharmacyid');
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -69,7 +69,7 @@ export class PharmacyprofileComponent implements OnInit {
   {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
@@ -79,7 +79,7 @@ export class PharmacyprofileComponent implements OnInit {
   {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -87,7 +87,7 @@ export class PharmacyprofileComponent implements OnInit {
   }
 
   public GetcityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid()
   }
@@ -95,9 +95,9 @@ public getpharmacydetailsforadmin()
 {
   this.docservice.GetPhamacyDetailsForAdminByLanguageID(this.id,this.languageid).subscribe(
     data => {
-      debugger;
+     
       this.details = data[0];
-      debugger;
+     
       this.pharmacyname = this.details.pharmacyName,
         this.contactpersonname = this.details.contactName,
         this.licenseno = this.details.licenseNo,
@@ -128,7 +128,7 @@ public getpharmacydetailsforadmin()
 public GetCountryMaster() {
   this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
     data => {
-      debugger
+     
       this.countrylist = data;
     }, error => {
     }
@@ -137,12 +137,12 @@ public GetCountryMaster() {
 
 
 public GetCountryID(even) {
-  debugger
+ 
   this.countryid = even.target.value;
   this.getcitymaster()
 }
 public updatedetails() {
-  debugger
+ 
   var entity = {
     'LanguageID':this.languageid,
     'PharmacyID': this.id,
@@ -170,10 +170,10 @@ public updatedetails() {
 }
 public GetPhotos()
 {
-  debugger
+ 
   this.docservice.GetPharmacyPhotos(this.id).subscribe(
     data => {
-      debugger
+     
       this.photos = data;
     }, error => {
     }
@@ -187,7 +187,7 @@ public GetPhotos()
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -198,15 +198,15 @@ public GetPhotos()
   }
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -215,7 +215,7 @@ public GetPhotos()
 
 
   public updatephotos() {
-    debugger
+   
     var entity = {
       'ID': this.photoid,
       'PhotoURL': this.attachmentsurl[0]
@@ -233,22 +233,22 @@ public GetPhotos()
   
 
 public getareamasterbyid() {
-  debugger
+ 
   this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
     data => {
-      debugger
+     
       this.arealist = data;
     }, error => {
     }
   )
 }
 public GetAreaID(even) {
-  debugger
+ 
   this.areaid = even.target.value;
   for (let i = 0; i < this.arealist.length; i++) {
-    debugger
+   
     if (this.arealist[i].id == this.areaid) {
-      debugger
+     
       this.pincode = this.arealist[i].pincode
     }
   }

@@ -97,7 +97,7 @@ export class PrescriptionReportsComponent implements OnInit {
 
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.diffid = params['id']
     }
@@ -108,7 +108,7 @@ export class PrescriptionReportsComponent implements OnInit {
     else {
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.reportlist = data;
           this.dummlist = this.reportlist;
           this.count = this.reportlist.length
@@ -122,14 +122,14 @@ export class PrescriptionReportsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -138,10 +138,10 @@ export class PrescriptionReportsComponent implements OnInit {
   labels1
   totalamount: any;
   public GetReports() {
-    debugger
+   
     this.docservice.GetPatient_TextMedicineDetailsReportsWeb(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.reportlist = data;
         this.totalamount = this.reportlist.map(a => a.amountToPay).reduce(function (a, b) {
           return a + b;
@@ -154,7 +154,7 @@ export class PrescriptionReportsComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -164,7 +164,7 @@ export class PrescriptionReportsComponent implements OnInit {
     this.GetReports();
     // this.docservice.GetPatient_TextMedicineDetailsReportsWeb(this.id, s, e,this.languageid).subscribe(
     //   data => {
-    //     debugger
+    //    
     //     this.reportlist = data;
     //     this.dummlist=this.reportlist;
     //   }, error => {
@@ -187,10 +187,10 @@ export class PrescriptionReportsComponent implements OnInit {
 
   public GetMedicines(id) {
     this.myarray.length = 0;
-    debugger
+   
     this.listid = id;
     this.list = this.reportlist.filter(x => x.id == this.listid)
-    debugger
+   
     this.patientname = this.list[0].patientName,
       this.mobilernumber = this.list[0].mobileNumber
     this.address = this.list[0].address
@@ -227,7 +227,7 @@ export class PrescriptionReportsComponent implements OnInit {
       }
       this.myarray.push(medetty);
     }
-    debugger
+   
   }
 
 
@@ -235,19 +235,19 @@ export class PrescriptionReportsComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+   
     if (even.target.value == 2) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.delivered == 1);
-      debugger
+     
       this.reportlist = dfsfd;
       this.count = this.reportlist.length
 
     }
     if (even.target.value == 3) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
-      debugger
+     
       this.reportlist = dfsfd;
       this.count = this.reportlist.length
 
@@ -256,7 +256,7 @@ export class PrescriptionReportsComponent implements OnInit {
       this.GetReports();
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.reportlist = data;
           this.dummlist = this.reportlist;
           this.count = this.reportlist.length
@@ -284,7 +284,7 @@ export class PrescriptionReportsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -302,7 +302,7 @@ export class PrescriptionReportsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -317,7 +317,7 @@ export class PrescriptionReportsComponent implements OnInit {
 
 
   public SavePDF() {
-    debugger
+   
     let pdfContent = window.document.getElementById("content");
     var doc = new jsPDF('p', 'mm', "a4");
 

@@ -36,7 +36,7 @@ export class NurseFeesComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -49,7 +49,7 @@ export class NurseFeesComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.nurselist = data;
         }, error => {
         }
@@ -58,7 +58,7 @@ export class NurseFeesComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummnurse = data;
           this.nurselist = this.dummnurse.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         }, error => {
@@ -68,14 +68,14 @@ export class NurseFeesComponent implements OnInit {
   }
 
   public GetDoccommission(nursefees) {
-    debugger
+   
     this.voiladoccommission = 100 - Number(nursefees);
-    debugger
+   
   }
 
 
   public GetNurseID(even) {
-    debugger
+   
     this.nurseid = even.target.value;
 
     var list = this.nurselist.filter(x => x.nurseID == this.nurseid)
@@ -86,7 +86,7 @@ export class NurseFeesComponent implements OnInit {
   public gethospitals() {
     this.docservice.GetNurseHospitalDetailsByHospitals(this.nurseid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalist = data;
       }, error => {
       }
@@ -94,7 +94,7 @@ export class NurseFeesComponent implements OnInit {
   }
 
   public GetHospitalID(even) {
-    debugger
+   
     this.hospitalid = even.target.value;
 
     var list = this.hospitalist.filter(x => x.hospital_ClinicID == this.hospitalid)
@@ -115,7 +115,7 @@ export class NurseFeesComponent implements OnInit {
     // }
 
     else {
-      debugger
+     
       var entity = {
         'NurseID': this.nurseid,
         'NurseHospitalID': this.nursehospitalid,

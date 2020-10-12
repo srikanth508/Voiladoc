@@ -21,7 +21,7 @@ export class CompaintDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -31,7 +31,7 @@ export class CompaintDashComponent implements OnInit {
   public getcomplaintmaster() {
     this.docservice.GetCompalintMasterLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.complaints = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class CompaintDashComponent implements OnInit {
 
 
   public DeleteComplaintMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Complaint!",

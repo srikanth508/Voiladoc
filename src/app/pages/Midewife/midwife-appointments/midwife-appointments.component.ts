@@ -99,7 +99,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -110,7 +110,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public getmidwifeappointments() {
     this.docservice.GetBook_Book_Midwives_Appointment(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
       }, error => {
       }
@@ -118,10 +118,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
   }
 
   public getserverdateandtime() {
-    debugger
+   
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
-        debugger
+       
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
@@ -130,7 +130,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -143,7 +143,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public getphisyioappointments() {
     this.docservice.GetBook_Book_Midwives_Appointment(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
       }, error => {
       }
@@ -151,7 +151,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   }
 
   public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount) {
-    debugger
+   
     this.canappointmentid = id
     this.canpatientid = patientID;
     this.canemailid = emailID;
@@ -161,9 +161,9 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.walletAmount = walletAmount;
 
 
-    debugger
+   
     this.totaladdmoney = Number(this.walletAmount) + (this.paidamount)
-    debugger
+   
   }
 
 
@@ -182,7 +182,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public CancelAppointment() {
     this.docservice.UpdateBook_Midwives_AppointmentCancelledBit(this.canappointmentid).subscribe(
       data => {
-        debugger
+       
         Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
       }, error => {
       }
@@ -195,7 +195,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public updatereson() {
-    debugger
+   
     var entity = {
       'ID': this.canappointmentid,
       'ReasonForCancel': this.reason
@@ -224,7 +224,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public getfromampm(even) {
-    debugger
+   
     this.ampmtime = even.target.value;
   }
 
@@ -233,7 +233,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public acceptappointment() {
     this.docservice.UpdateBook_Midwives_AppointmentAcceptedBit(this.acceptappointmentid).subscribe(
       data => {
-        debugger
+       
 
       }, error => {
       }
@@ -242,7 +242,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   }
 
   public InsertNextAvailableSlots() {
-    debugger
+   
     var entity = {
       // 'MidWifeID': this.acceptmidwifeid,
       'AppointmentID': this.acceptappointmentid,
@@ -260,7 +260,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     })
   }
   public GetTime(even) {
-    debugger
+   
     this.time = even.target.value;
   }
 
@@ -272,7 +272,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.visiname = name;
     this.visitappointid=id;
 
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "The Patient has Visited!",
@@ -303,11 +303,11 @@ export class MidwifeAppointmentsComponent implements OnInit {
     })
 
   }
-  debugger;
+ 
 
 
   public UpdatePatientNotVisitedBit(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "The Patient has Not Visited!",
@@ -344,7 +344,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public InsertAcceptNotification() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.accpatientid,
@@ -356,7 +356,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'AppointmentID':this.acceptappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -372,7 +372,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'AppointmentID':this.acceptappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -381,14 +381,14 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   }
   public InsertNotiFicationAccepted() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.acceptname + " scheduled for " + this.accbookedtime + " has been Accepted.",
         'ToUser': this.accemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -400,7 +400,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'ToUser': this.accemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -416,7 +416,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public InsertCancelNotification() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
@@ -428,7 +428,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'AppointmentID':this.canappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -444,7 +444,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'AppointmentID':this.canappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -453,14 +453,14 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   }
   public InsertNotiFicationcancel() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -472,7 +472,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -484,7 +484,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   //visited notification
 
   public InsertVisitedNotification() {
-    debugger
+   
     if (this.languageid == '1') {
       ``
       var entity = {
@@ -497,7 +497,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'AppointmentID':this.visitappointid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
@@ -514,7 +514,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -523,14 +523,14 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   }
   public InsertNotiFicationVisited() {
-    debugger
+   
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime + " has been Visited.",
         'ToUser': this.visiemaild,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -542,7 +542,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'ToUser': this.visiemaild,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }

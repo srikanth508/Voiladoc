@@ -34,7 +34,7 @@ export class DiagdashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -43,10 +43,10 @@ export class DiagdashComponent implements OnInit {
 
 
   public getdiagnosticloginfordash() {
-    debugger
+   
     this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
       }, error => {
       }
@@ -55,7 +55,7 @@ export class DiagdashComponent implements OnInit {
   public disablediagnostic(id) {
     this.docservice.DisableSponsoredDiagnosticCenter(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
         this.getdiagnosticloginfordash();
       }, error => {
@@ -65,7 +65,7 @@ export class DiagdashComponent implements OnInit {
   public enablediagnostic(id) {
     this.docservice.EnableSponsoredDiagnosticCenter(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
         this.getdiagnosticloginfordash();
       }, error => {
@@ -73,14 +73,14 @@ export class DiagdashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
   startdate
   enddate
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
@@ -89,7 +89,7 @@ export class DiagdashComponent implements OnInit {
 
     this.docservice.GetSponsoredDiagnosticCenterForAdminByDate(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.diagnosticlist = temp;
       }, error => {

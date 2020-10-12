@@ -61,7 +61,7 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -82,7 +82,7 @@ export class AppointmentsreportComponent implements OnInit {
 
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.diffid = params['id']
     }
@@ -93,7 +93,7 @@ export class AppointmentsreportComponent implements OnInit {
     else if (this.diffid == '1') {
       this.docservice.GetCancelledAppointmentReportsForDoctorwEB(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.cancelledlist = data;
           this.dummlist = this.cancelledlist;
           this.count = this.cancelledlist.length
@@ -104,7 +104,7 @@ export class AppointmentsreportComponent implements OnInit {
     else if (this.diffid == '2') {
       this.docservice.GetCancelledAppointmentReportsForVideoAppts(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+         
           this.cancelledlist = data;
           this.dummlist = this.cancelledlist;
           this.count = this.cancelledlist.length
@@ -120,7 +120,7 @@ export class AppointmentsreportComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -130,7 +130,7 @@ export class AppointmentsreportComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -140,7 +140,7 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.cancelledlist = data;
         this.dummlist = this.cancelledlist;
         this.count = this.cancelledlist.length
@@ -151,10 +151,10 @@ export class AppointmentsreportComponent implements OnInit {
 
 
   public getcancelledappoinrtments() {
-    debugger
+   
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.cancelledlist = data;
         this.dummlist = this.cancelledlist;
         this.count = this.cancelledlist.length
@@ -169,10 +169,10 @@ export class AppointmentsreportComponent implements OnInit {
 
 
   // public getcompletedappointments() {
-  //   debugger
+  //  
   //   this.docservice.GetVisitedPatientsReports(this.doctorid,this.startdate,this.enddate).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.completedlist = data;
   //     }, error => {
   //     }
@@ -180,10 +180,10 @@ export class AppointmentsreportComponent implements OnInit {
   // }
 
   // public GetNotVisitedreport() {
-  //   debugger
+  //  
   //   this.docservice.GetNonVisitedPatientsReports(this.doctorid, this.startdate,this.enddate).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.notvisitedlist = data;
   //     }, error => {
   //     }
@@ -193,53 +193,53 @@ export class AppointmentsreportComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+   
     if (even.target.value == 1) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.isVisited == 1);
-      debugger
+     
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 2) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.noShow == 1);
-      debugger
+     
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 3) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.isVisited == '0' && x.accepted == '0' && x.cancelled == '0' && x.docCancelled == '0');
-      debugger
+     
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
 
     if (even.target.value == 4) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.accepted == '1' && x.isVisited == '0' && x.docCancelled == '0' && x.cancelled == '0' && x.noShow == '0');
-      debugger
+     
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 5) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.cancelled == '1');
-      debugger
+     
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 6) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.docCancelled == '1');
-      debugger
+     
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
 
     if (even.target.value == 0) {
-      debugger
+     
       this.getcancelledappoinrtments();
     }
 
@@ -256,7 +256,7 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -274,7 +274,7 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -291,13 +291,13 @@ export class AppointmentsreportComponent implements OnInit {
   contactdata: any;
   arrayBuffer: any;
   incomingfile(event) {
-    debugger;
+   
     this.file = event.target.files[0];
     let a = this.file.name;
     var characters = a.substr(a.length - 5);
-    debugger;
+   
     if (characters == ".xlsx") {
-      debugger
+     
       let fileReader = new FileReader();
       fileReader.onload = e => {
         this.arrayBuffer = fileReader.result;
@@ -322,18 +322,18 @@ export class AppointmentsreportComponent implements OnInit {
   public Upload_file() {
 debugger
     this.docservice.InsertDrugNameMaster(this.contactdata).subscribe(data => {
-      debugger;
+     
       if (data != undefined || data != null) {
         Swal.fire("Saved Successfully");
    
       }
     });
-    debugger;
+   
     // if (this.contactdata.length == 0) {
     //   Swal.fire("Please Upload a valid excel.");
     // } else {
     //   for (let j = 0; j < this.contactdata.length; j++) {
-    //     debugger;
+    //    
     //     var entity = {
     //       IcdCode: this.contactdata[j].IcdCode,
     //       Description: this.contactdata[j].Description,
@@ -347,7 +347,7 @@ debugger
  
 
     //     this.docservice.InsertICDCodeMaster(entity).subscribe(data => {
-    //       debugger;
+    //      
     //       if (data != undefined || data != null) {
     //         Swal.fire("Saved Successfully");
        

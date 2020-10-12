@@ -21,21 +21,21 @@ export class DoctorTipsAndTricksComponent implements OnInit {
 
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
       }
     )
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id != undefined) {
 
         this.docservice.GetDoctorTipsAndTricks(this.id).subscribe(
           data => {
-            debugger
+           
             this.tipslist = data;
             this.tipslist = this.tipslist.filter(x => x.enableDisable == 0)
           }, error => {
@@ -51,7 +51,7 @@ export class DoctorTipsAndTricksComponent implements OnInit {
   public GetTips() {
     this.docservice.GetDoctorTipsAndTricks(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.tipslist = data;
         this.tipslist = this.tipslist.filter(x => x.enableDisable == 0)
       }, error => {

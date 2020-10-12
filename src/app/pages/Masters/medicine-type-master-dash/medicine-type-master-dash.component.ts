@@ -21,17 +21,17 @@ export class MedicineTypeMasterDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public Getmedicinetypemaster() {
-    debugger
+   
     this.docservice.GetMedicineTypeMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.medicinelist = data;
       }, error => {
       }
@@ -39,7 +39,7 @@ export class MedicineTypeMasterDashComponent implements OnInit {
   }
 
   public DeleteMedicineTypeMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Medicine Type!",

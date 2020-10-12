@@ -39,7 +39,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.midwifelist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.midwifelist.length;
@@ -53,7 +53,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
   public GetMidWivesRegistration() {
     this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.midwifelist = data;
         this.dummlist = this.midwifelist
         this.count = this.midwifelist.length;
@@ -65,7 +65,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
@@ -75,7 +75,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -85,7 +85,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.workinglist = data;
         }, error => {
         }
@@ -94,7 +94,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
         data => {
-          debugger
+         
           this.dummworkinglist = data;
           this.workinglist = this.dummworkinglist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         }, error => {
@@ -107,12 +107,12 @@ export class MidwifeWorkingDashComponent implements OnInit {
   midwifeid: any;
 
   public GetmidwifeID(even) {
-    debugger
+   
     this.midwifeid = even.target.value;
 
     this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummworkinglist = data;
         this.workinglist = this.dummworkinglist.filter(x => x.midWifeID == this.midwifeid)
       }, error => {

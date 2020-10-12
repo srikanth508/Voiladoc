@@ -20,7 +20,7 @@ export class FacilityMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -37,7 +37,7 @@ export class FacilityMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -75,10 +75,10 @@ export class FacilityMasterComponent implements OnInit {
     })
   }
   public getfacilititymaster() {
-    debugger
+   
     this.docservice.GetFacilitiesMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.facilitylist = data;
         var list = this.facilitylist.filter(x => x.id == this.id)
         this.facilityname=list[0].short

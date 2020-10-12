@@ -24,7 +24,7 @@ export class SubCategoryDashComponent implements OnInit {
 
     this.docservice.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.CategoryList = temp;
       }, error => {
@@ -36,10 +36,10 @@ export class SubCategoryDashComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.GetCategorydashboard_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -52,7 +52,7 @@ export class SubCategoryDashComponent implements OnInit {
   public GetSubcategory() {
     this.docservice.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         this.SubcategoryLists = data;
         this.FilteredSubcategoryLists = this.SubcategoryLists;
       }, error => {
@@ -63,7 +63,7 @@ export class SubCategoryDashComponent implements OnInit {
 
   CategoryID: any;
   public GetCategoryID(evn) {
-    debugger;
+   
     this.CategoryID = evn.target.value;
     this.FilteredSubcategoryLists = this.SubcategoryLists.filter(x => x.categoryID == this.CategoryID);
 
@@ -74,12 +74,12 @@ export class SubCategoryDashComponent implements OnInit {
 
 
   public Edit(evn) {
-    debugger;
+   
     let ID = evn;
     this.router.navigate(['/SubCategory', evn]);
   }
   public DeleteSubcategory(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Announcement!",

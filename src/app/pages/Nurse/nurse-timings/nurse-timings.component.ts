@@ -26,7 +26,7 @@ export class NurseTimingsComponent implements OnInit {
   public hopitsllist: any
   public workingdetails: any
   ngOnInit() {
-    debugger
+   
     this.nurseid = localStorage.getItem('nurseid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getnurselist();
@@ -35,14 +35,14 @@ export class NurseTimingsComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetNurseHospitalDetailsByHospitals(this.nurseid, this.languageid,).subscribe(
       data => {
-        debugger
+       
         this.hopitsllist = data;
       }, error => {
       }
     );
     this.docservice.GetNurseHospitalDetailsWeb(this.nurseid, this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.workingdetails = data;
 
       }, error => {
@@ -54,7 +54,7 @@ export class NurseTimingsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -64,21 +64,21 @@ export class NurseTimingsComponent implements OnInit {
   public getdaysmaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dayslist = data;
       }, error => {
       }
     )
   }
   public GetDayID(even) {
-    debugger
+   
     this.dayid = even.target.value;
   }
   Timeings: any
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-        debugger
+       
         this.Timeings = data;
       }, error => {
       }
@@ -88,7 +88,7 @@ export class NurseTimingsComponent implements OnInit {
   public getnurselist() {
     this.docservice.GetNurseHospitalDetailsWeb(this.nurseid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.workinglist = data;
 
       }, error => {
@@ -97,7 +97,7 @@ export class NurseTimingsComponent implements OnInit {
   }
 
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, nsid) {
-    debugger
+   
     this.nursehospitaldetilsid = nurseHospitalDetailsID;
     this.dayid = dayID,
       this.startdatetime = startime,
@@ -106,7 +106,7 @@ export class NurseTimingsComponent implements OnInit {
   }
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'NurseHospitalDetailsID': this.nursehospitaldetilsid,
@@ -114,7 +114,7 @@ export class NurseTimingsComponent implements OnInit {
       'StartTimee': this.startdatetime,
       'EndTimee': this.enddatetime
     }
-    debugger
+   
     this.docservice.UpdateNurseWorkingDetails(entity).subscribe(data => {
       if (data != undefined) {
         Swal.fire("Updated Successfully");
@@ -126,7 +126,7 @@ export class NurseTimingsComponent implements OnInit {
 
 
   public DeleteNurseWorkingDetails(nsid, dayid) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Day Slot!",
@@ -158,7 +158,7 @@ export class NurseTimingsComponent implements OnInit {
   }
   hopitslname
   public GetHospital(even) {
-    debugger
+   
     this.hopitslname = even.target.value;
   }
 
@@ -170,7 +170,7 @@ export class NurseTimingsComponent implements OnInit {
   public DisableNurseWorking(docid) {
     this.docservice.DisableNurseWorking(docid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Nurse Working Details has been Disabled');
         this.getnurselist();
 
@@ -181,7 +181,7 @@ export class NurseTimingsComponent implements OnInit {
   public EnableNurseWorking(id) {
     this.docservice.EnableNurseWorking(id).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Nurse Working Details has has been Enabled');
         this.getnurselist();
 

@@ -34,19 +34,19 @@ export class DoctorRevComponent implements OnInit {
     this.startdate = localStorage.getItem('SDATE');
     this.enddate = localStorage.getItem('EDATE');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.id = params['id'];
 
       if (this.id == 2) {
         this.docservice.GetBookAppointmentByDoctorID(this.doctorID, this.startdate, this.enddate, this.languageid).subscribe(
           data => {
-            debugger
+           
 
             this.appointmentdummlist = data;
             this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 2 && x.isVisited == 1)
             this.GrandTotal = 0
             for (let i = 0; i < this.appointmentlist.length; i++) {
-              debugger
+             
               this.GrandTotal = this.GrandTotal + this.appointmentlist[i].paidAmount;
             }
           })
@@ -54,12 +54,12 @@ export class DoctorRevComponent implements OnInit {
       if (this.id == 1) {
         this.docservice.GetBookAppointmentByDoctorID(this.doctorID, this.startdate, this.enddate, this.languageid).subscribe(
           data => {
-            debugger
+           
             this.appointmentdummlist = data;
             this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 1 && x.isVisited == 1)
             this.GrandTotal = 0
             for (let i = 0; i < this.appointmentlist.length; i++) {
-              debugger
+             
               this.GrandTotal = this.GrandTotal + this.appointmentlist[i].paidAmount;
             }
           })
@@ -67,7 +67,7 @@ export class DoctorRevComponent implements OnInit {
     }
     )
 
-    debugger;
+   
 
     // this.gethospitaldoctorsforadmin();
     this.getdepartmentmaster();
@@ -80,7 +80,7 @@ export class DoctorRevComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.term = even.target.value;
 
   }
@@ -88,7 +88,7 @@ export class DoctorRevComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -98,10 +98,10 @@ export class DoctorRevComponent implements OnInit {
 
 
   // public gethospitaldoctorsforadmin() {
-  //   debugger
+  //  
   //   this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, '2020-01-01', '2020-12-31', this.languageid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.doctorlist = data.filter(x => x.doctorID == this.doctorID);
   //       this.GrandTotal = 0;
   //       for (let i = 0; i < this.doctorlist.length; i++) {
@@ -112,7 +112,7 @@ export class DoctorRevComponent implements OnInit {
   //   )
   // }
   public deletedoctorhosiptaldetails() {
-    debugger
+   
     this.docservice.DeleteDoctorHospitalDetails(this.hospitalid).subscribe(
       data => {
         Swal.fire("Deleted Succesfully");
@@ -122,10 +122,10 @@ export class DoctorRevComponent implements OnInit {
     )
   }
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }

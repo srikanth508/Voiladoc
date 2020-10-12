@@ -26,7 +26,7 @@ export class NurseChatComponent implements OnInit {
   public imageurl: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.pharmacyid = params['pharmacyID'];
       this.patientid = params['patientID'];
     }
@@ -35,7 +35,7 @@ export class NurseChatComponent implements OnInit {
     this.getserverdateandtime()
     this.oberserableTimer();
     this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
-      debugger;
+     
       this.chatID = res[0].chatID;
       this.getPreviousChat();
     })
@@ -61,7 +61,7 @@ export class NurseChatComponent implements OnInit {
 
   public getChat() {
     this.docservice.GetNurseChatID(this.pharmacyid, this.patientid).subscribe(res => {
-      debugger;
+     
 
       if (res.length > 0) {
         this.chatID = res[0].chatID;
@@ -74,7 +74,7 @@ export class NurseChatComponent implements OnInit {
           'PatientID': this.patientid
         }
         this.docservice.InsertNurse_ChatMaster(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             this.chatID = data;
              this.InsertChatDetails();
@@ -88,7 +88,7 @@ export class NurseChatComponent implements OnInit {
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-    debugger;
+   
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -98,7 +98,7 @@ export class NurseChatComponent implements OnInit {
         'MessageType': 1
       }
       this.docservice.InsertNurse_ChatDetails(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -117,7 +117,7 @@ export class NurseChatComponent implements OnInit {
         'MessageType': 2
       }
       this.docservice.InsertNurse_ChatDetails(entitys).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -133,7 +133,7 @@ export class NurseChatComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetPharmacy_ChatDetails(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+     
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
@@ -203,14 +203,14 @@ export class NurseChatComponent implements OnInit {
 
   // public getusertyping() {
   //   this.docservice.getChat(this.pharmacyid, this.patientid).subscribe(res => {
-  //     debugger;
+  //    
   //     let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
   //     this.istyping = isUserTyping[0].isTyping;
   //   })
   // }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -222,15 +222,15 @@ export class NurseChatComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }

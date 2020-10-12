@@ -18,7 +18,7 @@ export class FrequentlyDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -31,7 +31,7 @@ export class FrequentlyDashComponent implements OnInit {
   {
     this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.faq = data;
       }, error => {
       }
@@ -41,7 +41,7 @@ export class FrequentlyDashComponent implements OnInit {
 
   
   public DeleteFrequentlyAskedQuestions(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Item!",
@@ -73,7 +73,7 @@ export class FrequentlyDashComponent implements OnInit {
 
 
   public DisableFrequentlyAskedQuestions(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Disable This Item!",
@@ -106,7 +106,7 @@ export class FrequentlyDashComponent implements OnInit {
 
 
   public EnableFrequentlyAskedQuestions(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Enable This Item!",

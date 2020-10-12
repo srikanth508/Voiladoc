@@ -49,18 +49,18 @@ export class SickSlipGeneratorComponent implements OnInit {
     this.doctorid = localStorage.getItem('userid');
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.patientlist = data;
       }
     )
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.paramid = params['patientid']
       this.patientid = params['patientid'];
       this.doctorid = localStorage.getItem('userid');
       this.docservice.GetDoctorPatients(this.doctorid).subscribe(
         data => {
-          debugger
+         
           this.patientlist = data;
 
           this.docdd = {
@@ -86,7 +86,7 @@ export class SickSlipGeneratorComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginSickSlipGenerator_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -96,7 +96,7 @@ export class SickSlipGeneratorComponent implements OnInit {
   regno:any;
   
   public GetPatientdetails(item:any) {
-    debugger
+   
     this.patientid = item.patientID;
     let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
     this.patientname = qwerty[0].patientName;
@@ -108,7 +108,7 @@ export class SickSlipGeneratorComponent implements OnInit {
 
   }
   public getpatientdetail(pid) {
-    debugger
+   
 
     this.patientid = pid;
     let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
@@ -125,19 +125,19 @@ export class SickSlipGeneratorComponent implements OnInit {
   public  Getscholladate()
 {
    if (this.languageid == 6) {
-     debugger
+    
     if (this.leavefor == 'École') {
       this.Scholldata = 'Arrêt maladie (Ecole)'
     }
     if (this.leavefor == 'Bureau') {
-      debugger
+     
       this.Scholldata = 'Arrêt maladie (Arrêt de travail)'
     }
   }
 }
 
   public InsertSickSlipGenarator() {
-    debugger
+   
     this.description = '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + this.leavefor + ' Arrêt de travail (Arrêt maladie)</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + ' <p>Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail</p><br>' + 'Date de commencement :' + this.fromdate + 'Date de fin :' + this.todate + 'Meilleures Salutations,<br><u>Dr. ' + this.doctorname + '</u><br></p>',
       //this.description1='<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>'
       document.getElementById("qwerty").innerHTML = this.description

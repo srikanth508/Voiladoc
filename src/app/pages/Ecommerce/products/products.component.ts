@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
   public GetItemCategory() {
     this.docservice.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         this.CategoryList = data;
       }, error => {
       }
@@ -31,12 +31,12 @@ export class ProductsComponent implements OnInit {
   CategoryID;
   SubcategoryLists;
   public GetCategoryID(evn) {
-    debugger;
+   
     this.CategoryID = evn.target.value;
 
     this.docservice.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         this.SubcategoryLists = data.filter(x => x.categoryID == this.CategoryID);
       }, error => {
       }

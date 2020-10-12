@@ -21,7 +21,7 @@ export class BloodGroupMasterDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -30,7 +30,7 @@ export class BloodGroupMasterDashComponent implements OnInit {
   public getbloodgroups() {
     this.docservice.GetBloodGroupMasterWeb(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.bloodlist = data;
       }, error => {
       }
@@ -39,7 +39,7 @@ export class BloodGroupMasterDashComponent implements OnInit {
 
   
   public DeleteBloodGroupMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This BloodGroup!",

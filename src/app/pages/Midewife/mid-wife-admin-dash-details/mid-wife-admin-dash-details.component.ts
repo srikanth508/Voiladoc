@@ -32,7 +32,7 @@ export class MidWifeAdminDashDetailsComponent implements OnInit {
   ngOnInit() {
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id']
     }
@@ -51,7 +51,7 @@ this.getlanguage()
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -63,10 +63,10 @@ this.getlanguage()
 
 
   public GetAppointmentReportsList() {
-    debugger
+   
     this.docservice.GetBook_Book_Midwives_AppointmentReports(this.midwifeid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         if (this.id == 1) {
           this.appointmentreportlist = data;
           this.count = this.appointmentreportlist.length;
@@ -108,7 +108,7 @@ this.getlanguage()
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -126,7 +126,7 @@ this.getlanguage()
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

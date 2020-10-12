@@ -19,25 +19,25 @@ export class CampDashComponent implements OnInit {
   }
 
   public gethospitalclinicamp() {
-    debugger
+   
     this.docservice.GetHospital_ClinicCamp().subscribe(
       data => {
-        debugger
+       
         this.camplist = data;
       }, error => {
       }
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
   public DeletehosipitalClinicCamp(id) {
-    debugger
+   
     this.docservice.DeleteHospital_ClinicCamp(id).subscribe(
       data => {
-        debugger
+       
         this.gethospitalclinicamp();
         
        Swal.fire("Deleted Successfully");

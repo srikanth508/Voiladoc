@@ -29,10 +29,10 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
   }
   ApppageSponsrships: any
   public Getsponrshipofhomepage() {
-    debugger
+   
     this.docservice.GetAppPageSponsorship().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.ApppageSponsrships = temp;
       }, error => {
@@ -41,10 +41,10 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
   }
   PhotoUrl
   public GetPhotoUrl(id) {
-    debugger
+   
     this.docservice.GetAppPageSponsorship().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         let temp1: any = temp.filter(x => x.id == id);
         this.PhotoUrl = temp1[0].photoURL;
@@ -55,7 +55,7 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
   startdate
   enddate
   selectedDate(data) {
-    debugger
+   
     //  var sdate = data.split('-')
     //  this.startdate = sdate[0]
     //  this.enddate = sdate[1];
@@ -63,7 +63,7 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetAppPageSponsorshipByDate(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.ApppageSponsrships = temp;
       }, error => {
@@ -74,7 +74,7 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
 
 
   public DeleteServiceMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",

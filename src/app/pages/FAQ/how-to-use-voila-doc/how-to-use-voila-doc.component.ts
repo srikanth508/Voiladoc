@@ -22,21 +22,21 @@ export class HowToUseVoilaDOcComponent implements OnInit {
 
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
       }
     )
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id != undefined) {
 
         this.docservice.GetHowToUseVoilaDoc(this.id).subscribe(
           data => {
-            debugger
+           
             this.howtouselist = data;
             this.howtouselist = this.howtouselist.filter(x => x.enableDisable == 0)
           }, error => {
@@ -52,7 +52,7 @@ export class HowToUseVoilaDOcComponent implements OnInit {
   public GetHowtoUseList() {
     this.docservice.GetHowToUseVoilaDoc(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.howtouselist = data;
         this.howtouselist = this.howtouselist.filter(x => x.enableDisable == 0)
       }, error => {

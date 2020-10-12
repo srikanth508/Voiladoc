@@ -236,11 +236,18 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
+   debugger
     document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
     var countDownDate = new Date().getTime();
 
+    document.getElementById("sidbarid").style.display = "none";
+
+    document.getElementById("vidiv").classList.remove('col-lg-10');
+   document.getElementById("vidiv").classList.add("col-lg-12");
+document.getElementById("vidpagehead").style.display = "none";
+   
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -249,7 +256,7 @@ export class VediocallComponent implements OnInit {
 
       // Find the distance between now and the count down date
       var distance = now - countDownDate;
-
+      debugger
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -284,7 +291,7 @@ export class VediocallComponent implements OnInit {
 
     this.docname = localStorage.getItem('user');
 
-
+    debugger
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
     if (this.languageid == 1) {
@@ -308,7 +315,7 @@ export class VediocallComponent implements OnInit {
 
     }
     )
-
+    debugger
 
     // this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
     //   this.compltedlist = res;
@@ -366,7 +373,7 @@ export class VediocallComponent implements OnInit {
     this.pddddd = 1;
     this.pdpd = 1;
     ;
-
+    debugger
 
     let jjj = document.getElementById("Completed");
     if (jjj != null) {
@@ -378,7 +385,7 @@ export class VediocallComponent implements OnInit {
     // this.docservice.GetBooked_DoctorPatientBookedVideoConferencebyppointmentID(this.appointmentid).subscribe(
     //   data => {
     //     if (data.length > 0) {
-    //       debugger
+         
     //       config.SESSION_ID = data[0].sessionID,
     //         config.TOKEN = data[0].token
     //       this.insertvedioeconferencedetails();
@@ -394,10 +401,11 @@ export class VediocallComponent implements OnInit {
     //   }, error => {
     //   }
     // )
+    debugger
     this.opentokService.getsessionandtoken().subscribe(res => {
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-
+    
       this.insertvedioeconferencedetails();
     })
 
@@ -411,6 +419,7 @@ export class VediocallComponent implements OnInit {
   newtab() {
     window.open('www.facebook.com', '_blank');
   }
+  debugger
 
   endsession
   public getlanguage() {
@@ -435,6 +444,7 @@ export class VediocallComponent implements OnInit {
     )
 
   }
+  
 
   public insertvedioeconferencedetails() {
     var entity = {
@@ -459,7 +469,7 @@ export class VediocallComponent implements OnInit {
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
-
+            debugger
             const idx = this.streams.indexOf(event.stream);
 
             if (idx > -1) {
@@ -499,7 +509,7 @@ export class VediocallComponent implements OnInit {
           this.session.on('streamDestroyed', (event) => {
             ;
             this.stoparchive();
-
+            debugger
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
               this.streams.splice(idx, 1);
@@ -538,11 +548,6 @@ export class VediocallComponent implements OnInit {
 
     })
   }
-
-
-
-
-
 
 
 
@@ -733,6 +738,17 @@ export class VediocallComponent implements OnInit {
   allergieslist: any;
   public allergies = []
 
+  nationalidentityno:any;
+  medicalhistory:any;
+  surgeryHistory:any;
+  longtermtreatment:any;
+  vaccinationStatus:any;
+  dieteryissues:any;
+  alcohol:any;
+  Smoker:any;
+  medicalinsurence:any;
+  exercise:any;
+
   public getpatientdetails() {
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
       data => {
@@ -759,6 +775,22 @@ export class VediocallComponent implements OnInit {
           this.appointmenttypeid = this.details.appointmentTypeID,
           this.ispatientpragnent = this.details.isPatientPragnent,
           this.breastFeeding = this.details.breastFeeding,
+
+          this.nationalidentityno=this.details.nationalidno,
+          this.medicalhistory=this.details.medicalHistory,
+          this.surgeryHistory=this.details.surgeryHistory,
+          this.longtermtreatment=this.details.longtermTreatment,
+          this.vaccinationStatus=this.details.vaccinationStatus,
+          this.dieteryissues=this.details.dietaryIssues,
+          this.alcohol=this.details.alcohol,
+          this.Smoker=this.details.smoker,
+
+          this.medicalinsurence=this.details.medicalinsurance,
+       
+          this.exercise=this.details.exercise,
+
+
+
           this.allergieslist = this.details.knownAllergies.split(',')
         
         this.allergies = []
@@ -1312,14 +1344,15 @@ export class VediocallComponent implements OnInit {
     this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
       this.compltedlist = res;
       if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
-
         this.count = this.count + 1
+        
         Swal.fire('Patient Ended The Call');
+        window.close();
       }
       else {
         this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
           data => {
-
+            window.close();
           }, error => {
           }
         )
@@ -1336,17 +1369,14 @@ export class VediocallComponent implements OnInit {
       // document.getElementById('viewrecoring').style.display = 'block';
       document.getElementById('subscibre').style.display = 'none';
 
-
+      window.close();
     })
-
-
-
-
 
     this.VisitDoctorAppointmentStatus()
 
-    location.href = "#/Myappointments"
-    location.reload()
+    // location.href = "#/Myappointments"
+    // location.reload()
+   
   }
 
   public viewArchive() {
@@ -2213,6 +2243,51 @@ export class VediocallComponent implements OnInit {
     }
 
     evt.currentTarget.className += " active";
+  }
+
+
+
+  showimages:any;
+  nophoto
+
+
+
+  public GetImagesID() {
+    this.docservice.GetPatient_Illnessphotos(this.appointmentid).subscribe(
+      data => {
+
+        this.showimages = data;
+        if (this.showimages.length == 0) {
+          this.nophoto = 1
+        }
+        else if (this.showimages.length != 0) {
+          this.nophoto = 0
+        }
+
+      }, error => {
+      }
+    )
+  }
+
+  showvedioes
+  novideo
+
+  public GetVedioID() {
+
+   
+    this.docservice.GetPatient_IllnessVedioes(this.appointmentid).subscribe(
+      data => {
+
+        this.showvedioes = data;
+        if (this.showvedioes.length == 0) {
+          this.novideo = 1
+        }
+        else if (this.showvedioes.length != 0) {
+          this.novideo = 0
+        }
+      }, error => {
+      }
+    )
   }
 }
 

@@ -15,7 +15,7 @@ export class SubCategoryComponent implements OnInit {
   public SubcategoryList: any;
   public languageid: any;
   ngOnInit() {
-    debugger;
+   
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage1(this.languageid)
     this.GetItemCategory();
@@ -25,12 +25,12 @@ export class SubCategoryComponent implements OnInit {
 
       this.docservice.GetSubcategory().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.SubcategoryLists = temp.filter(x => x.subCatID == this.ID);
           this.docservice.GetItemCategory().subscribe(
             data => {
-              debugger
+             
               this.CategoryList = data;
             }, error => {
             }
@@ -49,10 +49,10 @@ export class SubCategoryComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.GetCategorydashboard_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -61,7 +61,7 @@ export class SubCategoryComponent implements OnInit {
 
   attachments = [];
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
 
@@ -75,20 +75,20 @@ export class SubCategoryComponent implements OnInit {
   attachmentsurl = [];
   showphoto = [];
   public uploadattachments() {
-    debugger;
+   
     this.docservice.ItemsPhotosUpload(this.attachments).subscribe(res => {
-      debugger;
+     
 
       for (let i = 0; i < res.length; i++) {
         this.attachmentsurl.push(res[i]);
         let a = this.attachmentsurl[0].slice(2);
-        debugger
+       
         let b = 'http://14.192.17.225' + a;
         this.showphoto.push(b)
       }
 
       this.attachments.length = 0;
-      debugger
+     
     })
 
   }
@@ -98,7 +98,7 @@ export class SubCategoryComponent implements OnInit {
   public GetItemCategory() {
     this.docservice.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         this.CategoryList = data;
       }, error => {
       }
@@ -108,7 +108,7 @@ export class SubCategoryComponent implements OnInit {
   CategoryID;
   SubcategoryLists;
   public GetCategoryID(evn) {
-    debugger;
+   
     this.CategoryID = evn.target.value;
   }
 
@@ -116,7 +116,7 @@ export class SubCategoryComponent implements OnInit {
   SubcategoryName;
   Description;
   public InsertSubcategory() {
-    debugger;
+   
     let Entity = {
       'ItemCategoryID': this.CategoryID,
       'SubacategoryName': this.SubcategoryName,
@@ -131,7 +131,7 @@ export class SubCategoryComponent implements OnInit {
     })
   }
   public UpdateSubcategory() {
-    debugger;
+   
     let Entity = {
       'ID': this.ID,
       'ItemCategoryID': this.CategoryID,

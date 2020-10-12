@@ -19,7 +19,7 @@ export class CountrtMasterComponent implements OnInit {
 
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.countryid = params['id'];
       if(this.countryid==undefined)
       {
@@ -38,7 +38,7 @@ export class CountrtMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -48,7 +48,7 @@ export class CountrtMasterComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
        var list=this.countrylist.filter(x=>x.id==this.countryid)

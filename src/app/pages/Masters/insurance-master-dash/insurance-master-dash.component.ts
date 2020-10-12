@@ -21,17 +21,17 @@ export class InsuranceMasterDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Mastersss_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public getinsurancemaster() {
-    debugger
+   
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.insurancelist = data;
    
 
@@ -42,7 +42,7 @@ export class InsuranceMasterDashComponent implements OnInit {
 
   
   public DeleteInsuranceMaster(id) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Insurance!",

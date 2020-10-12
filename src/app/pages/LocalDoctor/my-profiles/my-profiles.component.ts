@@ -48,7 +48,7 @@ export class MyProfilesComponent implements OnInit {
   public getdocdetails() {
     this.docservice.GetLocalDoctorRegistrationByDoctorID(this.docid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.details = data[0];
         this.doctorname = this.details.doctorName,
           this.phoneno = this.details.mobileNumber,
@@ -75,7 +75,7 @@ export class MyProfilesComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -85,7 +85,7 @@ export class MyProfilesComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
       }, error => {
@@ -94,16 +94,16 @@ export class MyProfilesComponent implements OnInit {
   }
 
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value
-    debugger
+   
     this.getcitymaster();
   }
 
   public getcitymaster() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
       }, error => {
@@ -112,16 +112,16 @@ export class MyProfilesComponent implements OnInit {
   }
 
   public GetCityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
       }, error => {
       }
@@ -130,12 +130,12 @@ export class MyProfilesComponent implements OnInit {
 
 
   public GetAreaID(even) {
-    debugger
+   
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }

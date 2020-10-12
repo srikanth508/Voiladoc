@@ -33,7 +33,7 @@ export class HspclidashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -41,10 +41,10 @@ export class HspclidashComponent implements OnInit {
   }
 
   public getsponserhospitalforadmin() {
-    debugger
+   
     this.docservice.GetSponsoredHospitalsForAdmin().subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
       }, error => {
       }
@@ -54,7 +54,7 @@ export class HspclidashComponent implements OnInit {
   public disablehospital(hosid) {
     this.docservice.DisableSponsoredHospitals(hosid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
         this.getsponserhospitalforadmin();
       }, error => {
@@ -64,7 +64,7 @@ export class HspclidashComponent implements OnInit {
   public enablehospital(hosid) {
     this.docservice.EnableSponsoredHospitals(hosid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
         this.getsponserhospitalforadmin();
       }, error => {
@@ -72,7 +72,7 @@ export class HspclidashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -80,7 +80,7 @@ export class HspclidashComponent implements OnInit {
   startdate
   enddate
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
@@ -89,7 +89,7 @@ export class HspclidashComponent implements OnInit {
 
     this.docservice.GetSponsoredHospitalsForAdminByDate(this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.diagnosticlist = data;
       }, error => {
       }

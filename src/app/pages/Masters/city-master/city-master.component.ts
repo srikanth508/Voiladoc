@@ -24,7 +24,7 @@ export class CityMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -43,7 +43,7 @@ export class CityMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -54,7 +54,7 @@ export class CityMasterComponent implements OnInit {
   public getprobincelist() {
     this.docservice.GetCityMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.provincelist = data;
       }, error => {
       }
@@ -66,7 +66,7 @@ export class CityMasterComponent implements OnInit {
   public getcitymasters() {
     this.docservice.GetAreaMasterByLangID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.cityslist = data;
 
         var list = this.cityslist.filter(x => x.id == this.id)
@@ -79,7 +79,7 @@ export class CityMasterComponent implements OnInit {
   }
 
   public GetProvinceID(even) {
-    debugger
+   
     this.cityid = even.target.value;
   }
 

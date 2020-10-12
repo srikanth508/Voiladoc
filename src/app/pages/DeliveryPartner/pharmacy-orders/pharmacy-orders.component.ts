@@ -89,7 +89,7 @@ export class PharmacyOrdersComponent implements OnInit {
 
     this.docservice.GetDeliveryPartnersByID(this.deliverycompanyid).subscribe(
       data => {
-        debugger
+       
         this.partnerlist = data;
       }, error => {
       }
@@ -99,7 +99,7 @@ export class PharmacyOrdersComponent implements OnInit {
     
 this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   data => {
-    debugger
+   
     this.labels2 = data;
   }, error => {
   }
@@ -110,10 +110,10 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public GetPharmacyOrders() {
-    debugger
+   
     this.docservice.GetPatient_TextMedicineDetailsForDeliverCompany(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.orderlist = data;
       }, error => {
       }
@@ -124,14 +124,14 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -139,7 +139,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   selectedDate(data) {
-    debugger
+   
 
     // var sdate = data.split('-')
     // this.startdate= sdate[0]
@@ -160,7 +160,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public asssign(pid) {
-    debugger
+   
     var entity = {
       'MedicineOrderID': this.orderid,
       'DeliveryCompanyID': this.deliverycompanyid,

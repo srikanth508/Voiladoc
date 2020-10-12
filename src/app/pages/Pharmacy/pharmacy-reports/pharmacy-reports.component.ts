@@ -77,10 +77,10 @@ export class PharmacyReportsComponent implements OnInit {
 
 
   public getdelivermedicines() {
-    debugger
+   
     this.docservice.GetReOrderMedicinesDeliveryReports(this.id, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.appointmentlist = data;
         this.dummlist=this.appointmentlist;
       }, error => {
@@ -89,13 +89,13 @@ export class PharmacyReportsComponent implements OnInit {
   }
 
   selectedDate(data){
-    debugger
+   
       var sdate=data.split('-')
       var s=sdate[0]
       var e=sdate[1]
       this.docservice.GetReOrderMedicinesDeliveryReports(this.id, s, e).subscribe(
         data => {
-          debugger
+         
           this.appointmentlist = data;
           this.dummlist=this.appointmentlist;
         }, error => {
@@ -111,25 +111,25 @@ export class PharmacyReportsComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-    debugger
+   
     if (even.target.value == 2) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.delivery == 1);
-      debugger
+     
       this.appointmentlist = dfsfd;
     
     }
     if (even.target.value == 3) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.notVisited == 1);
-      debugger
+     
       this.appointmentlist = dfsfd;
      
     }
     if (even.target.value == 4) {
-      debugger
+     
       let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
-      debugger
+     
       this.appointmentlist = dfsfd;
      
     }
@@ -151,7 +151,7 @@ export class PharmacyReportsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -169,7 +169,7 @@ export class PharmacyReportsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

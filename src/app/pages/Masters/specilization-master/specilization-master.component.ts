@@ -21,7 +21,7 @@ export class SpecilizationMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -38,7 +38,7 @@ export class SpecilizationMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -47,10 +47,10 @@ export class SpecilizationMasterComponent implements OnInit {
 
 
   public getspecilicationmaster() {
-    debugger
+   
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.specilisationlist = data;
         var list = this.specilisationlist.filter(x => x.id == this.id)
         this.specilizationanme = list[0].specilaizationName,

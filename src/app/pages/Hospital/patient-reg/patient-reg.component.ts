@@ -55,7 +55,7 @@ export class PatientRegComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
@@ -67,7 +67,7 @@ export class PatientRegComponent implements OnInit {
   public Getregisterdpatients() {
     this.docservice.GetPatientRegistration(this.startdate, this.enddate).subscribe(
       data => {
-        debugger;
+       
         this.patientslist = data;
         this.dummlist = this.patientslist
         this.count = this.patientslist.length
@@ -77,7 +77,7 @@ export class PatientRegComponent implements OnInit {
   }
 
   public deletepatient(id) {
-    debugger;
+   
     this.docservice.DeletePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Disabled Successfully");
@@ -87,7 +87,7 @@ export class PatientRegComponent implements OnInit {
     });
   }
   public Enablepatient(id) {
-    debugger;
+   
     this.docservice.EnablePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Enabled Successfully");
@@ -102,7 +102,7 @@ export class PatientRegComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -121,12 +121,12 @@ export class PatientRegComponent implements OnInit {
 
 
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -144,7 +144,7 @@ export class PatientRegComponent implements OnInit {
   }
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -153,10 +153,10 @@ export class PatientRegComponent implements OnInit {
 
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -172,12 +172,12 @@ export class PatientRegComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -187,7 +187,7 @@ export class PatientRegComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+   
     var entity = {
       'PatientName': this.patientname,
       'MobileNumber': this.mobileno,

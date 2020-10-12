@@ -126,7 +126,7 @@ export class DoctorregistrationComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
         this.search = this.labels[0].search
@@ -155,10 +155,10 @@ export class DoctorregistrationComponent implements OnInit {
 
 
   public gethosptilclinicforadmin() {
-    debugger
+   
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
         this.hospitadd = {
           singleSelection: true,
@@ -179,7 +179,7 @@ export class DoctorregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -197,12 +197,12 @@ export class DoctorregistrationComponent implements OnInit {
     )
   }
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -220,15 +220,15 @@ export class DoctorregistrationComponent implements OnInit {
   }
 
   public GetHospitalID(item: any) {
-    debugger
+   
     this.hospitalclinicid = item.id;
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -236,10 +236,10 @@ export class DoctorregistrationComponent implements OnInit {
   }
 
   public getdegreemaster() {
-    debugger
+   
     this.docservice.GetDegreeMasterBylanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.degreelist = data;
       }, error => {
       }
@@ -247,10 +247,10 @@ export class DoctorregistrationComponent implements OnInit {
   }
 
   public getspecilicationmaster() {
-    debugger
+   
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.specilisationlist = data;
 
         this.specilisatiodd = {
@@ -270,21 +270,21 @@ export class DoctorregistrationComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
   public GetDepartmentID(even) {
-    debugger
+   
     this.departmentid = even.target.value;
   }
   public GetSpecilizationID(item: any) {
-    debugger
+   
     this.specilisationid.push(item);
-    debugger
+   
   }
   public GetDegreeID(even) {
-    debugger
+   
     this.degreeid = even.target.value;
 
     for (let i = 0; i < this.degreelist.length; i++) {
@@ -294,7 +294,7 @@ export class DoctorregistrationComponent implements OnInit {
     }
   }
   public GetDoctypeID(item4: any) {
-    debugger
+   
     this.doctypeid = item4.id;
   }
 
@@ -305,12 +305,12 @@ export class DoctorregistrationComponent implements OnInit {
   }
 
   public insertdoctorregistration() {
-    debugger
+   
     // if (this.attachmentsurl1.length == 0 || this.attachmentsurl.length == 0 || this.attachmentsurl2.length == 0) {
     //   Swal.fire("Please Upload Photo")
     // }
     if (this.countryid == undefined || this.countryid.length == 0) {
-      debugger
+     
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -360,7 +360,7 @@ export class DoctorregistrationComponent implements OnInit {
         'SlotDurationID': this.slotid
       }
       this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           this.doctorid = data;
           this.insertdoctorspecilisation();
@@ -392,14 +392,14 @@ export class DoctorregistrationComponent implements OnInit {
         'DoctorID': this.doctorid
       }
       this.docservice.InsertDoctorSpecialization(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
       })
     }
   }
   public insertdoctormedicalregistration() {
-    debugger
+   
     var entity = {
       'DoctorID': this.doctorid,
       'RegistrationNo': this.registrationno,
@@ -409,7 +409,7 @@ export class DoctorregistrationComponent implements OnInit {
       'ValidTill': this.validtill.toLocaleString()
     }
     this.docservice.InsertDoctorMedicalRegistration(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
       }
     })
@@ -418,7 +418,7 @@ export class DoctorregistrationComponent implements OnInit {
 
 
   public onidUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.idproof.push(abcd.addedFiles[0]);
     this.uploadid();
@@ -429,14 +429,14 @@ export class DoctorregistrationComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
-      debugger
+     
       this.idproofurl.push(res);
       let a = this.idproofurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showidproof.push(b)
       this.idproof.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -458,7 +458,7 @@ export class DoctorregistrationComponent implements OnInit {
 
   public insertdoctoreducation() {
     for (let i = 0; i < this.qwert.length; i++) {
-      debugger
+     
       var entity = {
         'DoctorID': this.doctorid,
         'CollegeName': this.qwert[i].CollegeName,
@@ -468,7 +468,7 @@ export class DoctorregistrationComponent implements OnInit {
         'Resume': this.idproofurl[0]
       }
       this.docservice.InsertDoctorEducation(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
         }
 
@@ -484,7 +484,7 @@ export class DoctorregistrationComponent implements OnInit {
 
     }
     this.docservice.InsertDoctorExperience(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
       }
     })
@@ -497,7 +497,7 @@ export class DoctorregistrationComponent implements OnInit {
       'LanguageID': '1'
     }
     this.docservice.InsertDoctorMembership(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
       }
     })
@@ -514,13 +514,13 @@ export class DoctorregistrationComponent implements OnInit {
           'PhotoURL': this.attachmentsurl2[i]
         }
         this.docservice.InsertDoctorMedicalProofs(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
           }
         })
       }
     }
-    debugger
+   
 
   }
 
@@ -534,14 +534,14 @@ export class DoctorregistrationComponent implements OnInit {
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertDoctorIdentityProofs(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
       })
 
     }
-    debugger
+   
 
   }
 
@@ -553,7 +553,7 @@ export class DoctorregistrationComponent implements OnInit {
   dummshowsignatureurl = []
 
   public onSignaturUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.dummshowsignatureurl = []
     this.signatureattachmentssss.push(abcd.addedFiles[0]);
@@ -566,18 +566,18 @@ export class DoctorregistrationComponent implements OnInit {
 
   public DoctorSignatureUpload() {
     this.docservice.DoctorSignatureUpload(this.signatureattachmentssss).subscribe(res => {
-      debugger
+     
       this.signatureurl.push(res);
 
       this.dummshowsignatureurl.push(res);
 
       let a = this.dummshowsignatureurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showsignaturephoto.push(b)
       this.signatureattachmentssss.length = 0;
-      debugger
+     
     })
 
   }
@@ -588,7 +588,7 @@ export class DoctorregistrationComponent implements OnInit {
   identityattachmentsurlssss = []
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.identityattachmentsurlssss = []
     this.attachments.push(abcd.addedFiles[0]);
@@ -601,17 +601,17 @@ export class DoctorregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.DoctorIdentityProof(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
 
       this.identityattachmentsurlssss.push(res);
 
       let a = this.identityattachmentsurlssss[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showidentityproof.push(b)
       this.attachments.length = 0;
-      debugger
+     
 
 
     })
@@ -620,7 +620,7 @@ export class DoctorregistrationComponent implements OnInit {
 
   dummsttchmentursl = []
   public onattachmentUpload1(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.dummsttchmentursl = []
     this.attachments1.push(abcd.addedFiles[0]);
@@ -633,18 +633,18 @@ export class DoctorregistrationComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-      debugger
+     
       this.attachmentsurl1.push(res);
       this.dummsttchmentursl.push(res);
       let a = this.dummsttchmentursl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showdocphoto.push(b)
-      debugger
+     
 
       this.attachments1.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -654,7 +654,7 @@ export class DoctorregistrationComponent implements OnInit {
   identityshowphoto = []
 
   public onattachmentUpload2(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.identityshowphoto = []
     this.attachments2.push(abcd.addedFiles[0]);
@@ -666,19 +666,19 @@ export class DoctorregistrationComponent implements OnInit {
   }
   public uploadattachments2() {
     this.docservice.DoctorMedicalProof(this.attachments2).subscribe(res => {
-      debugger
+     
       this.attachmentsurl2.push(res);
       this.identityshowphoto.push(res);
-      debugger
+     
       let a = this.identityshowphoto[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.photodetail.push(b)
-      debugger
+     
 
       this.attachments2.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -700,10 +700,10 @@ export class DoctorregistrationComponent implements OnInit {
     this.registrationcouncil = '';
   }
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -719,18 +719,18 @@ export class DoctorregistrationComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
   }
   public GetGenderID(even) {
-    debugger
+   
     this.gender = even.target.value;
   }
 }

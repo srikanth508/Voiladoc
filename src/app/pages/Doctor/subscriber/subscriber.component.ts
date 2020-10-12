@@ -13,16 +13,17 @@ export class SubscriberComponent implements AfterViewInit {
   @Input() stream: OT.Stream;
   constructor() { }  
   ngAfterViewInit() {
-    const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {height:300,width:485}, (err) => {
-      debugger;
+    const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, { height:"350px",width:"441px"}, (err) => {
+     
       if (err) {
         alert(err.message);
       }
     });
     subscriber.on("streamDestroyed", function (event) {
-      debugger;
+     
       console.log("Stream stopped. Reason: ");
     });
 
   }
 }
+// height:300,width:485

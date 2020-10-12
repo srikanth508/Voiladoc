@@ -32,7 +32,7 @@ export class PharmacyoffersComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+   
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -45,7 +45,7 @@ export class PharmacyoffersComponent implements OnInit {
     }
   }
   public insertdetails() {
-    debugger
+   
     var entity = {
       'PharmacyID': this.pharmacyid,
       'OfferName': this.offername,
@@ -55,7 +55,7 @@ export class PharmacyoffersComponent implements OnInit {
       'Offer': this.offer
     }
     this.docservice.InsertPharmacyOffers(entity).subscribe(data => {
-      debugger
+     
       if (data != 0) {
         this.offerid = data;
         for (let i = 0; i < this.attachmentsurl.length; i++) {
@@ -65,7 +65,7 @@ export class PharmacyoffersComponent implements OnInit {
             'PhotoURL': this.attachmentsurl[i]
           }
           this.docservice.InsertPharmacyOfferPhotos(entity).subscribe(data => {
-            debugger
+           
             if (data != 0) {
               Swal.fire('Added Successfully.');
 
@@ -81,7 +81,7 @@ export class PharmacyoffersComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -89,7 +89,7 @@ export class PharmacyoffersComponent implements OnInit {
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -101,10 +101,10 @@ export class PharmacyoffersComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.AttachmentsUpload(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }

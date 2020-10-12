@@ -24,7 +24,7 @@ export class ServiceMasterComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -44,7 +44,7 @@ export class ServiceMasterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -52,22 +52,22 @@ export class ServiceMasterComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
     )
   }
   public GetDepartmentID(even) {
-    debugger
+   
     this.departmentid = even.target.value;
   }
   servicetypeid
   public GetServicetypeID(even) {
-    debugger
+   
     this.servicetypeid = even.target.value;
   }
   
@@ -75,7 +75,7 @@ export class ServiceMasterComponent implements OnInit {
   public GetServicemaster() {
     this.docservice.GetServiceMasterWeb(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.servicelist = data;
         var list = this.servicelist.filter(x => x.id == this.id)
         this.departmentid = list[0].departmentID,
@@ -117,7 +117,7 @@ export class ServiceMasterComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'DepartmentID': this.departmentid,

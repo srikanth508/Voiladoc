@@ -30,7 +30,7 @@ export class RevenueDetailsComponent implements OnInit {
     this.edate = localStorage.getItem('EndDate');
     this.hospitalid = localStorage.getItem('hospitalid');
     this.activatedroute.params.subscribe(params => {
-      debugger
+     
       this.id = params['id']
     }
     )
@@ -40,10 +40,10 @@ export class RevenueDetailsComponent implements OnInit {
     this.getdepartmentmaster();
 
     if (this.id == '1') {
-      debugger
+     
       this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 1)
           this.count = this.cancelledlist.length; 
@@ -52,10 +52,10 @@ export class RevenueDetailsComponent implements OnInit {
       )
     }
     else if (this.id == '2') {
-      debugger
+     
       this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 1)
           this.count = this.cancelledlist.length
@@ -64,10 +64,10 @@ export class RevenueDetailsComponent implements OnInit {
       )
     }
     else if (this.id == '3') {
-      debugger
+     
       this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2)
           this.count = this.cancelledlist.length
@@ -76,10 +76,10 @@ export class RevenueDetailsComponent implements OnInit {
       )
     }
     else if (this.id == '4') {
-      debugger
+     
       this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2)
           this.count = this.cancelledlist.length
@@ -90,10 +90,10 @@ export class RevenueDetailsComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -105,7 +105,7 @@ export class RevenueDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }

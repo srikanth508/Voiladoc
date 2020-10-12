@@ -33,7 +33,7 @@ export class DoctorsComponent implements OnInit {
 
   
   public GetDepartmentID(even) {
-    debugger
+   
     if (even.target.value != 0) {
       this.term = even.target.value;
       this.doctorlist = this.dummlist.filter(x => x.departmentname == this.term)
@@ -48,17 +48,17 @@ export class DoctorsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
     )
   }
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
         this.dummlist = data;
         this.count = this.doctorlist.length;
@@ -67,7 +67,7 @@ export class DoctorsComponent implements OnInit {
     )
   }
   public deletedoctorhosiptaldetails() {
-    debugger
+   
     this.docservice.DeleteDoctorHospitalDetails(this.hospitalid).subscribe(
       data => {
         Swal.fire("Deleted Succesfully");
@@ -77,10 +77,10 @@ export class DoctorsComponent implements OnInit {
     )
   }
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }

@@ -83,10 +83,10 @@ export class PhysioAdminDashComponent implements OnInit {
   }
 
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -97,7 +97,7 @@ export class PhysioAdminDashComponent implements OnInit {
   public getphysiolist() {
     this.docservice.GetBook_Physio_Appointment(this.physioid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentist = data;
         this.count = this.appointmentist.length;
 
@@ -128,7 +128,7 @@ export class PhysioAdminDashComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger;
+   
     // var sdate = data.split("-");
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];

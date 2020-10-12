@@ -75,7 +75,7 @@ export class HospitalDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -83,10 +83,10 @@ export class HospitalDashboardComponent implements OnInit {
     )
   }
   public getbookappointmentbyhospitalbyhospitalid() {
-    debugger
+   
     this.docservice.GetDoctorsByHospitalClicniID(this.hospitalid, this.languageid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.detailslist = data;
         this.dummlist = this.detailslist;
       }, error => {
@@ -94,7 +94,7 @@ export class HospitalDashboardComponent implements OnInit {
     )
   }
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -104,17 +104,17 @@ export class HospitalDashboardComponent implements OnInit {
   }
 
   public GetDoctorID(docid) {
-    debugger
+   
     this.reportdoctorid = docid;
     localStorage.setItem('Reportdocid', this.reportdoctorid);
     localStorage.setItem('startdate', this.startdate)
     localStorage.setItem('enddate', this.enddate)
   }
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
       }, error => {
       }
@@ -122,10 +122,10 @@ export class HospitalDashboardComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -133,7 +133,7 @@ export class HospitalDashboardComponent implements OnInit {
   }
   public GetDoctorName(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.doctorname = even.target.value;
       this.detailslist = this.dummlist.filter(x => x.doctorName == this.doctorname)
     }
@@ -145,7 +145,7 @@ export class HospitalDashboardComponent implements OnInit {
 
   public GetDepartmentName(even) {
     if (even.target.value != 0) {
-      debugger
+     
       this.deptname = even.target.value;
       this.detailslist = this.dummlist.filter(x => x.departmentname == this.deptname)
     }

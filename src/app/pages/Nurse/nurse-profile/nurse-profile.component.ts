@@ -53,7 +53,7 @@ this.id=localStorage.getItem('nurseid');
 
     this.docservice.GetNurseRegistrationByIDAndLanguageID(this.id,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.nursedetails = data;
         this.name = this.nursedetails[0].nurseName;
         this.phno = this.nursedetails[0].phoneNo;
@@ -78,7 +78,7 @@ this.id=localStorage.getItem('nurseid');
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -94,7 +94,7 @@ this.id=localStorage.getItem('nurseid');
   {
     this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -105,14 +105,14 @@ this.id=localStorage.getItem('nurseid');
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.deptid = even.target.value;
   }
 
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
      
       }, error => {
@@ -120,7 +120,7 @@ this.id=localStorage.getItem('nurseid');
     )
   }
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
     this.getcitymasterbyid()
 
@@ -128,7 +128,7 @@ this.id=localStorage.getItem('nurseid');
   public getcitymasterbyid() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
       }, error => {
@@ -136,16 +136,16 @@ this.id=localStorage.getItem('nurseid');
     )
   }
   public GetCityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
        
       }, error => {
@@ -154,12 +154,12 @@ this.id=localStorage.getItem('nurseid');
   }
 
   public GetAreaID(even) {
-    debugger
+   
     this.areaid =even.target.value;;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -167,7 +167,7 @@ this.id=localStorage.getItem('nurseid');
 
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'LanguageID':this.languageid,
       'ID':this.id,
@@ -185,7 +185,7 @@ this.id=localStorage.getItem('nurseid');
       'Pincode': this.pincode,
       'CountryID': this.countryid
     }
-    debugger
+   
     this.docservice.UpdateNurseRegistration(entity).subscribe(data=>{
       if(data!=undefined)
       {

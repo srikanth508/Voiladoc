@@ -81,7 +81,7 @@ export class AppointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
@@ -91,10 +91,10 @@ export class AppointmentsComponent implements OnInit {
 
 
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data;
       }, error => {
       }
@@ -104,7 +104,7 @@ export class AppointmentsComponent implements OnInit {
   public GetDoctorName(even) {
 
     if (even.target.value != 0) {
-      debugger
+     
       this.doctorname = even.target.value;
       this.appointmentlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
       this.count = this.appointmentlist.length;
@@ -116,10 +116,10 @@ export class AppointmentsComponent implements OnInit {
 
 
   public getbookappointmentbyhospitalbyhospitalid() {
-    debugger
+   
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.appointmentlist = data;
         this.dummlist = this.appointmentlist;
         this.count = this.appointmentlist.length;
@@ -129,7 +129,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -141,19 +141,19 @@ export class AppointmentsComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
     )
   }
   public GetDepartmentName(even) {
-    debugger
+   
     if (even.target.value != 0) {
-      debugger
+     
       this.term = even.target.value;
       this.appointmentlist = this.dummlist.filter(x => x.departmentname == this.term)
       this.count = this.appointmentlist.length;
@@ -163,7 +163,7 @@ export class AppointmentsComponent implements OnInit {
     }
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }
@@ -172,7 +172,7 @@ export class AppointmentsComponent implements OnInit {
 
   ReasonForCancel: any;
   public cancelappoinement(id,res) {
-    debugger;
+   
     if (res != null) {
       Swal.fire({
         title: 'Are you sure?',

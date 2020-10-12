@@ -26,7 +26,7 @@ export class HspdashComponent implements OnInit {
   {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -36,7 +36,7 @@ export class HspdashComponent implements OnInit {
   public gethospitalclinicfordash() {
     this.docservice.GetHospital_ClinicLoginForDash(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hsopitalloginlist = data;
       }, error => {
       }
@@ -47,7 +47,7 @@ export class HspdashComponent implements OnInit {
     this.docservice.DisableHospital_ClinicLogin(id).subscribe(
       data => {
         
-        debugger
+       
         Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
         this.gethospitalclinicfordash();
       }, error => {
@@ -57,7 +57,7 @@ export class HspdashComponent implements OnInit {
   public enablehospital(hosid) {
     this.docservice.EnableHospital_ClinicLogin(hosid).subscribe(
       data => {
-        debugger
+       
         Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
         this.gethospitalclinicfordash();
       }, error => {
@@ -65,7 +65,7 @@ export class HspdashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-    debugger
+   
     let fgdgfgd = even;
     this.p = even;
   }

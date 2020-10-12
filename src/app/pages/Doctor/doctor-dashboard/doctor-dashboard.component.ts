@@ -59,7 +59,7 @@ export class DoctorDashboardComponent implements OnInit {
 
   labels3: any
   ngOnInit() {
-    debugger;
+   
     this.hospitalid = localStorage.getItem('hospitalClinicID');
 
     this.doctorID = localStorage.getItem('userid');
@@ -81,7 +81,7 @@ export class DoctorDashboardComponent implements OnInit {
       outputFormat: "YYYY/MM/DD",
       startOfWeek: 1
     };
-    debugger;
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -106,7 +106,7 @@ export class DoctorDashboardComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels3 = data;
       }, error => {
       }
@@ -120,10 +120,10 @@ export class DoctorDashboardComponent implements OnInit {
     this.gethospitaldoctorsforadmin()
   }
   public getlanguage() {
-    debugger
+   
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -135,7 +135,7 @@ export class DoctorDashboardComponent implements OnInit {
   public getlanguage1() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
       },
       error => { }
@@ -146,7 +146,7 @@ export class DoctorDashboardComponent implements OnInit {
   // public GetInclinicCommissionCount() {
   //   this.docservice.GetDoctorCommissionFeesByAdminRevenueByInclinRevenueByDocID(this.startdate, this.enddate, this.doctorid).subscribe(
   //     data => {
-  //       debugger
+  //      
   //       this.inclinicount = data;
   //     }, error => {
   //     }
@@ -157,10 +157,10 @@ export class DoctorDashboardComponent implements OnInit {
   GrandTotal: any;
   doctorlist: any;
   public gethospitaldoctorsforadmin() {
-    debugger
+   
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, '2020-01-01', '2020-12-31', this.languageid).subscribe(
       data => {
-        debugger
+       
         this.doctorlist = data.filter(x => x.doctorID == this.doctorID);
         this.GrandTotal = 0;
         for (let i = 0; i < this.doctorlist.length; i++) {
@@ -176,7 +176,7 @@ export class DoctorDashboardComponent implements OnInit {
   public GetVideoAllCommsiionRevenue() {
     this.docservice.GetDoctorCommissionFeesByAdminRevenueByVedoevenueByDocID(this.startdate, this.enddate, this.doctorid).subscribe(
       data => {
-        debugger
+       
         this.vediocountcommision = data;
       }, error => {
       }
@@ -185,12 +185,12 @@ export class DoctorDashboardComponent implements OnInit {
 
 
   public GetAppointmetbyDociD() {
-    debugger;
+   
     this.docservice
       .GetBookAppointmentByDocID(this.startdate, this.enddate, this.doctorid, this.languageid)
       .subscribe(
         data => {
-          debugger;
+         
           this.appointmentlist = data;
           this.finallist = data;
           this.count = this.appointmentlist.length;
@@ -209,13 +209,13 @@ export class DoctorDashboardComponent implements OnInit {
           this.pendinglist = this.finallist;
           this.pendinglistt = this.pendinglist.filter(x => x.isVisited == 0 && x.accepted == 0 && x.cancelled == 0 && x.docCancelled == 0 && x.noShow == 0)
           this.pendingcount = this.pendinglistt.length;
-          debugger
+         
           this.cliniclist = this.finallist;
-          debugger
+         
           this.cliniclistttt = this.cliniclist.filter(x => x.appointmentTypeID == 1)
           this.cliniccount = this.cliniclistttt.length;
           this.videoapplist = this.finallist;
-          debugger
+         
           this.videoapplistt = this.videoapplist.filter(x => x.appointmentTypeID == 2)
           this.videoappcount = this.videoapplistt.length;
 
@@ -237,10 +237,10 @@ export class DoctorDashboardComponent implements OnInit {
 
 
   public GetDoctorRefereals() {
-    debugger
+   
     this.docservice.GetDoctorReferalsCount(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.refereallist = data[0];
         this.receivedreferlcount = this.refereallist.receiveedReferelas,
           this.sentrefereralscount = this.refereallist.sendrefererals
@@ -250,7 +250,7 @@ export class DoctorDashboardComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger;
+   
     // var sdate = data.split("-");
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];

@@ -68,9 +68,9 @@ export class ProfilesComponent implements OnInit {
   public getdiagnosticdetailsforadmin() {
     this.docservice.GetDiagnosticDetailsForAdminByLanguageID(this.id,this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.details = data[0];
-        debugger;
+       
         this.diagnosticcentername = this.details.diagnosticCenterName,
           this.phno = this.details.phoneNo,
           this.contactperson = this.details.contactPerson,
@@ -100,7 +100,7 @@ export class ProfilesComponent implements OnInit {
   {
     this.docservice.GetAdmin_DiagnosticRegistration_LabelBYLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -112,7 +112,7 @@ export class ProfilesComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
 
 
@@ -122,7 +122,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   public GetCountryID(even) {
-    debugger
+   
     this.countryid = even.target.value;
     this.getcitymaster()
   }
@@ -130,19 +130,19 @@ export class ProfilesComponent implements OnInit {
   public getcitymaster() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
       }, error => {
       }
     )
   }
   public GetcityID(even) {
-    debugger
+   
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
   public updatedetails() {
-    debugger
+   
     var entity = {
       'LanguageID':this.languageid,
       'DiagnosticCenterID': this.id,
@@ -171,46 +171,52 @@ export class ProfilesComponent implements OnInit {
   }
 
   public GetDiagnosticPhotos() {
-    debugger
+   
     this.docservice.GetDiagnosticCenterPhotosByID(this.id).subscribe(
       data => {
-        debugger
+       
         this.photoslist = data;
       }, error => {
       }
     )
   }
   public GetDiagphotoId(diaid) {
-    debugger
+   
     this.diaphotoid = diaid;
     this.diabit = 1;
   }
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
   }
 
   public uploadattachments() {
     this.docservice.DiagnosticPhotos(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
   public UpdateDiaPhotos() {
-    debugger
+   
     var entity = {
       'ID': this.diaphotoid,
       'PhotoURL': this.attachmentsurl[0],
@@ -218,30 +224,42 @@ export class ProfilesComponent implements OnInit {
     this.docservice.UpdateDiagnosticCenterPhotos(entity).subscribe(res => {
       let test = res;
       this.GetDiagnosticPhotos();
-      Swal.fire(' Updated Successfully');
-      this.diabit = 0;
+
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+      
+        this.diabit = 0;
       this.showphoto.length = 0
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succés');
+      
+        this.diabit = 0;
+      this.showphoto.length = 0
+      }
+     
+    
     })
 
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
       }, error => {
       }
     )
   }
   public GetAreaID(even) {
-    debugger
+   
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }

@@ -28,14 +28,14 @@ export class HowToUseDocComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
       }
     )
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -56,7 +56,7 @@ export class HowToUseDocComponent implements OnInit {
   public GetHowtoUseList() {
     this.docservice.GetHowToUseDoctorsWeb(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.howtouselist = data;
         var list = this.howtouselist.filter(x => x.id == this.id)
         this.screenshotname = list[0].screenShotName,
@@ -69,7 +69,7 @@ export class HowToUseDocComponent implements OnInit {
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -81,15 +81,15 @@ export class HowToUseDocComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.HowToUsePhoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -119,7 +119,7 @@ export class HowToUseDocComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'ScreenShotName': this.screenshotname,

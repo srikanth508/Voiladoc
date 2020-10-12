@@ -63,7 +63,7 @@ export class PhysiotherapistComponent implements OnInit {
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.dummdepartmentlist = data;
         this.departmentlist = this.dummdepartmentlist.filter(x => x.id == 7)
       }, error => {
@@ -72,7 +72,7 @@ export class PhysiotherapistComponent implements OnInit {
 
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.specilisationlist = data;
 
         this.specilisatiodd = {
@@ -91,7 +91,7 @@ export class PhysiotherapistComponent implements OnInit {
 
     this.docservice.GetServiceMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.servicelist = temp.filter(x => x.typeID == 3);
         this.servicedd = {
@@ -124,7 +124,7 @@ export class PhysiotherapistComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistRegistration_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -133,10 +133,10 @@ export class PhysiotherapistComponent implements OnInit {
   }
   SelectLabel
   public gethosptilclinicforadmin() {
-    debugger
+   
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.hospitalcliniclist = data;
         this.hospitadd = {
           singleSelection: true,
@@ -154,14 +154,14 @@ export class PhysiotherapistComponent implements OnInit {
 
 
   public GetHospitalID(item: any) {
-    debugger
+   
     this.hospitalclinicid = item.id;
   }
 
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -177,12 +177,12 @@ export class PhysiotherapistComponent implements OnInit {
     )
   }
   public GetCountryID(item: any) {
-    debugger
+   
     this.countryid = item.id;
-    debugger
+   
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.citylist = data;
 
         this.citydd = {
@@ -201,19 +201,19 @@ export class PhysiotherapistComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-    debugger
+   
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
 
 
   public GetDepartmentID(even) {
-    debugger
+   
     this.deptid = even.target.value;
   }
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -225,33 +225,33 @@ export class PhysiotherapistComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
 
   public GetSpecilizationID(item: any) {
-    debugger
+   
     this.specilisationid.push(item);
-    debugger
+   
   }
 
   public GetServiceID(item: any) {
-    debugger
+   
     this.serviceid.push(item);
-    debugger
+   
   }
 
   public onidUpload(abcd) {
-    debugger
+   
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
@@ -262,23 +262,23 @@ export class PhysiotherapistComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
-      debugger
+     
       this.idproofurl.push(res);
       let a = this.idproofurl[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
       this.showidproof.push(b)
       this.idproof.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
 
   public getareamasterbyid() {
-    debugger
+   
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -295,12 +295,12 @@ export class PhysiotherapistComponent implements OnInit {
   }
 
   public GetAreaID(item3: any) {
-    debugger
+   
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-      debugger
+     
       if (this.arealist[i].id == this.areaid) {
-        debugger
+       
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -329,7 +329,7 @@ export class PhysiotherapistComponent implements OnInit {
       'SpokenLanguages': this.spokenlanguages
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
-      debugger
+     
 
       let physioid = data;
 

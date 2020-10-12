@@ -122,7 +122,7 @@ export class SentrefferalsComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -141,7 +141,7 @@ export class SentrefferalsComponent implements OnInit {
 
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels1 = data;
       }, error => {
       }
@@ -156,7 +156,7 @@ export class SentrefferalsComponent implements OnInit {
   public getkang() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels4 = data;
       }, error => {
       }
@@ -165,7 +165,7 @@ export class SentrefferalsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -175,7 +175,7 @@ export class SentrefferalsComponent implements OnInit {
   public GetDoctorRefererals() {
     this.docservice.GetDoctorReferals(this.doctorid, 1,this.startdate,this.enddate).subscribe(
       data => {
-        debugger;
+       
         let temp: any = data
         this.docreferels = temp.filter(x => x.assignDoctorID == this.doctorid && x.languageID == this.languageid);
       },
@@ -193,12 +193,12 @@ export class SentrefferalsComponent implements OnInit {
   appointmentID
   patientID
   public GetAppointmentID(doc) {
-    debugger
+   
     this.appointmentID = doc.appointmentID;
     this.patientID = doc.patientID
     this.docservice.GetDoctorReferalAttachments(this.appointmentID).subscribe(
       data => {
-        debugger;
+       
         this.attachments = data;
       },
       error => { }
@@ -206,7 +206,7 @@ export class SentrefferalsComponent implements OnInit {
   }
 
   public GetSickSlipID() {
-    debugger
+   
 
 
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
@@ -232,14 +232,14 @@ export class SentrefferalsComponent implements OnInit {
   }
 
   public GetPdf(attchments) {
-    debugger
+   
     document.getElementById('closeview').click();
     window.open(attchments, '_blank');
   }
 
 
   public UpdateDoctorReferalsCompletedBit(id) {
-    debugger;
+   
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -303,14 +303,14 @@ export class SentrefferalsComponent implements OnInit {
 
 
   public UpdateRefferalLetter() {
-    debugger
+   
 
     var entity = {
       'ID': this.appointmentid,
       'ReferalNotes': this.referalnotes
     }
     this.docservice.UpdateDoctorReferals(entity).subscribe(data => {
-      debugger;
+     
 
       if (this.languageid == 1) {
         document.getElementById('close').click();
@@ -333,7 +333,7 @@ export class SentrefferalsComponent implements OnInit {
 
     
   selectedDate(data) {
-    debugger
+   
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -345,15 +345,15 @@ export class SentrefferalsComponent implements OnInit {
 
 
   public GetSopaNotesID(id) {
-    debugger
+   
     this.id = id;
     this.GetSoapNotesByID();
   }
   public GetSoapNotesByID() {
-    debugger
+   
     this.docservice.GetSoapNotesByPatientRefereal(this.id, this.languageid).subscribe(
       data => {
-        debugger
+       
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist == undefined || this.soaplist.length == 0) {
           this.subjective = "";
@@ -401,7 +401,7 @@ export class SentrefferalsComponent implements OnInit {
 
 
   public Deletefile(id) {
-    debugger;
+   
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -459,7 +459,7 @@ export class SentrefferalsComponent implements OnInit {
   public attachments1 = [];
   public attachmentsurl1 = [];
   public onattachmentUpload1(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments1.push(abcd[i]);
       this.uploadattachments1();
@@ -470,17 +470,17 @@ export class SentrefferalsComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-      debugger
+     
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+     
       let b = 'http://14.192.17.225' + a;
 
       // this.showdocphoto.push(b)
-      debugger
+     
 
       this.attachments1.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }
@@ -492,14 +492,14 @@ export class SentrefferalsComponent implements OnInit {
         'AttachmentUrl': this.attachmentsurl1[i],
       }
       this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
           document.getElementById('closeview').click();
           Swal.fire('Uploaded Successfully');
         }
       })
     }
-    debugger
+   
   }
 
 

@@ -40,7 +40,7 @@ export class PatientChatComponent implements OnInit {
   ngOnInit() {
 
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
       this.doctorid = params['docid'];
       this.patientiddd = params['patid'];
 
@@ -54,7 +54,7 @@ export class PatientChatComponent implements OnInit {
     // this.appointmentiddd = localStorage.getItem('appointmentID');
    
     this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
+     
       this.chatID = res;
       this.getPreviousChat();
       this.oberserableTimer();
@@ -81,7 +81,7 @@ export class PatientChatComponent implements OnInit {
   }
 
   public GetDetails() {
-    debugger
+   
     this.docservice.GetBookAppointmentDetailsByID(this.appointmentiddd, this.doctorid, this.patientiddd).subscribe(
       data => {
         this.details = data[0];
@@ -100,7 +100,7 @@ export class PatientChatComponent implements OnInit {
 
   public getChat() {
     this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
+     
 
       if (res.length > 0) {
         this.chatID = res;
@@ -112,7 +112,7 @@ export class PatientChatComponent implements OnInit {
           'PatientID': this.patientiddd
         }
         this.docservice.InsertChatMaster(entity).subscribe(data => {
-          debugger
+         
           if (data != 0) {
             this.chatID = data;
             this.InsertChatDetails();
@@ -124,7 +124,7 @@ export class PatientChatComponent implements OnInit {
 
   public InsertChatDetails() {
     let conversation = '[pat:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-    debugger;
+   
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -134,7 +134,7 @@ export class PatientChatComponent implements OnInit {
         'MessageType': 1
       }
       this.docservice.InsertChatDetails(entity).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -153,7 +153,7 @@ export class PatientChatComponent implements OnInit {
         'MessageType': 2
       }
       this.docservice.InsertChatDetails(entitys).subscribe(data => {
-        debugger
+       
         if (data != 0) {
 
         }
@@ -176,7 +176,7 @@ export class PatientChatComponent implements OnInit {
   //     'ChatConversation': conversation,
   //   }
   //   this.docservice.UpdateDoctor_PatientChat(entity).subscribe(res => {
-  //     debugger;
+  //    
   //     let ttt = res;
   //     this.chatconversation = "";
   //     this.getPreviousChat();
@@ -187,7 +187,7 @@ export class PatientChatComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetChatDetails(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+     
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
@@ -261,7 +261,7 @@ export class PatientChatComponent implements OnInit {
 
   public getusertyping() {
     this.docservice.getChat(this.doctorid, this.patientiddd).subscribe(res => {
-      debugger;
+     
       let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
       this.istyping = isUserTyping[0].isTyping;
       var objDiv = document.getElementById("chatboxdiv");
@@ -271,7 +271,7 @@ export class PatientChatComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-    debugger
+   
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -283,15 +283,15 @@ export class PatientChatComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+     
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      debugger
+     
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
-      debugger
+     
     })
     // this.sendattachment();
   }

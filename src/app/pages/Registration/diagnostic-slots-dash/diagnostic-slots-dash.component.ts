@@ -70,7 +70,9 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   public daysdd = {}
   public dayid: any;
   public term: any;
+  SelectLabel:any;
   // public dayid = []
+  search:any;
 
 
   ngOnInit() {
@@ -79,15 +81,19 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
+     
+
       }, error => {
       }
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels1 = data;
+        this.SelectLabel= this.labels1[0].select;
+        this.search = this.labels[0].search;
       },
       error => { }
     );
@@ -104,7 +110,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     if (this.diagnosticid != undefined) {
       this.docservice.GetDiagnosticRelatedSlotsStartTimeEndTime(this.languageid).subscribe(
         data => {
-          debugger;
+         
           this.dummworkingdetails = data;
           this.Workingdetails = this.dummworkingdetails.filter(x => x.diagnosticCenterID == this.diagnosticid)
         },
@@ -114,7 +120,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     else {
       this.docservice.GetDiagnosticRelatedSlotsStartTimeEndTime(this.languageid).subscribe(
         data => {
-          debugger;
+         
           this.Workingdetails = data;
         },
         error => { }
@@ -136,10 +142,10 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public GetdicgnosticMasterSlotByID() {
-    debugger
+   
     this.docservice.GetDiagnosticSlotMasterByTimeID(1).subscribe(
       data => {
-        debugger
+       
         this.slotslist = data;
         this.slotsdd = {
           singleSelection: false,
@@ -148,17 +154,19 @@ export class DiagnosticSlotsDashComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
   }
   public GetdicgnosticAfternoonSlotsMaster() {
-    debugger
+   
     this.docservice.GetDiagnosticSlotMasterByTimeID(2).subscribe(
       data => {
-        debugger
+       
         this.slotslist1 = data;
         this.slotsdd1 = {
           singleSelection: false,
@@ -167,17 +175,19 @@ export class DiagnosticSlotsDashComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
   }
   public GetDiagnosticEveningSlotsMaster() {
-    debugger
+   
     this.docservice.GetDiagnosticSlotMasterByTimeID(3).subscribe(
       data => {
-        debugger
+       
         this.slotslist2 = data;
         this.slotsdd2 = {
           singleSelection: false,
@@ -186,7 +196,9 @@ export class DiagnosticSlotsDashComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -195,7 +207,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   public GetDiagnosticNightSlotsMaster() {
     this.docservice.GetDiagnosticSlotMasterByTimeID(4).subscribe(
       data => {
-        debugger
+       
         this.slotslist3 = data;
         this.slotsdd3 = {
           singleSelection: false,
@@ -204,7 +216,9 @@ export class DiagnosticSlotsDashComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -217,7 +231,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   dis2
 
   public GetMrngSlotsID(item: any) {
-    debugger
+   
     this.mrngslots.push(item);
 
     if (this.mrngslots.length == 2) {
@@ -226,21 +240,21 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
   }
   public GetAfternoonSlotsID(item1: any) {
-    debugger
+   
     this.afternoonslots.push(item1);
     if (this.afternoonslots.length == 2) {
       this.dis2 = 1;
     }
   }
   public GetEvngSlotsID(item2) {
-    debugger
+   
     this.evngslots.push(item2);
     if (this.evngslots.length == 2) {
       this.dis3 = 1;
     }
   }
   public GetNightSlotsID(item3: any) {
-    debugger
+   
     this.nightslots.push(item3);
     if (this.evngslots.length == 2) {
       this.dis4 = 1;
@@ -254,49 +268,49 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+   
     for (let i = 0; i < this.mrngslots.length; i++) {
       this.mrngslotarray.push(this.mrngslots[i].slotName)
-      debugger
+     
       this.mrngslotarrayid.push(this.mrngslots[i].id)
     }
-    debugger
+   
     this.slotname = this.mrngslotarray;
     this.mrng = this.slotname.join(' to ')
     this.slotnameid = this.mrngslotarrayid;
     this.mrngid = this.slotnameid.join(',')
 
-    debugger
+   
     for (let i = 0; i < this.afternoonslots.length; i++) {
       this.afternoonslotarray.push(this.afternoonslots[i].slotName)
-      debugger
+     
       this.afternoonslotarrayid.push(this.afternoonslots[i].id)
     }
-    debugger
+   
     this.slotname1 = this.afternoonslotarray;
     this.afternoon = this.slotname1.join(' to ')
     this.slotnameid1 = this.afternoonslotarrayid;
     this.afternoonid = this.slotnameid1.join(',')
 
-    debugger
+   
     for (let i = 0; i < this.evngslots.length; i++) {
       this.evngslotarray.push(this.evngslots[i].slotName)
-      debugger
+     
       this.evngslotarrayid.push(this.evngslots[i].id)
     }
-    debugger
+   
     this.slotname2 = this.evngslotarray;
     this.evng = this.slotname2.join(' to ')
     this.slotnameid12 = this.evngslotarrayid;
     this.evngid = this.slotnameid12.join(',')
 
-    debugger
+   
     for (let i = 0; i < this.nightslots.length; i++) {
       this.nightslotarray.push(this.nightslots[i].slotName)
-      debugger
+     
       this.nightslotarrayid.push(this.nightslots[i].id)
     }
-    debugger
+   
     this.slotname3 = this.nightslotarray;
     this.night = this.slotname3.join(' to ')
     this.slotnameid13 = this.nightslotarrayid;
@@ -305,7 +319,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
     this.docservice.DeleteDiagnosticRelatedSlotsStartTimeEndTime(this.diagnosticid, this.dayid, this.timeid).subscribe(res => {
 
-      debugger
+     
       let mrng = this.mrng;
       let ms = mrng.split(" to ", 3);
       let mst = ms[0];
@@ -385,7 +399,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
       'Night': this.nightid,
     }
     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-      debugger
+     
       if (this.languageid == 1) {
         Swal.fire('', 'Added Successfully')
       }
@@ -428,7 +442,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public deleteTimeWise(diagnosticCenterID, dayID, timeid) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete  Slot!",
@@ -457,7 +471,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public DeleteDaySlots(diagnosticCenterID, dayID) {
-    debugger;
+   
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete this Day!",

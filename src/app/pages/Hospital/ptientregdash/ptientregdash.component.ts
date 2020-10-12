@@ -45,11 +45,11 @@ export class PtientregdashComponent implements OnInit {
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
     var lll = this.EDate.setDate(this.EDate.getDate() + 30);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -67,7 +67,7 @@ export class PtientregdashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -77,7 +77,7 @@ export class PtientregdashComponent implements OnInit {
   public Getregisterdpatients() {
     this.docservice.GetPatientRegistration(this.startdate, this.enddate).subscribe(
       data => {
-        debugger;
+       
         this.patientslist = data;
         this.dummlist = this.patientslist
         this.count = this.patientslist.length
@@ -87,7 +87,7 @@ export class PtientregdashComponent implements OnInit {
   }
 
   public deletepatient(id) {
-    debugger;
+   
     this.docservice.DeletePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Disabled Successfully");
@@ -97,7 +97,7 @@ export class PtientregdashComponent implements OnInit {
     });
   }
   public Enablepatient(id) {
-    debugger;
+   
     this.docservice.EnablePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Enabled Successfully");
@@ -108,7 +108,7 @@ export class PtientregdashComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

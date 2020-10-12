@@ -42,11 +42,11 @@ export class PhysioRevenueComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
     var lll = this.EDate.setDate(this.EDate.getDate() + 0);
-    debugger
+   
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+   
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -56,7 +56,7 @@ export class PhysioRevenueComponent implements OnInit {
     // To display "0" as "12" 
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
-    debugger
+   
     this.getlanguage()
     this.GetAllMidWIfeCount();
     this.GetTotalCommissions()
@@ -66,7 +66,7 @@ export class PhysioRevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -76,7 +76,7 @@ export class PhysioRevenueComponent implements OnInit {
   public GetAllMidWIfeCount() {
     this.docservice.GetPhsyioTherapistCommissionDeatailsByPhysioID(this.startdate, this.enddate, this.physioid).subscribe(
       data => {
-        debugger
+       
         this.totalamount = data;
       }, error => {
       }
@@ -85,7 +85,7 @@ export class PhysioRevenueComponent implements OnInit {
   public GetTotalCommissions() {
     this.docservice.GetPhysiotherapist_PatientPaymentDetailsComnmissionByPhysioID(this.startdate, this.enddate, this.physioid).subscribe(
       data => {
-        debugger
+       
         this.totalcommissions = data;
       }, error => {
       }
@@ -93,7 +93,7 @@ export class PhysioRevenueComponent implements OnInit {
   }
 
   selectedDate(data) {
-    debugger
+   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

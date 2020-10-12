@@ -51,7 +51,7 @@ export class HomecareAppointementsComponent implements OnInit {
     this.getdepartmentmaster();
     this.docservice.GetHomecareRevenue(this.hospitalid, '2020-01-01', '2022-07-07').subscribe(
       data => {
-        debugger
+       
         this.dummlist = data;
         this.cancelledlist = this.dummlist;
         let total1 = 0;
@@ -66,10 +66,10 @@ export class HomecareAppointementsComponent implements OnInit {
   }
   value: any
   public getdepartmentmaster() {
-    debugger
+   
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.departmentlist = data;
       }, error => {
       }
@@ -81,7 +81,7 @@ export class HomecareAppointementsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
       }, error => {
       }
@@ -90,13 +90,13 @@ export class HomecareAppointementsComponent implements OnInit {
   startdate: any
   enddate: any
   selectedDate(data) {
-    debugger
+   
     var sdate = data.split('-')
     this.startdate = sdate[0];
     this.enddate = sdate[1];
     this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
-        debugger
+       
         this.dummlist = data;
         this.cancelledlist = this.dummlist;
         let total1 = 0;
@@ -111,11 +111,11 @@ export class HomecareAppointementsComponent implements OnInit {
   }
 
   public GetTypeID(event) {
-    debugger
+   
     if (event.target.value == 'none') {
       this.docservice.GetHomecareRevenue(this.hospitalid, '2020-01-01', '2022-07-07').subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.cancelledlist = this.dummlist;
           let total1 = 0;
@@ -131,7 +131,7 @@ export class HomecareAppointementsComponent implements OnInit {
     else {
       this.docservice.GetHomecareRevenue(this.hospitalid, '2020-01-01', '2022-07-07').subscribe(
         data => {
-          debugger
+         
           this.dummlist = data;
           this.cancelledlist = this.dummlist.filter(x => x.type == event.target.value);
           let total1 = 0;
@@ -153,7 +153,7 @@ export class HomecareAppointementsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-    debugger
+   
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -171,7 +171,7 @@ export class HomecareAppointementsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    debugger;
+   
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

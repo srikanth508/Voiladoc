@@ -26,14 +26,14 @@ export class FrequentlyaskedComponent implements OnInit {
 
     this.docservice.GetAdmin_FrequntlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.labels = data;
 
       }, error => {
       }
     )
     this.activatedroute.params.subscribe(params => {
-      debugger;
+     
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -51,7 +51,7 @@ export class FrequentlyaskedComponent implements OnInit {
   public getfaq() {
     this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+       
         this.faqlist = data;
 
         var list = this.faqlist.filter(x => x.id == this.id)
@@ -80,7 +80,7 @@ export class FrequentlyaskedComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+   
     var entity = {
       'ID': this.id,
       'Faq': this.faq,

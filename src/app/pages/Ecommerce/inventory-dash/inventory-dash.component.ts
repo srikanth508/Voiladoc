@@ -20,7 +20,7 @@ export class InventoryDashComponent implements OnInit {
 
     this.docservice.GetItemCategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.CategoryList = temp;
       }, error => {
@@ -31,10 +31,10 @@ export class InventoryDashComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-    debugger;
+   
     this.docservice.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-        debugger;
+       
         this.labels = data;
       },
       error => { }
@@ -48,7 +48,7 @@ export class InventoryDashComponent implements OnInit {
   public GetInventory() {
     this.docservice.GetInventory().subscribe(
       data => {
-        debugger
+       
         this.InventoryList = data;
         this.FilteredInventoryList = this.InventoryList;
       }, error => {
@@ -61,12 +61,12 @@ export class InventoryDashComponent implements OnInit {
   showimages;
   public nophoto: any;
   public GetIllnessPhotos(even) {
-    debugger;
+   
     this.AppointmentID = even;
 
     this.docservice.GetProductsImagesByID(this.AppointmentID).subscribe(
       data => {
-        debugger
+       
         this.showimages = data;
         if (this.showimages.length == 0) {
           this.nophoto = 1
@@ -85,7 +85,7 @@ export class InventoryDashComponent implements OnInit {
 
   public InventoryID: any;
   public Edit(evn) {
-    debugger;
+   
     this.InventoryID = evn;
 
   }
@@ -100,7 +100,7 @@ export class InventoryDashComponent implements OnInit {
     if (this.catid == 0) {
       this.docservice.GetInventory().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.FilteredInventoryList = this.InventoryList;
         }, error => {
@@ -110,7 +110,7 @@ export class InventoryDashComponent implements OnInit {
     else {
       this.docservice.GetInventory().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.FilteredInventoryList = this.InventoryList.filter(x => x.categoryID == this.catid);
         }, error => {
@@ -120,7 +120,7 @@ export class InventoryDashComponent implements OnInit {
 
     this.docservice.GetSubcategory().subscribe(
       data => {
-        debugger
+       
         let temp: any = data;
         this.SubCategoryList = temp.filter(x => x.categoryID == this.catid);
       }, error => {
@@ -135,7 +135,7 @@ export class InventoryDashComponent implements OnInit {
     if (this.scatid == 0) {
       this.docservice.GetInventory().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.FilteredInventoryList = this.InventoryList.filter(x => x.categoryID == this.catid);
         }, error => {
@@ -145,7 +145,7 @@ export class InventoryDashComponent implements OnInit {
     else {
       this.docservice.GetInventory().subscribe(
         data => {
-          debugger
+         
           let temp: any = data;
           this.FilteredInventoryList = this.InventoryList.filter(x => x.categoryID == this.catid && x.subCategoryID == this.scatid);
         }, error => {
