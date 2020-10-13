@@ -32,6 +32,8 @@ export class DiagnostictestComponent implements OnInit {
   public labels: any;
   public languageid: any;
   dummdiagnosticid: any;
+  public searchlable:any;
+  diatestdd={};
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -42,16 +44,14 @@ export class DiagnostictestComponent implements OnInit {
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();
     this.idcount = 1;
-
-
   }
   public getlanguage() {
    
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-       
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.searchlable = this.labels[0].search;
       }, error => {
       }
     )
@@ -70,26 +70,41 @@ export class DiagnostictestComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.searchlable,
         };
-
       }, error => {
       }
     )
   }
+
+
+
   public getdiagnostictestmaster() {
    
     this.docservice.GetDiagnosticTestMasterByLanguageID(this.languageid).subscribe(
       data => {
        
         this.testlist = data;
+
+        this.diatestdd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'short',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.searchlable,
+        };
+
       }, error => {
       }
     )
   }
-  public GetTestID(even) {
-   
-    this.testid = even.target.value;
+
+  public GetTestID(item4:any) {
+    this.testid =item4.id;
 
     for (let i = 0; i < this.testlist.length; i++) {
      

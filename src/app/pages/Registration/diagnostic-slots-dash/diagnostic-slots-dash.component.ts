@@ -79,26 +79,26 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
 
+    this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
+        this.SelectLabel= this.labels1[0].select;
+      
+      },
+      error => { }
+    );
+
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-       
         this.labels = data;
-     
+        this.search = this.labels[0].search;
 
       }, error => {
       }
     )
-    this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
-      data => {
-       
-        this.labels1 = data;
-        this.SelectLabel= this.labels1[0].select;
-        this.search = this.labels[0].search;
-      },
-      error => { }
-    );
-    this.getWorkingdetils()
 
+    this.getWorkingdetils()
     this.GetdicgnosticMasterSlotByID()
     this.GetdicgnosticAfternoonSlotsMaster()
     this.GetDiagnosticEveningSlotsMaster()

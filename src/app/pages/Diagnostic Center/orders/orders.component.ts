@@ -196,7 +196,7 @@ export class OrdersComponent implements OnInit {
     else if(this.languageid==6)
     {
       Swal.fire({
-        title: 'Are you sure?',
+        // title: 'Are you sure?',
         text: "Voulez-vous accepter cette commande ?",
         type: 'warning',
         showCancelButton: true,
@@ -214,7 +214,7 @@ export class OrdersComponent implements OnInit {
             this.InsertNotiFicationAccpt()
           })
           Swal.fire(
-            'Enregistré!',
+            'Enregistré !.',
             'Commande acceptée',
             'success'
           )
@@ -263,7 +263,7 @@ export class OrdersComponent implements OnInit {
     else if(this.languageid==6)
     {
       Swal.fire({
-        title: 'Are you sure?',
+        // title: 'Are you sure?',
         text: "Le patient ne s’est pas présenté ?",
         type: 'warning',
         showCancelButton: true,
@@ -280,7 +280,7 @@ export class OrdersComponent implements OnInit {
             this.getdiagnosticAppointment();
           })
           Swal.fire(
-            'Enregistré!',
+            'Enregistré !',
             '',
             'success'
           )
@@ -293,8 +293,6 @@ export class OrdersComponent implements OnInit {
     }
 
   }
-
-
 
 
 
@@ -410,7 +408,14 @@ export class OrdersComponent implements OnInit {
     }
     this.docservice.UpdateDiagnosticAppointmentsReasonForCancel(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Cancelled', 'Order Cancelled Successfully');
+      if(this.languageid==1)
+      {
+        Swal.fire('', 'Order Cancelled Successfully');
+      }
+      else if(this.languageid==6)
+      {
+        Swal.fire('', 'Commande annulée avec succès.');
+      }
     })
 
   }

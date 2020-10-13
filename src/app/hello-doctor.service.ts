@@ -4296,4 +4296,37 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetPatientRegistrationForSendEmailsWeb?LanguageID=' + lid);
   }
 
+  public GetRoleTypesMasterByAdminLogins(lid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetRoleTypesMasterByAdminLogins?LanguageID=' + lid);
+  }
+
+  public GetSubMenuMaster(lid,menuid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetSubMenuMaster?LanguageID=' + lid+'&MenuID='+menuid);
+  }
+
+  public GetMenuMaster(lid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetMenuMaster?LanguageID=' + lid);
+  }
+  
+  public InsertMenuRoleMappingTable(data) {
+    this.url = this.host + '/Doctor/InsertMenuRoleMappingTable';
+    return this.http.post(this.url, data)
+  }
+  
+  public GetMenuRoleMappingTable(lid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetMenuRoleMappingTable?LanguageID=' + lid);
+  }
+  
+  public DeleteMenuRoleMappingTable(roleid,menuid) {
+    return this.http.get<any[]>(this.host + '/Doctor/DeleteMenuRoleMappingTable?RoleID=' + roleid+'&MenuID='+menuid);
+  }
+
+  public DeleteMenuRoleMappingTableRow(id) {
+    return this.http.get<any[]>(this.host + '/Doctor/DeleteMenuRoleMappingTableRow?ID=' + id);
+  }
+ 
+  public InsertUsers_RoleMapping(data) {
+    this.url = this.host + '/Doctor/InsertUsers_RoleMapping';
+    return this.http.post(this.url, data)
+  }
 }

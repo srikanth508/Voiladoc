@@ -236,18 +236,20 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-   debugger
-    document.getElementById('def_op').click();
+   
+    // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
     var countDownDate = new Date().getTime();
+    
 
     document.getElementById("sidbarid").style.display = "none";
 
     document.getElementById("vidiv").classList.remove('col-lg-10');
-   document.getElementById("vidiv").classList.add("col-lg-12");
-document.getElementById("vidpagehead").style.display = "none";
+    document.getElementById("vidiv").classList.add("col-lg-12");
+  document.getElementById("vidpagehead").style.display = "none";
    
+
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -256,7 +258,7 @@ document.getElementById("vidpagehead").style.display = "none";
 
       // Find the distance between now and the count down date
       var distance = now - countDownDate;
-      debugger
+      
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -291,7 +293,7 @@ document.getElementById("vidpagehead").style.display = "none";
 
     this.docname = localStorage.getItem('user');
 
-    debugger
+    
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
     if (this.languageid == 1) {
@@ -312,10 +314,10 @@ document.getElementById("vidpagehead").style.display = "none";
       this.patientid = localStorage.getItem('patientID');
       this.appointmentid = localStorage.getItem('appointmentID');
       this.appointmentdatetime = localStorage.getItem('appdate');
-
+   
     }
     )
-    debugger
+    
 
     // this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
     //   this.compltedlist = res;
@@ -355,7 +357,7 @@ document.getElementById("vidpagehead").style.display = "none";
     //   this.oberserableTimer();
     // })
     ;
-    // this.languageid = localStorage.getItem('LanguageID');
+   // this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
     this.getpatientdetails();
     this.getdoctorpatinetdetails();
@@ -373,7 +375,7 @@ document.getElementById("vidpagehead").style.display = "none";
     this.pddddd = 1;
     this.pdpd = 1;
     ;
-    debugger
+    
 
     let jjj = document.getElementById("Completed");
     if (jjj != null) {
@@ -401,7 +403,7 @@ document.getElementById("vidpagehead").style.display = "none";
     //   }, error => {
     //   }
     // )
-    debugger
+    
     this.opentokService.getsessionandtoken().subscribe(res => {
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
@@ -419,7 +421,7 @@ document.getElementById("vidpagehead").style.display = "none";
   newtab() {
     window.open('www.facebook.com', '_blank');
   }
-  debugger
+  
 
   endsession
   public getlanguage() {
@@ -464,12 +466,14 @@ document.getElementById("vidpagehead").style.display = "none";
             ;
             this.streams.push(event.stream);
             document.getElementById('stoprecoring').style.display = 'block';
+
+          
             this.startarchive();
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
-            debugger
+            
             const idx = this.streams.indexOf(event.stream);
 
             if (idx > -1) {
@@ -509,7 +513,7 @@ document.getElementById("vidpagehead").style.display = "none";
           this.session.on('streamDestroyed', (event) => {
             ;
             this.stoparchive();
-            debugger
+            
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
               this.streams.splice(idx, 1);

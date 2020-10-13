@@ -97,15 +97,23 @@ export class DiagnosticPackageDashComponent implements OnInit {
         }
       )
     }
-
   }
   public DeleteDiagnostocServces(id) {
    
     this.docservice.DeleteDiagnosticCenterPackages(id).subscribe(
       data => {
        
-        Swal.fire("Deleted Successfully");
-        this.GetDiagnosticPackages();
+        if(this.languageid==1)
+        {
+          Swal.fire("Deleted Successfully");
+          this.GetDiagnosticPackages();
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire("Supprimé avec succès");
+          this.GetDiagnosticPackages();
+        }
+     
       }, error => {
       }
     )

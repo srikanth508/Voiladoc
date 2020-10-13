@@ -28,7 +28,9 @@ export class OffersComponent implements OnInit {
   public languageid: any;
   public labels: any;
   dropzonelable: any;
-
+  diadd={}
+  searchlable:any;
+  SelectLabel:any;
 
   ngOnInit() {
 
@@ -40,10 +42,11 @@ export class OffersComponent implements OnInit {
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
 
     this.diagnosticid = localStorage.getItem('diagnosticid');
-    this.getdiagnostictestmaster();
+
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
 
+    this.getdiagnostictestmaster();
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
     }
@@ -56,26 +59,38 @@ export class OffersComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
-
         this.labels = data;
+        this.searchlable=this.labels[0].search,
+        this.SelectLabel=this.labels[0].select
       }, error => {
       }
     )
   }
 
+  
   public getdiagnostictestmaster() {
-
     this.docservice.GetDiagnosticTestMaster().subscribe(
       data => {
 
         this.diagnosticlist = data;
+        this.diadd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'short',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.searchlable,
+        };
+
       }, error => {
       }
     )
   }
-  public GetTestID(even) {
+  public GetTestID(item1:any) {
 
-    this.testid = even.target.value;
+    this.testid = item1.id;
 
   }
   public insertdetails() {

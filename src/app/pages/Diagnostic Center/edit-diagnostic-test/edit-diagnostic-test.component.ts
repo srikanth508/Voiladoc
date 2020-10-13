@@ -104,7 +104,7 @@ export class EditDiagnosticTestComponent implements OnInit {
     this.docservice.UpdateDiagnosticCenterTests(entity).subscribe(data => {
      
       let res = data;
-      if(this.languageid=='1')
+      if(this.languageid==1)
       {
         Swal.fire('Success', 'Updated successfully')
         location.href = "#/DiagnosticTestDash"
@@ -114,8 +114,7 @@ export class EditDiagnosticTestComponent implements OnInit {
         Swal.fire('Mis à jour avec succés')
         location.href = "#/DiagnosticTestDash"
       }
-   
-
+  
     })
 
   }

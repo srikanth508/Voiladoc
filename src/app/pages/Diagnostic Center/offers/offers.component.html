@@ -49,10 +49,13 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" (change)="GetTestID($event)">
+        <!-- <select class="form-control" (change)="GetTestID($event)">
           <option value="" selected>{{labels[0].select}}</option>
           <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.short}}</option>
-        </select>
+        </select> -->
+        <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="diagnosticlist"
+        [settings]="diadd" (onSelect)="GetTestID($event)">
+      </ng-multiselect-dropdown>
       </div>
     </div>
     <br>

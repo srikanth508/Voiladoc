@@ -1,8 +1,197 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-10">
-
+    <div class="col-lg-6">
+      <h6 *ngIf="languageid=='1'">Patient Video <span style="margin-left: 277px;" id="demo"></span></h6>
+      <h6 *ngIf="languageid=='6'">Vidéo patient <span style="margin-left: 277px;" id="demo"></span></h6>
+      <div class="row">
+        <div *ngIf="session">
+          <div class="col-lg-6">
+        <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session" id="subscibre">
+            </app-subscriber><br>
+            <app-publisher [session]="session" id="publishme" style="display: block;"></app-publisher>
+          </div>
+          <!-- <div class="col-lg-1">
+            <img src="assets/Images/imgicon.png" title="{{labels[0].images}}" (click)="GetImagesID()"
+              data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
+            <img src="assets/Images/showvedio.png" data-toggle="modal" data-target="#exampleModalLong3"
+              title="{{labels[0].video}}" style="margin: 2%;width: 20px;" (click)="GetVedioID()" />&nbsp;
+          </div> -->
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-2">
+          <input type="button" style="color: white;" class="btn btn-default" id="stoprecoring" value="{{endsession}}"
+            (click)="stoparchive()" />
+        </div>
+      </div>
     </div>
+
+    <div class="col-lg-4">
+      <h6 *ngIf="languageid=='1'" style=" margin-left: -59px;">Medical questionnaire </h6>
+      <h6 *ngIf="languageid=='6'" style=" margin-left: -59px;">Questionnaire médical</h6>
+      <table class="card card-hover" style="overflow-y: auto;    margin-left: -55px;
+      width: 115%;">
+        <tr>
+          <td>
+            {{labels[0].nationalidentityno}} :<b>{{nationalidentityno}}</b>
+          </td>
+          <td>
+            {{labels[0].height}} : <b>{{height}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].weight}} : <b>{{wight}}</b>
+          </td>
+          <td>
+            {{labels[0].bmi}} : <b>{{bmi}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].medicalhistory}} : <b>{{medicalhistory}}</b>
+          </td>
+          <td>
+            {{labels[0].surgeryhistory}} : <b>{{surgeryHistory}}</b>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            {{labels[0].longtermtreatment}} : <b>{{longtermtreatment}}</b>
+          </td>
+          <td>
+            {{labels[0].statutvaccinal}} : <b>{{vaccinationStatus}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].dietaryissues}} : <b>{{dieteryissues}}</b>
+          </td>
+          <td>
+            {{labels[0].doyoudrinkalcohol}} :
+            <b> <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label></b>  
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].areyoasmoker}} :
+         <b> <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
+            <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label></b>  
+          </td>
+          <td>
+            {{labels[0].doyouecescise}} :
+            <b>
+              <label *ngIf="exercise=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="exercise=='0'"> {{labels[0].yes}}</label></b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].medicalinsurance}} :
+
+            <b> <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
+            </b>
+
+          </td>
+
+          <td>
+            <img src="assets/Images/imgicon.png" title="{{labels[0].images}}" (click)="GetImagesID()"
+              data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <img src="assets/Images/showvedio.png" data-toggle="modal" data-target="#exampleModalLong3"
+              title="{{labels[0].video}}" style="margin: 2%;width: 20px;" (click)="GetVedioID()" />&nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b>
+          </td>
+          <td>
+            {{labels[0].appointmentDate}} : <b>{{appointmentdate}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].phoneNo}} : <b>{{mobileno}}</b>
+          </td>
+          <td>
+            {{labels[0].email}} : <b>{{email}}</b>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            {{labels[0].reasonForVisit}} : <b>{{reasonforappointment}}</b>
+          </td>
+          <td>
+            {{labels[0].gender}} : <b>{{gender}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Age : <b>{{age}}</b>
+          </td>
+          <td>
+            {{labels[0].dateOfBirth}} : <b>{{dateofbirth}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{labels[0].height}} : <b>{{height}}</b>
+          </td>
+          <td>
+            {{labels[0].weight}} : <b>{{wight}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col-lg-12">
+                {{labels[0].allergies}} :
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-lg-10">
+                <ngx-tags-input class="form-control input-xl" style="height: 40px; font-size: large;" [(ngModel)]="allergies"
+                  name="allergies"></ngx-tags-input>
+              </div>
+              <div class="col-lg-2">
+                <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                  data-target="#exampleModalCenter" />
+              </div>
+            </div>
+            <!-- {{allergies}} -->
+          </td>
+          <td>
+            {{labels[0].bmi}} : <b>{{bmi}}</b>
+          </td>
+        </tr>
+        <tr *ngIf="gender=='Female'">
+          <td>
+            {{labels[0].isThePatientPregnant}} :
+            <b>
+              <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label></b>
+          </td>
+          <td>
+            Breast feeding :
+            <b>
+              <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label></b>
+
+          </td>
+        </tr>
+      </table>
+    </div>
+
     <div class="col-lg-2">
       <br>
         <div class="col-lg-12">
@@ -275,9 +464,9 @@
 
 <div class="modal fade" id="addtest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-xl" style="float: right;">
+  <div class="modal-dialog modal-lg" style="float: right;">
     <div class="modal-content" style="width:856px;margin-left: 140px;">
-      <div class="modal-header modal-xl">
+      <div class="modal-header modal-lg">
         <h5 class="modal-title" id="exampleModalLongTitle">Add test</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -906,6 +1095,269 @@
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true" style="margin-left: 362px;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedPhotos}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="nophoto=='0'">
+            <div class="col-lg-6" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoURL}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="nophoto=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  style="margin-left: 362px;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedVideo}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="novideo=='0'">
+            <div class="col-lg-6" *ngFor="let showvedio of showvedioes">
+              <br>
+              <div class="video">
+                <video controls id="videoPlayer" autoplay>
+                  <source src="{{showvedio.videoUrl}}" type="video/mp4" style="height:auto; width: 100%;" /> Browser not
+                  supported
+                </video>
+              </div>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="novideo=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/nov.png" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="float: right;">
+<div class="modal-dialog modal-lg" role="document" style="float: right;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
+        {{labels[0].previousSoapNotes}}
+      </h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <form #soapForm="ngForm">
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].subjective}}</b></label>
+            </div>
+            <div class="col-lg-7">
+              {{subjective}}
+              <!-- <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="Subjective"></textarea> -->
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].objective}}</b></label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-7">
+              {{objective}}
+              <!-- <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="Objective"></textarea> -->
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].assessment}}</b></label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-7">
+              <!-- <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="Assessment"></textarea> -->
+              {{assessment}}
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].plan}}</b></label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-7">
+              <!-- <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="Plan"></textarea> -->
+              {{plan}}
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].diagnosisCode}}</b> </label>
+              <!-- <span style="color: red;">*</span> -->
+            </div>
+            <div class="col-lg-7">
+              <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                  placeholder="Diagnosis Code" /> -->
+              {{diagnosiscode}}
+            </div>
+          </div><br>
+          <!-- <div class="row">
+          <div class="col-lg-3">
+            <label><b>Sick Slip Genarator</b> </label>
+          
+          </div>
+          <div class="col-lg-7">
+            <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+              placeholder="Sick Slip Genarator" />
+          </div>
+        </div><br> -->
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].followUpPlan}}</b> </label>
+              <!-- <span style="color: red;">*</span> -->
+            </div>
+            <div class="col-lg-7">
+              <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="Follow Up Plan" /> -->
+              {{followupplan}}
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].signature}}</b> </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-7">
+              <!-- <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+              placeholder="Signature" /> -->
+              {{signature}}
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label><b>{{labels[0].notes}}</b> </label>
+              <!-- <span style="color: red;">*</span> -->
+            </div>
+            <div class="col-lg-7">
+              {{notes}}
+              <!-- <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes" placeholder="Notes"></textarea> -->
+            </div>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].allergies}}</label>
+            </div>
+            <div class="col-lg-8">
+              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
+              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
+                name="allergies"></ngx-tags-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-8">
+              <p>{{labels[0].alergesmessage}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
       </div>
     </div>
   </div>

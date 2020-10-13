@@ -25,8 +25,8 @@
       <table>
         <thead>
           <tr>
-            <th>{{labels[0].ordedate}}</th>
-            <th>{{labels[0].orderNumber}}</th>
+            <th id="imp">{{labels[0].ordedate}}</th>
+            <th  id="imp">{{labels[0].orderNumber}}</th>
             <th>{{labels[0].patientname}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].emailId}}</th>
@@ -145,13 +145,13 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button class="btn btn-primary" (click)="canclediagnosticappointment()">{{labels[0].save}}</button>
+              <button class="btn btn-primary"   style="background-color: #f18235;color: white;border:none" (click)="canclediagnosticappointment()">{{labels[0].save}}</button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary"   style="background-color: #f18235;color: white;border:none" data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

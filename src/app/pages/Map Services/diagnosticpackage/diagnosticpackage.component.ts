@@ -37,36 +37,37 @@ export class DiagnosticpackageComponent implements OnInit {
   public labels: any;
   public languageid: any;
   public dummdiagnosticid: any;
-
+  public searchlable: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
     this.dummdiagnosticid = localStorage.getItem('diagnosticid')
     this.diagnosticname = localStorage.getItem('user')
+    this.getlanguage();
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();
     this.tablecount = 0;
 
-    this.getlanguage();
   }
   public getlanguage() {
-   
+
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        debugger
+        this.searchlable = this.labels[0].search;
       }, error => {
       }
     )
   }
   SelectLabel
   public getdiagnosticforadmin() {
-   
+
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-       
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -75,7 +76,8 @@ export class DiagnosticpackageComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.searchlable,
         };
 
       }, error => {
@@ -84,10 +86,10 @@ export class DiagnosticpackageComponent implements OnInit {
 
   }
   public getdiagnostictestmaster() {
-   
+
     this.docservice.GetDiagnosticTestMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.testlist = data;
         this.testdd = {
           singleSelection: false,
@@ -97,20 +99,21 @@ export class DiagnosticpackageComponent implements OnInit {
           // unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.searchlable,
         };
       }, error => {
       }
     )
   }
   public GetDiagnosticID(item2: any) {
-   
+
     this.diagnosticid = item2.id;
     this.docservice.GetDiagnosticCenterDetailsByID(this.diagnosticid).subscribe(
       data => {
-       
+
         this.details = data[0];
-       
+
         this.diagnosticname = this.details.diagnosticCenterName
 
       }, error => {
@@ -118,7 +121,7 @@ export class DiagnosticpackageComponent implements OnInit {
     )
   }
   public GetTestID(item: any) {
-   
+
     this.testid.push(item);
   }
 
@@ -131,14 +134,14 @@ export class DiagnosticpackageComponent implements OnInit {
 
 
       this.tablecount = 1;
-     
+
 
       for (let i = 0; i < this.testid.length; i++) {
         this.testnamearray.push(this.testid[i].short);
-       
+
         this.testnamearrayid.push(this.testid[i].id)
       }
-     
+
       this.testname = this.testnamearray;
       this.tests = this.testname.join(',')
       this.testsidd = this.testnamearrayid;
@@ -179,7 +182,7 @@ export class DiagnosticpackageComponent implements OnInit {
   }
   public insertdetails() {
     this.spinner.show();
-   
+
     var abcd = {
       'DiagnosticCenterID': this.diagnosticid,
       'PackageName': this.packagename,
@@ -187,7 +190,7 @@ export class DiagnosticpackageComponent implements OnInit {
       'Description': this.description
     }
     this.docservice.InsertDiagnosticCenterPackages(abcd).subscribe(data => {
-     
+
       if (data != 0) {
         this.packageid = data;
         this.inserttestdetails();
@@ -196,14 +199,14 @@ export class DiagnosticpackageComponent implements OnInit {
 
   }
   public inserttestdetails() {
-   
+
     for (let i = 0; i < this.qwerty1.length; i++) {
       var gh = {
         'PackageID': this.packageid,
         'TestID': this.qwerty1[i].TestID
       }
       this.docservice.InsertDiagnosticPackageRelatedTests(gh).subscribe(data => {
-       
+
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.tablecount = 0;
@@ -215,14 +218,14 @@ export class DiagnosticpackageComponent implements OnInit {
     }
   }
   public delete(sno) {
-   
+
     for (let i = 0; i < this.qwerty.length; i++) {
-     
+
       if (sno == this.qwerty[i].sno) {
-       
+
         this.qwerty.splice(i, 1);
       }
     }
-   
+
   }
 }

@@ -1,24 +1,20 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <!-- <p>Doctor Video</p> -->
       <!-- <br><br> -->
-      <h6 *ngIf="languageid=='1'">Patient Video <span style="margin-left: 277px;" id="demo"></span></h6>
-      <h6 *ngIf="languageid=='6'">Vidéo patient <span style="margin-left: 277px;" id="demo"></span></h6>
+      <h6 *ngIf="languageid=='1'"><b>Patient Video</b> <b><span style="margin-left: 560px;" id="demo"></span></b> </h6>
+      <h6 *ngIf="languageid=='6'"><b>Vidéo patient</b> <b><span style="margin-left: 560px;" id="demo"></span></b> </h6>
       <!-- <h6   id="demo"></h6> -->
       <div class="row">
         <div *ngIf="session">
           <div class="col-lg-6">
-        <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session" id="subscibre">
+            <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session" id="subscibre">
             </app-subscriber><br>
+          </div>
+          <div class="col-lg-6" >
             <app-publisher [session]="session" id="publishme" style="display: block;"></app-publisher>
           </div>
-          <!-- <div class="col-lg-1">
-            <img src="assets/Images/imgicon.png" title="{{labels[0].images}}" (click)="GetImagesID()"
-              data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
-            <img src="assets/Images/showvedio.png" data-toggle="modal" data-target="#exampleModalLong3"
-              title="{{labels[0].video}}" style="margin: 2%;width: 20px;" (click)="GetVedioID()" />&nbsp;
-          </div> -->
         </div>
       </div><br>
       <div class="row">
@@ -29,12 +25,11 @@
       </div>
       <br>
     </div>
-    <div class="col-lg-3">
-       <!-- <br><br> -->
-       <h6 *ngIf="languageid=='1'" style=" margin-left: -59px;">Medical questionnaire </h6>
-       <h6 *ngIf="languageid=='6'" style=" margin-left: -59px;">Questionnaire médical</h6>
-      <table class="card card-hover" style="overflow-y: auto;    margin-left: -55px;
-      width: 115%;">
+    <div class="col-lg-4">
+      <!-- <br><br> -->
+      <h6 *ngIf="languageid=='1'"><b>Medical questionnaire </b></h6>
+      <h6 *ngIf="languageid=='6'"><b>Questionnaire médical</b></h6>
+      <table class="card card-hover" style="overflow-y: auto;width:541px">
         <tr>
           <td>
             {{labels[0].nationalidentityno}} :<b>{{nationalidentityno}}</b>
@@ -75,14 +70,14 @@
           <td>
             {{labels[0].doyoudrinkalcohol}} :
             <b> <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label></b>  
+              <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label></b>
           </td>
         </tr>
         <tr>
           <td>
             {{labels[0].areyoasmoker}} :
-         <b> <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
-            <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label></b>  
+            <b> <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label></b>
           </td>
           <td>
             {{labels[0].doyouecescise}} :
@@ -164,8 +159,8 @@
             </div>
             <div class="row">
               <div class="col-lg-10">
-                <ngx-tags-input class="form-control input-xl" style="height: 40px; font-size: large;" [(ngModel)]="allergies"
-                  name="allergies"></ngx-tags-input>
+                <ngx-tags-input class="form-control input-xl" style="height: 40px; font-size: large;"
+                  [(ngModel)]="allergies" name="allergies"></ngx-tags-input>
               </div>
               <div class="col-lg-2">
                 <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
@@ -195,1027 +190,920 @@
         </tr>
       </table>
     </div>
-    <div class="col-lg-5 card card-hover">
-      <div class="row ">
-        <div class="col-lg-12">
-          <div class="tab">
-            <!-- <button class="tablinks" style="width: 25%;" (click)="pd()">{{labels[0].patientDetails}}</button> -->
-            <button class="tablinks" (click)="highlight($event)" style="width: 33%;" (click)="soap()"
-              id="def_op">{{labels[0].actions}}</button>
-            <button class="tablinks" (click)="highlight($event)" style="width: 33%;"
-              (click)="history()">{{labels[0].history}}</button>
-            <button class="tablinks" (click)="highlight($event)" style="width: 33%;"
-              (click)="chat()">{{labels[0].chat}}</button>
-          </div><br>
-          <!-- <div class="tab" *ngIf="pddddd=='1'">
-              <button class="tablinks active" (click)="getcity($event, 'Completed')"
-                id="defaultOpen">{{labels[0].patientDetails}}</button>
-              <button class="tablinks" (click)="getcity($event, 'Prescription')">{{labels[0].addPescription}}</button>
-              <button class="tablinks" style="height:80px" (click)="getcity($event, 'Test')">{{labels[0].addADiagnosticTest}}</button>
-              <button class="tablinks" (click)="getcity($event, 'Cancelled')">{{labels[0].currentMedication}}</button>
-              <button class="tablinks" (click)="getcity($event, 'Visit')">{{labels[0].previousTests}}</button>
-            </div> -->
 
-          <div *ngIf="soapddddd=='1'">
-            <div class="row">
-              <div class="col-lg-6">
-                <select class="form-control" (change)="GetSelectedID($event)">
-                  <option value="0">{{labels[0].select}} Action</option>
-                  <option value="1">{{labels[0].addPrescription}}</option>
-                  <option value="2">{{labels[0].addTest}}</option>
-                  <option value="3">{{labels[0].addSoapNotes}}</option>
-                </select>
-                <br>
-              </div>
-            </div>
-          </div>
-
-          <div *ngIf="showid=='1'" style="height: 250px;overflow-y: auto;">
-            <div class="container-fluid">
-              <form #medicineForm="ngForm">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <select class="form-control" (change)="GetDoctorPrecriptioTemplateID($event)">
-                      <option selected="selected" value="0">{{labels[0].chooseFromtemplate}}</option>
-                      <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="col-g-4">
-                  </div>
-                  <div class="col-lg-2">
-                    <!-- <img src="assets/Images/arrowtop.jpg" style="margin-left: 291px;
-                    width: 44%;"> -->
-                  </div>
-                </div>
-                <br>
-                <div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <label>{{labels[0].enterManuallydruname}} :</label>
-                    </div>
-                    <div class="col-lg-6">
-                      <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="1">&nbsp;
-                      {{labels[0].yes}} &nbsp;&nbsp;
-                      <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="2">&nbsp;
-                      {{labels[0].no}} &nbsp;&nbsp;
-                    </div>
-                  </div>
-                  <br>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6" *ngIf="languageid=='1'&&manuallydrug=='1'">
-                    <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
-                      placeholder="{{labels[0].drugName}}">
-                  </div>
-                  <div class="col-lg-6" *ngIf="languageid=='1'&&manuallydrug=='2'">
-                    <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
-                      placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
-                  </div>
-                  <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='1'">
-                    <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
-                      placeholder="{{labels[0].drugName}}">
-                  </div>
-
-                  <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='2'">
-                    <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
-                      placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
-                  </div><br>
-
-                </div>
-                <div class="row" *ngIf="SerachOn=='1'">
-                  <div class="col-lg-12">
-                    <table style="overflow-y:auto;">
-                      <thead>
-                        <tr>
-                          <th>Actions</th>
-                          <th>médicament</th>
-                          <th>Dénomination </th>
-                          <th>Dosage</th>
-                        </tr>
-                        <tr *ngFor="let code of drugnamelist|filter:medicinename| slice:0:100; let i=index">
-                          <td>
-                            <input type="checkbox" (click)="GetDrugID(code.medicinename)">
-                          </td>
-                          <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
-                          <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
-                          <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <br>
-                </div>
-                <br>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
-                      placeholder="{{labels[0].sig}}">
-                  </div>
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
-                      placeholder="{{labels[0].dispenseQuantity}}">
-                  </div>
-                </div><br>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
-                      placeholder="{{labels[0].howmanyRefills}}">
-                  </div>
-                  <!-- <div class="col-lg-6">
-                      <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
-                        placeholder="{{labels[0].unitOfMeasure}}">
-                    </div> -->
-                </div><br>
-                <!-- <div class="row">
-                    <div class="col-lg-6">
-                      <input type="text" class="form-control" required name="dosage" [(ngModel)]="dosage"
-                        placeholder="{{labels[0].dosage}}">
-                    </div>
-                    <div class="col-lg-6">
-                      <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
-                        placeholder="{{labels[0].duration}}">
-                    </div>
-                  </div><br> -->
-
-                <div class="row">
-                  <!-- <div class="col-lg-6">
-                      <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis"
-                        placeholder="{{labels[0].diagnosis}}">
-                    </div> -->
-
-                </div><br>
-                <div class="row">
-                  <div class="col-lg-4">
-                    {{labels[0].substistude}}
-                  </div>
-                  <div class="col-lg-7">
-                    <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="1">&nbsp;
-                    {{labels[0].yes}} &nbsp;&nbsp;
-                    <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="2">&nbsp;
-                    {{labels[0].no}} &nbsp;&nbsp;
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-lg-4">
-                    {{labels[0].saveastemplate}}
-                  </div>
-                  <div class="col-lg-7">
-                    <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="1">&nbsp;
-                    {{labels[0].yes}}
-                    &nbsp;&nbsp;
-                    <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="2">&nbsp;
-                    {{labels[0].no}}
-                    &nbsp;&nbsp;
-                  </div>
-                </div>
-                <br>
-                <div class="row" *ngIf="medicinetemplate=='1'">
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" name="medicinetemplatename"
-                      [(ngModel)]="medicinetemplatename" placeholder="{{labels[0].templateName}}">
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-lg-5">
-                  </div>
-                  <div class="col-lg-2">
-                    <button type="button" style="color: white;" class="btn btn-default"
-                      [(disabled)]="medicineForm.form.invalid" (click)="adddetails1()">{{labels[0].add}}</button>
-                  </div>
-                  <div class="col-lg-5">
-                  </div>
-                </div>
-                <br>
-                <div class="row" *ngIf="tablecuont1=='1'" style="overflow: auto;">
-                  <div class="col-lg-12">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>{{labels[0].drugName}}</th>
-                          <!-- <th>{{labels[0].unitOfMeasure}}</th> -->
-                          <!-- <th>{{labels[0].dosage}}</th>
-                            <th>{{labels[0].duration}}</th> -->
-                          <th>{{labels[0].sig}}</th>
-                          <th>{{labels[0].dispenseQuantity}}</th>
-                          <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
-                          <!-- <th>{{labels[0].diagnosis}}</th> -->
-                          <th>{{labels[0].substistude}} </th>
-                          <th>{{labels[0].howmanyRefills}}</th>
-                          <th>Actions</th>
-                        </tr>
-                        <tr *ngFor="let medicinelist of qwerty2">
-                          <td>{{medicinelist.MedicineName}}</td>
-                          <!-- <td>{{medicinelist.UnitOfMeasure}}</td>
-                            <td>{{medicinelist.Dosage}}</td>
-                            <td>{{medicinelist.Duration}}</td> -->
-                          <td>{{medicinelist.SIG}}</td>
-
-                          <td>{{medicinelist.DispenseQuantity}}</td>
-                          <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->
-                          <td>
-                            <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
-                            <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
-                          </td>
-                          <!-- <td>{{medicinelist.Diagnosis}}</td> -->
-                          <td>{{medicinelist.HowmanyRefills}}</td>
-                          <td>
-                            <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
-                            <a [ngbTooltip]="tipcontent2">
-                              <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                                (click)="deleteMedicines(medicinelist.Sno)">
-                            </a>
-                          </td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div><br>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
-                      placeholder="{{labels[0].noteToPharmasist}}">
-                  </div>
-                </div><br>
-                <div class="row" *ngIf="tablecuont1=='1'">
-                  <div class="col-lg-5">
-                  </div>
-                  <div class="col-lg-2">
-                    <button type="button" style="color: white;" class="btn btn-default"
-                      (click)="InsertPrescription()">{{labels[0].save}}</button>
-                  </div>
-                  <div class="col-lg-5">
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div *ngIf="showid=='2'" style="height: 250px;overflow-y: auto;">
-            <div class="container-fluid">
-              <form #diaForm="ngForm">
-                <div class="row">
-                  <div class="col-lg-5">
-                    <select class="form-control" (change)="GetDiagnosticTestID($event)">
-                      <option>{{labels[0].select}} {{labels[0].testType}}</option>
-                      <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
-                    </select>
-                    <br>
-                    <select class="form-control" (change)="GetDiagnosticTestssID($event)">
-                      <option>{{labels[0].select}} {{labels[0].testName}}</option>
-                      <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
-                    </select>
-                    <br *ngIf="testid=='2'">
-                    <textarea *ngIf="testid=='2'" class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
-                      placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
-                    <br>
-                    <div *ngIf="testssid=='59'||testssid=='60'">
-
-                      <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
-                        [(ngModel)]="diagnostictestname" name="diagnostictestname">
-
-                    </div><br>
-                    <!-- <div *ngIf="testssid=='59'||testssid=='60'">
-                      <div class="row">
-                        <div class="col-lg-5">
-                          <label>{{labels[0].testName}} :</label>
-                        </div>
-                       
-                      </div> <br>
-                    </div> -->
-
-
-                    <button type="button" class="btn btn-default " [disabled]="diaForm.form.invalid"
-                      style="background-color: #f18235;color: white;" (click)="adddetails()">{{labels[0].add}}</button>
-                  </div>
-                  <div class="col-lg-7">
-                    <table *ngIf="tablecount=='1'">
-                      <thead>
-                        <tr>
-                          <th>{{labels[0].testType}}</th>
-                          <th>{{labels[0].testName}}</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tr *ngFor="let diagtest of qwerty">
-                        <td>{{diagtest.DiagnosticTestTypeName}}</td>
-                        <td>{{diagtest.TestName}}</td>
-                        <td>
-                          <ng-template #tipcontent2>Delete</ng-template>
-                          <a [ngbTooltip]="tipcontent2">
-                            <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                              (click)="delete(diagtest.Sno)">
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                    <br>
-                    <button type="button" *ngIf="tablecount=='1'" class="btn btn-default " style="background-color: #f18235;color: white
-                     ;" (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
-                  </div>
-
-                </div><br>
-
-              </form>
-            </div>
-          </div>
-
-
-          <div *ngIf="showid=='3'" style="height: 250px;overflow-y: auto;">
-            <div class="container-fluid">
-              <form #soapForm="ngForm">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <select class="form-control" (change)="GetTemplateID($event)">
-                      <option value="0">{{labels[0].chooseFromtemplate}}</option>
-                      <option *ngFor="let temp of templatelist" value="{{temp.id}}">{{temp.templateName}}</option>
-                    </select>
-                  </div>
-                  <div class="col-g-4">
-                  </div>
-                  <div class="col-lg-2">
-                    <!-- <img src="assets/Images/arrowtop.jpg" style=" width: 43%; margin-left: 284px;"> -->
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
-                      placeholder="{{labels[0].subjective}}"></textarea>
-                  </div>
-                  <div class="col-lg-6">
-                    <textarea class="form-control" rows="4" name="objective" [(ngModel)]="objective"
-                      placeholder="{{labels[0].objective}}"></textarea>
-                  </div>
-                </div><br>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
-                      placeholder="{{labels[0].assessment}}"></textarea>
-                  </div>
-                  <div class="col-lg-6">
-                    <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
-                      placeholder="{{labels[0].plan}}"></textarea>
-                  </div>
-                </div><br>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
-                      placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
-                      (ngModelChange)="SearchIcrCode()"></textarea>
-                    <!-- <input id="typeahead-basic" type="text" class="form-control"
-                      placeholder="{{labels[0].diagnposticCode}}" [(ngModel)]="icddesc"
-                      [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search" (ngModelChange)="getid()" /> -->
-                  </div>
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
-                      placeholder="{{labels[0].followUpPlan}}" />
-                  </div>
-                </div>
-                <br>
-                <div class="row" *ngIf="showsearchsoap=='1'">
-                  <!-- <div class="col-lg-1">
-                  </div> -->
-                  <div class="col-lg-12" style="overflow-y:auto;height:300px">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>{{labels[0].diagnposticCode}}</th>
-                          <th>Actions</th>
-                        </tr>
-                        <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
-                          <td>
-                            {{code.description}}</td>
-                          <td>
-                            <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
-                          </td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <br>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="icdcode" name="icdcode" placeholder="{{labels[0].diagnosticDescription}}" />
-                  </div>
-                  <div class="col-lg-6">
-                    <input type="text" class="form-control" disabled [(ngModel)]="signature" name="signature"
-                      placeholder="{{labels[0].signature}}" />
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
-                      placeholder="{{labels[0].notes}}"></textarea>
-                  </div>
-                </div>
-                <!-- <br>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <input type="checkbox" (change)="GetPateintMisUseCheck($event)" value="true">
-                      {{labels[0].patientMisUse}}
-                      <span style="color: red;">*</span>
-                    </div>
-                    <div class="col-lg-6">
-                      <textarea class="form-control" rows="4" name="notes" [(ngModel)]="miscomments"
-                        placeholder="{{labels[0].miscomments}}"></textarea>
-                    </div>
-                  </div> -->
-                <br>
-                <div class="row">
-                  <div class="col-lg-3">
-                    {{labels[0].saveastemplate}}
-
-                  </div>
-                  <div class="col-lg-3">
-                    <input type="radio" [(ngModel)]="savetemplate" name="savetemplate"
-                      [value]="1">&nbsp;{{labels[0].yes}}
-                    &nbsp;&nbsp;
-                    <input type="radio" [(ngModel)]="savetemplate" name="savetemplate"
-                      [value]="2">&nbsp;{{labels[0].no}}
-                  </div>
-                  <div class="col-lg-6" *ngIf="savetemplate=='1'">
-                    <textarea class="form-control" rows="4" name="templatename" [(ngModel)]="templatename"
-                      placeholder="{{labels[0].templateName}}"></textarea>
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-lg-5">
-                  </div>
-                  <div class="col-lg-2">
-                    <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
-                      data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
-                  </div>
-                  <div class="col-lg-5">
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-
-          <div *ngIf="showhistory=='1'">
-            <div class="row">
-              <div class="col-lg-6">
-                <select class="form-control" (change)="GetSelectedHistoryID($event)">
-                  <option value="0">{{labels[0].select}}</option>
-                  <option value="1">{{labels[0].prescription}}</option>
-                  <option value="2">{{labels[0].labtest}}</option>
-                  <option value="3">{{labels[0].soap}}</option>
-                </select>
-                <br>
-              </div>
-            </div>
-          </div>
-
-          <div *ngIf="showhistoryid=='1'" style="height: 250px;overflow-y: auto;">
-            <div class="container-fluid">
-              <div class="row" style="overflow: auto; margin-left: -26px;">
-                <div class="col-lg-12">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>{{labels[0].date}}</th>
-                        <!-- <th>{{labels[0].medicineType}}</th> -->
-                        <th>{{labels[0].drugName}}</th>
-                        <!-- <th>{{labels[0].unitOfMeasure}}</th>
-                          <th>{{labels[0].dosage}}</th>
-                          <th>{{labels[0].duration}}</th> -->
-                        <th>{{labels[0].sig}}</th>
-                        <th>{{labels[0].dispenseQuantity}}</th>
-                        <th>{{labels[0].howmanyRefills}}</th>
-
-                        <th>{{labels[0].substistude}} </th>
-                        <!-- <th>{{labels[0].diagnosis}}</th> -->
-                        <th>{{labels[0].noteToPharmasist}}</th>
-
-                        <th>{{labels[0].actions}}</th>
-                      </tr>
-                      <tr *ngFor="let presciption of prescrptionlist">
-                        <td>{{presciption.date}}</td>
-                        <!-- <td>{{presciption.medicinetype}}</td> -->
-                        <td>{{presciption.medicineName}}</td>
-                        <!-- <td>{{presciption.unitOfMeasure}}</td>
-                          <td>{{presciption.dosage}}</td>
-                          <td>{{presciption.duration}}</td> -->
-                        <td>{{presciption.sig}}</td>
-
-                        <td>{{presciption.dispenseQuantity}}</td>
-                        <td>{{presciption.howmanyRefills}}</td>
-                        <td>
-                          <span *ngIf="presciption.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
-                          <span *ngIf="presciption.substainablenotPermitted=='2'"> {{labels[0].no}}</span>
-                        </td>
-                        <td>{{presciption.noteToPharmasist}}</td>
-                        <!-- <td>{{presciption.diagnosis}}</td> -->
-
-                        <td>
-                          <!-- <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
-                          <a [ngbTooltip]="tipcontent2">
-                            <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
-                              (click)="deleteprscriptonforpatient(presciption.id)">
-                          </a>&nbsp;&nbsp; -->
-                          <button type="button" class="form-control"
-                            (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
-                        </td>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-5">
-                </div>
-                <div class="col-lg-3">
-                  <!-- <img src="assets/Images/arrowleft.jpg"> -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div *ngIf="showhistoryid=='2'" style="height: 250px;overflow-y: auto;">
-            <div class="container-fluid" style="overflow: y;">
-              <br>
-              <div class="row">
-                <div class="col-lg-12">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>{{labels[0].appointmentDate}}</th>
-                        <th>{{labels[0].testType}}</th>
-                        <th>{{labels[0].testName}}</th>
-                        <th>{{labels[0].reports}}</th>
-                      </tr>
-                      <tr *ngFor="let details of diagnosticlist">
-                        <td>{{details.appdate}}</td>
-                        <td>{{details.name}}</td>
-                        <td>{{details.testName}}</td>
-                        <td>
-                          <img src="assets/Images/down.png" style="width: 20px;margin-left: 10px;">
-                        </td>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div *ngIf="showhistoryid=='3'" style="height: 250px;overflow-y: auto;">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-12">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>{{labels[0].appointmentDate}}</th>
-                        <th>{{labels[0].reasonForVisit}}</th>
-                        <th>{{labels[0].previousSoapNotes}}</th>
-                      </tr>
-                      <tr *ngFor="let soppp of soaplist1">
-                        <td>{{soppp.appointDate}}</td>
-                        <td>{{soppp.reasonForVisit}}</td>
-                        <td>
-                          <ng-template #tipcontent7>{{labels[0].previousSoapNotes}}</ng-template>
-                          <a [ngbTooltip]="tipcontent7">
-                            <img src="assets/Images/pview.png" data-toggle="modal" data-target="#exampleModalLong1"
-                              style="height:25px;" (click)="GetSoapID(soppp.soapID)" />
-                          </a>&nbsp;
-                        </td>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="height: 250px;overflow-y: auto;" *ngIf="showchat=='1'">
-            <div class="container-fluid ">
-              <br>
-              <div class="row">
-                <div class="col-lg-3">
-                  <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
-                  <!-- <span *ngIf="istyping==true">typing .... </span> -->
-                </div>
-              </div>
-              <div style="height: 500px;overflow-y: scroll;" id="chatboxdiv">
-                <div *ngFor='let convo of coversationarray'>
-                  <div class="container" *ngIf='convo.user=="doc"'>
-                    <div class="row">
-                      <div class="col-lg-4"></div>
-                      <div class="col-lg-3"></div>
-                      <div class="col-lg-5" style="background-color:#dbdbdb;border-radius: 5px;color:black">
-                        <div *ngIf="convo.msgtype=='1'">
-                          <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
-                          float: left;">
-                          <p style="margin-top: 5px;">{{convo.chatmsg}}
-                            <span style="float: right;;margin-top: 5px;">
-                              {{convo.time}}
-                            </span>
-                          </p>
-                        </div>
-                        <div *ngIf="convo.msgtype=='2'">
-                          <img src="{{convo.chatmsg}}" style="width: 100%;">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="container" *ngIf='convo.user=="pat"'>
-                    <div class="row">
-                      <div class="col-lg-5"
-                        style="background-color:#1dbfd2;border-radius: 5px;color:black;margin-top: 1px;">
-                        <div *ngIf="convo.msgtype=='1'">
-                          <p style="margin-top: 5px;">
-                            <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
-                            &nbsp;
-                            {{convo.chatmsg}}
-                            <span style="float: right;;margin-top: 5px;">
-                              {{convo.time}}
-                            </span>
-                          </p>
-                        </div>
-                        <div *ngIf="convo.msgtype=='2'">
-                          <img src="{{convo.chatmsg}}" style="width: 100%;">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <br>
-                </div>
-              </div>
-              <hr>
-              <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
-                <form #chatfrom="ngForm">
-                  <div class="row">
-                    <div class="col-lg-9">
-                      <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
-                        class="form-control" style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
-                    </div>
-                    <div class="col-lg-2">
-                      <button type="submit" class="chat" [disabled]="chatfrom.form.invalid"
-                        (click)="dosendmsg()">{{labels[0].send}}
-                        <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
-                      </button>
-                    </div>
-                    <div class="col-lg-1">
-                      <!-- <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
-                        style="height: 50px;">
-                      </ngx-dropzone> -->
-                    </div>
-                  </div>
-                </form>
-              </div><br>
-            </div>
-          </div>
-
-          <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="float: right;">
-            <div class="modal-dialog modal-lg" role="document" style="float: right;">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
-                    {{labels[0].previousSoapNotes}}
-                  </h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <form #soapForm="ngForm">
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].subjective}}</b></label>
-                        </div>
-                        <div class="col-lg-7">
-                          {{subjective}}
-                          <!-- <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
-                              placeholder="Subjective"></textarea> -->
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].objective}}</b></label>
-                          <span style="color: red;">*</span>
-                        </div>
-                        <div class="col-lg-7">
-                          {{objective}}
-                          <!-- <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
-                              placeholder="Objective"></textarea> -->
-                        </div>
-                      </div><br>
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].assessment}}</b></label>
-                          <span style="color: red;">*</span>
-                        </div>
-                        <div class="col-lg-7">
-                          <!-- <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
-                              placeholder="Assessment"></textarea> -->
-                          {{assessment}}
-                        </div>
-                      </div><br>
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].plan}}</b></label>
-                          <span style="color: red;">*</span>
-                        </div>
-                        <div class="col-lg-7">
-                          <!-- <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
-                              placeholder="Plan"></textarea> -->
-                          {{plan}}
-                        </div>
-                      </div><br>
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].diagnosisCode}}</b> </label>
-                          <!-- <span style="color: red;">*</span> -->
-                        </div>
-                        <div class="col-lg-7">
-                          <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
-                              placeholder="Diagnosis Code" /> -->
-                          {{diagnosiscode}}
-                        </div>
-                      </div><br>
-                      <!-- <div class="row">
-                      <div class="col-lg-3">
-                        <label><b>Sick Slip Genarator</b> </label>
-                      
-                      </div>
-                      <div class="col-lg-7">
-                        <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
-                          placeholder="Sick Slip Genarator" />
-                      </div>
-                    </div><br> -->
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].followUpPlan}}</b> </label>
-                          <!-- <span style="color: red;">*</span> -->
-                        </div>
-                        <div class="col-lg-7">
-                          <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
-                              placeholder="Follow Up Plan" /> -->
-                          {{followupplan}}
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].signature}}</b> </label>
-                          <span style="color: red;">*</span>
-                        </div>
-                        <div class="col-lg-7">
-                          <!-- <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
-                          placeholder="Signature" /> -->
-                          {{signature}}
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <label><b>{{labels[0].notes}}</b> </label>
-                          <!-- <span style="color: red;">*</span> -->
-                        </div>
-                        <div class="col-lg-7">
-                          {{notes}}
-                          <!-- <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes" placeholder="Notes"></textarea> -->
-                        </div>
-                      </div>
-                      <br>
-                    </form>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <label>{{labels[0].currentMedications}}</label>
-          <table>
-            <thead>
-              <tr>
-                <th>{{labels[0].drugName}}</th>
-                <th>{{labels[0].dosage}}</th>
-                <th>{{labels[0].frequency}}</th>
-              </tr>
-              <tr *ngFor="let medication of medicationlist">
-                <td>{{medication.drugName}}</td>
-                <td>{{medication.dosage}}</td>
-                <td>{{medication.frequency}}</td>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
+    <div class="col-lg-2">
       <br>
+      <div class="col-lg-12">
+        <button class="buttonclass" data-toggle="modal" data-target="#Addprescription"
+          style="background-color: #008CBA;">{{labels[0].addPrescription}}</button>
+      </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
+          data-target="#addsoap">{{labels[0].addSoapNotes}}</button>
+      </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
+          data-target="#addtest">{{labels[0].addTest}}</button>
+      </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
+          data-target="#previousprescription">{{labels[0].prescription}}</button>
+      </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
+          data-target="#previoussoap">{{labels[0].soap}}</button>
+      </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal" data-target="#previoustest">
+          {{labels[0].labtest}}</button>
+      </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal" data-target="#chat">
+          {{labels[0].chat}}</button>
+      </div>
+
+      <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
+          data-target="#currentmedications"> {{labels[0].currentMedications}}</button>
+      </div>
     </div>
   </div>
 </div><br>
 
 
-<!-- <div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-7">
-      <div class="row">
-        <div class="col-lg-6"> -->
-          <!-- <h6 *ngIf="languageid=='1'">Doctor video </h6>
-          <h6 *ngIf="languageid=='6'">Docteur vidéo</h6>
+<div class="modal hide fade" id="Addprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:700px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addPrescription}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <form #medicineForm="ngForm">
+            <div class="row">
+              <div class="col-lg-6">
+                <select class="form-control" (change)="GetDoctorPrecriptioTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].chooseFromtemplate}}</option>
+                  <option *ngFor="let pretemp of docprtemplateslist" value="{{pretemp.id}}">{{pretemp.templateName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-g-4">
+              </div>
+              <div class="col-lg-2">
+                <!-- <img src="assets/Images/arrowtop.jpg" style="margin-left: 291px;
+                width: 44%;"> -->
+              </div>
+            </div>
+            <br>
+            <div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <label>{{labels[0].enterManuallydruname}} :</label>
+                </div>
+                <div class="col-lg-6">
+                  <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="1">&nbsp;
+                  {{labels[0].yes}} &nbsp;&nbsp;
+                  <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="2">&nbsp;
+                  {{labels[0].no}} &nbsp;&nbsp;
+                </div>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-6" *ngIf="languageid=='1'&&manuallydrug=='1'">
+                <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                  placeholder="{{labels[0].drugName}}">
+              </div>
+              <div class="col-lg-6" *ngIf="languageid=='1'&&manuallydrug=='2'">
+                <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                  placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+              </div>
+              <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='1'">
+                <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                  placeholder="{{labels[0].drugName}}">
+              </div>
 
-          <app-publisher [session]="session" id="publishme" style="display: block;"></app-publisher> -->
-<!--           
+              <div class="col-lg-6" *ngIf="languageid=='6'&&manuallydrug=='2'">
+                <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                  placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+              </div><br>
+
+            </div>
+            <div class="row" *ngIf="SerachOn=='1'">
+              <div class="col-lg-12">
+                <table style="overflow-y:auto;">
+                  <thead>
+                    <tr>
+                      <th>Actions</th>
+                      <th>médicament</th>
+                      <th>Dénomination </th>
+                      <th>Dosage</th>
+                    </tr>
+                    <tr *ngFor="let code of drugnamelist|filter:medicinename| slice:0:100; let i=index">
+                      <td>
+                        <input type="checkbox" (click)="GetDrugID(code.medicinename)">
+                      </td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
+                  placeholder="{{labels[0].sig}}">
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
+                  placeholder="{{labels[0].dispenseQuantity}}">
+              </div>
+            </div><br>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
+                  placeholder="{{labels[0].howmanyRefills}}">
+              </div>
+              <!-- <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="unitofmeasure" [(ngModel)]="unitofmeasure"
+                    placeholder="{{labels[0].unitOfMeasure}}">
+                </div> -->
+            </div><br>
+            <!-- <div class="row">
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="dosage" [(ngModel)]="dosage"
+                    placeholder="{{labels[0].dosage}}">
+                </div>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
+                    placeholder="{{labels[0].duration}}">
+                </div>
+              </div><br> -->
+
+            <div class="row">
+              <!-- <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis"
+                    placeholder="{{labels[0].diagnosis}}">
+                </div> -->
+
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                {{labels[0].substistude}}
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="2">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                {{labels[0].saveastemplate}}
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="1">&nbsp;
+                {{labels[0].yes}}
+                &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="medicinetemplate" name="medicinetemplate" [value]="2">&nbsp;
+                {{labels[0].no}}
+                &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="medicinetemplate=='1'">
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="medicinetemplatename" [(ngModel)]="medicinetemplatename"
+                  placeholder="{{labels[0].templateName}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="color: white;" class="btn btn-default"
+                  [(disabled)]="medicineForm.form.invalid" (click)="adddetails1()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="tablecuont1=='1'" style="overflow: auto;">
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].drugName}}</th>
+                      <!-- <th>{{labels[0].unitOfMeasure}}</th> -->
+                      <!-- <th>{{labels[0].dosage}}</th>
+                        <th>{{labels[0].duration}}</th> -->
+                      <th>{{labels[0].sig}}</th>
+                      <th>{{labels[0].dispenseQuantity}}</th>
+                      <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
+                      <!-- <th>{{labels[0].diagnosis}}</th> -->
+                      <th>{{labels[0].substistude}} </th>
+                      <th>{{labels[0].howmanyRefills}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let medicinelist of qwerty2">
+                      <td>{{medicinelist.MedicineName}}</td>
+                      <!-- <td>{{medicinelist.UnitOfMeasure}}</td>
+                        <td>{{medicinelist.Dosage}}</td>
+                        <td>{{medicinelist.Duration}}</td> -->
+                      <td>{{medicinelist.SIG}}</td>
+
+                      <td>{{medicinelist.DispenseQuantity}}</td>
+                      <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->
+                      <td>
+                        <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
+                        <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
+                      </td>
+                      <!-- <td>{{medicinelist.Diagnosis}}</td> -->
+                      <td>{{medicinelist.HowmanyRefills}}</td>
+                      <td>
+                        <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                        <a [ngbTooltip]="tipcontent2">
+                          <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                            (click)="deleteMedicines(medicinelist.Sno)">
+                        </a>
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div><br>
+            <div class="row" *ngIf="tablecuont1=='1'">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="color: white;" class="btn btn-default"
+                  (click)="InsertPrescription()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="col-lg-6" style="overflow-y: auto;"> -->
-          <!-- <h6 *ngIf="languageid=='1'">Patient details </h6>
-          <h6 *ngIf="languageid=='6'">Détails du patient</h6>
-
-          <table class="card card-hover" style="overflow-y: auto;">
-            <tr>
-              <td>
-                <span *ngIf="languageid=='1'">Patient ID : <b>{{patientidd}} </b></span>
-                <span *ngIf="languageid=='6'">Ref. du patient : <b>{{patientidd}} </b></span>
-              </td>
-              <td>
-                {{labels[0].patientName}}: <b>{{patientname}} </b>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b>
-              </td>
-              <td>
-                {{labels[0].appointmentDate}} : <b>{{appointmentdate}}</b>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {{labels[0].phoneNo}} : <b>{{mobileno}}</b>
-              </td>
-              <td>
-                {{labels[0].email}} : <b>{{email}}</b>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                {{labels[0].reasonForVisit}} : <b>{{reasonforappointment}}</b>
-              </td>
-              <td>
-                {{labels[0].gender}} : <b>{{gender}}</b>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Age : <b>{{age}}</b>
-              </td>
-              <td>
-                {{labels[0].dateOfBirth}} : <b>{{dateofbirth}}</b>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {{labels[0].height}} : <b>{{height}}</b>
-              </td>
-              <td>
-                {{labels[0].weight}} : <b>{{wight}}</b>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="row">
-                  <div class="col-lg-12">
-                    {{labels[0].allergies}} :
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-lg-10">
-                    <ngx-tags-input class="form-control input-xl" style="height: 40px; font-size: large;" [(ngModel)]="allergies"
-                      name="allergies"></ngx-tags-input>
-                  </div>
-                  <div class="col-lg-2">
-                    <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
-                      data-target="#exampleModalCenter" />
-                  </div>
-                </div>
-              
-              </td>
-              <td>
-                {{labels[0].bmi}} : <b>{{bmi}}</b>
-              </td>
-            </tr>
-            <tr *ngIf="gender=='Female'">
-              <td>
-                {{labels[0].isThePatientPregnant}} :
-                <b>
-                  <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
-                  <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label></b>
-              </td>
-              <td>
-                Breast feeding :
-                <b>
-                  <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
-                  <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label></b>
-
-              </td>
-            </tr>
-          </table> -->
-        <!-- </div>
-      </div> -->
-
-
-      <!-- <div class="col-lg-4">
-      <label>{{labels[0].currentMedications}}</label>
-      <table>
-        <thead>
-          <tr>
-            <th>{{labels[0].drugName}}</th>
-            <th>{{labels[0].dosage}}</th>
-            <th>{{labels[0].frequency}}</th>
-          </tr>
-          <tr *ngFor="let medication of medicationlist">
-            <td>{{medication.drugName}}</td>
-            <td>{{medication.dosage}}</td>
-            <td>{{medication.frequency}}</td>
-          </tr>
-        </thead>
-      </table>
-    </div> -->
-    <!-- </div>
-    <div class="col-lg-5 card card-hover">
-      <label>{{labels[0].currentMedications}}</label>
-      <table>
-        <thead>
-          <tr>
-            <th>{{labels[0].drugName}}</th>
-            <th>{{labels[0].dosage}}</th>
-            <th>{{labels[0].frequency}}</th>
-          </tr>
-          <tr *ngFor="let medication of medicationlist">
-            <td>{{medication.drugName}}</td>
-            <td>{{medication.dosage}}</td>
-            <td>{{medication.frequency}}</td>
-          </tr>
-        </thead>
-      </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
     </div>
   </div>
-</div> -->
+</div>
 
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
+<div class="modal fade" id="addtest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-lg" style="float: right;">
+    <div class="modal-content" style="width:588px;margin-left: 83px;">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addTest}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <form #diaForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)">
+                  <option>{{labels[0].select}} {{labels[0].testType}}</option>
+                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+                </select>
+                <br>
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)">
+                  <option>{{labels[0].select}} {{labels[0].testName}}</option>
+                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
+                </select>
+                <br *ngIf="testid=='2'">
+                <textarea *ngIf="testid=='2'" class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
+                  placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
+                <br>
+                <div *ngIf="testssid=='59'||testssid=='60'">
+
+                  <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
+                    [(ngModel)]="diagnostictestname" name="diagnostictestname">
+
+                </div><br>
+                <!-- <div *ngIf="testssid=='59'||testssid=='60'">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label>{{labels[0].testName}} :</label>
+                    </div>
+                   
+                  </div> <br>
+                </div> -->
+
+
+                <button type="button" class="btn btn-default " [disabled]="diaForm.form.invalid"
+                  style="background-color: #f18235;color: white;" (click)="adddetails()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-7">
+                <table *ngIf="tablecount=='1'">
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].testType}}</th>
+                      <th>{{labels[0].testName}}</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tr *ngFor="let diagtest of qwerty">
+                    <td>{{diagtest.DiagnosticTestTypeName}}</td>
+                    <td>{{diagtest.TestName}}</td>
+                    <td>
+                      <ng-template #tipcontent2>Delete</ng-template>
+                      <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                          (click)="delete(diagtest.Sno)">
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+                <br>
+                <button type="button" *ngIf="tablecount=='1'" class="btn btn-default " style="background-color: #f18235;color: white
+                 ;" (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+              </div>
+
+            </div><br>
+
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addsoap" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:700px">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addSoapNotes}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-3">
-              <label>{{labels[0].allergies}}</label>
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-6">
+                <select class="form-control" (change)="GetTemplateID($event)">
+                  <option value="0">{{labels[0].chooseFromtemplate}}</option>
+                  <option *ngFor="let temp of templatelist" value="{{temp.id}}">{{temp.templateName}}</option>
+                </select>
+              </div>
+              <div class="col-g-4">
+              </div>
+              <div class="col-lg-2">
+                <!-- <img src="assets/Images/arrowtop.jpg" style=" width: 43%; margin-left: 284px;"> -->
+              </div>
             </div>
-            <div class="col-lg-8">
-              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
-              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
-                name="allergies"></ngx-tags-input>
+            <br>
+            <div class="row">
+              <div class="col-lg-6">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}"></textarea>
+              </div>
+              <div class="col-lg-6">
+                <textarea class="form-control" rows="4" name="objective" [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}"></textarea>
+              </div>
+            </div><br>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}"></textarea>
+              </div>
+              <div class="col-lg-6">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}"></textarea>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-6">
+                <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                  placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
+                  (ngModelChange)="SearchIcrCode()"></textarea>
+                <!-- <input id="typeahead-basic" type="text" class="form-control"
+                  placeholder="{{labels[0].diagnposticCode}}" [(ngModel)]="icddesc"
+                  [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search" (ngModelChange)="getid()" /> -->
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showsearchsoap=='1'">
+              <!-- <div class="col-lg-1">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].diagnposticCode}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                      <td>
+                        {{code.description}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="icdcode" name="icdcode" placeholder="{{labels[0].diagnosticDescription}}" />
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled [(ngModel)]="signature" name="signature"
+                  placeholder="{{labels[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-6">
+                <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
+                  placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <!-- <br>
+              <div class="row">
+                <div class="col-lg-6">
+                  <input type="checkbox" (change)="GetPateintMisUseCheck($event)" value="true">
+                  {{labels[0].patientMisUse}}
+                  <span style="color: red;">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <textarea class="form-control" rows="4" name="notes" [(ngModel)]="miscomments"
+                    placeholder="{{labels[0].miscomments}}"></textarea>
+                </div>
+              </div> -->
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                {{labels[0].saveastemplate}}
+
+              </div>
+              <div class="col-lg-3">
+                <input type="radio" [(ngModel)]="savetemplate" name="savetemplate" [value]="1">&nbsp;{{labels[0].yes}}
+                &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="savetemplate" name="savetemplate" [value]="2">&nbsp;{{labels[0].no}}
+              </div>
+              <div class="col-lg-6" *ngIf="savetemplate=='1'">
+                <textarea class="form-control" rows="4" name="templatename" [(ngModel)]="templatename"
+                  placeholder="{{labels[0].templateName}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="previousprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:787px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].prescription}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto; margin-left: -26px;">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].date}}</th>
+                    <!-- <th>{{labels[0].medicineType}}</th> -->
+                    <th>{{labels[0].drugName}}</th>
+                    <!-- <th>{{labels[0].unitOfMeasure}}</th>
+                      <th>{{labels[0].dosage}}</th>
+                      <th>{{labels[0].duration}}</th> -->
+                    <th>{{labels[0].sig}}</th>
+                    <th>{{labels[0].dispenseQuantity}}</th>
+                    <th>{{labels[0].howmanyRefills}}</th>
+
+                    <th>{{labels[0].substistude}} </th>
+                    <!-- <th>{{labels[0].diagnosis}}</th> -->
+                    <th>{{labels[0].noteToPharmasist}}</th>
+
+                    <th>{{labels[0].actions}}</th>
+                  </tr>
+                  <tr *ngFor="let presciption of prescrptionlist">
+                    <td>{{presciption.date}}</td>
+                    <!-- <td>{{presciption.medicinetype}}</td> -->
+                    <td>{{presciption.medicineName}}</td>
+                    <!-- <td>{{presciption.unitOfMeasure}}</td>
+                      <td>{{presciption.dosage}}</td>
+                      <td>{{presciption.duration}}</td> -->
+                    <td>{{presciption.sig}}</td>
+
+                    <td>{{presciption.dispenseQuantity}}</td>
+                    <td>{{presciption.howmanyRefills}}</td>
+                    <td>
+                      <span *ngIf="presciption.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
+                      <span *ngIf="presciption.substainablenotPermitted=='2'"> {{labels[0].no}}</span>
+                    </td>
+                    <td>{{presciption.noteToPharmasist}}</td>
+                    <!-- <td>{{presciption.diagnosis}}</td> -->
+
+                    <td>
+                      <!-- <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                      <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                          (click)="deleteprscriptonforpatient(presciption.id)">
+                      </a>&nbsp;&nbsp; -->
+                      <button type="button" class="form-control"
+                        (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3">
-
+            <div class="col-lg-5">
             </div>
-            <div class="col-lg-8">
-              <p>{{labels[0].alergesmessage}}</p>
+            <div class="col-lg-3">
+              <!-- <img src="assets/Images/arrowleft.jpg"> -->
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
-        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="previoussoap" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:856px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].soap}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="width:860px">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].appointmentDate}}</th>
+                    <th>{{labels[0].reasonForVisit}}</th>
+                    <th>{{labels[0].previousSoapNotes}}</th>
+                  </tr>
+                  <tr *ngFor="let soppp of soaplist1">
+                    <td>{{soppp.appointDate}}</td>
+                    <td>{{soppp.reasonForVisit}}</td>
+                    <td>
+                      <ng-template #tipcontent7>{{labels[0].previousSoapNotes}}</ng-template>
+                      <a [ngbTooltip]="tipcontent7">
+                        <img src="assets/Images/pview.png" data-toggle="modal" data-target="#exampleModalLong1"
+                          style="height:25px;" (click)="GetSoapID(soppp.soapID)" />
+                      </a>&nbsp;
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="previoustest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:762px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].labtest}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="width:860px">
+        <div class="container-fluid" style="overflow: y;">
+          <br>
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].appointmentDate}}</th>
+                    <th>{{labels[0].testType}}</th>
+                    <th>{{labels[0].testName}}</th>
+                    <!-- <th>{{labels[0].reports}}</th> -->
+                  </tr>
+                  <tr *ngFor="let details of diagnosticlist">
+                    <td>{{details.appdate}}</td>
+                    <td>{{details.name}}</td>
+                    <td>{{details.testName}}</td>
+                    <!-- <td>
+                      <img src="assets/Images/down.png" style="width: 20px;margin-left: 10px;">
+                    </td> -->
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="chat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:700px;margin-left: 70px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].chat}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="width:715px">
+        <div class="container-fluid ">
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
+              <!-- <span *ngIf="istyping==true">typing .... </span> -->
+            </div>
+          </div>
+          <div style="height: 500px;overflow-y: scroll;width: 660px;" id="chatboxdiv">
+            <div *ngFor='let convo of coversationarray'>
+              <div class="container" *ngIf='convo.user=="doc"'>
+                <div class="row">
+                  <div class="col-lg-4"></div>
+                  <div class="col-lg-3"></div>
+                  <div class="col-lg-5" style="background-color:#dbdbdb;border-radius: 5px;color:black">
+                    <div *ngIf="convo.msgtype=='1'">
+                      <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
+                      float: left;">
+                      <p style="margin-top: 5px;">{{convo.chatmsg}}
+                        <span style="float: right;;margin-top: 5px;">
+                          {{convo.time}}
+                        </span>
+                      </p>
+                    </div>
+                    <div *ngIf="convo.msgtype=='2'">
+                      <img src="{{convo.chatmsg}}" style="width: 100%;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container" *ngIf='convo.user=="pat"'>
+                <div class="row">
+                  <div class="col-lg-5"
+                    style="background-color:#1dbfd2;border-radius: 5px;color:black;margin-top: 1px;">
+                    <div *ngIf="convo.msgtype=='1'">
+                      <p style="margin-top: 5px;">
+                        <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
+                        &nbsp;
+                        {{convo.chatmsg}}
+                        <span style="float: right;;margin-top: 5px;">
+                          {{convo.time}}
+                        </span>
+                      </p>
+                    </div>
+                    <div *ngIf="convo.msgtype=='2'">
+                      <img src="{{convo.chatmsg}}" style="width: 100%;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+          <hr>
+          <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
+            <form #chatfrom="ngForm">
+              <div class="row">
+                <div class="col-lg-9">
+                  <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
+                    class="form-control" style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
+                </div>
+                <div class="col-lg-2">
+                  <button type="submit" class="chat" [disabled]="chatfrom.form.invalid"
+                    (click)="dosendmsg()">{{labels[0].send}}
+                    <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
+                  </button>
+                </div>
+                <div class="col-lg-1">
+                  <!-- <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
+                    style="height: 50px;">
+                  </ngx-dropzone> -->
+                </div>
+              </div>
+            </form>
+          </div><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="soapnotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:856px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle"> {{labels[0].previousSoapNotes}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="width:800px">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].subjective}}</b></label>
+              </div>
+              <div class="col-lg-7">
+                {{subjective}}
+                <!-- <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                    placeholder="Subjective"></textarea> -->
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].objective}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                {{objective}}
+                <!-- <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                    placeholder="Objective"></textarea> -->
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].assessment}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                    placeholder="Assessment"></textarea> -->
+                {{assessment}}
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].plan}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                    placeholder="Plan"></textarea> -->
+                {{plan}}
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].diagnosisCode}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                    placeholder="Diagnosis Code" /> -->
+                {{diagnosiscode}}
+              </div>
+            </div><br>
+            <!-- <div class="row">
+            <div class="col-lg-3">
+              <label><b>Sick Slip Genarator</b> </label>
+            
+            </div>
+            <div class="col-lg-7">
+              <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+                placeholder="Sick Slip Genarator" />
+            </div>
+          </div><br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].followUpPlan}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                    placeholder="Follow Up Plan" /> -->
+                {{followupplan}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].signature}}</b> </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <!-- <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+                placeholder="Signature" /> -->
+                {{signature}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].notes}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                {{notes}}
+                <!-- <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes" placeholder="Notes"></textarea> -->
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">close</button>
       </div>
     </div>
   </div>
@@ -1306,6 +1194,227 @@
       <br>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-lg" role="document" style="float: right;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
+          {{labels[0].previousSoapNotes}}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].subjective}}</b></label>
+              </div>
+              <div class="col-lg-7">
+                {{subjective}}
+                <!-- <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="Subjective"></textarea> -->
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].objective}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                {{objective}}
+                <!-- <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="Objective"></textarea> -->
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].assessment}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="Assessment"></textarea> -->
+                {{assessment}}
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].plan}}</b></label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="Plan"></textarea> -->
+                {{plan}}
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].diagnosisCode}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                  placeholder="Diagnosis Code" /> -->
+                {{diagnosiscode}}
+              </div>
+            </div><br>
+            <!-- <div class="row">
+          <div class="col-lg-3">
+            <label><b>Sick Slip Genarator</b> </label>
+          
+          </div>
+          <div class="col-lg-7">
+            <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+              placeholder="Sick Slip Genarator" />
+          </div>
+        </div><br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].followUpPlan}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="Follow Up Plan" /> -->
+                {{followupplan}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].signature}}</b> </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <!-- <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+              placeholder="Signature" /> -->
+                {{signature}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>{{labels[0].notes}}</b> </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                {{notes}}
+                <!-- <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes" placeholder="Notes"></textarea> -->
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].allergies}}</label>
+            </div>
+            <div class="col-lg-8">
+              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
+              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
+                name="allergies"></ngx-tags-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-8">
+              <p>{{labels[0].alergesmessage}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="currentmedications" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:751px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].currentMedications}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto; margin-left: -26px;">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].drugName}}</th>
+                    <th>{{labels[0].dosage}}</th>
+                    <th>{{labels[0].frequency}}</th>
+                  </tr>
+                  <tr *ngFor="let medication of medicationlist">
+                    <td>{{medication.drugName}}</td>
+                    <td>{{medication.dosage}}</td>
+                    <td>{{medication.frequency}}</td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-3">
+              <!-- <img src="assets/Images/arrowleft.jpg"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>

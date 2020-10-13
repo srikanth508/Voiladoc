@@ -26,6 +26,17 @@
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Merge Patient Data
             <!-- {{labels[0].howToUseVoilaDoc}} -->
         </a>
+
+        <a class="tablinks" (click)="highlight($event)" routerLink="/RolemenuDash" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Role Menu Mapping
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
+        
+        <a class="tablinks" (click)="highlight($event)" routerLink="/UserRoleMappingdash" *ngIf="roleid=='12'">
+            <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; User Role Mapping
+            <!-- {{labels[0].howToUseVoilaDoc}} -->
+        </a>
+
         <a class="tablinks" (click)="highlight($event)" routerLink="/Sendemails" *ngIf="roleid=='12'">
             <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Emails
             <!-- {{labels[0].howToUseVoilaDoc}} -->
@@ -452,7 +463,6 @@
         <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'&&hospitalid=='590'" routerLink="/MyFees">
             <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorFees}}
         </a>
-
 
         <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/TestvideocallPage">
             <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;

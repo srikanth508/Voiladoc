@@ -48,6 +48,9 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
      
       this.id = params['id'];
 
+
+  
+
     }
     )
     this.languageid = localStorage.getItem('LanguageID');

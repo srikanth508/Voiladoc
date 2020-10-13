@@ -20,13 +20,13 @@ export class PublisherComponent implements AfterViewInit {
   // ngOnInit() {
   // }
   ngAfterViewInit() {
-
     const OT = this.opentokService.getOT();
 
     this.publisher = OT.initPublisher(this.publisherDiv.nativeElement, {
-      insertMode: 'append'
-      // width: 400,
-      // height: 300
+      insertMode: 'append',
+      width: 221,
+      height: 199
+
     });
 
     if (this.session) {

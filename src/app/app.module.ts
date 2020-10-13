@@ -332,6 +332,11 @@ import { EmailDashComponent } from './pages/Sales/email-dash/email-dash.componen
 import { TestvideocallPageComponent } from './pages/Doctor/testvideocall-page/testvideocall-page.component';
 import { SendSmsComponent } from './pages/Sales/send-sms/send-sms.component';
 import { SmsDashComponent } from './pages/Sales/sms-dash/sms-dash.component';
+import { RoleMenuMappingComponent } from './pages/MenuMapping/role-menu-mapping/role-menu-mapping.component';
+import { RolemenuDashComponent } from './pages/MenuMapping/rolemenu-dash/rolemenu-dash.component';
+import { UserrolemappingComponent } from './pages/MenuMapping/userrolemapping/userrolemapping.component';
+import { UserRoleMappingdashComponent } from './pages/MenuMapping/user-role-mappingdash/user-role-mappingdash.component';
+
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -655,7 +660,12 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     EmailDashComponent,
     TestvideocallPageComponent,
     SendSmsComponent,
-    SmsDashComponent
+    SmsDashComponent,
+    RoleMenuMappingComponent,
+    RolemenuDashComponent,
+    UserrolemappingComponent,
+    UserRoleMappingdashComponent,
+   
   ],
   imports: [
     BrowserModule,

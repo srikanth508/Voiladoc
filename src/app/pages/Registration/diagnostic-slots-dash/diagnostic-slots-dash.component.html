@@ -112,7 +112,9 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-
+        <!-- <br>
+        <b>{{labels[0].startTimeEndTime}}</b>
+        <br> -->
         <div class="row">
           <div class="col-lg-12" *ngIf="timeid==1">
             <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="dis1=='1'" [(ngModel)]="dropdownclear1" [data]="slotslist"
