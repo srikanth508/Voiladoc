@@ -1,0 +1,63 @@
+<br>
+<div class="container-fluid card card:hover headerspace ">
+  <div class="row">
+    <div class="col-lg-3 ">
+      <h5 style="margin-top: 11px;">Role menu mapping</h5>
+    </div>
+    <div class="col-lg-7"></div>
+    <div class="col-lg-2">
+      <button style="margin-top: 11px;" type="button" routerLink="/RoleMenuMapping" class="btn btncolor">Add Role
+        mapping</button>
+    </div>
+  </div>
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-2">
+      <!-- <label style="margin-left: 76px;"> Count : </label> -->
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Menu</th>
+            <th>Sub Menu</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let rolemap of RoleMappinglist">
+            <td>{{rolemap.short}}</td>
+            <td>{{rolemap.menus}}</td>
+            <td>{{rolemap.subMenuName}}</td>
+            <td>
+
+
+              <ng-template #tipcontent2>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 18px;" (click)="DeleteRoleMapping(rolemap.id)">
+              </a>&nbsp;
+
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/RoleMenuMapping',rolemap.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 18px"></a>
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br /><br />
+  </div>
+  <br /><br />
+  <br />
+</div>
+<br /><br /><br /><br />

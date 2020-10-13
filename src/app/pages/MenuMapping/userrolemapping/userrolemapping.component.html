@@ -1,0 +1,107 @@
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5 style="margin-top: 12px;">User Role Mapping</h5>
+    </div>
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+  </div>
+</div>
+<br />
+<div class="conatiner-fluid card card-hover">
+  <br>
+  <form #UserForm="ngForm">
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">First name : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="firstname" required placeholder="First name" name="firstname">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">Last name : </label>
+      <!-- <span class="required">*</span> -->
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="lastname" name="lastname" placeholder="Last name">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">Phone no : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="phoneno" required name="phoneno" placeholder="Phone no">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">Email : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="email" required name="email" placeholder="Email">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">User name : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="username" required name="username" placeholder="User name">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">Password : </label>
+      <span class="required">*</span>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" class="form-control" [(ngModel)]="password" required name="password" placeholder="Password">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-3">
+      <label class="REGISTRATION NO:">Role : </label>
+      <span class="required">*</span>
+    </div>
+  <div class="col-lg-4" >
+    <select class="form-control" (change)="GetRoleID($event)" required>
+      <option value="0">Select</option>
+      <option *ngFor="let role of rolelist" value="{{role.id}}">{{role.short}}</option>
+    </select>
+  </div>
+</div><br>
+<div class="row">
+  <div class="col-lg-5">
+  </div>
+  <div class="col-lg-2">
+    <button type="button" style="background-color: #f18235;color: white;" [disabled]="UserForm.form.invalid"  class="btn btn-default" 
+      class="btn btn-block btn-md allbtns btncolor" (click)="InsertDetails()">Save</button>
+  </div>
+  <div class="col-lg-5">
+  </div><br>
+  <br>
+</div>
+</form>
+</div>
