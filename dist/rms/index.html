@@ -63,7 +63,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       if (Notification.permission !== "granted") {
         Notification.requestPermission();
-
+debugger
       }
     });
 
@@ -75,7 +75,7 @@
           if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
             aCallback(anHttpRequest.responseText);
         }
-
+        debugger
         anHttpRequest.open("GET", aUrl, true);
         anHttpRequest.send(null);
       }
@@ -109,20 +109,21 @@
 
     function customnotify() {
       debugger;
-
+      debugger
       userid = localStorage.getItem('userid');
       if (userid != undefined || userid != null || userid != "") {
-        if (getCookie("doc_id") == "") {
+        if (getCookie("doc_id") == ""||getCookie("doc_id") == "null") {
           setCookie("doc_id", userid);
         }
+        debugger
       }
       if (getCookie("doc_id") != "") {
 
-
         var client = new HttpClient();
-        client.get(localStorage.getItem('WebUrl') + '/Doctor/GetNotifications_DoctorByDoctorID?DoctorID=' + getCookie("doc_id"), function (response) {
+        client.get(localStorage.getItem('WebUrl') + '/Doctor/GetNotifications_DoctorByDoctorIDWebSide?DoctorID=' + getCookie("doc_id"), function (response) {
           debugger;
           var res = JSON.parse(response);
+          debugger
           for (var i = 0; i < res.length; i++) {
             // do something with response
             var notification = new Notification(res[i].notification, {
@@ -131,10 +132,10 @@
             });
 
             /* Remove the notification from Notification Center when clicked.*/
-            notification.onclick = function () {
-              debugger;
-              // window.open(url);
-            };
+            // notification.onclick = function () {
+            //   debugger;
+            //   // window.open(url);
+            // };
 
             /* Callback function when the notification is closed. */
             notification.onclose = function () {
@@ -158,6 +159,6 @@
 <body>
 
   <app-root></app-root>
-<script type="text/javascript" src="runtime.7692800a3b66884bd362.js"></script><script type="text/javascript" src="polyfills.8a52d81d84821b2ff6c8.js"></script><script type="text/javascript" src="scripts.444f34f8bbb89a186cf1.js"></script><script type="text/javascript" src="main.e74fb92dd37596c4fa1c.js"></script></body>
+<script type="text/javascript" src="runtime.7692800a3b66884bd362.js"></script><script type="text/javascript" src="polyfills.8a52d81d84821b2ff6c8.js"></script><script type="text/javascript" src="scripts.444f34f8bbb89a186cf1.js"></script><script type="text/javascript" src="main.60ba485b331b88809cc9.js"></script></body>
 
 </html>
