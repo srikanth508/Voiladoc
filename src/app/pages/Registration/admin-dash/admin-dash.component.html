@@ -19,12 +19,10 @@
 <br />
 <div class="container-fluid card card-hover">
   <br />
-
   <br />
   <div class="row">
-    <div class="col-lg-1"></div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/HspClidash', 1, this.hospitalcount]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registeredHospitals}}</b>
@@ -34,7 +32,7 @@
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;"
-              [routerLink]="['/HspClidash', 1, this.hospitalcount]">{{count.hospitalcount }}</u>
+             >{{count.hospitalcount }}</u>
           </b>
         </label>
       </div>
@@ -42,7 +40,7 @@
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/ClinicDash', 2, this.cliniccount]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registredClinics}}
@@ -52,7 +50,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/ClinicDash', 2, this.cliniccount]">{{count.cliniccount }}</u>
+            <u style="font-size: 20px;" >{{count.cliniccount }}</u>
           </b>
         </label>
       </div>
@@ -60,7 +58,7 @@
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/Docdash', 1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registeredDoctors}}
@@ -70,21 +68,16 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/Docdash', 1]">{{count.doctorscount}}</u>
+            <u style="font-size: 20px;">{{count.doctorscount}}</u>
           </b>
         </label>
       </div>
       <br />
       <br />
     </div>
-    <div class="col-lg-1"></div>
-    <br />
-  </div>
-  <br />
-  <div class="row">
-    <div class="col-lg-1"></div>
+
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/Pharmacydashboard', 1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registredPharmacy}}
@@ -94,15 +87,21 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/Pharmacydashboard', 1]">{{count.pharmacyCount }}</u>
+            <u style="font-size: 20px;" >{{count.pharmacyCount }}</u>
           </b>
         </label>
       </div>
       <br />
       <br />
     </div>
+   
+    <br />
+  </div>
+  <br />
+  <div class="row">
+
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/NurseDashboard', 1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registredNurse}}
@@ -112,7 +111,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/NurseDashboard', 1]">{{count.nurseCount }}</u>
+            <u style="font-size: 20px;" >{{count.nurseCount }}</u>
           </b>
         </label>
       </div>
@@ -120,7 +119,7 @@
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/PhysiotherapistDashboard', 1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registredPhysio}}
@@ -130,21 +129,15 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/PhysiotherapistDashboard', 1]">{{count.phsyciocount}}</u>
+            <u style="font-size: 20px;" >{{count.phsyciocount}}</u>
           </b>
         </label>
       </div>
       <br />
       <br />
     </div>
-    <div class="col-lg-1"></div>
-    <br />
-  </div>
-  <br />
-  <div class="row">
-    <div class="col-lg-1"></div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/MidwifeDashboard', 1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registredMidwife}}
@@ -154,7 +147,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/MidwifeDashboard', 1]">{{count.midwivwcount }}</u>
+            <u style="font-size: 20px;">{{count.midwivwcount }}</u>
           </b>
         </label>
       </div>
@@ -162,7 +155,7 @@
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/DiagnesticDashboard',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">{{labels[0].registerDiagnostics}}
@@ -172,13 +165,20 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/DiagnesticDashboard',1]">{{count.diagnosticCount }}</u>
+            <u style="font-size: 20px;" >{{count.diagnosticCount }}</u>
           </b>
         </label>
       </div>
       <br />
       <br />
     </div>
+    <br />
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-1"></div>
+
+   
     <!-- <div class="col-lg-3" *ngFor="let count of allcounts">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />

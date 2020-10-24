@@ -38,12 +38,17 @@ export class DiagnosticpackageComponent implements OnInit {
   public languageid: any;
   public dummdiagnosticid: any;
   public searchlable: any;
-
+  public showdropdown: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    debugger
     this.diagnosticid = localStorage.getItem('diagnosticid')
     this.dummdiagnosticid = localStorage.getItem('diagnosticid')
     this.diagnosticname = localStorage.getItem('user')
+    if (this.dummdiagnosticid == undefined || this.dummdiagnosticid == null) {
+      this.showdropdown = 1;
+    }
+    debugger
     this.getlanguage();
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();

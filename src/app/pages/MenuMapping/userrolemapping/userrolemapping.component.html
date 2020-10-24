@@ -86,7 +86,7 @@
       <span class="required">*</span>
     </div>
   <div class="col-lg-4" >
-    <select class="form-control" (change)="GetRoleID($event)" required>
+    <select class="form-control" (change)="GetRoleID($event)" required [(ngModel)]="roleid" name="roleid">
       <option value="0">Select</option>
       <option *ngFor="let role of rolelist" value="{{role.id}}">{{role.short}}</option>
     </select>
@@ -96,8 +96,11 @@
   <div class="col-lg-5">
   </div>
   <div class="col-lg-2">
-    <button type="button" style="background-color: #f18235;color: white;" [disabled]="UserForm.form.invalid"  class="btn btn-default" 
+    <button type="button" *ngIf="showbutton=='0'" style="background-color: #f18235;color: white;" [disabled]="UserForm.form.invalid"  class="btn btn-default" 
       class="btn btn-block btn-md allbtns btncolor" (click)="InsertDetails()">Save</button>
+
+      <button type="button" *ngIf="showbutton=='1'" style="background-color: #f18235;color: white;" [disabled]="UserForm.form.invalid"  class="btn btn-default" 
+      class="btn btn-block btn-md allbtns btncolor" (click)="Updatedetails()">Update</button>
   </div>
   <div class="col-lg-5">
   </div><br>

@@ -32,6 +32,7 @@ export class MyappointmentsComponent implements OnInit {
   states: any;
   model: any;
   icddesc: any;
+  noti: any;
 
   constructor(public docservice: HelloDoctorService) { }
 
@@ -248,7 +249,14 @@ export class MyappointmentsComponent implements OnInit {
 
     this.user = localStorage.getItem('user');
 
-    this.earlycallnotes = this.user + " is available now. can you start video call now"
+
+    if (this.languageid == 1) {
+      this.earlycallnotes = this.user + " is available. Would you like to take the call now ?"
+    }
+    else if (this.languageid == 6) {
+      this.earlycallnotes = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ?"
+    }
+
 
     if (this.languageid == 1) {
       this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sigdate;
@@ -312,7 +320,11 @@ export class MyappointmentsComponent implements OnInit {
     this.GetDoctorPrescrptionTemplates()
     this.geticdcode()
     this.GetDrugnamemaster()
-    document.getElementById('Scheduled').style.display = "block";
+    this.oberserableTimerBookDocAppoinment()
+
+    // document.getElementById('Scheduled').style.display = "block";
+
+    document.getElementById("defaultOpen").style.display = "block";
 
     this.morning = 0;
     this.evening = 0;
@@ -323,23 +335,8 @@ export class MyappointmentsComponent implements OnInit {
     this.testssid = 0;
 
 
-
-
     this.image = 0;
 
-    // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-    //   ;
-    //   this.chatIDlist = res;
-    //   this.chatID = this.chatIDlist[0].chatID
-    //   this.getPreviousChat();
-    //   this.oberserableTimer();
-    //   this.getserverdateandtime();
-    //   // this.appointmentiddd = 570;
-    //   this.appointmentdatetimee = localStorage.getItem('appdate');
-    //   this.getserverdateandtime();
-    //   this.getPreviousChat();
-    //   this.oberserableTimer();
-    // })
 
   }
 
@@ -396,6 +393,21 @@ export class MyappointmentsComponent implements OnInit {
     console.log(this.validdate1)
 
   }
+
+
+  oberserableTimerBookDocAppoinment() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+
+      this.getbookappointmentbydoctorid()
+
+
+    });
+  }
+
+
+
+
   public getbookappointmentbydoctorid() {
 
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
@@ -922,6 +934,55 @@ export class MyappointmentsComponent implements OnInit {
   preslots: any
   appdate: any;
   prepatientemail: any;
+
+
+
+  public GetEarlyprescription(patientID, appointmentID, appointmentTypeID, countryID, cityID, areaID, slots, appdate, pemail) {
+    this.patientiddd = patientID,
+      this.preappointmentid = appointmentID;
+    this.apptypeid = appointmentTypeID;
+    this.countryid = countryID;
+    this.cityid = cityID;
+    this.areaid = areaID
+    this.preslots = slots
+    this.appdate = appdate
+    this.prepatientemail = pemail;
+
+    this.patientiddd = patientID,
+      this.preappointmentid = appointmentID;
+    this.apptypeid = appointmentTypeID;
+    this.countryid = countryID;
+    this.cityid = cityID;
+    this.areaid = areaID
+    this.preslots = slots
+    this.appdate = appdate
+    this.medicinename = "";
+    this.unitofmeasure = "";
+    this.dosage = "";
+    this.sig = "";
+    this.duration = "";
+    this.dispensequantity = "";
+    this.notetopharmacist = "";
+    this.diagnosis = '';
+    this.howmanyrefills = '';
+    this.medicinetemplatename = "",
+      this.medicinetemplate = 2;
+    this.display = "block";
+    this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
+      data => {
+
+        this.localdoclist = data;
+
+        this.localdocid = this.localdoclist[0].id
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
   public GetPatientid(patientID, appointmentID, appointmentTypeID, countryID, cityID, areaID, slots, appdate, pemail) {
 
     this.patientiddd = patientID,
@@ -1065,10 +1126,10 @@ export class MyappointmentsComponent implements OnInit {
 
   SerachOn: any;
   public SerchDrugName(medicinename) {
-   
+
     if (medicinename == "") {
       this.SerachOn = 0;
-     
+
     }
     else {
       this.SerachOn = 1;
@@ -1081,24 +1142,12 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetDrugID(medicinename) {
-   
+
     this.medicinename = medicinename
     this.SerachOn = 0
   }
 
 
-  // public GetDrugNameID() {
-
-  //   if (this.medicinename == '') {
-  //     this.medicinename = ''
-  //   }
-  //   else {
-  //     let wqew = this.icdcodelist.filter(v => v.drugnames.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
-  //     // this.icdcode = wqew[0].icdCode,
-  //     //   this.icrcodeid = wqew[0].id
-
-  //   }
-  // }
 
 
 
@@ -1302,17 +1351,31 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public InsertNotificationPrescription() {
-
-    var entity = {
-      'Description': this.user + " Added Prescription For You",
-      'ToUser': this.prepatientemail,
-    }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-
-      if (data != 0) {
-
+    if (this.languageid == 1) {
+      var entity = {
+        'Description': this.user + " has added Prescription for you. ",
+        'ToUser': this.prepatientemail,
       }
-    })
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      var entity = {
+        'Description': this.user + " Votre rapport de consultation est maintenant disponible dans Mon dossier médical",
+        'ToUser': this.prepatientemail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+
   }
 
 
@@ -1321,9 +1384,9 @@ export class MyappointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientiddd,
-        'Notification': "Doctor Added Prescription.",
-        'Description': this.user + " Added Prescription For You",
-        'NotificationTypeID': 28,
+        'Notification': this.user + " added prescription for you",
+        'Description': this.user + " added prescription for you",
+        'NotificationTypeID': 101,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.preappointmentid
@@ -1337,9 +1400,9 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.patientiddd,
-        'Notification': "Prescription ajoutée par le médecin.",
-        'Description': this.user + " Added Prescription For You",
-        'NotificationTypeID': 28,
+        'Notification': this.user + " Votre ordonnance est maintenant disponible dans Mon dossier médical .",
+        'Description': this.user + " Votre ordonnance est maintenant disponible dans Mon dossier médical .",
+        'NotificationTypeID': 101,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.preappointmentid
@@ -1393,34 +1456,67 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
+  public GetPriviouesPrescriptionlist(presciption) {
+    debugger
+    this.editprescid = presciption.id,
+      this.medicinename = presciption.medicineName,
+      this.sig = presciption.sig,
+      this.notetopharmacist = presciption.noteToPharmasist,
+      this.howmanyrefills = presciption.howmanyRefills,
+      this.substainable = presciption.substainablenotPermitted,
+      this.dispensequantity = presciption.dispenseQuantity
+  }
+
+  editprescid: any;
+
+
+  public updateprescription() {
+    var entity =
+    {
+      'ID': this.editprescid,
+      'MedicineName': this.medicinename,
+      'SIG': this.sig,
+      'DispenseQuantity': this.dispensequantity,
+      'NoteToPharmasist': this.notetopharmacist,
+      'HowmanyRefills': this.howmanyrefills,
+      'SubstainablenotPermitted': this.substainable
+    }
+    this.docservice.UpdateDoctor_PatientPrescriptionWeb(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully');
+        this.getdoctorpatinetdetails();
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.getdoctorpatinetdetails();
+      }
+
+    })
+  }
+
   //prescrptio end 
 
 
+  //getearlyprescription
 
 
-
-
-
-
-
-
-
-
-
-
-
+  public GetEarlyDiaTest(patientID, appointmentID, appdate, slots, pemail) {
+    this.diapatientid = patientID;
+    this.diaappointmentID = appointmentID;
+    this.appdate = appdate
+    this.slots = slots,
+      this.testpatientemail = pemail
+    this.testdisplay = "block";
+    this.diapatientid = patientID;
+    this.diaappointmentID = appointmentID;
+    this.appdate = appdate
+    this.slots = slots
+  }
 
 
 
   testdisplay: any;
   testpatientemail: any;
-
-
-
-
-
-
-
 
 
   public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail) {
@@ -1581,18 +1677,33 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public Insertnotificationtestazure() {
-
-    var entity = {
-      'Description': this.user + " Added Diagnostic Test For You.",
-      'ToUser': this.testpatientemail,
-    }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-
-      if (data != 0) {
-
+    if (this.languageid == 1) {
+      var entity = {
+        'Description': this.user + " added diagnostic test for you. ",
+        'ToUser': this.testpatientemail,
       }
-    })
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      var entity = {
+        'Description': this.user + " Vos résultats d'analyses sont maintenant disponibles dans Mon dossier médical .",
+        'ToUser': this.testpatientemail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+
   }
+
 
 
   public Insertnotificationtest() {
@@ -1600,9 +1711,9 @@ export class MyappointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.diapatientid,
-        'Notification': "Doctor Added Diagnostic Test For You.",
-        'Description': this.user + " Added Diagnostic Test For You.",
-        'NotificationTypeID': 30,
+        'Notification': this.user + " added diagnostic test for you. ",
+        'Description': this.user + " added diagnostic test for you. ",
+        'NotificationTypeID': 102,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.diaappointmentID
@@ -1616,9 +1727,9 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.diapatientid,
-        'Notification': "Le médecin a ajouté un test de diagnostic pour vous.",
-        'Description': this.user + " a ajouté un test de diagnostic pour vous.",
-        'NotificationTypeID': 30,
+        'Notification': this.user + " Vos résultats d'analyses sont maintenant disponibles dans Mon dossier médical.",
+        'Description': this.user + " Vos résultats d'analyses sont maintenant disponibles dans Mon dossier médical.",
+        'NotificationTypeID': 102,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.diaappointmentID
@@ -1632,10 +1743,6 @@ export class MyappointmentsComponent implements OnInit {
       })
     }
   }
-
-
-
-
 
 
   public delete(Sno) {
@@ -1704,6 +1811,42 @@ export class MyappointmentsComponent implements OnInit {
     }
 
   }
+
+  editdiaid: any;
+
+  public GetDiaEditList(dia) {
+    debugger
+    this.editdiaid = dia.id,
+      this.testid = dia.diagnosticTestTypeID,
+      this.testssid = dia.testsID,
+      this.clinicalinfo = dia.clinicalInfo
+    this.getdiagnostictests();
+  }
+
+
+  public updatedignostictest() {
+    debugger
+    var diatest = {
+      'ID': this.editdiaid,
+      'DiagnosticTestTypeID': this.testid,
+      'DiagnosticTestName': this.diagnostictestname,
+      'TestsID': this.testssid,
+      'ClinicalInfo': this.clinicalinfo
+    }
+    this.docservice.UpdateDoctor_PatientDiagnostics(diatest).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully');
+        this.getdiadnosticdetails();
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.getdiadnosticdetails();
+      }
+
+    })
+  }
+
+
 
 
 
@@ -1849,6 +1992,36 @@ export class MyappointmentsComponent implements OnInit {
     })
   }
   pemailsoap: any;
+
+
+  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail) {
+    this.patientid = patientID;
+    this.appointmentdatetime = adate;
+    this.appointmentid = appointmentID;
+    this.appdate = appdate;
+    this.pemailsoap = pemail;
+    this.slots = slots
+
+    this.soapdisplay = "block"
+
+    this.objective = "",
+      this.subjective = "",
+      this.assessment = "",
+      this.diagnosiscode = "",
+      this.followupplan = "",
+      this.notes = ""
+    this.plan = ""
+
+    this.savetemplate = 2
+    let list = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
+
+    this.patientname = list[0].patientName
+    this.ailment = list[0].reasonForVisit
+  }
+
+
+
+
 
   public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail) {
 
@@ -2063,8 +2236,6 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   public insertsoapnotes1() {
-
-
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -2102,7 +2273,16 @@ export class MyappointmentsComponent implements OnInit {
           })
         }
         this.GetDoctorSoapNotesTemplates()
-        Swal.fire('Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else if (this.languageid == 6) {
+          if (this.languageid == 6) {
+            Swal.fire('', 'Détails enregistrés !', 'success');
+          }
+
+        }
+
         this.clear()
         this.icdcode = ""
         this.icddesc = ""
@@ -2115,17 +2295,31 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public Insertnotificationsoapnotesazuere() {
-
-    var entity = {
-      'Description': this.user + " Added SOAP Notes For You.",
-      'ToUser': this.pemailsoap,
-    }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-
-      if (data != 0) {
-
+    if (this.languageid == 1) {
+      var entity = {
+        'Description': this.user + " has added SOAP notes for you. ",
+        'ToUser': this.pemailsoap,
       }
-    })
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      var entity = {
+        'Description': this.user + "Votre rapport de consultation est maintenant disponible dans Mon dossier médical.",
+        'ToUser': this.pemailsoap,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+
   }
 
 
@@ -2134,9 +2328,9 @@ export class MyappointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientid,
-        'Notification': "Doctor Added SOAP Notes For You.",
-        'Description': this.user + " Added  SOAP Notes For You",
-        'NotificationTypeID': 29,
+        'Notification': this.user + " has added SOAP notes for you. ",
+        'Description': this.user + " has added SOAP notes for you. ",
+        'NotificationTypeID': 100,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -2150,9 +2344,9 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.patientiddd,
-        'Notification': "Le docteur a ajouté des notes SOAP pour vous.",
-        'Description': this.user + " a ajouté des notes SOAP pour vous.",
-        'NotificationTypeID': 29,
+        'Notification': this.user + " Votre rapport de consultation est maintenant disponible dans Mon dossier médical .",
+        'Description': this.user + " Votre rapport de consultation est maintenant disponible dans Mon dossier médical .",
+        'NotificationTypeID': 100,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -2166,11 +2360,6 @@ export class MyappointmentsComponent implements OnInit {
       })
     }
   }
-
-
-
-
-
 
 
 
@@ -2187,7 +2376,7 @@ export class MyappointmentsComponent implements OnInit {
     this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
 
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
+        // Swal.fire('Completed', 'Details saved successfully', 'success');
         this.clear()
 
       }
@@ -2203,7 +2392,7 @@ export class MyappointmentsComponent implements OnInit {
     }
     this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
+        // Swal.fire('Completed', 'Details saved successfully', 'success');
         this.clear()
 
       }
@@ -2323,7 +2512,7 @@ export class MyappointmentsComponent implements OnInit {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
       'SoapID': this.soapid,
-      'DiagnosisCode': this.diagnosiscode,
+      'DiagnosisCode': this.icdcode,
       'Orders': 0,
       'SickSlip': 0,
       'FollowUpPlan': this.followupplan,
@@ -2333,12 +2522,15 @@ export class MyappointmentsComponent implements OnInit {
     }
     this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
+        // Swal.fire('Completed', 'Details saved successfully', 'success');
         this.clear()
 
       }
     })
   }
+
+
+
   public clear() {
     this.objective = "",
       this.subjective = "",
@@ -2350,19 +2542,6 @@ export class MyappointmentsComponent implements OnInit {
 
   }
 
-  public openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
 
 
   public Getappointmentsoapid(appointmentID) {
@@ -2432,14 +2611,14 @@ export class MyappointmentsComponent implements OnInit {
   public GetVedioID(id) {
 
     this.vedioid = id;
-   
+
     this.docservice.GetPatient_IllnessVedioes(this.vedioid).subscribe(
       data => {
-       
+
         this.showvedioes = data;
         if (this.showvedioes.length == 0) {
           this.novideo = 1
-         
+
         }
         else if (this.showvedioes.length != 0) {
           this.novideo = 0
@@ -2501,15 +2680,13 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public InsertSickSlipGenarator() {
-
-
+debugger
     if (this.languageid == 1) {
       this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     else {
       this.desc = '<p>DATE : ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + ' </b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
-
 
     if (this.languageid == 1) {
       document.getElementById("qwerty").innerHTML = this.description
@@ -2519,15 +2696,13 @@ export class MyappointmentsComponent implements OnInit {
       document.getElementById("qwerty").innerHTML = this.description1
       this.mobiledescription = document.getElementById("qwerty").innerText;
     }
-
-
+    debugger
     const qwer = 'dd-MMM-yyyy';
     const pljdjf = 'en-US';
     const frdat = this.fromdate;
     this.fromdate = formatDate(frdat, qwer, pljdjf);
     const todat = this.todate;
     this.todate = formatDate(todat, qwer, pljdjf);
-
 
     if (this.languageid == 1) {
       var entity = {
@@ -2544,7 +2719,6 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid
       }
     } else {
-
       var entity = {
         'PatientID': this.patientid,
         'Ailment': this.ailment,
@@ -2562,6 +2736,7 @@ export class MyappointmentsComponent implements OnInit {
     }
     this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
       if (res != 0) {
+        debugger
         this.doctorid = localStorage.getItem('userid');
         this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
           data => {
@@ -2606,9 +2781,10 @@ export class MyappointmentsComponent implements OnInit {
 
     })
   }
+  previousreferalist: any;
 
   public GetReferralID(details) {
-   
+
     this.patientid = details.patientID;
     this.appointmentid = details.appointmentID;
     if (this.languageid == 1) {
@@ -2623,8 +2799,9 @@ export class MyappointmentsComponent implements OnInit {
       const locale = 'en-US';
       this.todaydate = formatDate(myDate, format, locale);
     }
-
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+  
+this.GetPreviousRefereals()
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid, this.languageid).subscribe(
       data => {
         this.details = data[0];
         this.patientname = this.details.pName,
@@ -2644,7 +2821,23 @@ export class MyappointmentsComponent implements OnInit {
       }, error => {
       }
     )
+
+
+
   }
+
+
+  public GetPreviousRefereals()
+  {
+    this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientid, this.languageid).subscribe(data => {
+      debugger
+      this.previousreferalist = data;
+    })
+  }
+
+
+
+
   details: any
   mobileno: any
   patientidd: any
@@ -2675,17 +2868,22 @@ export class MyappointmentsComponent implements OnInit {
     )
   }
 
-  hospitalid: any
-  dochospitalid: any
-  public GetDoctorID(item: any) {
 
-    this.doctorid = item.id
-    var list = this.dummlist.filter(x => x.id == this.doctorid)
-    this.doctorname = list[0].doctorName,
-      this.docphoneno = list[0].mobileNumber,
-      this.doctoremail = list[0].emailID,
-      this.hospitalid = list[0].hospital_ClinicID;
-    this.dochospitalid = list[0].dochospitalID;
+
+  hospitalid: any;
+  dochospitalid: any;
+  referdoctorid: any;
+  public GetDoctorID(item: any) {
+    debugger
+    this.referdoctorid = item.id
+    var list1 = this.referdoctorlist.filter(x => x.id == this.referdoctorid)
+    this.doctorname = list1[0].doctorName,
+      this.docphoneno = list1[0].mobileNumber,
+      this.doctoremail = list1[0].emailID,
+      this.hospitalid = list1[0].hospital_ClinicID;
+    this.dochospitalid = list1[0].dochospitalID;
+
+    debugger
 
     if (this.languageid == 1) {
       this.referalnotes = " DATE: " + this.todaydate + "<br><p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>&nbsp;</p > <p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>" + this.MobileNumber + "</p><p>Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "<br>" + this.docphoneno + "<br>" + this.Hospital_ClinicName + "</p>"
@@ -2696,16 +2894,38 @@ export class MyappointmentsComponent implements OnInit {
     // this.referalnotes = "<p><br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p>Voiladoc</p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
   }
 
+
+  public getdoctorforadmin() {
+
+    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.doctorlist = data;
+        // this.dummlist = this.doctorlist
+
+      }, error => {
+      }
+    )
+  }
+
   departmentid: any
   public list: any;
   public referdoctorlist: any;
   public docdd = {}
   public GetDepartmentID(even) {
-
     this.departmentid = even.target.value;
+    debugger
 
-    this.list = this.dummlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
-    this.referdoctorlist = this.list.filter(x => x.referealBit == 1)
+    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.doctorlist = data;
+        // this.dummlist = this.doctorlist
+        this.list = this.doctorlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
+        this.referdoctorlist = this.list.filter(x => x.referealBit == 1)
+      }, error => {
+      }
+    )
 
     this.docdd = {
       singleSelection: true,
@@ -2723,7 +2943,6 @@ export class MyappointmentsComponent implements OnInit {
     this.doctorname = doctorname;
     this.referalnotes = "<p><br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p></p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
 
-
   }
 
 
@@ -2732,15 +2951,15 @@ export class MyappointmentsComponent implements OnInit {
   public user: any;
   public soap: any;
   public insertdetails1() {
-   
+
     if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-     
+
       if (this.doctorname == null) {
         if (this.languageid == 1) {
           Swal.fire('', 'Please select or enter doctor name')
         }
         else if (this.languageid == 6) {
-         
+
           Swal.fire('', 'Sélectionnez ou entrez le nom du médecin')
         }
       }
@@ -2765,7 +2984,7 @@ export class MyappointmentsComponent implements OnInit {
           'AppointmentID': this.appointmentid,
           'PatientID': this.patientid,
           'PatientName': this.patientname,
-          'DoctorID': this.doctorid,
+          'DoctorID': this.referdoctorid,
           'DoctorName': this.doctorname,
           'DoctorEmail': this.doctoremail,
           'DoctorPhNo': this.docphoneno,
@@ -2811,7 +3030,7 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.appointmentid,
         'PatientID': this.patientid,
         'PatientName': this.patientname,
-        'DoctorID': this.doctorid,
+        'DoctorID': this.referdoctorid,
         'DoctorName': this.doctorname,
         'DoctorEmail': this.doctoremail,
         'DoctorPhNo': this.docphoneno,
@@ -2828,17 +3047,12 @@ export class MyappointmentsComponent implements OnInit {
           this.InsertDoctorRefererlas();
 
           this.SendNotification();
-          // this.senmailToPatient();
 
-          // if (this.referaltypeid == 1 || this.referaltypeid == 2) {
-          //   this.sendmail();
-          // }
           Swal.fire('Success', 'Referral Sent To Doctor Successfully');
           location.href = "#/Sentrefferals"
         }
       })
     }
-
   }
 
   public sendmail1() {
@@ -2991,18 +3205,7 @@ export class MyappointmentsComponent implements OnInit {
 
     // }
   }
-  public getdoctorforadmin() {
 
-    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
-      data => {
-
-        this.doctorlist = data;
-        this.dummlist = this.doctorlist
-
-      }, error => {
-      }
-    )
-  }
   public citylist: any;
   public citydd = {};
   public areadd = {}
@@ -3032,7 +3235,7 @@ export class MyappointmentsComponent implements OnInit {
 
     this.cityid = item.id;
     this.getareamasterbyid()
-    this.doctorlist = this.dummlist.filter(x => x.cityID == this.cityid)
+    // this.doctorlist = this.dummlist.filter(x => x.cityID == this.cityid)
     // this.count = this.doctorlist.length
     // }
     // else if (item.target.value == 0) {
@@ -3153,7 +3356,6 @@ export class MyappointmentsComponent implements OnInit {
   onsopclose() {
     this.soapdisplay = "none"
   }
-
 
 
   public GetFolloupVistID(id) {
@@ -3335,13 +3537,12 @@ export class MyappointmentsComponent implements OnInit {
   }
   chatpatientemail
 
-  public GetChatShowID(patientid, appdate, slots,pEmail) {
+  public GetChatShowID(patientid, appdate, slots, pEmail) {
 
     this.patientiddd = patientid;
-    this.chatpatientemail=pEmail
+    this.chatpatientemail = pEmail
 
     document.getElementById("myForm").style.display = "block";
-
 
 
     this.showwindow = 1
@@ -3396,7 +3597,7 @@ export class MyappointmentsComponent implements OnInit {
 
   public InsertChatnotificationazure() {
     var entity = {
-      'Description': this.user +' Trying to reach you. Please open your voiladoc app : '+ this.chatconversation ,
+      'Description': this.user + ' Trying to reach you. Please open your voiladoc app : ' + this.chatconversation,
       'ToUser': this.chatpatientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -3509,6 +3710,8 @@ export class MyappointmentsComponent implements OnInit {
 
       var objDiv = document.getElementById("chatboxdiv");
       objDiv.scrollTop = objDiv.scrollHeight;
+
+
     });
   }
 
@@ -3551,36 +3754,91 @@ export class MyappointmentsComponent implements OnInit {
 
   public GetSoapPatientID(patientid) {
     this.sopapatientid = patientid
+    this.GetSoapNotes();
+  }
+
+  public GetSoapNotes() {
     if (this.departmentid != 14) {
-     
+
       this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
         data => {
           this.dummsopailist = data;
           this.soaplist1 = this.dummsopailist.filter(x => x.departmentID! = 14)
-         
+
         }, error => {
         }
       )
     }
     else if (this.departmentid == 14) {
-     
+
       this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
         data => {
           this.soaplist1 = data;
-         
+
         }, error => {
         }
       )
     }
 
   }
+
+
+
+
+  editsoapid: any;
+
+  public GetEditPrevioussoap(soap) {
+    debugger
+    this.editsoapid = soap.id
+    this.subjective = soap.subjective,
+      this.objective = soap.objective,
+      this.plan = soap.plan,
+      this.assessment = soap.assessment,
+      this.diagnosiscode = soap.diagnosisCode,
+      this.notes = soap.notes,
+      this.signature = soap.signature,
+      this.subjective = soap.subjective,
+      this.icddesc = soap.icrDescription,
+      this.icdcode = soap.diagnosisCode,
+      this.followupplan = soap.followUpPlan
+  }
+
+
+  public updatesoapnotes() {
+    var soapentity = {
+      'ID': this.editsoapid,
+      'Subjective': this.subjective,
+      'ICRCode': this.icdcode,
+      'ICRDescription': this.icddesc,
+      'ICRID': this.icrcodeid,
+      'Objective': this.objective,
+      'Assessment': this.assessment,
+      'Plan': this.plan,
+      'DiagnosisCode': this.icdcode,
+      'FollowUpPlan': this.followupplan,
+      'Signature': this.signature,
+      'Notes': this.notes
+    }
+    this.docservice.UpdateDoctor_PatientSoapNotes(soapentity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully');
+        this.GetSoapNotes();
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.GetSoapNotes();
+      }
+    })
+  }
+
+
   viewdetaillist: any;
 
   public GetViewDetails(id) {
-   
+
     this.appointmentid = id
     this.viewdetaillist = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
-   
+
   }
 
 
@@ -3616,7 +3874,7 @@ export class MyappointmentsComponent implements OnInit {
         'PatientID': this.earlycallpatientid,
         'Notification': "Early call",
         'Description': this.earlycallnotes,
-        'NotificationTypeID': 28,
+        'NotificationTypeID': 103,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.earlyappointmentid
@@ -3638,7 +3896,7 @@ export class MyappointmentsComponent implements OnInit {
         'PatientID': this.earlycallpatientid,
         'Notification': "Early call.",
         'Description': this.earlycallnotes,
-        'NotificationTypeID': 28,
+        'NotificationTypeID': 103,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.earlyappointmentid
@@ -3657,5 +3915,440 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
 
+
+
+
+  //insurance details
+
+  insurancedetails: any;
+
+  public Getinsurancedetails(patientID) {
+    debugger
+    this.docservice.GetPatientInsuranceDetailsWeb(patientID).subscribe(
+      data => {
+        this.insurancedetails = data;
+
+      }, error => {
+      }
+    )
+  }
+  insurencephoto: any;
+
+  public GetInsurencephoto(photoURL) {
+    this.insurencephoto = photoURL;
+  }
+
+
+
+  public GetDocWhatsaPP(pMobileNo) {
+    window.open("https://api.whatsapp.com/send/?phone=" + pMobileNo);
+  }
+
+
+
+
+
+
+  public openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+
+  }
+
+
+  showreferelnotes: any;
+
+  public GetPatientCondition(doc) {
+    debugger
+    this.patientid = doc.patientID;
+    this.appointmentid = doc.appointmentID;
+    this.showreferelnotes = doc.referalNotes;
+  }
+
+  public GetAppointmentID(doc) {
+
+    this.appointmentID = doc.appointmentID;
+    this.patientID = doc.patientID
+    this.docservice.GetDoctorReferalAttachments(this.appointmentID).subscribe(
+      data => {
+
+        this.attachments = data;
+      },
+      error => { }
+    );
+  }
+
+
+
+
+  public attachments5 = [];
+  public attachmentsurl5 = [];
+  public onattachmentUpload15(abcd) {    
+      debugger
+      this.attachments5.push(abcd.addedFiles[0]);
+      this.uploadattachments15();
+    
+    Swal.fire('Added Successfully');
+    abcd.length = 0;
+  }
+
+  public uploadattachments15() {
+    this.docservice.DoctorPhotoUpload(this.attachments5).subscribe(res => {
+debugger
+      this.attachmentsurl5.push(res);
+      let a = this.attachmentsurl5[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+
+      // this.showdocphoto.push(b)
+
+      this.attachments5.length = 0;
+
+    })
+    // this.sendattachment();
+  }
+
+
+
+  public GetPdf(attchments) {
+   
+    document.getElementById('closeview').click();
+    window.open(attchments, '_blank');
+  }
+
+
+  updaterefid: any;
+  public GetReferalletter(ref) {
+    debugger
+    this.updaterefid = ref.id;
+    this.patientidd = ref.patientID;
+    this.patientname = ref.patientName;
+    this.mobileno = ref.pMobileNo;
+    this.email = ref.pEmail;
+    this.showreferelnotes = ref.referalNotes;
+    
+  }
+
+  updatemobilereferalnotes: any;
+
+  public UpdateRefferalLetter() {
+    debugger
+    document.getElementById("qwerty123").innerHTML = this.showreferelnotes
+    this.updatemobilereferalnotes = document.getElementById("qwerty123").innerText;
+    var entity = {
+      'ID': this.updaterefid,
+      'ReferalNotes': this.showreferelnotes,
+      'MobileReferalNotes': this.updatemobilereferalnotes
+    }
+    this.docservice.UpdateDoctorReferalsWeb(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+
+        this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid).subscribe(data => {
+          debugger
+          this.previousreferalist = data;
+        })
+      }
+    else  if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succés');
+      }
+      this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid).subscribe(data => {
+        debugger
+        this.previousreferalist = data;
+      })
+    })
+
+  }
+
+
+
+  public Deletefile(id) {
+   
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Completed This One!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Completed !'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.Delete_DoctorReferalAttachments(id).subscribe(res => {
+            let test = res;
+            // this.GetDoctorRefererals();
+            document.getElementById('closeview').click();
+          })
+          Swal.fire(
+            'Deleted!',
+            'File has been Completed.',
+            'success'
+          )
+        }
+        else {
+          // this.GetDoctorRefererals();
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr(e) ?',
+        text: "Terminé !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.Delete_DoctorReferalAttachments(id).subscribe(res => {
+            let test = res;
+            this.GetPreviousRefereals()
+            document.getElementById('closeview').click();
+          })
+          Swal.fire(
+            'Supprimé!',
+          )
+        }
+        else {
+          this.GetPreviousRefereals()
+        }
+      })
+    }
+  }
+
+
+
+
+  public InsertDoctorRefererlasAttachemenys() {
+    debugger
+    for (let i = 0; i < this.attachmentsurl5.length; i++) {
+      var entity = {
+        'AppointmentID': this.appointmentID,
+        'PatientID': this.patientID,
+        'AttachmentUrl': this.attachmentsurl5[i],
+      }
+      this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
+        debugger
+        if (data != 0) {
+          document.getElementById('closeview').click();
+          Swal.fire('Uploaded Successfully');
+          this.GetPreviousRefereals()
+        }
+      })
+    }
+   
+  }
+
+
+
+
+
+
+
+
+  //edit show previous medical certicates
+
+
+
+  public previousmedicallist:any;
+
+public GetPreviousmediclcertificates(patientID)
+{
+this.patientid=patientID;
+this.getpreviousmedicalcertificates()
+}
+
+
+public getpreviousmedicalcertificates()
+{
+this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid,this.languageid).subscribe(data=>{
+  this.previousmedicallist=data;
+  debugger
+})
+}
+
+clickedsickslipid:any;
+sickslipid:any;
+docmobileno:any;
+registrationNo:any;
+
+public GetMysickslip(sickslip) {
+  debugger
+  this.clickedsickslipid = sickslip.patientID;
+  this.sickslipid = sickslip.id;
+  //let qwerty = this.sicksliplist.filter(x => x.patientID == this.clickedsickslipid);
+  // let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
+  this.desc = sickslip.description;
+  this.doctorname = sickslip.doctorName;
+  this.docmobileno = sickslip.docmobileno;
+  this.registrationNo = sickslip.registrationNo;
+  this.hospital_ClinicName = sickslip.hospital_ClinicName;
+  this.address = sickslip.address;
+
+  // let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
+  // this.desc = qwertyq[0].description;
+  // this.doctorname = qwertyq[0].doctorName;
+  // this.docmobileno = qwertyq[0].docmobileno;
+  // this.registrationNo = qwertyq[0].registrationNo;
+  // this.hospital_ClinicName = qwertyq[0].hospital_ClinicName;
+  // this.address = qwertyq[0].address;
+  debugger
+}
+
+sicksliplist1:any;
+
+public GetSickSlipIDForEdit(patientid,id) {
+   debugger
+  this.sickslippatientid = patientid;
+  this.sickslipid=id;
+  this.docservice.GetDoctorPatients(this.doctorid).subscribe(
+    data => {
+     
+      this.patientlist = data;
+      this.getpatientdetailssss(this.sickslippatientid);
+    }
+  )
+}
+
+
+public getpatientdetailssss(pid) {
+   debugger
+  if (this.languageid == 6) {
+    this.patientid = pid;
+    let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
+    this.patientname = qwerty[0].patientName;
+    this.phonenumber = qwerty[0].mobileNumber;
+    this.email = qwerty[0].emailID;
+    this.address = qwerty[0].address;
+    this.doctorname = qwerty[0].doctorName;
+    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid).subscribe(
+      data => {
+        this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
+        let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
+        this.fromdate = temp[0].fromDatee.toLocaleString();
+        this.todate = temp[0].toDatee.toLocaleString();
+        this.ailment = temp[0].ailment;
+        this.leavefor = temp[0].leavefor;
+        this.description = temp[0].description;
+      }, error => {
+      }
+    )
+  }
+  else {
+    this.patientid = pid;
+    let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
+    this.patientname = qwerty[0].patientName;
+    this.phonenumber = qwerty[0].mobileNumber;
+    this.email = qwerty[0].emailID;
+    this.address = qwerty[0].address;
+    this.doctorname = qwerty[0].doctorName;
+    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid).subscribe(
+      data => {
+       
+        this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
+        let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
+        this.fromdate = temp[0].fromDateee;
+        this.todate = temp[0].toDateee;
+        this.ailment = temp[0].ailment;
+        this.leavefor = temp[0].leavefor;
+        this.description = temp[0].description;
+      }, error => {
+      }
+    )
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+public UpdateSickSlip() {
+   
+  const qwer = 'dd-MMM-yyyy';
+  const pljdjf = 'en-US';
+  const frdat = this.fromdate;
+  this.fromdate = formatDate(frdat, qwer, pljdjf);
+  const todat = this.todate;
+  this.todate = formatDate(todat, qwer, pljdjf);
+debugger
+  if (this.languageid == 1) {
+    var entity = {
+      'ID': this.sickslipid,
+      'Ailment': this.ailment,
+      'FromDate': this.fromdate,
+      'ToDate': this.todate,
+      'LeaveFor': this.leavefor,
+      'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+    }
+   
+    this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
+  debugger
+      if (this.languageid == 1) {
+    
+        Swal.fire('Updated successfully.');
+        this.getpreviousmedicalcertificates()
+     
+      }
+      else {
+       
+        Swal.fire('Mis à jour avec succés');
+        this.getpreviousmedicalcertificates()
+       
+      }
+
+    })
+  }
+  else {
+    debugger
+    var entity = {
+      'ID': this.sickslipid,
+      'Ailment': this.ailment,
+      'FromDate': this.fromdate,
+      'ToDate': this.todate,
+      'LeaveFor': this.leavefor,
+      'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + ' Arrêt maladie(' + this.leavefor + ')' + '</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement :' + this.fromdate + ',<br><br>Date de fin :' + this.todate + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+      //'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+    }
+    this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
+     
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully.');
+        // location.href = "#/SickSlipDashboard";
+        this.getpreviousmedicalcertificates()
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        // location.href = "#/SickSlipDashboard";
+      }
+
+    })
+  }
+
+}
 
 }

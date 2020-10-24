@@ -99,7 +99,7 @@ export class ReferredDoctorComponent implements OnInit {
       error => { }
     );
 
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
       data => {
         this.details = data[0];
         this.patientname = this.details.pName,
@@ -318,7 +318,7 @@ export class ReferredDoctorComponent implements OnInit {
   }
 
   public getpatientdetails() {
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
       data => {
         this.details = data[0];
         this.patientname = this.details.pName,

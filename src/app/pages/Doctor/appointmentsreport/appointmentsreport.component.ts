@@ -61,7 +61,7 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -82,7 +82,7 @@ export class AppointmentsreportComponent implements OnInit {
 
 
     this.activatedroute.params.subscribe(params => {
-     
+
 
       this.diffid = params['id']
     }
@@ -93,7 +93,7 @@ export class AppointmentsreportComponent implements OnInit {
     else if (this.diffid == '1') {
       this.docservice.GetCancelledAppointmentReportsForDoctorwEB(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-         
+
           this.cancelledlist = data;
           this.dummlist = this.cancelledlist;
           this.count = this.cancelledlist.length
@@ -104,7 +104,7 @@ export class AppointmentsreportComponent implements OnInit {
     else if (this.diffid == '2') {
       this.docservice.GetCancelledAppointmentReportsForVideoAppts(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-         
+
           this.cancelledlist = data;
           this.dummlist = this.cancelledlist;
           this.count = this.cancelledlist.length
@@ -113,14 +113,40 @@ export class AppointmentsreportComponent implements OnInit {
       )
     }
     this.getlanguage();
+    this.GetHospitallist()
+  }
+  hospitalid: any;
+
+  public GetHospitalID(even) {
+    debugger
+    if (this.diffid == 1) {
+      debugger
+      this.hospitalid = even.target.value;
+      this.cancelledlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
+    }
+    else if (this.diffid == 2) {
+      this.hospitalid = even.target.value;
+      this.cancelledlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
+    }
   }
 
 
 
+  hospitallist: any;
+  public GetHospitallist() {
+    this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
+      data => {
+        this.hospitallist = data;
+
+      }, error => {
+      }
+    )
+  }
+
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -130,7 +156,7 @@ export class AppointmentsreportComponent implements OnInit {
 
 
   selectedDate(data) {
-   
+
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -140,7 +166,7 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.cancelledlist = data;
         this.dummlist = this.cancelledlist;
         this.count = this.cancelledlist.length
@@ -151,10 +177,10 @@ export class AppointmentsreportComponent implements OnInit {
 
 
   public getcancelledappoinrtments() {
-   
+
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.cancelledlist = data;
         this.dummlist = this.cancelledlist;
         this.count = this.cancelledlist.length
@@ -193,53 +219,53 @@ export class AppointmentsreportComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-   
+
     if (even.target.value == 1) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.isVisited == 1);
-     
+
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 2) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.noShow == 1);
-     
+
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 3) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.isVisited == '0' && x.accepted == '0' && x.cancelled == '0' && x.docCancelled == '0');
-     
+
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
 
     if (even.target.value == 4) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.accepted == '1' && x.isVisited == '0' && x.docCancelled == '0' && x.cancelled == '0' && x.noShow == '0');
-     
+
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 5) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.cancelled == '1');
-     
+
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
     if (even.target.value == 6) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.docCancelled == '1');
-     
+
       this.cancelledlist = dfsfd;
       this.count = this.cancelledlist.length
     }
 
     if (even.target.value == 0) {
-     
+
       this.getcancelledappoinrtments();
     }
 
@@ -256,7 +282,7 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -274,7 +300,7 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -291,13 +317,13 @@ export class AppointmentsreportComponent implements OnInit {
   contactdata: any;
   arrayBuffer: any;
   incomingfile(event) {
-   
+
     this.file = event.target.files[0];
     let a = this.file.name;
     var characters = a.substr(a.length - 5);
-   
+
     if (characters == ".xlsx") {
-     
+
       let fileReader = new FileReader();
       fileReader.onload = e => {
         this.arrayBuffer = fileReader.result;
@@ -313,22 +339,22 @@ export class AppointmentsreportComponent implements OnInit {
         this.contactdata = XLSX.utils.sheet_to_json(worksheet, { raw: true });
       };
       fileReader.readAsArrayBuffer(this.file);
-   
+
     } else {
       Swal.fire("Imported file format not supported.");
     }
   }
 
   public Upload_file() {
-debugger
+    debugger
     this.docservice.InsertDrugNameMaster(this.contactdata).subscribe(data => {
-     
+
       if (data != undefined || data != null) {
         Swal.fire("Saved Successfully");
-   
+
       }
     });
-   
+
     // if (this.contactdata.length == 0) {
     //   Swal.fire("Please Upload a valid excel.");
     // } else {
@@ -337,27 +363,27 @@ debugger
     //     var entity = {
     //       IcdCode: this.contactdata[j].IcdCode,
     //       Description: this.contactdata[j].Description,
-         
+
     //     };
     //     // var entity={
     //     //   City:this.contactdata[j].City,
     //     //   StateID:this.contactdata[j].StateID
     //     // }
 
- 
+
 
     //     this.docservice.InsertICDCodeMaster(entity).subscribe(data => {
     //      
     //       if (data != undefined || data != null) {
     //         Swal.fire("Saved Successfully");
-       
+
     //       }
     //     });
     //   }
     // }
 
- 
+
 
   }
- 
+
 }

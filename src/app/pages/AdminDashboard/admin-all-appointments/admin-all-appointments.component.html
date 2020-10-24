@@ -18,125 +18,118 @@
   </div>
   <br>
   <div class="row">
-    <div class="col-lg-1">
-    </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DocREports',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalHospitalappts}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/DocREports',1]">{{count.hospitalappcount }}</u></b></label>
+             >{{count.hospitalappcount }}</u></b></label>
       </div>
       <br />
       <br />
 
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DocREports',2]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalClinicAppointments}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/DocREports',2]">{{count.clinicappcount}}</u></b></label>
+             >{{count.clinicappcount}}</u></b></label>
       </div>
       <br />
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/Appointmentsreport', 1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalDoctorInclic}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/Appointmentsreport', 1]">{{count.doctorInclinicappcount}}</u></b></label>
+              >{{count.doctorInclinicappcount}}</u></b></label>
       </div>
       <br />
       <br />
     </div>
-    <br />
-  </div>
-  <div class="row">
-    <div class="col-lg-1"></div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/Appointmentsreport',2]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalDoctorVedio}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/Appointmentsreport',2]">{{count.doctorvideoappcount}}</u></b></label>
+             >{{count.doctorvideoappcount}}</u></b></label>
       </div>
       <br />
       <br />
     </div>
+    <br />
+  </div>
+  <div class="row">
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/DiagnosticReports',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalDiaAppts}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/DiagnosticReports',1]">{{count.diagnosticappcount }}</u></b></label>
+              >{{count.diagnosticappcount }}</u></b></label>
       </div>
       <br />
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/PrescriptionReports',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalPharmacyOrders}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/PrescriptionReports',1]">{{count.pharmacyordercount }}</u></b></label>
+             >{{count.pharmacyordercount }}</u></b></label>
       </div>
       <br />
       <br />
     </div>
-
-    <div class="col-lg-1"></div>
-    <br />
-  </div>
-
-  <div class="row">
-    <div class="col-lg-1"></div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/PhysiotherapistReports',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalPhysioappts}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/PhysiotherapistReports',1]">{{count.physioappcount }}</u></b></label>
+             >{{count.physioappcount }}</u></b></label>
       </div>
       <br />
       <br />
     </div>
     <div class="col-lg-3" *ngFor="let count of allcounts">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/MideWifeReports',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
             style="font-size: 15px;">{{labels[0].totalMidwifeAppts}}</b></label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/MideWifeReports',1]">{{count.midwiveappcount }}</u></b></label>
+              >{{count.midwiveappcount }}</u></b></label>
       </div>
       <br />
       <br />
     </div>
-    <div class="col-lg-3" *ngFor="let count of allcounts">
+    <br />
+  </div>
+  <div class="row">
+    <div class="col-lg-3" *ngFor="let count of allcounts"  [routerLink]="['/NurseReports',1]">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
         <label style="color: black;font-size: 30px;color: white;"><b
@@ -144,7 +137,20 @@
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
-              [routerLink]="['/NurseReports',1]">{{count.nurseappcount}}</u></b></label>
+             >{{count.nurseappcount}}</u></b></label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3" *ngFor="let count of allcounts" >
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;"><b
+            style="font-size: 15px;">Delivery Orders</b></label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;"
+             >0</u></b></label>
       </div>
       <br />
       <br />
@@ -152,7 +158,5 @@
     <div class="col-lg-1"></div>
     <br />
   </div>
-  <div class="row">
 
-  </div>
 </div>

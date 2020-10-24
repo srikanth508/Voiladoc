@@ -12,6 +12,7 @@ export class RolemenuDashComponent implements OnInit {
 
   public languageid: any;
   public RoleMappinglist: any;
+  public search:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.GetRoleMappinglist()
@@ -25,8 +26,6 @@ export class RolemenuDashComponent implements OnInit {
       }
     )
   }
-
-
 
 
   public DeleteRoleMapping(id) {

@@ -91,6 +91,7 @@ export class RoleMenuMappingComponent implements OnInit {
     this.GetMenuMaster()
   }
 
+  
 
   public GetRoleMaster() {
     this.docservice.GetRoleTypesMasterByAdminLogins(this.languageid).subscribe(

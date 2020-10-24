@@ -6,14 +6,14 @@
     <div class="col-lg-4">
 
     </div>
-    <div class="col-lg-2">
+    <!-- <div class="col-lg-2">
     </div>
     <div class="col-lg-1">
 
-    </div>
-    <!-- <div class="col-lg-2">
-      <button class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div> -->
+    <div class="col-lg-2">
+      <button class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    </div>
   </div>
 </div>
 <br>
@@ -30,6 +30,12 @@
     </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3" *ngIf="listids!='undefined'">
+      <select class="form-control" (change)="GetHospitalID($event)">
+        <option value="0">Select Hospital/ Clinic</option>
+        <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
+      </select>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="getget($event)">
@@ -52,6 +58,8 @@
           <tr>
             <th id="imp">{{labels[0].appointmentdate}}</th>
             <th>{{labels[0].appointmentNo}}</th>
+            <th *ngIf="listids!='undefined'">Physiotherapist Name</th>
+            <th>Hospital / Clinic Name</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].phoneno}}</th>
             <th>{{labels[0].email}}</th>
@@ -63,6 +71,8 @@
           <tr *ngFor="let app of appointmentreportlist|filter:term">
             <td>{{app.apptDate}}</td>
             <td>{{app.id}}</td>
+            <td *ngIf="listids!='undefined'">{{app.name}}</td>
+            <td>{{app.hospital_ClinicName}}</td>
             <td>{{app.patientName}}</td>
             <td>{{app.mobileNumber}}</td>
             <td>{{app.emailID}}</td>

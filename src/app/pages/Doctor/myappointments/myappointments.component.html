@@ -93,7 +93,8 @@
 
               <!-- normal call -->
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
-              <button [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
+              <button
+                [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
                 type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
                 *ngIf="details.bookingTypeID=='2'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'"
                 (click)="getvedioconferencebydateandtime(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
@@ -136,6 +137,11 @@
               <img src="assets/Images/view.jpg" [ngbTooltip]="tipcontent300" style="margin: 2%;width: 20px;"
                 data-toggle="modal" data-target="#exampleModalLong78"
                 (click)="GetViewDetails(details.appointmentID)" />&nbsp;
+
+              <ng-template #tipcontent756>{{labels[0].insurencedetails}}</ng-template>
+              <img src="assets/Images/view.jpg" [ngbTooltip]="tipcontent756" style="margin: 2%;width: 20px;"
+                data-toggle="modal" data-target="#Insurancedetails"
+                (click)="Getinsurancedetails(details.patientID)" />&nbsp;
             </td>
             <td>
               <table style="box-shadow:none">
@@ -187,31 +193,71 @@
                       <img src=" assets/Images/uploadfile.png" style="height:25px;" data-toggle="modal"
                         data-target="#UploadPhotos" (click)="GetPrescriptionPhoto(details)" />
                     </a>
+                  <td style="border:none">
+                    <ng-template #tipcontent948>whats app</ng-template>
+                    <a [ngbTooltip]="tipcontent948">
+                      <img src=" assets/Images/whatapp.png" style="height:25px;"
+                        *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.disableall=='1'"
+                        (click)="GetDocWhatsaPP(details.pMobileNo)" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
                   <td style="border:none">
+                    <!-- earlyprescription -->
+
                     <ng-template #tipcontent5>{{labels[0].addPrescription}}</ng-template>
                     <a [ngbTooltip]="tipcontent5"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
+                      <img src="assets/Images/pre.png" data-toggle="modal" data-target="#exampleModalLong"
+                        style="height:25px;"
+                        (click)="GetEarlyprescription(details.patientID,details.appointmentID,details.appointmentTypeID,details.countryID,details.cityID,details.areaID,details.slots,details.appdate,details.pEmail)" />
+                    </a>
+
+                    <!-- normal precsription -->
+
+                    <ng-template #tipcontent5>{{labels[0].addPrescription}}</ng-template>
+                    <a [ngbTooltip]="tipcontent5"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/pre.png" data-toggle="modal" data-target="#exampleModalLong"
                         style="height:25px;"
                         (click)="GetPatientid(details.patientID,details.appointmentID,details.appointmentTypeID,details.countryID,details.cityID,details.areaID,details.slots,details.appdate,details.pEmail)" />
                     </a>
+
+
                   </td>
                   <td style="border:none">
+                    <!-- early test -->
                     <ng-template #tipcontent7>{{labels[0].addTest}}</ng-template>
                     <a [ngbTooltip]="tipcontent7"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
+                      <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
+                        style="height:25px;"
+                        (click)="GetEarlyDiaTest(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                    </a>
+                    <!-- normal test -->
+                    <ng-template #tipcontent7>{{labels[0].addTest}}</ng-template>
+                    <a [ngbTooltip]="tipcontent7"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
                         style="height:25px;"
                         (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
                     </a>
                   </td>
                   <td style="border:none">
+                    <!-- early soap -->
                     <ng-template #tipcontent10>{{labels[0].addSoapNotes}}</ng-template>
                     <a [ngbTooltip]="tipcontent10"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
+                      <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
+                        style="height:25px;"
+                        (click)="GetEarlySoap(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                    </a>
+
+                    <!-- normal soap -->
+                    <ng-template #tipcontent10>{{labels[0].addSoapNotes}}</ng-template>
+                    <a [ngbTooltip]="tipcontent10"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
                         (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
@@ -234,10 +280,10 @@
                     </a>
                   </td>
                   <td style="border:none">
-                    <ng-template #tipcontent201>Early call reminder</ng-template>
-                    <a [ngbTooltip]="tipcontent201"
+                    <ng-template #tipcontent293>{{labels[0].earlyCallReminder}}</ng-template>
+                    <a [ngbTooltip]="tipcontent293"
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.appointmentTypeID=='2'&&details.earlycall=='0'&&details.earlycallvalidation=='0'">
-                      <img src="assets/Images/medical.png" style="height:25px;" data-toggle="modal"
+                      <img src="assets/Images/earlycall.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleealycall"
                         (click)="GetEarlycallPatientID(details.patientID,details.pEmail,details.appointmentID)" />
                     </a>
@@ -282,12 +328,19 @@
                   data-target="#exampleModalCenter90" (click)="GetSoapPatientID(details.patientID)" />
                 <!-- [routerLink]="['/Soapdash',details.patientID]" -->
               </a>
-              <ng-template #tipcontent11>{{labels[0].misUseComments}}</ng-template>
+              <ng-template #tipcontent9283>Previous medical Certificates</ng-template>
+              <a [ngbTooltip]="tipcontent9283"
+                *ngIf="details.noShow=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'">
+                <img src="assets/Images/previoussoap.png" style="height:25px;" data-toggle="modal"
+                  data-target="#Previousmedicalcertificate" (click)="GetPreviousmediclcertificates(details.patientID)" />
+                <!-- [routerLink]="['/Soapdash',details.patientID]" -->
+              </a>
+              <!-- <ng-template #tipcontent11>{{labels[0].misUseComments}}</ng-template>
               <a [ngbTooltip]="tipcontent11" data-toggle="modal" data-target="#exampleModalCenter15"
                 *ngIf="details.misUse=='1'">
                 <img src="assets/Images/upload.png" (click)="GetMisusecomments(details.misUseComments)"
                   style="height:25px;" />
-              </a>
+              </a> -->
             </td>
           </tr>
         </thead>
@@ -452,7 +505,7 @@
 
 
 
-
+<!-- 
 <div class="modal fade" id="exampleModalCenter15" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter15"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -481,11 +534,11 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
-
+<!-- reason for cancel-->
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -526,6 +579,8 @@
   </div>
 </div>
 
+
+<!-- add prescription -->
 
 <div class="backdrop" [ngStyle]="{ display: display }"></div>
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
@@ -647,9 +702,9 @@
                       <th>Actions</th>
                     </tr>
                     <tr *ngFor="let code of drugnamelist|filter:medicinename | slice:0:100; let i=index">
-                      <td>{{code.medicament}}</td>
-                      <td>{{code.denomination}}</td>
-                      <td>{{code.dosage}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
                       <td>
                         <input type="checkbox" (click)="GetDrugID(code.medicinename)">
                       </td>
@@ -878,7 +933,7 @@
 
 
 
-
+<!-- add test -->
 
 
 <div class="backdrop" [ngStyle]="{ display: testdisplay }"></div>
@@ -1004,7 +1059,7 @@
   </div>
 </div>
 
-
+<!--add soap -->
 
 
 <div class="backdrop" [ngStyle]="{ display: soapdisplay }"></div>
@@ -1135,7 +1190,7 @@
                       <th>Actions</th>
                     </tr>
                     <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
-                      <td>
+                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
                         {{code.description}}</td>
                       <td>
                         <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
@@ -1264,6 +1319,8 @@
 
 
 
+<!-- previous test and Edit test -->
+
 
 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
@@ -1295,6 +1352,13 @@
                     <td>{{dia.appdate}}</td>
                     <td>{{dia.name}}</td>
                     <td>{{dia.testName}}</td>
+                    <!-- <td>
+                      <ng-template #tipcontent9503>Edit</ng-template>
+                      <a [ngbTooltip]="tipcontent9503" style="color:black">
+                        <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest"
+                          (click)="GetDiaEditList(dia)" style="width: 18px">
+                      </a>
+                    </td> -->
                   </tr>
                 </thead>
               </table>
@@ -1309,6 +1373,94 @@
     </div>
   </div>
 </div>
+
+
+
+
+<div class="modal fade" id="edittest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit test</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <form #diaForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testType}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testName}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
+                  name="testssid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div *ngIf="testssid=='59'||testssid=='60'">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].testName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
+                    [(ngModel)]="diagnostictestname" name="diagnostictestname">
+                </div>
+              </div> <br>
+            </div>
+            <div *ngIf="testid==2">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].clinicalInfo}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
+                    [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
+                </div>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+                  (click)="updatedignostictest()" data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Previous prescription edit -->
 
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -1342,7 +1494,7 @@
                   <th>{{labels[0].substistude}} </th>
                   <th>{{labels[0].howmanyRefills}}</th>
                   <th>{{labels[0].noteToPharmasist}}</th>
-                  <!-- <th>{{labels[0].diagnosis}}</th> -->
+                  <!-- <th>Actions</th> -->
                 </tr>
                 <tr *ngFor="let presciption of prescrptionlist">
                   <td>{{presciption.referenceNumber}}</td>
@@ -1365,7 +1517,13 @@
                   <td>{{presciption.howmanyRefills}}</td>
                   <td>{{presciption.noteToPharmasist}}</td>
                   <!-- <td>{{presciption.diagnosis}}</td> -->
-
+                  <!-- <td>
+                    <ng-template #tipcontent9503>Edit</ng-template>
+                    <a [ngbTooltip]="tipcontent9503" style="color:black">
+                      <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edirprescription"
+                        (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 18px">
+                    </a>
+                  </td> -->
                 </tr>
               </table>
             </div>
@@ -1382,7 +1540,209 @@
 
 
 
+<div class="modal fade" id="edirprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" style="width:1000px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit prescription</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
 
+        <div class="container-fluid">
+          <form #medicineForm="ngForm">
+            <div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].enterManuallydruname}} :</label>
+                </div>
+                <div class="col-lg-4">
+                  <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="1">&nbsp;
+                  {{labels[0].yes}} &nbsp;&nbsp;
+                  <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="2">&nbsp;
+                  {{labels[0].no}} &nbsp;&nbsp;
+                </div>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='1'&&manuallydrug=='2'">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <!-- <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                    placeholder="{{labels[0].drugName}}"> -->
+
+                  <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                    placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+                </div>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='1'&&manuallydrug=='1'">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                    placeholder="{{labels[0].drugName}}">
+
+                </div>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='6'&&manuallydrug=='2'">
+              <div class=row>
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
+                    [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
+                    (ngModelChange)="GetDrugNameID()" /> -->
+                  <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                    placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+                </div>
+              </div><br>
+            </div>
+            <div class="row" *ngIf="SerachOn=='1'">
+              <!-- <div class="col-lg-4">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>médicament</th>
+                      <th>Dénomination </th>
+                      <th>Forme & Dosage
+                      </th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of drugnamelist|filter:medicinename | slice:0:100; let i=index">
+                      <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetDrugID(code.medicinename)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='6'&&manuallydrug=='1'">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                    placeholder="{{labels[0].drugName}}">
+                </div>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].sig}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
+                  placeholder="{{labels[0].sig}}">
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].dispenseQuantityy}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
+                  placeholder="{{labels[0].dispenseQuantityy}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].howmanyRefillss}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
+                  placeholder="{{labels[0].howmanyRefillss}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].substistude}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="2">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+
+            <!-- <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].diagnosiss}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis" placeholder="{{labels[0].diagnosiss}}">
+              </div>
+            </div>
+            <br> -->
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].noteToPharmasist}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="updateprescription()" data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- patient uploaded photo video -->
 
 <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true">
@@ -1399,7 +1759,7 @@
           <div class="row" *ngIf="nophoto=='0'">
             <div class="col-lg-6" *ngFor="let showphoto of showimages">
               <br>
-              <img src="{{showphoto.photoURL}}" style="height: 300px;width:300px" />
+              <img src="{{showphoto.photoURL}}" style="width: 100%;" />
               <br>
             </div>
             <br>
@@ -1408,7 +1768,7 @@
           <div class="row" *ngIf="nophoto=='1'">
             <div class="col-lg-6">
               <br>
-              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+              <img src="assets/Images/noimage.jpg" style="width: 100%;" />
             </div>
             <br>
           </div>
@@ -1441,7 +1801,7 @@
               <br>
               <div class="video">
                 <video controls id="videoPlayer" autoplay style="height:auto; width: 100%;">
-                  <source src="{{showvedio.videoUrl}}" type="video/mp4"  /> Browser not
+                  <source src="{{showvedio.videoUrl}}" type="video/mp4" /> Browser not
                   supported
                 </video>
               </div>
@@ -1468,6 +1828,10 @@
   </div>
 </div>
 
+
+
+
+<!-- genarate medical certificte-->
 
 <div class="modal fade" id="exampleModalCenterSickSlip" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -1614,9 +1978,11 @@
       </div>
     </div>
   </div>
+  <div id="qwerty" style="display: none;">
+
+  </div>
 </div>
-<div id="qwerty">
-</div>
+
 
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
@@ -1643,10 +2009,14 @@
   </div>
 </div>
 
+
+
+<!-- Patient referarals -->
+
 <div class="modal fade" id="exampleModalCenterRefferal" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content ">
+    <div class="modal-content " style="width: 120%;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].refertodoctor}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1654,7 +2024,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="container-fluid">
+        <div class="tab">
+          <button class="tablinks" style="width: 50%;" id="defaultOpen"
+            (click)="openCity($event, 'referdoctor')">{{labels[0].refertodoctor}}
+          </button>
+          <button class="tablinks" style="width: 50%;" (click)="openCity($event, 'previousreferels')">Previous
+            Referrals</button>
+          <!-- <button class="tablinks" onclick="openCity(event, 'Tokyo')">Edit Refer</button> -->
+        </div>
+        <div class="container-fluid" id="referdoctor" class="tabcontent">
           <br>
           <div class="row">
             <div class="col-lg-3">
@@ -1883,7 +2261,65 @@
             <div class="col-lg-5">
             </div>
           </div>
-
+        </div>
+        <div class="container-fluid" id="previousreferels" class="tabcontent">
+          <div class="row">
+            <div class="col-lg-12" style="overflow: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Referal Type</th>
+                    <th>{{ labels2[0].patientID }}</th>
+                    <th>{{ labels[0].patientName }}</th>
+                    <th>{{ labels2[0].mobileNumber }}</th>
+                    <th>{{ labels2[0].emailID }}</th>
+                    <th>Referred By</th>
+                    <th>{{ labels2[0].reffredto }}</th>
+                    <th>{{ labels[0].referedDoctorPhno }}</th>
+                    <th>{{ labels[0].referredDoctorEmail }}</th>
+                    <th>{{ labels[0].notes }}</th>
+                    <th>{{ labels[0].attachments }}</th>
+                    <th>{{ labels[0].actions }}</th>
+                  </tr>
+                  <tr *ngFor="let ref of previousreferalist">
+                    <td>
+                      <label *ngIf="ref.referalTypeID=='1'">Internal Doctor</label>
+                      <label *ngIf="ref.referalTypeID=='2'">External Doctor</label>
+                      <label *ngIf="ref.referalTypeID=='3'">General Reference</label>
+                    </td>
+                    <td>{{ref.patientID}}</td>
+                    <td>{{ref.patientName}}</td>
+                    <td>{{ref.pMobileNo}}</td>
+                    <td>{{ref.pEmail}}</td>
+                    <td>{{ref.referefbydoctor}}</td>
+                    <td>{{ref.doctorName}}</td>
+                    <td>{{ref.doctorPhNo}}</td>
+                    <td>{{ref.doctorEmail}}</td>
+                    <td>
+                      <a >
+                        <img src="assets/Images/sentreferral.png" title="{{ labels[0].patientCondition }}" data-toggle="modal" data-target="#exampleModal9500"
+                          style="height:25px;" (click)="GetPatientCondition(ref)" />
+                      </a>
+                    </td>
+                    <td>
+                      <a >
+                        <img src="assets/Images/viewfile.png" data-toggle="modal" data-target="#exampleModal545"
+                          style="height:25px;" title="View" (click)="GetAppointmentID(ref)" />
+                      </a>
+                    </td>
+                    <td>
+                      <a >
+                        <img src="assets/Images/edit.png" data-toggle="modal"
+                          data-target="#exampleModalCenterRefferalss"  title="Edit" style="height:25px;"
+                          (click)="GetReferalletter(ref)" />
+                      </a>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <br /><br />
+          </div>
         </div>
       </div>
       <br>
@@ -1894,6 +2330,211 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenterRefferalss" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels1[0].refertodoctor}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].patintIDd}}:</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Patient ID" disabled class="form-control" [(ngModel)]="patientidd"
+                name="patientidd">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels2[0].patientName}}:</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Patient Name" disabled class="form-control" [(ngModel)]="patientname"
+                name="patientname">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].phoneNoo}}:</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="number" name="mobileno" [(ngModel)]="mobileno" disabled class="form-control">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].emaill}}:</label>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" disabled name="email" [(ngModel)]="email">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="dname_label">{{labels[0].referalNotess}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-9">
+              <ckeditor [editor]="Editor" [(ngModel)]="showreferelnotes" name="showreferelnotes" data=""></ckeditor>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+                (click)="UpdateRefferalLetter()" data-dismiss="modal">Update</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+          data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+  <div id="qwerty123" style="display: none;">
+
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal9500" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg" style="width: 130%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ labels[0].patientCondition }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <p innerHtml="{{showreferelnotes}}"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterRefferal"
+          style="background-color: #f18235; color: white;" class="btn btn-default">Edit</button> -->
+        <button id="close" type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{ labels[0].close }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal545" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ labels1[0].attachments }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6" *ngFor="let att of attachments">
+              <img src="assets/Images/pdf.png" (click)="GetPdf(att.attchments)">
+              <button type="button" style="background-color: #f18235;color: white; margin-left: 45px;"
+                (click)="GetPdf(att.attchments)" class="btn btn-default">{{ labels1[0].view }}</button> &nbsp; &nbsp;
+              <button type="button" style="background-color: #f18235;color: white;" (click)="Deletefile(att.id)"
+                class="btn btn-default">{{ labels[0].delete }}</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-toggle="modal" data-target="#UploadFile">Upload</button>
+        <button id="closeview" type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{ labels[0].close }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="UploadFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label for="" class="reglabel">{{labels[0].attachments}} :</label>
+            </div>
+            <div class="col-lg-5">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload15($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+              </ngx-dropzone>
+            </div>
+            <div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: center;">
+        <button type="button" style="background-color: #f18235;color: white; text-align: center;"
+          class="btn btn-default" (click)="InsertDoctorRefererlasAttachemenys()"
+          data-dismiss="modal">{{ labels[0].save }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- video call receipt -->
+
 
 
 <div class="modal fade" id="Reciept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1989,7 +2630,7 @@
   </div>
 </div>
 
-
+<!-- Upload prescription photo -->
 
 <div class="modal fade" id="UploadPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -2012,7 +2653,7 @@
             </ngx-dropzone>
           </div>
         </div>
-        <button style="margin-top: 10px;" type="button" class="btn btn-md allbtns btncolor"
+        <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
           (click)="InsertPrescrptionPhoto()" data-dismiss="modal">{{labels[0].save}}</button>
       </div>
       <div class="modal-footer">
@@ -2120,7 +2761,7 @@
 
 
 
-
+<!-- Previous soap and Edit soap -->
 
 
 
@@ -2151,6 +2792,7 @@
                   <th>{{labels[0].followUpPlan}}</th>
                   <th>{{labels[0].signature}}</th>
                   <th>{{labels[0].notes}} </th>
+                  <!-- <th>Actions</th> -->
                 </tr>
                 <tr *ngFor="let soap of soaplist1">
                   <td>{{soap.departmentname}}</td>
@@ -2164,6 +2806,475 @@
                   <td>{{soap.followUpPlan}}</td>
                   <td>{{soap.signature}}</td>
                   <td>{{soap.notes}}</td>
+                  <!-- <td>
+
+                    <ng-template #tipcontent9504>Edit</ng-template>
+                    <a [ngbTooltip]="tipcontent9504" style="color:black">
+                      <img src="assets/Images/edit.png" data-toggle="modal" data-target="#EditSoapnotes"
+                        (click)="GetEditPrevioussoap(soap)" style="width: 18px">
+                    </a>
+
+                  </td> -->
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="EditSoapnotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit SOAP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" style="overflow-y: auto;">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnposticCode}}</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                  placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
+                  (ngModelChange)="SearchIcrCode()"></textarea>
+
+                <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].diagnposticCode}}"
+                  [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search"
+                  (ngModelChange)="getid()" /> -->
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showsearchsoap=='1'">
+              <!-- <div class="col-lg-1">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].diagnposticCode}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        {{code.description}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnosticDescription}}</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                    name="icdcode" [(ngModel)]="icdcode"></textarea> -->
+                <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
+                  placeholder="{{labels[0].diagnosticDescription}}" name="icdcode" [(ngModel)]="icdcode">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].followUpPlan}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="followupplan"
+                  name="followupplan" placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].signature}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" disabled
+                  [(ngModel)]="signature" name="signature" placeholder="{{labels[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].notes}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="notes"
+                  [(ngModel)]="notes" placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="updatesoapnotes()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Previous medical certificate -->
+
+<div class="modal fade" id="Previousmedicalcertificate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" style="width:898px;margin-left: 186px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">Insurence details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <tr>
+                  <th>Doctor name</th>
+                  <th>Patient name</th>
+                  <th>Patient number</th>
+                  <th>{{labels[0].email}}</th>
+                  <th>Medical certificate</th>
+                  <!-- <th>{{labels[0].email}}</th> -->
+                  <th>Actions</th>
+                </tr>
+                <tr *ngFor="let ss of previousmedicallist|filter:term">
+                  <td>{{ss.doctorName}}</td>
+                  <td>{{ss.patientName}}</td>
+                  <td>{{ss.mobileNumber}}</td>
+                  <td>{{ss.emailID}}</td>
+                  <td>
+                    <button class="btn btncolor" (click)="GetMysickslip(ss)" data-toggle="modal"
+                      data-target="#mymedicalcertficate">{{labels[0].view}}</button>
+                  </td>
+                  <td>
+                    <ng-template #tipcontent95585>Edit</ng-template>
+                    <a [ngbTooltip]="tipcontent95585" style="color:black">
+                      <img src="assets/Images/edit.png" data-toggle="modal" data-target="#EditMedicalcertificate"
+                      (click)="GetSickSlipIDForEdit(ss.patientID,ss.id)" style="width: 18px"></a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="mymedicalcertficate" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-9" style="margin-top:100px">
+            <p [innerHTML]="desc"></p>
+          </div>
+          <div class="col-lg-3">
+            <p style="color:#25116A; font-family: book man old;">{{doctorname}}</p>
+            <p style="color:#25116A;margin-top: -12px;font-family: book man old;">{{hospital_ClinicName}}</p>
+            <p  style="color:#25116A;margin-top: -12px;font-family: book man old;">{{address}}</p>
+            <p  style="color:#25116A;margin-top: -12px; font-family: book man old;">{{registrationNo}}</p>
+            <p  style="color:#25116A;margin-top: -12px;font-family: book man old;">{{docmobileno}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
+          style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button> -->
+        <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="EditMedicalcertificate" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].generateSickSlip}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].patientname}}: </b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" [(ngModel)]="patientname" placeholder="{{labels1[0].patientname}}" name="patientname"
+                disabled class="form-control">
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].patientNumber}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" [(ngModel)]="phonenumber" placeholder="{{labels1[0].patientNumber}}" name="phonenumber"
+                disabled class="form-control">
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].email}}</b> :</label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" [(ngModel)]="email" placeholder="{{labels1[0].email}}" name="email" disabled
+                class="form-control">
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].from}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="fromdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="fromdate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="fromdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="fromdate" bsDatepicker>
+              <!-- <input type="date" [(ngModel)]="fromdate" name="fromdate" class="form-control"> -->
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].to}}</b> :</label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="todate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="todate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="todate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="todate" bsDatepicker>
+              <!-- <input type="date" [(ngModel)]="todate" name="todate" class="form-control"> -->
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].leaveOfAbsence}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-2">
+              <input type="radio" value="{{labels1[0].school}}" [(ngModel)]="leavefor" name="leavefor">
+              {{labels1[0].school}}
+            </div>
+            <div class="col-lg-2">
+              <input type="radio" value="{{labels1[0].office}}" [(ngModel)]="leavefor" name="leavefor">
+              {{labels1[0].office}}
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <label>
+                <b>{{labels1[0].ailment}} :</b>
+              </label>
+              <span style="color: red;">*</span>
+            </div>
+            <div class="col-lg-4">
+              <textarea rows="4" [(ngModel)]="ailment" placeholder="{{labels1[0].ailment}}" name="ailment"
+                class="form-control"></textarea>
+              <!-- <input type="text" [(ngModel)]="ailment" placeholder="Ailment" name="ailment" class="form-control"><br> -->
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn btncolor" style="background-color: #f18235;"
+              data-dismiss="modal"  (click)="UpdateSickSlip()">Update</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+          data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- insurancedetails -->
+
+<div class="modal fade" id="Insurancedetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" style="width:898px;margin-left: 186px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">Insurence details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto;">
+            <div class="col-lg-12">
+              <table style="font-size: 14px;">
+                <tr>
+                  <th>Insurance Photo</th>
+                  <th>Insurance name </th>
+                  <th>Insurance no</th>
+                  <th>Description </th>
+                <tr *ngFor="let insurence of insurancedetails">
+                  <td>
+                    <img src="{{insurence.photoURL}}" style="width: 50px;height: 50px;" data-toggle="modal"
+                      data-target="#insurancephoto" (click)="GetInsurencephoto(insurence.photoURL)">
+                  </td>
+                  <td>{{insurence.insuranceName}}</td>
+                  <td>{{insurence.insuranceNumber}}</td>
+                  <td>{{insurence.description}}</td>
+
                 </tr>
               </table>
             </div>
@@ -2181,9 +3292,40 @@
 
 
 
+<div class="modal fade" id="insurancephoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Insurance photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <br>
+              <img src="{{insurencephoto}}" style="    width: 100%;" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
+<!-- Medicalquestioners -->
 
 <div class="modal fade" id="exampleModalLong78" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
@@ -2226,20 +3368,20 @@
                   <td>{{view.vaccinationStatus}}</td>
                   <td>{{view.dietaryIssues}}</td>
                   <td>
-                    <p *ngIf="view.alcohol=='1'">{{labels[0].yes}}</p>
-                    <p *ngIf="view.alcohol=='0'">{{labels[0].no}}</p>
+                    <p *ngIf="view.alcohol=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
+                    <p *ngIf="view.alcohol=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
                   </td>
                   <td>
-                    <p *ngIf="view.smoker=='1'">{{labels[0].yes}}</p>
-                    <p *ngIf="view.smoker=='0'">{{labels[0].no}}</p>
+                    <p *ngIf="view.smoker=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
+                    <p *ngIf="view.smoker=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
                   </td>
                   <td>
-                    <p *ngIf="view.exercise=='1'">{{labels[0].yes}}</p>
-                    <p *ngIf="view.exercise=='0'">{{labels[0].no}}</p>
+                    <p *ngIf="view.exercise=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
+                    <p *ngIf="view.exercise=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
                   </td>
                   <td>
-                    <p *ngIf="view.medicalinsurance=='1'">{{labels[0].yes}}</p>
-                    <p *ngIf="view.medicalinsurance=='0'">{{labels[0].no}}</p>
+                    <p *ngIf="view.medicalinsurance=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
+                    <p *ngIf="view.medicalinsurance=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
                   </td>
                 </tr>
               </table>
@@ -2257,7 +3399,7 @@
 
 
 
-
+<!-- early call -->
 
 <div class="modal fade" id="exampleealycall" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter15"
   aria-hidden="true">

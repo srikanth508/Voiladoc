@@ -72,8 +72,16 @@ export class DoctorSupportComponent implements OnInit {
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
           this.insertnotification()
-          Swal.fire('Issue Raised Successflly')
-          location.href = "#/DoctorSupportDash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Issue Raised Successflly')
+            location.href = "#/DoctorSupportDash"
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('Enregistré')
+            location.href = "#/DoctorSupportDash"
+          }
         }
       })
     }

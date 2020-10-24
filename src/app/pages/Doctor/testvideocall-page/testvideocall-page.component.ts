@@ -750,7 +750,7 @@ export class TestvideocallPageComponent implements OnInit {
   exercise:any;
 
   public getpatientdetails() {
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
       data => {
         
         this.details = data[0];

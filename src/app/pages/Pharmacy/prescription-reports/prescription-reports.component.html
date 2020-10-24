@@ -23,6 +23,13 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
+
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetPharmacyID($event)">
+        <option selected value="0">Select Pharmacy</option>
+     <option *ngFor="let pha of pharmacylist" value="{{pha.id}}">{{pha.pharmacyName}}</option>
+      </select>
+    </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="getget($event)">
         <option selected value="1">{{labels[0].select}}</option>
@@ -55,6 +62,7 @@
           <tr>
             <th>{{labels[0].orderDate}}</th>
             <th>{{labels[0].orderNumber}}</th>
+            <th *ngIf="diffid!='undefined'">Pharmacy Name</th>
             <th *ngIf="languageid=='1'">Prescription Type</th>
             <th *ngIf="languageid=='6'">Format de ordonnance</th>
             <th>{{labels[0].name}}</th>
@@ -68,6 +76,7 @@
           <tr *ngFor="let details of reportlist|filter:term">
             <td>{{details.date}}</td>
             <td>{{details.id}}</td>
+            <td  *ngIf="diffid!='undefined'">{{details.pharmacyName}}</td>
             <td>
               <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
               <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>

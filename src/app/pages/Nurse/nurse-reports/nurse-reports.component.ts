@@ -103,8 +103,41 @@ export class NurseReportsComponent implements OnInit {
     }
 
     this.getlanguage()
+    this.Gethsopital()
   }
 
+
+  hospitallist: any;
+  hospitalid: any;
+
+  public Gethsopital() {
+    this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
+      data => {
+        this.hospitallist = data;
+
+      }, error => {
+      }
+    )
+  }
+  public GetHospitalID(even) {
+    if (even.target.value != 0) {
+      this.hospitalid = even.target.value;
+      this.appointmentreportlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
+      this.count = this.appointmentreportlist.length
+    }
+    else {
+    
+      this.docservice.GetBook_Nurse_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
+        data => {
+         
+          this.appointmentreportlist = data;
+          this.dummlist = this.appointmentreportlist
+          this.count = this.appointmentreportlist.length
+        }, error => {
+        }
+      )
+    }
+  }
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {

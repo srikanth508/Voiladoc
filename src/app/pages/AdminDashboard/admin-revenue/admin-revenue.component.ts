@@ -12,8 +12,6 @@ export class AdminRevenueComponent implements OnInit {
   options: NgDateRangePickerOptions;
   constructor(public docservice: HelloDoctorService) { }
 
-
-
   value: any;
   SDate = new Date();
   EDate = new Date();
@@ -31,6 +29,8 @@ export class AdminRevenueComponent implements OnInit {
   public midwifecommissioncount: any;
   public physiocommissioncount: any;
   public labels: any;
+  public hospitalid:any;
+  public cityid:any;
 
   ngOnInit() {
 
@@ -88,8 +88,9 @@ export class AdminRevenueComponent implements OnInit {
     );
   }
 
+
   public GetCounts() {
-    this.docservice.GetDoctorCommissionFeesByAdminRevenue(this.startdate, this.enddate).subscribe(
+    this.docservice.GetDoctorCommissionFeesByAdminRevenue(this.startdate, this.enddate,this.hospitalid,this.cityid).subscribe(
       data => {
        
         this.allcounts = data;
@@ -112,7 +113,7 @@ export class AdminRevenueComponent implements OnInit {
 
 
   public GetNursamount() {
-    this.docservice.GetNurseCommissionDeatailsAdminRevenue(this.startdate, this.enddate).subscribe(
+    this.docservice.GetNurseCommissionDeatailsAdminRevenue(this.startdate, this.enddate,this.hospitalid,this.cityid).subscribe(
       data => {
        
         this.nursecount = data;
@@ -123,7 +124,7 @@ export class AdminRevenueComponent implements OnInit {
 
 
   public GetMidWifesTotalCountAmount() {
-    this.docservice.GetMidWifeCommissionDeatailsAdminRevenue(this.startdate, this.enddate).subscribe(
+    this.docservice.GetMidWifeCommissionDeatailsAdminRevenue(this.startdate, this.enddate,this.hospitalid,this.cityid).subscribe(
       data => {
        
         this.midwifecount = data;
@@ -133,7 +134,7 @@ export class AdminRevenueComponent implements OnInit {
   }
 
   public GetPhyiotherapistAmount() {
-    this.docservice.GetPhsyioTherapistCommissionDeatailsAdminRevenue(this.startdate, this.enddate).subscribe(
+    this.docservice.GetPhsyioTherapistCommissionDeatailsAdminRevenue(this.startdate, this.enddate,this.hospitalid,this.cityid).subscribe(
       data => {
        
         this.physiocount = data;

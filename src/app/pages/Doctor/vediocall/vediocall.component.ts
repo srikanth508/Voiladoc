@@ -28,7 +28,7 @@ export class VediocallComponent implements OnInit {
   notetopharmacist: any;
   diagnosis: any;
   howmanyrefills: any;
-  showModal: boolean;
+  // showModal: boolean;
 
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private ref: ChangeDetectorRef, public opentokService: OpentokService) {
     this.changeDetectorRef = ref;
@@ -236,19 +236,19 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-   
+
     // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
     var countDownDate = new Date().getTime();
-    
+
 
     document.getElementById("sidbarid").style.display = "none";
 
     document.getElementById("vidiv").classList.remove('col-lg-10');
     document.getElementById("vidiv").classList.add("col-lg-12");
-  document.getElementById("vidpagehead").style.display = "none";
-   
+    document.getElementById("vidpagehead").style.display = "none";
+
 
     // Update the count down every 1 second
     var x = setInterval(function () {
@@ -258,7 +258,7 @@ export class VediocallComponent implements OnInit {
 
       // Find the distance between now and the count down date
       var distance = now - countDownDate;
-      
+
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -293,7 +293,7 @@ export class VediocallComponent implements OnInit {
 
     this.docname = localStorage.getItem('user');
 
-    
+
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
     if (this.languageid == 1) {
@@ -314,10 +314,10 @@ export class VediocallComponent implements OnInit {
       this.patientid = localStorage.getItem('patientID');
       this.appointmentid = localStorage.getItem('appointmentID');
       this.appointmentdatetime = localStorage.getItem('appdate');
-   
+
     }
     )
-    
+
 
     // this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
     //   this.compltedlist = res;
@@ -328,6 +328,7 @@ export class VediocallComponent implements OnInit {
     //     }
     //   }
     // })
+
 
     //chat
     this.image = 0;
@@ -357,7 +358,7 @@ export class VediocallComponent implements OnInit {
     //   this.oberserableTimer();
     // })
     ;
-   // this.languageid = localStorage.getItem('LanguageID');
+    // this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
     this.getpatientdetails();
     this.getdoctorpatinetdetails();
@@ -375,7 +376,7 @@ export class VediocallComponent implements OnInit {
     this.pddddd = 1;
     this.pdpd = 1;
     ;
-    
+
 
     let jjj = document.getElementById("Completed");
     if (jjj != null) {
@@ -383,11 +384,11 @@ export class VediocallComponent implements OnInit {
     }
     // tok bok vamsi  start
 
-   
+
     // this.docservice.GetBooked_DoctorPatientBookedVideoConferencebyppointmentID(this.appointmentid).subscribe(
     //   data => {
     //     if (data.length > 0) {
-         
+
     //       config.SESSION_ID = data[0].sessionID,
     //         config.TOKEN = data[0].token
     //       this.insertvedioeconferencedetails();
@@ -403,11 +404,11 @@ export class VediocallComponent implements OnInit {
     //   }, error => {
     //   }
     // )
-    
+
     this.opentokService.getsessionandtoken().subscribe(res => {
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-    
+
       this.insertvedioeconferencedetails();
     })
 
@@ -415,13 +416,14 @@ export class VediocallComponent implements OnInit {
     this.GetSoapNotesByPatientID();
     this.medicinetemplate = 2;
     this.oberserableTimer();
+
   }
 
 
   newtab() {
     window.open('www.facebook.com', '_blank');
   }
-  
+
 
   endsession
   public getlanguage() {
@@ -446,7 +448,7 @@ export class VediocallComponent implements OnInit {
     )
 
   }
-  
+
 
   public insertvedioeconferencedetails() {
     var entity = {
@@ -467,13 +469,13 @@ export class VediocallComponent implements OnInit {
             this.streams.push(event.stream);
             document.getElementById('stoprecoring').style.display = 'block';
 
-          
+
             this.startarchive();
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
-            
+
             const idx = this.streams.indexOf(event.stream);
 
             if (idx > -1) {
@@ -513,7 +515,7 @@ export class VediocallComponent implements OnInit {
           this.session.on('streamDestroyed', (event) => {
             ;
             this.stoparchive();
-            
+
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
               this.streams.splice(idx, 1);
@@ -742,21 +744,26 @@ export class VediocallComponent implements OnInit {
   allergieslist: any;
   public allergies = []
 
-  nationalidentityno:any;
-  medicalhistory:any;
-  surgeryHistory:any;
-  longtermtreatment:any;
-  vaccinationStatus:any;
-  dieteryissues:any;
-  alcohol:any;
-  Smoker:any;
-  medicalinsurence:any;
-  exercise:any;
+  nationalidentityno: any;
+  medicalhistory: any;
+  surgeryHistory: any;
+  longtermtreatment: any;
+  vaccinationStatus: any;
+  dieteryissues: any;
+  alcohol: any;
+  Smoker: any;
+  medicalinsurence: any;
+  exercise: any;
+  showallergies: any;
+  drugname: any;
+  attendingdoctor: any;
+  photoexist: any;
+  public videoexist: any;
 
   public getpatientdetails() {
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
       data => {
-        
+
         this.details = data[0];
         this.patientname = this.details.pName,
           this.mobileno = this.details.mobileNumber,
@@ -780,29 +787,35 @@ export class VediocallComponent implements OnInit {
           this.ispatientpragnent = this.details.isPatientPragnent,
           this.breastFeeding = this.details.breastFeeding,
 
-          this.nationalidentityno=this.details.nationalidno,
-          this.medicalhistory=this.details.medicalHistory,
-          this.surgeryHistory=this.details.surgeryHistory,
-          this.longtermtreatment=this.details.longtermTreatment,
-          this.vaccinationStatus=this.details.vaccinationStatus,
-          this.dieteryissues=this.details.dietaryIssues,
-          this.alcohol=this.details.alcohol,
-          this.Smoker=this.details.smoker,
+          this.nationalidentityno = this.details.nationalidno,
+          this.medicalhistory = this.details.medicalHistory,
+          this.surgeryHistory = this.details.surgeryHistory,
+          this.longtermtreatment = this.details.longtermTreatment,
+          this.vaccinationStatus = this.details.vaccinationStatus,
+          this.dieteryissues = this.details.dietaryIssues,
+          this.alcohol = this.details.alcohol,
+          this.Smoker = this.details.smoker,
+          this.showallergies = this.details.knownAllergies,
+          this.medicalinsurence = this.details.medicalinsurance,
+          this.exercise = this.details.exercise,
+          this.attendingdoctor = this.details.attendingdoctor,
 
-          this.medicalinsurence=this.details.medicalinsurance,
-       
-          this.exercise=this.details.exercise,
+          this.photoexist = this.details.photoexist,
+          this.videoexist = this.details.videoexist,
 
+          this.showdrugname = this.details.drugName,
+          this.showdosage = this.details.dosage,
+          this.showfrequency = this.details.frequency,
 
 
           this.allergieslist = this.details.knownAllergies.split(',')
-        
+
         this.allergies = []
         for (let i = 0; i < this.allergieslist.length; i++) {
           var wtt = {
             displayValue: this.allergieslist[i]
           }
-          
+
           this.allergies.push(wtt);
         }
 
@@ -834,7 +847,7 @@ export class VediocallComponent implements OnInit {
 
 
   public Updateallergies() {
-    
+
     this.allergies = this.allergies.map(x => x.displayValue);
     this.allergieslist = this.allergies.join(',');
     var entity = {
@@ -888,7 +901,9 @@ export class VediocallComponent implements OnInit {
 
   }
 
-
+  showdrugname: any;
+  showfrequency: any;
+  showdosage: any;
 
 
 
@@ -896,8 +911,11 @@ export class VediocallComponent implements OnInit {
 
     this.docservice.GetPatientCurrentMedicationByID(this.appointmentid).subscribe(
       data => {
-
+        
         this.medicationlist = data;
+        
+
+        
       }, error => {
       }
     )
@@ -1139,7 +1157,6 @@ export class VediocallComponent implements OnInit {
         else {
           Swal.fire('Détails enregistrés', 'SOAP');
         }
-
         this.GetSoapNotesByPatientID();
         this.InsertNotificationSoapnotes()
         this.VisitDoctorAppointmentStatus()
@@ -1158,9 +1175,9 @@ export class VediocallComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientid,
-        'Notification': "Doctor Added SOAP Notes For You.",
-        'Description': this.user + " Added  SOAP Notes For You",
-        'NotificationTypeID': 29,
+        'Notification': this.user + " has added SOAP notes for you. ",
+        'Description': this.user + " has added SOAP notes for you. ",
+        'NotificationTypeID': 100,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -1175,8 +1192,8 @@ export class VediocallComponent implements OnInit {
       var entity = {
         'PatientID': this.patientiddd,
         'Notification': "Le docteur a ajouté des notes SOAP pour vous.",
-        'Description': this.user + " a ajouté des notes SOAP pour vous.",
-        'NotificationTypeID': 29,
+        'Description': this.user + " Votre rapport de consultation est maintenant disponible dans Mon dossier médical.",
+        'NotificationTypeID': 100,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -1276,6 +1293,12 @@ export class VediocallComponent implements OnInit {
   public GetSoapID(soapid) {
 
     this.soapid = soapid;
+   
+   this.getsopanotesbyid()
+  }
+
+  public getsopanotesbyid()
+  {
     this.docservice.GetSoapNotesByID(this.soapid, this.languageid).subscribe(
       data => {
 
@@ -1291,7 +1314,6 @@ export class VediocallComponent implements OnInit {
           this.neurological = "";
           this.objective = "";
 
-
         }
         else {
           this.subjective = this.soaplist[0].subjective,
@@ -1302,16 +1324,15 @@ export class VediocallComponent implements OnInit {
             this.notes = this.soaplist[0].notes,
             this.neurological = this.soaplist[0].neurological,
             this.objective = this.soaplist[0].objective,
-            this.signature = this.soaplist[0].signature
+            this.signature = this.soaplist[0].signature,
+            this.icddesc = this.soaplist[0].icrDescription,
+               this.icdcode = this.soaplist[0].diagnosisCode
         }
 
       }, error => {
       }
     )
-
-
   }
-
 
   public clear() {
     this.subjective = "";
@@ -1349,7 +1370,7 @@ export class VediocallComponent implements OnInit {
       this.compltedlist = res;
       if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
         this.count = this.count + 1
-        
+
         Swal.fire('Patient Ended The Call');
         window.close();
       }
@@ -1380,7 +1401,7 @@ export class VediocallComponent implements OnInit {
 
     // location.href = "#/Myappointments"
     // location.reload()
-   
+
   }
 
   public viewArchive() {
@@ -1776,9 +1797,9 @@ export class VediocallComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.patientiddd,
-        'Notification': "Doctor Added Prescription.",
-        'Description': this.user + " Added Prescription For You",
-        'NotificationTypeID': 28,
+        'Notification': this.user + " added prescription for you. ",
+        'Description': this.user + " added prescription for you. ",
+        'NotificationTypeID': 101,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -1792,9 +1813,9 @@ export class VediocallComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.patientiddd,
-        'Notification': "Prescription ajoutée par le médecin.",
-        'Description': this.user + " Added Prescription For You",
-        'NotificationTypeID': 28,
+        'Notification': this.user + " Votre ordonnance est maintenant disponible dans Mon dossier médical.",
+        'Description': this.user + " Votre ordonnance est maintenant disponible dans Mon dossier médical.",
+        'NotificationTypeID': 101,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -1923,9 +1944,9 @@ export class VediocallComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.diapatientid,
-        'Notification': "Doctor Added Diagnostic Test For You.",
-        'Description': this.user + " Added Diagnostic Test For You.",
-        'NotificationTypeID': 30,
+        'Notification':this.user + " added diagnostic test for you.",
+        'Description': this.user + " added diagnostic test for you.",
+        'NotificationTypeID': 102,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -1939,9 +1960,9 @@ export class VediocallComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.diapatientid,
-        'Notification': "Le médecin a ajouté un test de diagnostic pour vous.",
-        'Description': this.user + " a ajouté un test de diagnostic pour vous.",
-        'NotificationTypeID': 30,
+        'Notification': this.user + " Vos résultats d'analyses sont maintenant disponibles dans Mon dossier médical.",
+        'Description': this.user + " Vos résultats d'analyses sont maintenant disponibles dans Mon dossier médical.",
+        'NotificationTypeID': 102,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid
@@ -1949,9 +1970,8 @@ export class VediocallComponent implements OnInit {
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
         if (data != 0) {
-
+          
         }
-
       })
     }
   }
@@ -2123,10 +2143,11 @@ export class VediocallComponent implements OnInit {
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
       this.getPreviousChat();
-
+      
       var objDiv = document.getElementById("chatboxdiv");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
+
 
 
     this.docservice.GetVideoStatus(this.appointmentiddd).subscribe(res => {
@@ -2236,11 +2257,18 @@ export class VediocallComponent implements OnInit {
   }
 
 
+public mouseEnter(evn){
+ 
+  evn.target.style.color='#f18235';
+}
 
+public mouseleave(evn)
+{
+  evn.target.style.color='white';
+}
 
   public highlight(evt) {
     var i, tablinks;
-
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
@@ -2251,7 +2279,7 @@ export class VediocallComponent implements OnInit {
 
 
 
-  showimages:any;
+  showimages: any;
   nophoto
 
 
@@ -2278,7 +2306,7 @@ export class VediocallComponent implements OnInit {
 
   public GetVedioID() {
 
-   
+
     this.docservice.GetPatient_IllnessVedioes(this.appointmentid).subscribe(
       data => {
 
@@ -2293,6 +2321,174 @@ export class VediocallComponent implements OnInit {
       }
     )
   }
+
+
+  public GetChatShowID() {
+
+    document.getElementById("myForm").style.display = "block";
+
+    this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
+      ;
+      this.chatIDlist = res;
+      this.chatID = this.chatIDlist[0].chatID
+      this.getPreviousChat();
+      this.oberserableTimer();
+      this.getserverdateandtime();
+      // this.appointmentiddd = 570;
+      this.getserverdateandtime();
+      this.getPreviousChat();
+      this.oberserableTimer()
+    })
+  }
+
+
+
+  public GetShowOff() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
+
+
+
+  // edit prescription
+
+ public editprescid:any;
+
+  public GetPriviouesPrescriptionlist(presciption) {
+    debugger
+    this.editprescid = presciption.id,
+      this.medicinename = presciption.medicineName,
+      this.sig = presciption.sig,
+      this.notetopharmacist = presciption.noteToPharmasist,
+      this.howmanyrefills = presciption.howmanyRefills,
+      this.substainable = presciption.substainablenotPermitted,
+      this.dispensequantity = presciption.dispenseQuantity
+  }
+
+
+  public updateprescription() {
+    var entity =
+    {
+      'ID': this.editprescid,
+      'MedicineName': this.medicinename,
+      'SIG': this.sig,
+      'DispenseQuantity': this.dispensequantity,
+      'NoteToPharmasist': this.notetopharmacist,
+      'HowmanyRefills': this.howmanyrefills,
+      'SubstainablenotPermitted': this.substainable
+    }
+    this.docservice.UpdateDoctor_PatientPrescriptionWeb(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully');
+        this.getdoctorpatinetdetails();
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.getdoctorpatinetdetails();
+      }
+
+    })
+  }
+
+
+
+  //edit test
+
+  editdiaid:any;
+  clinicalinfo:any;
+
+  public GetDiaEditList(dia) {
+    debugger
+    this.editdiaid = dia.id,
+      this.testid = dia.diagnosticTestTypeID,
+      this.testssid = dia.testsID,
+      this.clinicalinfo = dia.clinicalInfo
+    this.getdiagnostictests();
+  }
+
+
+
+  public updatedignostictest() {
+    debugger
+    var diatest = {
+      'ID': this.editdiaid,
+      'DiagnosticTestTypeID': this.testid,
+      'DiagnosticTestName': this.diagnostictestname,
+      'TestsID': this.testssid,
+      'ClinicalInfo': this.clinicalinfo
+    }
+    this.docservice.UpdateDoctor_PatientDiagnostics(diatest).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully');
+        this.getpatient_diagnosticdetails();
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.getpatient_diagnosticdetails();
+      }
+    })
+  }
+
+
+
+   editsoapid: any;
+
+  // public GetEditPrevioussoap(soap) {
+  //   debugger
+  //   this.editsoapid = soap.id
+  //   this.subjective = soap.subjective,
+  //     this.objective = soap.objective,
+  //     this.plan = soap.plan,
+  //     this.assessment = soap.assessment,
+  //     this.diagnosiscode = soap.diagnosisCode,
+  //     this.notes = soap.notes,
+  //     this.signature = soap.signature,
+  //     this.subjective = soap.subjective,
+  //     this.icddesc = soap.icrDescription,
+  //     this.icdcode = soap.diagnosisCode,
+  //     this.followupplan = soap.followUpPlan
+  // }
+
+
+  public updatesoapnotes() {
+    var soapentity = {
+      'ID': this.soapid,
+      'Subjective': this.subjective,
+      'ICRCode': this.icdcode,
+      'ICRDescription': this.icddesc,
+      'ICRID': this.icrcodeid,
+      'Objective': this.objective,
+      'Assessment': this.assessment,
+      'Plan': this.plan,
+      'DiagnosisCode': this.icdcode,
+      'FollowUpPlan': this.followupplan,
+      'Signature': this.signature,
+      'Notes': this.notes
+    }
+    this.docservice.UpdateDoctor_PatientSoapNotes(soapentity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated successfully');
+        this.getsopanotesbyid()
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.getsopanotesbyid()
+      }
+    })
+  }
+
+
+
+  public showModal() {
+    document.getElementById("pageContent").style.opacity = "0.0";
+    }
+
+
+    
+  public GetDocWhatsaPP() {
+    window.open("https://api.whatsapp.com/send/?phone=" + this.mobileno);
+  }
+
 }
 
 

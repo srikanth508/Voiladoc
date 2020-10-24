@@ -63,17 +63,17 @@
             <p [innerHTML]="desc"></p>
           </div>
           <div class="col-lg-3">
-            <p style="color:#251156">{{doctorname}}</p>
-            <p style="margin-top: -12px;color: #251156;">{{hospital_ClinicName}}</p>
-            <p  style="margin-top: -12px;color: #251156;">{{address}}</p>
-            <p  style="margin-top: -12px;color: #251156;">{{registrationNo}}</p>
-            <p  style="margin-top: -12px;color: #251156;">{{docmobileno}}</p>
+            <p style="color:#25116A; font-family: book man old;">{{doctorname}}</p>
+            <p style="color:#25116A;margin-top: -12px;font-family: book man old;">{{hospital_ClinicName}}</p>
+            <p  style="color:#25116A;margin-top: -12px;font-family: book man old;">{{address}}</p>
+            <p  style="color:#25116A;margin-top: -12px; font-family: book man old;">{{registrationNo}}</p>
+            <p  style="color:#25116A;margin-top: -12px;font-family: book man old;">{{docmobileno}}</p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
-          style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button> -->
+        <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
+          style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button>
         <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
       </div>

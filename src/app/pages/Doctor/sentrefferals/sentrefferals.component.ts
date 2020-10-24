@@ -207,9 +207,7 @@ export class SentrefferalsComponent implements OnInit {
 
   public GetSickSlipID() {
    
-
-
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid).subscribe(
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
       data => {
         this.details = data[0];
         this.patientname = this.details.pName,
@@ -494,7 +492,7 @@ export class SentrefferalsComponent implements OnInit {
       this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
        
         if (data != 0) {
-          document.getElementById('closeview').click();
+          
           Swal.fire('Uploaded Successfully');
         }
       })

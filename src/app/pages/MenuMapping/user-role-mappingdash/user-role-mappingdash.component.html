@@ -30,12 +30,33 @@
         <thead>
           <tr>
             <th>Role</th>
-            <th>Name</th>
+            <th>First name</th>
+            <th>Last name</th>
             <th>Phone Number</th>
             <th>Email</th>
             <th>User Name</th>
             <th>Password</th>
             <th>Actions</th>
+          </tr>
+          <tr *ngFor="let user of userlist|filter:search">
+            <td>{{user.short}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.phoneNo}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.password}}</td>
+            <td>
+              <ng-template #tipcontent2>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 18px;" (click)="DeleteUsers_RoleMapping(user.id)">
+              </a>&nbsp;
+
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/Userrolemapping',user.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 18px"></a>
+
+            </td>
           </tr>
         </thead>
       </table>

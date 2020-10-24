@@ -1,19 +1,20 @@
-<div class="container-fluid card card:hover">
-  <br>
+<div class="container-fluid card card:hover headerspace">
   <div class="row">
-    <div class="col-lg-9" style="margin-top: 5px;">
+    <div class="col-lg-9" style="margin-top: 14px;">
       <h5>{{labels[0].deliveryComapanyDashboard}}</h5>
     </div>
+    <div class="col-lg-3" style="text-align: end;margin-top: 14px;">
 
-    <div class="col-lg-3" style="text-align: end; margin-left: -5px;">
+      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()"
+        style="margin-right: 10px;">
+        {{labels1[0].exportExcel}}</button>
+
       <button type="button" routerLink="/DeliveryPartner" class="btn btncolor">{{labels1[0].add}}</button>
     </div>
     <br>
   </div>
-  <br>
-</div>
-<br>
-<br>
+</div><br>
+
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
@@ -41,7 +42,7 @@
   <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
-      <table>
+      <table id="Doc">
         <thead>
           <tr>
             <th>{{labels[0].companyName}}</th>
@@ -66,12 +67,18 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" (click)="deletedeliverycopmany(del.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;" (click)="deletedeliverycopmany(del.id)">
               </a>
               &nbsp;&nbsp;&nbsp;
               <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
-                <img src="assets/Images/edit.png" [routerLink]="['/EditDeliveryCompany',del.id]">
+                <img src="assets/Images/edit.png" *ngIf="del.editiconShow=='0'&&showeditbutton=='1'" style="width: 20px;" [routerLink]="['/EditDeliveryCompany',del.id]">
+              </a>
+
+              <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent3">
+                <img src="assets/Images/edit.png" 
+                *ngIf="showeditbutton=='0'"  style="width: 20px;" [routerLink]="['/EditDeliveryCompany',del.id]">
               </a>
             </td>
           </tr>

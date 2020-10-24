@@ -34,25 +34,42 @@ export class DiagnesticDashboardComponent implements OnInit {
   public areaid: any;
   public countrylist: any;
   public hospitalclinicid: any;
+  public countrymanaerid: any;
+  public showexportbutton: any;
+  public salesrepresntiveid: any;
+  public showeditbutton: any;
 
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
     this.languageid = localStorage.getItem('LanguageID');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
 
     this.activatedroute.params.subscribe(params => {
-     
       this.id = params['id'];
     }
     )
-    if (this.hospitalclinicid == undefined) {
+
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
+
+    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
+
+    if (this.id == undefined) {
       this.getdiagnosticforadmin();
     }
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetDiagnosticForAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
           this.diagnosticlist = data;
           this.dummlist = this.diagnosticlist
           this.diagnosticlist = this.diagnosticlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
@@ -61,10 +78,10 @@ export class DiagnesticDashboardComponent implements OnInit {
         }
       )
     }
-    else {
+    else if(this.id!=undefined){
       this.docservice.GetDiagnosticDetailsForWeb(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-         
+
           this.diagnosticlist = data;
           this.dummlist = this.diagnosticlist
           this.count = this.diagnosticlist.length;
@@ -76,7 +93,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
@@ -89,10 +106,10 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public getdiagnosticforadmin() {
-   
+
     this.docservice.GetDiagnosticForAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.diagnosticlist = data;
 
         this.dummlist = this.diagnosticlist
@@ -105,7 +122,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DiagnosticRegistration_LabelBYLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -118,7 +135,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -128,7 +145,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.diagnosticlist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -143,10 +160,10 @@ export class DiagnesticDashboardComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -156,7 +173,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.diagnosticlist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -172,10 +189,10 @@ export class DiagnesticDashboardComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -185,7 +202,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.diagnosticlist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.diagnosticlist.length
@@ -196,7 +213,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public deletediagnosticcenter(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Diagnostic Center!",
@@ -229,7 +246,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -247,7 +264,7 @@ export class DiagnesticDashboardComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -264,7 +281,7 @@ export class DiagnesticDashboardComponent implements OnInit {
 
 
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }

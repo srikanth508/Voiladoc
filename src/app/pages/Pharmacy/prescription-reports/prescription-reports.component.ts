@@ -97,7 +97,7 @@ export class PrescriptionReportsComponent implements OnInit {
 
 
     this.activatedroute.params.subscribe(params => {
-     
+
 
       this.diffid = params['id']
     }
@@ -108,7 +108,7 @@ export class PrescriptionReportsComponent implements OnInit {
     else {
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-         
+
           this.reportlist = data;
           this.dummlist = this.reportlist;
           this.count = this.reportlist.length
@@ -117,19 +117,57 @@ export class PrescriptionReportsComponent implements OnInit {
       )
     }
 
-
+this.getpharmacyforadmin()
   }
+
+  public pharmacylist: any;
+
+  public getpharmacyforadmin() {
+
+    this.docservice.GetPharmacyForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.pharmacylist = data;
+
+      }, error => {
+      }
+    )
+  }
+  pharmacyid:any;
+
+  public GetPharmacyID(even)
+  {
+    if(even.target.value!=0)
+    {
+      this.pharmacyid=even.target.value;
+      this.reportlist=this.dummlist.filter(x=>x.pharmacyID==this.pharmacyid)
+      this.count = this.reportlist.length
+    }
+    else{
+      this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
+        data => {
+
+          this.reportlist = data;
+          this.dummlist = this.reportlist;
+          this.count = this.reportlist.length
+        }, error => {
+        }
+      )
+    }
+   
+  }
+
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       }, error => {
       }
@@ -138,10 +176,10 @@ export class PrescriptionReportsComponent implements OnInit {
   labels1
   totalamount: any;
   public GetReports() {
-   
+
     this.docservice.GetPatient_TextMedicineDetailsReportsWeb(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.reportlist = data;
         this.totalamount = this.reportlist.map(a => a.amountToPay).reduce(function (a, b) {
           return a + b;
@@ -154,7 +192,7 @@ export class PrescriptionReportsComponent implements OnInit {
   }
 
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -178,19 +216,19 @@ export class PrescriptionReportsComponent implements OnInit {
   docmobile: any;
   email: any;
   docsignatureurl: any;
-  hospitalname:any;
-  hospitalid:any;
-  docaddress:any;
-  registrationno:any;
-  prescriptiondate:any;
-  dateofbirth:any;
+  hospitalname: any;
+  hospitalid: any;
+  docaddress: any;
+  registrationno: any;
+  prescriptiondate: any;
+  dateofbirth: any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
-   
+
     this.listid = id;
     this.list = this.reportlist.filter(x => x.id == this.listid)
-   
+
     this.patientname = this.list[0].patientName,
       this.mobilernumber = this.list[0].mobileNumber
     this.address = this.list[0].address
@@ -227,7 +265,7 @@ export class PrescriptionReportsComponent implements OnInit {
       }
       this.myarray.push(medetty);
     }
-   
+
   }
 
 
@@ -235,19 +273,19 @@ export class PrescriptionReportsComponent implements OnInit {
 
   public getget(even) {
     // this.featurelist.find(item => item.featureID == fid).checkbox = true;
-   
+
     if (even.target.value == 2) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.delivered == 1);
-     
+
       this.reportlist = dfsfd;
       this.count = this.reportlist.length
 
     }
     if (even.target.value == 3) {
-     
+
       let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
-     
+
       this.reportlist = dfsfd;
       this.count = this.reportlist.length
 
@@ -256,7 +294,7 @@ export class PrescriptionReportsComponent implements OnInit {
       this.GetReports();
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-         
+
           this.reportlist = data;
           this.dummlist = this.reportlist;
           this.count = this.reportlist.length
@@ -284,7 +322,7 @@ export class PrescriptionReportsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -302,7 +340,7 @@ export class PrescriptionReportsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -317,7 +355,7 @@ export class PrescriptionReportsComponent implements OnInit {
 
 
   public SavePDF() {
-   
+
     let pdfContent = window.document.getElementById("content");
     var doc = new jsPDF('p', 'mm', "a4");
 

@@ -3,8 +3,8 @@
     <div class="col-lg-6">
       <!-- <p>Doctor Video</p> -->
       <!-- <br><br> -->
-      <h6 *ngIf="languageid=='1'"><b>Patient Video</b> <b><span style="margin-left: 560px;" id="demo"></span></b> </h6>
-      <h6 *ngIf="languageid=='6'"><b>Vidéo patient</b> <b><span style="margin-left: 560px;" id="demo"></span></b> </h6>
+      <h6 *ngIf="languageid=='1'"><b>Patient Video</b> <b><span style="margin-left: 550px;" id="demo"></span></b> </h6>
+      <h6 *ngIf="languageid=='6'"><b>Vidéo patient</b> <b><span style="margin-left: 550px;" id="demo"></span></b> </h6>
       <!-- <h6   id="demo"></h6> -->
       <div class="row">
         <div *ngIf="session">
@@ -12,221 +12,271 @@
             <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session" id="subscibre">
             </app-subscriber><br>
           </div>
-          <div class="col-lg-6" >
+          <div class="col-lg-6">
             <app-publisher [session]="session" id="publishme" style="display: block;"></app-publisher>
           </div>
         </div>
       </div><br>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg-2">
           <input type="button" style="color: white;" class="btn btn-default" id="stoprecoring" value="{{endsession}}"
             (click)="stoparchive()" />
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-lg-12" style="top:73%;position: fixed; width: 49%;">
+          <table class="table table-bordered" style="background-color: white;">
+            <tr>
+              <th style="  background-color: #322b6b;text-align: left;color: white;border:2px solid;border:2px solid">
+                Patient</th>
+              <th style="  background-color: #322b6b;text-align: left;color: white;border:2px solid;border:2px solid">
+                {{labels[0].ongoingtreatment}}</th>
+            </tr>
+            <tr>
+              <td class="tabletdstyles">{{labels[0].patientNamess}} : {{patientname}} </td>
+              <td class="tabletdstyles">{{labels[0].drugName}} : {{showdrugname}} </td>
+            </tr>
+            <tr>
+              <td class="tabletdstyles">Age : {{age}}</td>
+              <td class="tabletdstyles">{{labels[0].dosage}} : {{showdosage}}</td>
+            </tr>
+            <tr>
+              <td class="tabletdstyles">
+                <!-- {{labels[0].allergies}} : -->
+                <div class="row">
+                  <div class="col-lg-9">
+                    {{labels[0].allergies}} : {{showallergies}}
+                  </div>
+                  <div class="col-lg-3">
+                    <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                      data-target="#exampleModalCenter" />
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-lg-10">
+                    <ngx-tags-input class="form-control input-xl" style="height: 40px; font-size: large;"
+                      [(ngModel)]="allergies" name="allergies"></ngx-tags-input>
+                  </div>
+                  <div class="col-lg-2">
+                    <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
+                      data-target="#exampleModalCenter" />
+                  </div>
+                </div> -->
+              </td>
+              <td class="tabletdstyles">{{labels[0].frequency}} : {{showfrequency}} </td>
+            </tr>
+          </table>
         </div>
       </div>
       <br>
     </div>
     <div class="col-lg-4">
-      <!-- <br><br> -->
-      <h6 *ngIf="languageid=='1'"><b>Medical questionnaire </b></h6>
-      <h6 *ngIf="languageid=='6'"><b>Questionnaire médical</b></h6>
-      <table class="card card-hover" style="overflow-y: auto;width:541px">
-        <tr>
-          <td>
-            {{labels[0].nationalidentityno}} :<b>{{nationalidentityno}}</b>
-          </td>
-          <td>
-            {{labels[0].height}} : <b>{{height}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].weight}} : <b>{{wight}}</b>
-          </td>
-          <td>
-            {{labels[0].bmi}} : <b>{{bmi}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].medicalhistory}} : <b>{{medicalhistory}}</b>
-          </td>
-          <td>
-            {{labels[0].surgeryhistory}} : <b>{{surgeryHistory}}</b>
-          </td>
-        </tr>
+      <div class="row card card-hover">
+        <table class="table table-bordered " style="overflow-y: auto;">
+          <tr>
+            <th style="background-color: #322b6b;text-align: left;">Patient</th>
+            <th style="background-color: #322b6b;text-align: left;">{{labels[0].medicalEvaluation}}</th>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+           {{labels[0].appointmentNumber}}  : {{appointmentno}}
+            </td>
+            <td class="tabletdstyles">
+              {{labels[0].attendingDoctor}} : {{attendingdoctor}}
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              <!-- {{labels[0].weight}} : <b>{{wight}}</b> -->
+              {{labels[0].nationalidentityno}} : {{nationalidentityno}}
+            </td>
+            <td class="tabletdstyles">
+              {{labels[0].medicalhistory}} :  {{medicalhistory}}
+            
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
 
-        <tr>
-          <td>
-            {{labels[0].longtermtreatment}} : <b>{{longtermtreatment}}</b>
-          </td>
-          <td>
-            {{labels[0].statutvaccinal}} : <b>{{vaccinationStatus}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].dietaryissues}} : <b>{{dieteryissues}}</b>
-          </td>
-          <td>
-            {{labels[0].doyoudrinkalcohol}} :
-            <b> <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label></b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].areyoasmoker}} :
-            <b> <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label></b>
-          </td>
-          <td>
-            {{labels[0].doyouecescise}} :
-            <b>
-              <label *ngIf="exercise=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="exercise=='0'"> {{labels[0].yes}}</label></b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].medicalinsurance}} :
+              {{labels[0].phoneNo}} :  {{mobileno}}
+            </td>
+            <td class="tabletdstyles">
+              {{labels[0].surgeryhistory}} : {{surgeryHistory}}
+
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              {{labels[0].email}} :  {{email}}
+            </td>
+            <td class="tabletdstyles">
+                {{labels[0].longtermtreatment}} : {{longtermtreatment}}
+
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              {{labels[0].dateOfBirth}} :  {{dateofbirth}}
+            </td>
+            <td class="tabletdstyles">
+
+              {{labels[0].statutvaccinal}} : {{vaccinationStatus}}
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              {{labels[0].gender}} :  {{gender}}
+
+            </td>
+            <td class="tabletdstyles">
+             
+
+              {{labels[0].dietaryissues}} :  {{dieteryissues}}
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              <!-- {{labels[0].medicalinsurance}} :
 
             <b> <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
               <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
-            </b>
+            </b> -->
+              {{labels[0].height}} :  {{height}}
+            </td>
+            <td class="tabletdstyles">
 
-          </td>
+              {{labels[0].doyoudrinkalcohol}} :
+               <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label>
 
-          <td>
-            <img src="assets/Images/imgicon.png" title="{{labels[0].images}}" (click)="GetImagesID()"
-              data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
-          </td>
-        </tr>
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+          
+              {{labels[0].weight}} : <b>{{wight}}</b>
+            </td>
 
-        <tr>
-          <td>
-            <img src="assets/Images/showvedio.png" data-toggle="modal" data-target="#exampleModalLong3"
-              title="{{labels[0].video}}" style="margin: 2%;width: 20px;" (click)="GetVedioID()" />&nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b>
-          </td>
-          <td>
-            {{labels[0].appointmentDate}} : <b>{{appointmentdate}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].phoneNo}} : <b>{{mobileno}}</b>
-          </td>
-          <td>
-            {{labels[0].email}} : <b>{{email}}</b>
-          </td>
-        </tr>
+            <td class="tabletdstyles">
+              {{labels[0].areyoasmoker}} :
+               <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              {{labels[0].bmi}} :  {{bmi}}
 
-        <tr>
-          <td>
-            {{labels[0].reasonForVisit}} : <b>{{reasonforappointment}}</b>
-          </td>
-          <td>
-            {{labels[0].gender}} : <b>{{gender}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Age : <b>{{age}}</b>
-          </td>
-          <td>
-            {{labels[0].dateOfBirth}} : <b>{{dateofbirth}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{labels[0].height}} : <b>{{height}}</b>
-          </td>
-          <td>
-            {{labels[0].weight}} : <b>{{wight}}</b>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="row">
-              <div class="col-lg-12">
-                {{labels[0].allergies}} :
-              </div>
+            </td>
+            <td class="tabletdstyles">
 
-            </div>
-            <div class="row">
-              <div class="col-lg-10">
-                <ngx-tags-input class="form-control input-xl" style="height: 40px; font-size: large;"
-                  [(ngModel)]="allergies" name="allergies"></ngx-tags-input>
-              </div>
-              <div class="col-lg-2">
-                <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
-                  data-target="#exampleModalCenter" />
-              </div>
-            </div>
-            <!-- {{allergies}} -->
-          </td>
-          <td>
-            {{labels[0].bmi}} : <b>{{bmi}}</b>
-          </td>
-        </tr>
-        <tr *ngIf="gender=='Female'">
-          <td>
-            {{labels[0].isThePatientPregnant}} :
-            <b>
-              <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label></b>
-          </td>
-          <td>
-            Breast feeding :
-            <b>
-              <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label></b>
+          
+              {{labels[0].doyouecescise}} :
+              
+                <label *ngIf="exercise=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="exercise=='0'"> {{labels[0].yes}}</label>
 
-          </td>
-        </tr>
-      </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="tabletdstyles">
+              {{labels[0].medicalinsurance}} :
+
+               <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
+              
+              <!-- {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b> -->
+            </td>
+            <td class="tabletdstyles">
+            
+            </td>
+          </tr>
+          <tr *ngIf="gender=='Female'">
+            <td style="text-align: left;border:2px solid">
+              {{labels[0].isThePatientPregnant}} :
+            
+                <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label>
+            </td>
+            <td class="tabletdstyles">
+              Breast feeding :
+              
+                <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
+                <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label>
+            </td>
+          </tr>
+          <tr>
+            <th style="background-color: #322b6b;text-align: left;" colspan="2">{{labels[0].photosPatientvideos}}</th>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: left;">
+              Photos : <img src="assets/Images/imgicon.png" *ngIf="photoexist=='1'" title="{{labels[0].images}}"
+                (click)="GetImagesID()" data-toggle="modal" data-target="#exampleModalLong2"
+                style="margin: 2%;width: 20px;" />
+                <label style="font-family: Bookman Old Style;"  *ngIf="photoexist=='0'">No Photos</label>&nbsp; <br>
+
+              Videos : <img src="assets/Images/showvedio.png" *ngIf="videoexist=='1'" data-toggle="modal"
+                data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
+                (click)="GetVedioID()" />&nbsp;
+                <label style="font-family: Bookman Old Style;"  *ngIf="videoexist=='0'">No Videos</label>
+
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-
-    <div class="col-lg-2">
+    <div class="col-lg-2" style="margin-top: -14px;">
       <br>
-      <div class="col-lg-12">
-        <button class="buttonclass" data-toggle="modal" data-target="#Addprescription"
-          style="background-color: #008CBA;">{{labels[0].addPrescription}}</button>
+      <div class="col-lg-12 ">
+        <button  class="buttonclass" id="buttonclssid" (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#Addprescription"
+        (click)="showModal()" >{{labels[0].addPrescription}}</button>
+      </div>
+      <div class="col-lg-12 ">
+        <button class="buttonclass"   
+        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#addsoap">{{labels[0].addSoapNotes}}</button>
+      </div>
+      <div class="col-lg-12 ">
+        <button class="buttonclass"  
+        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"   data-toggle="modal" data-target="#addtest">{{labels[0].addTest}}</button>
       </div>
       <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
-          data-target="#addsoap">{{labels[0].addSoapNotes}}</button>
+        <button class="buttonclass"    
+        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#previousprescription">{{labels[0].previousprescri}}</button>
       </div>
       <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
-          data-target="#addtest">{{labels[0].addTest}}</button>
+        <button class="buttonclass"  
+        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#previoussoap">{{labels[0].previoussoap}}</button>
       </div>
       <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
-          data-target="#previousprescription">{{labels[0].prescription}}</button>
+        <button class="buttonclass" 
+        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#previoustest">
+          {{labels[0].previoustest}}</button>
       </div>
+      
       <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
-          data-target="#previoussoap">{{labels[0].soap}}</button>
-      </div>
-      <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal" data-target="#previoustest">
-          {{labels[0].labtest}}</button>
-      </div>
-      <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal" data-target="#chat">
+        <button class="buttonclass"  
+        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#chat" (click)="GetChatShowID()">
           {{labels[0].chat}}</button>
       </div>
-
       <div class="col-lg-12">
-        <button class="buttonclass" style="background-color: #008CBA;" data-toggle="modal"
-          data-target="#currentmedications"> {{labels[0].currentMedications}}</button>
+        <ng-template #tipcontent948>whats app</ng-template>
+        <a [ngbTooltip]="tipcontent948">
+          <img src=" assets/Images/whatapp.png" style="height:47px;  margin-left: 62px;"
+            (click)="GetDocWhatsaPP()" />
+        </a>
       </div>
+      <div class="col-lg-12">
+        <input type="button" class="buttonclass"
+          style="background-color: #f18235;border-radius: 14px;color:white;height: 51px;width: 100%; margin: 4px 2px;"
+          class="btn btn-default" id="stoprecoring" value="{{endsession}}" (click)="stoparchive()" />
+      </div>
+      <!-- <div class="col-lg-12">
+        <button class="buttonclass" style="background-color: #000080;" data-toggle="modal"
+          data-target="#currentmedications"> {{labels[0].currentMedications}}</button>
+      </div> -->
+  
     </div>
+ 
   </div>
 </div><br>
 
@@ -467,7 +517,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -554,7 +604,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -635,7 +685,7 @@
                       <th>Actions</th>
                     </tr>
                     <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
-                      <td>
+                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
                         {{code.description}}</td>
                       <td>
                         <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
@@ -707,7 +757,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -717,14 +767,14 @@
 <div class="modal fade" id="previousprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
   <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:787px;margin-left: 140px;">
+    <div class="modal-content" style="width:730px;margin-left: 140px;">
       <div class="modal-header modal-xl">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].prescription}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" stylw="width:1100px">
+      <div class="modal-body">
         <div class="container-fluid">
           <div class="row" style="overflow: auto; margin-left: -26px;">
             <div class="col-lg-12">
@@ -773,6 +823,12 @@
                       </a>&nbsp;&nbsp; -->
                       <button type="button" class="form-control"
                         (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
+                        &nbsp;
+<!-- 
+                        <ng-template #tipcontent9503>Edit</ng-template>
+                        <a [ngbTooltip]="tipcontent9503" style="color:black">
+                          <img src="assets/Images/edit.png"  data-toggle="modal" data-target="#edirprescription" (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 18px">
+                        </a> -->
                     </td>
                   </tr>
                 </thead>
@@ -790,25 +846,224 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
 </div>
 
 
+<div class="modal fade" id="edirprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg"  style="float: right;width: 46%;">
+    <div class="modal-content" style="width:1000px;margin-left: 140px;"  style="float: right;">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit prescription</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+  
+        <div class="container-fluid">
+          <form #medicineForm="ngForm">
+            <div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].enterManuallydruname}} :</label>
+                </div>
+                <div class="col-lg-4">
+                  <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="1">&nbsp;
+                  {{labels[0].yes}} &nbsp;&nbsp;
+                  <input type="radio" [(ngModel)]="manuallydrug" name="manuallydrug" [value]="2">&nbsp;
+                  {{labels[0].no}} &nbsp;&nbsp;
+                </div>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='1'&&manuallydrug=='2'">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <!-- <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                    placeholder="{{labels[0].drugName}}"> -->
+
+                  <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                    placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+                </div>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='1'&&manuallydrug=='1'">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                    placeholder="{{labels[0].drugName}}">
+
+                </div>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='6'&&manuallydrug=='2'">
+              <div class=row>
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
+                    [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
+                    (ngModelChange)="GetDrugNameID()" /> -->
+                  <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
+                    placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
+                </div>
+              </div><br>
+            </div>
+            <div class="row" *ngIf="SerachOn=='1'">
+              <!-- <div class="col-lg-4">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>médicament</th>
+                      <th>Dénomination </th>
+                      <th>Forme & Dosage
+                      </th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of drugnamelist|filter:medicinename | slice:0:100; let i=index">
+                      <td (click)="GetDrugID(code.medicinename)">{{code.medicament}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.denomination}}</td>
+                      <td (click)="GetDrugID(code.medicinename)">{{code.dosage}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetDrugID(code.medicinename)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div *ngIf="languageid=='6'&&manuallydrug=='1'">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label>{{labels[0].drugName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" required name="medicinename" [(ngModel)]="medicinename"
+                    placeholder="{{labels[0].drugName}}">
+                </div>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].sig}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required name="sig" [(ngModel)]="sig"
+                  placeholder="{{labels[0].sig}}">
+              </div>
+            </div>
+            <br>
+         
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].dispenseQuantityy}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="dispensequantity" [(ngModel)]="dispensequantity"
+                  placeholder="{{labels[0].dispenseQuantityy}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].howmanyRefillss}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required name="howmanyrefills" [(ngModel)]="howmanyrefills"
+                  placeholder="{{labels[0].howmanyRefillss}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].substistude}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="substainable" required name="substainable" [value]="2">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+
+            <!-- <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].diagnosiss}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" required name="diagnosis" [(ngModel)]="diagnosis" placeholder="{{labels[0].diagnosiss}}">
+              </div>
+            </div>
+            <br> -->
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].noteToPharmasist}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="updateprescription()"  data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="previoussoap" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:856px;margin-left: 140px;">
-      <div class="modal-header modal-xl">
+  <div class="modal-dialog modal-lg" style="float: right;">
+    <div class="modal-content" style="width:654px;margin-left: 140px;">
+      <div class="modal-header modal-lg">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].soap}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="width:860px">
+      <div class="modal-body" style="width:672px">
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
@@ -828,6 +1083,11 @@
                         <img src="assets/Images/pview.png" data-toggle="modal" data-target="#exampleModalLong1"
                           style="height:25px;" (click)="GetSoapID(soppp.soapID)" />
                       </a>&nbsp;
+                      
+                    <!-- <ng-template #tipcontent9504>Edit</ng-template>
+                    <a [ngbTooltip]="tipcontent9504" style="color:black">
+                      <img src="assets/Images/edit.png"  data-toggle="modal" data-target="#EditSoapnotes" (click)="GetEditPrevioussoap(soap)" style="width: 18px">
+                    </a> -->
                     </td>
                   </tr>
                 </thead>
@@ -838,24 +1098,25 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
 </div>
 
 
+
 <div class="modal fade" id="previoustest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
   <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:762px;margin-left: 140px;">
+    <div class="modal-content" style="width:755px;margin-left: 140px;">
       <div class="modal-header modal-xl">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].labtest}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="width:860px">
+      <div class="modal-body" style="width:725px">
         <div class="container-fluid" style="overflow: y;">
           <br>
           <div class="row">
@@ -866,6 +1127,7 @@
                     <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].testName}}</th>
+                    <!-- <th>Actions</th> -->
                     <!-- <th>{{labels[0].reports}}</th> -->
                   </tr>
                   <tr *ngFor="let details of diagnosticlist">
@@ -873,7 +1135,10 @@
                     <td>{{details.name}}</td>
                     <td>{{details.testName}}</td>
                     <!-- <td>
-                      <img src="assets/Images/down.png" style="width: 20px;margin-left: 10px;">
+                      <ng-template #tipcontent9503>Edit</ng-template>
+                      <a [ngbTooltip]="tipcontent9503" style="color:black">
+                        <img src="assets/Images/edit.png"  data-toggle="modal" data-target="#edittest" (click)="GetDiaEditList(details)" style="width: 18px">
+                      </a>
                     </td> -->
                   </tr>
                 </thead>
@@ -884,11 +1149,639 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="edittest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="float: right;">
+    <div class="modal-content">
+      <div class="modal-header modal-lg" style="float: right;">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit test</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <form #diaForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testType}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testName}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)"  [(ngModel)]="testssid" name="testssid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div *ngIf="testssid=='59'||testssid=='60'">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].testName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
+                    [(ngModel)]="diagnostictestname" name="diagnostictestname">
+                </div>
+              </div> <br>
+            </div>
+            <div *ngIf="testid==2">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].clinicalInfo}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
+                    [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
+                </div>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+                  (click)="updatedignostictest()" data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-lg" style="float: right;width: 709px;">
+    <div class="modal-content" >
+      <div class="modal-header modal-lg" style="width: 709px;">
+        <h5 class="modal-title" id="exampleModalLongTitle"> {{labels[0].previousSoapNotes}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" style="overflow-y: auto;">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].diagnposticCode}}</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                  placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
+                  (ngModelChange)="SearchIcrCode()"></textarea>
+
+                <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].diagnposticCode}}"
+                  [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search"
+                  (ngModelChange)="getid()" /> -->
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showsearchsoap=='1'">
+              <!-- <div class="col-lg-1">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].diagnposticCode}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        {{code.description}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].diagnosticDescription}}</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                    name="icdcode" [(ngModel)]="icdcode"></textarea> -->
+                <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
+                  placeholder="{{labels[0].diagnosticDescription}}" name="icdcode" [(ngModel)]="icdcode">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].followUpPlan}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="followupplan"
+                  name="followupplan" placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].signature}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" disabled
+                  [(ngModel)]="signature" name="signature" placeholder="{{labels[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>
+                  <b>{{labels[0].notes}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="notes"
+                  [(ngModel)]="notes" placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <!-- <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="updatesoapnotes()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div> -->
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" style=" float: right;">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedPhotos}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="nophoto=='0'">
+            <div class="col-lg-12" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoURL}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="nophoto=='1'">
+            <div class="col-lg-12">
+              <br>
+              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" style=" float: right;">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedVideo}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" *ngIf="novideo=='0'">
+            <div class="col-lg-12" *ngFor="let showvedio of showvedioes">
+              <br>
+              <div class="video">
+                <video controls id="videoPlayer" autoplay>
+                  <source src="{{showvedio.videoUrl}}" type="video/mp4" style="height:auto; width: 100%;" /> Browser not
+                  supported
+                </video>
+              </div>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="novideo=='1'">
+            <div class="col-lg-12">
+              <br>
+              <img src="assets/Images/nov.png" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-lg" role="document" style="float: right;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
+          {{labels[0].previousSoapNotes}}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" style="overflow-y: auto;">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels[0].subjective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels[0].objective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels[0].assessment}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels[0].plan}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnposticCode}}</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                  placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
+                  (ngModelChange)="SearchIcrCode()"></textarea>
+
+                <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].diagnposticCode}}"
+                  [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search"
+                  (ngModelChange)="getid()" /> -->
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showsearchsoap=='1'">
+              <!-- <div class="col-lg-1">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].diagnposticCode}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        {{code.description}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].diagnosticDescription}}</b> :</label>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                    name="icdcode" [(ngModel)]="icdcode"></textarea> -->
+                <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
+                  placeholder="{{labels[0].diagnosticDescription}}" name="icdcode" [(ngModel)]="icdcode">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].followUpPlan}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="followupplan"
+                  name="followupplan" placeholder="{{labels[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].signature}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" disabled
+                  [(ngModel)]="signature" name="signature" placeholder="{{labels[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels[0].notes}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="notes"
+                  [(ngModel)]="notes" placeholder="{{labels[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="updatesoapnotes()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="float: right;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].allergies}}</label>
+            </div>
+            <div class="col-lg-8">
+              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
+              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
+                name="allergies"></ngx-tags-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-8">
+              <p>{{labels[0].alergesmessage}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="currentmedications" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:751px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].currentMedications}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row" style="overflow: auto; margin-left: -26px;">
+            <div class="col-lg-12">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>{{labels[0].drugName}}</th>
+                    <th>{{labels[0].dosage}}</th>
+                    <th>{{labels[0].frequency}}</th>
+                  </tr>
+                  <tr *ngFor="let medication of medicationlist">
+                    <td>{{medication.drugName}}</td>
+                    <td>{{medication.dosage}}</td>
+                    <td>{{medication.frequency}}</td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-3">
+              <!-- <img src="assets/Images/arrowleft.jpg"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- 
 <div class="modal fade" id="chat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
   <div class="modal-dialog modal-xl" style="float: right;">
@@ -904,8 +1797,7 @@
           <br>
           <div class="row">
             <div class="col-lg-3">
-              <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
-              <!-- <span *ngIf="istyping==true">typing .... </span> -->
+       
             </div>
           </div>
           <div style="height: 500px;overflow-y: scroll;width: 660px;" id="chatboxdiv">
@@ -964,13 +1856,11 @@
                 <div class="col-lg-2">
                   <button type="submit" class="chat" [disabled]="chatfrom.form.invalid"
                     (click)="dosendmsg()">{{labels[0].send}}
-                    <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
+                
                   </button>
                 </div>
                 <div class="col-lg-1">
-                  <!-- <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
-                    style="height: 50px;">
-                  </ngx-dropzone> -->
+                  
                 </div>
               </div>
             </form>
@@ -983,440 +1873,93 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="modal fade" id="soapnotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:856px;margin-left: 140px;">
-      <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle"> {{labels[0].previousSoapNotes}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="width:800px">
-        <div class="container-fluid">
-          <form #soapForm="ngForm">
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].subjective}}</b></label>
-              </div>
-              <div class="col-lg-7">
-                {{subjective}}
-                <!-- <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
-                    placeholder="Subjective"></textarea> -->
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].objective}}</b></label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                {{objective}}
-                <!-- <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
-                    placeholder="Objective"></textarea> -->
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].assessment}}</b></label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                <!-- <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
-                    placeholder="Assessment"></textarea> -->
-                {{assessment}}
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].plan}}</b></label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                <!-- <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
-                    placeholder="Plan"></textarea> -->
-                {{plan}}
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].diagnosisCode}}</b> </label>
-                <!-- <span style="color: red;">*</span> -->
-              </div>
-              <div class="col-lg-7">
-                <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
-                    placeholder="Diagnosis Code" /> -->
-                {{diagnosiscode}}
-              </div>
-            </div><br>
-            <!-- <div class="row">
-            <div class="col-lg-3">
-              <label><b>Sick Slip Genarator</b> </label>
-            
-            </div>
-            <div class="col-lg-7">
-              <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
-                placeholder="Sick Slip Genarator" />
-            </div>
-          </div><br> -->
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].followUpPlan}}</b> </label>
-                <!-- <span style="color: red;">*</span> -->
-              </div>
-              <div class="col-lg-7">
-                <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
-                    placeholder="Follow Up Plan" /> -->
-                {{followupplan}}
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].signature}}</b> </label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                <!-- <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
-                placeholder="Signature" /> -->
-                {{signature}}
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].notes}}</b> </label>
-                <!-- <span style="color: red;">*</span> -->
-              </div>
-              <div class="col-lg-7">
-                {{notes}}
-                <!-- <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes" placeholder="Notes"></textarea> -->
-              </div>
-            </div>
-            <br>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
-      </div>
-    </div>
-  </div>
-</div>
+</div> -->
 
 
+<!-- chat -->
 
-
-
-<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  aria-hidden="true" style="margin-left: 362px;">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content ">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedPhotos}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row" *ngIf="nophoto=='0'">
-            <div class="col-lg-6" *ngFor="let showphoto of showimages">
-              <br>
-              <img src="{{showphoto.photoURL}}" style="height: 300px;width:300px" />
-              <br>
-            </div>
-            <br>
-          </div>
-          <br>
-          <div class="row" *ngIf="nophoto=='1'">
-            <div class="col-lg-6">
-              <br>
-              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
-            </div>
-            <br>
-          </div>
-          <br>
-        </div>
-      </div>
+<div class="chat-popup" id="myForm">
+  <form class="form-container" #chatfrom="ngForm">
+    <div class="container-fluid card card-hover" style="height: 550px;width:530px;">
       <br>
-      <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;"
-          data-dismiss="modal">{{labels[0].close}}</button>
+      <div class="row">
+        <div class="col-lg-5">
+          <h5>{{labels[0].chat}}</h5>
+        </div>
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-2">
+          <img src="assets/Images/can.png" (click)="GetShowOff()">
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="row">
+        <div class="col-lg-3">
 
-
-
-
-<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  style="margin-left: 362px;" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content ">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].patientUploadedVideo}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        </div>
       </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row" *ngIf="novideo=='0'">
-            <div class="col-lg-6" *ngFor="let showvedio of showvedioes">
-              <br>
-              <div class="video">
-                <video controls id="videoPlayer" autoplay>
-                  <source src="{{showvedio.videoUrl}}" type="video/mp4" style="height:auto; width: 100%;" /> Browser not
-                  supported
-                </video>
+
+      <div style="height: 500px;overflow-y: scroll;" id="chatboxdivs">
+        <div *ngFor='let convo of coversationarray'>
+          <div class="container" *ngIf='convo.user=="doc"'>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-1"></div>
+              <div class="col-lg-7" style="background-color:#dbdbdb;border-radius: 5px;color:black;">
+                <div *ngIf="convo.msgtype=='1'">
+                  <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
+                    float: left;">
+                  <p style="margin-top: 5px;">{{convo.chatmsg}}
+                    <span style="float: right;;margin-top: 5px;">
+                      {{convo.time}}
+                    </span>
+                  </p>
+                </div>
+                <div *ngIf="convo.msgtype=='2'">
+                  <img src="{{convo.chatmsg}}" style="width: 100%;">
+                </div>
               </div>
             </div>
-            <br>
           </div>
-          <br>
-          <div class="row" *ngIf="novideo=='1'">
-            <div class="col-lg-6">
-              <br>
-              <img src="assets/Images/nov.png" />
+          <div class="container" *ngIf='convo.user=="pat"'>
+            <div class="row">
+              <div class="col-lg-7" style="background-color:#1dbfd2;border-radius: 5px;color:black;margin-top: 1px;">
+                <div *ngIf="convo.msgtype=='1'">
+                  <p style="margin-top: 5px;">
+                    <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;"> &nbsp;
+                    {{convo.chatmsg}}
+                    <span style="float: right;;margin-top: 5px;">
+                      {{convo.time}}
+                    </span>
+                  </p>
+                </div>
+                <div *ngIf="convo.msgtype=='2'">
+                  <img src="{{convo.chatmsg}}" style="width: 100%;">
+                </div>
+              </div>
             </div>
-            <br>
           </div>
           <br>
         </div>
       </div>
-      <br>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
-          data-dismiss="modal">{{labels[0].close}}</button>
-      </div>
-    </div>
-  </div>
-</div>
+      <hr>
+      <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
+        <div class="row">
+          <div class="col-lg-9">
 
-
-
-<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-lg" role="document" style="float: right;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
-          {{labels[0].previousSoapNotes}}
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <form #soapForm="ngForm">
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].subjective}}</b></label>
-              </div>
-              <div class="col-lg-7">
-                {{subjective}}
-                <!-- <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
-                  placeholder="Subjective"></textarea> -->
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].objective}}</b></label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                {{objective}}
-                <!-- <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
-                  placeholder="Objective"></textarea> -->
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].assessment}}</b></label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                <!-- <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
-                  placeholder="Assessment"></textarea> -->
-                {{assessment}}
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].plan}}</b></label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                <!-- <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
-                  placeholder="Plan"></textarea> -->
-                {{plan}}
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].diagnosisCode}}</b> </label>
-                <!-- <span style="color: red;">*</span> -->
-              </div>
-              <div class="col-lg-7">
-                <!-- <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
-                  placeholder="Diagnosis Code" /> -->
-                {{diagnosiscode}}
-              </div>
-            </div><br>
-            <!-- <div class="row">
+            <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
+              style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
+          </div>
           <div class="col-lg-3">
-            <label><b>Sick Slip Genarator</b> </label>
-          
+            <button type="submit" class="chat form-control" [disabled]="chatfrom.form.invalid"
+              (click)="dosendmsg()">{{labels[0].send}}
+
+            </button>
           </div>
-          <div class="col-lg-7">
-            <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
-              placeholder="Sick Slip Genarator" />
-          </div>
-        </div><br> -->
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].followUpPlan}}</b> </label>
-                <!-- <span style="color: red;">*</span> -->
-              </div>
-              <div class="col-lg-7">
-                <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
-                  placeholder="Follow Up Plan" /> -->
-                {{followupplan}}
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].signature}}</b> </label>
-                <span style="color: red;">*</span>
-              </div>
-              <div class="col-lg-7">
-                <!-- <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
-              placeholder="Signature" /> -->
-                {{signature}}
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label><b>{{labels[0].notes}}</b> </label>
-                <!-- <span style="color: red;">*</span> -->
-              </div>
-              <div class="col-lg-7">
-                {{notes}}
-                <!-- <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes" placeholder="Notes"></textarea> -->
-              </div>
-            </div>
-            <br>
-          </form>
+
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
-      </div>
+      <br>
     </div>
-  </div>
-</div>
-
-
-
-
-
-
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-3">
-              <label>{{labels[0].allergies}}</label>
-            </div>
-            <div class="col-lg-8">
-              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
-              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
-                name="allergies"></ngx-tags-input>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
-
-            </div>
-            <div class="col-lg-8">
-              <p>{{labels[0].alergesmessage}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
-        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="modal fade" id="currentmedications" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:751px;margin-left: 140px;">
-      <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].currentMedications}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" stylw="width:1100px">
-        <div class="container-fluid">
-          <div class="row" style="overflow: auto; margin-left: -26px;">
-            <div class="col-lg-12">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{{labels[0].drugName}}</th>
-                    <th>{{labels[0].dosage}}</th>
-                    <th>{{labels[0].frequency}}</th>
-                  </tr>
-                  <tr *ngFor="let medication of medicationlist">
-                    <td>{{medication.drugName}}</td>
-                    <td>{{medication.dosage}}</td>
-                    <td>{{medication.frequency}}</td>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-5">
-            </div>
-            <div class="col-lg-3">
-              <!-- <img src="assets/Images/arrowleft.jpg"> -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">{{labels[0].close}}</button>
-      </div>
-    </div>
-  </div>
+    <br>
+  </form>
 </div>

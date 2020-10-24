@@ -336,6 +336,7 @@ import { RoleMenuMappingComponent } from './pages/MenuMapping/role-menu-mapping/
 import { RolemenuDashComponent } from './pages/MenuMapping/rolemenu-dash/rolemenu-dash.component';
 import { UserrolemappingComponent } from './pages/MenuMapping/userrolemapping/userrolemapping.component';
 import { UserRoleMappingdashComponent } from './pages/MenuMapping/user-role-mappingdash/user-role-mappingdash.component';
+import { AdminSiderevenueComponent } from './pages/AdminDashboard/admin-siderevenue/admin-siderevenue.component';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -665,6 +666,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     RolemenuDashComponent,
     UserrolemappingComponent,
     UserRoleMappingdashComponent,
+    AdminSiderevenueComponent,
    
   ],
   imports: [

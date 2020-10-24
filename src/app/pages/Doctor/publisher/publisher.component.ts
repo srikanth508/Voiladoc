@@ -24,8 +24,8 @@ export class PublisherComponent implements AfterViewInit {
 
     this.publisher = OT.initPublisher(this.publisherDiv.nativeElement, {
       insertMode: 'append',
-      width: 221,
-      height: 199
+      width: 180,
+      height: 120
 
     });
 

@@ -311,6 +311,7 @@ import { RoleMenuMappingComponent } from './pages/MenuMapping/role-menu-mapping/
 import { RolemenuDashComponent } from './pages/MenuMapping/rolemenu-dash/rolemenu-dash.component';
 import { UserrolemappingComponent } from './pages/MenuMapping/userrolemapping/userrolemapping.component';
 import { UserRoleMappingdashComponent } from './pages/MenuMapping/user-role-mappingdash/user-role-mappingdash.component';
+import { AdminSiderevenueComponent } from './pages/AdminDashboard/admin-siderevenue/admin-siderevenue.component';
 
 
 
@@ -694,6 +695,8 @@ const routes: Routes = [
   { path: 'RoleMenuMapping/:id', component: RoleMenuMappingComponent },
   { path: 'Userrolemapping', component: UserrolemappingComponent },
   { path: 'UserRoleMappingdash', component: UserRoleMappingdashComponent },
+  { path: 'Userrolemapping/:id', component: UserrolemappingComponent },
+  { path: 'AdminSiderevenue', component: AdminSiderevenueComponent },
 ];
 
 

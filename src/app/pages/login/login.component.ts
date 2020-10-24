@@ -425,7 +425,6 @@ export class LoginComponent implements OnInit {
         }
       )
     }
-
     if (this.roleid == "14") {
       this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
@@ -451,6 +450,134 @@ export class LoginComponent implements OnInit {
         }
       )
     }
+    // management logins
+
+    if (this.roleid == "15") {
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+        data => {
+          this.result = data;
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].firstName)
+            localStorage.setItem('roleid', '15');
+            localStorage.setItem('countrymanagerid', this.result[0].id);
+            sessionStorage.setItem('temp', '1');
+             location.href = '#/AdminDash';
+            location.reload();
+          }
+          else {
+            Swal.fire('Error', 'Username or Password is not valid!');
+            this.uname = "";
+            this.pwd = "";
+          }
+        }, error => {
+        }
+      )
+    }
+    if (this.roleid == "17") {
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+        data => {
+          this.result = data;
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].firstName)
+            localStorage.setItem('roleid', '17');
+            localStorage.setItem('implementationid', this.result[0].id);
+            sessionStorage.setItem('temp', '1');
+             location.href = '#/AdminDash';
+            location.reload();
+          }
+          else {
+            Swal.fire('Error', 'Username or Password is not valid!');
+            this.uname = "";
+            this.pwd = "";
+          }
+        }, error => {
+        }
+      )
+    }
+    if (this.roleid == "18") {
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+        data => {
+          this.result = data;
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].firstName)
+            localStorage.setItem('roleid', '18');
+            localStorage.setItem('clientserviceid', this.result[0].id);
+            sessionStorage.setItem('temp', '1');
+             location.href = '#/AdminDash';
+            location.reload();
+          }
+          else {
+            Swal.fire('Error', 'Username or Password is not valid!');
+            this.uname = "";
+            this.pwd = "";
+          }
+        }, error => {
+        }
+      )
+    }
+    if (this.roleid == "19") {
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+        data => {
+          this.result = data;
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].firstName)
+            localStorage.setItem('roleid', '19');
+            localStorage.setItem('salesmanagerid', this.result[0].id);
+            sessionStorage.setItem('temp', '1');
+             location.href = '#/AdminDash';
+            location.reload();
+          }
+          else {
+            Swal.fire('Error', 'Username or Password is not valid!');
+            this.uname = "";
+            this.pwd = "";
+          }
+        }, error => {
+        }
+      )
+    }
+    if (this.roleid == "20") {
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+        data => {
+          this.result = data;
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].firstName)
+            localStorage.setItem('roleid', '20');
+            localStorage.setItem('salesrepresntativeid', this.result[0].id);
+            sessionStorage.setItem('temp', '1');
+             location.href = '#/AdminDash';
+            location.reload();
+          }
+          else {
+            Swal.fire('Error', 'Username or Password is not valid!');
+            this.uname = "";
+            this.pwd = "";
+          }
+        }, error => {
+        }
+      )
+    }
+    // if (this.roleid == "21") {
+    //   this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+    //     data => {
+    //       this.result = data;
+    //       if (this.result.length != '0') {
+    //         localStorage.setItem('user', this.result[0].firstName)
+    //         localStorage.setItem('roleid', '21');
+    //         localStorage.setItem('supportid', this.result[0].id);
+    //         sessionStorage.setItem('temp', '1');
+    //          location.href = '#/AdminDash';
+    //         location.reload();
+    //       }
+    //       else {
+    //         Swal.fire('Error', 'Username or Password is not valid!');
+    //         this.uname = "";
+    //         this.pwd = "";
+    //       }
+    //     }, error => {
+    //     }
+    //   )
+    // }
   }
 
 

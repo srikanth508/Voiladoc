@@ -34,7 +34,7 @@
             <th>Sub Menu</th>
             <th>Actions</th>
           </tr>
-          <tr *ngFor="let rolemap of RoleMappinglist">
+          <tr *ngFor="let rolemap of RoleMappinglist|filter:search">
             <td>{{rolemap.short}}</td>
             <td>{{rolemap.menus}}</td>
             <td>{{rolemap.subMenuName}}</td>
