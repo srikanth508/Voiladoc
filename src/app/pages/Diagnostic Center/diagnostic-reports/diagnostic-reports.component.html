@@ -11,14 +11,14 @@
   </div>
 </div>
 <br> -->
-
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-10" style="margin-top: -2px;">
       <h5>{{labels1[0].digorederReports}}</h5>
     </div>
     <div class="col-lg-2" style="margin-top: -12px;">
-      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
     </div>
   </div>
 </div>
@@ -30,15 +30,21 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" *ngIf="diffid!='undefined'">
+      <select class="form-control" (change)="GetDiagnosticcenterID($event)">
+        <option value="0">Select Diagnostic Center</option>
+        <option *ngFor="let dia of diagnosticlist" value="{{dia.id}}">{{dia.diagnosticCenterName}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3" >
       <select class="form-control" (change)="getget($event)">
         <option value="1" selected>{{labels[0].select}}</option>
         <option value="2">{{labels[0].visited}}</option>
@@ -72,6 +78,7 @@
         <tr>
           <th id="imp">{{labels[0].ordedate}}</th>
           <th id="imp">{{labels[0].orderNumber}}</th>
+          <th id="imp">Diagnostic Center Name</th>
           <th>{{labels[0].patientname}}</th>
           <th>{{labels[0].phoneNo}}</th>
           <th>{{labels[0].emailId}}</th>
@@ -85,6 +92,7 @@
         <tr *ngFor="let details of Approvelist|filter:term">
           <td>{{details.appdate}}</td>
           <td>{{details.id}}</td>
+          <td>{{details.diagnosticCenterName}}</td>
           <td>{{details.patientName}}</td>
           <td>{{details.mobileNumber}}</td>
           <td>{{details.emailID}}</td>
@@ -96,11 +104,13 @@
           <td>
             <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
             <a [ngbTooltip]="tipcontent18" *ngIf="details.testsCount!=0">
-              <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;" (click)="GetTestsID(details.id)">
+              <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;"
+                (click)="GetTestsID(details.id)">
             </a>&nbsp;
             <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
             <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
-              <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;" (click)="GetPackageID(details.id)">
+              <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;"
+                (click)="GetPackageID(details.id)">
             </a>
           </td>
           <td>{{details.slotName}}</td>
@@ -113,7 +123,8 @@
           <td>
             <label *ngIf="details.approved=='1'" style="color:green">{{labels[0].visited}}</label>
             <label *ngIf="details.notVisited=='1'" style="color:yellowgreen">{{labels[0].notVisited}}</label>
-            <label *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'" style="color:red">{{labels[0].cancelled}}</label>
+            <label *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'"
+              style="color:red">{{labels[0].cancelled}}</label>
           </td>
 
         </tr>
@@ -129,7 +140,8 @@
 
 
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -158,7 +170,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button"  style="background-color: #f18235; color: white;" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-secondary"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -166,7 +179,8 @@
 
 
 
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -197,7 +211,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  style="background-color: #f18235; color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -205,7 +220,8 @@
 
 
 
-<div class="modal fade" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -225,7 +241,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  style="background-color: #f18235; color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

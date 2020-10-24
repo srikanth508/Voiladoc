@@ -78,6 +78,7 @@ export class AppComponent {
     this.getlanguage();
     this.GetDoctorNotifications();
     this.GetDocnoti()
+    this.obserbaletimedocnoti()
     if (window.innerWidth < 600) {
       this.isMobileResolution = true;
       this.isDescktopResolution = false;
@@ -102,6 +103,7 @@ export class AppComponent {
     const abc = source.subscribe(val => {
       if (this.doctorid != null) {
         this.GetDoctorNotifications();
+     
 
         this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
           this.doctorNotifications = data;
@@ -165,6 +167,18 @@ export class AppComponent {
     })
   }
 
+
+
+  obserbaletimedocnoti() {
+    
+    const source = timer(1000, 20000);
+    const abc = source.subscribe(val => {
+      
+      this.GetDocnoti()
+    });
+  }
+
+
   public GetDocnoti() {
 
 
@@ -179,12 +193,19 @@ export class AppComponent {
   }
 
   public clear() {
-
     sessionStorage.clear();
     localStorage.clear();
     location.href = "#/login";
     location.reload();
+    this.setCookie("doc_id", "")
   }
+
+  public setCookie(cname, cvalue)
+  {
+    
+    document.cookie = cname + "=" + cvalue;
+  }
+  
   public Update_appointmentFordemand(doctorHospitalDetailsID, doctorID, appointmentID, notificationID, emailID, doctorName, date) {
 
     this.doctorname = doctorName,
