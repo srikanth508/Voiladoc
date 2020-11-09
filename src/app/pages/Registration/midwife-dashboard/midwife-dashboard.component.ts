@@ -37,16 +37,34 @@ export class MidwifeDashboardComponent implements OnInit {
   public hospitalclinicid: any;
   public miwifename: any;
   public daysname: any;
+  public countrymanaerid: any;
+  public showexportbutton: any;
+  public salesrepresntiveid:any;
+  public showeditbutton:any;
 
 
   ngOnInit() {
- 
+
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+
+    this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
 
+    if(this.salesrepresntiveid!=undefined)
+    {
+      this.showeditbutton=1
+    }
+    else{
+      this.showeditbutton=0;
+    }
+
+    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id'];
     }
     )
@@ -59,7 +77,7 @@ export class MidwifeDashboardComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
         data => {
-         
+
           this.dummlist = data;
           this.midwifelist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.midwifelist.length;
@@ -67,10 +85,10 @@ export class MidwifeDashboardComponent implements OnInit {
         }
       )
     }
-    else {
+    else if(this.id!=undefined){
       this.docservice.GetMidWivesRegistrationForWeb(this.languageid, this.startdate, this.enddate).subscribe(
         data => {
-         
+
           this.midwifelist = data;
           this.dummlist = this.midwifelist
           this.count = this.midwifelist.length;
@@ -81,14 +99,14 @@ export class MidwifeDashboardComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
     );
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels2 = data;
       },
       error => { }
@@ -103,7 +121,7 @@ export class MidwifeDashboardComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -113,7 +131,7 @@ export class MidwifeDashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.midwifelist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -126,10 +144,10 @@ export class MidwifeDashboardComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -139,7 +157,7 @@ export class MidwifeDashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.midwifelist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -155,10 +173,10 @@ export class MidwifeDashboardComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -169,7 +187,7 @@ export class MidwifeDashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.midwifelist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.midwifelist.length
@@ -182,7 +200,7 @@ export class MidwifeDashboardComponent implements OnInit {
   public GetMidWivesRegistration() {
     this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.midwifelist = data;
         this.dummlist = this.midwifelist
         this.count = this.midwifelist.length;
@@ -194,7 +212,7 @@ export class MidwifeDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_MidWifeRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -203,7 +221,7 @@ export class MidwifeDashboardComponent implements OnInit {
 
 
   public DeleteMidWivesRegistration(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This MidWife!",
@@ -216,7 +234,7 @@ export class MidwifeDashboardComponent implements OnInit {
       if (result.value) {
         this.docservice.DeleteMidWivesRegistration(id).subscribe(res => {
           let test = res;
-          this.GetMidWivesRegistration();
+          this.ngOnInit();
         })
         Swal.fire(
           'Deleted!',
@@ -225,7 +243,7 @@ export class MidwifeDashboardComponent implements OnInit {
         )
       }
       else {
-        this.GetMidWivesRegistration();
+        this.ngOnInit();
       }
     })
   }
@@ -235,7 +253,7 @@ export class MidwifeDashboardComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -253,7 +271,7 @@ export class MidwifeDashboardComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

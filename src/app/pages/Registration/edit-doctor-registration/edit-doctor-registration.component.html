@@ -133,7 +133,7 @@
               </div>
             </div>
             <br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].isHomeVisitIsAvailable}} :</label>
 
@@ -142,7 +142,7 @@
                 <input type="radio" name="homevisit" [(ngModel)]="homevisit" [value]="true">{{labels[0].yes}} &nbsp;
                 <input type="radio" name="homevisit" [(ngModel)]="homevisit" [value]="false">{{labels[0].no}}
               </div>
-            </div><br>
+            </div><br> -->
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].description}}:</label>
@@ -173,6 +173,22 @@
                 <input type="radio" name="mallprcise" [(ngModel)]="mallprcise" [value]="false">{{labels[0].no}}
               </div>
             </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="DEPARTMENT_label">Slot Duration :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="form-control" (change)="GetSlotDurationID($event)" [(ngModel)]="slotid" name="slotid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option value="1">15 Minutes</option>
+                  <option value="2">30 Minutes</option>
+                  <option value="3">45 Minutes</option>
+                  <option value="4">1 Hour</option>
+                </select>
+              </div>
+            </div>
+            <br>
             <!-- <div class="row">
               <div class="col-lg-6">
                   <img src="{{mphoto}}" style="height:120px;width:150px;"><br>
@@ -417,8 +433,8 @@
             <button type="button" style="float: left" class="btn dashbtn btncolor"
               awPreviousStep>{{labels[0].previous}}</button>
 
-            <button type="button" style="float:right;" class="btn dashbtn btncolor"
-              awNextStep>{{labels[0].next}}</button><br><br>
+            <!-- <button type="button" style="float:right;" class="btn dashbtn btncolor"
+              awNextStep>{{labels[0].next}}</button><br><br> -->
           </div>
         </div>
       </form>
@@ -426,7 +442,7 @@
   </aw-wizard-step>
 
 
-  <aw-wizard-step stepTitle="{{labels[0].service}}">
+  <!-- <aw-wizard-step stepTitle="{{labels[0].service}}">
     <div class="container">
       <div class="row">
         <div class="col-lg-3">
@@ -481,10 +497,10 @@
         <div class="col-lg-12">
           <button type="button" style="float: left" class="btn dashbtn btncolor"
             awPreviousStep>{{labels[0].previous}}</button>
-          <!-- <button type="button" style="float:right;" class="btn dashbtn nextbtncolor" awNextStep>{{labels[0].next}}</button><br><br> -->
+         
         </div>
       </div><br>
     </div>
     <br>
-  </aw-wizard-step>
+  </aw-wizard-step> -->
 </aw-wizard><br><br>

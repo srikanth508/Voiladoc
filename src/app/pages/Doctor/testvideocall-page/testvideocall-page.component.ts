@@ -435,7 +435,7 @@ export class TestvideocallPageComponent implements OnInit {
 
 
   public GetSoapNotesByPatientID() {
-    this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+    this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
 
         this.soaplist1 = data;
@@ -902,7 +902,7 @@ export class TestvideocallPageComponent implements OnInit {
 
   public getdoctorpatinetdetails() {
 
-    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientid, this.languageid).subscribe(
+    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
 
         this.prescrptionlist = data;
@@ -913,7 +913,7 @@ export class TestvideocallPageComponent implements OnInit {
 
   public getpatient_diagnosticdetails() {
 
-    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid).subscribe(
+    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
 
         this.diagnosticlist = data;

@@ -89,13 +89,13 @@
             <td>
               <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
               <a [ngbTooltip]="tipcontent12">
-                <img src="assets/Images/report.png" *ngIf="details.orderType=='1'" style="height:30px;" data-toggle="modal" data-target="#exampleModal"
+                <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='1'" style="height:30px;" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetMedicines(details.id)" />
               </a>
 
               <ng-template #tipcontent890>Photo</ng-template>
               <a [ngbTooltip]="tipcontent890">
-                <img src="assets/Images/report.png" *ngIf="details.orderType=='2'" style="height:30px;" data-toggle="modal" data-target="#exampleModal2"
+                <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='2'" style="height:30px;" data-toggle="modal" data-target="#exampleModal2"
                   (click)="GetPrescriptionUrl(details.prescriptionUrl)" />
               </a>
             </td>

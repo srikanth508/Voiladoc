@@ -1432,7 +1432,7 @@ export class MyappointmentsComponent implements OnInit {
   public getdoctorpatinetdetails() {
 
     if (this.docdepartmentid == 14) {
-      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid).subscribe(
+      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid,this.doctorid).subscribe(
         data => {
 
           this.prescrptionlist = data;
@@ -1441,7 +1441,7 @@ export class MyappointmentsComponent implements OnInit {
       )
     }
     else if (this.docdepartmentid != 14) {
-      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid).subscribe(
+      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid,this.doctorid).subscribe(
         data => {
 
           this.dummprescrptionlist = data;
@@ -1791,7 +1791,7 @@ export class MyappointmentsComponent implements OnInit {
   }
   public getdiadnosticdetails() {
     if (this.docdepartmentid == 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid,this.doctorid).subscribe(
         data => {
 
           this.dialist = data;
@@ -1800,7 +1800,7 @@ export class MyappointmentsComponent implements OnInit {
       )
     }
     else if (this.docdepartmentid != 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid,this.doctorid).subscribe(
         data => {
 
           this.dummdialist = data;
@@ -2680,7 +2680,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public InsertSickSlipGenarator() {
-debugger
+    debugger
     if (this.languageid == 1) {
       this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
@@ -2799,8 +2799,8 @@ debugger
       const locale = 'en-US';
       this.todaydate = formatDate(myDate, format, locale);
     }
-  
-this.GetPreviousRefereals()
+
+    this.GetPreviousRefereals()
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid, this.languageid).subscribe(
       data => {
         this.details = data[0];
@@ -2827,9 +2827,8 @@ this.GetPreviousRefereals()
   }
 
 
-  public GetPreviousRefereals()
-  {
-    this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientid, this.languageid).subscribe(data => {
+  public GetPreviousRefereals() {
+    this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientid, this.languageid,this.doctorid).subscribe(data => {
       debugger
       this.previousreferalist = data;
     })
@@ -3525,8 +3524,6 @@ this.GetPreviousRefereals()
   public imageurl: any;
   public image: any;
 
-
-
   showwindow: any;
 
   public GetShowID() {
@@ -3537,30 +3534,35 @@ this.GetPreviousRefereals()
   }
   chatpatientemail
 
-  public GetChatShowID(patientid, appdate, slots, pEmail) {
-
+  public GetChatShowID(patientid, appdate, slots, pEmail, appointmentID) {
+    debugger
     this.patientiddd = patientid;
-    this.chatpatientemail = pEmail
+    this.chatpatientemail = pEmail;
+    this.chatappointmentid = appointmentID;
 
     document.getElementById("myForm").style.display = "block";
 
 
     this.showwindow = 1
 
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-      ;
-      this.chatIDlist = res;
-      this.chatID = this.chatIDlist[0].chatID
-      this.getPreviousChat();
-      this.oberserableTimer();
-      this.getserverdateandtime();
-      // this.appointmentiddd = 570;
-      this.appointmentdatetimee = localStorage.getItem('appdate');
-      this.getserverdateandtime();
-      this.getPreviousChat();
-      this.oberserableTimer();
+    this.dosendmsg();
+    debugger
 
-    })
+    // this.docservice.GetChatID(this.doctorid, this.patientiddd,this.chatappointmentid).subscribe(res => {
+    //   ;
+    //   debugger
+    //   this.chatIDlist = res;
+    //   this.chatID = this.chatIDlist[0].chatID
+    //   this.getPreviousChat();
+    //   this.oberserableTimer();
+    //   this.getserverdateandtime();
+    //   // this.appointmentiddd = 570;
+    //   this.appointmentdatetimee = localStorage.getItem('appdate');
+    //   this.getserverdateandtime();
+    //   this.getPreviousChat();
+    //   this.oberserableTimer();
+
+    // })
 
     // if (this.serverdate == appdate) {
 
@@ -3595,6 +3597,10 @@ this.GetPreviousRefereals()
   //   
   // }
 
+
+
+  public chatappointmentid: any;
+
   public InsertChatnotificationazure() {
     var entity = {
       'Description': this.user + ' Trying to reach you. Please open your voiladoc app : ' + this.chatconversation,
@@ -3612,13 +3618,16 @@ this.GetPreviousRefereals()
       // 'ChatID': this.chatID,
       'DoctorID': this.doctorid,
       'PatientID': this.patientiddd,
+      'AppointmentID': this.chatappointmentid
       // 'Read_Me': 0
     }
     this.docservice.InsertChatMaster(entity).subscribe(data => {
       if (data != 0) {
         this.chatID = data;
-        this.InsertChatDetails();
-        this.InsertChatnotificationazure()
+        debugger
+        this.getPreviousChat();
+        this.oberserableTimer();
+    
       }
     })
     // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
@@ -3655,6 +3664,8 @@ this.GetPreviousRefereals()
         this.chatconversation = "";
         this.image = 0;
         this.getPreviousChat();
+        this.InsertChatnotificationazure()
+        
 
       })
     }
@@ -3676,7 +3687,7 @@ this.GetPreviousRefereals()
         this.chatconversation = "";
         this.image = 0;
         this.getPreviousChat();
-
+        this.InsertChatnotificationazure()
       })
     }
   }
@@ -3754,14 +3765,16 @@ this.GetPreviousRefereals()
 
   public GetSoapPatientID(patientid) {
     this.sopapatientid = patientid
+    debugger
     this.GetSoapNotes();
   }
 
   public GetSoapNotes() {
     if (this.departmentid != 14) {
 
-      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
+      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid,this.doctorid).subscribe(
         data => {
+          debugger
           this.dummsopailist = data;
           this.soaplist1 = this.dummsopailist.filter(x => x.departmentID! = 14)
 
@@ -3770,8 +3783,8 @@ this.GetPreviousRefereals()
       )
     }
     else if (this.departmentid == 14) {
-
-      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid).subscribe(
+      debugger
+      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid,this.doctorid).subscribe(
         data => {
           this.soaplist1 = data;
 
@@ -3999,18 +4012,18 @@ this.GetPreviousRefereals()
 
   public attachments5 = [];
   public attachmentsurl5 = [];
-  public onattachmentUpload15(abcd) {    
-      debugger
-      this.attachments5.push(abcd.addedFiles[0]);
-      this.uploadattachments15();
-    
+  public onattachmentUpload15(abcd) {
+    debugger
+    this.attachments5.push(abcd.addedFiles[0]);
+    this.uploadattachments15();
+
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
 
   public uploadattachments15() {
     this.docservice.DoctorPhotoUpload(this.attachments5).subscribe(res => {
-debugger
+      debugger
       this.attachmentsurl5.push(res);
       let a = this.attachmentsurl5[0].slice(2);
 
@@ -4027,7 +4040,7 @@ debugger
 
 
   public GetPdf(attchments) {
-   
+
     document.getElementById('closeview').click();
     window.open(attchments, '_blank');
   }
@@ -4042,7 +4055,7 @@ debugger
     this.mobileno = ref.pMobileNo;
     this.email = ref.pEmail;
     this.showreferelnotes = ref.referalNotes;
-    
+
   }
 
   updatemobilereferalnotes: any;
@@ -4060,15 +4073,15 @@ debugger
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
 
-        this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid).subscribe(data => {
+        this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid,this.doctorid).subscribe(data => {
           debugger
           this.previousreferalist = data;
         })
       }
-    else  if (this.languageid == 6) {
+      else if (this.languageid == 6) {
         Swal.fire('Mis à jour avec succés');
       }
-      this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid).subscribe(data => {
+      this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid,this.doctorid).subscribe(data => {
         debugger
         this.previousreferalist = data;
       })
@@ -4079,7 +4092,7 @@ debugger
 
 
   public Deletefile(id) {
-   
+
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -4155,7 +4168,7 @@ debugger
         }
       })
     }
-   
+
   }
 
 
@@ -4169,186 +4182,184 @@ debugger
 
 
 
-  public previousmedicallist:any;
+  public previousmedicallist: any;
 
-public GetPreviousmediclcertificates(patientID)
-{
-this.patientid=patientID;
-this.getpreviousmedicalcertificates()
-}
-
-
-public getpreviousmedicalcertificates()
-{
-this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid,this.languageid).subscribe(data=>{
-  this.previousmedicallist=data;
-  debugger
-})
-}
-
-clickedsickslipid:any;
-sickslipid:any;
-docmobileno:any;
-registrationNo:any;
-
-public GetMysickslip(sickslip) {
-  debugger
-  this.clickedsickslipid = sickslip.patientID;
-  this.sickslipid = sickslip.id;
-  //let qwerty = this.sicksliplist.filter(x => x.patientID == this.clickedsickslipid);
-  // let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
-  this.desc = sickslip.description;
-  this.doctorname = sickslip.doctorName;
-  this.docmobileno = sickslip.docmobileno;
-  this.registrationNo = sickslip.registrationNo;
-  this.hospital_ClinicName = sickslip.hospital_ClinicName;
-  this.address = sickslip.address;
-
-  // let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
-  // this.desc = qwertyq[0].description;
-  // this.doctorname = qwertyq[0].doctorName;
-  // this.docmobileno = qwertyq[0].docmobileno;
-  // this.registrationNo = qwertyq[0].registrationNo;
-  // this.hospital_ClinicName = qwertyq[0].hospital_ClinicName;
-  // this.address = qwertyq[0].address;
-  debugger
-}
-
-sicksliplist1:any;
-
-public GetSickSlipIDForEdit(patientid,id) {
-   debugger
-  this.sickslippatientid = patientid;
-  this.sickslipid=id;
-  this.docservice.GetDoctorPatients(this.doctorid).subscribe(
-    data => {
-     
-      this.patientlist = data;
-      this.getpatientdetailssss(this.sickslippatientid);
-    }
-  )
-}
-
-
-public getpatientdetailssss(pid) {
-   debugger
-  if (this.languageid == 6) {
-    this.patientid = pid;
-    let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
-    this.patientname = qwerty[0].patientName;
-    this.phonenumber = qwerty[0].mobileNumber;
-    this.email = qwerty[0].emailID;
-    this.address = qwerty[0].address;
-    this.doctorname = qwerty[0].doctorName;
-    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid).subscribe(
-      data => {
-        this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
-        let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
-        this.fromdate = temp[0].fromDatee.toLocaleString();
-        this.todate = temp[0].toDatee.toLocaleString();
-        this.ailment = temp[0].ailment;
-        this.leavefor = temp[0].leavefor;
-        this.description = temp[0].description;
-      }, error => {
-      }
-    )
+  public GetPreviousmediclcertificates(patientID) {
+    this.patientid = patientID;
+    this.getpreviousmedicalcertificates()
   }
-  else {
-    this.patientid = pid;
-    let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
-    this.patientname = qwerty[0].patientName;
-    this.phonenumber = qwerty[0].mobileNumber;
-    this.email = qwerty[0].emailID;
-    this.address = qwerty[0].address;
-    this.doctorname = qwerty[0].doctorName;
-    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid).subscribe(
-      data => {
-       
-        this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
-        let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
-        this.fromdate = temp[0].fromDateee;
-        this.todate = temp[0].toDateee;
-        this.ailment = temp[0].ailment;
-        this.leavefor = temp[0].leavefor;
-        this.description = temp[0].description;
-      }, error => {
-      }
-    )
-  }
-}
 
 
-
-
-
-
-
-
-
-
-
-public UpdateSickSlip() {
-   
-  const qwer = 'dd-MMM-yyyy';
-  const pljdjf = 'en-US';
-  const frdat = this.fromdate;
-  this.fromdate = formatDate(frdat, qwer, pljdjf);
-  const todat = this.todate;
-  this.todate = formatDate(todat, qwer, pljdjf);
-debugger
-  if (this.languageid == 1) {
-    var entity = {
-      'ID': this.sickslipid,
-      'Ailment': this.ailment,
-      'FromDate': this.fromdate,
-      'ToDate': this.todate,
-      'LeaveFor': this.leavefor,
-      'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
-    }
-   
-    this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
-  debugger
-      if (this.languageid == 1) {
-    
-        Swal.fire('Updated successfully.');
-        this.getpreviousmedicalcertificates()
-     
-      }
-      else {
-       
-        Swal.fire('Mis à jour avec succés');
-        this.getpreviousmedicalcertificates()
-       
-      }
-
+  public getpreviousmedicalcertificates() {
+    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid, this.languageid,this.doctorid).subscribe(data => {
+      this.previousmedicallist = data;
+      debugger
     })
   }
-  else {
+
+  clickedsickslipid: any;
+  sickslipid: any;
+  docmobileno: any;
+  registrationNo: any;
+
+  public GetMysickslip(sickslip) {
     debugger
-    var entity = {
-      'ID': this.sickslipid,
-      'Ailment': this.ailment,
-      'FromDate': this.fromdate,
-      'ToDate': this.todate,
-      'LeaveFor': this.leavefor,
-      'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + ' Arrêt maladie(' + this.leavefor + ')' + '</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement :' + this.fromdate + ',<br><br>Date de fin :' + this.todate + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
-      //'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
-    }
-    this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
-     
-      if (this.languageid == 1) {
-        Swal.fire('Updated successfully.');
-        // location.href = "#/SickSlipDashboard";
-        this.getpreviousmedicalcertificates()
-      }
-      else {
-        Swal.fire('Mis à jour avec succés');
-        // location.href = "#/SickSlipDashboard";
-      }
+    this.clickedsickslipid = sickslip.patientID;
+    this.sickslipid = sickslip.id;
+    //let qwerty = this.sicksliplist.filter(x => x.patientID == this.clickedsickslipid);
+    // let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
+    this.desc = sickslip.description;
+    this.doctorname = sickslip.doctorName;
+    this.docmobileno = sickslip.docmobileno;
+    this.registrationNo = sickslip.registrationNo;
+    this.hospital_ClinicName = sickslip.hospital_ClinicName;
+    this.address = sickslip.address;
 
-    })
+    // let qwertyq = this.sicksliplist.filter(x => x.id == this.sickslipid);
+    // this.desc = qwertyq[0].description;
+    // this.doctorname = qwertyq[0].doctorName;
+    // this.docmobileno = qwertyq[0].docmobileno;
+    // this.registrationNo = qwertyq[0].registrationNo;
+    // this.hospital_ClinicName = qwertyq[0].hospital_ClinicName;
+    // this.address = qwertyq[0].address;
+    debugger
   }
 
-}
+  sicksliplist1: any;
+
+  public GetSickSlipIDForEdit(patientid, id) {
+    debugger
+    this.sickslippatientid = patientid;
+    this.sickslipid = id;
+    this.docservice.GetDoctorPatients(this.doctorid).subscribe(
+      data => {
+
+        this.patientlist = data;
+        this.getpatientdetailssss(this.sickslippatientid);
+      }
+    )
+  }
+
+
+  public getpatientdetailssss(pid) {
+    debugger
+    if (this.languageid == 6) {
+      this.patientid = pid;
+      let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
+      this.patientname = qwerty[0].patientName;
+      this.phonenumber = qwerty[0].mobileNumber;
+      this.email = qwerty[0].emailID;
+      this.address = qwerty[0].address;
+      this.doctorname = qwerty[0].doctorName;
+      this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid,this.doctorid).subscribe(
+        data => {
+          this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
+          let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
+          this.fromdate = temp[0].fromDatee.toLocaleString();
+          this.todate = temp[0].toDatee.toLocaleString();
+          this.ailment = temp[0].ailment;
+          this.leavefor = temp[0].leavefor;
+          this.description = temp[0].description;
+        }, error => {
+        }
+      )
+    }
+    else {
+      this.patientid = pid;
+      let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
+      this.patientname = qwerty[0].patientName;
+      this.phonenumber = qwerty[0].mobileNumber;
+      this.email = qwerty[0].emailID;
+      this.address = qwerty[0].address;
+      this.doctorname = qwerty[0].doctorName;
+      this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid,this.doctorid).subscribe(
+        data => {
+
+          this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
+          let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
+          this.fromdate = temp[0].fromDateee;
+          this.todate = temp[0].toDateee;
+          this.ailment = temp[0].ailment;
+          this.leavefor = temp[0].leavefor;
+          this.description = temp[0].description;
+        }, error => {
+        }
+      )
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+  public UpdateSickSlip() {
+
+    const qwer = 'dd-MMM-yyyy';
+    const pljdjf = 'en-US';
+    const frdat = this.fromdate;
+    this.fromdate = formatDate(frdat, qwer, pljdjf);
+    const todat = this.todate;
+    this.todate = formatDate(todat, qwer, pljdjf);
+    debugger
+    if (this.languageid == 1) {
+      var entity = {
+        'ID': this.sickslipid,
+        'Ailment': this.ailment,
+        'FromDate': this.fromdate,
+        'ToDate': this.todate,
+        'LeaveFor': this.leavefor,
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+      }
+
+      this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
+        debugger
+        if (this.languageid == 1) {
+
+          Swal.fire('Updated successfully.');
+          this.getpreviousmedicalcertificates()
+
+        }
+        else {
+
+          Swal.fire('Mis à jour avec succés');
+          this.getpreviousmedicalcertificates()
+
+        }
+
+      })
+    }
+    else {
+      debugger
+      var entity = {
+        'ID': this.sickslipid,
+        'Ailment': this.ailment,
+        'FromDate': this.fromdate,
+        'ToDate': this.todate,
+        'LeaveFor': this.leavefor,
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + ' Arrêt maladie(' + this.leavefor + ')' + '</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement :' + this.fromdate + ',<br><br>Date de fin :' + this.todate + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+        //'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+      }
+      this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
+
+        if (this.languageid == 1) {
+          Swal.fire('Updated successfully.');
+          // location.href = "#/SickSlipDashboard";
+          this.getpreviousmedicalcertificates()
+        }
+        else {
+          Swal.fire('Mis à jour avec succés');
+          // location.href = "#/SickSlipDashboard";
+        }
+
+      })
+    }
+
+  }
 
 }

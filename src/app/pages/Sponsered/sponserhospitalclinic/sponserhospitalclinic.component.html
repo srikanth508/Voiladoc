@@ -11,19 +11,21 @@
 </div>
 <div class="container-fluid card card:hover divspacee" style="height: auto;">
   <form #hospitalForm="ngForm">
-    <div class="row" style="margin-top:20px;">
+    <div class="row" style="margin-top:20px;" *ngIf="showbutton=='0'">
       <div class="col-lg-3">
         <label>{{labels[0].hospitalorClinic}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="radio" value="1" name="hspcliid" required [(ngModel)]="hspcliid" (change)="handleChange($event)">Hospital &nbsp;&nbsp;
-        <input type="radio" value="2" name="hspcliid" required [(ngModel)]="hspcliid" (change)="handleChange($event)">Clinic
+        <input type="radio" value="1" name="hspcliid" required [(ngModel)]="hspcliid"
+          (change)="handleChange($event)">Hospital &nbsp;&nbsp;
+        <input type="radio" value="2" name="hspcliid" required [(ngModel)]="hspcliid"
+          (change)="handleChange($event)">Clinic
       </div>
     </div>
     <br>
-    <div class="row">
-      <div class="col-lg-3">
+    <div class="row" *ngIf="showbutton=='0'">
+      <div class="col-lg-3" >
         <label>{{labels[0].hospitalorClinic}} :</label>
         <span class="required">*</span>
       </div>
@@ -33,11 +35,29 @@
      <option  value="" selected="selected">select</option>
      <option *ngFor="let hospital of hospitalcliniclist" value={{hospital.id}}>{{hospital.hospital_ClinicName}}</option>  
    </select> -->
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitalcliniclist" [settings]="hospitaldd" (onSelect)="GetHospitalID($event)">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitalcliniclist" [settings]="hospitaldd"
+          (onSelect)="GetHospitalID($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>
     <br>
+    <div *ngIf="showbutton=='1'">
+    <div class="row" > 
+      <div class="col-lg-3" >
+        <label>{{labels[0].hospitalorClinic}} :</label>
+        <span class="required">*</span>
+      </div>
+
+      <div class="col-lg-4">
+        <!-- <select class="form-control" (change)="GetHospitalID($event)">
+     <option  value="" selected="selected">select</option>
+     <option *ngFor="let hospital of hospitalcliniclist" value={{hospital.id}}>{{hospital.hospital_ClinicName}}</option>  
+   </select> -->
+        <input type="text" class="form-control" disabled [(ngModel)]="hospitalclinicname" name="hospitalclinicname">
+      </div>
+    </div>
+    <br>
+  </div>
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].startdate}} :</label>
@@ -45,10 +65,17 @@
       </div>
 
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].startdate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="startdate"
-          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="startdate" (change)="GetEnddate()" bsDatepicker>
+        <!-- <input type="text" placeholder="{{labels[0].startdate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="startdate"
+          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="startdate" (change)="GetEnddate()" bsDatepicker> -->
         <!-- <input type="date" name="startdate" min='{{todaydate}}' required [(ngModel)]="startdate" class="form-control"
           (change)="GetEnddate()"> -->
+
+        <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+          [bsConfig]="{ showWeekNumbers:false }" name="startdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="startdate" bsDatepicker>
+        <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+          [bsConfig]="{ showWeekNumbers:false }" name="startdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="startdate" bsDatepicker>
       </div>
     </div>
     <br>
@@ -59,9 +86,27 @@
       </div>
 
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].endDate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="enddate"
-          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="enddate" bsDatepicker>
+        <!-- <input type="text" placeholder="{{labels[0].endDate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="enddate"
+          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="enddate" bsDatepicker> -->
         <!-- <input type="date" name="enddate" min='{{startdate}}' required [(ngModel)]="enddate" class="form-control"> -->
+        <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+          [bsConfig]="{ showWeekNumbers:false }" name="enddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="enddate" bsDatepicker>
+        <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+          [bsConfig]="{ showWeekNumbers:false }" name="enddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="enddate" bsDatepicker>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Fees :</label>
+        <span class="required">*</span>
+      </div>
+
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="Fees" required [(ngModel)]="fees" name="fees"
+          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div>
     <br>
@@ -70,8 +115,11 @@
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" [disabled]="hospitalForm.form.invalid" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-          (click)="insertdetails()">{{labels[0].save}}</button>
+        <button type="button" [disabled]="hospitalForm.form.invalid" text_align="center" *ngIf="showbutton=='0'"
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+
+          <button type="button"  *ngIf="showbutton=='1'" text_align="center"
+          class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">Update</button>
       </div>
       <div class="col-lg-5">
 

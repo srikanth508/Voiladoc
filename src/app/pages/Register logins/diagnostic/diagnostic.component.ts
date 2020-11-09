@@ -86,8 +86,11 @@ export class DiagnosticComponent implements OnInit {
           this.clear();
           this.pp=0;
         }
+        else{
+          Swal.fire('Success', 'Diagnostic Center Already Exists', 'success');
+          location.href="#/Diagnosticdash"
+        }
       })
-
     }
   }
 }

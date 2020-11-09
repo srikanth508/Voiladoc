@@ -36,19 +36,37 @@ export class NurseDashboardComponent implements OnInit {
   public areaid: any;
   public countrylist: any;
   public hospitalclinicid: any;
+  public countrymanaerid:any;
+  public showexportbutton:any;
+  public salesrepresntiveid:any;
+  public showeditbutton:any;
+
 
   ngOnInit() {
-
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+
+    if(this.salesrepresntiveid!=undefined)
+    {
+      this.showeditbutton=1
+    }
+    else{
+      this.showeditbutton=0;
+    }
+
+  if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+    this.showexportbutton = 1;
+  }
 
     this.activatedroute.params.subscribe(params => {
-     
-
+    
       this.id = params['id']
     }
     )
+
     this.languageid = localStorage.getItem('LanguageID');
     if (this.hospitalclinicid == undefined) {
       this.getnurselist();
@@ -64,7 +82,7 @@ export class NurseDashboardComponent implements OnInit {
         }
       )
     }
-    else {
+    else  if(this.id!=undefined){
 
       this.docservice.GetNurseRegistrationForWeb(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
@@ -217,7 +235,7 @@ export class NurseDashboardComponent implements OnInit {
       if (result.value) {
         this.docservice.DeleteNurseRegistration(id).subscribe(res => {
           let test = res;
-          this.getnurselist();
+          this.ngOnInit()
         })
         Swal.fire(
           'Deleted!',
@@ -226,7 +244,7 @@ export class NurseDashboardComponent implements OnInit {
         )
       }
       else {
-        this.getnurselist();
+        this.ngOnInit()
       }
     })
   }

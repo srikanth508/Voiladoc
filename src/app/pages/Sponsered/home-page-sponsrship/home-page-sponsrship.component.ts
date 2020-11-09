@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-home-page-sponsrship',
   templateUrl: './home-page-sponsrship.component.html',
@@ -13,22 +14,23 @@ export class HomePageSponsrshipComponent implements OnInit {
   todaydate
   CurrentTime
   languageid
-  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private datePipe: DatePipe) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private datePipe: DatePipe, private spinner: NgxSpinnerService) { }
   paramid;
   value;
-  dropzonelable:any;
+  dropzonelable: any;
+  fees: any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-   
+
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
-   
+
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-     
+
       this.paramid = params['id'];
       this.languageid = localStorage.getItem('LanguageID');
       this.getsponsradd(this.paramid);
@@ -36,39 +38,41 @@ export class HomePageSponsrshipComponent implements OnInit {
     }
     )
 
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
   public getsponsradd(id) {
-   
-    this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
-      data => {
-       
-        let temp: any = data;
-        let temp1: any = temp.filter(x => x.id == id)
-        this.ClientName = temp1[0].clientName;
-        this.Description = temp1[0].description;
-        this.LinkURL = temp1[0].linkURL;
-        this.StartDate = this.datePipe.transform(temp1[0].startDate, 'yyyy-MM-dd');
-        this.EndDate = this.datePipe.transform(temp1[0].endDate, 'yyyy-MM-dd');
-      }, error => {
-      }
-    )
+      this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
+        data => {
+          debugger
+          let temp: any = data;
+          let temp1: any = temp.filter(x => x.id == id)
+          this.ClientName = temp1[0].clientName;
+          this.Description = temp1[0].description;
+          this.LinkURL = temp1[0].linkURL;
+          this.fees=temp1[0].fees;
+          this.StartDate=temp1[0].startdatee;
+          this.EndDate=temp1[0].enddatee;
+          // this.StartDate = this.datePipe.transform(temp1[0].startDate, 'yyyy-MM-dd');
+          // this.EndDate = this.datePipe.transform(temp1[0].endDate, 'yyyy-MM-dd');
+        }, error => {
+        }
+      )
+    
+  
   }
 
   public attachments1 = [];
   public attachmentsurl = [];
   public onattachmentUpload1(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd.addedFiles[0]);
-      this.uploadattachments1();
+    this.attachments1.push(abcd.addedFiles[0]);
+    this.uploadattachments1();
     // }
 
     Swal.fire('Added Successfully');
@@ -77,9 +81,9 @@ export class HomePageSponsrshipComponent implements OnInit {
   PhotoURL: any
   public uploadattachments1() {
     this.docservice.ArticlePhoto(this.attachments1).subscribe(res => {
-     
+
       this.PhotoURL = res;
-     
+
     })
   }
   ClientName
@@ -88,8 +92,7 @@ export class HomePageSponsrshipComponent implements OnInit {
   StartDate
   EndDate
   public insertdetails() {
-   
-
+    this.spinner.show();
     var entity = {
       'ClientName': this.ClientName,
       'Description': this.Description,
@@ -97,11 +100,13 @@ export class HomePageSponsrshipComponent implements OnInit {
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
       'EndDate': this.EndDate,
-      'LanguageID':this.languageid
+      'LanguageID': this.languageid,
+      'Fees': this.fees
     }
     this.docservice.InsertSponcered_Adds(entity).subscribe(data => {
-     
+
       if (data != 0) {
+        this.spinner.hide();
         Swal.fire('Completed', 'Details saved successfully', 'success');
         location.href = "#/HomePageSponsrshipDashBoard";
       }
@@ -109,8 +114,6 @@ export class HomePageSponsrshipComponent implements OnInit {
 
   }
   public UpdateDetails() {
-   
-
     var entity = {
       'ID': this.paramid,
       'ClientName': this.ClientName,
@@ -118,10 +121,11 @@ export class HomePageSponsrshipComponent implements OnInit {
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
       'EndDate': this.EndDate,
-      
+      'Fees':this.fees
+
     }
     this.docservice.UpdateSponcered_Adds(entity).subscribe(data => {
-     
+
       if (data != 0) {
         Swal.fire('Completed', 'Details Updated successfully', 'success');
         location.href = "#/HomePageSponsrshipDashBoard";
@@ -129,7 +133,4 @@ export class HomePageSponsrshipComponent implements OnInit {
     })
 
   }
-
-
-
 }

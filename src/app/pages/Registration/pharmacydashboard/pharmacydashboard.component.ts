@@ -23,8 +23,8 @@ export class PharmacydashboardComponent implements OnInit {
   public startdate: any;
   public enddate: any;
   public pharmacycount: any;
-  public id:any;
-  public labels1:any;
+  public id: any;
+  public labels1: any;
 
   public countryid: any;
   public citylist: any;
@@ -33,68 +33,82 @@ export class PharmacydashboardComponent implements OnInit {
   public arealist: any;
   public areaid: any;
   public countrylist: any;
-  public hospitalclinicid:any;
+  public hospitalclinicid: any;
+  public countrymanaerid: any;
+  public showexportbutton:any;
+  public salesrepresntiveid:any;
+  public showeditbutton:any;
+
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+    
+  if(this.salesrepresntiveid!=undefined)
+  {
+    this.showeditbutton=1
+  }
+  else{
+    this.showeditbutton=0;
+  }
+
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
 
+    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
     this.activatedroute.params.subscribe(params => {
-     
-
       this.id = params['id']
     }
     )
     this.languageid = localStorage.getItem('LanguageID');
 
-    
-    if(this.hospitalclinicid==undefined)
-    {
+
+    if (this.id == undefined) {
       this.getpharmacyforadmin();
     }
-    if(this.hospitalclinicid!=undefined)
-    {
+    if (this.hospitalclinicid != undefined) {
       this.docservice.GetPharmacyForAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
-          this.dummlist= data;
-          this.pharmacylist = this.dummlist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
-          this.pharmacycount= this.pharmacylist.length;
+
+          this.dummlist = data;
+          this.pharmacylist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+          this.pharmacycount = this.pharmacylist.length;
         }, error => {
         }
       )
     }
-    else{
-        
-    this.docservice.GetPhamacyDetailsForWeb(this.startdate,this.enddate,this.languageid).subscribe(
-      data => {
-       
-        this.pharmacylist = data;
-        this.dummlist= this.pharmacylist
-        this.pharmacycount= this.pharmacylist.length;
-      }, error => {
-      }
-    )
+    else if(this.id!=undefined){
+      this.docservice.GetPhamacyDetailsForWeb(this.startdate, this.enddate, this.languageid).subscribe(
+        data => {
+
+          this.pharmacylist = data;
+          this.dummlist = this.pharmacylist
+          this.pharmacycount = this.pharmacylist.length;
+        }, error => {
+        }
+      )
     }
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
-      error => {}
+      error => { }
     );
 
     this.getlanguage();
     this.GetCountryMaster()
-    this.countryid=0
-    this.cityid=0
+    this.countryid = 0
+    this.cityid = 0
 
   }
 
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -104,7 +118,7 @@ export class PharmacydashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.pharmacylist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -113,15 +127,15 @@ export class PharmacydashboardComponent implements OnInit {
     }
     else if (even.target.value == 0) {
       this.getpharmacyforadmin()
-      this.countryid=0
+      this.countryid = 0
 
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -131,7 +145,7 @@ export class PharmacydashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.pharmacylist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -139,18 +153,18 @@ export class PharmacydashboardComponent implements OnInit {
     }
     else if (even.target.value == 0) {
       this.getcity();
-      this.areaid=0;
-      this.cityid=0
+      this.areaid = 0;
+      this.cityid = 0
     }
   }
 
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -161,7 +175,7 @@ export class PharmacydashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.pharmacylist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.pharmacycount = this.pharmacylist.length
@@ -177,7 +191,7 @@ export class PharmacydashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -186,20 +200,20 @@ export class PharmacydashboardComponent implements OnInit {
 
 
   public getpharmacyforadmin() {
-   
+
     this.docservice.GetPharmacyForAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.pharmacylist = data;
-        this.dummlist= this.pharmacylist
-        this.pharmacycount= this.pharmacylist.length;
+        this.dummlist = this.pharmacylist
+        this.pharmacycount = this.pharmacylist.length;
       }, error => {
       }
     )
   }
 
   public deletepharmacy(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Pharmacy!",
@@ -225,15 +239,15 @@ export class PharmacydashboardComponent implements OnInit {
       }
     })
   }
-  
+
 
   public getglmasterexcel() {
     let hhh = this.tableToJson(document.getElementById('Doc'));
     this.exportAsExcelFile(hhh, "Pharmacy List");
   }
-  
+
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -249,15 +263,15 @@ export class PharmacydashboardComponent implements OnInit {
     }
     return data;
   }
-  
+
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
-  
+
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
@@ -267,7 +281,7 @@ export class PharmacydashboardComponent implements OnInit {
 
 
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }

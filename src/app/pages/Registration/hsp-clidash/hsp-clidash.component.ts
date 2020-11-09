@@ -32,33 +32,50 @@ export class HspClidashComponent implements OnInit {
   public areaid: any;
   public countrylist: any;
   public labels1: any;
-
+  public countrymanaerid: any;
+  public showexportbutton:any;
+  public showeditbutton:any;
+  public salesrepresntiveid:any
   ngOnInit() {
-
-    this.startdate = localStorage.getItem('StartDate');
-    this.enddate = localStorage.getItem('EndDate');
-
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id'];
       this.hospitalcount = params['hospitalcount']
     }
     )
+    debugger
+    this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+    this.startdate = localStorage.getItem('StartDate');
+    this.enddate = localStorage.getItem('EndDate');
+
+    if(this.salesrepresntiveid!=undefined)
+    {
+      this.showeditbutton=1
+    }
+    else{
+      this.showeditbutton=0;
+    }
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+
+    if ( this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
+    debugger
     this.countryid = 0;
     this.cityid = 0
 
     this.languageid = localStorage.getItem('LanguageID');
-    
+
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
@@ -68,10 +85,10 @@ export class HspClidashComponent implements OnInit {
       this.gethosptilclinicforadmin();
     }
     else if (this.id == 1) {
-     
+
       this.docservice.GetHospital_ClinicDetailsMaster(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-         
+
           this.hospitalcliniclist = data;
           this.dummlist = this.hospitalcliniclist
           this.hospitalcount = this.hospitalcliniclist.length;
@@ -81,10 +98,10 @@ export class HspClidashComponent implements OnInit {
       )
     }
     else if (this.id == 2) {
-     
+
       this.docservice.GetHospital_ClinicDetailsMasterForwebClinics(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-         
+
           this.hospitalcliniclist = data;
           this.hospitalcount = this.hospitalcliniclist.length;
 
@@ -96,10 +113,10 @@ export class HspClidashComponent implements OnInit {
   }
 
   public gethosptilclinicforadmin() {
-   
+
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-       
+
         this.dummlist = data;
         this.hospitalcliniclist = this.dummlist.filter(x => x.hospital_ClinicID == 1)
         this.hospitalcount = this.hospitalcliniclist.length;
@@ -126,7 +143,7 @@ export class HspClidashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -136,7 +153,7 @@ export class HspClidashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.hospitalcliniclist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -150,10 +167,10 @@ export class HspClidashComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -163,7 +180,7 @@ export class HspClidashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.hospitalcliniclist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -179,10 +196,10 @@ export class HspClidashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -193,7 +210,7 @@ export class HspClidashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.hospitalcliniclist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.hospitalcount = this.hospitalcliniclist.length
@@ -208,7 +225,7 @@ export class HspClidashComponent implements OnInit {
 
 
   public deletehospitalclinic(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Hospital!",
@@ -238,7 +255,7 @@ export class HspClidashComponent implements OnInit {
 
 
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }
@@ -251,7 +268,7 @@ export class HspClidashComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -269,7 +286,7 @@ export class HspClidashComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

@@ -98,7 +98,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     if (this.dummid == undefined) {
       this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
         data => {
-         
+          this.dummlist = data;
           this.midwifelist = data;
         }, error => {
         }
@@ -118,6 +118,11 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
   public getmidwifeid(even) {
     this.widwifeid = even.target.value;
+    debugger
+    var list1 =this.dummlist.filter(x=>x.id==this.widwifeid)
+    this.hsp_clinicID=list1[0].hospitalClinicID,
+    this.hospital_ClinicName=list1[0].hospital_ClinicName
+    debugger
   }
 
   public Getworktypeid(even) {
@@ -232,15 +237,31 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
         })
       }
-      this.detailsarray = [];
-      Swal.fire('Completed', 'Saved successfully', 'success');
-      location.href = "#/MidwifeWorkingDash"
-      this.table = 0;
-      this.starttime = '';
-      this.endtime = '';
-      this.dayid = 0;
-      this.idcount = 1;
-      this.fees = '';
+      if(this.languageid==1)
+      {
+        this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        location.href = "#/MidwifeWorkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+      else
+      {
+        this.detailsarray = [];
+        Swal.fire('Enregistré');
+        location.href = "#/MidwifeWorkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+   
 
     })
 
@@ -270,15 +291,32 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
         })
       }
-      this.detailsarray = [];
-      Swal.fire('Completed', 'Saved successfully', 'success');
-      location.href = "#/MidWifeTimings"
-      this.table = 0;
-      this.starttime = '';
-      this.endtime = '';
-      this.dayid = 0;
-      this.idcount = 1;
-      this.fees = '';
+      if(this.languageid==1)
+      {
+        this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        location.href = "#/MidwifeWorkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+      else
+      {
+        this.detailsarray = [];
+        Swal.fire('Enregistré');
+        // location.href = "#/MidWifeTimings"
+        location.href = "#/MidwifeWorkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+   
 
     })
 

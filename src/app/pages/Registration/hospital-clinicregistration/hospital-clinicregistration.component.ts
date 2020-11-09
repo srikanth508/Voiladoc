@@ -59,7 +59,10 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public monthlysubription: any;
   public hspwebsite: any;
   public hospitalfulltimebit: any;
-  public dropzonelable:any;
+  public dropzonelable: any;
+  public subscriptiontype: any;
+  public appointmentpercentage: any;
+
 
   ngOnInit() {
 
@@ -72,22 +75,20 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
       this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
         data => {
-         
+
           this.labels = data;
           this.SelectLabel = this.labels[0].select;
         }, error => {
         }
       )
 
-      if(this.languageid==1)
-      {
-        this.dropzonelable="Upload file"
-      }
-      else if(this.languageid==6)
-      {
-        this.dropzonelable="Télécharger des fichiers"
-      }
-    
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
+
   }
 
 
@@ -97,7 +98,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -114,18 +115,18 @@ export class HospitalClinicregistrationComponent implements OnInit {
   }
 
   onItemDeSelect(item: any) {
-   
+
     var index = this.countryid.findIndex(x => x.id == item.id)
     this.countryid.splice(index, 1);
   }
 
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -144,14 +145,11 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
 
 
-
-
-
   public getfacilititymaster() {
-   
+
     this.docservice.GetFacilitiesMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.facilitylist = data;
 
         this.facilitydd = {
@@ -161,7 +159,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false
         };
 
       }, error => {
@@ -169,10 +168,10 @@ export class HospitalClinicregistrationComponent implements OnInit {
     )
   }
   public getinsurancemaster() {
-   
+
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.insurancelist = data;
         this.insurancedd = {
           singleSelection: false,
@@ -181,7 +180,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false
         };
 
       }, error => {
@@ -189,17 +189,17 @@ export class HospitalClinicregistrationComponent implements OnInit {
     )
   }
   public GetFacilityID(item: any) {
-   
+
     this.facilityid.push(item);
-   
+
   }
   public GetInuranceID(item: any) {
-   
+
     this.insuranceid.push(item);
-   
+
   }
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -215,9 +215,9 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
 
   public insertdetails() {
-   
+
     if (this.countryid == undefined || this.countryid.length == 0) {
-     
+
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -260,16 +260,18 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'Hospitalfulltimebit': this.hospitalfulltimebit
       }
       this.docservice.InsertHospitalClinicDetailsMaster(entity).subscribe(data => {
-       
+
         if (data != 0) {
           this.hospitalclinicid = data;
           this.inserthspphotos();
           this.inserthspvideos();
           this.insertfacility();
           this.insertinsurance();
+          this.InsertSubscriptionRevenue()
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.clear();
           location.href = "#/HspClidash"
+          this.spinner.hide();
         }
         else {
           Swal.fire('Hospital Clinic Name', 'Already Exists');
@@ -289,7 +291,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertHospital_ClinicPhotos(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -305,7 +307,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'VideoURL': this.videosurl[i]
       }
       this.docservice.InsertHospital_ClinicVideos(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -320,7 +322,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'FacilityID': this.facilityid[i].id
       }
       this.docservice.InsertHospital_ClinicFacilities(entity1).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -335,7 +337,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'InsuranceID': this.insuranceid[i].id
       }
       this.docservice.InsertHospital_ClinicInsurance(entity2).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -369,14 +371,13 @@ export class HospitalClinicregistrationComponent implements OnInit {
   //   // this.sendattachment();
   // }
 
+  public dummshowsignatureurl=[]
 
   public onattachmentUpload(abcd) {
-   
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+    this.dummshowsignatureurl = []
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
-
+    
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -384,14 +385,14 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
-     
+      this.dummshowsignatureurl.push(res);
+      let a = this.dummshowsignatureurl[0].slice(2);
       let b = 'http://14.192.17.225' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -415,10 +416,10 @@ export class HospitalClinicregistrationComponent implements OnInit {
   }
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -434,14 +435,39 @@ export class HospitalClinicregistrationComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-   
+
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
+  }
+
+
+  public Getsubscriptontype() {
+    debugger
+    this.appointmentpercentage =0;
+    this.monthlysubription = 0;
+  }
+
+
+
+
+  public InsertSubscriptionRevenue() {
+    var entity5 = {
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'HospitalClinicID': this.hospitalclinicid
+    }
+    this.docservice.InsertHospitalClinic_RevenueSubscriptions(entity5).subscribe(data => {
+      if (data != 0) {
+
+      }
+    })
+
   }
 }

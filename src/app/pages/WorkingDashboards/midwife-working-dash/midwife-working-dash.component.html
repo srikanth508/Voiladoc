@@ -17,10 +17,14 @@
   <div class="row">
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select  class="form-control" (change)="GetmidwifeID($event)">
+      <!-- <select  class="form-control" (change)="GetmidwifeID($event)">
         <option value="">{{labels[0].selectMidwife}}</option>
         <option *ngFor="let mid of midwifelist" value={{mid.id}}>{{mid.name}}</option>
-      </select>
+      </select> -->
+    
+      <ng-multiselect-dropdown [placeholder]="select"  [data]="midwifelist"
+        [settings]="middd" (onSelect)="GetmidwifeID($event)">
+      </ng-multiselect-dropdown>
     </div>
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
@@ -45,7 +49,7 @@
             <!-- <th>{{labels[0].fees}}</th> -->
             <th>{{labels[0].startTime}}</th>
             <th>{{labels[0].endTime}}</th>
-            <!-- <th>{{labels[0].actions}}</th> -->
+            <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of workinglist|filter:term|filter:daysname|filter:miwifename">
             <td>{{details.name}}</td>
@@ -55,17 +59,17 @@
             <!-- <td>{{details.fees}}</td> -->
             <td>{{details.starttime}}</td>
             <td>{{details.endtime}}</td>
-            <!-- <td>
+            <td>
             <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
             <a [ngbTooltip]="tipcontent1" style="color:black">
-              <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal"  (click)="GetDetsilsID(details.midWifeHospitalDetailsID,details.dayID,details.startDateTime,details.endDateTime,details.id)" style="width: 20px">
+              <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal"  (click)="GetDetsilsID(details.midWifeHospitalDetailsID,details.dayID,details.starttime,details.endtime,details.id)" style="width: 20px">
             </a>&nbsp;
             <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
             <a [ngbTooltip]="tipcontent2">
               <img src="assets/Images/dell.png" (click)="DeleteMidWifeWorkingDetails(details.midWifeHospitalDetailsID,details.dayID)" style="width: 20px;margin-left: 10px;"
                 >
             </a>
-           </td> -->
+           </td>
           </tr>
         </thead>
       </table>
@@ -78,7 +82,10 @@
 <br>
 
 
-<!-- 
+
+
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -96,7 +103,8 @@
               <label>{{labels[0].day}} :</label>
             </div>
             <div class="col-lg-8">
-              <select value="" selected class="form-control" disabled (change)="GetDayID($event)" [(ngModel)]="dayid" name="dayid">
+              <select value="" selected class="form-control" disabled [(ngModel)]="dayid"
+                name="dayid">
                 <option>{{labels[0].select}}</option>
                 <option *ngFor="let day of dayslist" value="{{day.id}}">{{day.dayOfTheWeek}}</option>
               </select>
@@ -107,7 +115,12 @@
               <label>{{labels[0].startTime}}:</label>
             </div>
             <div class="col-lg-8">
-            <input type="time" [(ngModel)]="startdatetime" name="enddatetime" class="form-control">
+              <select class="form-control" required [(ngModel)]="startdatetime" name="startdatetime">
+                <option value="0">{{labels[0].startTime}}</option>
+                <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+                </option>
+              </select>
+              <!-- <input type="time" [(ngModel)]="startdatetime" name="enddatetime" class="form-control"> -->
             </div>
           </div><br>
           <div class="row">
@@ -115,21 +128,29 @@
               <label>{{labels[0].endTime}}:</label>
             </div>
             <div class="col-lg-8">
-            <input type="time" [(ngModel)]="enddatetime" name="enddatetime" class="form-control">
+              <select class="form-control" required [(ngModel)]="enddatetime" name="enddatetime">
+                <option value="0">{{labels[0].endTime}}</option>
+                <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+                </option>
+              </select>
+              <!-- <input type="time" [(ngModel)]="enddatetime" name="enddatetime" class="form-control"> -->
             </div>
           </div><br>
           <div class="row">
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button class="btn btn-primary" (click)="updatedetails()" data-dismiss="modal">{{labels[0].update}}</button>
+              <button class="btn btn-primary" (click)="updatedetails()"
+              style="background-color: #f18235;color: white;border:none"    data-dismiss="modal">{{labels[0].update}}</button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button"   style="background-color: #f18235;color: white;border:none" class="btn btn-btncolor" data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
+
+

@@ -58,6 +58,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public hspwebsite: any;
   public hospitalfulltimebit: any;
   dropzonelable:any;
+  public contractstartdate:any;
+  public contractenddate:any;
   ngOnInit() {
 
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -228,7 +230,9 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'CountryID': this.countryid,
         'MonthlySubscription': this.monthlysubription,
         'HospitalClinicID': this.hospitalclinicid,
-        'Hospitalfulltimebit': this.hospitalfulltimebit
+        'Hospitalfulltimebit': this.hospitalfulltimebit,
+        'ContractStartDate': this.contractstartdate,
+        'ContractEndDate': this.contractenddate,
       }
       this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
        
@@ -236,6 +240,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
           this.diagnosticid = data;
           this.inserthspphotos();
           this.insertinsurance();
+          this.insertDiagnosticRevenue()
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.spinner.hide();
           this.clear();
@@ -268,6 +273,25 @@ export class DiagnosticsregistrationComponent implements OnInit {
       })
     }
   }
+
+
+  public insertDiagnosticRevenue() {
+      var entity = {
+        'DiagnosticID': this.diagnosticid,
+        'MonthlySubscription': this.monthlysubription,
+        'ContractStartdate':this.contractstartdate,
+        'ContractEnddate':this.contractstartdate
+      }
+      this.docservice.InsertDiagnosticCentersSubscriptions_Revenue(entity).subscribe(data => {
+       
+        if (data != 0) {
+        }
+      })
+    
+  }
+
+
+
   public inserthspphotos() {
     if (this.attachmentsurl.length == 0) {
       this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DiagnosticCenterPhotos\\Diagnostics.jpg'
@@ -286,8 +310,9 @@ export class DiagnosticsregistrationComponent implements OnInit {
     }
   }
 
+  public dummshowsignatureurl=[]
   public onattachmentUpload(abcd) {
-   
+   this.dummshowsignatureurl=[]
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -300,8 +325,9 @@ export class DiagnosticsregistrationComponent implements OnInit {
     this.docservice.DiagnosticPhotos(this.attachments).subscribe(res => {
      
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
-     
+      this.dummshowsignatureurl.push(res);
+      let a = this.dummshowsignatureurl[0].slice(2);
+
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)

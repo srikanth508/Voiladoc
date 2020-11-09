@@ -78,7 +78,7 @@
           </tr>
           <tr
             *ngFor="let details of appointmentlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
-            <td>{{details.apptDateTime}}</td>
+            <td>{{details.appoinmentttdate}}</td>
             <td>{{details.slots}}</td>
             <td>
 
@@ -118,7 +118,7 @@
               <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
               <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
                 *ngIf="details.appointmentTypeID=='2'&&details.disableall=='1'"
-                (click)="GetChatShowID(details.patientID,details.appdate,details.slots,details.pEmail)">{{labels[0].chat}}</button>
+                (click)="GetChatShowID(details.patientID,details.appdate,details.slots,details.pEmail,details.appointmentID)">{{labels[0].chat}}</button>
             </td>
             <td>{{details.appointmentID}}</td>
             <td>{{details.pName}}</td>
@@ -134,12 +134,12 @@
                 style="margin: 2%;width: 20px;" (click)="GetVedioID(details.appointmentID)" />&nbsp;
 
               <ng-template #tipcontent300>{{labels[0].viewdetils}}</ng-template>
-              <img src="assets/Images/view.jpg" [ngbTooltip]="tipcontent300" style="margin: 2%;width: 20px;"
+              <img src="assets/Images/medicalquestion.png" [ngbTooltip]="tipcontent300" style="margin: 2%;width: 24px;"
                 data-toggle="modal" data-target="#exampleModalLong78"
                 (click)="GetViewDetails(details.appointmentID)" />&nbsp;
 
               <ng-template #tipcontent756>{{labels[0].insurencedetails}}</ng-template>
-              <img src="assets/Images/view.jpg" [ngbTooltip]="tipcontent756" style="margin: 2%;width: 20px;"
+              <img src="assets/Images/insurance.png" [ngbTooltip]="tipcontent756" style="margin: 2%;width: 24px;"
                 data-toggle="modal" data-target="#Insurancedetails"
                 (click)="Getinsurancedetails(details.patientID)" />&nbsp;
             </td>
@@ -327,8 +327,9 @@
                 <img src="assets/Images/previoussoap.png" style="height:25px;" data-toggle="modal"
                   data-target="#exampleModalCenter90" (click)="GetSoapPatientID(details.patientID)" />
                 <!-- [routerLink]="['/Soapdash',details.patientID]" -->
-              </a>
-              <ng-template #tipcontent9283>Previous medical Certificates</ng-template>
+              </a>&nbsp;
+              
+              <ng-template #tipcontent9283>{{labels[0].previousmedicalcertificate}}</ng-template>
               <a [ngbTooltip]="tipcontent9283"
                 *ngIf="details.noShow=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'">
                 <img src="assets/Images/previoussoap.png" style="height:25px;" data-toggle="modal"
@@ -1344,7 +1345,7 @@
                     <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].test}}</th>
-                    <!-- <th>Actions</th> -->
+                    <th>Actions</th>
                   </tr>
                   <tr *ngFor="let dia of dialist">
                     <td>{{dia.departmentname}}</td>
@@ -1352,13 +1353,13 @@
                     <td>{{dia.appdate}}</td>
                     <td>{{dia.name}}</td>
                     <td>{{dia.testName}}</td>
-                    <!-- <td>
+                    <td>
                       <ng-template #tipcontent9503>Edit</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
-                        <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest"
+                        <img src="assets/Images/edit.png" *ngIf="dia.showmyediticon=='1'" data-toggle="modal" data-target="#edittest"
                           (click)="GetDiaEditList(dia)" style="width: 18px">
                       </a>
-                    </td> -->
+                    </td>
                   </tr>
                 </thead>
               </table>
@@ -1494,7 +1495,7 @@
                   <th>{{labels[0].substistude}} </th>
                   <th>{{labels[0].howmanyRefills}}</th>
                   <th>{{labels[0].noteToPharmasist}}</th>
-                  <!-- <th>Actions</th> -->
+                  <th>Actions</th>
                 </tr>
                 <tr *ngFor="let presciption of prescrptionlist">
                   <td>{{presciption.referenceNumber}}</td>
@@ -1517,13 +1518,13 @@
                   <td>{{presciption.howmanyRefills}}</td>
                   <td>{{presciption.noteToPharmasist}}</td>
                   <!-- <td>{{presciption.diagnosis}}</td> -->
-                  <!-- <td>
+                  <td>
                     <ng-template #tipcontent9503>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent9503" style="color:black">
-                      <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edirprescription"
+                      <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal" data-target="#edirprescription"
                         (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 18px">
                     </a>
-                  </td> -->
+                  </td>
                 </tr>
               </table>
             </div>
@@ -2028,8 +2029,8 @@
           <button class="tablinks" style="width: 50%;" id="defaultOpen"
             (click)="openCity($event, 'referdoctor')">{{labels[0].refertodoctor}}
           </button>
-          <button class="tablinks" style="width: 50%;" (click)="openCity($event, 'previousreferels')">Previous
-            Referrals</button>
+          <button class="tablinks" style="width: 50%;" (click)="openCity($event, 'previousreferels')">
+            {{labels[0].previousrefererals}}</button>
           <!-- <button class="tablinks" onclick="openCity(event, 'Tokyo')">Edit Refer</button> -->
         </div>
         <div class="container-fluid" id="referdoctor" class="tabcontent">
@@ -2268,12 +2269,12 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Referal Type</th>
+                    <th>{{labels[0].type}}</th>
                     <th>{{ labels2[0].patientID }}</th>
                     <th>{{ labels[0].patientName }}</th>
                     <th>{{ labels2[0].mobileNumber }}</th>
                     <th>{{ labels2[0].emailID }}</th>
-                    <th>Referred By</th>
+                    <th>{{labels[0].referredby}}</th>
                     <th>{{ labels2[0].reffredto }}</th>
                     <th>{{ labels[0].referedDoctorPhno }}</th>
                     <th>{{ labels[0].referredDoctorEmail }}</th>
@@ -2297,7 +2298,7 @@
                     <td>{{ref.doctorEmail}}</td>
                     <td>
                       <a >
-                        <img src="assets/Images/sentreferral.png" title="{{ labels[0].patientCondition }}" data-toggle="modal" data-target="#exampleModal9500"
+                        <img src="assets/Images/sendrefereal.png" title="{{ labels[0].patientCondition }}" data-toggle="modal" data-target="#exampleModal9500"
                           style="height:25px;" (click)="GetPatientCondition(ref)" />
                       </a>
                     </td>
@@ -2310,7 +2311,7 @@
                     <td>
                       <a >
                         <img src="assets/Images/edit.png" data-toggle="modal"
-                          data-target="#exampleModalCenterRefferalss"  title="Edit" style="height:25px;"
+                          data-target="#exampleModalCenterRefferalss" *ngIf="ref.showmyediticon=='1'"  title="Edit" style="height:25px;"
                           (click)="GetReferalletter(ref)" />
                       </a>
                     </td>
@@ -2742,7 +2743,7 @@
           </div>
           <div class="col-lg-3">
             <button type="submit" class="chat form-control" [disabled]="chatfrom.form.invalid"
-              (click)="dosendmsg()">{{labels[0].send}}
+              (click)="InsertChatDetails()">{{labels[0].send}}
               <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
             </button>
           </div>
@@ -2792,7 +2793,7 @@
                   <th>{{labels[0].followUpPlan}}</th>
                   <th>{{labels[0].signature}}</th>
                   <th>{{labels[0].notes}} </th>
-                  <!-- <th>Actions</th> -->
+                  <th>Actions</th>
                 </tr>
                 <tr *ngFor="let soap of soaplist1">
                   <td>{{soap.departmentname}}</td>
@@ -2806,15 +2807,14 @@
                   <td>{{soap.followUpPlan}}</td>
                   <td>{{soap.signature}}</td>
                   <td>{{soap.notes}}</td>
-                  <!-- <td>
-
+                  <td>
                     <ng-template #tipcontent9504>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent9504" style="color:black">
-                      <img src="assets/Images/edit.png" data-toggle="modal" data-target="#EditSoapnotes"
+                      <img src="assets/Images/edit.png" *ngIf="soap.showmyediticon=='1'" data-toggle="modal" data-target="#EditSoapnotes"
                         (click)="GetEditPrevioussoap(soap)" style="width: 18px">
                     </a>
 
-                  </td> -->
+                  </td>
                 </tr>
               </table>
             </div>
@@ -3014,7 +3014,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content" style="width:898px;margin-left: 186px;">
       <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle">Insurence details</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Previous medical certificate</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -3045,7 +3045,7 @@
                   <td>
                     <ng-template #tipcontent95585>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent95585" style="color:black">
-                      <img src="assets/Images/edit.png" data-toggle="modal" data-target="#EditMedicalcertificate"
+                      <img src="assets/Images/edit.png" *ngIf="ss.showmyediticon=='1'" data-toggle="modal" data-target="#EditMedicalcertificate"
                       (click)="GetSickSlipIDForEdit(ss.patientID,ss.id)" style="width: 18px"></a>
                   </td>
                 </tr>

@@ -222,6 +222,9 @@
         <ngx-dropzone [multiple]="false" (change)="onidUpload($event)" class="dropzone_vendorinvoice">
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
+        <span *ngFor="let hspphoto of showidproof">
+          <img src="{{hspphoto}}" style="height: 35px; width: auto;">
+        </span>
       </div>
 
       <div class="col-lg-5 specforimg" *ngIf="languageid=='1'">
@@ -246,7 +249,9 @@
         <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
-
+        <span *ngFor="let hspphoto of showphoto">
+          <img src="{{hspphoto}}" style="height: 35px; width: auto;">
+        </span>
       </div>
       <div class="col-lg-5 specforimg" *ngIf="languageid=='1'">
         <p>

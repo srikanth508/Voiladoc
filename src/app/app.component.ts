@@ -65,6 +65,15 @@ export class AppComponent {
       this.localeService.use('fr');
     }
     this.temp = sessionStorage.getItem('temp');
+
+    if (this.temp == 1) {
+
+    }
+    else {
+      sessionStorage.clear();
+      localStorage.clear();
+      location.href = "#/login";
+    }
     this.pharmacyid = localStorage.getItem('pharmacyid');
 
     this.roleid = localStorage.getItem('roleid');
@@ -76,6 +85,8 @@ export class AppComponent {
     this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
+    this.getlanguage2();
+    this.getserverdateandtime();
     this.GetDoctorNotifications();
     this.GetDocnoti()
     this.obserbaletimedocnoti()
@@ -87,6 +98,8 @@ export class AppComponent {
       this.isDescktopResolution = true;
     }
 
+
+    this.GetChatnotificationslist();
   }
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
@@ -103,7 +116,8 @@ export class AppComponent {
     const abc = source.subscribe(val => {
       if (this.doctorid != null) {
         this.GetDoctorNotifications();
-     
+        this.GetChatnotificationslist();
+
 
         this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
           this.doctorNotifications = data;
@@ -160,6 +174,7 @@ export class AppComponent {
     });
   }
 
+
   public GetDoctorNotifications() {
     this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
       this.doctorNotifications = data;
@@ -168,12 +183,87 @@ export class AppComponent {
   }
 
 
+  // public ChatNotifications: any;
+  // public PatientID = [];
+  // public chatIdarray = [];
+  // public chatconversationarray = [];
+  chatlist: any;
+  // public chatid: any;
+  // testdisplay: any;
+
+  public GetChatnotificationslist() {
+    this.docservice.GetDoctor_ChatDetailsByDoctor(this.doctorid).subscribe(datassss => {
+      this.chatlist = datassss;
+      if (this.chatlist.length > 0) {
+        document.getElementById("Myformsss").style.display = "block";
+      }
+      else {
+        document.getElementById("Myformsss").style.display = "none";
+      }
+    })
+
+
+
+    // this.docservice.GetChatMasterByDoctorID(this.doctorid).subscribe
+    //   (datas => {
+    //     this.ChatNotifications = datas;
+    //     for (let i = 0; i < this.ChatNotifications.length; i++) {
+    //       this.chatIdarray.push(this.ChatNotifications[i].chatID)
+
+    //     }
+
+    //     for (let j = 0; j < this.chatIdarray.length; j++) {
+    //       
+    //       this.chatid=this.chatIdarray[j];
+
+    //     }
+    //     this.getchatdetails()
+    //   })
+  }
+
+  display: any;
+
+  // public onclosetest() {
+  //   this.testdisplay = "none";
+  // }
+
+  // public getchatdetails()
+  // {
+  //   this.docservice.GetDoctor_ChatDetailsByDoctor(120).subscribe(datassss => {
+  //     
+  //     this.chatlist = datassss;
+  //     
+  //     if (this.chatlist.length >1) {
+  //         this.chatconversationarray.push(this.chatlist);
+  //         this.display=1
+
+  //        document.getElementById('sideModalTR').click();
+  //       
+  //     }
+  //     else {
+
+  //     }
+  //   })
+  // }
+  public labels2: any;
+
+  public getlanguage2() {
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels2 = data;
+
+      }, error => {
+      }
+    )
+  }
+
 
   obserbaletimedocnoti() {
-    
+
     const source = timer(1000, 20000);
     const abc = source.subscribe(val => {
-      
+
       this.GetDocnoti()
     });
   }
@@ -200,12 +290,11 @@ export class AppComponent {
     this.setCookie("doc_id", "")
   }
 
-  public setCookie(cname, cvalue)
-  {
-    
+  public setCookie(cname, cvalue) {
+
     document.cookie = cname + "=" + cvalue;
   }
-  
+
   public Update_appointmentFordemand(doctorHospitalDetailsID, doctorID, appointmentID, notificationID, emailID, doctorName, date) {
 
     this.doctorname = doctorName,
@@ -258,6 +347,23 @@ export class AppComponent {
 
   public updateseenbit(id) {
     this.docservice.UpdateNotifications_DoctorSeenBit(id).subscribe(
+      data => {
+
+        // Swal.fire('Completed', 'Visited Successfully');
+
+        //  this.InservisitNotification()
+        this.oberserableTimer()
+        this.ngOnInit()
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+  public UpdateDoctorSeenAll(id) {
+    this.docservice.UpdateNotifications_DoctorSeenBitAll(id).subscribe(
       data => {
 
         // Swal.fire('Completed', 'Visited Successfully');
@@ -338,4 +444,169 @@ export class AppComponent {
   //   document.getElementById("mySidenav").style.width = "0";
   //   document.getElementById("main").style.marginLeft = "0";
   // }
+
+
+  public GetShowOffffff() {
+    document.getElementById("myFormsssss").style.display = "none";
+  }
+
+
+  public patientiddd: any;
+  public chatappointmentid: any;
+
+
+
+  public GetChatShowID(patientid, appointmentID) {
+    debugger
+    this.patientiddd = patientid;
+    this.chatappointmentid = appointmentID;
+    document.getElementById("myFormsssss").style.display = "block";
+    this.dosendmsg()
+  }
+
+
+  public dosendmsg() {
+    debugger
+    var entity = {
+      // 'ChatID': this.chatID,
+      'DoctorID': this.doctorid,
+      'PatientID': this.patientiddd,
+      'AppointmentID': this.chatappointmentid
+      // 'Read_Me': 0
+    }
+    this.docservice.InsertChatMaster(entity).subscribe(data => {
+      if (data != 0) {
+        this.chatID = data;
+        debugger
+        debugger
+        this.getPreviousChat();
+        this.oberserableTimerchat();
+      }
+    })
+  }
+
+
+  oberserableTimerchat() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+      this.getPreviousChat();
+
+      var objDiv = document.getElementById("chatboxdiv");
+      objDiv.scrollTop = objDiv.scrollHeight;
+
+    });
+  }
+
+
+
+
+  public chatconversation = "";
+
+  public docmsges = [];
+  public patientmsges = [];
+  public istyping = false;
+  coversationarray = [];
+
+  public patientphoto: any;
+  public docphoto: any;
+  public chatID: any;
+  public attachments = [];
+
+  public imageurl: any;
+  public image: any;
+  public servertime: any;
+
+
+  serverdateandtime: any;
+  public serverdate: any;
+
+
+  public getserverdateandtime() {
+
+    this.docservice.GetServerDateAndTime().subscribe(
+      data => {
+
+        this.serverdateandtime = data;
+        this.servertime = this.serverdateandtime.presentTime,
+          this.serverdate = this.serverdateandtime.todaydate
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+  public InsertChatDetails() {
+    let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
+    ;
+    if (this.image == 0) {
+      var entity = {
+        'ChatID': this.chatID,
+        'Message': conversation,
+        'SenderID': this.doctorid,
+        'Sender': 'Doctor',
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
+      }
+      this.docservice.InsertChatDetails(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+        this.chatconversation = "";
+        this.image = 0;
+        this.getPreviousChat();
+        // this.InsertChatnotificationazure()
+
+
+      })
+    }
+    else {
+      var entitys = {
+        'ChatID': this.chatID,
+        'Message': this.imageurl,
+        'SenderID': this.doctorid,
+        'Sender': 'Doctor',
+        'MessageType': 1,
+        'MobileMessage': this.chatconversation,
+        'MobileTime': this.servertime
+      }
+      this.docservice.InsertChatDetails(entitys).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+        this.chatconversation = "";
+        this.image = 0;
+        this.getPreviousChat();
+        // this.InsertChatnotificationazure()
+      })
+    }
+  }
+
+
+  public getPreviousChat() {
+    debugger
+    this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
+      let Chatconversation = res;
+      debugger
+      this.coversationarray.length = 0;
+      debugger
+      for (let i = 0; i < Chatconversation.length; i++) {
+
+        if (Chatconversation[i].sender == 'Patient') {
+          this.coversationarray.push({
+            chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
+          })
+        }
+        debugger
+        if (Chatconversation[i].sender == 'Doctor') {
+          this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
+        }
+      }
+    })
+  }
+
 }

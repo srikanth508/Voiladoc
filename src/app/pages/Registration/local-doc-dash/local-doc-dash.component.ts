@@ -26,18 +26,28 @@ export class LocalDocDashComponent implements OnInit {
   public arealist: any;
   public areaid: any;
   public countrylist: any;
+  public countrymanaerid: any;
+  public showexportbutton: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+
+    if (this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
+
+
+
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
@@ -50,7 +60,7 @@ export class LocalDocDashComponent implements OnInit {
 
 
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }
@@ -59,7 +69,7 @@ export class LocalDocDashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -69,7 +79,7 @@ export class LocalDocDashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.localdoclist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -83,10 +93,10 @@ export class LocalDocDashComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -96,7 +106,7 @@ export class LocalDocDashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.localdoclist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -112,10 +122,10 @@ export class LocalDocDashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -126,7 +136,7 @@ export class LocalDocDashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.localdoclist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.localdoclist.length
@@ -142,7 +152,7 @@ export class LocalDocDashComponent implements OnInit {
   public getlocaldoctors() {
     this.docservice.GetLocalDoctorRegistration(this.languageid).subscribe(
       data => {
-       
+
         this.localdoclist = data;
         this.dummlist = this.localdoclist
         this.count = this.localdoclist.length
@@ -154,7 +164,7 @@ export class LocalDocDashComponent implements OnInit {
 
 
   public deletedoctorregistration(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Doctor!",

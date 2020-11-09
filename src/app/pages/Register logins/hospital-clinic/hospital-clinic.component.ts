@@ -72,7 +72,6 @@ export class HospitalClinicComponent implements OnInit {
      
       }
     else {
-     
       var entity = {
         'Hospital_ClinicID': this.hospitalid,
         'UserName': this.username,
@@ -86,6 +85,10 @@ export class HospitalClinicComponent implements OnInit {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           location.href="#/Hspdash"
           this.pp=0;
+        }
+        else{
+          Swal.fire('Error', 'Hospital Login Already Exists', 'success');
+          location.href="#/Hspdash"
         }
       })
     }

@@ -63,9 +63,9 @@
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th> -->
             <th>{{labels[0].licenseNumber}}</th>
-            <th *ngIf="showeditbutton!=1">Monthly subscription</th>
+            <!-- <th *ngIf="showeditbutton!=1">Monthly subscription</th>
             <th *ngIf="showeditbutton!=1">Contract start date</th>
-            <th *ngIf="showeditbutton!=1">Contract start date</th>
+            <th *ngIf="showeditbutton!=1">Contract end date</th> -->
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
@@ -79,16 +79,16 @@
             <!-- <td>{{details.short}}</td>
             <td>{{details.city}}</td>
             <td>{{details.areaName}}</td> -->
-            <td *ngIf="showeditbutton!=1">{{details.monthlySubscription}}</td>
+            <!-- <td *ngIf="showeditbutton!=1">{{details.monthlySubscription}}</td>
             <td *ngIf="showeditbutton!=1">{{details.contractstartdate}}</td>
-            <td *ngIf="showeditbutton!=1">{{details.contractenddate}}</td>
+            <td *ngIf="showeditbutton!=1">{{details.contractenddate}}</td> -->
             <td>{{details.address}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
                   (click)="deletediagnosticcenter(details.id)">
-              </a>
+              </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" *ngIf="details.editiconShow=='0'&&showeditbutton=='1'"
                 [routerLink]="['/EditDiagnosticRegistration',details.id]" style="color:black">

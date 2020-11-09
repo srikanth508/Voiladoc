@@ -89,6 +89,9 @@ export class MidWifeTimingsComponent implements OnInit {
   }
 
 
+
+
+
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, id) {
    
     this.midwifehospitalid = nurseHospitalDetailsID;

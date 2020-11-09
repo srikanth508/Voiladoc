@@ -54,7 +54,7 @@ export class MychatsComponent implements OnInit {
     )
     this.image = 0;
 
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientiddd,100).subscribe(res => {
      
       this.chatIDlist = res;
       this.chatID = this.chatIDlist[0].chatID
@@ -118,7 +118,7 @@ export class MychatsComponent implements OnInit {
   }
 
   public getChat() {
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientiddd,100).subscribe(res => {
      
 
       if (res.length > 1) {

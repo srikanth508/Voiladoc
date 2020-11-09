@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
+import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: 'app-home-page-sponsrship-dash-board',
@@ -8,11 +11,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home-page-sponsrship-dash-board.component.css']
 })
 export class HomePageSponsrshipDashBoardComponent implements OnInit {
-  options: any
-  constructor(public docservice: HelloDoctorService) { }
+
+  options: NgDateRangePickerOptions;
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
   term;
-  value;
-  languageid
+  languageid;
+  value: any;
+  SDate = new Date();
+  EDate = new Date();
+  public todaydate: any;
+  public CurrentTime: any;
+  
   ngOnInit() {
 
     this.options = {
@@ -25,24 +34,42 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
       startOfWeek: 1
     };
     this.languageid = localStorage.getItem('LanguageID');
-    this.Getsponrshipofhomepage();
-    
-    
 
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 5);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+    const format = 'yyyy-MM-dd';
+    const myDate = new Date();
+    const locale = 'en-US';
+    this.todaydate = formatDate(myDate, format, locale);
+
+    this.startdate = formatDate(kkk, format, locale);
+    this.enddate = formatDate(lll, format, locale);
+
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let newformat = hours >= 12 ? 'PM' : 'AM';
+    // Find current hour in AM-PM Format 
+    hours = hours % 12;
+    // To display "0" as "12" 
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? 0 + minutes : minutes;
+    this.CurrentTime = hours + ':' + minutes + ' ' + newformat;
+    this.Getsponrshipofhomepage();
 
 
   }
 
- 
+
 
   HomepageSponsrships: any
   public Getsponrshipofhomepage() {
 
-   
-   
+
+
     this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
       data => {
-       
+
         let temp: any = data;
         this.HomepageSponsrships = temp;
       }, error => {
@@ -51,10 +78,10 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   }
   PhotoUrl
   public GetPhotoUrl(id) {
-   
+
     this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
       data => {
-       
+
         let temp: any = data;
         let temp1: any = temp.filter(x => x.id == id);
         this.PhotoUrl = temp1[0].photoURL;
@@ -65,15 +92,15 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   startdate
   enddate
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
-    this.docservice.GetSponcered_AddsMobileByDate(this.startdate, this.enddate,this.languageid).subscribe(
+    this.docservice.GetSponcered_AddsMobileByDate(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         let temp: any = data;
         this.HomepageSponsrships = temp;
       }, error => {
@@ -84,7 +111,7 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
 
 
   public DeleteServiceMaster(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",

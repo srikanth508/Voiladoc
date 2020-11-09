@@ -1,6 +1,6 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace headercolor">
-    <div class="col-lg-5">
+    <div class="col-lg-5">  
       <h5>{{labels[0].nurseworkinDetails}}</h5>
     </div>
     <div class="col-lg-5">
@@ -12,7 +12,7 @@
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <form #nurseForm="ngForm">
     <br>
-    <div *ngIf="dummid!=null" class="row">
+    <div class="row">
       <div class="col-lg-3">
         <label class="dname_label">{{labels[0].nurseName}} :</label>
         <span class="required">*</span>
@@ -25,8 +25,8 @@
       </div>
     </div>
     <br>
-    <div *ngIf="dummid==null">
-      <div class="row">
+  
+      <!-- <div class="row">
         <div class="col-lg-3">
           <label>{{labels[0].nurseName}} : </label>
           <span class="required">*</span>
@@ -35,7 +35,7 @@
           <input type="text" [(ngModel)]="NurseName" id="NurseName" name="NurseName" class="form-control" disabled>
         </div>
       </div>
-      <br>
+      <br> -->
       <div class="row">
         <div class="col-lg-3">
           <label>{{labels[0].hospitalClinic}} : </label>
@@ -46,7 +46,7 @@
             class="form-control" disabled>
         </div>
       </div>
-    </div>
+  
     <br>
     <!-- <div class="row">
     <div class="col-lg-3">
@@ -79,7 +79,7 @@
       </div>
       <div class="col-lg-4">
         <select class="form-control" required [(ngModel)]="starttime" name="starttime">
-          <option selected>{{labels[0].startTime}}</option>
+          <option value="0">{{labels[0].startTime}}</option>
           <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
           </option>
         </select>
@@ -94,7 +94,7 @@
       </div>
       <div class="col-lg-4">
         <select class="form-control" required [(ngModel)]="endtime" name="endtime">
-          <option selected>{{labels[0].endTime}}</option>
+          <option value="0">{{labels[0].endTime}}</option>
           <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
           </option>
         </select>

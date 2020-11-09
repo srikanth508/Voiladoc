@@ -32,7 +32,7 @@ export class VideocallrevenueComponent implements OnInit {
   public departmentlist: any;
   TotalAmount: any
   options: any
-  grandtotal:any;
+  grandtotal: any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -51,9 +51,9 @@ export class VideocallrevenueComponent implements OnInit {
     this.getdepartmentmaster();
     this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.sdate, this.edate).subscribe(
       data => {
-       
+
         this.dummlist = data;
-        this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2);
+        this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2 && x.isVisited == 1);
         this.count = this.cancelledlist.length;
 
         // this.grandtotal=0
@@ -66,10 +66,10 @@ export class VideocallrevenueComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
@@ -81,7 +81,7 @@ export class VideocallrevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -91,7 +91,7 @@ export class VideocallrevenueComponent implements OnInit {
   enddate: any
   value: any
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];
@@ -100,7 +100,7 @@ export class VideocallrevenueComponent implements OnInit {
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
-       
+
         this.dummlist = data;
         this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2);
         let total1 = 0;
@@ -120,7 +120,7 @@ export class VideocallrevenueComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -138,7 +138,7 @@ export class VideocallrevenueComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

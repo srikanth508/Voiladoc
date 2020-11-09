@@ -1,3 +1,4 @@
+<br>
 <div class="container-fluid card card-hover ">
   <div class="row headerspace">
     <div class="col-lg-5">
@@ -7,7 +8,7 @@
     </div>
     <div class="col-lg-2">
       <button  class="btn btncolor" 
-        (click)="getglmasterexcel()">{{labels[0].exportExcel}}</button>
+        (click)="getglmasterexcel()" *ngIf="showexportbutton=='1'">{{labels[0].exportExcel}}</button>
     </div>
   </div>
 </div><br>

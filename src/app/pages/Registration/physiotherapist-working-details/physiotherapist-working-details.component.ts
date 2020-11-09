@@ -53,7 +53,6 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
       data => {
        
-
         let temp: any = data;
         let temp1: any = temp.filter(x => x.physiotherapyID == this.physioid);
         this.hospital_ClinicName = temp1[0].hospital_ClinicName;
@@ -90,7 +89,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     if (this.dummid == undefined) {
       this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
+          this.dummlist = data;
           this.physiolist = data;
         }, error => {
         }
@@ -111,6 +110,11 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
 
   public getphysioid(even) {
     this.physioid = even.target.value;
+debugger
+    var list=this.dummlist.filter(x=>x.id==this.physioid)
+    this.hsp_clinicID=list[0].hospitalClinicID,
+    this.hospital_ClinicName=list[0].hospital_ClinicName
+    debugger
   }
 
   public Getworktypeid(even) {
@@ -212,8 +216,10 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
    
   }
 
+
+
   public InsertPhysiotherapyHospitalDetailsAdmin() {
-   
+   debugger
     var entity = {
       'physiotherapyID': this.detailsarray[0].PhyioID,
       'Fees': this.detailsarray[0].Fees,
@@ -221,7 +227,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertPhysiotherapyHospitalDetailsAdmin(entity).subscribe(data => {
-     
+      debugger
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
        
@@ -234,22 +240,42 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
         }
         this.docservice.InsertPhysiotherapistWorkingDetails(entity).subscribe(data => {
          
-
         })
       }
-      this.detailsarray = [];
-      Swal.fire('Completed', 'Saved successfully', 'success');
-      location.href = "#/PhysioworkingDash"
-      this.table = 0;
-      this.starttime = '';
-      this.endtime = '';
-      this.dayid = 0;
-      this.idcount = 1;
-      this.fees = '';
+      if(this.languageid==1)
+      {
+        this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        // location.href = "#/PhysiotherapistTimings"
+        location.href = "#/PhysioworkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+      else
+      {
+        this.detailsarray = [];
+        Swal.fire('Enregistré');
+        location.href = "#/PhysioworkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
     })
   }
+
+
+
+
+
   public InsertPhysiotherapyHospitalDetails() {
-   
+    debugger
     var entity = {
       'physiotherapyID': this.detailsarray[0].PhyioID,
       'Fees': this.detailsarray[0].Fees,
@@ -257,7 +283,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertPhysiotherapyHospitalDetailsAdmin(entity).subscribe(data => {
-     
+      debugger
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
        
@@ -273,15 +299,30 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
 
         })
       }
-      this.detailsarray = [];
-      Swal.fire('Completed', 'Saved successfully', 'success');
-      location.href = "#/PhysiotherapistTimings"
-      this.table = 0;
-      this.starttime = '';
-      this.endtime = '';
-      this.dayid = 0;
-      this.idcount = 1;
-      this.fees = '';
+      if(this.languageid==1)
+      {
+        this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        location.href = "#/PhysioworkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+      else
+      {
+        this.detailsarray = [];
+        Swal.fire('Enregistré');
+        location.href = "#/PhysioworkingDash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
     })
   }
 

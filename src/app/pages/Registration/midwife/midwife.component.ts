@@ -63,9 +63,9 @@ export class MidwifeComponent implements OnInit {
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
-        this.dummdepartmentlist = data;
-        this.departmentlist = this.dummdepartmentlist.filter(x => x.id == 12)
+        this.departmentlist = data;
+        
+        // this.departmentlist = this.dummdepartmentlist.filter(x => x.id == 12)
       }, error => {
       }
     )
@@ -176,8 +176,11 @@ export class MidwifeComponent implements OnInit {
     this.deptid = even.target.value;
   }
 
+
+  public dummphotourl=[]
   public onattachmentUpload(abcd) {
    
+this.dummphotourl=[]
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -191,8 +194,8 @@ export class MidwifeComponent implements OnInit {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
      
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
-     
+      this.dummphotourl.push(res);
+      let a = this.dummphotourl[0].slice(2);
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
@@ -202,8 +205,10 @@ export class MidwifeComponent implements OnInit {
     // this.sendattachment();
   }
 
+  public dummidentityphotourl=[]
+
   public onidUpload(abcd) {
-   
+   this.dummidentityphotourl=[]
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
@@ -216,7 +221,8 @@ export class MidwifeComponent implements OnInit {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
      
       this.idproofurl.push(res);
-      let a = this.idproofurl[0].slice(2);
+      this.dummidentityphotourl.push(res);
+      let a = this.dummidentityphotourl[0].slice(2);
      
       let b = 'http://14.192.17.225' + a;
       this.showidproof.push(b)
@@ -281,10 +287,17 @@ export class MidwifeComponent implements OnInit {
       'SpokenLanguages': this.spokenlanguages
     }
     this.docservice.InsertMidWivesRegistration(entity).subscribe(data => {
-     
+     if(data!=0)
+     {
       Swal.fire('Registration Completed', 'Details saved successfully', 'success');
       this.spinner.hide();
       location.href = '#/MidwifeDashboard';
+     }
+     else{
+      Swal.fire('Error', 'User details already exists', 'success');
+      this.spinner.hide();
+      location.href = '#/MidwifeDashboard';
+     }
     })
   }
 

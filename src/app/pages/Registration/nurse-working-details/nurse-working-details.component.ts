@@ -54,7 +54,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
     this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
       data => {
-       
+
         let temp: any = data;
         let temp1: any = temp.filter(x => x.nurseID == this.nurseid);
         this.hospital_ClinicName = temp1[0].hospital_ClinicName;
@@ -64,7 +64,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     )
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-       
+
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
@@ -72,10 +72,9 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
     this.getlanguage();
     this.activatedroute.params.subscribe(params => {
-     
+
       this.active = 1;
       this.nurseid = params['id'];
-
     }
     )
 
@@ -83,7 +82,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -93,7 +92,8 @@ export class NurseWorkingDetailsComponent implements OnInit {
     if (this.hsp_clinicID == undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
+
+          this.dummnurselist = data;
           this.nurselist = data;
         }, error => {
         }
@@ -102,7 +102,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     else if (this.hsp_clinicID != undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
+
           this.dummnurselist = data;
           this.nurselist = this.dummnurselist.filter(x => x.hospitalClinicID == this.hsp_clinicID)
         }, error => {
@@ -113,20 +113,24 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
   public getnurseid(even) {
     this.nurseid = even.target.value;
+
+    var list = this.dummnurselist.filter(x => x.id == this.nurseid)
+    this.hsp_clinicID = list[0].hospitalClinicID,
+      this.hospital_ClinicName = list[0].hospital_ClinicName
   }
 
   public Getworktypeid(even) {
-   
+
     this.worktypeid = even.target.value;
     this.GetAllHospitalclinicById();
 
   }
 
   public GetAllHospitalclinicById() {
-   
+
     this.docservice.GetAllHospital_ClinicListByID(this.worktypeid).subscribe(
       data => {
-       
+
         this.hospitalcliniclist = data;
       }, error => {
       }
@@ -137,7 +141,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.hsp_clinicID = even.target.value;
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
       data => {
-       
+
         this.hospital_ClinicName = data[0].hospital_ClinicName
       }, error => {
       }
@@ -147,7 +151,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.dayslist = data;
       }, error => {
       }
@@ -157,7 +161,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   public GetTimings() {
     this.docservice.GetSlotMasterTimings().subscribe(
       data => {
-       
+
         this.Timeings = data;
       }, error => {
       }
@@ -165,7 +169,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public GetDaysID(even) {
-   
+
     this.dayid = even.target.value;
 
     for (let i = 0; i < this.dayslist.length; i++) {
@@ -178,7 +182,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
   public adddetails() {
     this.table = 1;
-   
+
     var detailsentity = {
       'Sno': this.idcount,
       'NurseID': this.nurseid,
@@ -198,22 +202,22 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public delete(Sno) {
-   
+
     for (let i = 0; i < this.detailsarray.length; i++) {
-     
+
       if (Sno == this.detailsarray[i].Sno) {
-       
+
         this.detailsarray.splice(i, 1);
       }
     }
     if (this.detailsarray.length == 0) {
       this.table = 0;
     }
-   
+
   }
 
   public InsertNurseHospitalDetailsAdmin() {
-   
+    debugger
     var entity = {
       'NurseID': this.detailsarray[0].NurseID,
       'Fees': this.detailsarray[0].Fees,
@@ -223,9 +227,9 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
 
       let qqqq = data;
-     
+
       for (let i = 0; i < this.detailsarray.length; i++) {
-       
+
         var entity1 = {
           'NurseHospitalDetailsID': qqqq,
           'NurseID': this.detailsarray[i].NurseID,
@@ -234,26 +238,37 @@ export class NurseWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
-         
 
         })
       }
-
-      this.detailsarray = [];
-      Swal.fire('Completed', 'Saved successfully', 'success');
-      location.href = "#/NurseTimings"
-      this.table = 0;
-      this.starttime = '';
-      this.endtime = '';
-      this.dayid = 0;
-      this.idcount = 1;
-      this.fees = '';
+      if (this.languageid == 1) {
+        this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        location.href = "#/Nurseworkingdash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+      else {
+        this.detailsarray = [];
+        Swal.fire('Enregistré');
+        location.href = "#/Nurseworkingdash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
     })
 
   }
 
   public InsertNurseHospitalDetailsAdmindash() {
-   
+
     var entity = {
       'NurseID': this.detailsarray[0].NurseID,
       'Fees': this.detailsarray[0].Fees,
@@ -263,9 +278,9 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
 
       let qqqq = data;
-     
+
       for (let i = 0; i < this.detailsarray.length; i++) {
-       
+
         var entity1 = {
           'NurseHospitalDetailsID': qqqq,
           'NurseID': this.detailsarray[i].NurseID,
@@ -274,20 +289,32 @@ export class NurseWorkingDetailsComponent implements OnInit {
           'EndTimee': this.detailsarray[i].EndTime
         }
         this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
-         
 
         })
       }
+      if (this.languageid == 1) {
+        this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        location.href = "#/Nurseworkingdash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
+      else {
+        this.detailsarray = [];
+        Swal.fire('Enregistré');
+        location.href = "#/Nurseworkingdash"
+        this.table = 0;
+        this.starttime = '';
+        this.endtime = '';
+        this.dayid = 0;
+        this.idcount = 1;
+        this.fees = '';
+      }
 
-      this.detailsarray = [];
-      Swal.fire('Completed', 'Saved successfully', 'success');
-      location.href = "#/Nurseworkingdash"
-      this.table = 0;
-      this.starttime = '';
-      this.endtime = '';
-      this.dayid = 0;
-      this.idcount = 1;
-      this.fees = '';
     })
 
   }

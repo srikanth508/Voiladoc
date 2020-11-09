@@ -6,6 +6,9 @@
     </div>
 
     <div class="col-lg-3" style="text-align: end; margin-top: -12px;">
+      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()" style="margin-right: 10px;">
+        {{labels1[0].exportExcel}}</button>
+
       <button *ngIf="languageid==1" type="button" routerLink="/LocalDoctorRegistration" class="btn btncolor">Add Verifier</button>
       <button *ngIf="languageid==6" type="button" routerLink="/LocalDoctorRegistration" class="btn btncolor">Ajouter</button>
     </div>
@@ -51,7 +54,7 @@
   <br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
-      <table>
+      <table id="Doc">
         <thead>
           <tr>
             <th>{{labels[0].doctorPhoto}}</th>

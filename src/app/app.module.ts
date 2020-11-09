@@ -337,6 +337,11 @@ import { RolemenuDashComponent } from './pages/MenuMapping/rolemenu-dash/rolemen
 import { UserrolemappingComponent } from './pages/MenuMapping/userrolemapping/userrolemapping.component';
 import { UserRoleMappingdashComponent } from './pages/MenuMapping/user-role-mappingdash/user-role-mappingdash.component';
 import { AdminSiderevenueComponent } from './pages/AdminDashboard/admin-siderevenue/admin-siderevenue.component';
+import { LinkForregComponent } from './pages/Sales/link-forreg/link-forreg.component';
+import { LinkforregdashComponent } from './pages/Sales/linkforregdash/linkforregdash.component';
+import { VoiladocRegisteredUsersComponent } from './pages/Sales/voiladoc-registered-users/voiladoc-registered-users.component';
+import { ApprovedUsersComponent } from './pages/Sales/approved-users/approved-users.component';
+import { RejectedusersComponent } from './pages/Sales/rejectedusers/rejectedusers.component';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -667,6 +672,11 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     UserrolemappingComponent,
     UserRoleMappingdashComponent,
     AdminSiderevenueComponent,
+    LinkForregComponent,
+    LinkforregdashComponent,
+    VoiladocRegisteredUsersComponent,
+    ApprovedUsersComponent,
+    RejectedusersComponent,
    
   ],
   imports: [

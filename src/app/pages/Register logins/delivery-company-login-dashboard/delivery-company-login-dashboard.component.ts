@@ -74,4 +74,50 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
     this.p = even;
   }
 
+
+  public username: any;
+  public password: any;
+
+
+  public GetDeatsils(details) {
+    debugger
+    this.id = details.id,
+      this.username = details.userName,
+      this.password = details.password
+  }
+
+public pp:any;
+
+  public insertdetails() {
+    if(this.password!=undefined)  {
+      var valpassword = this.docservice.strongpassword(this.password);
+      if (valpassword == false) {
+       
+        this.pp=1;
+      }
+    else {
+      var entity = {
+        'ID': this.id,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      this.username = '';
+      this.password = '';
+      this.docservice.UpdateDeliveryCompanyLogin(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Success', 'Password Updated successfully', 'success');
+          this.pp=0;
+          this.GetDeliveryCompanyLoginAdmin();
+          document.getElementById('close').click();
+        }
+        else{
+          Swal.fire('Success', 'User Name Already Exists', 'success');
+          this.pp=0;
+          this.GetDeliveryCompanyLoginAdmin();
+          document.getElementById('close').click();
+        }
+      })
+    }
+  }
+}
 }

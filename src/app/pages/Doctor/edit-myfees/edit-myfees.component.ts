@@ -39,6 +39,8 @@ export class EditMyfeesComponent implements OnInit {
   public dummlist: any;
   public id: any;
   public dummlistsss: any;
+  public appointmenttype:any;
+  public dummappointmenttype:any;
 
   ngOnInit() {
 
@@ -62,9 +64,20 @@ export class EditMyfeesComponent implements OnInit {
     )
 
     this.getdoctorfeess()
+    this.GetAppointmentType()
   }
 
 
+  public GetAppointmentType() {
+    this.docservice.GetBookAppointmentTypeMasterWebByLanguageID(this.languageid).subscribe(data => {
+      this.appointmenttype = data;
+      this.dummappointmenttype = data;
+
+    }, error => {
+    })
+  }
+
+  public appointmentypeid:any;
 
   public getdoctorfeess() {
 
@@ -85,7 +98,9 @@ export class EditMyfeesComponent implements OnInit {
           this.departmentid = list[0].departmentID,
           this.hospitalid=list[0].hospitaID,
           this.dochospitalid=list[0].doctorHospitalID
+          this.appointmentypeid=list[0].appointmentTypeID
         this.GetALlTreatmentPlans()
+        this.GetAppointmentType()
       }, error => {
       }
     )

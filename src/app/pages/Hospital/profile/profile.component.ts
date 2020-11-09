@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   public validEmail: any;
   public showdrop: any;
   public id: any;
-  public showphoto: any;
+  public showphoto=[];
   public multiplephotos: any;
   public mulphoto: any;
   public multipleid: any;
@@ -188,26 +188,56 @@ export class ProfileComponent implements OnInit {
     this.showdrop = 1;
   }
 
+public showphotosss=[]
 
+public dummshowphotossss=[]
 
   public onattachmentUpload(abcd) {
    
     // for (let i = 0; i < abcd.length; i++) {
+      debugger
+      this.dummshowphotossss=[]
       this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
+      debugger
+      debugger
+      if(this.attachments[0].type=='image/jpg' ||this.attachments[0].type=='image/png')
+      {
+        debugger
+        if(this.languageid==1)
+        {
+          debugger
+          this.uploadattachments();
+          Swal.fire('Added Successfully');
+          abcd.length = 0;
+        }
+        else if(this.languageid==6)
+        {
+          this.uploadattachments();
+          Swal.fire('Ajouté avec succès');
+          abcd.length = 0;
+        }
+      }
+      else{
+        debugger
+        Swal.fire('Please Add Jpg/Png Format');
+        abcd.length = 0;
+        this.attachments.length = 0;
+      }
+      debugger
     // }
-
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+  
   }
   public uploadattachments() {
+    debugger
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-     
+      debugger
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
-     
+      this.dummshowphotossss.push(res);
+      let a = this.dummshowphotossss[0].slice(2);
+     debugger
       let b = 'http://14.192.17.225' + a;
-      this.showphoto.push(b);
+      this.showphotosss.push(b);
+      debugger
       this.attachments.length = 0;
      
     })
@@ -225,6 +255,8 @@ export class ProfileComponent implements OnInit {
       Swal.fire(' Updated Successfully');
       this.gethospitalclinicdetailsbyid();
       this.showdrop = 0;
+      this.dummshowphotossss.length=0;
+      this.showphotosss.length=0;
     })
   }
 
@@ -286,29 +318,41 @@ export class ProfileComponent implements OnInit {
 
 
 
+public dummshowsignatureurl=[]
 
-
-
+public showphotoss=[]
 
 
   public onattachmentUploadhospitals(abcd) {
-   
+    this.dummshowsignatureurl = []
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments5.push(abcd.addedFiles[0]);
       this.uploadmoreimages();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    debugger
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Ajouté avec succès.');
+      abcd.length = 0;
+    }
+
   }
   public uploadmoreimages() {
+    debugger
     this.docservice.HospitalClinicPhotos(this.attachments5).subscribe(res => {
-     
+      debugger
       this.attachmentsurl5.push(res);
-      // let a = this.attachmentsurl5[0].slice(2);
-      //
-      // let b = 'http://14.192.17.225' + a;
-      // this.showphoto.push(b)
-      // this.attachments5.length = 0;
+      this.dummshowsignatureurl.push(res);
+      let a = this.dummshowsignatureurl[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+      this.showphotoss.push(b)
+      this.attachments5.length = 0;
      
     })
     // this.sendattachment();

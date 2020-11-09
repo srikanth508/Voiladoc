@@ -155,6 +155,37 @@ export class MidwifeFeesDashComponent implements OnInit {
   }
 
 
+
+
+
+
+  public DeleteMidWifeCommissionDeatails(id) {
+   
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to Delete This Midwife Fee!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeleteMidWifeCommissionDeatails(id).subscribe(res => {
+          let test = res;
+          this.getmidwifedetails();
+        })
+        Swal.fire(
+          'Deleted!',
+          'Midwife Fee has been deleted.',
+          'success'
+        )
+      }
+      else {
+        this.getmidwifedetails();
+      }
+    })
+  }
 }
 
 

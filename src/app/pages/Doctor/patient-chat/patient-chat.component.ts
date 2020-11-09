@@ -53,7 +53,7 @@ export class PatientChatComponent implements OnInit {
     //this.patientiddd = 421;
     // this.appointmentiddd = localStorage.getItem('appointmentID');
    
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientiddd,10).subscribe(res => {
      
       this.chatID = res;
       this.getPreviousChat();
@@ -63,7 +63,6 @@ export class PatientChatComponent implements OnInit {
       this.appointmentiddd = 570;
       this.appointmentdatetimee = localStorage.getItem('appdate');
     })
-
 
   }
 
@@ -99,7 +98,7 @@ export class PatientChatComponent implements OnInit {
   }
 
   public getChat() {
-    this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientiddd,10).subscribe(res => {
      
 
       if (res.length > 0) {

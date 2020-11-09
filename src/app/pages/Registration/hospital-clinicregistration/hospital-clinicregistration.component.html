@@ -27,8 +27,10 @@
               <span class="required">*</span>
             </div>
             <div class="col-md-4">
-              <input type="radio" name="hospitaclinic" required [(ngModel)]="hospitaclinic" value="1" Checked>{{labels[0].hospital}}
-              <input type="radio" name="hospitaclinic" required [(ngModel)]="hospitaclinic" value="2">{{labels[0].clinic}}
+              <input type="radio" name="hospitaclinic" required [(ngModel)]="hospitaclinic" value="1"
+                Checked>{{labels[0].hospital}}
+              <input type="radio" name="hospitaclinic" required [(ngModel)]="hospitaclinic"
+                value="2">{{labels[0].clinic}}
             </div>
           </div>
           <br>
@@ -38,8 +40,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].hospitalClinicName}}" name="hospitalclinicname" required [(ngModel)]="hospitalclinicname"
-                class="form-control">
+              <input type="text" placeholder="{{labels[0].hospitalClinicName}}" name="hospitalclinicname" required
+                [(ngModel)]="hospitalclinicname" class="form-control">
             </div>
           </div>
           <br />
@@ -50,8 +52,9 @@
             </div>
 
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].hospitalPhoneNo}}" maxlength="13" name="hospitalphno" [(ngModel)]="hospitalphno"
-                class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              <input type="text" placeholder="{{labels[0].hospitalPhoneNo}}" maxlength="13" name="hospitalphno"
+                [(ngModel)]="hospitalphno" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
 
           </div>
@@ -63,8 +66,8 @@
             </div>
 
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].contactPersonName}}" name="contactpersonname" [(ngModel)]="contactpersonname"
-                class="form-control">
+              <input type="text" placeholder="{{labels[0].contactPersonName}}" name="contactpersonname"
+                [(ngModel)]="contactpersonname" class="form-control">
             </div>
 
           </div>
@@ -76,8 +79,9 @@
             </div>
 
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13" name="contactpersonphno" [(ngModel)]="contactpersonphno"
-                class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              <input type="text" placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13"
+                name="contactpersonphno" [(ngModel)]="contactpersonphno" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
 
           </div>
@@ -88,7 +92,8 @@
 
             </div>
             <div class="col-lg-4">
-              <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email" class="form-control" (ngModelChange)="onChange($event)">
+              <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email"
+                class="form-control" (ngModelChange)="onChange($event)">
             </div>
           </div>
           <br />
@@ -98,7 +103,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <textarea rows="4" cols="45" [(ngModel)]="address" name="address" required placeholder="{{labels[0].address}}" class="form-control"></textarea>
+              <textarea rows="4" cols="45" [(ngModel)]="address" name="address" required
+                placeholder="{{labels[0].address}}" class="form-control"></textarea>
             </div>
           </div>
           <br />
@@ -108,8 +114,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd" (onSelect)="GetCountryID($event)"
-                (onDeSelect)="onItemDeSelect($event)">
+              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
+                (onSelect)="GetCountryID($event)" (onDeSelect)="onItemDeSelect($event)">
               </ng-multiselect-dropdown>
             </div>
           </div>
@@ -120,7 +126,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd" (onSelect)="GetCityID($event)">
+              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
+                (onSelect)="GetCityID($event)">
               </ng-multiselect-dropdown>
             </div>
           </div>
@@ -131,7 +138,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd" (onSelect)="GetAreaID($event)">
+              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
+                (onSelect)="GetAreaID($event)">
               </ng-multiselect-dropdown>
             </div>
           </div>
@@ -155,11 +163,72 @@
               <label>{{labels[0].zipCode}}:</label>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].zipCode}}" maxlength="6" name="zipcode" [(ngModel)]="zipcode" class="form-control "
-                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              <input type="text" placeholder="{{labels[0].zipCode}}" maxlength="6" name="zipcode" [(ngModel)]="zipcode"
+                class="form-control " onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
           <br />
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Subscription Type :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-md-8">
+              <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()" value="1">Monthly Subscription
+              &nbsp;
+              <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype"  (click)="Getsubscriptontype()" value="2"> Appointment
+              percentage &nbsp;
+              <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype"   (click)="Getsubscriptontype()" value="3"> Both
+            </div>
+          </div><br>
+          <div *ngIf="subscriptiontype=='1'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>MONTHLY SUBSCRIPTION :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+                  [(ngModel)]="monthlysubription" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="subscriptiontype=='2'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Appointment Percentage :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
+                  [(ngModel)]="appointmentpercentage" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+         
+          </div>
+          <div *ngIf="subscriptiontype=='3'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Appointment Percentage :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
+                  [(ngModel)]="appointmentpercentage" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-3">
+                <label>MONTHLY SUBSCRIPTION :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+                  [(ngModel)]="monthlysubription" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+          </div><br>
 
           <div class="row">
             <div class="col-lg-3">
@@ -171,10 +240,7 @@
               <input type="radio" name="fulltime" [(ngModel)]="hospitalfulltimebit" value="1" Checked>{{labels[0].yes}}
               <input type="radio" name="fulltime" [(ngModel)]="hospitalfulltimebit" value="0">{{labels[0].no}}
             </div>
-
           </div>
-
-
 
           <div class="row" *ngIf="hospitalfulltimebit==0">
             <div class="col-lg-3">
@@ -182,7 +248,8 @@
               <!-- <span class="required">*</span> -->
             </div>
             <div class="col-lg-2">
-              <input type="time" class="form-control" name="tone" required [(ngModel)]="tone" placeholder="{{labels[0].timings}}">
+              <input type="time" class="form-control" name="tone" required [(ngModel)]="tone"
+                placeholder="{{labels[0].timings}}">
             </div>
             <div class="col-lg-2">
               <select class="form-control" (change)="getfromampm($event)">
@@ -192,7 +259,8 @@
               </select>
             </div>
             <div class="col-lg-2">
-              <input type="time" class="form-control" name="ttwo" required [(ngModel)]="ttwo" placeholder="{{labels[0].timings}}">
+              <input type="time" class="form-control" name="ttwo" required [(ngModel)]="ttwo"
+                placeholder="{{labels[0].timings}}">
             </div>
             <div class="col-lg-2">
               <select class="form-control" (change)="gettoampm($event)">
@@ -203,26 +271,16 @@
             </div>
           </div>
           <br />
-          <div class="row">
-            <div class="col-lg-3">
-              <label>MONTHLY SUBSCRIPTION :</label>
 
-            </div>
-
-            <div class="col-lg-4">
-              <input type="text" placeholder="MONTHLY SUBSCRIPTION" name="monthlysubription" [(ngModel)]="monthlysubription" class="form-control"
-                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-            </div>
-
-          </div>
-          <br />
           <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].website}}:</label>
             </div>
 
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].website}}" name="website" [(ngModel)]="website" class="form-control" onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+              <input type="text" placeholder="{{labels[0].website}}" name="website" [(ngModel)]="website"
+                class="form-control"
+                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
             </div>
 
           </div>
@@ -233,8 +291,9 @@
 
             </div>
             <div class="col-lg-4">
-              <input type="text" minlength="4" maxlength="4" placeholder="{{labels[0].yearEstablished}}" name="yearestablished" [(ngModel)]="yearestablished"
-                class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              <input type="text" minlength="4" maxlength="4" placeholder="{{labels[0].yearEstablished}}"
+                name="yearestablished" [(ngModel)]="yearestablished" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
 
           </div>
@@ -244,8 +303,8 @@
               <label>{{labels[0].noOfBeds}}:</label>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].noOfBeds}}" maxlength="4" name="noofbeds" [(ngModel)]="noofbeds" class="form-control"
-                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              <input type="text" placeholder="{{labels[0].noOfBeds}}" maxlength="4" name="noofbeds"
+                [(ngModel)]="noofbeds" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
           <br />
@@ -276,12 +335,13 @@
               <label>{{labels[0].description}}:</label>
             </div>
             <div class="col-lg-4">
-              <textarea id="textarea1" rows="4" cols="45" name="description" [(ngModel)]="description" placeholder="{{labels[0].description}}"
-                class="form-control"></textarea>
+              <textarea id="textarea1" rows="4" cols="45" name="description" [(ngModel)]="description"
+                placeholder="{{labels[0].description}}" class="form-control"></textarea>
             </div>
           </div>
         </div>
-        <button type="button" style="float: right;" class="btn btncolor nextbtncolor" awNextStep>{{labels[0].next}}</button>
+        <button type="button" style="float: right;" class="btn btncolor nextbtncolor"
+          awNextStep>{{labels[0].next}}</button>
       </aw-wizard-step>
       <aw-wizard-step stepTitle="{{labels[0].facilities}}">
         <div class="container-fluid">
@@ -300,9 +360,9 @@
                 {{labels[0].image}}
               </p>&nbsp;
               <div>
-                <!-- <span *ngFor="let photo of showphoto">
+                <span *ngFor="let photo of showphoto">
                   <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
-                </span> -->
+                </span>
               </div>
             </div>
 
@@ -326,8 +386,9 @@
 
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="facilitylist" [settings]="facilitydd" (onSelect)="GetFacilityID($event)">
-            
+              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="facilitylist" [settings]="facilitydd"
+                (onSelect)="GetFacilityID($event)">
+
               </ng-multiselect-dropdown>
             </div>
           </div>
@@ -337,8 +398,9 @@
               <label> {{labels[0].insurenceAvailabe}}:</label>
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="insurancelist" [settings]="insurancedd" (onSelect)="GetInuranceID($event)">
-            
+              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="insurancelist" [settings]="insurancedd"
+                (onSelect)="GetInuranceID($event)">
+
               </ng-multiselect-dropdown>
             </div>
           </div>
@@ -347,8 +409,8 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button type="button" [disabled]="hospitalForm.form.invalid || validEmail==false" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="insertdetails()"> {{labels[0].save}}</button>
+              <button type="button" [disabled]="hospitalForm.form.invalid || validEmail==false" text_align="center"
+                class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()"> {{labels[0].save}}</button>
             </div>
             <div class="col-lg-5">
 
@@ -356,7 +418,8 @@
           </div>
         </div>
         <br>
-        <button type="button" style="float: left" class="btn btncolor dashbtn nextbtncolor" awPreviousStep>{{labels[0].previous}}</button>
+        <button type="button" style="float: left" class="btn btncolor dashbtn nextbtncolor"
+          awPreviousStep>{{labels[0].previous}}</button>
         <!-- <button type="button" style="float: right" class="btn dashbtn nextbtncolor" awNextStep>Next</button> -->
       </aw-wizard-step>
 

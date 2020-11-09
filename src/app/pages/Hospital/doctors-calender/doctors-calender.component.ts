@@ -22,12 +22,25 @@ export class DoctorsCalenderComponent implements OnInit {
   hospitalid: any;
   dummlist: any;
   doctorlist: any;
+  public docdd={};
+  public search;any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
+    
+    this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
+      data => {
+       
+        this.labels = data;
+        this.Select = this.labels[0].selectDoctor;
+        this.search=this.labels[0].search;
+        
+      }, error => {
+      }
+    )
 
-    this.getlanguage()
+    // this.getlanguage()
 
 
     this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
@@ -36,6 +49,16 @@ export class DoctorsCalenderComponent implements OnInit {
         this.dummlist = data;
         this.doctorlist = this.dummlist.filter(x => x.hospital_ClinicID == this.hospitalid)
 
+        this.docdd = {
+          singleSelection: true,
+          idField: 'doctorID',
+          textField: 'doctorName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
       }, error => {
       }
     )
@@ -95,12 +118,11 @@ export class DoctorsCalenderComponent implements OnInit {
     // this.getGetDoctorDisabledSlots()
   }
 
-  public GetDoctorID(even) {
+  public GetDoctorID(item:any) {
     this.doctorid = ""
    
-    this.doctorid = even.target.value;
+    this.doctorid =item.doctorID
    
-
 
     this.timeSheetTablearray = [];
     this.TodatDate = new Date();
@@ -168,7 +190,9 @@ export class DoctorsCalenderComponent implements OnInit {
       data => {
        
         this.labels = data;
-        this.Select = this.labels[0].selectt;
+        this.Select = this.labels[0].selectDoctor;
+        this.search=this.labels[0].search;
+        
       }, error => {
       }
     )

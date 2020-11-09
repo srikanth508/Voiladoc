@@ -94,7 +94,7 @@ export class SoapdashComponent implements OnInit {
   public GetSoapNotes() {
    
     if (this.docdepartmentid == 14) {
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,4).subscribe(
         data => {
          
           this.soaplist1 = data;
@@ -103,7 +103,7 @@ export class SoapdashComponent implements OnInit {
       )
     }
     else if (this.docdepartmentid != 14) {
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,4).subscribe(
         data => {
          
           this.dummsoaplist1 = data;

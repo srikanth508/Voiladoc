@@ -3,6 +3,7 @@ import { HelloDoctorService } from '../../hello-doctor.service';
 import { Router } from "@angular/router";
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { TotalHospitalApointmentsComponent } from '../Hospital/total-hospital-apointments/total-hospital-apointments.component';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   public countrydetails: any;
   public host: any;
   public labels: any;
+ 
 
   constructor(public docservice: HelloDoctorService, private router: Router, private spinner: NgxSpinnerService) { }
   ngOnInit() {
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
       }
     )
 
+ 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
     //    
@@ -127,10 +130,10 @@ export class LoginComponent implements OnInit {
   public login() {
    
     if (this.roleid == null || this.roleid == undefined) {
-      if (this.languageid == 1) {
+      if (this.LanguageID == 1) {
         Swal.fire('Error', 'Please select role!');
       }
-      if (this.languageid == 6) {
+      if (this.LanguageID == 6) {
         Swal.fire('Erreur', 'Sélectionner une fonction!');
       }
     }
@@ -154,9 +157,19 @@ export class LoginComponent implements OnInit {
               location.href = '#/Docdash';
               location.reload();
             } else {
-              Swal.fire('Error', 'Username or Password is not valid!');
-              this.uname = "";
-              this.pwd = "";
+              if(this.LanguageID==1)
+              {
+                Swal.fire('Error', 'Username or Password is not valid!');
+                this.uname = "";
+                this.pwd = "";
+              }
+              else if(this.LanguageID==6)
+              {
+                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                this.uname = "";
+                this.pwd = "";
+              }
+     
             }
           }, error => {
           }
@@ -182,9 +195,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -205,9 +227,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -218,7 +249,6 @@ export class LoginComponent implements OnInit {
         data => {
          
           this.result = data;
-         
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].diagnosticCenterName)
             localStorage.setItem('roleid', '4');
@@ -228,9 +258,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+              {
+                Swal.fire('Error', 'Username or Password is not valid!');
+                this.uname = "";
+                this.pwd = "";
+              }
+              else if(this.LanguageID==6)
+              {
+                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                this.uname = "";
+                this.pwd = "";
+              }
 
           }
         }, error => {
@@ -252,9 +291,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -276,9 +324,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -300,9 +357,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -323,9 +389,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+              {
+                Swal.fire('Error', 'Username or Password is not valid!');
+                this.uname = "";
+                this.pwd = "";
+              }
+              else if(this.LanguageID==6)
+              {
+                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                this.uname = "";
+                this.pwd = "";
+              }
           }
         }, error => {
         }
@@ -346,9 +421,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -370,9 +454,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+              {
+                Swal.fire('Error', 'Username or Password is not valid!');
+                this.uname = "";
+                this.pwd = "";
+              }
+              else if(this.LanguageID==6)
+              {
+                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                this.uname = "";
+                this.pwd = "";
+              }
           }
         }, error => {
         }
@@ -393,9 +486,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -417,9 +519,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+              {
+                Swal.fire('Error', 'Username or Password is not valid!');
+                this.uname = "";
+                this.pwd = "";
+              }
+              else if(this.LanguageID==6)
+              {
+                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                this.uname = "";
+                this.pwd = "";
+              }
           }
         }, error => {
         }
@@ -442,9 +553,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -465,9 +585,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -486,9 +615,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -507,9 +645,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -528,9 +675,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -549,9 +705,18 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            Swal.fire('Error', 'Username or Password is not valid!');
-            this.uname = "";
-            this.pwd = "";
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }

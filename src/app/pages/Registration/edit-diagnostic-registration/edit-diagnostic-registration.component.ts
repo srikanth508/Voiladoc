@@ -48,9 +48,6 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
      
       this.id = params['id'];
 
-
-  
-
     }
     )
     this.languageid = localStorage.getItem('LanguageID');
@@ -59,6 +56,7 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
     this.GetDiagnosticPhotos();
     this.GetDiagnosticPhotos();
     this.GetCountryMaster()
+    this.GetDiagnosticRevenue()
     this.diabit = 0;
     if(this.languageid==1)
     {
@@ -251,5 +249,91 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
         this.pincode = this.arealist[i].pincode
       }
     }
+  }
+
+  public Diagnosticrevenuelist:any;
+
+  public GetDiagnosticRevenue() {
+    this.docservice.GetDiagnosticCentersSubscriptions_Revenue(this.id).subscribe(data => {
+      debugger
+      this.Diagnosticrevenuelist = data;
+    })
+  }
+
+
+
+
+
+
+  public monthlysubription: any;
+  public contractstartdate: any;
+  public contractenddate: any;
+  public revenueupdateid: any;
+
+
+
+  public GetContractSubscriptions(subscriptions) {
+    this.monthlysubription = subscriptions.monthlySubscription;
+    this.contractstartdate = subscriptions.editcontractStartDate;
+    this.contractenddate = subscriptions.editcontractenddate;
+    this.revenueupdateid = subscriptions.id
+  }
+
+
+  public UpdateDiagnosticRevenue() {
+    var entity = {
+      'ID': this.revenueupdateid,
+      'MonthlySubscription': this.monthlysubription,
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
+    }
+    this.docservice.UpdateDiagnosticCentersSubscriptions_Revenue(entity).subscribe(data => {
+
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+        this.GetDiagnosticRevenue();
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Updated Successfully');
+        this.GetDiagnosticRevenue();
+      }
+
+    })
+
+  }
+
+
+  public addmonthlysubscription: any;
+  public contractstartdateeee: any;
+  public contractenddateeeee: any;
+
+
+
+
+  public InsertDiagnosticRevenue() {
+    debugger
+    var entity = {
+      'DiagnosticID': this.id,
+      'MonthlySubscription': this.addmonthlysubscription,
+      'ContractStartdate': this.contractstartdateeee,
+      'ContractEnddate': this.contractenddateeeee
+    }
+    this.docservice.InsertDiagnosticCentersSubscriptions_Revenue(entity).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Success','Data added Successfully');
+        this.GetDiagnosticRevenue();
+        this.addmonthlysubscription="";
+        this.contractstartdateeee="";
+        this.contractenddateeeee="";
+      }
+      else{
+        Swal.fire('Error','Contract Dates Already Exists');
+        this.GetDiagnosticRevenue();
+        this.addmonthlysubscription="";
+        this.contractstartdateeee="";
+        this.contractenddateeeee="";
+      }
+    })
+
   }
 }

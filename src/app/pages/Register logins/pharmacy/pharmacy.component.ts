@@ -86,6 +86,13 @@ export class PharmacyComponent implements OnInit {
           this.password1=0;
 
         }
+        else
+        {
+          Swal.fire('Error', 'Pharmacy Login Already Exists', 'success');
+          location.href="#/Pharmacydash"
+          this.clear();
+          this.password1=0;
+        }
       })
     }
   }

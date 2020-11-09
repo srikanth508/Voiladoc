@@ -4,7 +4,7 @@
       <h5>{{labels2[0].midwifereg}}</h5>
     </div>
     <div class="col-lg-2" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" (click)="getglmasterexcel()">
+      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
     </div>
     <div class="col-lg-2" style="text-align: end;margin-top: -12px;">
@@ -77,7 +77,14 @@
               &nbsp;
               <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
-                <img src="assets/Images/edit.png" style="width:18px;" [routerLink]="['/EditMidwifeComponent',mid.id]">
+                <img src="assets/Images/edit.png" *ngIf="mid.editiconShow=='0'&&showeditbutton=='1'" style="width:18px;" [routerLink]="['/EditMidwifeComponent',mid.id]">
+              </a>
+
+              <ng-template #tipcontent3>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent3">
+                <img src="assets/Images/edit.png"  
+                *ngIf="showeditbutton=='0'" 
+                 style="width:18px;" [routerLink]="['/EditMidwifeComponent',mid.id]">
               </a>
             </td>
           </tr>

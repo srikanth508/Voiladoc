@@ -232,6 +232,8 @@ export class VediocallComponent implements OnInit {
   public chatIDlist: any;
   manuallydrug: any;
   user: any;
+
+   public showclosebutton: any;
   ngOnInit() {
 
     this.minutes = 0;
@@ -281,6 +283,7 @@ export class VediocallComponent implements OnInit {
 
     this.Date = new Date();
     this.idcount = 1;
+    this.allergyidcount = 1;
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
@@ -305,6 +308,8 @@ export class VediocallComponent implements OnInit {
     this.getlanguage();
     document.getElementById('stoprecoring').style.display = 'none';
     // document.getElementById('viewrecoring').style.display = 'none';
+
+    // document.getElementById('stoprecoring_forshow').style.display = 'block';
     this.activatedroute.params.subscribe(params => {
 
       // this.patientid = params['patientID'];
@@ -314,10 +319,9 @@ export class VediocallComponent implements OnInit {
       this.patientid = localStorage.getItem('patientID');
       this.appointmentid = localStorage.getItem('appointmentID');
       this.appointmentdatetime = localStorage.getItem('appdate');
-
     }
     )
-
+   this.showclosebutton = 0;
 
     // this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
     //   this.compltedlist = res;
@@ -439,7 +443,7 @@ export class VediocallComponent implements OnInit {
 
 
   public GetSoapNotesByPatientID() {
-    this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+    this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
 
         this.soaplist1 = data;
@@ -467,15 +471,17 @@ export class VediocallComponent implements OnInit {
           this.session.on('streamCreated', (event) => {
             ;
             this.streams.push(event.stream);
+             this.showclosebutton = 1;
+            debugger
             document.getElementById('stoprecoring').style.display = 'block';
 
+            // document.getElementById('stoprecoring_forshow').style.display = 'none';
 
             this.startarchive();
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
-
             const idx = this.streams.indexOf(event.stream);
 
             if (idx > -1) {
@@ -508,13 +514,17 @@ export class VediocallComponent implements OnInit {
           this.session = session;
           this.session.on('streamCreated', (event) => {
             this.streams.push(event.stream);
+             this.showclosebutton = 1;
             document.getElementById('stoprecoring').style.display = 'block';
+            // document.getElementById('stoprecoring_forshow').style.display = 'none';
             this.startarchive();
+
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             ;
             this.stoparchive();
+            debugger
 
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
@@ -761,7 +771,7 @@ export class VediocallComponent implements OnInit {
   public videoexist: any;
 
   public getpatientdetails() {
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid, this.languageid).subscribe(
       data => {
 
         this.details = data[0];
@@ -821,13 +831,14 @@ export class VediocallComponent implements OnInit {
 
         this.SendNotification()
 
+
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
 
           }, error => {
           }
         )
-
+        this.GetAllerges()
 
         this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
           data => {
@@ -846,29 +857,6 @@ export class VediocallComponent implements OnInit {
 
 
 
-  public Updateallergies() {
-
-    this.allergies = this.allergies.map(x => x.displayValue);
-    this.allergieslist = this.allergies.join(',');
-    var entity = {
-      'AppointmentID': this.appointmentid,
-      'KnownAllergies': this.allergieslist
-    }
-    this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
-
-      let res = data;
-      if (this.languageid == 1) {
-        Swal.fire('Allergies Updated Successfully');
-        this.allergieslist = [];
-        this.getpatientdetails()
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Allergies détails enregistrés');
-        this.allergieslist = [];
-        this.getpatientdetails()
-      }
-    })
-  }
 
 
   public SendNotification() {
@@ -911,11 +899,11 @@ export class VediocallComponent implements OnInit {
 
     this.docservice.GetPatientCurrentMedicationByID(this.appointmentid).subscribe(
       data => {
-        
-        this.medicationlist = data;
-        
 
-        
+        this.medicationlist = data;
+
+
+
       }, error => {
       }
     )
@@ -924,7 +912,7 @@ export class VediocallComponent implements OnInit {
 
   public getdoctorpatinetdetails() {
 
-    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientid, this.languageid).subscribe(
+    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
 
         this.prescrptionlist = data;
@@ -935,7 +923,7 @@ export class VediocallComponent implements OnInit {
 
   public getpatient_diagnosticdetails() {
 
-    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid).subscribe(
+    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
 
         this.diagnosticlist = data;
@@ -1293,12 +1281,11 @@ export class VediocallComponent implements OnInit {
   public GetSoapID(soapid) {
 
     this.soapid = soapid;
-   
-   this.getsopanotesbyid()
+
+    this.getsopanotesbyid()
   }
 
-  public getsopanotesbyid()
-  {
+  public getsopanotesbyid() {
     this.docservice.GetSoapNotesByID(this.soapid, this.languageid).subscribe(
       data => {
 
@@ -1326,7 +1313,7 @@ export class VediocallComponent implements OnInit {
             this.objective = this.soaplist[0].objective,
             this.signature = this.soaplist[0].signature,
             this.icddesc = this.soaplist[0].icrDescription,
-               this.icdcode = this.soaplist[0].diagnosisCode
+            this.icdcode = this.soaplist[0].diagnosisCode
         }
 
       }, error => {
@@ -1365,18 +1352,19 @@ export class VediocallComponent implements OnInit {
 
 
   public stoparchive() {
-
+    debugger
     this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
       this.compltedlist = res;
       if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
         this.count = this.count + 1
-
+        debugger
         Swal.fire('Patient Ended The Call');
         window.close();
       }
       else {
         this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
           data => {
+            debugger
             window.close();
           }, error => {
           }
@@ -1903,14 +1891,13 @@ export class VediocallComponent implements OnInit {
 
   public insertDiagnostictestdetails() {
 
-
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'DoctorID': this.doctorid,
         'PateintID': this.patientid,
         'DiagnosticTestTypeID': this.qwerty[i].DiagnosticTestTypeID,
         'DiagnosticTestName': this.qwerty[i].TestName,
-        'LanguageID': 1,
+        'LanguageID': this.languageid,
         'AppointmentID': this.appointmentid,
         'TestsID': this.qwerty[i].TestID,
         'ClinicalInfo': this.qwerty[i].ClinicalInfo
@@ -1944,7 +1931,7 @@ export class VediocallComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.diapatientid,
-        'Notification':this.user + " added diagnostic test for you.",
+        'Notification': this.user + " added diagnostic test for you.",
         'Description': this.user + " added diagnostic test for you.",
         'NotificationTypeID': 102,
         'Date': this.todaydate,
@@ -1970,7 +1957,7 @@ export class VediocallComponent implements OnInit {
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
         if (data != 0) {
-          
+
         }
       })
     }
@@ -2039,6 +2026,7 @@ export class VediocallComponent implements OnInit {
       // 'ChatID': this.chatID,
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
+      'AppointmentID':this.appointmentid
       // 'Read_Me': 0
     }
     this.docservice.InsertChatMaster(entity).subscribe(data => {
@@ -2046,6 +2034,7 @@ export class VediocallComponent implements OnInit {
       if (data != 0) {
         this.chatID = data;
         this.InsertChatDetails();
+        this.InsertChatnotificationazure();
       }
     })
 
@@ -2061,6 +2050,20 @@ export class VediocallComponent implements OnInit {
     //   }
     // })
   }
+
+
+  public InsertChatnotificationazure() {
+    var entity = {
+      'Description': this.user + ' Trying to reach you. Please open your voiladoc app : ' + this.chatconversation,
+      'ToUser': this.email
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+      }
+    })
+  }
+
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
@@ -2143,7 +2146,7 @@ export class VediocallComponent implements OnInit {
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
       this.getPreviousChat();
-      
+
       var objDiv = document.getElementById("chatboxdiv");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
@@ -2257,15 +2260,14 @@ export class VediocallComponent implements OnInit {
   }
 
 
-public mouseEnter(evn){
- 
-  evn.target.style.color='#f18235';
-}
+  public mouseEnter(evn) {
 
-public mouseleave(evn)
-{
-  evn.target.style.color='white';
-}
+    evn.target.style.color = '#f18235';
+  }
+
+  public mouseleave(evn) {
+    evn.target.style.color = 'white';
+  }
 
   public highlight(evt) {
     var i, tablinks;
@@ -2327,7 +2329,7 @@ public mouseleave(evn)
 
     document.getElementById("myForm").style.display = "block";
 
-    this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientid,this.appointmentid).subscribe(res => {
       ;
       this.chatIDlist = res;
       this.chatID = this.chatIDlist[0].chatID
@@ -2352,7 +2354,7 @@ public mouseleave(evn)
 
   // edit prescription
 
- public editprescid:any;
+  public editprescid: any;
 
   public GetPriviouesPrescriptionlist(presciption) {
     debugger
@@ -2394,8 +2396,8 @@ public mouseleave(evn)
 
   //edit test
 
-  editdiaid:any;
-  clinicalinfo:any;
+  editdiaid: any;
+  clinicalinfo: any;
 
   public GetDiaEditList(dia) {
     debugger
@@ -2431,7 +2433,7 @@ public mouseleave(evn)
 
 
 
-   editsoapid: any;
+  editsoapid: any;
 
   // public GetEditPrevioussoap(soap) {
   //   debugger
@@ -2481,14 +2483,133 @@ public mouseleave(evn)
 
   public showModal() {
     document.getElementById("pageContent").style.opacity = "0.0";
-    }
+  }
 
 
-    
+
   public GetDocWhatsaPP() {
     window.open("https://api.whatsapp.com/send/?phone=" + this.mobileno);
   }
 
+
+  public myarray = [];
+  public allergyidcount: any;
+
+  public GetAllerges() {
+    debugger
+    // this.allergyidcount=0
+    this.myarray = []
+    let showalergres = this.details.knownAllergies.split(',');
+    debugger
+    for (let i = 0; i < showalergres.length; i++) {
+      var medetty = {
+        'Showallergies': showalergres[i],
+        'Snoo': i + 1
+      }
+      this.myarray.push(medetty);
+      this.allergyidcount = this.allergyidcount + 1;
+      debugger
+    }
+  }
+
+  public updateelergies: any;
+
+  public deletealergeies(Sno) {
+    debugger
+    for (let i = 0; i < this.myarray.length; i++) {
+      if (Sno == this.myarray[i].Snoo) {
+        this.myarray.splice(i, 1);
+      }
+    }
+    this.updateelergies = '';
+    for (let j = 0; j < this.myarray.length; j++) {
+      debugger
+      if (this.updateelergies == '') {
+        this.updateelergies = this.myarray[j].Showallergies;
+      }
+      else {
+        this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
+      }
+
+    }
+    this.Updatealriesss()
+  }
+
+
+  public Updatealriesss() {
+    debugger
+    var entity = {
+      'AppointmentID': this.appointmentid,
+      'KnownAllergies': this.updateelergies
+    }
+    this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
+      let res = data;
+      if (this.languageid == 1) {
+        Swal.fire('Deleted Successfully');
+        // this.allergieslist = [];
+        this.getpatientdetails()
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Deleted Successfully');
+        // this.allergieslist = [];
+        this.getpatientdetails()
+      }
+    })
+  }
+
+
+
+  public Updateallergies() {
+    this.updateelergies = '';
+    // this.allergies = this.allergies.map(x => x.displayValue);
+    // this.allergieslist = this.allergies.join(',');
+    for (let j = 0; j < this.myarray.length; j++) {
+      debugger
+      if (this.updateelergies == '') {
+        this.updateelergies = this.myarray[j].Showallergies;
+      }
+      else {
+        this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
+      }
+      // this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
+    }
+
+    var entity = {
+      'AppointmentID': this.appointmentid,
+      'KnownAllergies': this.updateelergies
+    }
+    this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
+
+      let res = data;
+      if (this.languageid == 1) {
+        Swal.fire('Allergies Updated Successfully');
+        this.allergieslist = [];
+        this.getpatientdetails()
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Allergies détails enregistrés');
+        this.allergieslist = [];
+        this.getpatientdetails()
+      }
+    })
+  }
+
+  public addallergies: any;
+
+  public updatedetsils() {
+    debugger
+    var medetty = {
+      'Showallergies': this.addallergies,
+      'Snoo': this.myarray.length + 1
+    }
+    this.myarray.push(medetty);
+    debugger
+    this.Updateallergies()
+  }
+
+  public closewindow() {
+    window.close();
+  }
 }
 
 

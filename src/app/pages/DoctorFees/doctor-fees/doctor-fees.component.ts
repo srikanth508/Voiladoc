@@ -37,25 +37,39 @@ export class DoctorFeesComponent implements OnInit {
   public labels: any;
   public docdd = {}
   public dummlist: any;
+  public dummhospitalid: any;
+  public showbutton: any;
+  public search:any;
 
   ngOnInit() {
 
     this.hospitalid = localStorage.getItem('hospitalid');
 
+    if (this.hospitalid == undefined) {
+      this.showbutton = 0;
+    }
+    else if (this.hospitalid != undefined) {
+      this.showbutton = 1;
+    }
+
     this.languageid = localStorage.getItem('LanguageID');
+    
+    this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search
+      }, error => {
+      }
+    )
     this.GetAllDoctors();
     this.tablecount = 0;
     this.idcount = 1;
 
-    this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
-      data => {
-       
-        this.labels = data;
-        this.SelectLabel = this.labels[0].select;
-      }, error => {
-      }
-    )
+  
     this.GetAppointmentType()
+    this.independent=0;
   }
 
   appointmenttype: any;
@@ -73,7 +87,7 @@ export class DoctorFeesComponent implements OnInit {
   appointmenttypename: any;
 
   public GetAppointmentID(even) {
-   
+
     this.appointmentypeid = even.target.value;
 
     var applist = this.dummappointmenttype.filter(x => x.id == this.appointmentypeid)
@@ -86,7 +100,7 @@ export class DoctorFeesComponent implements OnInit {
     if (this.hospitalid == undefined) {
       this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
         data => {
-         
+
           this.doctorlist = data;
 
           this.docdd = {
@@ -96,7 +110,8 @@ export class DoctorFeesComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -105,7 +120,7 @@ export class DoctorFeesComponent implements OnInit {
     else if (this.hospitalid != undefined) {
       this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
         data => {
-         
+
           this.dummlist = data;
           this.doctorlist = this.dummlist.filter(x => x.hosid == this.hospitalid)
 
@@ -116,7 +131,8 @@ export class DoctorFeesComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -126,18 +142,18 @@ export class DoctorFeesComponent implements OnInit {
   }
 
   public GetDoctorID(item: any) {
-   
+
     this.doctorid = item.doctorID;
-   
+
     var list = this.doctorlist.filter(x => x.doctorID == this.doctorid)
-   
+
     this.departmentid = list[0].departmentID,
       this.departmentname = list[0].departmentname,
       this.doctorname = list[0].doctorName
 
     this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
       data => {
-       
+
         this.hosptalist = data;
         this.hospitalid = this.hosptalist[0].hospital_ClinicID,
           this.dochospitalid = this.hosptalist[0].id,
@@ -153,7 +169,7 @@ export class DoctorFeesComponent implements OnInit {
   public GetAllHospital() {
     this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
       data => {
-       
+
         this.hosptalist = data;
         this.hospitalid = this.hosptalist[0].hospital_ClinicID,
           this.dochospitalid = this.hosptalist[0].id
@@ -165,14 +181,14 @@ export class DoctorFeesComponent implements OnInit {
   public GetALlTreatmentPlans() {
     this.docservice.GetTreatementPlanMaster(this.languageid, this.departmentid).subscribe(
       data => {
-       
+
         this.treatmentlist = data;
       }, error => {
       }
     )
   }
   public GetTreatmentID(even) {
-   
+
     this.treatmentID = even.target.value;
     var list = this.treatmentlist.filter(x => x.id == this.treatmentID)
     this.treatmentname = list[0].treatmentPlan
@@ -180,14 +196,14 @@ export class DoctorFeesComponent implements OnInit {
 
 
   public GetDoccommission(doccommission) {
-   
+
     this.voiladoccommission = 100 - Number(doccommission);
-   
+
   }
 
 
   public GetHospitalID(even) {
-   
+
     this.hospitalid = even.target.value;
 
     var list = this.hosptalist.filter(x => x.hospital_ClinicID == this.hospitalid)
@@ -196,7 +212,7 @@ export class DoctorFeesComponent implements OnInit {
   }
 
   public adddetails() {
-   
+
     if (this.doctorid == undefined || this.hospitalid == undefined || this.appointmentypeid == undefined || this.fees == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please complete all mandatory fields");
@@ -230,7 +246,12 @@ export class DoctorFeesComponent implements OnInit {
     }
   }
 
+  public independent: any;
+
   public insertdetails() {
+    if (this.independent == 2) {
+      this.insertinpendentDoctorrevenue()
+    }
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'DoctorHospitalID': this.qwerty[i].DoctorHospitalID,
@@ -240,7 +261,7 @@ export class DoctorFeesComponent implements OnInit {
         'Fees': this.qwerty[i].Fees,
         'DoctorCommission': this.qwerty[i].DoctorCommission,
         'VoilaDocCommisiion': this.qwerty[i].VoilaDocCommisiion,
-        'AppointmentTypeID':this.qwerty[i].AppointmentTypeID,
+        'AppointmentTypeID': this.qwerty[i].AppointmentTypeID,
       }
       this.docservice.InsertDoctorCommissionFees(entity).subscribe(data => {
         if (data != 0) {
@@ -262,18 +283,95 @@ export class DoctorFeesComponent implements OnInit {
     }
   }
 
+  subscriptiontype: any;
+
+  public insertinpendentDoctorrevenue() {
+    var entity1 = {
+      'SubscriptionTypeID': this.subscriptiontype,
+      'HospitalID': this.hospitalid,
+      'DoctorID': this.doctorid,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
+    }
+    this.docservice.InsertIndependentDoctors_Revenue(entity1).subscribe(data => {
+
+    })
+  }
 
 
 
   public delete(Sno) {
-   
+
     for (let i = 0; i < this.qwerty.length; i++) {
-     
+
       if (Sno == this.qwerty[i].Sno) {
-       
+
         this.qwerty.splice(i, 1);
       }
     }
-   
   }
+
+
+  public doctorlist1: any;
+
+
+  public GetIndependentDoctors(even) {
+    if (even.target.value == 1) {
+      this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
+        data => {
+          this.dummlist = data;
+          this.doctorlist1 = this.dummlist.filter(x => x.hosid != 590)
+          this.docdd = {
+            singleSelection: true,
+            idField: 'doctorID',
+            textField: 'doctorName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
+          };
+        }, error => {
+        }
+      )
+    }
+    else if (even.target.value == 2) {
+      this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
+        data => {
+          this.dummlist = data;
+          this.doctorlist1 = this.dummlist.filter(x => x.hosid == 590)
+
+          this.docdd = {
+            singleSelection: true,
+            idField: 'doctorID',
+            textField: 'doctorName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+             searchPlaceholderText: this.search,
+          };
+        }, error => {
+        }
+      )
+    }
+  }
+
+
+  appointmentpercentage: any;
+  monthlysubription: any;
+  contractstartdate: any;
+  contractenddate: any;
+
+
+
+  public Getsubscriptontype() {
+    debugger
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
+  }
+
+
 }

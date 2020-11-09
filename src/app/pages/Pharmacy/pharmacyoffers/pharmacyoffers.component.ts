@@ -32,7 +32,7 @@ export class PharmacyoffersComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-   
+
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -45,7 +45,7 @@ export class PharmacyoffersComponent implements OnInit {
     }
   }
   public insertdetails() {
-   
+
     var entity = {
       'PharmacyID': this.pharmacyid,
       'OfferName': this.offername,
@@ -55,7 +55,7 @@ export class PharmacyoffersComponent implements OnInit {
       'Offer': this.offer
     }
     this.docservice.InsertPharmacyOffers(entity).subscribe(data => {
-     
+
       if (data != 0) {
         this.offerid = data;
         for (let i = 0; i < this.attachmentsurl.length; i++) {
@@ -65,15 +65,31 @@ export class PharmacyoffersComponent implements OnInit {
             'PhotoURL': this.attachmentsurl[i]
           }
           this.docservice.InsertPharmacyOfferPhotos(entity).subscribe(data => {
-           
-            if (data != 0) {
-              Swal.fire('Added Successfully.');
 
+            if (data != 0) {
+              if(this.languageid==1)
+              {
+                Swal.fire('Added Successfully.');
+              }
+              else
+              {
+                Swal.fire('Enregistré');
+              }
+          
             }
           })
         }
-        Swal.fire('Added Successfully.');
-        this.clear();
+        if(this.languageid==1)
+        {
+          Swal.fire('Added Successfully.');
+          this.clear();
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('Enregistré.');
+          this.clear();
+        }
+    
       }
     })
 
@@ -81,30 +97,46 @@ export class PharmacyoffersComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
   }
 
+  public dummattachmenturl = []
+
   public onattachmentUpload(abcd) {
-   
+    this.dummattachmenturl = []
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else  (this.languageid == 6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
   }
 
+  public photodetail=[]
   public uploadattachments() {
     this.docservice.AttachmentsUpload(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
+      this.dummattachmenturl.push(res);
+      
+      let a = this.dummattachmenturl[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+
+      this.photodetail.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }

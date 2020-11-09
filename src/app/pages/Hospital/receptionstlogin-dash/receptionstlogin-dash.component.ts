@@ -24,10 +24,10 @@ export class ReceptionstloginDashComponent implements OnInit {
   }
 
   public getreceptionlogin() {
-   
+
     this.docservice.GetReceiptionistLoginDash(this.hospitalclinicid).subscribe(
       data => {
-       
+
         this.receptionistlogins = data;
         this.count = this.receptionistlogins.length;
       }, error => {
@@ -38,7 +38,7 @@ export class ReceptionstloginDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageID).subscribe(
       data => {
-       
+
         this.labels = data;
 
       }, error => {
@@ -46,4 +46,42 @@ export class ReceptionstloginDashComponent implements OnInit {
     )
   }
 
+
+  public id: any;
+  public username: any;
+  public password: any;
+
+  public GetDeatsils(details) {
+
+    debugger
+    debugger
+    this.id = details.id,
+      this.username = details.userName,
+      this.password = details.password
+  }
+
+
+
+  public updatedetails() {
+    var entity = {
+      'ID': this.id,
+      'UserName': this.username,
+      'Password': this.password
+    }
+    this.docservice.UpdateReceiptionistLogin(entity).subscribe(data => {
+      if(data!=0)
+      {
+        Swal.fire('Updated Successfully');
+        this.getreceptionlogin();
+        document.getElementById('close').click();
+   
+      }
+      else{
+        Swal.fire('User Name Already Exists');
+        this.getreceptionlogin();
+        document.getElementById('close').click();
+      }
+     
+    })
+  }
 }

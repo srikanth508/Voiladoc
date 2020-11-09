@@ -312,6 +312,11 @@ import { RolemenuDashComponent } from './pages/MenuMapping/rolemenu-dash/rolemen
 import { UserrolemappingComponent } from './pages/MenuMapping/userrolemapping/userrolemapping.component';
 import { UserRoleMappingdashComponent } from './pages/MenuMapping/user-role-mappingdash/user-role-mappingdash.component';
 import { AdminSiderevenueComponent } from './pages/AdminDashboard/admin-siderevenue/admin-siderevenue.component';
+import { LinkForregComponent } from './pages/Sales/link-forreg/link-forreg.component';
+import { LinkforregdashComponent } from './pages/Sales/linkforregdash/linkforregdash.component';
+import { VoiladocRegisteredUsersComponent } from './pages/Sales/voiladoc-registered-users/voiladoc-registered-users.component';
+import { ApprovedUsersComponent } from './pages/Sales/approved-users/approved-users.component';
+import { RejectedusersComponent } from './pages/Sales/rejectedusers/rejectedusers.component';
 
 
 
@@ -336,8 +341,11 @@ const routes: Routes = [
   { path: 'Pharmacy', component: PharmacyComponent },
   { path: 'HospitalClinic', component: HospitalClinicComponent },
   { path: 'Sponserhospitalclinic', component: SponserhospitalclinicComponent },
+  { path: 'Sponserhospitalclinic/:id', component: SponserhospitalclinicComponent },
   { path: 'Diagnosticcenter', component: DiagnosticcenterComponent },
+  { path: 'Diagnosticcenter/:id', component: DiagnosticcenterComponent },
   { path: 'Sponserpharmacy', component: SponserpharmacyComponent },
+  { path: 'Sponserpharmacy/:id', component: SponserpharmacyComponent },
   { path: 'Doctordash', component: DoctordashComponent },
   { path: 'Hspdash', component: HspdashComponent },
   { path: 'Diagnosticdash', component: DiagnosticdashComponent },
@@ -531,10 +539,13 @@ const routes: Routes = [
   { path: 'TreatmentMaster/:id', component: TreatmentMasterComponent },
   { path: 'TreatmentDash', component: TreatmentDashComponent },
   { path: 'NurseFees', component: NurseFeesComponent },
+  { path: 'NurseFees/:id', component: NurseFeesComponent },
   { path: 'NurseFeeDash', component: NurseFeeDashComponent },
   { path: 'PhysioFees', component: PhysioFeesComponent },
+  { path: 'PhysioFees/:id', component: PhysioFeesComponent },
   { path: 'PhysiFeedash', component: PhysiFeedashComponent },
   { path: 'MidwifeFees', component: MidwifeFeesComponent },
+  { path: 'MidwifeFees/:id', component: MidwifeFeesComponent },
   { path: 'MidwifeFeesDash', component: MidwifeFeesDashComponent },
   { path: 'PatientWallet', component: PatientWalletComponent },
   { path: 'SupportDash', component: SupportDashComponent },
@@ -697,6 +708,12 @@ const routes: Routes = [
   { path: 'UserRoleMappingdash', component: UserRoleMappingdashComponent },
   { path: 'Userrolemapping/:id', component: UserrolemappingComponent },
   { path: 'AdminSiderevenue', component: AdminSiderevenueComponent },
+  { path: 'LinkForreg', component: LinkForregComponent },
+  { path: 'Linkforregdash', component: LinkforregdashComponent },
+  { path: 'VoiladocRegisteredUsers', component: VoiladocRegisteredUsersComponent },
+
+  { path: 'ApprovedUsers', component: ApprovedUsersComponent },
+  { path: 'Rejectedusers', component: RejectedusersComponent },
 ];
 
 

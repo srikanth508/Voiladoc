@@ -17,18 +17,15 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
         [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
         [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-
     </div>
     <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" class="form-control" [(ngModel)]="term" placeholder="Search">
       <input *ngIf="languageid==6" type="text" class="form-control" [(ngModel)]="term" placeholder="Rechercher">
     </div>
-
   </div>
   <br>
   <div class="row">
@@ -41,6 +38,7 @@
             <th>Start Date</th>
             <th>End Date </th>
             <th>PhotoURL </th>
+            <th>Fees</th>
             <th>Action </th>
           </tr>
           <tr *ngFor="let details of ApppageSponsrships|filter:term">
@@ -49,6 +47,7 @@
             <td>{{details.startDate|date}}</td>
             <td>{{details.endDate|date}}</td>
             <td>{{details.linkURL}}</td>
+            <td>{{details.fees}}</td>
             <td>
               <ng-template #tipcontent1>Edit</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">

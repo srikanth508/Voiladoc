@@ -201,8 +201,17 @@ export class SickSlipGeneratorComponent implements OnInit {
 
     this.docservice.InsertSickSlipGenarator(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
-        location.href = "#/SickSlipDashboard"
+        if(this.languageid==1)
+        {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+          location.href = "#/SickSlipDashboard"
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('', 'Enregistré');
+          location.href = "#/SickSlipDashboard"
+        }
+     
       }
     })
   }

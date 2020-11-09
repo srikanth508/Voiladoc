@@ -9,7 +9,7 @@
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <br>
   <form #midwifeForm="ngForm">
-    <div *ngIf="dummid!=null" class="row">
+    <div  class="row">
       <div class="col-lg-3">
         <label class="dname_label">{{labels[0].midwife}} :</label>
         <span class="required">*</span>
@@ -33,7 +33,7 @@
       <input type="radio" required value="2" name="hos" (change)="Getworktypeid($event)">{{labels[0].clinic}}
     </div>
   </div> -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg-3">
           <label class="dname_label">{{labels[0].midwife}} :</label>
           <span class="required">*</span>
@@ -43,20 +43,20 @@
             disabled>
         </div>
       </div>
-      <br>
+      <br> -->
       <div class="row">
         <div class="col-lg-3">
-          <label class="dname_label">{{labels[0].workingAt}} :</label>
+          <label class="dname_label">Hospital / Clinic :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-4">
           <input type="text" id="hospital_ClinicName" name="hospital_ClinicName" [(ngModel)]="hospital_ClinicName"
             class="form-control" disabled>
         </div>
-      </div>
+      </div><br>
 
     </div>
-    <br>
+  
 
     <!-- <div class="row">
     <div class="col-lg-3">
@@ -150,11 +150,11 @@
     <div class="row" *ngIf="table=='1'">
       <div class="col-lg-5">
       </div>
-      <div *ngIf="active==0" class="col-lg-2">
+      <div *ngIf="active==1" class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor"
           (click)="InsertPhysiotherapyHospitalDetailsAdmin()">{{labels[0].save}}</button>
       </div>
-      <div *ngIf="active==1" class="col-lg-2">
+      <div *ngIf="active==0" class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor"
           (click)="InsertPhysiotherapyHospitalDetails()">{{labels[0].save}}</button>
       </div>

@@ -24,6 +24,7 @@ export class WritearticleComponent implements OnInit {
   public languageid: any;
   public labels: any;
   public mobilewriteup: any;
+  public dropzonelable:any;
 
   ngOnInit() {
 
@@ -39,6 +40,14 @@ export class WritearticleComponent implements OnInit {
     this.writeup=""
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
   }
 
   public getlanguage() {
@@ -57,10 +66,10 @@ export class WritearticleComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
    
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
+   
+      this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
-    }
+    
 
     Swal.fire('Photo Added Successfully');
     abcd.length = 0;

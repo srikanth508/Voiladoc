@@ -69,4 +69,55 @@ export class PharmacydashComponent implements OnInit {
     let fgdgfgd = even;
     this.p = even;
   }
+
+public id:any;
+public username:any;
+public password:any;
+
+
+  public GetDeatsils(details)
+{
+  debugger
+  this.id=details.id,
+  this.username=details.userName,
+  this.password=details.password
+}
+
+
+public pp:any;
+
+
+public insertdetails() {
+ if(this.password!=undefined)  {
+
+    var valpassword = this.docservice.strongpassword(this.password);
+    if (valpassword == false) {
+      this.pp=1;
+    }
+  else{
+    var entity = {
+      'ID': this.id,
+      'UserName': this.username,
+      'Password': this.password
+    }
+    this.docservice.UpdatePharmacyAdminRegistration(entity).subscribe(data => {
+     
+      if (data != 0) {
+        Swal.fire('Registration Completed', 'password updated successfully', 'success');
+        this.pp=0;
+        document.getElementById('close').click();
+        this.getpharmacyloginfordash()
+      }
+      else
+      {
+        Swal.fire('Error', 'Username Already Exists', 'success');
+        location.href="#/Pharmacydash"
+        document.getElementById('close').click();
+        this.pp=0;
+        this.getpharmacyloginfordash()
+      }
+    })
+  }
+}
+}
 }

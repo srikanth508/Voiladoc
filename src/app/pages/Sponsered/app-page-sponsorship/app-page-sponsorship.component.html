@@ -54,6 +54,18 @@
     </div>
   </div>
   <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>Fees :</label>
+      <span class="required">*</span>
+    </div>
+
+    <div class="col-lg-4">
+    <input type="text" class="form-control" placeholder="Fees" required [(ngModel)]="fees" name="fees"
+    onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+    </div>
+  </div>
+  <br>
   <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
     <div class="col-lg-3">
       <label>Photo Url :</label>

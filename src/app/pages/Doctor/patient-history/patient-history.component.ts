@@ -109,7 +109,7 @@ export class PatientHistoryComponent implements OnInit {
 
   public getdoctorpatinetdetails() {
    
-    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.doctorid, this.patientid).subscribe(
+    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.doctorid, this.patientid,this.doctorid).subscribe(
       data => {
        
         this.prescrptionlist = data;

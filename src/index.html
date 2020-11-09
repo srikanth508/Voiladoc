@@ -19,6 +19,10 @@
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <!-- <link rel="stylesheet" href="style.css"> -->
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
   <link rel="stylesheet" type="text/css"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <!-- Font Awesome JS -->
@@ -28,6 +32,7 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
     integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
     crossorigin="anonymous"></script>
+
 
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
@@ -48,7 +53,7 @@
 
   <script>
     setTimeout(function(){
-      debugger
+      
         customnotify();
     },5000); // 5000 milliseconds means 5 seconds.
  </script>
@@ -63,7 +68,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       if (Notification.permission !== "granted") {
         Notification.requestPermission();
-debugger
+
       }
     });
 
@@ -139,7 +144,7 @@ debugger
 
             /* Callback function when the notification is closed. */
             notification.onclose = function () {
-              debugger;
+           
               console.log('Notification closed');
             };
           }

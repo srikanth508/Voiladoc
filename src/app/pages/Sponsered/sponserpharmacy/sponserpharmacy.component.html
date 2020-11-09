@@ -19,7 +19,7 @@
         </div> -->
     </div>
     <hr>
-    <div class="row" style="margin-top:20px;">
+    <div class="row" style="margin-top:20px;" *ngIf="showbutton=='0'">
       <div class="col-lg-3">
         <label>{{labels[0].pharmacy}} :</label>
         <span class="required">*</span>
@@ -37,6 +37,18 @@
       </div>
     </div>
     <br>
+    <div *ngIf="showbutton=='1'">
+      <div class="row">
+        <div class="col-lg-3">
+          <label>{{labels[0].pharmacy}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" class="form-control" disabled [(ngModel)]="pharmacyname" name="pharmacyname">
+        </div>
+      </div>
+      <br>
+    </div>
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].startdate}}:</label>
@@ -64,13 +76,27 @@
         <!-- <input type="date" min='{{startdate}}' name="enddate" required [(ngModel)]="enddate" class="form-control"> -->
       </div>
     </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Fees :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="Fees" required [(ngModel)]="fees" name="fees"
+          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      </div>
+    </div>
     <br> <br>
     <div class="row">
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
         <button type="button" [disabled]="pharmacyForm.form.invalid" text_align="center"
-          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+          class="btn btn-block btn-md allbtns btncolor" *ngIf="showbutton=='0'" (click)="insertdetails()">{{labels[0].save}}</button>
+
+          <button type="button" text_align="center"
+          class="btn btn-block btn-md allbtns btncolor" *ngIf="showbutton=='1'" (click)="updatedetails()">Update</button>
       </div>
       <div class="col-lg-5">
       </div>

@@ -54,4 +54,12 @@
         label{
           text-transform: lowercase;
         }
-   
+
+.placeholder{
+  text-transform: lowercase;
+}
+
+.placeholder::first-letter
+{
+  text-transform: uppercase;
+}

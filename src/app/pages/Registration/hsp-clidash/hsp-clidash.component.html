@@ -4,7 +4,7 @@
       <h5>{{labels[0].hospitalOrclinicdashboard}}</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" (click)="getglmasterexcel()" style="margin-right: 10px;">
+      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()" style="margin-right: 10px;">
         {{labels1[0].exportExcel}}</button>
       <button *ngIf="languageid==1" type="button" routerLink="/HospitalClinicregistration" class="btn btncolor">Add Hospital
       </button>
@@ -82,7 +82,12 @@
                 <img src="assets/Images/dell.png" style="width: 18px;margin-left: 10px;" (click)="deletehospitalclinic(details.id)"> </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditHospitalClinic',details.id]" style="color:black">
+                <img src="assets/Images/edit.png" *ngIf="details.editiconShow=='0'&&showeditbutton=='1'" style="width: 18px">
+              </a>
+
+              <a [ngbTooltip]="tipcontent1" *ngIf="showeditbutton=='0'"  [routerLink]="['/EditHospitalClinic',details.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 18px">
+
               </a>
             </td>
           </tr>

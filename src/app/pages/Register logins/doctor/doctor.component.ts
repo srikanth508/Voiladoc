@@ -85,8 +85,6 @@ export class DoctorComponent implements OnInit {
 
   }
   public insertdetails() {
-
-   
     if (this.doctorid == undefined) {
       Swal.fire("please select Doctor");
     }

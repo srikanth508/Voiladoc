@@ -36,11 +36,14 @@
       </select>
     </div>
     <div class="col-lg-3">
-      <select class="form-control" (change)="GetDoctorName($event)">
+      <!-- <select class="form-control" (change)="GetDoctorName($event)">
         <option value="0" selected>{{labels[0].selectDoctor}}</option>
         <option *ngFor="let doctor of doctorlist" value={{doctor.doctorName}}>
           {{doctor.doctorName}}</option>
-      </select>
+      </select> -->
+      <ng-multiselect-dropdown [placeholder]="select"  [data]="doctorlist"
+      [settings]="docdd" (onSelect)="GetDoctorName($event)">
+    </ng-multiselect-dropdown>
     </div>
 
   </div>
@@ -78,7 +81,7 @@
           <tr
             *ngFor="let details of appointmentlist |filter:term|filter:termsss  | paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.appointmentID}}</td>
-            <td>{{details.apptDateTime}}</td>
+            <td>{{details.appointmentdatess}}</td>
             <td>{{details.pName}}</td>
             <td>{{details.pMobileNo}}</td>
             <td>{{details.slots}}</td>

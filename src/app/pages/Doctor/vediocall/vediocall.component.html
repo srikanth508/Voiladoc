@@ -49,7 +49,7 @@
                   </div>
                   <div class="col-lg-3">
                     <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
-                      data-target="#exampleModalCenter" />
+                      data-target="#exampleModalCenter" (click)="GetAllerges()" />
                   </div>
                 </div>
                 <!-- <div class="row">
@@ -79,7 +79,7 @@
           </tr>
           <tr>
             <td class="tabletdstyles">
-           {{labels[0].appointmentNumber}}  : {{appointmentno}}
+              {{labels[0].appointmentNumber}} : {{appointmentno}}
             </td>
             <td class="tabletdstyles">
               {{labels[0].attendingDoctor}} : {{attendingdoctor}}
@@ -91,14 +91,14 @@
               {{labels[0].nationalidentityno}} : {{nationalidentityno}}
             </td>
             <td class="tabletdstyles">
-              {{labels[0].medicalhistory}} :  {{medicalhistory}}
-            
+              {{labels[0].medicalhistory}} : {{medicalhistory}}
+
             </td>
           </tr>
           <tr>
             <td class="tabletdstyles">
 
-              {{labels[0].phoneNo}} :  {{mobileno}}
+              {{labels[0].phoneNo}} : {{mobileno}}
             </td>
             <td class="tabletdstyles">
               {{labels[0].surgeryhistory}} : {{surgeryHistory}}
@@ -107,16 +107,16 @@
           </tr>
           <tr>
             <td class="tabletdstyles">
-              {{labels[0].email}} :  {{email}}
+              {{labels[0].email}} : {{email}}
             </td>
             <td class="tabletdstyles">
-                {{labels[0].longtermtreatment}} : {{longtermtreatment}}
+              {{labels[0].longtermtreatment}} : {{longtermtreatment}}
 
             </td>
           </tr>
           <tr>
             <td class="tabletdstyles">
-              {{labels[0].dateOfBirth}} :  {{dateofbirth}}
+              {{labels[0].dateOfBirth}} : {{dateofbirth}}
             </td>
             <td class="tabletdstyles">
 
@@ -125,13 +125,13 @@
           </tr>
           <tr>
             <td class="tabletdstyles">
-              {{labels[0].gender}} :  {{gender}}
+              {{labels[0].gender}} : {{gender}}
 
             </td>
             <td class="tabletdstyles">
-             
 
-              {{labels[0].dietaryissues}} :  {{dieteryissues}}
+
+              {{labels[0].dietaryissues}} : {{dieteryissues}}
             </td>
           </tr>
           <tr>
@@ -141,40 +141,40 @@
             <b> <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
               <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
             </b> -->
-              {{labels[0].height}} :  {{height}}
+              {{labels[0].height}} : {{height}}
             </td>
             <td class="tabletdstyles">
 
               {{labels[0].doyoudrinkalcohol}} :
-               <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label>
+              <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label>
 
             </td>
           </tr>
           <tr>
             <td class="tabletdstyles">
-          
+
               {{labels[0].weight}} : <b>{{wight}}</b>
             </td>
 
             <td class="tabletdstyles">
               {{labels[0].areyoasmoker}} :
-               <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label>
+              <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label>
             </td>
           </tr>
           <tr>
             <td class="tabletdstyles">
-              {{labels[0].bmi}} :  {{bmi}}
+              {{labels[0].bmi}} : {{bmi}}
 
             </td>
             <td class="tabletdstyles">
 
-          
+
               {{labels[0].doyouecescise}} :
-              
-                <label *ngIf="exercise=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="exercise=='0'"> {{labels[0].yes}}</label>
+
+              <label *ngIf="exercise=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="exercise=='0'"> {{labels[0].yes}}</label>
 
             </td>
           </tr>
@@ -182,27 +182,27 @@
             <td class="tabletdstyles">
               {{labels[0].medicalinsurance}} :
 
-               <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
-              
+              <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
+
               <!-- {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b> -->
             </td>
             <td class="tabletdstyles">
-            
+
             </td>
           </tr>
           <tr *ngIf="gender=='Female'">
             <td style="text-align: left;border:2px solid">
               {{labels[0].isThePatientPregnant}} :
-            
-                <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label>
+
+              <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label>
             </td>
             <td class="tabletdstyles">
               Breast feeding :
-              
-                <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
-                <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label>
+
+              <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
+              <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label>
             </td>
           </tr>
           <tr>
@@ -213,12 +213,12 @@
               Photos : <img src="assets/Images/imgicon.png" *ngIf="photoexist=='1'" title="{{labels[0].images}}"
                 (click)="GetImagesID()" data-toggle="modal" data-target="#exampleModalLong2"
                 style="margin: 2%;width: 20px;" />
-                <label style="font-family: Bookman Old Style;"  *ngIf="photoexist=='0'">No Photos</label>&nbsp; <br>
+              <label style="font-family: Bookman Old Style;" *ngIf="photoexist=='0'">No Photos</label>&nbsp; <br>
 
               Videos : <img src="assets/Images/showvedio.png" *ngIf="videoexist=='1'" data-toggle="modal"
                 data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetVedioID()" />&nbsp;
-                <label style="font-family: Bookman Old Style;"  *ngIf="videoexist=='0'">No Videos</label>
+              <label style="font-family: Bookman Old Style;" *ngIf="videoexist=='0'">No Videos</label>
 
             </td>
           </tr>
@@ -228,55 +228,59 @@
     <div class="col-lg-2" style="margin-top: -14px;">
       <br>
       <div class="col-lg-12 ">
-        <button  class="buttonclass" id="buttonclssid" (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#Addprescription"
-        (click)="showModal()" >{{labels[0].addPrescription}}</button>
+        <button class="buttonclass" id="buttonclssid" (mouseenter)="mouseEnter($event)"
+          (mouseleave)="mouseleave($event)" data-toggle="modal" data-target="#Addprescription"
+          (click)="showModal()">{{labels[0].addPrescription}}</button>
       </div>
       <div class="col-lg-12 ">
-        <button class="buttonclass"   
-        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#addsoap">{{labels[0].addSoapNotes}}</button>
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#addsoap">{{labels[0].addSoapNotes}}</button>
       </div>
       <div class="col-lg-12 ">
-        <button class="buttonclass"  
-        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"   data-toggle="modal" data-target="#addtest">{{labels[0].addTest}}</button>
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#addtest">{{labels[0].addTest}}</button>
       </div>
       <div class="col-lg-12">
-        <button class="buttonclass"    
-        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#previousprescription">{{labels[0].previousprescri}}</button>
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#previousprescription">{{labels[0].previousprescri}}</button>
       </div>
       <div class="col-lg-12">
-        <button class="buttonclass"  
-        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#previoussoap">{{labels[0].previoussoap}}</button>
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#previoussoap">{{labels[0].previoussoap}}</button>
       </div>
       <div class="col-lg-12">
-        <button class="buttonclass" 
-        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#previoustest">
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#previoustest">
           {{labels[0].previoustest}}</button>
       </div>
-      
+
       <div class="col-lg-12">
-        <button class="buttonclass"  
-        (mouseenter) ="mouseEnter($event)" (mouseleave)="mouseleave($event)"  data-toggle="modal" data-target="#chat" (click)="GetChatShowID()">
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#chat" (click)="GetChatShowID()">
           {{labels[0].chat}}</button>
       </div>
       <div class="col-lg-12">
         <ng-template #tipcontent948>whats app</ng-template>
         <a [ngbTooltip]="tipcontent948">
-          <img src=" assets/Images/whatapp.png" style="height:47px;  margin-left: 62px;"
-            (click)="GetDocWhatsaPP()" />
+          <img src=" assets/Images/whatapp.png" style="height:47px;  margin-left: 62px;" (click)="GetDocWhatsaPP()" />
         </a>
       </div>
       <div class="col-lg-12">
         <input type="button" class="buttonclass"
           style="background-color: #f18235;border-radius: 14px;color:white;height: 51px;width: 100%; margin: 4px 2px;"
           class="btn btn-default" id="stoprecoring" value="{{endsession}}" (click)="stoparchive()" />
+     
+          <input type="button" class="buttonclass"
+          style="background-color: #f18235;border-radius: 14px;color:white;height: 51px;width: 100%; margin: 4px 2px;"
+          class="btn btn-default" *ngIf="showclosebutton=='0'" value="{{endsession}}" (click)="closewindow()" />
       </div>
       <!-- <div class="col-lg-12">
         <button class="buttonclass" style="background-color: #000080;" data-toggle="modal"
           data-target="#currentmedications"> {{labels[0].currentMedications}}</button>
       </div> -->
-  
+
     </div>
- 
+
   </div>
 </div><br>
 
@@ -814,7 +818,6 @@
                     </td>
                     <td>{{presciption.noteToPharmasist}}</td>
                     <!-- <td>{{presciption.diagnosis}}</td> -->
-
                     <td>
                       <!-- <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
                       <a [ngbTooltip]="tipcontent2">
@@ -822,13 +825,14 @@
                           (click)="deleteprscriptonforpatient(presciption.id)">
                       </a>&nbsp;&nbsp; -->
                       <button type="button" class="form-control"
-                        (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
-                        &nbsp;
-<!-- 
-                        <ng-template #tipcontent9503>Edit</ng-template>
-                        <a [ngbTooltip]="tipcontent9503" style="color:black">
-                          <img src="assets/Images/edit.png"  data-toggle="modal" data-target="#edirprescription" (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 18px">
-                        </a> -->
+                     style="background-color: #1dbfd2;"   (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
+                      &nbsp;
+
+                      <ng-template #tipcontent9503>Edit</ng-template>
+                      <a [ngbTooltip]="tipcontent9503" style="color:black">
+                        <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal" data-target="#edirprescription"
+                          (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 24px">
+                      </a>
                     </td>
                   </tr>
                 </thead>
@@ -855,16 +859,16 @@
 
 <div class="modal fade" id="edirprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg"  style="float: right;width: 46%;">
-    <div class="modal-content" style="width:1000px;margin-left: 140px;"  style="float: right;">
+  <div class="modal-dialog modal-lg" style="float: right;width: 46%;">
+    <div class="modal-content" style="width:1000px;margin-left: 140px;" style="float: right;">
       <div class="modal-header modal-lg">
         <h5 class="modal-title" id="exampleModalLongTitle">Edit prescription</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" >
-  
+      <div class="modal-body">
+
         <div class="container-fluid">
           <form #medicineForm="ngForm">
             <div>
@@ -976,7 +980,7 @@
               </div>
             </div>
             <br>
-         
+
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].dispenseQuantityy}} :</label>
@@ -1037,7 +1041,7 @@
               </div>
               <div class="col-lg-2">
                 <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-                  (click)="updateprescription()"  data-dismiss="modal">{{labels[0].update}}</button>
+                  (click)="updateprescription()" data-dismiss="modal">{{labels[0].update}}</button>
               </div>
               <div class="col-lg-5">
               </div>
@@ -1083,11 +1087,11 @@
                         <img src="assets/Images/pview.png" data-toggle="modal" data-target="#exampleModalLong1"
                           style="height:25px;" (click)="GetSoapID(soppp.soapID)" />
                       </a>&nbsp;
-                      
-                    <!-- <ng-template #tipcontent9504>Edit</ng-template>
-                    <a [ngbTooltip]="tipcontent9504" style="color:black">
-                      <img src="assets/Images/edit.png"  data-toggle="modal" data-target="#EditSoapnotes" (click)="GetEditPrevioussoap(soap)" style="width: 18px">
-                    </a> -->
+                      <ng-template #tipcontent9504>Edit</ng-template>
+                      <a [ngbTooltip]="tipcontent9504" style="color:black">
+                        <img src="assets/Images/edit.png" *ngIf="soppp.showmyediticon=='1'" data-toggle="modal" data-target="#EditSoapnotes"
+                          (click)="GetSoapID(soppp.soapID)" style="width: 23px;"  data-toggle="modal" data-target="#exampleModalLong12345" style="width: 18px">
+                      </a>
                     </td>
                   </tr>
                 </thead>
@@ -1127,19 +1131,20 @@
                     <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].testName}}</th>
-                    <!-- <th>Actions</th> -->
+                    <th>Actions</th>
                     <!-- <th>{{labels[0].reports}}</th> -->
                   </tr>
                   <tr *ngFor="let details of diagnosticlist">
                     <td>{{details.appdate}}</td>
                     <td>{{details.name}}</td>
                     <td>{{details.testName}}</td>
-                    <!-- <td>
+                    <td>
                       <ng-template #tipcontent9503>Edit</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
-                        <img src="assets/Images/edit.png"  data-toggle="modal" data-target="#edittest" (click)="GetDiaEditList(details)" style="width: 18px">
+                        <img src="assets/Images/edit.png" *ngIf="details.showmyediticon=='1'" data-toggle="modal" data-target="#edittest"
+                          (click)="GetDiaEditList(details)" style="width: 18px">
                       </a>
-                    </td> -->
+                    </td>
                   </tr>
                 </thead>
               </table>
@@ -1186,7 +1191,8 @@
                 <label>{{labels[0].testName}} :</label>
               </div>
               <div class="col-lg-7">
-                <select class="form-control" (change)="GetDiagnosticTestssID($event)"  [(ngModel)]="testssid" name="testssid">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
+                  name="testssid">
                   <option value="0" selected>{{labels[0].select}}</option>
                   <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
                 </select>
@@ -1242,7 +1248,7 @@
 <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
   <div class="modal-dialog modal-lg" style="float: right;width: 709px;">
-    <div class="modal-content" >
+    <div class="modal-content">
       <div class="modal-header modal-lg" style="width: 709px;">
         <h5 class="modal-title" id="exampleModalLongTitle"> {{labels[0].previousSoapNotes}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1415,8 +1421,6 @@
 </div>
 
 
-
-
 <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-lg" style=" float: right;">
@@ -1504,11 +1508,11 @@
 
 
 
-<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+<div class="modal fade" id="exampleModalLong12345" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-lg" role="document" style="float: right;">
+  <div class="modal-dialog modal-lg" role="document"  style="float: right;width: 709px;">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header"  style="width: 709px;">
         <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
           {{labels[0].previousSoapNotes}}
         </h5>
@@ -1681,14 +1685,10 @@
 </div>
 
 
-
-
-
-
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog" role="document" style="float: right;">
-    <div class="modal-content">
+  <div class="modal-dialog modal-lg" role="document" style="margin-left: 787px;">
+    <div class="modal-content modal-lg">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1698,28 +1698,62 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Allergies</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let allergilist of myarray">
+                    <td>{{allergilist.Showallergies}}</td>
+                    <td>
+                      <ng-template #tipcontent2>Delete</ng-template>
+                      <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" (click)="deletealergeies(allergilist.Snoo)"
+                          style="width: 20px;margin-left: 10px;">
+                      </a>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <br>
+          <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].allergies}}</label>
             </div>
             <div class="col-lg-8">
-              <!-- <input type="text" class="form-control" [(ngModel)]="allergies" name="allergies"> -->
-              <ngx-tags-input class="form-control input-lg" style="height: 100px;" [(ngModel)]="allergies"
-                name="allergies"></ngx-tags-input>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
+              <input type="text" class="form-control" placeholder="{{labels[0].allergies}}" [(ngModel)]="addallergies" name="addallergies">
 
+              <!-- <ngx-tags-input class="form-control input-xl" style="height: 100px;" [(ngModel)]="allergies"
+                name="allergies"></ngx-tags-input> -->
+            </div>
+          </div><br>
+      <div class="row">
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-2">
+          <button type="button" class="btn btn-primary" (click)="updatedetsils()">{{labels[0].save}}</button>
+        </div>
+        <div class="col-lg-5">
+        </div>
+
+      </div>
+
+          <!-- <div class="row">
+            <div class="col-lg-3">
             </div>
             <div class="col-lg-8">
               <p>{{labels[0].alergesmessage}}</p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
-        <button type="button" class="btn btn-primary" (click)="Updateallergies()">{{labels[0].update}}</button>
+      
       </div>
     </div>
   </div>

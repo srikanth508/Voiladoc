@@ -96,13 +96,17 @@ export class NurseTimingsComponent implements OnInit {
     )
   }
 
+
+
+
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, nsid) {
-   
+   debugger
     this.nursehospitaldetilsid = nurseHospitalDetailsID;
     this.dayid = dayID,
       this.startdatetime = startime,
       this.enddatetime = endtime
     this.id = nsid;
+    debugger
   }
 
   public updatedetails() {

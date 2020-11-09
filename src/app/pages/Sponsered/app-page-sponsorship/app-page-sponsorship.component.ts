@@ -17,6 +17,7 @@ export class AppPageSponsorshipComponent implements OnInit {
   value;
   term;
   dropzonelable
+  fees
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private datePipe: DatePipe) { }
   paramid
   ngOnInit() {
@@ -56,8 +57,11 @@ export class AppPageSponsorshipComponent implements OnInit {
         this.ClientName = temp1[0].clientName;
         this.Description = temp1[0].description;
         this.LinkURL = temp1[0].linkURL;
-        this.StartDate = this.datePipe.transform(temp1[0].startDate, 'yyyy-MM-dd');
-        this.EndDate = this.datePipe.transform(temp1[0].endDate, 'yyyy-MM-dd');
+        this.StartDate=temp1[0].startdatee;
+        this.EndDate=temp1[0].enddatee;
+        this.fees=temp1[0].fees;
+        // this.StartDate = this.datePipe.transform(temp1[0].startDate, 'yyyy-MM-dd');
+        // this.EndDate = this.datePipe.transform(temp1[0].endDate, 'yyyy-MM-dd');
       }, error => {
       }
     )
@@ -97,7 +101,8 @@ export class AppPageSponsorshipComponent implements OnInit {
       'PhotoURL': this.PhotoURL,
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
-      'EndDate': this.EndDate
+      'EndDate': this.EndDate,
+      'Fees':this.fees
     }
     this.docservice.InsertAppPageSponsorship(entity).subscribe(data => {
      
@@ -106,18 +111,17 @@ export class AppPageSponsorshipComponent implements OnInit {
         location.href = "#/AppPageSponsorshipDashBoard";
       }
     })
-
   }
+  
   public UpdateDetails() {
-   
-
     var entity = {
       'ID': this.paramid,
       'ClientName': this.ClientName,
       'Description': this.Description,
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
-      'EndDate': this.EndDate
+      'EndDate': this.EndDate,
+      'Fees':this.fees
     }
     this.docservice.UpdateAppPageSponsorship(entity).subscribe(data => {
      

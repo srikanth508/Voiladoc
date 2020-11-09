@@ -13,7 +13,9 @@ import * as FileSaver from 'file-saver';
 })
 export class HospitalDocDashComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { 
+    
+  }
 
   languageid: any;
   labels: any;

@@ -51,6 +51,7 @@ export class DiagnosticReportsComponent implements OnInit {
   public sdate: any;
   public edate: any;
   public diffid: any;
+  public showdrop:any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -92,8 +93,17 @@ export class DiagnosticReportsComponent implements OnInit {
 
     this.activatedroute.params.subscribe(params => {
 
-
       this.diffid = params['id']
+      if(this.diffid==undefined)
+      {
+        this.showdrop=0;
+      }
+      else
+      {
+        this.showdrop=1;
+      }
+
+      
     }
     )
     if (this.diffid == undefined) {

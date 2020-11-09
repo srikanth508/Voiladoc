@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-diagnosticcenter',
@@ -10,7 +11,7 @@ import { formatDate } from "@angular/common";
 })
 export class DiagnosticcenterComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   public diagnosticlist: any;
   public diagnosticid: any;
@@ -21,6 +22,10 @@ export class DiagnosticcenterComponent implements OnInit {
   public diadd = {}
   public labels: any;
   public languageid: any;
+  public fees:any;
+  public id:any;
+  public showbutton:any;
+
   ngOnInit() {
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -29,6 +34,19 @@ export class DiagnosticcenterComponent implements OnInit {
    
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
     this.languageid = localStorage.getItem('LanguageID');
+
+    this.activatedroute.params.subscribe(params => {
+
+      this.id = params['id'];
+      if (this.id == undefined) {
+        this.showbutton = 0;
+      }
+      else if (this.id != undefined) {
+        this.showbutton = 1;
+        this.GetSponsoredDiagnosticCenterForAdmin()
+      }
+    }
+    )
     this.getlanguage();
     //
     // this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
@@ -91,12 +109,14 @@ export class DiagnosticcenterComponent implements OnInit {
       var entity = {
         'DiagnosticID': this.diagnosticid,
         'SDate': this.startdate,
-        'EDate': this.enddate
+        'EDate': this.enddate,
+        'Fees':this.fees
       }
       this.docservice.InsertSponsoredDiagnosticCenter(entity).subscribe(data => {
        
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
+          location.href = "#/Diagdash";
           this.clear();
 
         }
@@ -109,5 +129,72 @@ export class DiagnosticcenterComponent implements OnInit {
   }
   public GetEnddate() {
     this.enddate = '';
+  }
+
+
+  sponserdialist:any;
+  diagnosticcentername:any;
+
+
+
+  public GetSponsoredDiagnosticCenterForAdmin() {
+    if (this.languageid == 1) {
+      this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
+        data => {
+          debugger
+          this.sponserdialist = data;
+          var list = this.sponserdialist.filter(x => x.id == this.id)
+          this.startdate = list[0].startdate,
+            this.enddate = list[0].enddate,
+            this.fees = list[0].fees,
+            this.diagnosticcentername = list[0].diagnosticCenterName
+        }, error => {
+        }
+      )
+    }
+    else if (this.languageid == 6) {
+      this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
+        data => {
+          debugger
+          this.sponserdialist = data;
+          debugger
+          var list = this.sponserdialist.filter(x => x.id == this.id)
+          this.startdate = list[0].startdate.toLocaleString();
+          this.enddate = list[0].enddate.toLocaleString();
+          this.fees = list[0].fees,
+            this.diagnosticcentername = list[0].diagnosticCenterName
+        }, error => {
+        }
+      )
+    }
+  }
+
+
+
+  public updatedetails() {
+    debugger
+    // const qwer = 'dd-MMM-yyyy';
+    // const pljdjf = 'en-US';
+    // const frdat = this.startdate;
+    // this.startdate = formatDate(frdat, qwer, pljdjf);
+    // const todat = this.enddate;
+    // this.enddate = formatDate(todat, qwer, pljdjf);
+    debugger
+    var entity1 = {
+      'ID': this.id,
+      'SDate': this.startdate,
+      'EDate': this.enddate,
+      'Fees': this.fees
+    }
+    this.docservice.UpdateSponsoredDiagnosticCenter(entity1).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Completed', 'Updated Successfully', 'success');
+        location.href = "#/Diagdash";
+      }
+      else {
+        Swal.fire('Terminé', 'Mis à jour avec succés', 'success');
+        location.href = "#/Diagdash";
+      }
+    })
   }
 }

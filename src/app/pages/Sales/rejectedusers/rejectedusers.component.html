@@ -1,0 +1,88 @@
+<br>
+<div class="container-fluid card card:hover">
+  <br />
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>Rejected Users</h5>
+    </div>
+    <div class="col-lg-7"></div>
+    <div class="col-lg-2">
+      <!-- <button style="margin-left: 10px;" type="button" routerLink="/LinkForreg" class="btn btncolor">Add</button> -->
+    </div>
+  </div>
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetTypeID($event)" [(ngModel)]="typeid" name="typeid">
+        <option value="0">Select Type</option>
+        <option value="1">Hospital</option>
+        <option value="2">Clinic</option>
+        <option value="3">Independent Doctor</option>
+        <option value="4">Independent Nurse</option>
+        <option value="5">Independent Physiotherapist</option>
+        <option value="6">Independent Mideife</option>
+      </select>
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>User Name</th>
+            <th>Phone Number</th>
+            <th *ngIf="typeid!='1'&&typeid!='2'">Gender</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Status</th>
+            <!-- <th>Actions</th> -->
+          </tr>
+          <tr *ngFor="let list of RegisteredList|filter:search">
+            <td>{{list.date}}</td>
+            <td>{{list.typeName}}</td>
+            <td>{{list.username}}</td>
+            <td>{{list.phoneNo}}</td>
+            <td *ngIf="typeid!='1'&&typeid!='2'">
+              <span *ngIf="list.genderID=='1'">Male</span>
+              <span *ngIf="list.genderID=='2'">FeMale</span>
+            </td>
+            <td>{{list.email}}</td>
+            <td>{{list.address}}</td>
+            <td>
+              <span *ngIf="list.rejected=='1'&&list.approved=='0'" style="color: red;">ReJected</span>
+              <!-- <span *ngIf="list.rejected=='1'" style="color: red;">Rejected</span> -->
+            </td>
+        
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br /><br />
+  </div>
+  <br /><br />
+  <br />
+</div>
+<br /><br /><br /><br />
+
+

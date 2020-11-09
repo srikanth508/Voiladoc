@@ -1,0 +1,104 @@
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row">
+    <div class="col-lg-3">
+      <br>
+      <h5>Link For Registration</h5>
+      <br>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <!-- <div class="col-lg-2">
+      <br>
+      <button type="button" routerLink="/Doctordash" class="btn  btncolor">{{labels[0].dashboard}}</button>
+    </div> -->
+  </div>
+</div>
+<div class="container-fluid card card:hover divspacee">
+  <br>
+  <form #doctorForm="ngForm">
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Select type :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetTypeName($event)">
+          <option value="0">Select</option>
+          <option value="1">Hospital</option>
+          <option value="2">Clinic</option>
+          <option value="3">Independent Doctor</option>
+          <option value="4">Independent Nurse</option>
+          <option value="5">Independent Physiotherapist</option>
+          <option value="6">Independent Mideife</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Email :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>User Name :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="email" class="form-control" placeholder="User Name" [(ngModel)]="username" name="username">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Password :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="email" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Address Link:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" class="form-control" disabled [(ngModel)]="address" name="address" placeholder="Address Link"
+        ></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Notes : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <textarea rows="4" class="form-control" [(ngModel)]="notes" name="notes" placeholder="Notes"></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" [disabled]="doctorForm.form.invalid" class="btn btn-block btn-md allbtns btncolor"
+          (click)="Insertdetails()">Send</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div><br><br>
+  </form>
+</div>

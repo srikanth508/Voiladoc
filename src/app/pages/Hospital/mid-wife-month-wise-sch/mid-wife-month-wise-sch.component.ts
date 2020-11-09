@@ -26,10 +26,17 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
   public dummlist: any;
   public midwifelist: any;
   public count: any;
+  public middd={};
+  public search:any;
+ 
+
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+
+
+    this.getlanguage()
 
     this.timeSheetTablearray = [];
     this.TodatDate = new Date();
@@ -41,6 +48,18 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
         this.dummlist = data;
         this.midwifelist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         this.count = this.midwifelist.length;
+
+        this.middd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'name',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
+
       }, error => {
       }
     )
@@ -60,14 +79,13 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
 
-    this.getlanguage()
   }
 
 
 
 
-  public GetMidiwifeID(even) {
-    this.midwifeid = even.target.value;
+  public GetMidiwifeID(item:any) {
+    this.midwifeid = item.id;
 
 
     this.timeSheetTablearray = [];
@@ -134,7 +152,8 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
       data => {
        
         this.labels = data;
-        this.Select = this.labels[0].selectt;
+        this.Select = this.labels[0].selectMidwife;
+        this.search=this.labels[0].search;
       }, error => {
       }
     )

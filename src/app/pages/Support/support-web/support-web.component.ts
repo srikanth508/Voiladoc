@@ -36,8 +36,17 @@ export class SupportWebComponent implements OnInit {
   public issuephoto = [];
   public issuephotourl = [];
   dropzonelable:any;
+  countrymanaerid:any;
+  supportid:any;
+  showexportbutton:any;
   ngOnInit() {
 
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.supportid= localStorage.getItem('supportid');
+    if (this.countrymanaerid != undefined || this.supportid != undefined) {
+      this.showexportbutton = 1;
+    }
+  
     this.options = {
       theme: 'default',
       range: 'tm',

@@ -23,9 +23,91 @@ export class DocWorkingDashComponent implements OnInit {
   public dummlist: any;
   public doctorlist: any;
   public doctorname: any;
+
+
+  public doctorid: any;
+  // public workingdetails: any;
+  public timeid: any;
+  public availabilityid: any;
+  // public dayslist: any;
+  public hospitallist: any;
+  // public hospitalid: any;
+  public availabilitylist: any;
+  public slotslist: any;
+  public slotsdd: any;
+  public timedivisonid: any;
+  public morningslotid: any;
+  public aftrenoonslots = [];
+  public eveningslots = [];
+  public nightslots = [];
+  public slotslist1: any;
+  public slotsdd1: any;
+  public slotslist2: any;
+  public slotsdd2: any;
+  public slotslist3: any;
+  public slotsdd3: any;
+  public tablecount: any;
+  public dayid: any;
+  public fees: any;
+  public session1: any;
+  public session2: any;
+  public hosipitalidd: any;
+  public qwerty = [];
+  public morningslotarray = [];
+  public morningslotidarray = [];
+  public slotid: any;
+  public morningslots = [];
+  public slotname: any;
+  public mrng: any;
+  public slotnameid: any;
+  public mrngid: any;
+  public afternoonslotarray = [];
+  public slotname1: any;
+  public afternoon: any;
+  public afternoonid: any;
+  public slotnameid1: any;
+  public eveningarray = [];
+  public slotname2: any;
+  public evening: any;
+  public eveningid: any;
+  public slotnameid2: any;
+  public nightslotsarray = [];
+  public slotname3: any;
+  public night: any;
+  public slotnameid3: any;
+  public nightid: any;
+  public short: any;
+  public hospital_ClinicName: any;
+  public dayOfTheWeek: any;
+  public afternoonslotidarray = [];
+  public eveningarrayid = [];
+  public nightslotsarrayid = [];
+  public details: any;
+  public day: any;
+  public name: any;
+  public docid: any;
+  public qwertyy = [];
+  public idcount: any;
+  public cleardropdown1 = [];
+  public cleardropdown2 = [];
+  public cleardropdown3 = [];
+  public cleardropdown4 = [];
+  public abcd: any;
+  public dis1: any;
+  public dis2: any;
+  public dis3: any;
+
+  public hspcliid: any;
+  public dochspid: any;
+  public hopitslname: any;
+  public hopitsllist: any;
+  public slottypeid: any;
+  public docdd = {};
+  public search: any;
+
   ngOnInit() {
-    this.daysname = '';
-    this.doctorname = '';
+    // this.daysname = '';
+    // this.doctorname = '';
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
     this.getlanguage();
@@ -38,9 +120,20 @@ export class DocWorkingDashComponent implements OnInit {
     if (this.hospitalid != undefined) {
       this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
+
           this.dummlist = data;
           this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
+
+          this.docdd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'doctorName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
+          };
 
         }, error => {
         }
@@ -49,24 +142,34 @@ export class DocWorkingDashComponent implements OnInit {
   }
 
   public getdoctorforadmin() {
-   
+
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.doctorlist = data;
         this.dummlist = this.doctorlist
 
+        this.docdd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'doctorName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
       }, error => {
       }
     )
   }
 
-
+  public SelectLabel: any;
 
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.dayslist = data;
       }, error => {
       }
@@ -75,21 +178,23 @@ export class DocWorkingDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
+        this.search = this.labels[0].search,
+          this.SelectLabel = this.labels[0].select
       }, error => {
       }
     )
   }
 
+
+
   public GetDoctorHospitalDetails() {
     if (this.hospitalid == undefined) {
       this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
         data => {
-         
+
           this.workingdetails = data;
-
-
         }, error => {
         }
       )
@@ -97,7 +202,7 @@ export class DocWorkingDashComponent implements OnInit {
     else if (this.hospitalid != undefined) {
       this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
         data => {
-         
+
           this.dummworkingdetails = data;
           this.workingdetails = this.dummworkingdetails.filter(x => x.hospitalClinicID == this.hospitalid)
           this.workingdetailscopy = this.workingdetails;
@@ -108,21 +213,628 @@ export class DocWorkingDashComponent implements OnInit {
 
   }
   dummwork: any;
-  doctorid: any;
+  // doctorid: any;
 
 
-  public GetDoctorID(even) {
-   
-    this.doctorid = even.target.value
+  public GetDoctorID(item: any) {
+    this.doctorid = item.id
+    this.GetDoctorsworkinglist()
 
+    this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
+      data => {
+        this.workingdetails = data;
+        var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
+        this.slottypeid = list[0].slotDurationID
+        this.GetMorningSlotsMasterbyid();
+        this.GetAfternoonSlotsMasterbyID();
+        this.GetEveningSlotsMasterByID();
+        this.GetNightSlotsMasterByID();
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetDoctorsworkinglist() {
     this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
       data => {
-       
+        debugger
         this.dummworkingdetails = data;
         this.workingdetails = this.dummworkingdetails.filter(x => x.doctorID == this.doctorid)
       }, error => {
       }
     )
+    debugger
+  }
+
+
+  public appointmentypeid: any;
+
+
+
+  public gettimeid(tid, dochspid, hspcliid, dayid, appointmentypeid, doctorID) {
+    debugger
+    this.timeid = tid;
+    this.dochspid = dochspid;
+    this.hspcliid = hspcliid;
+    this.dayid = dayid;
+    this.appointmentypeid = appointmentypeid;
+    this.doctorid = doctorID;
+
+    // this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
+    //   data => {
+    //     this.workingdetails = data;
+    //     var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
+    //     this.slottypeid = list[0].slotDurationID
+    //     this.GetMorningSlotsMasterbyid();
+    //     this.GetAfternoonSlotsMasterbyID();
+    //     this.GetEveningSlotsMasterByID();
+    //     this.GetNightSlotsMasterByID();
+    //   }, error => {
+    //   }
+    // )
 
   }
+
+
+  public GetMorningSlotsMasterbyid() {
+
+    this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
+      data => {
+
+        this.slotslist = data;
+        this.slotsdd = {
+          singleSelection: false,
+          idField: 'id',
+          textField: 'slots',
+          // selectAllText: 'Select All',
+          // unSelectAllText: 'UnSelect All',
+          itemsShowLimit: 3,
+          allowSearchFilter: false,
+          enableCheckAll: false
+        };
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+  public GetAfternoonSlotsMasterbyID() {
+
+    this.docservice.GetSlotsMasterByID(2, this.slottypeid).subscribe(
+      data => {
+
+        this.slotslist1 = data;
+        this.slotsdd1 = {
+          singleSelection: false,
+          idField: 'id',
+          textField: 'slots',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          itemsShowLimit: 3,
+          allowSearchFilter: false,
+          enableCheckAll: false
+        };
+      }, error => {
+      }
+    )
+  }
+  public GetEveningSlotsMasterByID() {
+
+    this.docservice.GetSlotsMasterByID(3, this.slottypeid).subscribe(
+      data => {
+
+        this.slotslist2 = data;
+        this.slotsdd2 = {
+          singleSelection: false,
+          idField: 'id',
+          textField: 'slots',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          itemsShowLimit: 3,
+          allowSearchFilter: false,
+          enableCheckAll: false
+        };
+      }, error => {
+      }
+    )
+  }
+  public GetNightSlotsMasterByID() {
+
+    this.docservice.GetSlotsMasterByID(4, this.slottypeid).subscribe(
+      data => {
+
+        this.slotslist3 = data;
+        this.slotsdd3 = {
+          singleSelection: false,
+          idField: 'id',
+          textField: 'slots',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          itemsShowLimit: 3,
+          allowSearchFilter: false,
+          enableCheckAll: false
+        };
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+  public GetMorningSlotsID(item: any) {
+
+    this.morningslots.push(item);
+
+    if (this.morningslots.length == 2) {
+      this.abcd = 1;
+    }
+  }
+
+  onItemDeSelect(item: any) {
+
+    this.morningslots = this.morningslots.slice(item.id)
+  }
+
+  public GetAfternoonSlotsID(item1: any) {
+
+    this.aftrenoonslots.push(item1);
+
+    if (this.aftrenoonslots.length == 2) {
+      this.dis1 = 1;
+    }
+  }
+
+
+  onItemDeSelect1(item1: any) {
+
+    this.aftrenoonslots = this.aftrenoonslots.slice(item1.id)
+  }
+
+  public GetEveningSlotsID(item2: any) {
+
+    this.eveningslots.push(item2);
+
+    if (this.eveningslots.length == 2) {
+      this.dis2 = 1;
+    }
+  }
+
+  onItemDeSelect2(item2: any) {
+
+    this.eveningslots = this.eveningslots.slice(item2.id)
+  }
+
+
+  public GetNightSlotsID(item3: any) {
+
+    this.nightslots.push(item3);
+    if (this.nightslots.length == 2) {
+      this.dis3 = 1;
+    }
+  }
+
+  onItemDeSelect3(item3: any) {
+
+    this.eveningslots = this.eveningslots.slice(item3.id)
+  }
+
+
+
+
+  public adddetails() {
+
+    if (this.morningslots.length == 0 && this.aftrenoonslots.length == 0 && this.eveningslots.length == 0 && this.nightslots.length == 0) {
+
+      var entitysds = {
+
+        'DoctorHospitalDetailsID': this.dochspid,
+        'DayID': this.dayid,
+        'TimeID': this.timeid,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.UpdateDoctorSlotStartAndEndTimeAppointmentType(entitysds).subscribe(data => {
+
+        Swal.fire('Success', 'Updated Successfully')
+        this.GetDoctorsworkinglist()
+        this.insertbookappointmenttype()
+      })
+    }
+    else {
+      this.tablecount = 1;
+
+      for (let i = 0; i < this.morningslots.length; i++) {
+        this.morningslotarray.push(this.morningslots[i].slots);
+
+        this.morningslotidarray.push(this.morningslots[i].id)
+      }
+
+      this.slotname = this.morningslotarray;
+      this.mrng = this.slotname.join(' to ')
+      this.slotnameid = this.morningslotidarray;
+      this.mrngid = this.slotnameid.join(',')
+
+
+      for (let i = 0; i < this.aftrenoonslots.length; i++) {
+        this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
+
+        this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
+      }
+
+      this.slotname1 = this.afternoonslotarray;
+      this.afternoon = this.slotname1.join(' to ');
+      this.slotnameid1 = this.afternoonslotidarray;
+      this.afternoonid = this.slotnameid1.join(',');
+
+
+      for (let i = 0; i < this.eveningslots.length; i++) {
+        this.eveningarray.push(this.eveningslots[i].slots);
+
+        this.eveningarrayid.push(this.eveningslots[i].id);
+      }
+
+      this.slotname2 = this.eveningarray;
+      this.evening = this.slotname2.join(' to ');
+      this.slotnameid2 = this.eveningarrayid;
+      this.eveningid = this.slotnameid2.join(',');
+
+      for (let i = 0; i < this.nightslots.length; i++) {
+        this.nightslotsarray.push(this.nightslots[i].slots);
+
+        this.nightslotsarrayid.push(this.nightslots[i].id);
+      }
+
+      this.slotname3 = this.nightslotsarray;
+      this.night = this.slotname3.join(' to ');
+      this.slotnameid3 = this.nightslotsarrayid;
+      this.nightid = this.slotnameid3.join(',');
+
+      var entity = {
+        'Sno': this.idcount,
+        'DoctorID': this.doctorid,
+        'DoctorAvailability': this.name,
+        'DoctorAvailabilityID': this.availabilityid,
+        'Hospital_Clinic': this.hospital_ClinicName,
+        'Hospital_ClinicID': this.hosipitalidd,
+        'Day': this.day,
+        'DayID': this.dayid,
+        'Fees': this.fees,
+        'Session1': this.session1,
+        'Session2': this.session2,
+        'Morning': this.mrng,
+        'Afternoon': this.afternoon,
+        'Evening': this.evening,
+        'Night': this.night,
+        'Morningid': this.mrngid,
+        'Afternoonid': this.afternoonid,
+        'Eveningid': this.eveningid,
+        'Nightid': this.nightid
+      }
+      this.qwerty.push(entity);
+      this.idcount = this.idcount + 1;
+      this.session1 = "";
+      this.session2 = "";
+      this.cleardropdown1 = [];
+      this.cleardropdown2 = [];
+      this.cleardropdown3 = [];
+      this.cleardropdown4 = [];
+      this.abcd = "";
+      this.dis2 = "";
+      this.dis1 = "";
+      this.dis3 = "";
+      this.eveningslots.length = 0;
+      this.morningslotarray.length = 0;
+      this.morningslotidarray.length = 0;
+      this.eveningarray.length = 0;
+      this.afternoonslotarray.length = 0;
+      this.nightslotsarray.length = 0;
+      this.nightslots.length = 0;
+      this.morningslots.length = 0;
+      this.eveningslots.length = 0;
+      this.aftrenoonslots.length = 0;
+
+
+
+      this.docservice.DeleteDoctorSlotsByDoctor(this.doctorid, this.dochspid, this.dayid, this.timeid).subscribe(res => {
+
+        for (let s = 0; s < this.qwerty.length; s++) {
+
+
+          let mrng = this.qwerty[s].Morning;
+          let ms = mrng.split(" to ", 3);
+          let mst = ms[0];
+          let met = ms[1];
+
+          let noon = this.qwerty[s].Afternoon;
+          let ns = noon.split(" to ", 3);
+          let nst = ns[0];
+          let net = ns[1];
+
+          let evng = this.qwerty[s].Evening;
+          let es = evng.split(" to ", 3);
+          let est = es[0];
+          let eet = es[1];
+
+          let nyt = this.qwerty[s].Night;
+          let nys = nyt.split(" to ", 3);
+          let nyst = nys[0];
+          let nyet = nys[1];
+
+
+          if (this.timeid == 1) {
+            var entityssssss = {
+              'DoctorHospitalDetailsID': this.dochspid,
+              'DayID': this.dayid,
+              'TimeID': this.timeid,
+              'StartTime': mst,
+              'EndTime': met,
+              'AppointmentTypeID': this.appointmentypeid
+            }
+          }
+          else if (this.timeid == 2) {
+            var entityssssss = {
+              'DoctorHospitalDetailsID': this.dochspid,
+              'DayID': this.dayid,
+              'TimeID': this.timeid,
+              'StartTime': nst,
+              'EndTime': net,
+              'AppointmentTypeID': this.appointmentypeid
+            }
+          }
+          else if (this.timeid == 3) {
+            var entityssssss = {
+              'DoctorHospitalDetailsID': this.dochspid,
+              'DayID': this.dayid,
+              'TimeID': this.timeid,
+              'StartTime': est,
+              'EndTime': eet,
+              'AppointmentTypeID': this.appointmentypeid
+            }
+          }
+          else if (this.timeid == 4) {
+            var entityssssss = {
+              'DoctorHospitalDetailsID': this.dochspid,
+              'DayID': this.dayid,
+              'TimeID': this.timeid,
+              'StartTime': nyst,
+              'EndTime': nyet,
+              'AppointmentTypeID': this.appointmentypeid
+            }
+          }
+          this.docservice.UpdateDoctorSlotStartAndEndTime(entityssssss).subscribe(data => {
+
+            this.GetDoctorsworkinglist()
+          })
+        }
+
+        for (let i = 0; i < this.qwerty.length; i++) {
+          var entitys = {
+            'Hospital_ClinicID': this.hspcliid,
+            'DoctorID': this.doctorid,
+            'DayID': this.dayid,
+            'DoctorHospitalDetailsID': this.dochspid,
+            'Morning': this.qwerty[i].Morningid,
+            'Noon': this.qwerty[i].Afternoonid,
+            'Evening': this.qwerty[i].Eveningid,
+            'Night': this.qwerty[i].Nightid,
+            'MrngAppointtypeID': this.appointmentypeid,
+            'AfternoonAppointmentTypeID': this.appointmentypeid,
+            'EveningAppointmentTypeID': this.appointmentypeid,
+            'NightAppointmentTypeID': this.appointmentypeid
+          }
+          this.docservice.InsertDoctorSlotByID(entitys).subscribe(data => {
+
+            this.GetDoctorsworkinglist();
+          })
+        }
+      })
+      if (this.languageid == 1) {
+        Swal.fire('Completed', 'Slots saved successfully', 'success');
+        this.GetDoctorsworkinglist()
+      }
+      else {
+        Swal.fire('Détails enregistrés');
+        this.GetDoctorsworkinglist()
+      }
+
+      //location.href="#/MyWorkingDetails";
+      //this.GetDoctorHospitalDetails();
+    }
+  }
+
+
+  public insertbookappointmenttype() {
+    var entity = {
+      'DoctorHospitalID': this.dochspid,
+      'AppointmentTypeID': this.appointmentypeid
+    }
+    this.docservice.InsertBookAppointmentType(entity).subscribe(data => {
+      if (data != undefined) {
+
+      }
+    })
+  }
+
+
+
+
+
+
+  public deleteparticular(dochspid, dayid, timeid) {
+
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Day Slot!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorSlotsByDoctor(this.doctorid, dochspid, dayid, timeid).subscribe(res => {
+            let test = res;
+            this.GetDoctorsworkinglist()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Slot has been deleted.',
+            'success'
+          )
+        }
+        else {
+          this.GetDoctorsworkinglist()
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr(e) ?',
+        text: "Supprimer !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Qui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorSlotsByDoctor(this.doctorid, dochspid, dayid, timeid).subscribe(res => {
+            let test = res;
+            this.GetDoctorsworkinglist()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Slot has been deleted.',
+            'success'
+          )
+        }
+        else {
+          this.GetDoctorsworkinglist()
+        }
+      })
+    }
+  }
+
+
+  public deletebydochspid(dochspid, dayid) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Day Slot!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorSlotsByDocHspDetailsID(dochspid, dayid).subscribe(res => {
+            let test = res;
+            debugger
+            this.GetDoctorsworkinglist()
+            this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
+              data => {
+                this.workingdetails = data;
+
+              }, error => {
+              }
+            )
+
+          })
+          Swal.fire(
+            'Deleted!',
+            'Slot has been deleted.',
+            'success'
+          )
+          this.GetDoctorsworkinglist()
+          this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
+            data => {
+              this.workingdetails = data;
+              // this.workingdetails = this.workingdetails.filter(x => x.doctorID == this.doctorid)
+
+            }, error => {
+            }
+          )
+          debugger
+        }
+        else {
+          this.GetDoctorsworkinglist()
+
+          debugger
+        }
+      })
+    }
+    else {
+      debugger
+      Swal.fire({
+        title: 'Êtes-vous sûr(e) ?',
+        text: "Supprimer !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Qui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorSlotsByDocHspDetailsID(dochspid, dayid).subscribe(res => {
+            let test = res;
+            this.GetDoctorsworkinglist()
+            debugger
+          })
+          Swal.fire(
+            'Deleted!',
+            'Slot has been deleted.',
+            'success'
+          )
+        }
+        else {
+          this.GetDoctorsworkinglist()
+          debugger
+        }
+      })
+    }
+  }
+
+  public DeleteDoctorSlots(id) {
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to Delete This Day Slot!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeleteDoctorSlots(id).subscribe(res => {
+          let test = res;
+          this.GetDoctorsworkinglist()
+        })
+        Swal.fire(
+          'Deleted!',
+          'Slot has been deleted.',
+          'success'
+        )
+      }
+      else {
+        this.GetDoctorsworkinglist()
+      }
+    })
+  }
+
+
+  public GetHospital(even) {
+
+    this.hopitslname = even.target.value;
+  }
+
+
 }

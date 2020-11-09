@@ -4,193 +4,356 @@
       <h5>{{labels[0].profile}}</h5>
     </div>
   </div>
-</div><br>
-<div class="container-fluid card card-hover divspacee">
-  <form #pharmacyForm="ngForm">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="row" style="margin-top:20px;">
-          <div class="col-lg-4">
-            <label>{{labels[0].pharmacyname}} :</label>
-            <span class="required">*</span>
-          </div>
-          <div class="col-lg-6">
-            <input type="text" [(ngModel)]="pharmacyname" disabled name="pharmacyname" class="form-control">
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].contactPersonName}} :</label>
-            
-          </div>
-          <div class="col-lg-6">
-            <input type="text" class="form-control"  [(ngModel)]="contactpersonname" name="contactpersonname"
-             >
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].licenseNumber}} : </label>
-           
-          </div>
-          <div class="col-lg-6">
-            <input type="text" class="form-control"  [(ngModel)]="licenseno" name="licenseno"
-              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].licenseValidTill}} :</label>
-           
-          </div>
-          <div class="col-lg-6">
-            <input type="datetime-local" class="form-control"  [(ngModel)]="licensevalidtill"
-              name="licensevalidtill">
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].phoneNo}}: </label>
-         
-          </div>
-          <div class="col-lg-6">
-            <input type="text " class="form-control"  maxlength="13"  [(ngModel)]="mobileno"
-              name="mobileno" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].email}}:</label>
-        
-          </div>
-          <div class="col-lg-6">
-            <input type="email" class="form-control"  [(ngModel)]="email" name="email"
-              (ngModelChange)="onChange($event)">
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].address}} :</label>
-            <span class="required">*</span>
-          </div>
-          <div class="col-lg-6">
-            <textarea class="form-control" rows="4" required cols="30" [(ngModel)]="address" name="address"
-              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].country}} : </label>
-            <span class="required">*</span>
-          </div>
-          <div class="col-lg-6">
-            <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
-              <option value="" selected>Select</option>
-              <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
-            </select>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].province}} :</label>
-            <span class="required">*</span>
-          </div>
-          <div class="col-lg-6">
-            <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
-              <option value="" selected="selected">select</option>
-              <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
-            </select>
-          </div>
-        </div><br>
-        <div class="row">
-            <div class="col-lg-4">
-              <label class="City_label">{{labels[0].city}} :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-6">
-              <select class="form-control" (change)="GetAreaID($event)" [(ngModel)]="areaid" name="areaid">
-                <option value="" selected="selected">Select</option>
-                <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
-              </select>
-            </div>
-          </div><br>
-        <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].zipCode}}:</label>
-          </div>
-          <div class="col-lg-6">
-            <input type="text" class="form-control" maxlength="6"  [(ngModel)]="zipcode"
-              name="zipcode" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-          </div>
-        </div><br>
+</div>
 
+<aw-wizard navBarLocation="top" navBarLayout="small" navBarDirection="left-to-right" navigationMode="strict"
+  class="card card:hover divspacee">
+  <aw-wizard-step stepTitle="Profile">
+    <div class="container-fluid  divspacee">
+      <form #pharmacyForm="ngForm">
         <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].website}}:</label>
-          
+          <div class="col-lg-8">
+            <div class="row" style="margin-top:20px;">
+              <div class="col-lg-4">
+                <label>{{labels[0].pharmacyname}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" [(ngModel)]="pharmacyname" disabled name="pharmacyname" class="form-control">
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].contactPersonName}} :</label>
+
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="contactpersonname" name="contactpersonname">
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].licenseNumber}} : </label>
+
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="licenseno" name="licenseno"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].licenseValidTill}} :</label>
+
+              </div>
+              <div class="col-lg-6">
+                <input type="datetime-local" class="form-control" [(ngModel)]="licensevalidtill"
+                  name="licensevalidtill">
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].phoneNo}}: </label>
+
+              </div>
+              <div class="col-lg-6">
+                <input type="text " class="form-control" maxlength="13" [(ngModel)]="mobileno" name="mobileno"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].email}}:</label>
+
+              </div>
+              <div class="col-lg-6">
+                <input type="email" class="form-control" [(ngModel)]="email" name="email"
+                  (ngModelChange)="onChange($event)">
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].address}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <textarea class="form-control" rows="4" required cols="30" [(ngModel)]="address" name="address"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].country}} : </label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+                  <option value="" selected>Select</option>
+                  <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].province}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+                  <option value="" selected="selected">select</option>
+                  <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="City_label">{{labels[0].city}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="form-control" (change)="GetAreaID($event)" [(ngModel)]="areaid" name="areaid">
+                  <option value="" selected="selected">Select</option>
+                  <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].zipCode}}:</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" maxlength="6" [(ngModel)]="zipcode" name="zipcode"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div><br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].website}}:</label>
+
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="website" name="website"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].timing}}:</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required [(ngModel)]="timings" name="timings"
+                  onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
+                event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58||event.charCode==46'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].description}}:</label>
+
+              </div>
+              <div class="col-lg-6">
+                <textarea class="form-control" rows="4" cols="30" [(ngModel)]="description"
+                  name="description"></textarea>
+              </div>
+            </div><br>
           </div>
-          <div class="col-lg-6">
-            <input type="text" class="form-control"  [(ngModel)]="website" name="website"
-              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+          <div class="col-lg-4">
+            <br>
+            <img src="{{photoprofile}}" style="height:200px;width:200px;">
+          </div>
+          <!-- <div class="col-lg-2"  *ngFor="let pho of photos">
+              <img src="{{pho.photoUrl}}" style="height: 100px;width: 100px;">
+          </div> -->
+        </div>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" [disabled]="pharmacyForm.form.invalid||validEmail==false"
+              class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].update}}</button>
+          </div>
+          <div class="col-lg-5">
+            <!--  -->
           </div>
         </div><br>
         <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].timing}}:</label>
-            <span class="required">*</span>
+          <div class="col-lg-12">
+            <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>Next</button><br>
           </div>
-          <div class="col-lg-6">
-            <input type="text" class="form-control" required [(ngModel)]="timings" name="timings"
-              onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
-            event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58||event.charCode==46'>
-          </div>
-        </div><br>
+        </div>
         <div class="row">
-          <div class="col-lg-4">
-            <label>{{labels[0].description}}:</label>
-            
+          <div class="col-lg-2" *ngFor="let pho of photos">
+            <img src="{{pho.photoUrl}}" style="height: 100px;width: 100px;"><br><br>
+            <button class="btn  btncolor" (click)="GetPharmacyPhotoID(pho.id)">{{labels[0].edit}}</button>
           </div>
-          <div class="col-lg-6">
-            <textarea class="form-control" rows="4"  cols="30" [(ngModel)]="description"
-              name="description"></textarea>
-          </div>
+        </div><br><br>
+        <div class="col-lg-3" *ngIf="pffbit=='1'">
+          <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+          </ngx-dropzone>
+          <span *ngFor="let pic of showphoto">
+            <img src="{{pic}}" style="width: 40px;height:40px;">
+          </span>
         </div><br>
-      </div>
-      <div class="col-lg-4">
-        <br>
-        <img src="{{photoprofile}}" style="height:200px;width:200px;">
-      </div>
-      <!-- <div class="col-lg-2"  *ngFor="let pho of photos">
-          <img src="{{pho.photoUrl}}" style="height: 100px;width: 100px;">
-      </div> -->
-    </div>
-    <div class="row">
-      <div class="col-lg-5">
-      </div>
-      <div class="col-lg-2">
-        <button type="button" [disabled]="pharmacyForm.form.invalid||validEmail==false"
-          class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].update}}</button>
-      </div>
-      <div class="col-lg-5">
-        <!--  -->
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-2" *ngFor="let pho of photos">
-        <img src="{{pho.photoUrl}}" style="height: 100px;width: 100px;"><br><br>
-        <button class="btn  btncolor" (click)="GetPharmacyPhotoID(pho.id)">{{labels[0].edit}}</button>
-      </div>
-    </div><br><br>
-    <div class="col-lg-3" *ngIf="pffbit=='1'">
-        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
-          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
-        </ngx-dropzone>
-        <span *ngFor="let pic of showphoto">
-          <img src="{{pic}}" style="width: 40px;height:40px;">
-        </span>
-      </div><br>
-      <div class="col-lg-10" *ngIf="pffbit=='1'">
+        <div class="col-lg-10" *ngIf="pffbit=='1'">
           <button class="btn  btncolor" (click)="updatephotos()">{{labels[0].update}}</button>
         </div><br><br>
-  </form>
-</div><br>
+
+      
+      </form>
+    </div><br>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Subscriptions">
+    <div class="container-fluid">
+        <div class="row"> 
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Monthly subscription :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" placeholder="Monthly subscription" name="addmonthlysubscription" [(ngModel)]="addmonthlysubscription"
+              class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract start date :</label>
+    
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract start date" name="contractstartdateeee" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractstartdateeee" bsDatepicker>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract end date :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract end date" name="contractenddateeeee" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractenddateeeee" bsDatepicker>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button"
+              class="btn btn-block btn-md allbtns btncolor" (click)="InsertPharmacyRevenue()">Save</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+          <br>
+        </div>
+      </div>
+     </div><br>
+      <div class="row">
+        <div class="col-lg-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Contract start date</th>
+                <th>Contract end date</th>
+                <th>Monthly subscription</th>
+                <th>Actions</th>
+              </tr>
+              <tr *ngFor="let subscriptions of pharmacyrevenuelist">
+                <td>{{subscriptions.contractstartdate}}</td>
+                <td>{{subscriptions.contractenddate}}</td>
+                <td>{{subscriptions.subscriptionAmount}}</td>
+                <td>
+                  <ng-template #tipcontent1>Edit</ng-template>
+                  <a [ngbTooltip]="tipcontent1"  style="color:black">
+                    <img src="assets/Images/edit.png" data-toggle="modal"  data-target="#EditSubscriptionfees" style="width: 18px"
+                    (click)="GetContractSubscriptions(subscriptions)">
+                  </a>
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+   
+
+
+    </div><br>
+    <br>
+    <button type="button" style="float: left" class="btn btncolor dashbtn nextbtncolor" awPreviousStep>Previous</button>
+    <br>
+  </aw-wizard-step><br>
+</aw-wizard><br>
+
+<div class="modal fade" id="EditSubscriptionfees" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Subscriptions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3">
+          <label>Monthly subscription :</label>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" placeholder="Monthly subscription" name="monthlysubription" [(ngModel)]="monthlysubription"
+            class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-lg-3">
+          <label>Contract start date :</label>
+  
+        </div>
+        <div class="col-lg-4">
+          <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+          placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="contractstartdate" bsDatepicker>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-lg-3">
+          <label>Contract end date :</label>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+          placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          [(ngModel)]="contractenddate" bsDatepicker>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-2">
+          <button type="button"
+            class="btn btn-block btn-md allbtns btncolor" (click)="UpdatePharmacyrevenue()">Update</button>
+        </div>
+        <div class="col-lg-5">
+        </div>
+        <br>
+      </div>
+    </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

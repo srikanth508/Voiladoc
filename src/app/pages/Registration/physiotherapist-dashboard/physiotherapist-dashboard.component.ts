@@ -35,20 +35,40 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   public countrylist: any;
   public hospitalclinicid: any;
   public dummlistphysiolist: any;
+  public countrymanaerid:any;
+  public showexportbutton:any;
+  public salesrepresntiveid:any;
+  public showeditbutton:any;
+
   ngOnInit() {
+
+
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
+    if(this.salesrepresntiveid!=undefined)
+    {
+      this.showeditbutton=1
+    }
+    else{
+      this.showeditbutton=0;
+    }
 
+    
+  if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+    this.showexportbutton = 1;
+  }
+  
     this.activatedroute.params.subscribe(params => {
      
-
       this.id = params['id']
     }
     )
     this.languageid = localStorage.getItem('LanguageID');
 
-    if (this.id == undefined) {
+    if (this.hospitalclinicid == undefined) {
       this.getphysiolist();
     }
     if (this.hospitalclinicid != undefined) {
@@ -62,7 +82,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
         }
       )
     }
-    else if (this.hospitalclinicid != undefined) {
+    else if (this.id != undefined) {
       this.docservice.GetPhysiotherapyRegistrationForWeb(this.languageid, this.startdate, this.enddate).subscribe(
         data => {
          
@@ -214,7 +234,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
       if (result.value) {
         this.docservice.DeletePhysiotherapyRegistrationAdmin(id).subscribe(res => {
           let test = res;
-          this.getphysiolist();
+          this.ngOnInit();
         })
         Swal.fire(
           'Deleted!',
@@ -223,7 +243,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
         )
       }
       else {
-        this.getphysiolist();
+        this.ngOnInit();
       }
     })
   }

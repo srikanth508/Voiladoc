@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { formatDate } from "@angular/common";
 })
 export class SponserpharmacyComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   public pharmacylist: any;
   public pharmacyid: any;
@@ -23,6 +24,9 @@ export class SponserpharmacyComponent implements OnInit {
   public pharmacydd={}
   public labels:any;
   public languageid:any;
+  public fees:any;
+  public id:any;
+  public showbutton:any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -33,6 +37,21 @@ export class SponserpharmacyComponent implements OnInit {
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
    
     this.languageid = localStorage.getItem('LanguageID');
+
+
+    this.activatedroute.params.subscribe(params => {
+
+      this.id = params['id'];
+      if (this.id == undefined) {
+        this.showbutton = 0;
+      }
+      else if (this.id != undefined) {
+        this.showbutton = 1;
+        this.GetSponsoredPharmacyForAdmin()
+      }
+    }
+    )
+
     // this.docservice.GetSponsoredPharmacyForAdmin().subscribe(
     //   data => {
     //    
@@ -96,13 +115,14 @@ public getpharmacydetails(){
       var entity = {
         'PharmacyID': this.pharmacyid,
         'SDate': this.startdate,
-        'EDate': this.enddate
+        'EDate': this.enddate,
+        'Fees':this.fees
       }
       this.docservice.InsertSponsoredPharmacy(entity).subscribe(data => {
        
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
-    
+          location.href = "#/Pharmdash";
         }
       })
     }
@@ -115,5 +135,73 @@ public getpharmacydetails(){
 public GetEnddate()
 {
   this.enddate='';
+}
+
+
+sponserpharmacylist:any;
+pharmacyname:any;
+
+
+
+public GetSponsoredPharmacyForAdmin() {
+  if (this.languageid == 1) {
+    this.docservice.GetSponsoredPharmacyForAdmin().subscribe(
+      data => {
+        debugger
+        this.sponserpharmacylist = data;
+
+        var list = this.sponserpharmacylist.filter(x => x.id == this.id)
+        this.startdate = list[0].startdate,
+          this.enddate = list[0].enddate,
+          this.fees = list[0].fees,
+          this.pharmacyname = list[0].pharmacyName
+      }, error => {
+      }
+    )
+  }
+  else if (this.languageid == 6) {
+    this.docservice.GetSponsoredPharmacyForAdmin().subscribe(
+      data => {
+        debugger
+        this.sponserpharmacylist = data;
+        debugger
+        var list = this.sponserpharmacylist.filter(x => x.id == this.id)
+        this.startdate = list[0].startdate.toLocaleString();
+        this.enddate = list[0].enddate.toLocaleString();
+        this.fees = list[0].fees,
+          this.pharmacyname = list[0].pharmacyName
+      }, error => {
+      }
+    )
+  }
+}
+
+
+
+public updatedetails() {
+  debugger
+  // const qwer = 'dd-MMM-yyyy';
+  // const pljdjf = 'en-US';
+  // const frdat = this.startdate;
+  // this.startdate = formatDate(frdat, qwer, pljdjf);
+  // const todat = this.enddate;
+  // this.enddate = formatDate(todat, qwer, pljdjf);
+  debugger
+  var entity1 = {
+    'ID': this.id,
+    'SDate': this.startdate,
+    'EDate': this.enddate,
+    'Fees': this.fees
+  }
+  this.docservice.UpdateSponsoredPharmacy(entity1).subscribe(data => {
+    if (this.languageid == 1) {
+      Swal.fire('Completed', 'Updated Successfully', 'success');
+      location.href = "#/Pharmdash";
+    }
+    else {
+      Swal.fire('Terminé', 'Mis à jour avec succés', 'success');
+      location.href = "#/Pharmdash";
+    }
+  })
 }
 }

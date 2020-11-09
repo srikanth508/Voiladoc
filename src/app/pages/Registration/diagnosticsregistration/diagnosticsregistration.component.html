@@ -176,6 +176,30 @@
         <br />
         <div class="row">
           <div class="col-lg-3">
+            <label>Contract start date :</label>
+    
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractstartdate" bsDatepicker>
+          </div>
+        </div>
+        <br />
+    
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract end date :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractenddate" bsDatepicker>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-3">
             <label>{{labels[0].webSite}}: </label>
             <!-- <span class="requird">*</span> -->
           </div>
@@ -279,7 +303,11 @@
               <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
-           
+              <div>
+                <span *ngFor="let photo of showphoto">
+                  <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+                </span>
+              </div>
             </div>
             <div>
 

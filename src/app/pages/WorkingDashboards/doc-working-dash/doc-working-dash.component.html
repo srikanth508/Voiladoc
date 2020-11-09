@@ -17,7 +17,6 @@
   <div class="row">
     <div class="col-lg-8">
     </div>
-    
   </div> -->
   <div class="row" style="margin-top:10px;">
     <div class="col-lg-3">
@@ -26,10 +25,14 @@
 
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select value="" selected class="form-control" (change)=GetDoctorID($event)>
+      <!-- <select value="" selected class="form-control" (change)=GetDoctorID($event)>
         <option value="">{{labels[0].selectDoctor}}</option>
         <option *ngFor="let doc of doctorlist" value={{doc.id}}>{{doc.doctorName}}</option>
-      </select>
+      </select> -->
+
+      <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="doctorlist"
+        [settings]="docdd" (onSelect)="GetDoctorID($event)">
+      </ng-multiselect-dropdown>
     </div>
     <div class="col-lg-3" style="margin-right: -28px;">
       <!-- (change)="GetDaysName($event)" -->
@@ -61,7 +64,7 @@
             <th>{{labels[0].afternoon}}</th>
             <th>{{labels[0].evening}}</th>
             <th>{{labels[0].night}}</th>
-            <!-- <th>{{labels[0].actions}}</th> -->
+            <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let doc of workingdetails|filter:term|filter:daysname|filter:doctorname">
             <td>{{doc.hospital_ClinicName}}</td>
@@ -70,45 +73,49 @@
             <td [style.background-color]="doc.mrngAppointtypeID" [style.color]="doc.mtextcolor">
               {{doc.mrngStartTime}} -- {{doc.mrngEndTime}}
               <br>
-              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(1,doc.id,doc.hospital_ClinicID,doc.dayID)"
+              <img src="assets/Images/edit.png"
+                (click)="gettimeid(1,doc.id,doc.hospital_ClinicID,doc.dayID,doc.mrngtypeid,doc.doctorID)"
                 data-toggle="modal" data-target="#myModal" style="width: 20px">
               &nbsp;&nbsp;
-              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,1)" style="width: 20px"> -->
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,1)" style="width: 20px">
             </td>
             <td [style.background-color]="doc.afternoonAppointmentTypeID" [style.color]="doc.atextcolor">
               {{doc.noonStartTime}} -- {{doc.noonEndTime}}
               <br>
-              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(2,id,hospital_ClinicID)" data-toggle="modal"
-                data-target="#myModal" style="width: 20px">
+              <img src="assets/Images/edit.png"
+                (click)="gettimeid(2,doc.id,doc.hospital_ClinicID,doc.dayID,doc.aftrenoontypeid,doc.doctorID)"
+                data-toggle="modal" data-target="#myModal" style="width: 20px">
               &nbsp;&nbsp;
-              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,2)" style="width: 20px"> -->
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,2)" style="width: 20px">
             </td>
             <td [style.background-color]="doc.eveningAppointmentTypeID" [style.color]="doc.etextcolor">
               {{doc.evngStartTime}} -- {{doc.evngEndTime}}
               <br>
-              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(3,id,hospital_ClinicID)" data-toggle="modal"
-                data-target="#myModal" style="width: 20px">
+              <img src="assets/Images/edit.png"
+                (click)="gettimeid(3,doc.id,doc.hospital_ClinicID,doc.dayID,doc.evngtypeid,doc.doctorID)"
+                data-toggle="modal" data-target="#myModal" style="width: 20px">
               &nbsp;&nbsp;
-              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,3)" style="width: 20px"> -->
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,3)" style="width: 20px">
             </td>
             <td [style.background-color]="doc.nightAppointmentTypeID" [style.color]="doc.ntextcolor">
               {{doc.nightStartTime}} -- {{doc.nightEndTime}}
               <br>
-              <!-- <img src="assets/Images/edit.png" (click)="gettimeid(4,id,hospital_ClinicID)" data-toggle="modal"
-                data-target="#myModal" style="width: 20px">
+              <img src="assets/Images/edit.png"
+                (click)="gettimeid(4,doc.id,doc.hospital_ClinicID,doc.dayID,doc.nighttypeid,doc.doctorID)"
+                data-toggle="modal" data-target="#myModal" style="width: 20px">
               &nbsp;&nbsp;
-              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,4)" style="width: 20px"> -->
+              <img src="assets/Images/dell.png" (click)="deleteparticular(doc.id,doc.dayID,4)" style="width: 20px">
             </td>
-            <!-- <td>
-              <ng-template #tipcontent1>Edit</ng-template>
+            <td>
+              <!-- <ng-template #tipcontent1>Edit</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" style="width: 20px">
-              </a>&nbsp;
+              </a>&nbsp; -->
               <ng-template #tipcontent2>Delete</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" (click)="deletebydochspid(doc.id,doc.dayID)">
+                <img src="assets/Images/dell.png" style="width: 20px;" (click)="deletebydochspid(doc.id,doc.dayID)">
               </a>
-            </td> -->
+            </td>
           </tr>
         </thead>
       </table>
@@ -118,3 +125,89 @@
 </div>
 <br>
 <br>
+
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{labels[0].edit_Slots}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <span *ngIf="timeid==1">{{labels[0].morning}}</span>
+          <span *ngIf="timeid==2">{{labels[0].afternoon}}</span>
+          <span *ngIf="timeid==3">{{labels[0].evening}}</span>
+          <span *ngIf="timeid==4">{{labels[0].night}}</span>
+          <br>
+          <br>
+          <b>{{labels[0].select_Start_Time}}</b>
+        </p>
+
+        <div class="row">
+          <!-- <div class="col-lg-1">
+          </div> -->
+          <div class="col-lg-12">
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="1"> &nbsp;
+            {{labels[0].inclinic}} &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp;
+            {{labels[0].video}} &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
+            {{labels[0].homeVisit}}
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-lg-12" *ngIf="timeid==1">
+            <ng-multiselect-dropdown [placeholder]="Select" [disabled]="abcd==1" name="cleardropdown1"
+              [(ngModel)]="cleardropdown1" [data]="slotslist" [settings]="slotsdd"
+              (onSelect)="GetMorningSlotsID($event)" (onDeSelect)="onItemDeSelect($event)">
+            </ng-multiselect-dropdown>
+          </div>
+          <div class="col-lg-12" *ngIf="timeid==2">
+            <ng-multiselect-dropdown [placeholder]="Select" [disabled]="dis1==1" name="cleardropdown2"
+              [(ngModel)]="cleardropdown2" [data]="slotslist1" [settings]="slotsdd1"
+              (onSelect)="GetAfternoonSlotsID($event)" (onDeSelect)="onItemDeSelect1($event)">
+            </ng-multiselect-dropdown>
+          </div>
+          <div class="col-lg-12" *ngIf="timeid==3">
+            <ng-multiselect-dropdown [placeholder]="Select" name="cleardropdown3" [disabled]="dis2==1"
+              [(ngModel)]="cleardropdown3" [data]="slotslist2" [settings]="slotsdd2"
+              (onSelect)="GetEveningSlotsID($event)" (onDeSelect)="onItemDeSelect2($event)">
+            </ng-multiselect-dropdown>
+          </div>
+          <div class="col-lg-12" *ngIf="timeid==4">
+            <ng-multiselect-dropdown [placeholder]="Select" name="cleardropdown4" [disabled]="dis3==1"
+              [(ngModel)]="cleardropdown4" [data]="slotslist3" [settings]="slotsdd3"
+              (onSelect)="GetNightSlotsID($event)" (onDeSelect)="onItemDeSelect3($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+          <div class="col-lg-4">
+
+          </div>
+
+
+
+          <div class="col-lg-4">
+            <button type="button" data-dismiss="modal" class="btn btn-block btncolor"
+              (click)="adddetails()">{{labels[0].update_label}}</button>
+          </div>
+          <div class="col-lg-4">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

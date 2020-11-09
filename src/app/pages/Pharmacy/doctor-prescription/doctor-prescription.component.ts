@@ -50,7 +50,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   ngOnInit() {
 
 
-   
+
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
@@ -85,13 +85,13 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     this.GetPharmacyOrders();
 
 
     this.docservice.GetDeliveryPartnersWeb().subscribe(
       data => {
-       
+
         this.partnerlist = data;
       }, error => {
       }
@@ -105,10 +105,10 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
   }
   public GetPharmacyOrders() {
-   
+
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.orderlist = data;
       }, error => {
       }
@@ -118,14 +118,14 @@ export class DoctorPrescriptionComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       }, error => {
       }
@@ -146,14 +146,14 @@ export class DoctorPrescriptionComponent implements OnInit {
   prescriptiondate: any;
   dateofbirth: any;
   noteetopharmasict: any;
-  referencenumber:any;
-  
+  referencenumber: any;
+
   public GetMedicines(id) {
     this.myarray.length = 0;
-   
+
     this.listid = id;
     this.list = this.orderlist.filter(x => x.id == this.listid)
-   
+
     this.patientname = this.list[0].patientName,
       this.mobilernumber = this.list[0].mobileNumber
     this.address = this.list[0].address
@@ -168,12 +168,12 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.prescriptiondate = this.list[0].prescriptionAddedDate,
       this.dateofbirth = this.list[0].dateofbirth,
       this.noteetopharmasict = this.list[0].notetoopharmacistt,
-      this.referencenumber=this.list[0].referenceNumber
+      this.referencenumber = this.list[0].referenceNumber
 
     let meds = this.list[0].allMedicines.split(',');
     let quan = this.list[0].quantity.split(',');
 
-   
+
 
     let sig = this.list[0].sig.split(',');
     // let notetopharmacist = this.list[0].noteToPharmacist.split(',');
@@ -188,17 +188,17 @@ export class DoctorPrescriptionComponent implements OnInit {
         'Sig': sig[i],
         // 'NoteToPharmacist': notetopharmacist[i],
         'howmanyrefills': howmanyrefills[i],
-      
+
         // 'issubastaible': issubastaible[i]
         // 'Medicinetype': mtype[i]
       }
       this.myarray.push(medetty);
     }
-   
+
   }
 
   selectedDate(data) {
-   
+
 
     // var sdate = data.split('-')
     // this.startdate= sdate[0]
@@ -213,7 +213,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public getpharmacyorders() {
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.orderlist = data;
       }, error => {
       }
@@ -228,7 +228,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.accpharmacyname = pharmacyName;
     this.accdate = date;
     this.accemail = emailID;
-   
+
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -302,36 +302,70 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.canpatientid = patientID;
     this.canpharmacyname = pharmacyName;
     this.canemailID = emailID
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Cancel This Order!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Cancel it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.PharCancelledPatientMedicineDetails(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Cancel This Order!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Cancel it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.PharCancelledPatientMedicineDetails(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+            this.InsertNotiFicationcancel();
+            this.InsertCancelNotification()
+
+          })
+          Swal.fire(
+            'Cancelled!',
+            'Order has been Cancelled.',
+            'success'
+          )
+        }
+        else {
           this.GetPharmacyOrders();
           this.getpharmacyorders();
-          this.InsertNotiFicationcancel();
-          this.InsertCancelNotification()
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr',
+        text: "Annuler la commande !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.PharCancelledPatientMedicineDetails(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+            this.InsertNotiFicationcancel();
+            this.InsertCancelNotification()
 
-        })
-        Swal.fire(
-          'Cancelled!',
-          'Order has been Cancelled.',
-          'success'
-        )
-      }
-      else {
-        this.GetPharmacyOrders();
-        this.getpharmacyorders();
-      }
-    })
+          })
+          Swal.fire(
+            'Annulé!',
+            'La commande a été annulée.',
+            'success'
+          )
+        }
+        else {
+          this.GetPharmacyOrders();
+          this.getpharmacyorders();
+        }
+      })
+    }
+
   }
 
 
@@ -340,7 +374,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.delipatientid = patientID;
     this.delipharmacyname = pharmacyName;
     this.deliemail = emailID;
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "Order has been delivered!",
@@ -380,7 +414,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertAccptNotification() {
     if (this.languageid == '1') {
-     
+
       var entity = {
         'PatientID': this.accpatientid,
         'Notification': "Order Accepted By Pharmacy",
@@ -390,7 +424,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -407,7 +441,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -419,14 +453,14 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public InsertNotiFicationAccpt() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Medicine Order with " + this.accpharmacyname + " has been Accepted.",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -438,7 +472,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -456,7 +490,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertCancelNotification() {
     if (this.languageid == '1') {
-     
+
       var entity = {
         'PatientID': this.canpatientid,
         'Notification': "Order Cancelled By Pharmacy",
@@ -466,7 +500,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -483,7 +517,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -495,14 +529,14 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public InsertNotiFicationcancel() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Medicine Order with " + this.canpharmacyname + " has been Cancelled.",
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -514,7 +548,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -532,7 +566,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertDeliverNotification() {
     if (this.languageid == '1') {
-     
+
       var entity = {
         'PatientID': this.delipatientid,
         'Notification': "Order Delivered By Pharmacy",
@@ -542,7 +576,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -559,7 +593,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'LanguageID': this.languageid,
       }
       this.docservice.InsertNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -569,14 +603,14 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
   public InsertNotiFicationDeliver() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Medicine Order with " + this.delipharmacyname + " has been Delivered.",
         'ToUser': this.deliemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -588,7 +622,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'ToUser': this.deliemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -636,34 +670,42 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   attachments2 = []
   attachmentsurl2 = []
+  public photodetail = []
 
+  public dummattachmenturl = []
 
   public onattachmentUpload2(abcd) {
-   
-    // for (let i = 0; i < abcd.length; i++) {
 
+    // for (let i = 0; i < abcd.length; i++) {
+    this.dummattachmenturl = []
     this.attachments2.push(abcd.addedFiles[0]);
     this.uploadattachments2();
     // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
   }
   public uploadattachments2() {
     this.docservice.DoctorMedicalProof(this.attachments2).subscribe(res => {
-     
-      this.attachmentsurl2.push(res);
-      // this.identityshowphoto.push(res);
-      //
-      // let a = this.identityshowphoto[0].slice(2);
-      //
-      // let b = 'http://14.192.17.225' + a;
 
-      // this.photodetail.push(b)
-      //
+      this.attachmentsurl2.push(res);
+      this.dummattachmenturl.push(res);
+
+      let a = this.dummattachmenturl[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+
+      this.photodetail.push(b)
+
 
       this.attachments2.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -699,7 +741,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public GetReadyForDelivery(id) {
 
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "This Order Is Ready For Delivery!",
@@ -751,7 +793,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public SavePDF() {
-   
+
     let pdfContent = window.document.getElementById("content");
     var doc = new jsPDF('p', 'mm', "a4");
 
@@ -830,7 +872,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.getserverdateandtime()
     this.oberserableTimer();
     this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
-     
+
       this.chatID = res[0].chatID;
       this.getPreviousChat();
     })
@@ -858,7 +900,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public getChat() {
     this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
-     
+
 
       if (res.length > 0) {
         this.chatID = res[0].chatID;
@@ -871,7 +913,7 @@ export class DoctorPrescriptionComponent implements OnInit {
           'PatientID': this.patientid
         }
         this.docservice.InserPharmacy_ChatMaster(entity).subscribe(data => {
-         
+
           if (data != 0) {
             this.chatID = data;
             this.InsertChatDetails();
@@ -885,13 +927,13 @@ export class DoctorPrescriptionComponent implements OnInit {
   patientemail: any;
 
   public Insertnotificationtestazure() {
-   
+
     var entity = {
       'Description': "Pharmacy Trying To Reach You : " + this.chatconversation,
       'ToUser': this.patientemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-     
+
       if (data != 0) {
 
       }
@@ -904,7 +946,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
-   
+
     if (this.image == 0) {
       var entity = {
         'ChatID': this.chatID,
@@ -916,7 +958,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertPharmacy_ChatDetails(entity).subscribe(data => {
-       
+
         if (data != 0) {
           this.Insertnotificationtestazure()
         }
@@ -938,7 +980,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'MobileTime': this.servertime
       }
       this.docservice.InsertPharmacy_ChatDetails(entitys).subscribe(data => {
-       
+
         if (data != 0) {
           this.Insertnotificationtestazure()
         }
@@ -955,7 +997,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public getPreviousChat() {
     this.docservice.GetPharmacy_ChatDetails(this.chatID).subscribe(res => {
       let Chatconversation = res;
-     
+
       this.coversationarray.length = 0;
 
       for (let i = 0; i < Chatconversation.length; i++) {
@@ -1032,7 +1074,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   // }
 
   public onattachmentUpload(abcd) {
-   
+
     for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd[i]);
       this.uploadattachments();
@@ -1044,15 +1086,15 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-     
+
       let b = 'https://14.192.17.225' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }

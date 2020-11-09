@@ -49,11 +49,15 @@ export class EditHospitalClinicComponent implements OnInit {
   public languageid: any;
   public labels: any;
   public dropzonelable: any;
+  public subscriptiontype: any;
+
+
+
   ngOnInit() {
     // this.hospitalid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id'];
       this.showdrop = 0;
       this.mulbit = 0;
@@ -62,12 +66,12 @@ export class EditHospitalClinicComponent implements OnInit {
     this.gethospitalclinicdetailsbyid();
     this.GetMultiplePhotos();
     this.GetCountryMaster()
-
+    this.GetHospitalRevenuesubscriptions()
 
 
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -88,7 +92,7 @@ export class EditHospitalClinicComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
       }, error => {
       }
@@ -96,16 +100,16 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public GetCountryID(even) {
-   
+
     this.countryid = even.target.value;
     this.getcitymaster()
-   
+
   }
 
   public getcitymaster() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -113,7 +117,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public GetCityID(even) {
-   
+
     this.cityid = even.target.value;
     this.getareamasterbyid()
   }
@@ -123,9 +127,9 @@ export class EditHospitalClinicComponent implements OnInit {
   public gethospitalclinicdetailsbyid() {
     this.docservice.GetHospital_ClinicDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
-       
+
         this.details = data[0];
-       
+
         this.hospitalname = this.details.hospital_ClinicName,
           this.phno = this.details.phoneNo,
           this.contactpersonname = this.details.contactPersonName,
@@ -154,8 +158,13 @@ export class EditHospitalClinicComponent implements OnInit {
     )
   }
 
+
+
+
+
+
   public updatedetails() {
-   
+
     var entity = {
       'LanguageID': this.languageid,
       'Hospital_ClinicID': this.id,
@@ -187,10 +196,26 @@ export class EditHospitalClinicComponent implements OnInit {
     this.showdrop = 1;
   }
 
+  public subscriptionslist: any;
+  public monthlysubription: any;
+  public appointmentpercentage: any;
+
+
+
+  public GetHospitalRevenuesubscriptions() {
+    debugger
+    this.docservice.GetHospitalClinic_RevenueSubscriptions(this.id).subscribe(data => {
+      this.subscriptionslist = data;
+      this.subscriptiontype = this.subscriptionslist[0].subscriptionTypeID,
+        this.monthlysubription = this.subscriptionslist[0].monthlySubscription,
+        this.appointmentpercentage = this.subscriptionslist[0].appointmentPercentage
+    })
+  }
+
 
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -201,7 +226,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
       // let a = this.attachmentsurl[0].slice(2);
       //
@@ -209,12 +234,12 @@ export class EditHospitalClinicComponent implements OnInit {
       // this.showphoto.push(b);
 
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   } s
   public updatephoto() {
-   
+
     var entity = {
       'ID': this.id,
       'HospitalLogoUrl': this.attachmentsurl[0]
@@ -227,10 +252,10 @@ export class EditHospitalClinicComponent implements OnInit {
     })
   }
   public GetMultiplePhotos() {
-   
+
     this.docservice.GetHospital_ClinicPhotosByHospitalclinicID(this.id).
       subscribe(data => {
-       
+
         this.multiplephotos = data;
         //  this.mulphoto = this.multiplephotos.photoURL
       }, error => {
@@ -238,35 +263,35 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
       }, error => {
       }
     )
   }
   public GetAreaID(even) {
-   
+
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
   }
   public GetHospitalID(hospitalid) {
-   
+
     this.multipleid = hospitalid;
     this.mulbit = 1;
   }
 
 
   public UpdateMultiplePhotos() {
-   
+
     var entity = {
       'ID': this.multipleid,
       'PhotoURL': this.attachmentsurl[0]
@@ -279,6 +304,37 @@ export class EditHospitalClinicComponent implements OnInit {
       this.mulbit = 0;
     })
   }
+
+  public InsertSubscriptionRevenue() {
+    var entity5 = {
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'HospitalClinicID': this.id
+    }
+    this.docservice.InsertHospitalClinic_RevenueSubscriptions(entity5).subscribe(data => {
+      if (data != 0) {
+        if(this.languageid==1)
+        {
+          Swal.fire('Updated Successfully');
+          this.GetHospitalRevenuesubscriptions();
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('Mis à jour avec succés');
+          this.GetHospitalRevenuesubscriptions();
+        }
+     
+      }
+    })
+  }
+  
+  public Getsubscriptontype() {
+    debugger
+    this.appointmentpercentage = 0
+    this.monthlysubription = 0
+  }
+
 }
 
 

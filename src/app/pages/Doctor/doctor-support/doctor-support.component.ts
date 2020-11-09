@@ -39,17 +39,17 @@ export class DoctorSupportComponent implements OnInit {
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-     
+
       this.labels = res;
-     
+
     })
   }
   removetgdescription: any;
 
   public insertdetails() {
-   
+
     if (this.issuephotourl == null && this.issuephotourl.length == 0 && this.issuephotourl == undefined) {
-     
+
       Swal.fire('Please upload image')
     }
     else {
@@ -72,13 +72,11 @@ export class DoctorSupportComponent implements OnInit {
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
           this.insertnotification()
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Issue Raised Successflly')
             location.href = "#/DoctorSupportDash"
           }
-          else if(this.languageid==6)
-          {
+          else if (this.languageid == 6) {
             Swal.fire('Enregistré')
             location.href = "#/DoctorSupportDash"
           }
@@ -88,25 +86,41 @@ export class DoctorSupportComponent implements OnInit {
   }
 
 
+  public dummattachmenturl = []
+
   public onattachmentUpload(abcd) {
-   
+    this.dummattachmenturl = []
     // for (let i = 0; i < abcd.length; i++) {
     this.issuephoto.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+  
   }
+
+  public showphoto=[];
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-     
+
       this.issuephotourl.push(res);
-      let a = this.issuephotourl[0].slice(2);
-     
+      this.dummattachmenturl.push(res);
+      let a = this.dummattachmenturl[0].slice(2);
+
       let b = 'http://14.192.17.225' + a;
 
-     
+      this.showphoto.push(b);
+
+
     })
     // this.sendattachment();
   }

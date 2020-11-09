@@ -13,30 +13,28 @@ export class DiagnosticdashComponent implements OnInit {
   public diagnoticloginlist: any;
   public term: any;
   p: number = 1;
-  public labels:any;
-  public languageid:any;
+  public labels: any;
+  public languageid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.getdiagnosticloginfordash();
- 
+
     this.getlanguage();
   }
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
-    )  
+    )
   }
-  
-  public getdiagnosticloginfordash()
-  {
+
+  public getdiagnosticloginfordash() {
     this.docservice.GetDiagnosticLoginForDash(this.languageid).subscribe(
       data => {
-       
+
         this.diagnoticloginlist = data;
       }, error => {
       }
@@ -45,7 +43,7 @@ export class DiagnosticdashComponent implements OnInit {
   public disablediagnostic(docid) {
     this.docservice.DisableDiagnosticLogin(docid).subscribe(
       data => {
-       
+
         Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
 
         this.getdiagnosticloginfordash();
@@ -57,7 +55,7 @@ export class DiagnosticdashComponent implements OnInit {
   public enablediagnostic(id) {
     this.docservice.EnableDiagnosticLogin(id).subscribe(
       data => {
-       
+
         Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
 
         this.getdiagnosticloginfordash();
@@ -67,8 +65,58 @@ export class DiagnosticdashComponent implements OnInit {
     )
   }
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
+  }
+
+
+  public id: any;
+  public username: any;
+  public password: any;
+
+
+  public GetDeatsils(details) {
+    debugger
+    this.id = details.id,
+      this.username = details.userName,
+      this.password = details.password
+  }
+
+
+  public pp: any;
+
+  public insertdetails() {
+    if (this.password != undefined) {
+
+      var valpassword = this.docservice.strongpassword(this.password);
+      if (valpassword == false) {
+
+        this.pp = 1;
+      }
+      else {
+        var entity = {
+          'ID': this.id,
+          'UserName': this.username,
+          'Password': this.password
+        }
+        this.docservice.UpdateDiagnosticCenterAdminRegistrationWeb(entity).subscribe(data => {
+
+          if (data != 0) {
+            Swal.fire('Success', 'Password Updated Successfully', 'success');
+            this.getdiagnosticloginfordash()
+            this.pp = 0;
+            document.getElementById('close').click();
+          }
+          else{
+            Swal.fire('Success', 'username already exists', 'success');
+            this.getdiagnosticloginfordash()
+            this.pp = 0;
+            document.getElementById('close').click();
+          }
+        })
+
+      }
+    }
   }
 }

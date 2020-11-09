@@ -40,13 +40,12 @@ export class EditPharmacyRegComponent implements OnInit {
   public countryid: any;
   public countrylist: any;
   dropzonelable: any;
-
-
+  pharmacyrevenuelist: any;
   public languageid: any;
   public labels: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id'];
 
     }
@@ -56,6 +55,7 @@ export class EditPharmacyRegComponent implements OnInit {
     this.GetCountryMaster();
     this.getpharmacydetailsforadmin();
     this.GetPhotos();
+    this.GetPharmacyRevenue()
     this.pffbit = 0;
 
     if (this.languageid == 1) {
@@ -70,14 +70,14 @@ export class EditPharmacyRegComponent implements OnInit {
   public getcitymaster() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
     )
   }
   public GetcityID(even) {
-   
+
     this.cityid = even.target.value;
     this.getareamasterbyid()
   }
@@ -85,7 +85,7 @@ export class EditPharmacyRegComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -94,9 +94,9 @@ export class EditPharmacyRegComponent implements OnInit {
   public getpharmacydetailsforadmin() {
     this.docservice.GetPhamacyDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
-       
+
         this.details = data[0];
-       
+
         this.pharmacyname = this.details.pharmacyName,
           this.contactpersonname = this.details.contactName,
           this.licenseno = this.details.licenseNo,
@@ -124,10 +124,20 @@ export class EditPharmacyRegComponent implements OnInit {
 
 
 
+  public GetPharmacyRevenue() {
+    this.docservice.GetPharmacySubscriptions_Revenue(this.id).subscribe(data => {
+      debugger
+      this.pharmacyrevenuelist = data;
+    })
+  }
+
+
+
+
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
       }, error => {
       }
@@ -136,12 +146,12 @@ export class EditPharmacyRegComponent implements OnInit {
 
 
   public GetCountryID(even) {
-   
+
     this.countryid = even.target.value;
     this.getcitymaster()
   }
   public updatedetails() {
-   
+
     var entity = {
       'LanguageID': this.languageid,
       'PharmacyID': this.id,
@@ -168,10 +178,10 @@ export class EditPharmacyRegComponent implements OnInit {
 
   }
   public GetPhotos() {
-   
+
     this.docservice.GetPharmacyPhotos(this.id).subscribe(
       data => {
-       
+
         this.photos = data;
       }, error => {
       }
@@ -184,7 +194,7 @@ export class EditPharmacyRegComponent implements OnInit {
   }
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -195,15 +205,15 @@ export class EditPharmacyRegComponent implements OnInit {
   }
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-     
+
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -212,7 +222,7 @@ export class EditPharmacyRegComponent implements OnInit {
 
 
   public updatephotos() {
-   
+
     var entity = {
       'ID': this.photoid,
       'PhotoURL': this.attachmentsurl[0]
@@ -230,25 +240,96 @@ export class EditPharmacyRegComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
       }, error => {
       }
     )
   }
   public GetAreaID(even) {
-   
+
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
   }
 
+
+  public monthlysubription: any;
+  public contractstartdate: any;
+  public contractenddate: any;
+  public revenueupdateid: any;
+
+
+
+  public GetContractSubscriptions(subscriptions) {
+    this.monthlysubription = subscriptions.subscriptionAmount;
+    this.contractstartdate = subscriptions.editcontractStartDate;
+    this.contractenddate = subscriptions.editcontractenddate;
+    this.revenueupdateid = subscriptions.id
+  }
+
+
+  public UpdatePharmacyrevenue() {
+    var entity = {
+      'ID': this.revenueupdateid,
+      'SubscriptionAmount': this.monthlysubription,
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
+    }
+    this.docservice.UpdatePharmacySubscriptions_Revenue(entity).subscribe(data => {
+
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+        this.GetPharmacyRevenue();
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Updated Successfully');
+        this.GetPharmacyRevenue();
+      }
+
+    })
+
+  }
+
+
+  public addmonthlysubscription: any;
+  public contractstartdateeee: any;
+  public contractenddateeeee: any;
+
+
+  public InsertPharmacyRevenue() {
+    var entity = {
+      'PharmacyID': this.id,
+      'SubscriptionAmount': this.addmonthlysubscription,
+      'ContractStartdate': this.contractstartdateeee,
+      'ContractEnddate': this.contractenddateeeee
+    }
+    this.docservice.InsertPharmacySubscriptions_Revenue(entity).subscribe(data => {
+
+      if (data != 0) {
+        Swal.fire('Success','Data added Successfully');
+        this.GetPharmacyRevenue();
+        this.addmonthlysubscription="";
+        this.contractstartdateeee="";
+        this.contractenddateeeee="";
+
+      }
+      else{
+        Swal.fire('Error','Contract Dates Already Exists');
+        this.GetPharmacyRevenue();
+        this.addmonthlysubscription="";
+        this.contractstartdateeee="";
+        this.contractenddateeeee="";
+      }
+    })
+
+  }
 }

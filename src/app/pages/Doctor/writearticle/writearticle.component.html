@@ -25,7 +25,7 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <textarea  rows="4" name="topic" required cols="45" [(ngModel)]="topic" placeholder="{{labels[0].topic}}"
+        <textarea  rows="4" name="topic" class="form-control" required cols="45" [(ngModel)]="topic" placeholder="{{labels[0].topic}}"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
       </div>
     </div><br>
@@ -46,7 +46,7 @@
        <label>({{labels[0].seperatetagswithSemicolon}})</label> 
       </div>
       <div class="col-lg-4">
-        <textarea  rows="4" [(ngModel)]="tags" name="tags" required cols="45" placeholder="{{labels[0].tags}}"
+        <textarea  rows="4" [(ngModel)]="tags" name="tags"  class="form-control" required cols="45" placeholder="{{labels[0].tags}}"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==35'></textarea>
       </div>
     </div><br>
@@ -68,7 +68,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
       </div>
       <div class="col-lg-5 specforimg">

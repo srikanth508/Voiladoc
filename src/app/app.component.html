@@ -8,7 +8,7 @@
         <img src="assets/Images/ham.png" *ngIf="showsidebar1==1" (click)="closeNav2()"
             style="margin-left: 1%;float: right;height:30px;margin-top: 21px;"> -->
         </div>
-        <div class="col-lg-6" >
+        <div class="col-lg-6">
             <marquee *ngFor="let noti of docnoti" style="margin-top:18px;color:red">{{noti.description}}</marquee>
         </div>
         <div class="col-lg-4" id="vidpagehead">
@@ -24,12 +24,13 @@
     </div>
 
     <div class="row" *ngIf="isDescktopResolution==true">
-        <div class="col-lg-2" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;" id="sidbarid">
+        <div class="col-lg-2" style="height: 90vh;overflow-y: auto;background-color: #f3f3f3;" id="sidbarid">
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-lg-10" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;" id="vidiv">
             <router-outlet (activate)="onActivate($event)"></router-outlet>
         </div>
+
     </div>
 
     <div class="row" style="height: 20vh;" *ngIf="isMobileResolution==true">
@@ -814,6 +815,8 @@
                         <div *ngIf="doctorid!=undefined">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button>
+                            <button class="chatnow" data-dismiss="modal" style="float: right;"
+                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)">Seen all</button>
                         </div>
                         <div *ngIf="nurseid!=undefined||midwifeid!=undefined||physioid!=undefined">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
@@ -836,6 +839,203 @@
             <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div> -->
+
+
+
+
+
+
+
+
+
         </div>
     </div>
+</div>
+
+
+
+<!-- 
+<div class="row" style="top:50%;position:fixed">
+    <div class="col-lg-9">
+    </div>
+    <div class="col-lg-3">
+        <div  *ngFor="let chat of chatlist">
+        {{chat.patientName}} : {{chat.mobileMessage}}
+    </div>
+    </div>
+</div> -->
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+        </div>
+        <div class="col-lg-3" *ngFor="let chat of chatlist">
+            {{chat.patientName}} : {{chat.mobileMessage}}
+        </div>
+    </div>
+</div> -->
+<!-- 
+
+<div class="backdrop" [ngStyle]="{ display: testdisplay }"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: testdisplay }">
+    <div class="modal-dialog" style="float: right;top:50%" role="document">
+        <div class="modal-content">
+            <p class="modal-title" style="line-height: 28px;
+          margin-left: 9px;">
+            </p>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Chat</h5>
+                <button type="button" class="close" aria-label="Close" (click)="onclosetest()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height:200pxpx;width:300px;overflow-y: auto;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12" *ngFor="let chat of chatlist">
+                            {{chat.patientName}} : {{chat.mobileMessage}}<br>
+
+                            <button type="submit" class="chat form-control" [disabled]="chatfrom.form.invalid"
+                            (click)="GetChatShowID(chat.patientID)">chat
+                          
+                          </button>
+                          <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                    (click)="onclosetest()">
+                    close
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- <div class="container-fluid card card-hover">
+    <div class="rectangle" style="margin-left: 1110px;"></div>
+    <div class="text"> </div>
+    <div class="col-lg-3" >
+
+        <span style="color: black;">
+            {{chat.patientName}} : {{chat.mobileMessage}}
+        </span>
+    </div>
+</div> -->
+
+
+
+
+<!-- <div  class="smalchat" id="Myformsss" style="overflow-y: auto;">
+<div class="w3-card-4" *ngFor="let chat of chatlist">
+
+    <div class="w3-container">
+      <p>1 new message from : <b>{{chat.patientName}}</b></p>
+      <hr>
+      <p>{{chat.mobileMessage}}</p>
+    
+    </div>
+    
+    <button class="w3-button w3-block w3-dark-grey" (click)="GetChatShowID(chat.patientID,chat.appointmentID)">Chat</button>
+    
+    </div>
+</div> -->
+
+
+
+
+<div class="chat-popup" id="myFormsssss">
+    <form class="form-container" #chatfrom="ngForm">
+        <div class="container-fluid card card-hover" style="height: 550px;width:530px;">
+            <br>
+            <div class="row">
+                <div class="col-lg-5">
+                    <h5>{{labels2[0].chat}}</h5>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-lg-2">
+                    <img src="assets/Images/can.png" (click)="GetShowOffffff()">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
+                    <!-- <span *ngIf="istyping==true">typing .... </span> -->
+                </div>
+            </div>
+            <!-- id="chatboxdiv" -->
+            <div style="height: 500px;overflow-y: scroll;" id="chatboxdiv">
+                <div *ngFor='let convo of coversationarray'>
+                    <div class="container" *ngIf='convo.user=="doc"'>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-7" style="background-color:#dbdbdb;border-radius: 5px;color:black;">
+                                <div *ngIf="convo.msgtype=='1'">
+                                    <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
+                      float: left;">
+                                    <p style="margin-top: 5px;">{{convo.chatmsg}}
+                                        <span style="float: right;;margin-top: 5px;">
+                                            {{convo.time}}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div *ngIf="convo.msgtype=='2'">
+                                    <img src="{{convo.chatmsg}}" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" *ngIf='convo.user=="pat"'>
+                        <div class="row">
+                            <div class="col-lg-7"
+                                style="background-color:#1dbfd2;border-radius: 5px;color:black;margin-top: 1px;">
+                                <div *ngIf="convo.msgtype=='1'">
+                                    <p style="margin-top: 5px;">
+                                        <img src="{{patientphoto}}" class="rounded-circle"
+                                            style="width:26px;margin-top: 5px;"> &nbsp;
+                                        {{convo.chatmsg}}
+                                        <span style="float: right;;margin-top: 5px;">
+                                            {{convo.time}}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div *ngIf="convo.msgtype=='2'">
+                                    <img src="{{convo.chatmsg}}" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <hr>
+            <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <!-- <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
+                    placeholder="{{labels[0].typemsg}}"></textarea> -->
+                        <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
+                            class="form-control" style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="chat form-control" [disabled]="chatfrom.form.invalid"
+                            (click)="InsertChatDetails()">{{labels2[0].send}}
+                            <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
+                        </button>
+                    </div>
+                    <!-- <div class="col-lg-1">
+                  <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
+                    style="height: 50px;">
+                  </ngx-dropzone>
+                </div> -->
+                </div>
+            </div>
+            <br>
+        </div>
+        <br>
+    </form>
 </div>

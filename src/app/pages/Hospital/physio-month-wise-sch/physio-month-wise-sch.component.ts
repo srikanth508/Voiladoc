@@ -23,18 +23,32 @@ export class PhysioMonthWiseSchComponent implements OnInit {
   hospitalclinicid: any;
   physioist: any;
   count: any;
+  public search: any;
+  public phsyodd = {};
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
 
+    this.getlanguage()
 
     this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.dummlistphysiolist = data;
         this.physioist = this.dummlistphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
         this.count = this.physioist.length
+
+        this.phsyodd = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'name',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
       }, error => {
       }
     )
@@ -47,17 +61,17 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     this.month = date.getMonth();
     this.year = date.getFullYear();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-   
+
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
-    this.getlanguage()
+  
   }
 
   Select: any;
@@ -65,9 +79,10 @@ export class PhysioMonthWiseSchComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.Select = this.labels[0].selectt;
+        this.Select = this.labels[0].selectPhysiotherapist;
+        this.search=this.labels[0].search;
       }, error => {
       }
     )
@@ -140,16 +155,16 @@ export class PhysioMonthWiseSchComponent implements OnInit {
       this.disablelist = data;
 
       for (let t = 0; t < this.timeSheetTablearray.length; t++) {
-       
+
 
         let kkk = this.timeSheetTablearray[t]._fulldate;
         let validatedate = kkk.substring(0, 10);
-       
+
         this.timeSheetTablearray[t]["_fulldate"] = validatedate;
 
         let zz = this.disablelist.filter(x => x.date == validatedate && x.physioID == this.physioid);
-       
-       
+
+
         if (zz.length > 0) {
           this.timeSheetTablearray[t]["disabled"] = 1
 
@@ -164,7 +179,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
 
   public GetDeleteSlots(date) {
-   
+
     this.docservice.DeletePhysiotherapistDisabledSlots(this.physioid, date).subscribe(data => {
 
       Swal.fire('Enabled Successfully')
@@ -177,7 +192,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
 
   public ChangeMonth(even) {
-   
+
     this.month = even.target.value;
 
     this.timeSheetTablearray = [];
@@ -190,13 +205,13 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(date.getFullYear(), this.month, 1);
     var Lastdate;
     var firstDay = new Date(date.getFullYear(), this.month, 1).getDate();
-   
+
     var lastDay = new Date(date.getFullYear(), this.month + 1, 0).getDate();
 
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
@@ -215,7 +230,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
       }
 
       let date = startdate.getDate();
-     
+
 
       let month = new Date(startdate).toDateString().substring(4, 7);
 
@@ -236,8 +251,8 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
 
 
-  public GetPhysiotherapistID(even) {
-    this.physioid = even.target.value;
+  public GetPhysiotherapistID(item:any) {
+    this.physioid = item.id;
 
 
     this.timeSheetTablearray = [];
@@ -250,13 +265,13 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(date.getFullYear(), this.month, 1);
     var Lastdate;
     var firstDay = new Date(date.getFullYear(), this.month, 1).getDate();
-   
+
     var lastDay = new Date(date.getFullYear(), this.month + 1, 0).getDate();
 
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
@@ -275,7 +290,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
       }
 
       let date = startdate.getDate();
-     
+
 
       let month = new Date(startdate).toDateString().substring(4, 7);
 
@@ -307,13 +322,13 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-   
+
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
 
@@ -333,7 +348,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
 
       let date = startdate.getDate();
-     
+
       this.showmonth = new Date(startdate).toDateString().substring(4, 7);
       let month = new Date(startdate).toDateString().substring(4, 7);
 

@@ -80,25 +80,36 @@ export class HospitalSupportComponent implements OnInit {
     }
   }
 
+  public dummissuephoto=[];
+  public showphoto=[];
 
   public onattachmentUpload(abcd) {
    
     // for (let i = 0; i < abcd.length; i++) {
+      this.dummissuephoto = [];
       this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+
   }
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-     
       this.issuephotourl.push(res);
-      let a = this.issuephotourl[0].slice(2);
-     
+      this.dummissuephoto.push(res);
+      let a = this.dummissuephoto[0].slice(2);
       let b = 'http://14.192.17.225' + a;
-
+      this.showphoto.push(b)
      
     })
     // this.sendattachment();

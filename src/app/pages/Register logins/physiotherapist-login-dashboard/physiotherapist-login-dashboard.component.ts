@@ -91,4 +91,54 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
     this.p = even;
   }
 
+  public username:any;
+  public password:any;
+
+  public GetDeatsils(details)
+  {
+  
+    debugger
+    debugger
+    this.id=details.id,
+    this.username=details.userName,
+    this.password=details.password
+  }
+  
+
+public pp:any;
+
+
+
+  public insertdetails() {
+   if(this.password!=undefined)  {
+      var valpassword = this.docservice.strongpassword(this.password);
+      if (valpassword == false) {
+       
+        this.pp=1;
+      }
+    else {
+      var entity = {
+        'ID': this.id,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      this.username = '';
+      this.password = '';
+      this.docservice.UpdatePhysiotherapistLogin(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Success', 'Password Updated Successfully', 'success');
+          this.pp=0;
+          document.getElementById('close').click();
+          this.GetPhysiotherapistLoginAdmin()
+        }
+        else{
+          Swal.fire("User Name Already Exists");
+          this.pp=0;
+          this.GetPhysiotherapistLoginAdmin()
+          document.getElementById('close').click();
+        }
+      })
+    }
+  }
+}
 }

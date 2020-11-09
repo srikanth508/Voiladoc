@@ -17,10 +17,15 @@
       <b style="margin-left: 27px;">{{labels[0].month}} : {{showmonth}}</b>
     </div>
     <div class="col-lg-3">
-      <select class="form-control" (change)="GetNurseID($event)">
+      <!-- <select class="form-control" (change)="GetNurseID($event)">
         <option value="">{{labels[0].selectNurse}}</option>
         <option *ngFor="let nurse of nurselist" value={{nurse.id}}>{{nurse.nurseName}}</option>
-      </select>
+      </select> -->
+
+      <ng-multiselect-dropdown [placeholder]="Select"  [data]="nurselist"
+      [settings]="nursedd" (onSelect)="GetNurseID($event)">
+    </ng-multiselect-dropdown>
+
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">

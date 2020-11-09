@@ -36,7 +36,16 @@ export class SupportCometedTicketsComponent implements OnInit {
   public dummissuelist: any;
   public issuephoto = [];
   public issuephotourl = [];
+  public countrymanaerid: any;
+  public supportid: any;
+  public showexportbutton: any;
   ngOnInit() {
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.supportid = localStorage.getItem('supportid');
+    if (this.countrymanaerid != undefined || this.supportid != undefined) {
+      this.showexportbutton = 1;
+    }
+
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -55,7 +64,7 @@ export class SupportCometedTicketsComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -73,20 +82,21 @@ export class SupportCometedTicketsComponent implements OnInit {
 
   public GetSupportIssues() {
     this.docservice.GetSupportForWebForSupportLogin(this.languageid, this.startdate, this.enddate).subscribe(res => {
-     
+
       this.issuelist = res;
       this.dummissuelist = res;
 
       this.issuelist = this.dummissuelist.filter(x => x.resolved == 1)
+
       this.count = this.issuelist.length;
-     
+
     })
   }
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-     
+
       this.labels = res;
-     
+
     })
   }
 
@@ -94,12 +104,12 @@ export class SupportCometedTicketsComponent implements OnInit {
   photourl: any;
 
   public GetImageUrl(photoURL) {
-   
+
     this.photourl = photoURL
   }
 
   selectedDate(data) {
-   
+
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -136,7 +146,7 @@ export class SupportCometedTicketsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -154,7 +164,7 @@ export class SupportCometedTicketsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

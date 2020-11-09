@@ -91,4 +91,57 @@ export class DoctordashComponent implements OnInit {
     let fgdgfgd = even;
     this.p = even;
   }
+
+
+  password:any;
+  pp:any;
+  username:any;
+
+
+
+public GetDeatsils(details)
+{
+  debugger
+  this.id=details.id,
+  this.username=details.userName,
+  this.password=details.password
+}
+
+
+
+
+  public insertdetails() {
+    debugger
+    if (this.password != undefined) {
+      var valpassword = this.docservice.strongpassword(this.password);
+      if (valpassword == false) {
+        this.pp = 1;
+      }
+      else {
+        var entity = {
+          'ID': this.id,
+          'UserName': this.username,
+          'Password': this.password
+        }
+        debugger
+        this.username = '';
+        this.password = '';
+        this.docservice.UpdateDoctorLogins(entity).subscribe(data => {
+          if (data != 0) {
+            // Swal.fire('Added Successfully.');
+            Swal.fire('Completed', 'Password updated successfully', 'success');
+            this.pp = 0;
+            this.getdoctorloginfordash()
+            document.getElementById('close').click();
+          }
+          else {
+            Swal.fire("user name already exists");
+            this.getdoctorloginfordash()
+            document.getElementById('close').click();
+          }
+        })
+      }
+    }
+
+  }
 }

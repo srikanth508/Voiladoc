@@ -75,7 +75,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
     else {
      
       var entity = {
-        'DeliveryCompanyID': this.dcid,
+        'ID': this.dcid,
         'UserName': this.username,
         'Password': this.password
       }
@@ -86,6 +86,12 @@ export class DeliveryCompanyLoginComponent implements OnInit {
         if (data != 0) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.pp=0;
+        
+        }
+        else{
+          Swal.fire('Success', 'Delivery Company Login Already Exists', 'success');
+          this.pp=0;
+      
         }
       })
     }

@@ -18,10 +18,14 @@
     </div>
     <div class="col-lg-3">
       <!-- (change)="GetDaysName($event)" -->
-      <select class="form-control" (change)="GetPhysiotherapistID($event)">
+      <!-- <select class="form-control" (change)="GetPhysiotherapistID($event)">
         <option value="">{{labels[0].selectPhysiotherapist}}</option>
         <option *ngFor="let phsio of physioist" value={{phsio.id}}>{{phsio.name}}</option>
-      </select>
+      </select> -->
+      <ng-multiselect-dropdown [placeholder]="Select"  [data]="physioist"
+        [settings]="phsyodd" (onSelect)="GetPhysiotherapistID($event)">
+      </ng-multiselect-dropdown>
+
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">

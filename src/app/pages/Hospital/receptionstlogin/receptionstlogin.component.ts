@@ -53,6 +53,11 @@ export class ReceptionstloginComponent implements OnInit {
         Swal.fire('Completed', 'Receptionist saved successfully', 'success');
         location.href = "#/ReceptionstloginDash"
       }
+      else
+      {
+        Swal.fire('Completed', 'User Name already exists', 'success');
+        location.href = "#/ReceptionstloginDash"
+      }
 
     })
   }

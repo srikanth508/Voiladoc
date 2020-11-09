@@ -52,25 +52,26 @@ export class PharmacyregistrationComponent implements OnInit {
   public hspwebsite: any;
   public hospitalfulltimebit: any;
   SelectLabel
-  dropzonelable:any;
+  dropzonelable: any;
+  public contractstartdate: any;
+  public contractenddate:any;
+  
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
     this.GetCountryMaster()
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyRegistration_LabelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].selectt;
 
@@ -85,7 +86,7 @@ export class PharmacyregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -102,12 +103,12 @@ export class PharmacyregistrationComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -126,7 +127,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -142,12 +143,12 @@ export class PharmacyregistrationComponent implements OnInit {
 
   public insertdetails() {
 
-   
+
     // if (this.attachmentsurl.length == 0) {
     //   Swal.fire("Please Upload Photo")
     // }
     if (this.countryid == undefined || this.countryid.length == 0) {
-     
+
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -158,8 +159,8 @@ export class PharmacyregistrationComponent implements OnInit {
     }
     else {
       this.spinner.show();
-     
-      this.timings = this.tone + ' TO '  + this.toampm;
+
+      this.timings = this.tone + ' TO ' + this.toampm;
 
       this.hspwebsite = 'https://' + '' + this.website
 
@@ -187,13 +188,16 @@ export class PharmacyregistrationComponent implements OnInit {
         'CountryID': this.countryid,
         'MonthlySubscription': this.monthlysubription,
         'HospitalClinicID': this.hospitalclinicid,
-        'Hospitalfulltimebit': this.hospitalfulltimebit
+        'Hospitalfulltimebit': this.hospitalfulltimebit,
+        'ContartStartDate': this.contractstartdate,
+        'ContractEndDate': this.contractenddate
       }
       this.docservice.InsertPharmacyRegistration(entity).subscribe(data => {
-       
+
         if (data != 0) {
           this.pharmacyid = data;
           this.insertphoto();
+          this.InsertPharmacyRevenue()
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.clear();
           this.spinner.hide();
@@ -216,7 +220,7 @@ export class PharmacyregistrationComponent implements OnInit {
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertPharmacyPhotos(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
@@ -224,14 +228,15 @@ export class PharmacyregistrationComponent implements OnInit {
 
   }
 
+  public dummshowsignatureurl=[]
 
 
 
   public onattachmentUpload(abcd) {
-   
+    this.dummshowsignatureurl = []
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
     // }
 
     Swal.fire('Added Successfully');
@@ -240,15 +245,17 @@ export class PharmacyregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
-     
+      this.dummshowsignatureurl.push(res);
+
+      let a = this.dummshowsignatureurl[0].slice(2);
+
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -270,17 +277,30 @@ export class PharmacyregistrationComponent implements OnInit {
     this.prefered = '';
     this.description = '';
 
-
-
   }
+
+  public InsertPharmacyRevenue() {
+    var entity = {
+      'PharmacyID': this.pharmacyid,
+      'SubscriptionAmount': this.monthlysubription,
+      'ContractStartdate':this.contractstartdate,
+      'ContractEnddate':this.contractenddate
+    }
+    this.docservice.InsertPharmacySubscriptions_Revenue(entity).subscribe(data => {
+     
+      if (data != 0) {
+      }
+    })
+  
+}
 
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -297,12 +317,12 @@ export class PharmacyregistrationComponent implements OnInit {
   }
 
   public GetAreaID(item3: any) {
-   
+
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }

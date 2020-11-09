@@ -38,7 +38,7 @@
     <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-    <div class="col-lg-3" *ngIf="diffid!='undefined'">
+    <div class="col-lg-3" *ngIf="showdrop=='1'">
       <select class="form-control" (change)="GetDiagnosticcenterID($event)">
         <option value="0">Select Diagnostic Center</option>
         <option *ngFor="let dia of diagnosticlist" value="{{dia.id}}">{{dia.diagnosticCenterName}}</option>

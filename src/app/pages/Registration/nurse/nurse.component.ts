@@ -82,7 +82,8 @@ export class NurseComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false
         };
 
       }, error => {
@@ -101,7 +102,8 @@ export class NurseComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          enableCheckAll: false
         };
       }, error => {
       }
@@ -227,8 +229,11 @@ export class NurseComponent implements OnInit {
    
   }
 
+
+  public dummnursephoto=[]
   public onattachmentUpload(abcd) {
    
+    this.dummnursephoto=[]
     // for (let i = 0; i < abcd.length; i++) {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
@@ -242,7 +247,8 @@ export class NurseComponent implements OnInit {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
      
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
+      this.dummnursephoto.push(res);
+      let a = this.dummnursephoto[0].slice(2);
      
       let b = 'http://14.192.17.225' + a;
 
@@ -253,8 +259,10 @@ export class NurseComponent implements OnInit {
     // this.sendattachment();
   }
 
+  public dummidentityproof=[]
+
   public onidUpload(abcd) {
-   
+   this.dummidentityproof=[]
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
@@ -267,7 +275,8 @@ export class NurseComponent implements OnInit {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
      
       this.idproofurl.push(res);
-      let a = this.idproofurl[0].slice(2);
+      this.dummidentityproof.push(res);
+      let a = this.dummidentityproof[0].slice(2);
      
       let b = 'http://14.192.17.225' + a;
       this.showidproof.push(b)
@@ -335,6 +344,10 @@ export class NurseComponent implements OnInit {
      
 
       let nurseid = data;
+      if(nurseid!=0)
+      {
+
+      
 
       for (let s = 0; s < this.serviceid.length; s++) {
         var serviceentity = {
@@ -358,8 +371,13 @@ export class NurseComponent implements OnInit {
       Swal.fire('Registration Completed', 'Details saved successfully', 'success');
       this.spinner.hide();
       location.href = '#/NurseDashboard';
-
+    }
+    else 
+    {
+      Swal.fire('Error', 'Details Already Exists', 'success');
+      this.spinner.hide();
+      location.href = '#/NurseDashboard';
+    }
     })
   }
-
 }

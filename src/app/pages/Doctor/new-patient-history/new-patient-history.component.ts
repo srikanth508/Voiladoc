@@ -82,7 +82,7 @@ export class NewPatientHistoryComponent implements OnInit {
 
     if (this.departmentid == 14) {
      
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
         data => {
          
           this.soaplist1 = data;
@@ -91,7 +91,7 @@ export class NewPatientHistoryComponent implements OnInit {
       )
     }
     else if (this.departmentid != 14) {
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid).subscribe(
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
         data => {
          
           this.dummsoaplist = data;
@@ -144,7 +144,7 @@ export class NewPatientHistoryComponent implements OnInit {
     }
 
     if (this.departmentid == 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
         data => {
          
           this.dialist = data;
@@ -153,7 +153,7 @@ export class NewPatientHistoryComponent implements OnInit {
       )
     }
     else if (this.departmentid! = 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
         data => {
          
           this.dummdialist = data;

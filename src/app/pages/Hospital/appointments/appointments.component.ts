@@ -72,23 +72,38 @@ export class AppointmentsComponent implements OnInit {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+       
+        this.labels = data;
+        this.search=this.labels[0].search
+        this.select=this.labels[0].selectDoctor
+
+      }, error => {
+      }
+    )
+    this.getlanguage();
     this.getbookappointmentbyhospitalbyhospitalid();
     this.getdepartmentmaster();
     this.gethospitaldoctorsforadmin();
-    this.getlanguage();
-
+  
   }
+  public select:any;
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
        
         this.labels = data;
+        this.search=this.labels[0].search
+        this.select=this.labels[0].selectDoctor
 
       }, error => {
       }
     )
   }
 
+  public docdd={};
+  public search:any;
 
   public gethospitaldoctorsforadmin() {
    
@@ -96,22 +111,34 @@ export class AppointmentsComponent implements OnInit {
       data => {
        
         this.doctorlist = data;
+
+        this.docdd = {
+          singleSelection: true,
+          idField: 'doctorID',
+          textField: 'doctorName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
+
       }, error => {
       }
     )
   }
 
-  public GetDoctorName(even) {
+  public GetDoctorName(item:any) {
 
-    if (even.target.value != 0) {
-     
-      this.doctorname = even.target.value;
+    // if (item.target.value != 0) {
+    //  debugger
+      this.doctorname = item.doctorName
       this.appointmentlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
       this.count = this.appointmentlist.length;
-    }
-    else if (even.target.value == 0) {
-      this.getbookappointmentbyhospitalbyhospitalid();
-    }
+    // }
+    // else if (item.target.value == 0) {
+    //   this.getbookappointmentbyhospitalbyhospitalid();
+    // }
   }
 
 
@@ -172,40 +199,83 @@ export class AppointmentsComponent implements OnInit {
 
   ReasonForCancel: any;
   public cancelappoinement(id,res) {
-   
     if (res != null) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You Want to Cancel This Appointment!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Cancel it!'
-      }).then((result) => {
-        if (result.value) {
-
-          let Entity = {
-            'ID': id,
-            'CancelReason': res
+      if(this.languageid==1)
+      {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You Want to Cancel This Appointment!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Cancel it!'
+        }).then((result) => {
+          if (result.value) {
+  
+            let Entity = {
+              'ID': id,
+              'CancelReason': res
+            }
+            this.docservice.CancelBookAppointmentWeb(Entity).subscribe(res => {
+              let test = res;
+              this.getbookappointmentbyhospitalbyhospitalid();
+            })
+            Swal.fire(
+              'Success!',
+              'Appointment Has been Cancelled',
+              'success'
+            )
           }
-          this.docservice.CancelBookAppointmentWeb(Entity).subscribe(res => {
-            let test = res;
+          else {
             this.getbookappointmentbyhospitalbyhospitalid();
-          })
-          Swal.fire(
-            'Success!',
-            'Appointment Has been Cancelled',
-            'success'
-          )
-        }
-        else {
-          this.getbookappointmentbyhospitalbyhospitalid();
-        }
-      })
+          }
+        })
+      }
+      else if(this.languageid==6)
+      {
+        Swal.fire({
+          title: 'Êtes-vous sûr',
+          text: "Annulation de rendez-vous !",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Oui',
+          cancelButtonText: 'non'
+        }).then((result) => {
+          if (result.value) {
+  
+            let Entity = {
+              'ID': id,
+              'CancelReason': res
+            }
+            this.docservice.CancelBookAppointmentWeb(Entity).subscribe(res => {
+              let test = res;
+              this.getbookappointmentbyhospitalbyhospitalid();
+            })
+            Swal.fire(
+              'Succès!',
+              'Le rendez-vous a été annulé',
+              'success'
+            )
+          }
+          else {
+            this.getbookappointmentbyhospitalbyhospitalid();
+          }
+        })
+      }
+   
     }
     else {
-      Swal.fire("Please Enter Reason For Cancel!!!")
+      if(this.languageid==1)
+      {
+        Swal.fire("Please enter reason for cancellation !");
+      }
+      else if(this.languageid==6)
+     {
+      Swal.fire("Veuillez saisir le motif de l'annulation !")
+     }
     }
 
   }

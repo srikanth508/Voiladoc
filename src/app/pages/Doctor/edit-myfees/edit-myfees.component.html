@@ -12,6 +12,7 @@
   </div>
 </div> <br>
 <div class="container-fluid card card-hover">
+  <form #FeesForm="ngForm">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
       <label>{{labels[0].doctor}} : </label>
@@ -22,7 +23,7 @@
         <option>{{labels[0].select}}</option>
         <option *ngFor="let doc of doctorlist"  value="{{doc.doctorID}}">{{doc.doctorName}}</option>
       </select> -->
-      <input type="text" class="form-control" [(ngModel)]="doctorname" name="doctorname" >
+      <input type="text" class="form-control" disabled [(ngModel)]="doctorname" name="doctorname" >
 
       <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="doctorlist" [settings]="docdd"
         (onSelect)="GetDoctorID($event)">
@@ -41,7 +42,7 @@
         <option>{{labels[0].select}}</option>
         <option *ngFor="let hos of hosptalist" value="{{hos.hospital_ClinicID}}">{{hos.hospital_ClinicName}}</option>
       </select> -->
-      <input type="text" class="form-control" [(ngModel)]="hospitalname" name="hospitalname">
+      <input type="text" class="form-control" disabled [(ngModel)]="hospitalname" name="hospitalname">
     </div>
   </div>
   <br>
@@ -74,11 +75,24 @@
   <br> -->
   <div class="row">
     <div class="col-lg-3">
+      <label>{{labels[0].appointmentstype}} : </label>
+      <span class="requird">*</span>
+    </div>
+    <div class="col-lg-4">
+      <select class="form-control" disabled  [(ngModel)]="appointmentypeid" name="appointmentypeid">
+        <option value="0">{{labels[0].select}}</option>
+        <option *ngFor="let app of appointmenttype" value="{{app.id}}">{{app.appointmentType}}</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-3">
       <label>{{labels[0].patientCharges}} : </label>
       <span class="requird">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" [(ngModel)]="fees" name="fees" placeholder="{{labels[0].patientCharges}}">
+      <input type="text" class="form-control" [(ngModel)]="fees" required name="fees" placeholder="{{labels[0].patientCharges}}"
+      onkeypress='return(event.charCode>=48&&event.charCode<=57)' placeholder="{{labels[0].patientCharges}}">
     </div>
   </div>
   <br>
@@ -109,9 +123,10 @@
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="adddetails()">Update</button>
+        (click)="adddetails()" [disabled]="FeesForm.form.invalid">Update</button>
     </div>
     <div class="col-lg-5">
     </div>
   </div><br><br>
+</form>
 </div>
