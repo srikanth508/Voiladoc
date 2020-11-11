@@ -79,10 +79,10 @@ export class ApprovedUsersComponent implements OnInit {
   public dummreglist: any;
 
   public GetRegistreedVoiladocusers() {
-    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate).subscribe(data => {
+    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate,this.typeid).subscribe(data => {
       // this.RegisteredList = data;
       this.dummreglist = data;
-      this.RegisteredList = this.dummreglist.filter(x => x.type == this.typeid && x.approved == 1)
+      this.RegisteredList = this.dummreglist.filter(x => x.approved == 1)
       this.count = this.RegisteredList.length;
 
     })
@@ -92,8 +92,9 @@ export class ApprovedUsersComponent implements OnInit {
 
   public GetTypeID(even) {
     this.typeid = even.target.value;
-    this.RegisteredList = this.dummreglist.filter(x => x.type == this.typeid && x.approved == 1)
-    this.count = this.RegisteredList.length;
+    // this.RegisteredList = this.dummreglist.filter(x =>  x.approved == 1)
+    // this.count = this.RegisteredList.length;
+    this.GetRegistreedVoiladocusers();
   }
 
 }

@@ -222,6 +222,7 @@ export class MyappointmentsComponent implements OnInit {
   manuallydrug: any;
   dropzonelable: any;
   earlycallnotes: any;
+  public search2: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -361,7 +362,8 @@ export class MyappointmentsComponent implements OnInit {
       data => {
 
         this.labels = data;
-        this.selectlabel = this.labels[0].select
+        this.selectlabel = this.labels[0].select,
+          this.search2 = this.labels[0].search
       }, error => {
       }
     )
@@ -1100,13 +1102,13 @@ export class MyappointmentsComponent implements OnInit {
   drugnames: any;
   dummdrugnamelist: any;
 
-  search1 = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(termsss => termsss.length < 1 ? []
-        : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
-    )
+  // search1 = (text$: Observable<string>) =>
+  //   text$.pipe(
+  //     debounceTime(200),
+  //     distinctUntilChanged(),
+  //     map(termsss => termsss.length < 1 ? []
+  //       : this.drugnames.filter(z => z.toLowerCase().indexOf(termsss.toLowerCase()) > -1).slice(0, 50))
+  //   )
 
 
   public GetDrugnamemaster() {
@@ -1432,7 +1434,7 @@ export class MyappointmentsComponent implements OnInit {
   public getdoctorpatinetdetails() {
 
     if (this.docdepartmentid == 14) {
-      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid, this.doctorid).subscribe(
         data => {
 
           this.prescrptionlist = data;
@@ -1441,7 +1443,7 @@ export class MyappointmentsComponent implements OnInit {
       )
     }
     else if (this.docdepartmentid != 14) {
-      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientiddddddd, this.languageid, this.doctorid).subscribe(
         data => {
 
           this.dummprescrptionlist = data;
@@ -1791,7 +1793,7 @@ export class MyappointmentsComponent implements OnInit {
   }
   public getdiadnosticdetails() {
     if (this.docdepartmentid == 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid, this.doctorid).subscribe(
         data => {
 
           this.dialist = data;
@@ -1800,7 +1802,7 @@ export class MyappointmentsComponent implements OnInit {
       )
     }
     else if (this.docdepartmentid != 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsByPatient(this.diapatientidddd, this.languageid, this.doctorid).subscribe(
         data => {
 
           this.dummdialist = data;
@@ -2828,7 +2830,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetPreviousRefereals() {
-    this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientid, this.languageid,this.doctorid).subscribe(data => {
+    this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientid, this.languageid, this.doctorid).subscribe(data => {
       debugger
       this.previousreferalist = data;
     })
@@ -2933,7 +2935,9 @@ export class MyappointmentsComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       //  itemsShowLimit: 3,
-      allowSearchFilter: true
+      searchPlaceholderText: this.search2,
+      allowSearchFilter: true,
+
     };
   }
 
@@ -3008,7 +3012,7 @@ export class MyappointmentsComponent implements OnInit {
             if (this.referaltypeid == 3) {
               this.senmailToPatient()
             }
-            Swal.fire('Success', 'Referral Sent To Doctor Successfully');
+            // Swal.fire('Success', 'Referral Sent To Doctor Successfully');
             location.href = "#/Sentrefferals"
           }
         })
@@ -3047,7 +3051,7 @@ export class MyappointmentsComponent implements OnInit {
 
           this.SendNotification();
 
-          Swal.fire('Success', 'Referral Sent To Doctor Successfully');
+          // Swal.fire('Success', 'Referral Sent To Doctor Successfully');
           location.href = "#/Sentrefferals"
         }
       })
@@ -3222,6 +3226,8 @@ export class MyappointmentsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
+
+          searchPlaceholderText: this.search2,
           allowSearchFilter: true
         };
       }, error => {
@@ -3258,6 +3264,8 @@ export class MyappointmentsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
+
+          searchPlaceholderText: this.search2,
           allowSearchFilter: true
         };
 
@@ -3294,6 +3302,7 @@ export class MyappointmentsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
+          searchPlaceholderText: this.search2,
           allowSearchFilter: true
         };
 
@@ -3433,8 +3442,15 @@ export class MyappointmentsComponent implements OnInit {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadattachments1();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+
   }
 
   public uploadattachments1() {
@@ -3627,7 +3643,7 @@ export class MyappointmentsComponent implements OnInit {
         debugger
         this.getPreviousChat();
         this.oberserableTimer();
-    
+
       }
     })
     // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
@@ -3665,7 +3681,7 @@ export class MyappointmentsComponent implements OnInit {
         this.image = 0;
         this.getPreviousChat();
         this.InsertChatnotificationazure()
-        
+
 
       })
     }
@@ -3772,7 +3788,7 @@ export class MyappointmentsComponent implements OnInit {
   public GetSoapNotes() {
     if (this.departmentid != 14) {
 
-      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid, this.doctorid).subscribe(
         data => {
           debugger
           this.dummsopailist = data;
@@ -3784,7 +3800,7 @@ export class MyappointmentsComponent implements OnInit {
     }
     else if (this.departmentid == 14) {
       debugger
-      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid, this.doctorid).subscribe(
         data => {
           this.soaplist1 = data;
 
@@ -4073,7 +4089,7 @@ export class MyappointmentsComponent implements OnInit {
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
 
-        this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid,this.doctorid).subscribe(data => {
+        this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid, this.doctorid).subscribe(data => {
           debugger
           this.previousreferalist = data;
         })
@@ -4081,7 +4097,7 @@ export class MyappointmentsComponent implements OnInit {
       else if (this.languageid == 6) {
         Swal.fire('Mis à jour avec succés');
       }
-      this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid,this.doctorid).subscribe(data => {
+      this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid, this.doctorid).subscribe(data => {
         debugger
         this.previousreferalist = data;
       })
@@ -4191,7 +4207,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public getpreviousmedicalcertificates() {
-    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid, this.languageid,this.doctorid).subscribe(data => {
+    this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid, this.languageid, this.doctorid).subscribe(data => {
       this.previousmedicallist = data;
       debugger
     })
@@ -4251,7 +4267,7 @@ export class MyappointmentsComponent implements OnInit {
       this.email = qwerty[0].emailID;
       this.address = qwerty[0].address;
       this.doctorname = qwerty[0].doctorName;
-      this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid, this.doctorid).subscribe(
         data => {
           this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);
           let temp: any = this.sicksliplist1.filter(x => x.id == this.sickslipid)
@@ -4272,7 +4288,7 @@ export class MyappointmentsComponent implements OnInit {
       this.email = qwerty[0].emailID;
       this.address = qwerty[0].address;
       this.doctorname = qwerty[0].doctorName;
-      this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.sickslippatientid, this.languageid, this.doctorid).subscribe(
         data => {
 
           this.sicksliplist1 = data.filter(x => x.languageID == this.languageid);

@@ -342,6 +342,7 @@ import { LinkforregdashComponent } from './pages/Sales/linkforregdash/linkforreg
 import { VoiladocRegisteredUsersComponent } from './pages/Sales/voiladoc-registered-users/voiladoc-registered-users.component';
 import { ApprovedUsersComponent } from './pages/Sales/approved-users/approved-users.component';
 import { RejectedusersComponent } from './pages/Sales/rejectedusers/rejectedusers.component';
+import { HomeCareAppointmentsComponent } from './pages/Home care/home-care-appointments/home-care-appointments.component';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -677,6 +678,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     VoiladocRegisteredUsersComponent,
     ApprovedUsersComponent,
     RejectedusersComponent,
+    HomeCareAppointmentsComponent,
    
   ],
   imports: [

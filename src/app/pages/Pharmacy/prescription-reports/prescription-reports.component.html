@@ -23,8 +23,7 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-
-    <div class="col-lg-3">
+    <div class="col-lg-3" *ngIf="showdrop=='1'">
       <select class="form-control" (change)="GetPharmacyID($event)">
         <option selected value="0">Select Pharmacy</option>
      <option *ngFor="let pha of pharmacylist" value="{{pha.id}}">{{pha.pharmacyName}}</option>
@@ -248,7 +247,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-            data-dismiss="modal" (click)="SavePDF()">Download</button>
+            data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
             data-dismiss="modal">{{labels[0].close}}</button>
         </div>

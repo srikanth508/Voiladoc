@@ -47,6 +47,7 @@ export class PrescriptionReportsComponent implements OnInit {
   public diffid: any;
   public count: any;
   roleid
+  public showdrop: any;
   ngOnInit() {
 
     this.id = localStorage.getItem('pharmacyid');
@@ -98,8 +99,13 @@ export class PrescriptionReportsComponent implements OnInit {
 
     this.activatedroute.params.subscribe(params => {
 
-
       this.diffid = params['id']
+      if (this.diffid == undefined) {
+        this.showdrop = 0;
+      }
+      else {
+        this.showdrop = 1;
+      }
     }
     )
     if (this.diffid == undefined) {
@@ -108,7 +114,7 @@ export class PrescriptionReportsComponent implements OnInit {
     else {
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-
+          debugger
           this.reportlist = data;
           this.dummlist = this.reportlist;
           this.count = this.reportlist.length
@@ -117,7 +123,7 @@ export class PrescriptionReportsComponent implements OnInit {
       )
     }
 
-this.getpharmacyforadmin()
+    this.getpharmacyforadmin()
   }
 
   public pharmacylist: any;
@@ -133,17 +139,15 @@ this.getpharmacyforadmin()
       }
     )
   }
-  pharmacyid:any;
+  pharmacyid: any;
 
-  public GetPharmacyID(even)
-  {
-    if(even.target.value!=0)
-    {
-      this.pharmacyid=even.target.value;
-      this.reportlist=this.dummlist.filter(x=>x.pharmacyID==this.pharmacyid)
+  public GetPharmacyID(even) {
+    if (even.target.value != 0) {
+      this.pharmacyid = even.target.value;
+      this.reportlist = this.dummlist.filter(x => x.pharmacyID == this.pharmacyid)
       this.count = this.reportlist.length
     }
-    else{
+    else {
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
 
@@ -154,7 +158,7 @@ this.getpharmacyforadmin()
         }
       )
     }
-   
+
   }
 
   public getlanguage() {
@@ -179,7 +183,7 @@ this.getpharmacyforadmin()
 
     this.docservice.GetPatient_TextMedicineDetailsReportsWeb(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
+debugger
         this.reportlist = data;
         this.totalamount = this.reportlist.map(a => a.amountToPay).reduce(function (a, b) {
           return a + b;

@@ -31,7 +31,17 @@ export class PhysioworkingDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
 
-    this.getlanguage();
+    this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.search = this.labels[0].search,
+          this.select = this.labels[0].selectPhysiotherapist
+      }, error => {
+      }
+    )
+
+    // this.getlanguage();
     // this.getphysiolist();
 
     if (this.hospitalclinicid != undefined) {

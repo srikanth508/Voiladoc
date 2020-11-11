@@ -317,6 +317,7 @@ import { LinkforregdashComponent } from './pages/Sales/linkforregdash/linkforreg
 import { VoiladocRegisteredUsersComponent } from './pages/Sales/voiladoc-registered-users/voiladoc-registered-users.component';
 import { ApprovedUsersComponent } from './pages/Sales/approved-users/approved-users.component';
 import { RejectedusersComponent } from './pages/Sales/rejectedusers/rejectedusers.component';
+import { HomeCareAppointmentsComponent } from './pages/Home care/home-care-appointments/home-care-appointments.component';
 
 
 
@@ -711,9 +712,9 @@ const routes: Routes = [
   { path: 'LinkForreg', component: LinkForregComponent },
   { path: 'Linkforregdash', component: LinkforregdashComponent },
   { path: 'VoiladocRegisteredUsers', component: VoiladocRegisteredUsersComponent },
-
   { path: 'ApprovedUsers', component: ApprovedUsersComponent },
   { path: 'Rejectedusers', component: RejectedusersComponent },
+  { path: 'HomeCareAppointments', component: HomeCareAppointmentsComponent },
 ];
 
 

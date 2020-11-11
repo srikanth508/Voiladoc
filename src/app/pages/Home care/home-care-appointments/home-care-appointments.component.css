@@ -1,0 +1,6 @@
+label::first-letter{
+    text-transform: uppercase;
+  }
+  label{
+    text-transform: lowercase;
+  }

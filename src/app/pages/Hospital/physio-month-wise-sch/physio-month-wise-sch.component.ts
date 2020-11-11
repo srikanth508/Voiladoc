@@ -29,8 +29,17 @@ export class PhysioMonthWiseSchComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
+      data => {
 
-    this.getlanguage()
+        this.labels = data;
+        this.Select = this.labels[0].selectPhysiotherapist;
+        this.search=this.labels[0].search;
+      }, error => {
+      }
+    )
+
+    // this.getlanguage()
 
     this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
       data => {

@@ -18,7 +18,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
   month: any;
   year: any;
   labels: any;
-  Select: any;
+  select: any;
   public midwifeid: any;
 
   public Workinglist: any;
@@ -152,7 +152,7 @@ export class MidWifeMonthWiseSchComponent implements OnInit {
       data => {
        
         this.labels = data;
-        this.Select = this.labels[0].selectMidwife;
+        this.select = this.labels[0].selectMidwife;
         this.search=this.labels[0].search;
       }, error => {
       }

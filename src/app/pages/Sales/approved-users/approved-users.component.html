@@ -32,7 +32,9 @@
         <option value="3">Independent Doctor</option>
         <option value="4">Independent Nurse</option>
         <option value="5">Independent Physiotherapist</option>
-        <option value="6">Independent Mideife</option>
+        <option value="6">Independent Midwife</option>
+        <option value="7">Pharmacy</option>
+        <option value="8">Diagnostic Center</option>
       </select>
     </div>
     <div class="col-lg-1">
@@ -52,7 +54,7 @@
             <th>Type</th>
             <th>User Name</th>
             <th>Phone Number</th>
-            <th *ngIf="typeid!='1'&&typeid!='2'">Gender</th>
+            <th *ngIf="typeid!='1'&&typeid!='2'&&typeid!='7'&&typeid!='8'">Gender</th>
             <th>Email</th>
             <th>Address</th>
             <th>Status</th>
@@ -63,7 +65,7 @@
             <td>{{list.typeName}}</td>
             <td>{{list.username}}</td>
             <td>{{list.phoneNo}}</td>
-            <td *ngIf="typeid!='1'&&typeid!='2'">
+            <td *ngIf="typeid!='1'&&typeid!='2'&&typeid!='7'&&typeid!='8'">
               <span *ngIf="list.genderID=='1'">Male</span>
               <span *ngIf="list.genderID=='2'">FeMale</span>
             </td>

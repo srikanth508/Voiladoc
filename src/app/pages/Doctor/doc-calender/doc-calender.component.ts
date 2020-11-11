@@ -236,6 +236,14 @@ export class DocCalenderComponent implements OnInit {
 
             this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
 
+            this.timeSheetTablearray[t]["nomrngslots"] = kk[0].nomrngslots;
+            this.timeSheetTablearray[t]["noafternoonslots"] = kk[0].noafternonslots;
+            this.timeSheetTablearray[t]["noevengslots"] = kk[0].noeveningslots;
+            this.timeSheetTablearray[t]["nonightslots"] = kk[0].nonightslots;
+
+
+
+
           }
         }
         }

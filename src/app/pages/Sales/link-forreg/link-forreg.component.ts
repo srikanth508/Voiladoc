@@ -60,7 +60,7 @@ export class LinkForregComponent implements OnInit {
           this.sendmails();
           this.spinner.hide();
           location.href = "#/Linkforregdash"
-          Swal.fire('Mail Send Successfully');
+          Swal.fire('Mail Sent Successfully');
         }
         else {
           debugger

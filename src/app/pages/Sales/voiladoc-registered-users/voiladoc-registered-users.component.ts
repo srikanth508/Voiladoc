@@ -74,15 +74,13 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     this.GetRegistreedVoiladocusers()
   }
 
-
-
   public dummreglist: any;
 
   public GetRegistreedVoiladocusers() {
-    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate).subscribe(data => {
+    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid).subscribe(data => {
       // this.RegisteredList = data;
       this.dummreglist = data;
-      this.RegisteredList = this.dummreglist.filter(x => x.type == this.typeid && x.approved == 0 && x.rejected == 0)
+      this.RegisteredList = this.dummreglist.filter(x => x.approved == 0 && x.rejected == 0)
       this.count = this.RegisteredList.length;
 
     })
@@ -91,11 +89,12 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   public typeid: any;
 
   public GetTypeID(even) {
+    debugger
     this.typeid = even.target.value;
-    this.RegisteredList = this.dummreglist.filter(x => x.type == this.typeid && x.approved == 0 && x.rejected == 0)
-    this.count = this.RegisteredList.length;
+    // this.RegisteredList = this.dummreglist.filter(x =>x.approved == 0 && x.rejected == 0)
+    // this.count = this.RegisteredList.length;
+    this.GetRegistreedVoiladocusers()
   }
-
 
   public GetApproveRegistratuions(list) {
     Swal.fire({
@@ -110,6 +109,8 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (result.value) {
         this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
           let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+          })
           if (list.type == '1') {
             debugger
             this.InsertHospitalDetails(list)
@@ -132,6 +133,14 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
           if (list.type == '6') {
             debugger
             this.InsertMidWives(list)
+          }
+          if (list.type == '7') {
+            debugger
+            this.InserPharmacyDetails(list)
+          }
+          if (list.type == '8') {
+            debugger
+            this.InserDiagnostoicDetails(list)
           }
           debugger
         })
@@ -433,11 +442,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (data != 0) {
         // Swal.fire('Added Successfully.');
         Swal.fire('Completed', 'Doctor saved successfully', 'success');
-
+        this.GetRegistreedVoiladocusers()
       }
       else {
         Swal.fire("Doctor Login Already Exists");
-
+        this.GetRegistreedVoiladocusers()
       }
     })
   }
@@ -507,9 +516,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
       if (data != 0) {
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        this.GetRegistreedVoiladocusers()
       }
       else {
         Swal.fire("Nurse Login Already Exists");
+        this.GetRegistreedVoiladocusers()
       }
     })
 
@@ -551,13 +562,14 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         this.InsertPhysiologindetails(list)
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.spinner.hide();
-
+        this.GetRegistreedVoiladocusers()
         // location.href = '#/PhysiotherapistDashboard';
       }
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');
         this.spinner.hide();
         // location.href = '#/PhysiotherapistDashboard';
+        this.GetRegistreedVoiladocusers()
       }
     })
 
@@ -648,26 +660,196 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // midwife end
 
+
+
+  //pharmacy
+
+  public pharmacyid: any;
+
+  public InserPharmacyDetails(list) {
+
+    this.spinner.show();
+    var entity = {
+      'PharmacyName': list.username,
+      'MobileNumber': list.phoneNo,
+      'Email': list.email,
+      'Password': '123',
+      'ContactName': list.contactpersonName,
+      'Address': list.address,
+      'Zipcode': 0,
+      'Timings': 0,
+      'LanguageID': '1',
+      'LicenseNo': list.licenceNumber,
+      'LicenseValidTill': new Date(),
+      'HomeDelivery': 0,
+      'Website': list.website,
+      'NightPharmacy': 0,
+      'TeleOrdering': 0,
+      'Preffered': 0,
+      'CityID': 0,
+      'Description': list.description,
+      'AreaID': 0,
+      'Pincode': 0,
+      'CountryID': 0,
+      'MonthlySubscription': 0,
+      'HospitalClinicID': 0,
+      'Hospitalfulltimebit': 1,
+      'ContartStartDate': new Date(),
+      'ContractEndDate': new Date()
+    }
+    this.docservice.InsertPharmacyRegistration(entity).subscribe(data => {
+
+      if (data != 0) {
+        this.pharmacyid = data;
+        this.insertphoto();
+        this.InserPharmacyLogins(list)
+        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        this.GetRegistreedVoiladocusers()
+
+        this.spinner.hide();
+        // location.href = "#/Pharmacydashboard"
+      }
+    })
+  }
+
+  public InserPharmacyLogins(list) {
+    var entity = {
+      'PharmacyID': this.pharmacyid,
+      'UserName': list.regysername,
+      'Password': list.password
+    }
+    this.docservice.InsertPharmacyAdminRegistration(entity).subscribe(data => {
+
+
+    })
+
+  }
+
+
+  public insertphoto() {
+    if (this.attachmentsurl.length == 0) {
+      this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\PharmacyPhotos\\Pharmacy.jpg'
+    }
+    for (let i = 0; i < this.attachmentsurl.length; i++) {
+
+      var entity = {
+        'PharmacyID': this.pharmacyid,
+        'PhotoURL': this.attachmentsurl[i]
+      }
+      this.docservice.InsertPharmacyPhotos(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+
+  }
+
+
+
+
+  // Diagnostic Center
+
+  public diagnosticid: any;
+
+
+  public InserDiagnostoicDetails(list) {
+
+    this.spinner.show();
+
+    var entity = {
+      'DiagnosticCenterName': list.username,
+      'Description': list.description,
+      'Address': list.address,
+      'PhoneNo': list.phoneNo,
+      'EmailID': list.email,
+      'Timings': 0,
+      'LanguageID': '1',
+      'Zipcode': 0,
+      'ContactPerson': list.contactpersonName,
+      'ContactPersonPhNo': list.contactPersonPhNo,
+      'LicenseNo': list.businessLicenceNumber,
+      'LicenseValidTill': new Date(),
+      'HomeSample': 1,
+      'Preffered': 0,
+      'Website': list.website,
+      'Awards': 'none',
+      'CityID': 0,
+      'AreaID': 0,
+      'Pincode': 0,
+      'CountryID': 0,
+      'MonthlySubscription': 0,
+      'HospitalClinicID': 0,
+      'Hospitalfulltimebit': 1,
+      'ContractStartDate': new Date(),
+      'ContractEndDate': new Date(),
+    }
+    this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
+
+      if (data != 0) {
+        this.diagnosticid = data;
+        this.inserthspphotosDiagnosticPhotos();
+        this.InsertDiagnosticLogins(list)
+
+        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        this.GetRegistreedVoiladocusers()
+        this.spinner.hide();
+
+
+      }
+      // else {
+      //   Swal.fire('Diagnostic Center Name', 'Already Exists');
+
+      // }
+    })
+
+
+  }
+
+  public inserthspphotosDiagnosticPhotos() {
+    if (this.attachmentsurl.length == 0) {
+      this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DiagnosticCenterPhotos\\Diagnostics.jpg'
+    }
+
+    for (let i = 0; i < this.attachmentsurl.length; i++) {
+      var entity = {
+        'DiagnosticCenterID': this.diagnosticid,
+        'PhotoURL': this.attachmentsurl[i]
+      }
+      this.docservice.InsertInsertDiagnosticCenterPhotos(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+  }
+
+
+  public InsertDiagnosticLogins(list) {
+
+    var entity = {
+      'DiagnosticCenterID': this.diagnosticid,
+      'UserName': list.regysername,
+      'Password': list.password
+    }
+    this.docservice.InsertDiagnosticCenterAdminRegistration(entity).subscribe(data => {
+
+      if (data != 0) {
+        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+
+      }
+      else {
+        Swal.fire('Success', 'Diagnostic Center Already Exists', 'success');
+
+      }
+    })
+
+  }
+
+
   rejectelist: any;
-
-
 
 
   public GetRejectedregistrations(list) {
@@ -707,6 +889,9 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     this.docservice.UpdateRejectedVoiladocRegisteredUsers(this.rejectelist.id, this.rejectelist.type).subscribe(res => {
       let test = res;
       debugger
+      this.docservice.UpdateVoiladocRegistrationEmailsStatus(this.rejectelist.regID).subscribe(data => {
+      })
+
       this.sendmails(this.rejectelist)
       Swal.fire('Rejected Successfully');
       this.GetRegistreedVoiladocusers()
@@ -726,4 +911,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       debugger
     })
   }
+
+
+
 }

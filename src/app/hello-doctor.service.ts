@@ -4401,9 +4401,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetAreaMasterByhospitals?LanguageID=' + lid);
   }
 
-  public GetDoctorReferalsByPatientIDForWeb(pid, lid,doctorid) {
+  public GetDoctorReferalsByPatientIDForWeb(pid, lid, doctorid) {
     debugger
-    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorReferalsByPatientIDForWeb?PatientID=' + pid + '&LanguageID=' + lid+'&DoctorID='+doctorid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorReferalsByPatientIDForWeb?PatientID=' + pid + '&LanguageID=' + lid + '&DoctorID=' + doctorid);
   }
 
 
@@ -4412,9 +4412,9 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  public GetSickSlipGenaratorByPatientIDWeb(pid, lid,doctorid) {
+  public GetSickSlipGenaratorByPatientIDWeb(pid, lid, doctorid) {
     debugger
-    return this.http.get<any[]>(this.host + '/Doctor/GetSickSlipGenaratorByPatientIDWeb?PatientID=' + pid + '&LanguageID=' + lid+'&DoctorID='+doctorid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetSickSlipGenaratorByPatientIDWeb?PatientID=' + pid + '&LanguageID=' + lid + '&DoctorID=' + doctorid);
   }
 
   public UpdateNotifications_DoctorSeenBitAll(did) {
@@ -4543,15 +4543,15 @@ export class HelloDoctorService {
     this.url = this.host2 + '/Master/insertVoiladocRegistrationEmails';
     return this.http.post(this.url, data)
   }
-  
+
   public GetLinkForRegistrations(sdate, edate) {
     debugger
     return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationEmails?Sdate=' + sdate + '&Edate=' + edate);
   }
 
-  public GetVoiladocRegistrationsUsers(sdate, edate) {
+  public GetVoiladocRegistrationsUsers(sdate, edate, typeid) {
     debugger
-    return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationsUsers?Sdate=' + sdate + '&Edate=' + edate);
+    return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationsUsers?Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid);
   }
 
   public UpdateRejectedVoiladocRegisteredUsers(id, typeid) {
@@ -4561,6 +4561,16 @@ export class HelloDoctorService {
   public UpdateApprovedVoiladocRegisteredUsers(id, typeid) {
     debugger
     return this.http.get<any[]>(this.host2 + '/Master/UpdateApprovedVoiladocRegisteredUsers?ID=' + id + '&TypeID=' + typeid);
+  }
+
+  public UpdateVoiladocRegistrationEmailsStatus(id) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/UpdateVoiladocRegistrationEmailsStatus?ID=' + id);
+  }
+
+  public UpdateVoiladocRegistrationEmailsStatusReject(id) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/UpdateVoiladocRegistrationEmailsStatusReject?ID=' + id);
   }
   //end
 
@@ -4608,4 +4618,61 @@ export class HelloDoctorService {
     this.url = this.host + '/Admin/UpdateReceiptionistLogin';
     return this.http.post(this.url, data)
   }
+
+
+  public GetAllNurseDetailsWeb(dayid, departmentid, languageid, bookingtime, hospitalid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/BookAppointment/GetAllNurseDetailsWeb?DayID=' + dayid + '&DepartmentID=' + departmentid + '&LanguageID=' + languageid + '&BookingTime=' + bookingtime + '&HospitalID=' + hospitalid);
+  }
+
+  public GetDaysHomecare(date) {
+    debugger
+    return this.http.get<any[]>(this.host + '/BookAppointment/GetDaysHomecare?Date=' + date);
+  }
+
+  public GetAllMidWivesDetailsWeb(dayid, departmentid, languageid, bookingtime, hospitalid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/BookAppointment/GetAllMidWivesDetailsWeb?DayID=' + dayid + '&DepartmentID=' + departmentid + '&LanguageID=' + languageid + '&BookingTime=' + bookingtime + '&HospitalID=' + hospitalid);
+  }
+
+  public GetAllPhysioDetailsWeb(dayid, departmentid, languageid, bookingtime, hospitalid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/BookAppointment/GetAllPhysioDetailsWeb?DayID=' + dayid + '&DepartmentID=' + departmentid + '&LanguageID=' + languageid + '&BookingTime=' + bookingtime + '&HospitalID=' + hospitalid);
+  }
+
+  public InsertBook_Nurse_AppointmentWeb(data) {
+    this.url = this.host + '/BookAppointment/InsertBook_Nurse_AppointmentWeb';
+    return this.http.post(this.url, data)
+  }
+
+
+  public InsertBook_Physio_AppointmentWeb(data) {
+    this.url = this.host + '/BookAppointment/InsertBook_Physio_AppointmentWeb';
+    return this.http.post(this.url, data)
+  }
+
+  
+  public InsertBook_Midwives_AppointmentWeb(data) {
+    this.url = this.host + '/BookAppointment/InsertBook_Midwives_AppointmentWeb';
+    return this.http.post(this.url, data)
+  }
+
+    
+  public InsertMidWife_PatientPaymentDetailsWeb(data) {
+    this.url = this.host + '/BookAppointment/InsertMidWife_PatientPaymentDetailsWeb';
+    return this.http.post(this.url, data)
+  }
+
+      
+  public InsertNurse_PatientPaymentDetailsWeb(data) {
+    this.url = this.host + '/BookAppointment/InsertNurse_PatientPaymentDetailsWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public InsertPhysiotherapist_PatientPaymentDetailsWeb(data) {
+    this.url = this.host + '/BookAppointment/InsertPhysiotherapist_PatientPaymentDetailsWeb';
+    return this.http.post(this.url, data)
+  }
+
+  
 }

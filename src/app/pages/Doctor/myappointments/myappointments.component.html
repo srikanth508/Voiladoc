@@ -2284,9 +2284,9 @@
                   </tr>
                   <tr *ngFor="let ref of previousreferalist">
                     <td>
-                      <label *ngIf="ref.referalTypeID=='1'">Internal Doctor</label>
-                      <label *ngIf="ref.referalTypeID=='2'">External Doctor</label>
-                      <label *ngIf="ref.referalTypeID=='3'">General Reference</label>
+                      <label *ngIf="ref.referalTypeID=='1'">{{labels[0].voiladocNeteork}}</label>
+                      <label *ngIf="ref.referalTypeID=='2'">{{labels[0].external}}</label>
+                      <label *ngIf="ref.referalTypeID=='3'">{{labels[0].genaralRef}}</label>
                     </td>
                     <td>{{ref.patientID}}</td>
                     <td>{{ref.patientName}}</td>
@@ -2469,20 +2469,19 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-6" *ngFor="let att of attachments">
-              <img src="assets/Images/pdf.png" (click)="GetPdf(att.attchments)">
-              <button type="button" style="background-color: #f18235;color: white; margin-left: 45px;"
+            <div class="col-lg-6"  *ngFor="let att of attachments">
+              <img src="assets/Images/pdf.png" style="width: 90px;" (click)="GetPdf(att.attchments)"><br>
+              <button type="button" style="background-color: #f18235;color: white;"
                 (click)="GetPdf(att.attchments)" class="btn btn-default">{{ labels1[0].view }}</button> &nbsp; &nbsp;
               <button type="button" style="background-color: #f18235;color: white;" (click)="Deletefile(att.id)"
                 class="btn btn-default">{{ labels[0].delete }}</button>
             </div>
           </div>
-
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-toggle="modal" data-target="#UploadFile">Upload</button>
+          data-toggle="modal" data-target="#UploadFile">{{ labels[0].upload}}</button>
         <button id="closeview" type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{ labels[0].close }}</button>
       </div>

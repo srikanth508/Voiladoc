@@ -547,43 +547,60 @@
                 <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].workingDetails}}
             </a>
             <div id="WORKINGHos" class="collapse" style="padding-left: 7%;">
-
-                <label style="color:white">{{labels[0].doctorr}}</label><br>
-
-                <a class="tablinks" (click)="highlight($event)" routerLink="/DocWorkingDash">
-                    <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctoragenda}}
+                <a data-toggle="collapse" class="togglebtn button" data-target="#DoctorWork">{{labels[0].doctorr}}
+                    <!-- <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp;  -->
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/DoctorFeeDash">
-                    <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorFees}}
+                <div id="DoctorWork" class="collapse">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/DocWorkingDash">
+                        <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp;
+                        {{labels[0].doctoragenda}}
+                    </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/DoctorFeeDash">
+                        <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorFees}}
+                    </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/DoctorsCalender">
+                        <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp;
+                        {{labels[0].doctorMonthWise}}
+                    </a>
+                </div>
+                <a data-toggle="collapse" class="togglebtn button" data-target="#NurseWork">{{labels[0].nursee}}
+                    <!-- <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp;  -->
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/DoctorsCalender">
-                    <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorMonthWise}}
+                <div id="NurseWork" class="collapse">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/Nurseworkingdash">
+                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].nurseagenda}}
+                    </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/NurseFeeDash">
+                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].nurseFees}}
+                    </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/NurseSchedule">
+                        <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp;
+                        {{labels[0].nursemonthWise}}
+                    </a>
+                </div>
+                <a data-toggle="collapse" class="togglebtn button" data-target="#PhysioWork"> {{labels[0].physiotherapistt}}
+                    <!-- <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp; -->
+                  
                 </a>
-
-                <label style="color:white">{{labels[0].nursee}}</label><br>
-
-                <a class="tablinks" (click)="highlight($event)" routerLink="/Nurseworkingdash">
-                    <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].nurseagenda}}
+                <div id="PhysioWork" class="collapse">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioworkingDash">
+                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp;
+                        &nbsp;{{labels[0].physiotherapistagenda}}
+                    </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysiFeedash">
+                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
+                        {{labels[0].physitherapistFees}}
+                    </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioMonthWiseSch">
+                        <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp;
+                        {{labels[0].physioMonthWise}}
+                    </a>
+                </div>
+                <a data-toggle="collapse" class="togglebtn button" data-target="#midwifework">  {{labels[0].midwifee}}
+                    <!-- <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp; -->
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/NurseFeeDash">
-                    <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].nurseFees}}
-                </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/NurseSchedule">
-                    <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].nursemonthWise}}
-                </a>
-                <label style="color:white">{{labels[0].physiotherapistt}}</label><br>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioworkingDash">
-                    <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp;
-                    &nbsp;{{labels[0].physiotherapistagenda}}
-                </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/PhysiFeedash">
-                    <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
-                    {{labels[0].physitherapistFees}}
-                </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioMonthWiseSch">
-                    <img src="assets/Images/docwor.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].physioMonthWise}}
-                </a>
-                <label style="color:white">{{labels[0].midwifee}}</label>
+                <!-- <label style="color:white"></label> -->
+                <div  id="midwifework" class="collapse">
                 <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeWorkingDash">
                     <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp;
                     &nbsp;{{labels[0].midwifeapistagenda}}
@@ -596,6 +613,7 @@
                     {{labels[0].midwifeMonthWise}}
                 </a>
                 <br> <br>
+                </div>
 
                 <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/HospitalServicesDash">
                 <img src="assets/Images/hs.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].hospitalServices}}
@@ -893,6 +911,10 @@
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='14'" routerLink="/Appointments">
                 <img src="assets/Images/a.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].hosAppointments}}
+            </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='14'" routerLink="/HomeCareAppointments">
+                <img src="assets/Images/a.png" style="width: 15px;">&nbsp; &nbsp; Home care Appointments
             </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='14'" routerLink="/CancelledAppointments">
