@@ -116,15 +116,23 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   nightcolorcode: any;
 
   slottypeid: any;
-  public cleardropdown5=[]
+  public cleardropdown5 = []
   ngOnInit() {
 
+    this.mrngfromid = "";
+    this.mrngtoid = "";
+    this.noonfromid = "";
+    this.noontoid = "";
+    this.evngfromid = "";
+    this.evngtoid = "";
+    this.nightfromid = "";
+    this.nighttoid = ""
 
     this.languageid = localStorage.getItem('LanguageID');
 
     this.activatedroute.params.subscribe(params => {
-     
-     
+
+
       this.doctorid = params['id'];
       this.hosipitalidd = params['hospitalid'];
 
@@ -146,7 +154,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
       this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
         data => {
-         
+
           this.doctorlist = data;
           var list = this.doctorlist.filter(x => x.id == this.doctorid)
           this.slottypeid = list[0].slotDurationID
@@ -158,7 +166,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
             this.GetNightSlotsMasterByID();
           }
           if (this.slottypeid == null) {
-           
+
             this.slotslist.length = 0;
             this.slotslist1.lenght = 0;
             this.slotslist2.length = 0;
@@ -175,7 +183,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
     }
     )
-   
+
 
 
     this.doctorname = localStorage.getItem('user');
@@ -187,7 +195,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hosipitalidd).subscribe(
       data => {
-       
+
         this.details = data;
         this.hospital_ClinicName = this.details[0].hospital_ClinicName
       }, error => {
@@ -196,13 +204,13 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
 
-   
+
 
     this.languageid = localStorage.getItem('LanguageID');
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
@@ -220,7 +228,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     this.idcount = 1;
     this.tablecount = 0;
     this.activatedroute.params.subscribe(params => {
-     
+
       this.active = 1;
       this.doctorid = params['id'];
     }
@@ -291,7 +299,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -332,7 +340,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetBookingTpeID(item7: any) {
-   
+
     if (item7.id == 1) {
       Swal.fire('On Demand Disabled As of Now')
       this.booktypeid.push(item7);
@@ -343,12 +351,12 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public onItemDeSelect7(item7: any) {
-   
+
     this.booktypeid = this.booktypeid.slice(item7.id)
   }
 
   public GetAppointmentTypeID(item8: any) {
-   
+
     this.appontmenttypeid.push(item8);
     this.showid = item8.id
 
@@ -367,7 +375,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
   }
   public onItemDeSelect8(item8: any) {
-   
+
     this.appontmenttypeid = this.appontmenttypeid.slice(item8.id)
   }
 
@@ -410,7 +418,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.dayslist = data;
 
         this.daysdd = {
@@ -429,10 +437,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetDaysID(item10: any) {
-   
+
     // this.dayid = item10.id;
     this.dayid.push(item10)
-   
+
     // for (let i = 0; i < this.dayslist.length; i++) {
     //   if (this.dayslist[i].id == this.dayid) {
     //     this.day = this.dayslist[i].dayOfTheWeek;
@@ -440,7 +448,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     // }
   }
   public GetAvailabilityID(even) {
-   
+
     this.availabilityid = even.target.value;
 
     for (let i = 0; i < this.availabilitylist.length; i++) {
@@ -452,10 +460,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetAvailabilityMaster() {
-   
+
     this.docservice.GetAvailabilityMaster(this.hospitalid).subscribe(
       data => {
-       
+
         this.availabilitylist = data;
       }, error => {
       }
@@ -464,7 +472,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   public GetDoctorID(item: any) {
-   
+
     this.doctorid = item.id;
   }
   public GetHosiptalid(even) {
@@ -472,7 +480,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetMorningSlotsID(item: any) {
-   
+
     this.morningslots.push(item);
 
     if (this.morningslots.length == 2) {
@@ -481,12 +489,12 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect(item: any) {
-   
+
     this.morningslots = this.morningslots.slice(item.id)
   }
 
   public GetAfternoonSlotsID(item1: any) {
-   
+
     this.aftrenoonslots.push(item1);
 
     if (this.aftrenoonslots.length == 2) {
@@ -496,16 +504,16 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   onItemDeSelect1(item1: any) {
-   
+
     this.aftrenoonslots = this.aftrenoonslots.slice(item1.id)
   }
 
   public GetHospitalID(item: any) {
-   
+
     this.hosipitalidd = item.id;
     this.docservice.GetHospital_ClinicDetailsForAdmin(this.hosipitalidd).subscribe(
       data => {
-       
+
         this.details = data;
         this.hospital_ClinicName = this.details[0].hospital_ClinicName
       }, error => {
@@ -513,7 +521,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     )
   }
   public GetEveningSlotsID(item2: any) {
-   
+
     this.eveningslots.push(item2);
 
     if (this.eveningslots.length == 2) {
@@ -522,13 +530,13 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect2(item2: any) {
-   
+
     this.eveningslots = this.eveningslots.slice(item2.id)
   }
 
 
   public GetNightSlotsID(item3: any) {
-   
+
     this.nightslots.push(item3);
     if (this.nightslots.length == 2) {
       this.dis3 = 1;
@@ -536,14 +544,14 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   onItemDeSelect3(item3: any) {
-   
+
     this.eveningslots = this.eveningslots.slice(item3.id)
   }
 
 
 
   public GetHospitalClinicid(even) {
-   
+
     this.hospitalid = even.target.value;
     if (this.hospitalid == 3) {
       this.hosipitalidd = 590
@@ -557,10 +565,10 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public GetAllHospitalclinicById() {
-   
+
     this.docservice.GetAllHospital_ClinicListByIDByLanguageID(this.hospitalid, this.languageid).subscribe(
       data => {
-       
+
         this.hospitallist = data;
 
         this.hosdd = {
@@ -578,86 +586,190 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     )
   }
 
+  public mrngfromlist: any;
 
   public GetMorningSlotsMasterbyid() {
-   
+
     this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
       data => {
-       
+
         this.slotslist = data;
-        this.slotsdd = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.mrngfromlist = this.slotslist;
+        // this.slotsdd = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+  public noonfromlist: any;
   public GetAfternoonSlotsMasterbyID() {
-   
+
     this.docservice.GetSlotsMasterByID(2, this.slottypeid).subscribe(
       data => {
-       
+
         this.slotslist1 = data;
-        this.slotsdd1 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.noonfromlist = this.slotslist1;
+
+        // this.slotsdd1 = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+  public evngfromlist: any;
   public GetEveningSlotsMasterByID() {
-   
+
     this.docservice.GetSlotsMasterByID(3, this.slottypeid).subscribe(
       data => {
-       
+
         this.slotslist2 = data;
-        this.slotsdd2 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.evngfromlist = this.slotslist2;
+        // this.slotsdd2 = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+  public nightfromlist: any;
+
   public GetNightSlotsMasterByID() {
-   
+
     this.docservice.GetSlotsMasterByID(4, this.slottypeid).subscribe(
       data => {
-       
+
         this.slotslist3 = data;
-        this.slotsdd3 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.nightfromlist = this.slotslist3;
+        // this.slotsdd3 = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
+  }
+
+
+
+
+  public mrngtoid: any;
+  public mrngtoslot: any;
+  public mrngtolist: any;
+  public noonfromid: any;
+  public noonfromslot: any;
+  public noontolist: any;
+  public noontoid: any;
+  public noontoslot: any;
+  public evngfromid: any;
+  public evngfromslot: any;
+  public evngtolist: any;
+  public evngtoid: any;
+  public evngtoslot: any;
+  public mrngfromid: any;
+  public mrngfromslot: any;
+
+  public nightfromid: any;
+  public nightfromslot: any;
+  public nighttolist: any;
+  public nighttoid: any;
+  public nightoslot: any;
+
+
+
+
+
+  public getmrngfrom(even) {
+    this.mrngfromid = even.target.value;
+    var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+    this.mrngfromslot = qwerty[0].slots;
+    this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+    this.mrngtoid = "";
+  }
+
+
+
+  public getmrngto(even) {
+    this.mrngtoid = even.target.value;
+    var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+    this.mrngtoslot = qwerty[0].slots;
+  }
+
+
+
+  public getnoonfrom(even) {
+    this.noonfromid = even.target.value;
+    var qwerty = this.noonfromlist.filter(x => x.id == this.noonfromid);
+    this.noonfromslot = qwerty[0].slots;
+    this.noontolist = this.noonfromlist.filter(x => x.id > this.noonfromid);
+    this.noontoid = "";
+  }
+
+  public getnoonto(even) {
+    this.noontoid = even.target.value;
+    var qwerty = this.noontolist.filter(x => x.id == this.noontoid);
+    this.noontoslot = qwerty[0].slots;
+  }
+
+  public getevngfrom(even) {
+    this.evngfromid = even.target.value;
+    var qwerty = this.evngfromlist.filter(x => x.id == this.evngfromid);
+    this.evngfromslot = qwerty[0].slots;
+    this.evngtolist = this.evngfromlist.filter(x => x.id > this.evngfromid);
+    this.evngtoid = "";
+  }
+
+  public getevngto(even) {
+    this.evngtoid = even.target.value;
+    var qwerty = this.evngtolist.filter(x => x.id == this.evngtoid);
+    this.evngtoslot = qwerty[0].slots;
+  }
+
+
+  public getnightfrom(even) {
+    this.nightfromid = even.target.value;
+    var qwerty = this.nightfromlist.filter(x => x.id == this.nightfromid);
+    this.nightfromslot = qwerty[0].slots;
+    this.nighttolist = this.nightfromlist.filter(x => x.id > this.nightfromid);
+    this.nighttoid = "";
+  }
+
+
+  public getnightto(even) {
+    this.nighttoid = even.target.value;
+    var qwerty = this.nighttolist.filter(x => x.id == this.nighttoid);
+    this.nightoslot = qwerty[0].slots;
   }
 
 
@@ -672,6 +784,19 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     else {
       this.tablecount = 1;
 
+      var mrgfrm = {
+        slots: this.mrngfromslot,
+        id: this.mrngfromid
+      };
+      this.morningslots.push(mrgfrm);
+
+      var mrgto = {
+        slots: this.mrngtoslot,
+        id: this.mrngtoid
+      };
+      this.morningslots.push(mrgto);
+
+
       for (let i = 0; i < this.morningslots.length; i++) {
         this.morningslotarray.push(this.morningslots[i].slots);
 
@@ -682,6 +807,21 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       this.mrng = this.slotname.join(' to ')
       this.slotnameid = this.morningslotidarray;
       this.mrngid = this.slotnameid.join(',')
+
+
+      // afternoonslots
+
+      var noonfrm = {
+        slots: this.noonfromslot,
+        id: this.noonfromid
+      };
+      this.aftrenoonslots.push(noonfrm);
+
+      var noonto = {
+        slots: this.noontoslot,
+        id: this.noontoid
+      };
+      this.aftrenoonslots.push(noonto);
 
 
       for (let i = 0; i < this.aftrenoonslots.length; i++) {
@@ -696,6 +836,20 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       this.afternoonid = this.slotnameid1.join(',');
 
 
+      // eveng slots
+
+      var evngfrm = {
+        slots: this.evngfromslot,
+        id: this.evngfromid
+      };
+      this.eveningslots.push(evngfrm);
+
+      var evngto = {
+        slots: this.evngtoslot,
+        id: this.evngtoid
+      };
+      this.eveningslots.push(evngto);
+
       for (let i = 0; i < this.eveningslots.length; i++) {
         this.eveningarray.push(this.eveningslots[i].slots);
 
@@ -707,6 +861,22 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       this.slotnameid2 = this.eveningarrayid;
       this.eveningid = this.slotnameid2.join(',');
 
+
+      //night slots
+
+      var nightfrm = {
+        slots: this.nightfromslot,
+        id: this.nightfromid
+      }
+      this.nightslots.push(nightfrm);
+
+      var nightto = {
+        slots: this.nightoslot,
+        id: this.nighttoid
+      }
+      this.nightslots.push(nightto);
+
+
       for (let i = 0; i < this.nightslots.length; i++) {
         this.nightslotsarray.push(this.nightslots[i].slots);
 
@@ -717,7 +887,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       this.night = this.slotname3.join(' to ');
       this.slotnameid3 = this.nightslotsarrayid;
       this.nightid = this.slotnameid3.join(',');
-     
+
 
       for (let i = 0; i < this.dayid.length; i++) {
 
@@ -800,7 +970,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
           'Evngcolorcode': this.evengcolorcode,
           'Nightcolorcode': this.nightcolorcode
         }
-       
+
         this.qwerty.push(entity);
         this.idcount = this.idcount + 1;
       }
@@ -833,13 +1003,21 @@ export class AddMyWorkingDetailsComponent implements OnInit {
         this.afternoonappointmentType = "",
         this.nightappointmenttype = ""
       this.dayid = []
-      this.cleardropdown5=[]
+      this.cleardropdown5 = []
+      this.mrngfromid = "";
+      this.mrngtoid = "";
+      this.noonfromid = "";
+      this.noontoid = "";
+      this.evngfromid = "";
+      this.evngtoid = "";
+      this.nightfromid = "";
+      this.nighttoid = ""
 
     }
   }
 
   public insertdetails() {
-   
+
 
     var entity = {
       'DoctorID': this.doctorid,
@@ -851,20 +1029,20 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       'DoctorAvailabilityID': this.availabilityid,
     }
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
-     
+
       if (data != 0) {
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
-       
+
         if (this.availabilityid == '1' || this.availabilityid == '2') {
-         
+
           this.inserdoctorsessiondetails();
         }
         if (this.availabilityid == '3') {
           for (let s = 0; s < this.qwerty.length; s++) {
 
-           
+
             let mrng = this.qwerty[s].Morning;
             let ms = mrng.split(" to ", 3);
             let mst = ms[0];
@@ -884,7 +1062,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
             let nys = nyt.split(" to ", 3);
             let nyst = nys[0];
             let nyet = nys[1];
-           
+
             var entity = {
               'DoctorHospitalDetailsID': this.docid,
               'MrngStartTime': mst,
@@ -902,7 +1080,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
             }
             this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
-             
+
               if (data != 0) {
                 if (this.languageid == 1) {
                   Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -916,7 +1094,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               }
             })
           }
-         
+
           this.insertdoctorslotsbyid();
         }
         if (this.languageid == 1) {
@@ -942,7 +1120,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
 
 
   public insertdetailsadmin() {
-   
+
 
     var entity = {
       'DoctorID': this.doctorid,
@@ -954,20 +1132,20 @@ export class AddMyWorkingDetailsComponent implements OnInit {
       'DoctorAvailabilityID': this.availabilityid,
     }
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
-     
+
       if (data != 0) {
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
-       
+
         if (this.availabilityid == '1' || this.availabilityid == '2') {
-         
+
           this.inserdoctorsessiondetails();
         }
         if (this.availabilityid == '3') {
           for (let s = 0; s < this.qwerty.length; s++) {
 
-           
+
             let mrng = this.qwerty[s].Morning;
             let ms = mrng.split(" to ", 3);
             let mst = ms[0];
@@ -987,7 +1165,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
             let nys = nyt.split(" to ", 3);
             let nyst = nys[0];
             let nyet = nys[1];
-           
+
             var entity = {
               'DoctorHospitalDetailsID': this.docid,
               'MrngStartTime': mst,
@@ -1005,7 +1183,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
             }
             this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
-             
+
               if (data != 0) {
                 if (this.languageid == 1) {
                   Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -1018,7 +1196,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
               }
             })
           }
-         
+
           this.insertdoctorslotsbyid();
         }
         if (this.languageid == 1) {
@@ -1038,9 +1216,9 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public inserdoctorsessiondetails() {
-   
+
     for (let i = 0; i < this.qwerty.length; i++) {
-     
+
       var entity = {
         'DoctorID': this.qwerty[i].DoctorID,
         'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
@@ -1050,7 +1228,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
         'LanguageID': 1
       }
       this.docservice.InsertDoctorSessionDetails(entity).subscribe(data => {
-       
+
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -1070,7 +1248,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
     }
   }
   public insertdoctorslotsbyid() {
-   
+
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
@@ -1087,7 +1265,7 @@ export class AddMyWorkingDetailsComponent implements OnInit {
         'NightAppointmentTypeID': this.qwerty[i].nightappointmenttype
       }
       this.docservice.InsertDoctorSlotByID(entity).subscribe(data => {
-       
+
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Slots saved successfully', 'success');
@@ -1104,14 +1282,14 @@ export class AddMyWorkingDetailsComponent implements OnInit {
   }
 
   public delete(Sno) {
-   
+
     for (let i = 0; i < this.qwerty.length; i++) {
-     
+
       if (Sno == this.qwerty[i].Sno) {
-       
+
         this.qwerty.splice(i, 1);
       }
     }
-   
+
   }
 }

@@ -32,7 +32,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public facilitylist: any;
   public insurancelist: any;
   public validEmail: any;
-
+  public today=new Date();
   public insuranceid = [];
   public facilitydd = {};
   public insurancedd = {};
@@ -62,6 +62,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public dropzonelable: any;
   public subscriptiontype: any;
   public appointmentpercentage: any;
+  public contractstartdate:any;
+  public contractenddate:any;
 
 
   ngOnInit() {
@@ -452,16 +454,16 @@ export class HospitalClinicregistrationComponent implements OnInit {
     this.appointmentpercentage =0;
     this.monthlysubription = 0;
   }
-
-
-
+  
 
   public InsertSubscriptionRevenue() {
     var entity5 = {
       'SubscriptionTypeID': this.subscriptiontype,
       'MonthlySubscription': this.monthlysubription,
       'AppointmentPercentage': this.appointmentpercentage,
-      'HospitalClinicID': this.hospitalclinicid
+      'HospitalClinicID': this.hospitalclinicid,
+      'ContractStartdate':this.contractstartdate,
+      'ContractEnddate':this.contractenddate
     }
     this.docservice.InsertHospitalClinic_RevenueSubscriptions(entity5).subscribe(data => {
       if (data != 0) {

@@ -34,13 +34,13 @@
         input::first-letter{
             text-transform: uppercase;
           }
-          input{
+          /* input{
             text-transform: lowercase;
-          }
+          } */
           textarea::first-letter{
             text-transform: uppercase;
           }
-          textarea{
+          /* textarea{
             text-transform: lowercase;
-          }
+          } */
    

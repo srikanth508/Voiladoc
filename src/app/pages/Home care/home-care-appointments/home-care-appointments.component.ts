@@ -52,22 +52,20 @@ export class HomeCareAppointmentsComponent implements OnInit {
       data => {
         this.serverdateandtime = data;
         if (this.languageid == 1) {
-
           this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
-          this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
-          this.Selecteddate2 = this.serverdateandtime.todaydatesss.toLocaleString()
+          // this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+          // this.Selecteddate2 = this.serverdateandtime.todaydatesss.toLocaleString()
           // this.Selecteddate2=this.datepipe.transform(this.todaydatesss, 'dd/MM/yyyy')
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
-          this.appointmenttime = this.serverdateandtime.presentTime
-
+          this.appointmenttime = this.serverdateandtime.presentTime,
+          this.todaydate = this.serverdateandtime.todaydate
           // localStorage.setItem('SelectedDate', this.todaydatesssssss)
-
         }
         else if (this.languageid == 6) {
 
           this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
-          this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
+          // this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
           this.appointmenttime = this.serverdateandtime.presentTime
@@ -140,7 +138,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
     this.typeid = even.target.value;
     debugger
     this.Getdays();
-  
+
     debugger
   }
 
@@ -195,8 +193,20 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public physiolist: any;
   public Nurselist: any;
   public dummnurselist: any;
+  public Doctorlist: any;
+  public dummdoctorslist: any;
 
   public GetAllUsers() {
+    if (this.typeid == 1) {
+      debugger
+      this.docservice.GetDoctorForHomeSampleWeb(1, this.dayid, this.languageid, 1, this.hospitalid).subscribe(data => {
+        debugger
+        this.Doctorlist = data;
+        this.dummdoctorslist = data;
+        debugger
+      }, error => {
+      })
+    }
     if (this.typeid == 2) {
       debugger
       this.docservice.GetAllNurseDetailsWeb(this.dayid, 0, this.languageid, this.appointmenttime, this.hospitalid).subscribe(data => {
@@ -281,9 +291,12 @@ export class HomeCareAppointmentsComponent implements OnInit {
   }
 
 
-
-
   public bookappointment() {
+
+    if (this.typeid == 1) {
+      this.bookDoctorappointment()
+    }
+
     if (this.typeid == 2) {
       this.InsertBookNurseAppointment()
     }
@@ -293,9 +306,18 @@ export class HomeCareAppointmentsComponent implements OnInit {
     if (this.typeid == 4) {
       this.InsertBookMidwife();
     }
-
   }
 
+  public doctorid: any;
+  public dochospitalid: any;
+
+  public GetDoctorID(even) {
+    this.doctorid = even.target.value;
+
+    var list = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
+    this.dochospitalid = list[0].docHospitalID
+    this.amount = list[0].feesNumber
+  }
 
   // book nurse
 
@@ -346,6 +368,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
           debugger
           this.NursePatientPaymentdetails();
           Swal.fire('Appointment Booked Successfully');
+          location.href = "#/HomecareAppdash"
         }
       })
     }
@@ -420,6 +443,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
           debugger
           this.PhysioPatientpaymentDetails();
           Swal.fire('Appointment Booked Successfully');
+          location.href = "#/HomecareAppdash"
         }
       })
     }
@@ -444,8 +468,6 @@ export class HomeCareAppointmentsComponent implements OnInit {
       }
     })
   }
-
-
 
 
 
@@ -496,6 +518,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
           debugger
           this.BookMidwifepaymentdetails();
           Swal.fire('Appointment Booked Successfully');
+          location.href = "#/HomecareAppdash"
         }
       })
     }
@@ -521,6 +544,67 @@ export class HomeCareAppointmentsComponent implements OnInit {
     })
   }
 
+
+
+  // Dotcor
+
+  public docappointmentid: any;
+
+  public bookDoctorappointment() {
+
+    if (this.patientid == null || this.patientid == undefined||this.doctorid==undefined) {
+      Swal.fire("Please Select Mandatory Fields")
+    }
+    else {
+      var entity = {
+        'DoctorID': this.doctorid,
+        'PatientID': this.patientid,
+        'Date': this.selecteddate,
+        'ApptDatetime': this.selecteddate,
+        'DoctorSlotID': 0,
+        'DoctorHospitalDetailsID': this.dochospitalid,
+        'BookingTypeID': 2,
+        'AppointmentTypeID': 5,
+        'CombinationValue': 'Home Visit',
+        'Slots': this.appointmenttime,
+        'PName': this.patientname,
+        'PEmail': this.email,
+        'PMobileNo': this.mobileno,
+        'PRelation': '',
+        'NurseID': 1,
+        'ReasonForVisit': this.reasonforvisit,
+        'PaidAmount': this.amount,
+        'HomeVisit':1
+      }
+      this.docservice.InsertBookAppointmentForWeb(entity).subscribe(data => {
+        this.docappointmentid = data;
+        if (data != 0) {
+          // this.InsertNotifiaction();
+          // this.SendNotification();
+          this.insertpaymentDetails()
+          //this.sendmail();
+          Swal.fire('Success', 'Appointment Booked Successfully');
+           location.href = "#/HomecareAppdash"
+        }
+      })
+    }
+  }
+
+  public insertpaymentDetails() {
+    var entity = {
+      'PatientID': this.patientid,
+      'AppointmentID': this.docappointmentid,
+      'DoctorID': this.doctorid,
+      'PaymentType': this.PaymentTypeID,
+      'PaidAmount': this.amount,
+      'TotalFeesOfDoctor': this.amount,
+      'PaymentDate': this.selecteddate,
+      'Reason': 'Payment Made For Appointment By Receptionst',
+    }
+    this.docservice.InsertPatientPaymentDetailsWeb(entity).subscribe(data => {
+
+    })
+  }
 }
 
 

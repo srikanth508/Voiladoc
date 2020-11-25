@@ -48,7 +48,7 @@
           name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailID}}">
         <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
           <div [hidden]="!emailref.errors?.pattern">
-            Please enter a valid Email ID
+            Please enter a valid Gmail ID
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@
       </div>
     </div>
     <br>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-3">
         <label class="DEPARTMENT_label">{{labels[0].services}} :</label>
 
@@ -157,7 +157,7 @@
         </ng-multiselect-dropdown>
       </div>
     </div>
-    <br>
+    <br> -->
     <div class="row">
       <div class="col-lg-3">
         <label class="Email_label">{{labels[0].homeCare}} :</label>

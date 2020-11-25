@@ -144,7 +144,7 @@ export class NurseworkingdashComponent implements OnInit {
 
 
 
-  public GetNurseID(item:any) {
+  public GetNurseID(item: any) {
     debugger
     this.nurseid = item.id;
     this.getnurseesworkingdetails()
@@ -198,8 +198,15 @@ export class NurseworkingdashComponent implements OnInit {
 
     this.docservice.UpdateNurseWorkingDetails(entity).subscribe(data => {
       if (data != undefined) {
-        Swal.fire("Updated Successfully");
-        this.getnurseesworkingdetails();
+        if (this.languageid == 1) {
+          Swal.fire("Updated Successfully");
+          this.getnurseesworkingdetails();
+        }
+        else if (this.languageid == 6) {
+          Swal.fire("Mis à jour avec succés !");
+          this.getnurseesworkingdetails();
+        }
+
       }
     })
 
@@ -207,30 +214,60 @@ export class NurseworkingdashComponent implements OnInit {
 
 
   public DeleteNurseWorkingDetails(nsid, dayid) {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteNurseWorkingDetails(nsid, dayid).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Day Slot!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteNurseWorkingDetails(nsid, dayid).subscribe(res => {
+            let test = res;
+            this.getnurseesworkingdetails();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Day has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.getnurseesworkingdetails();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Day has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getnurseesworkingdetails();
-      }
-    })
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: "Supprimer !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteNurseWorkingDetails(nsid, dayid).subscribe(res => {
+            let test = res;
+            this.getnurseesworkingdetails();
+          })
+          Swal.fire(
+            '',
+            'Supprimé !',
+            'success'
+          )
+        }
+        else {
+          this.getnurseesworkingdetails();
+        }
+      })
+    }
   }
+
 }

@@ -165,7 +165,174 @@
         <input class="form-control" type="text" required name="session2" [(ngModel)]="session2" placeholder="Session 2">
       </div>
     </div>
-    <div class="row" *ngIf="availabilityid=='3'">
+
+
+
+    <div class="row">
+      <div class="col-lg-2">
+        <label>{{labels[0].morning}} : </label>
+      </div>
+      <div class="col-lg-1">
+
+      </div>
+      <div class="col-lg-9">
+        <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="1"> &nbsp;
+        {{labels[0].inclinic}}
+        &nbsp;
+        <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="2"> &nbsp;
+        {{labels[0].video}}
+        &nbsp;
+        <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="5"> &nbsp;
+        {{labels[0].homeVisit}}
+      </div>
+      <div class="col-lg-2">
+      </div>
+      <div class="col-lg-3">
+
+        <!-- <label *ngIf="departmentid!='16'"></label> -->
+        <!-- <label>From: </label> -->
+        <select class="form-control" (change)="getmrngfrom($event)" [(ngModel)]="mrngfromid" name="mrngfromid">
+          <option value="">{{labels[0].startTime}}</option>
+          <option *ngFor="let mrngfrm of mrngfromlist" value="{{ mrngfrm.id }}">{{ mrngfrm.slots }}</option>
+        </select>
+      </div>
+      <div class="col-lg-3" style="margin-top: 0px;">
+        <!-- <label>To: </label> -->
+        <select class="form-control" (change)="getmrngto($event)" [(ngModel)]="mrngtoid" name="mrngtoid">
+          <option value="">{{labels[0].endTime}}</option>
+          <option *ngFor="let mrngto of mrngtolist" value="{{ mrngto.id }}">{{ mrngto.slots
+          }}</option>
+        </select>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-lg-2">
+        <label>{{labels[0].afternoon}} : </label>
+      </div>
+      <div class="col-lg-1">
+
+      </div>
+      <div class="col-lg-9">
+        <input type="radio" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="1"> &nbsp;
+        {{labels[0].inclinic}} &nbsp;
+        <input type="radio" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="2"> &nbsp;
+        {{labels[0].video}} &nbsp;
+
+        <input type="radio" [(ngModel)]="afternoonappointmentType" name="afternoonappointmentType" value="5"> &nbsp;
+        {{labels[0].homeVisit}}
+      </div>
+      <div class="col-lg-2">
+
+      </div>
+      <div class="col-lg-3">
+     
+        <!-- <label *ngIf="departmentid!='16'"></label> -->
+        <select class="form-control" (change)="getnoonfrom($event)" [(ngModel)]="noonfromid" name="noonfromid">
+          <option value="">{{labels[0].startTime}}</option>
+          <option *ngFor="let noonfrm of noonfromlist" value="{{ noonfrm.id }}">{{ noonfrm.slots }}</option>
+        </select>
+      </div>
+      <div class="col-lg-3" style="margin-top: 0px;">
+        <!-- <label>To: </label><br /> -->
+      
+        <select class="form-control" (change)="getnoonto($event)" [(ngModel)]="noontoid" name="noontoid">
+          <option value="">{{labels[0].endTime}}</option>
+          <option *ngFor="let noonto of noontolist" value="{{ noonto.id }}">{{
+            noonto.slots
+          }}</option>
+        </select>
+      </div>
+    </div><br>
+
+    <!-- evening timings -->
+
+    <div class="row">
+      <div class="col-lg-2">
+        <label>{{labels[0].evening}} : </label>
+      </div>
+      <div class="col-lg-1">
+
+      </div>
+      <div class="col-lg-9">
+        <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="1"> &nbsp;
+        {{labels[0].inclinic}} &nbsp;
+        <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="2"> &nbsp;
+        {{labels[0].video}} &nbsp;
+        <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="5"> &nbsp;
+        {{labels[0].homeVisit}}
+      </div>
+      <div class="col-lg-2">
+
+      </div>
+      <div class="col-lg-3">
+     
+        <!-- <label *ngIf="departmentid!='16'">{{labels[0].homeVisit}}</label> -->
+        <!-- <label>From: </label><br /> -->
+        <select class="form-control" (change)="getevngfrom($event)" [(ngModel)]="evngfromid" name="evngfromid">
+          <option value="">{{labels[0].startTime}}</option>
+          <option *ngFor="let evngfrm of evngfromlist" value="{{ evngfrm.id }}">{{ evngfrm.slots }}</option>
+        </select>
+      </div>
+      <div class="col-lg-3" style="margin-top: 0px;">
+        <!-- <label>To: </label><br /> -->
+      
+        <select class="form-control" (change)="getevngto($event)" [(ngModel)]="evngtoid" name="evngtoid">
+          <option value="">{{labels[0].endTime}}</option>
+          <option *ngFor="let evngto of evngtolist" value="{{ evngto.id }}">{{
+            evngto.slots
+          }}</option>
+        </select>
+      </div>
+    </div><br>
+
+    <!-- 
+night timings -->
+    <div class="row">
+      <div class="col-lg-2">
+        <label>{{labels[0].night}} : </label>
+      </div>
+      <div class="col-lg-1">
+
+      </div>
+      <div class="col-lg-9">
+        <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="1"> &nbsp;
+        {{labels[0].inclinic}}
+        &nbsp;
+        <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="2"> &nbsp;
+        {{labels[0].video}} &nbsp;
+        <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="5"> &nbsp;
+        {{labels[0].homeVisit}}
+      </div>
+      <div class="col-lg-2">
+
+      </div>
+      <div class="col-lg-3">
+  
+        <!-- <label *ngIf="departmentid!='16'">{{labels[0].homeVisit}}</label> -->
+
+        <!-- <label>From: </label><br /> -->
+        <select class="form-control" (change)="getnightfrom($event)" [(ngModel)]="nightfromid" name="nightfromid">
+          <option value="">{{labels[0].startTime}}</option>
+          <option *ngFor="let nightfrm of nightfromlist" value="{{ nightfrm.id }}">{{ nightfrm.slots }}</option>
+        </select>
+      </div>
+      <div class="col-lg-3" style="margin-top: 0px;">
+   
+        <!-- <label>To: </label><br /> -->
+        <select class="form-control" (change)="getnightto($event)" [(ngModel)]="nighttoid" name="nighttoid">
+          <option value="">{{labels[0].endTime}}</option>
+          <option *ngFor="let nightto of nighttolist" value="{{ nightto.id }}">{{
+        nightto.slots
+      }}</option>
+        </select>
+      </div>
+    </div><br>
+
+
+
+
+    <!-- <div class="row" *ngIf="availabilityid=='3'">
       <div class="col-lg-2">
         <label id="imp">{{labels[0].timings}} : </label>
         <span class="requird">*</span>
@@ -255,7 +422,7 @@
         </ng-multiselect-dropdown>
       </div>
     </div>
-    <br>
+    <br> -->
     <div class="row">
       <div class="col-lg-5">
       </div>

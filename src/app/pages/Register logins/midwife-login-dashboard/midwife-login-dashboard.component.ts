@@ -126,10 +126,21 @@ public pp:any;
         this.password = '';
         this.docservice.UpdateMidWivesLogin(entity).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Success', 'Password Updated successfully', 'success');
-            this.pp = 0;
-            document.getElementById('close').click();
-            this.GetMidWivesLoginAdmin();
+            if(this.languageid==1)
+            {
+              Swal.fire('Success', 'Password Updated successfully', 'success');
+              this.pp = 0;
+              document.getElementById('close').click();
+              this.GetMidWivesLoginAdmin();
+            }
+            else
+            {
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              this.pp = 0;
+              document.getElementById('close').click();
+              this.GetMidWivesLoginAdmin();
+            }
+         
           }
           else {
             Swal.fire("User Name Already Exists");

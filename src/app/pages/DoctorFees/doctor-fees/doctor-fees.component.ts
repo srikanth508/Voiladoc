@@ -249,9 +249,9 @@ export class DoctorFeesComponent implements OnInit {
   public independent: any;
 
   public insertdetails() {
-    if (this.independent == 2) {
-      this.insertinpendentDoctorrevenue()
-    }
+    // if (this.independent == 2) {
+    //   this.insertinpendentDoctorrevenue()
+    // }
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'DoctorHospitalID': this.qwerty[i].DoctorHospitalID,

@@ -242,14 +242,35 @@
       <div *ngIf="subscriptiontype=='1'">
         <div class="row">
           <div class="col-lg-3">
-            <label>MONTHLY SUBSCRIPTION :</label>
+            <label>Monthly Subscription :</label>
           </div>
           <div class="col-lg-4">
             <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
               [(ngModel)]="monthlysubription" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract start date :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractstartdate" bsDatepicker>
+          </div>
         </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract end date :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractenddate" bsDatepicker>
+          </div>
+        </div> 
       </div>
       <div *ngIf="subscriptiontype=='2'">
         <div class="row">
@@ -261,8 +282,30 @@
               [(ngModel)]="appointmentpercentage" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract start date :</label>
+    
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractstartdate" bsDatepicker>
+          </div>
         </div>
-
+        <br />
+    
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract end date :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractenddate" bsDatepicker>
+          </div>
+        </div> 
       </div>
       <div *ngIf="subscriptiontype=='3'">
         <div class="row">
@@ -285,8 +328,60 @@
               [(ngModel)]="monthlysubription" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract start date :</label>
+    
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractstartdate" bsDatepicker>
+          </div>
         </div>
+        <br />
+    
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Contract end date :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [(ngModel)]="contractenddate" bsDatepicker>
+          </div>
+        </div> 
       </div><br>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Contract start date</th>
+                <th>Contract end date</th>
+                <th>Monthly subscription</th>
+                <th>Appointment Percentage</th>
+                <!-- <th>Actions</th> -->
+              </tr>
+              <tr *ngFor="let subscriptions of subscrilist">
+                <td>{{subscriptions.contractStartdate}}</td>
+                <td>{{subscriptions.contractEnddate}}</td>
+                <td>{{subscriptions.monthlySubscription}}</td>
+                <td>{{subscriptions.appointmentPercentage}}</td>
+                <!-- <td>
+                  <ng-template #tipcontent1>Edit</ng-template>
+                  <a [ngbTooltip]="tipcontent1"  style="color:black">
+                    <img src="assets/Images/edit.png" data-toggle="modal"  data-target="#EditSubscriptionfees" style="width: 18px"
+                    (click)="GetContractSubscriptions(subscriptions)">
+                  </a>
+                </td> -->
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
     </div><br>
     <div class="row">
       <div class="col-lg-5">

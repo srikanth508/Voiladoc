@@ -357,22 +357,21 @@ export class EditDoctorRegistrationComponent implements OnInit {
     }
     this.docservice.UpdateDoctorRegistrationPhoto(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         this.getdoctordetailsbyid();
         Swal.fire(' Updated Successfully');
         this.editbit = 0;
         this.attachmentsurl1.length = 0
         this.showdocphoto.length = 0
       }
-      else{
+      else {
         this.getdoctordetailsbyid();
         Swal.fire('Mis à jour avec succés');
         this.editbit = 0;
         this.attachmentsurl1.length = 0
         this.showdocphoto.length = 0
       }
-  
+
     })
 
   }
@@ -442,27 +441,25 @@ export class EditDoctorRegistrationComponent implements OnInit {
     }
     this.docservice.UpdateDoctorMedicalProofs(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         this.getdoctordetailsbyid();
         this.GetDoctorMedicalproof();
         Swal.fire(' Updated Successfully');
-  
+
         this.attachmentsurl2.length = 0
         this.photodetail.length = 0
         this.meditt = 0;
       }
-      else
-      {
+      else {
         this.getdoctordetailsbyid();
         this.GetDoctorMedicalproof();
         Swal.fire('Mis à jour avec succés');
-  
+
         this.attachmentsurl2.length = 0
         this.photodetail.length = 0
         this.meditt = 0;
       }
- 
+
     })
   }
 
@@ -494,12 +491,11 @@ export class EditDoctorRegistrationComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else{
+    else {
       Swal.fire('Ajouté avec succès');
       abcd.length = 0;
     }
@@ -675,31 +671,61 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
 
   public DeleteDoctorEducation(id) {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Education!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteDoctorEducation(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Education!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorEducation(id).subscribe(res => {
+            let test = res;
+            this.getdoctoreducationweb();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Education has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.getdoctoreducationweb();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Education has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getdoctoreducationweb();
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: "Supprimer !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorEducation(id).subscribe(res => {
+            let test = res;
+            this.getdoctoreducationweb();
+          })
+          Swal.fire(
+            '',
+            'Enregistré !'
+            
+          )
+        }
+        else {
+          this.getdoctoreducationweb();
+        }
+      })
+
+    }
+
   }
 
   public getservicemaster() {

@@ -80,10 +80,20 @@ export class PharmacyComponent implements OnInit {
       this.docservice.InsertPharmacyAdminRegistration(entity).subscribe(data => {
        
         if (data != 0) {
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-          location.href="#/Pharmacydash"
-          this.clear();
-          this.password1=0;
+          if(this.languageid==1)
+          {
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href="#/Pharmacydash"
+            this.clear();
+            this.password1=0;
+          }
+          else{
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href="#/Pharmacydash"
+            this.clear();
+            this.password1=0;
+          }
+   
 
         }
         else

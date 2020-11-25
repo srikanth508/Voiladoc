@@ -39,6 +39,7 @@ export class PhysiotherapistReportsComponent implements OnInit {
   public id: any;
   public listids: any;
   public count: any;
+  public showdrop:any;
   ngOnInit() {
 
 
@@ -93,7 +94,7 @@ export class PhysiotherapistReportsComponent implements OnInit {
     else {
       this.docservice.GetBook_Physio_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-
+this.showdrop=1;
           this.appointmentreportlist = data;
           this.dummlist = this.appointmentreportlist
           this.count = this.appointmentreportlist.length

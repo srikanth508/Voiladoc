@@ -110,9 +110,18 @@ export class MidwifeLoginComponent implements OnInit {
         this.docservice.InsertMidWivesLogin(entity).subscribe(data => {
          
           if (data != 0) {
-            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-            this.pp = 0;
-            location.href = "#/MidwifeLoginDashboard"
+            if(this.languageid==1)
+            {
+              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+              this.pp = 0;
+              location.href = "#/MidwifeLoginDashboard"
+            }
+            else{
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              this.pp = 0;
+              location.href = "#/MidwifeLoginDashboard"
+            }
+        
           }
           else {
             Swal.fire("Mid Wife Login Already Exists");

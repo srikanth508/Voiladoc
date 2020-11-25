@@ -315,6 +315,13 @@ export class DoctorsCalenderComponent implements OnInit {
             this.timeSheetTablearray[t]["eveningAppointmentTypeID"] = kk[0].eveningAppointmentTypeID;
             this.timeSheetTablearray[t]["nightAppointmentTypeID"] = kk[0].nightAppointmentTypeID;
             this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
+
+            
+            this.timeSheetTablearray[t]["nomrngslots"] = kk[0].nomrngslots;
+            this.timeSheetTablearray[t]["noafternoonslots"] = kk[0].noafternonslots;
+            this.timeSheetTablearray[t]["noevengslots"] = kk[0].noeveningslots;
+            this.timeSheetTablearray[t]["nonightslots"] = kk[0].nonightslots;
+
           }
         }
 
@@ -387,9 +394,18 @@ export class DoctorsCalenderComponent implements OnInit {
     for (let i = 0; i < 4; i++) {
       this.timeid = this.timeid + 1
       this.docservice.DeleteDisableSlots(this.dochosptailid, this.doctorid, this.timeid, this.date).subscribe(data => {
-        Swal.fire('Enabled Successfully');
-        this.GetDoctorHospitalDetails();
-        this.getGetDoctorDisabledSlots()
+        if(this.languageid==1)
+        {
+          Swal.fire('Enabled Successfully');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+        else{
+          Swal.fire('Activé avec succès !');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+
 
       })
     }
@@ -418,9 +434,19 @@ export class DoctorsCalenderComponent implements OnInit {
         'Date': this.date
       }
       this.docservice.InsertDoctorDisabledSlots(entity).subscribe(data => {
-        Swal.fire('Disabled Successfully');
-        this.GetDoctorHospitalDetails();
-        this.getGetDoctorDisabledSlots()
+        if(this.languageid==1)
+        {
+          Swal.fire('Disabled Successfully');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('Désactivé avec succès !');
+          this.GetDoctorHospitalDetails();
+          this.getGetDoctorDisabledSlots()
+        }
+   
       })
     }
   }

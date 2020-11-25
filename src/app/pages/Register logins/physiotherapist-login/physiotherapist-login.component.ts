@@ -111,9 +111,18 @@ export class PhysiotherapistLoginComponent implements OnInit {
       this.docservice.InsertPhysiotherapistLogin(entity).subscribe(data => {
        
         if (data != 0) {
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-          location.href="#/PhysiotherapistLoginDashboard"
-          this.pp=0;
+          if(this.languageid==1)
+          {
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href="#/PhysiotherapistLoginDashboard"
+            this.pp=0;
+          }
+          else{
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href="#/PhysiotherapistLoginDashboard"
+            this.pp=0;
+          }
+    
         }
         else{
           Swal.fire("Physiotherapist Login Already Exists");

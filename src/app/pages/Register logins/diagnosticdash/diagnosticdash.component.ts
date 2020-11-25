@@ -103,10 +103,20 @@ export class DiagnosticdashComponent implements OnInit {
         this.docservice.UpdateDiagnosticCenterAdminRegistrationWeb(entity).subscribe(data => {
 
           if (data != 0) {
-            Swal.fire('Success', 'Password Updated Successfully', 'success');
-            this.getdiagnosticloginfordash()
-            this.pp = 0;
-            document.getElementById('close').click();
+            if(this.languageid==1)
+            {
+              Swal.fire('Success', 'Password Updated Successfully', 'success');
+              this.getdiagnosticloginfordash()
+              this.pp = 0;
+              document.getElementById('close').click();
+            }
+            else{
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              this.getdiagnosticloginfordash()
+              this.pp = 0;
+              document.getElementById('close').click();
+            }
+       
           }
           else{
             Swal.fire('Success', 'username already exists', 'success');

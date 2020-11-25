@@ -203,6 +203,10 @@
               <br>
               <br>
               <div class="row">
+                <h5 *ngIf="languageid=='1'" style="margin-left: 56px;">Photos On Mobile App</h5>
+                <h5 *ngIf="languageid=='6'" style="margin-left: 56px;">Photos sur l'application mobile</h5>
+              </div>
+              <div class="row">
                 <div class="col-lg-2" *ngFor="let mulphoto of multiplephotos" style="margin-left: 42px;">
                   <img src="{{mulphoto.photoURL}}" style="height:140px;width:140px;">&nbsp;&nbsp;
                   <button class="btn  btncolor" style="    width:132%;
@@ -231,6 +235,8 @@
           </div>
           <br>
           <div class="col-lg-4" style="margin-top:20px;">
+            <h5 *ngIf="languageid=='1'">Main Profile Photo</h5>
+            <h5 *ngIf="languageid=='6'">Photo de profil principale</h5>
             <img src="{{photourl}}" style="width:90%;height:auto;" />
             <br>
             <br>

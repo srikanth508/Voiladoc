@@ -154,9 +154,9 @@ export class MidwifeFeesComponent implements OnInit {
       }
       this.docservice.InsertMidWifeCommissionDeatails(entity).subscribe(data => {
         if (data != 0) {
-          if (this.independent == 2) {
-            this.InsertMidwifeRevenue()
-          }
+          // if (this.independent == 2) {
+          //   this.InsertMidwifeRevenue()
+          // }
           Swal.fire('Success', 'Details Saved Successfully');
           location.href = "#/MidwifeFeesDash"
         }

@@ -72,9 +72,19 @@ export class HospitalSupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
-          this.insertnotification()
-          Swal.fire('Issue Raised Successflly')
-          location.href = "#/HospitalSupportDash"
+          if(this.languageid==1)
+          {
+            this.insertnotification()
+            Swal.fire('Issue Raised Successfully')
+            location.href = "#/HospitalSupportDash"
+          }
+          else
+          {
+            this.insertnotification()
+            Swal.fire('','Problème envoyé avec succès')
+            location.href = "#/HospitalSupportDash"
+          }
+
         }
       })
     }

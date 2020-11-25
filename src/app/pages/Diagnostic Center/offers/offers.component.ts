@@ -28,9 +28,9 @@ export class OffersComponent implements OnInit {
   public languageid: any;
   public labels: any;
   dropzonelable: any;
-  diadd={}
-  searchlable:any;
-  SelectLabel:any;
+  diadd = {}
+  searchlable: any;
+  SelectLabel: any;
 
   ngOnInit() {
 
@@ -60,14 +60,14 @@ export class OffersComponent implements OnInit {
     this.docservice.GetAdmin_PharmacyLoginOffers_Lable(this.languageid).subscribe(
       data => {
         this.labels = data;
-        this.searchlable=this.labels[0].search,
-        this.SelectLabel=this.labels[0].select
+        this.searchlable = this.labels[0].search,
+          this.SelectLabel = this.labels[0].select
       }, error => {
       }
     )
   }
 
-  
+
   public getdiagnostictestmaster() {
     this.docservice.GetDiagnosticTestMaster().subscribe(
       data => {
@@ -88,7 +88,7 @@ export class OffersComponent implements OnInit {
       }
     )
   }
-  public GetTestID(item1:any) {
+  public GetTestID(item1: any) {
 
     this.testid = item1.id;
 
@@ -118,15 +118,15 @@ export class OffersComponent implements OnInit {
           this.docservice.InsertDiagnosticCenterOfferPhotos(entity).subscribe(data => {
 
             if (data != 0) {
-            
+
               if (this.languageid == 1) {
                 Swal.fire('Added Successfully');
-              
+
                 this.clear();
               }
               else if (this.languageid == 6) {
                 Swal.fire('Mis à jour avec succés');
-              
+
                 this.clear();
               }
             }
@@ -134,12 +134,12 @@ export class OffersComponent implements OnInit {
         }
         if (this.languageid == 1) {
           Swal.fire('Added Successfully');
-        
+
           this.clear();
         }
         else if (this.languageid == 6) {
           Swal.fire('Mis à jour avec succés');
-        
+
           this.clear();
         }
 
@@ -148,7 +148,7 @@ export class OffersComponent implements OnInit {
   }
 
   public onattachmentUpload(abcd) {
-
+    this.dummattchmenturl = [];
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -163,10 +163,21 @@ export class OffersComponent implements OnInit {
     }
 
   }
+  public dummattchmenturl = [];
+  public showphoto = [];
+
+
   public uploadattachments() {
     this.docservice.DiagnosticPhotosUpload(this.attachments).subscribe(res => {
 
       this.attachmentsurl.push(res);
+
+      this.dummattchmenturl.push(res);
+      let a = this.dummattchmenturl[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+      this.showphoto.push(b)
+      this.attachments.length = 0;
       this.attachments.length = 0;
 
     })

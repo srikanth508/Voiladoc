@@ -51,7 +51,7 @@ export class HomecareRevenueComponent implements OnInit {
     this.roleid = localStorage.getItem('roleid');
     this.getlanguage();
     this.getdepartmentmaster();
-    this.docservice.GetHomecareRevenue(this.hospitalid,  this.sdate, this.edate).subscribe(
+    this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid,  this.sdate, this.edate).subscribe(
       data => {
        
         this.dummlist = data;
@@ -93,7 +93,7 @@ export class HomecareRevenueComponent implements OnInit {
   public GetTypeID(event) {
    
     if (event.target.value == 'none') {
-      this.docservice.GetHomecareRevenue(this.hospitalid, this.sdate, this.edate).subscribe(
+      this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
          
           this.dummlist = data;
@@ -109,7 +109,7 @@ export class HomecareRevenueComponent implements OnInit {
       )
     }
     else {
-      this.docservice.GetHomecareRevenue(this.hospitalid,  this.sdate, this.edate).subscribe(
+      this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid,  this.sdate, this.edate).subscribe(
         data => {
          
           this.dummlist = data;
@@ -134,7 +134,7 @@ export class HomecareRevenueComponent implements OnInit {
     // this.enddate = sdate[1];
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
-    this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
+    this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
        
         this.dummlist = data;

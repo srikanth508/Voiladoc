@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-physiotherapist-appointments',
   templateUrl: './physiotherapist-appointments.component.html',
@@ -106,6 +107,21 @@ public totaladdmoney:any;
     this.getserverdateandtime();
  
     this.getlanguage();
+    this.Obseravabletimer();
+  }
+
+
+
+  
+  Obseravabletimer() {
+    
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+
+      this.getphysiolist();
+
+
+    });
   }
 
   public getlanguage()
@@ -163,8 +179,10 @@ public totaladdmoney:any;
     )
   }
 
+  public canmobileno:any;
+
   
-  public GetCancelAppointmentID(id,bookedTime,name,patientID,emailID,hospital_ClinicName,paidAmount,walletAmount) {
+  public GetCancelAppointmentID(id,bookedTime,name,patientID,emailID,hospital_ClinicName,paidAmount,walletAmount,mobileNumber) {
    
     this.canappointmentid = id,
     this.canslots = bookedTime;
@@ -174,6 +192,7 @@ public totaladdmoney:any;
     this.canhospital=hospital_ClinicName;
     this.paidamount=paidAmount;
     this.walletamount=walletAmount;
+    this.canmobileno=mobileNumber;
 
    
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
@@ -202,7 +221,7 @@ public totaladdmoney:any;
     var entity = {
       'PatientID': this.canpatientid,
       'Notification': "Appointment Cancelled By Physiotherapist.",
-      'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+      'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
       'NotificationTypeID': 26,
       'Date': this.todaydate,
       'LanguageID': this.languageid,
@@ -221,7 +240,7 @@ public totaladdmoney:any;
     var entity = {
       'PatientID': this.canpatientid,
       'Notification': "Rendez-vous annulé par un physiothérapeute.",
-      'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.Hemos cargado su billetera con Ar" + this.paidamount + " Utilice el mismo para la próxima reserva",
+      'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.",
       'NotificationTypeID': 26,
       'Date': this.todaydate,
       'LanguageID': this.languageid,
@@ -241,7 +260,7 @@ public totaladdmoney:any;
     if(this.languageid=='1')
     {
     var entity = {
-      'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+      'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
       'ToUser': this.canemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -254,7 +273,7 @@ public totaladdmoney:any;
   else if(this.languageid=='6')
   {
     var entity = {
-      'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots  + " a été annulé.Hemos cargado su billetera con Ar" + this.paidamount + " Utilice el mismo para la próxima reserva",
+      'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots  + " a été annulé.",
       'ToUser': this.canemail,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -266,6 +285,24 @@ public totaladdmoney:any;
   }
   }
 
+public emailattchementurl=[]
+public cclist:any;
+public bcclist:any;
+
+
+  public SendCancelPatientmail() {
+    debugger
+    var entity = {
+      'emailto': this.canemail,
+      'emailsubject': "The Physiotherapist " + this.canphysioname + " Has Cancelled Your Appointment ",
+      'emailbody': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
 
 
 
@@ -278,12 +315,34 @@ public totaladdmoney:any;
       }
     )
     this.updatereson();
-    this.updatedateails()
+    // this.updatedateails()
     this.getphysiolist();
     this.physionappointments()
+    this.SendCancelPatientmail();
+    this.sendsms();
     this.InsertCancelNotification();
     this.InsertNotiFicationCancel();
   }
+
+
+  
+  public sendsms() {
+    debugger
+    let Entity = {
+      'Contacts': this.canmobileno,
+      'TextMessage': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
+    }
+    this.docservice.SendSMS(Entity).subscribe(data => {
+      debugger
+
+
+    })
+  }
+
+
+
+
+  
 
 
   public updatereson() {
@@ -300,6 +359,14 @@ public totaladdmoney:any;
 
     })
   }
+
+
+
+
+
+
+
+
 
   public GetAcceptAppointmentID(id,phsysioid,bookedTime,name,patientID,emailID,hospital_ClinicName) {
     this.acceptappointmentid = id;

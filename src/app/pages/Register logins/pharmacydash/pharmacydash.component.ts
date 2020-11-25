@@ -103,10 +103,20 @@ public insertdetails() {
     this.docservice.UpdatePharmacyAdminRegistration(entity).subscribe(data => {
      
       if (data != 0) {
-        Swal.fire('Registration Completed', 'password updated successfully', 'success');
-        this.pp=0;
-        document.getElementById('close').click();
-        this.getpharmacyloginfordash()
+        if(this.languageid==1)
+        {
+          Swal.fire('Registration Completed', 'password updated successfully', 'success');
+          this.pp=0;
+          document.getElementById('close').click();
+          this.getpharmacyloginfordash()
+        }
+        else{
+          Swal.fire('', 'Mis à jour avec succés', 'success');
+          this.pp=0;
+          document.getElementById('close').click();
+          this.getpharmacyloginfordash()
+        }
+ 
       }
       else
       {

@@ -105,10 +105,20 @@ public pp:any;
       this.password = '';
       this.docservice.UpdateDeliveryCompanyLogin(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire('Success', 'Password Updated successfully', 'success');
-          this.pp=0;
-          this.GetDeliveryCompanyLoginAdmin();
-          document.getElementById('close').click();
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Password Updated successfully', 'success');
+            this.pp=0;
+            this.GetDeliveryCompanyLoginAdmin();
+            document.getElementById('close').click();
+          }
+          else{
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            this.pp=0;
+            this.GetDeliveryCompanyLoginAdmin();
+            document.getElementById('close').click();
+          }
+      
         }
         else{
           Swal.fire('Success', 'User Name Already Exists', 'success');

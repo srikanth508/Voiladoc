@@ -32,6 +32,7 @@ export class NurseFeesComponent implements OnInit {
   public id: any;
   public showbutton: any;
   public showindependentradio: any;
+ 
 
 
   ngOnInit() {
@@ -65,6 +66,7 @@ export class NurseFeesComponent implements OnInit {
       data => {
 
         this.labels = data;
+       
       }, error => {
       }
     )
@@ -155,10 +157,10 @@ export class NurseFeesComponent implements OnInit {
       }
       this.docservice.InsertNurseCommissionDeatails(entity).subscribe(data => {
         if (data != 0) {
-          if (this.independent == 2) {
-            debugger
-            this.InsertNurseRevenue();
-          }
+          // if (this.independent == 2) {
+          //   debugger
+          //   this.InsertNurseRevenue();
+          // }
           Swal.fire('Success', 'Details Saved Successfully');
           location.href = "#/NurseFeeDash"
         }

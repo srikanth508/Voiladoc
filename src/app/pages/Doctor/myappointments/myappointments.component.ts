@@ -408,8 +408,6 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
-
-
   public getbookappointmentbydoctorid() {
 
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
@@ -717,15 +715,15 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public cancelledappointment() {
-
-
     this.docservice.UpdateBookAppointmentByDocCancel(this.appid).subscribe(
       data => {
-
+        debugger
         this.updatereson();
         this.getbookappointmentbydoctorid();
         this.getbookappointmentbydocid();
-        this.insercancelnotoification();
+        this.SendCancelPatientmail();
+        this.sendsms();
+        // this.insercancelnotoification();
         this.Insertnotificatiacceptforcansel();
 
       }, error => {
@@ -733,9 +731,26 @@ export class MyappointmentsComponent implements OnInit {
     )
   }
 
+  public cancelpatientmobileno: any;
 
-  public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount) {
+  public sendsms() {
+    debugger
+    let Entity = {
+      'Contacts': this.cancelpatientmobileno,
+      'TextMessage': "Sorry ,The Doctor " + this.candoctorname + "Has Cancelled Your Appointment  " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled."
+    }
+    this.docservice.SendSMS(Entity).subscribe(data => {
+      debugger
 
+
+    })
+  }
+
+
+  public canparientname:any;
+
+  public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount, pmobileNo,details) {
+    debugger
     this.appid = appointmentID;
     this.cancelpatientid = patientID,
       this.canslots = notificationdate,
@@ -743,10 +758,11 @@ export class MyappointmentsComponent implements OnInit {
       this.canhospital_ClinicName = hospital_ClinicName,
       this.canemail = emailID;
     this.paidamount = paidAmount;
-    this.walletamount = walletAmount
-
+    this.walletamount = walletAmount,
+      this.cancelpatientmobileno = pmobileNo;
+      this.canparientname=details.pName
+    debugger
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
-
   }
 
 
@@ -769,7 +785,7 @@ export class MyappointmentsComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Sorry ,The Doctor " + this.candoctorname + "Has Cancelled Your Appointment  " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+        'Description': "Sorry ,The Doctor " + this.candoctorname + "Has Cancelled Your Appointment  " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -792,6 +808,25 @@ export class MyappointmentsComponent implements OnInit {
       })
     }
   }
+  public emailattchementurl = [];
+  public cclist: any;
+  public bcclist: any;
+  // "Sorry ,The Doctor " + this.candoctorname + " Has Cancelled Your Appointment " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.",
+
+  public SendCancelPatientmail() {
+    debugger
+    var entity = {
+      'emailto': this.canemail,
+      'emailsubject': "Your Doctor " + this.candoctorname + " Has Cancelled Your Appointment At Time "+this.canslots,
+      'emailbody': 'Dear '+this.canparientname+','+ "<br><br>" +'We regret to inform that your Doctor '+ this.candoctorname+ ' has cancelled your appointment of '+this.canslots+'. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients'+ "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
 
   public insercancelnotoification() {
 
@@ -799,7 +834,7 @@ export class MyappointmentsComponent implements OnInit {
       var entity = {
         'PatientID': this.cancelpatientid,
         'Notification': "Appointment Cancelled By Doctor.",
-        'Description': "Sorry ,The Doctor " + this.candoctorname + " Has Cancelled Your Appointment " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+        'Description': "Sorry ,The Doctor " + this.candoctorname + " Has Cancelled Your Appointment " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.",
         'NotificationTypeID': 11,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -815,7 +850,7 @@ export class MyappointmentsComponent implements OnInit {
       var entity = {
         'PatientID': this.cancelpatientid,
         'Notification': "Rendez-vous annulé par le médecin.",
-        'Description': "VDésolé, le docteur " + this.candoctorname + "A annulé votre rendez-vous " + this.canslots + " at this" + this.canhospital_ClinicName + " a été annulé.Nous avons chargé votre portefeuille avec Ar" + this.paidamount + " Veuillez utiliser la même chose pour la prochaine réservation.",
+        'Description': "VDésolé, le docteur " + this.candoctorname + "A annulé votre rendez-vous " + this.canslots + " at this" + this.canhospital_ClinicName + " a été annulé.",
         'NotificationTypeID': 11,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -841,19 +876,27 @@ export class MyappointmentsComponent implements OnInit {
       let test = res;
       if (this.languageid == 1) {
         Swal.fire(' Cancelled', 'Appointment cancelled successfully');
-        this.updatedateails()
+        // this.updatedateails()
         this.insercancelnotoification();
         this.Insertnotificatiacceptforcansel();
       }
       else if (this.languageid == 6) {
         Swal.fire('', 'Rendez-vous annulé avec succès');
-        this.updatedateails()
+        // this.updatedateails()
         this.insercancelnotoification();
         this.Insertnotificatiacceptforcansel();
       }
 
     })
   }
+
+
+
+
+
+
+
+
 
   public VisitDoctorAppointmentStatus(appointmentID) {
 
@@ -2727,7 +2770,7 @@ export class MyappointmentsComponent implements OnInit {
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.docregno + "<br>",
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.docregno + "<br>",
         // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>OBJET: ' + this.leavefor + ' Je vous référe le patient </b></p><p> ' + this.patientname + ' </p><p style="text-align: center !important;">Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.wwwwXrr</p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
         'AppointmentID': 0,
         'DoctorID': this.doctorid,

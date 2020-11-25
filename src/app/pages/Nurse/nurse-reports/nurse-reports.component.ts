@@ -37,6 +37,7 @@ export class NurseReportsComponent implements OnInit {
   public edate: any;
   public id: any;
   public count: any;
+  public notshowdrop:any;
 
   ngOnInit() {
 
@@ -88,12 +89,14 @@ export class NurseReportsComponent implements OnInit {
 
     if (this.id == undefined) {
       this.GetAppointmentReportsList();
+
+      
     }
     else {
      
       this.docservice.GetBook_Nurse_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-         
+          this.notshowdrop=1;
           this.appointmentreportlist = data;
           this.dummlist = this.appointmentreportlist
           this.count = this.appointmentreportlist.length

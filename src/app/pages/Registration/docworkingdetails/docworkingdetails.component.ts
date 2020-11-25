@@ -115,9 +115,17 @@ export class DocworkingdetailsComponent implements OnInit {
   evengcolorcode: any;
   nightcolorcode: any;
   cleardropdown5 = []
-  public search:any;
+  public search: any;
   ngOnInit() {
 
+    this.mrngfromid = "";
+    this.mrngtoid = "";
+    this.noonfromid = "";
+    this.noontoid = "";
+    this.evngfromid = "";
+    this.evngtoid = "";
+    this.nightfromid = "";
+    this.nighttoid = ""
 
     // this.booktypeid = [1, 2]
     this.dummid = localStorage.getItem('hospitalid');
@@ -138,9 +146,6 @@ export class DocworkingdetailsComponent implements OnInit {
     )
 
 
-
-
-
     this.languageid = localStorage.getItem('LanguageID');
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
@@ -149,7 +154,7 @@ export class DocworkingdetailsComponent implements OnInit {
         this.labels = data;
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        this.search= this.labels[0].search;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -176,12 +181,7 @@ export class DocworkingdetailsComponent implements OnInit {
       }
     }
 
-
-
   }
-
-
-
 
   public Getdoctorlist() {
 
@@ -228,11 +228,7 @@ export class DocworkingdetailsComponent implements OnInit {
         }
       )
     }
-
   }
-
-
-
 
 
   public getlanguage() {
@@ -282,13 +278,12 @@ export class DocworkingdetailsComponent implements OnInit {
 
     if (item7.id == 1) {
       this.booktypeid.push(item7);
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('On Demand Disabled as of Now')
       }
-    else{
-      Swal.fire('Service à la demande désactivé.')
-    }
+      else {
+        Swal.fire('Service à la demande désactivé.')
+      }
     }
     else {
       this.booktypeid.push(item7);
@@ -379,13 +374,20 @@ export class DocworkingdetailsComponent implements OnInit {
     )
   }
 
+
   public GetDaysID(item10: any) {
 
     // this.dayid = item10.id;
     this.dayid.push(item10)
-
-
   }
+
+
+  onItemDeSelect1(item1: any) {
+    debugger
+    this.dayid = this.dayid.slice(item1.id)
+  }
+
+
   public GetAvailabilityID(even) {
 
     this.availabilityid = even.target.value;
@@ -467,11 +469,6 @@ export class DocworkingdetailsComponent implements OnInit {
   }
 
 
-  onItemDeSelect1(item1: any) {
-
-    this.aftrenoonslots = this.aftrenoonslots.slice(item1.id)
-  }
-
   public GetHospitalID(item: any) {
 
     this.hosipitalidd = item.id;
@@ -551,86 +548,190 @@ export class DocworkingdetailsComponent implements OnInit {
   }
 
 
+  public mrngfromlist: any;
+
   public GetMorningSlotsMasterbyid() {
 
     this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
       data => {
 
         this.slotslist = data;
-        this.slotsdd = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.mrngfromlist = this.slotslist;
+        // this.slotsdd = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+  public noonfromlist: any;
+
   public GetAfternoonSlotsMasterbyID() {
 
     this.docservice.GetSlotsMasterByID(2, this.slottypeid).subscribe(
       data => {
 
         this.slotslist1 = data;
-        this.slotsdd1 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.noonfromlist = this.slotslist1;
+        // this.slotsdd1 = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+  public evngfromlist: any;
+
   public GetEveningSlotsMasterByID() {
 
     this.docservice.GetSlotsMasterByID(3, this.slottypeid).subscribe(
       data => {
 
         this.slotslist2 = data;
-        this.slotsdd2 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.evngfromlist = this.slotslist2;
+        // this.slotsdd2 = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+  public nightfromlist: any;
+
   public GetNightSlotsMasterByID() {
 
     this.docservice.GetSlotsMasterByID(4, this.slottypeid).subscribe(
       data => {
 
         this.slotslist3 = data;
-        this.slotsdd3 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slots',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: false,
-          enableCheckAll: false
-        };
+        this.nightfromlist = this.slotslist3;
+        // this.slotsdd3 = {
+        //   singleSelection: false,
+        //   idField: 'id',
+        //   textField: 'slots',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   itemsShowLimit: 3,
+        //   allowSearchFilter: false,
+        //   enableCheckAll: false
+        // };
       }, error => {
       }
     )
   }
+
+
+
+
+  public mrngtoid: any;
+  public mrngtoslot: any;
+  public mrngtolist: any;
+  public noonfromid: any;
+  public noonfromslot: any;
+  public noontolist: any;
+  public noontoid: any;
+  public noontoslot: any;
+  public evngfromid: any;
+  public evngfromslot: any;
+  public evngtolist: any;
+  public evngtoid: any;
+  public evngtoslot: any;
+  public mrngfromid: any;
+  public mrngfromslot: any;
+
+  public nightfromid: any;
+  public nightfromslot: any;
+  public nighttolist: any;
+  public nighttoid: any;
+  public nightoslot: any;
+
+
+  public getmrngfrom(even) {
+    this.mrngfromid = even.target.value;
+    var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+    this.mrngfromslot = qwerty[0].slots;
+    this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+    this.mrngtoid = "";
+  }
+
+
+  public getmrngto(even) {
+    this.mrngtoid = even.target.value;
+    var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+    this.mrngtoslot = qwerty[0].slots;
+  }
+
+
+
+  // public getnoonfrom(even) {
+  //   this.noonfromid = even.target.value;
+  //   var qwerty = this.noonfromlist.filter(x => x.id == this.noonfromid);
+  //   this.noonfromslot = qwerty[0].slots;
+  //   this.noontolist = this.noonfromlist.filter(x => x.id > this.noonfromid);
+  //   this.noontoid = "";
+  // }
+
+  // public getnoonto(even) {
+  //   this.noontoid = even.target.value;
+  //   var qwerty = this.noontolist.filter(x => x.id == this.noontoid);
+  //   this.noontoslot = qwerty[0].slots;
+  // }
+
+  // public getevngfrom(even) {
+  //   this.evngfromid = even.target.value;
+  //   var qwerty = this.evngfromlist.filter(x => x.id == this.evngfromid);
+  //   this.evngfromslot = qwerty[0].slots;
+  //   this.evngtolist = this.evngfromlist.filter(x => x.id > this.evngfromid);
+  //   this.evngtoid = "";
+  // }
+
+  // public getevngto(even) {
+  //   this.evngtoid = even.target.value;
+  //   var qwerty = this.evngtolist.filter(x => x.id == this.evngtoid);
+  //   this.evngtoslot = qwerty[0].slots;
+  // }
+
+
+  // public getnightfrom(even) {
+  //   this.nightfromid = even.target.value;
+  //   var qwerty = this.nightfromlist.filter(x => x.id == this.nightfromid);
+  //   this.nightfromslot = qwerty[0].slots;
+  //   this.nighttolist = this.nightfromlist.filter(x => x.id > this.nightfromid);
+  //   this.nighttoid = "";
+  // }
+
+
+  // public getnightto(even) {
+  //   this.nighttoid = even.target.value;
+  //   var qwerty = this.nighttolist.filter(x => x.id == this.nighttoid);
+  //   this.nightoslot = qwerty[0].slots;
+  // }
+
+
 
 
   public adddetails() {
@@ -642,8 +743,22 @@ export class DocworkingdetailsComponent implements OnInit {
       Swal.fire('Please Select Doctor')
     }
     else {
-
       this.tablecount = 1;
+
+      //mrng slots
+
+      var mrgfrm = {
+        slots: this.mrngfromslot,
+        id: this.mrngfromid
+      };
+      this.morningslots.push(mrgfrm);
+
+      var mrgto = {
+        slots: this.mrngtoslot,
+        id: this.mrngtoid
+      };
+      this.morningslots.push(mrgto);
+
 
       for (let i = 0; i < this.morningslots.length; i++) {
         this.morningslotarray.push(this.morningslots[i].slots);
@@ -657,173 +772,226 @@ export class DocworkingdetailsComponent implements OnInit {
       this.mrngid = this.slotnameid.join(',')
 
 
-      for (let i = 0; i < this.aftrenoonslots.length; i++) {
-        this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
+      // afternoonslots
 
-        this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
+      // var noonfrm = {
+      //   slots: this.noonfromslot,
+      //   id: this.noonfromid
+      // };
+      // this.aftrenoonslots.push(noonfrm);
+
+      // var noonto = {
+      //   slots: this.noontoslot,
+      //   id: this.noontoid
+      // };
+      // this.aftrenoonslots.push(noonto);
+
+
+      // for (let i = 0; i < this.aftrenoonslots.length; i++) {
+      //   this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
+
+      //   this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
+      // }
+
+      // this.slotname1 = this.afternoonslotarray;
+      // this.afternoon = this.slotname1.join(' to ');
+      // this.slotnameid1 = this.afternoonslotidarray;
+      // this.afternoonid = this.slotnameid1.join(',');
+
+
+      // eveng slots
+
+      // var evngfrm = {
+      //   slots: this.evngfromslot,
+      //   id: this.evngfromid
+      // };
+      // this.eveningslots.push(evngfrm);
+
+      // var evngto = {
+      //   slots: this.evngtoslot,
+      //   id: this.evngtoid
+      // };
+      // this.eveningslots.push(evngto);
+
+
+      // for (let i = 0; i < this.eveningslots.length; i++) {
+      //   this.eveningarray.push(this.eveningslots[i].slots);
+
+      //   this.eveningarrayid.push(this.eveningslots[i].id);
+      // }
+
+      // this.slotname2 = this.eveningarray;
+      // this.evening = this.slotname2.join(' to ');
+      // this.slotnameid2 = this.eveningarrayid;
+      // this.eveningid = this.slotnameid2.join(',');
+
+      //night slots
+
+      // var nightfrm = {
+      //   slots: this.nightfromslot,
+      //   id: this.nightfromid
+      // }
+      // this.nightslots.push(nightfrm);
+
+      // var nightto = {
+      //   slots: this.nightoslot,
+      //   id: this.nighttoid
+      // }
+      // this.nightslots.push(nightto);
+
+      // for (let i = 0; i < this.nightslots.length; i++) {
+      //   this.nightslotsarray.push(this.nightslots[i].slots);
+
+      //   this.nightslotsarrayid.push(this.nightslots[i].id);
+      // }
+      // this.slotname3 = this.nightslotsarray;
+      // this.night = this.slotname3.join(' to ');
+      // this.slotnameid3 = this.nightslotsarrayid;
+      // this.nightid = this.slotnameid3.join(',');
+
+
+      // for (let i = 0; i < this.dayid.length; i++) {
+
+      // for (let i = 0; i < this.dayslist.length; i++) {
+      //   if (this.dayslist[i].id == this.dayid) {
+      //     this.day = this.dayslist[i].dayOfTheWeek;
+      //   }
+      // }
+
+      if (this.mrngAppointmenttype == '1') {
+        this.mrngcolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.mrngAppointmenttype == '2') {
+        this.mrngcolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.mrngAppointmenttype == '5') {
+        this.mrngcolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
       }
 
-      this.slotname1 = this.afternoonslotarray;
-      this.afternoon = this.slotname1.join(' to ');
-      this.slotnameid1 = this.afternoonslotidarray;
-      this.afternoonid = this.slotnameid1.join(',');
-
-
-      for (let i = 0; i < this.eveningslots.length; i++) {
-        this.eveningarray.push(this.eveningslots[i].slots);
-
-        this.eveningarrayid.push(this.eveningslots[i].id);
+      if (this.afternoonappointmentType == '1') {
+        this.afternooncolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.afternoonappointmentType == '2') {
+        this.afternooncolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.afternoonappointmentType == '5') {
+        this.afternooncolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
       }
 
-      this.slotname2 = this.eveningarray;
-      this.evening = this.slotname2.join(' to ');
-      this.slotnameid2 = this.eveningarrayid;
-      this.eveningid = this.slotnameid2.join(',');
-
-      for (let i = 0; i < this.nightslots.length; i++) {
-        this.nightslotsarray.push(this.nightslots[i].slots);
-
-        this.nightslotsarrayid.push(this.nightslots[i].id);
+      if (this.eveningappointmentType == '1') {
+        this.evengcolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
+      }
+      else if (this.eveningappointmentType == '2') {
+        this.evengcolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.eveningappointmentType == '5') {
+        this.evengcolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
       }
 
-      this.slotname3 = this.nightslotsarray;
-      this.night = this.slotname3.join(' to ');
-      this.slotnameid3 = this.nightslotsarrayid;
-      this.nightid = this.slotnameid3.join(',');
-
-
-
-      for (let i = 0; i < this.dayid.length; i++) {
-
-        // for (let i = 0; i < this.dayslist.length; i++) {
-        //   if (this.dayslist[i].id == this.dayid) {
-        //     this.day = this.dayslist[i].dayOfTheWeek;
-        //   }
-        // }
-
-        if (this.mrngAppointmenttype == '1') {
-          this.mrngcolorcode = '#bae6fb'
-          this.appontmenttypeid.push(1)
-        }
-        else if (this.mrngAppointmenttype == '2') {
-          this.mrngcolorcode = '#4e66b0'
-          this.appontmenttypeid.push(2)
-        }
-        else if (this.mrngAppointmenttype == '5') {
-          this.mrngcolorcode = '#90EE90'
-          this.appontmenttypeid.push(5)
-        }
-
-        if (this.afternoonappointmentType == '1') {
-          this.afternooncolorcode = '#bae6fb'
-          this.appontmenttypeid.push(1)
-        }
-        else if (this.afternoonappointmentType == '2') {
-          this.afternooncolorcode = '#4e66b0'
-          this.appontmenttypeid.push(2)
-        }
-        else if (this.afternoonappointmentType == '5') {
-          this.afternooncolorcode = '#90EE90'
-          this.appontmenttypeid.push(5)
-        }
-
-
-
-        if (this.eveningappointmentType == '1') {
-          this.evengcolorcode = '#bae6fb'
-          this.appontmenttypeid.push(1)
-        }
-        else if (this.eveningappointmentType == '2') {
-          this.evengcolorcode = '#4e66b0'
-          this.appontmenttypeid.push(2)
-        }
-        else if (this.eveningappointmentType == '5') {
-          this.evengcolorcode = '#90EE90'
-          this.appontmenttypeid.push(5)
-        }
-
-        if (this.nightappointmenttype == '1') {
-          this.nightcolorcode = '#bae6fb'
-          this.appontmenttypeid.push(1)
-        }
-        else if (this.nightappointmenttype == '2') {
-          this.nightcolorcode = '#4e66b0'
-          this.appontmenttypeid.push(2)
-        }
-        else if (this.nightappointmenttype == '5') {
-          this.nightcolorcode = '#90EE90'
-          this.appontmenttypeid.push(5)
-        }
-
-        var entity = {
-          'Sno': this.idcount,
-          'DoctorID': this.doctorid,
-          'DoctorAvailability': this.name,
-          'DoctorAvailabilityID': this.availabilityid,
-          'Hospital_Clinic': this.hospital_ClinicName,
-          'Hospital_ClinicID': this.hosipitalidd,
-          'Day': this.dayid[i].dayOfTheWeek,
-          'DayID': this.dayid[i].id,
-          'Fees': this.fees,
-          'Session1': this.session1,
-          'Session2': this.session2,
-          'Morning': this.mrng,
-          'Afternoon': this.afternoon,
-          'Evening': this.evening,
-          'Night': this.night,
-          'Morningid': this.mrngid,
-          'Afternoonid': this.afternoonid,
-          'Eveningid': this.eveningid,
-          'Nightid': this.nightid,
-          'mrngAppointmenttype': this.mrngAppointmenttype,
-          'afternoonappointmentType': this.afternoonappointmentType,
-          'eveningappointmentType': this.eveningappointmentType,
-          'nightappointmenttype': this.nightappointmenttype,
-          'MrngColorCode': this.mrngcolorcode,
-          'Afternooncolorcode': this.afternooncolorcode,
-          'Evngcolorcode': this.evengcolorcode,
-          'Nightcolorcode': this.nightcolorcode,
-        }
-
-        this.qwerty.push(entity);
-        this.idcount = this.idcount + 1;
+      if (this.nightappointmenttype == '1') {
+        this.nightcolorcode = '#bae6fb'
+        this.appontmenttypeid.push(1)
       }
-      this.session1 = "";
-      this.session2 = "";
-      this.cleardropdown1 = [];
-      this.cleardropdown2 = [];
-      this.cleardropdown3 = [];
-      this.cleardropdown4 = [];
-      this.abcd = "";
-      this.dis2 = "";
-      this.dis1 = "";
-      this.dis3 = "";
-      this.eveningslots.length = 0;
-      this.morningslotarray.length = 0;
-      this.morningslotidarray.length = 0;
-      this.eveningarray.length = 0;
-      this.afternoonslotarray.length = 0;
-      this.nightslotsarray.length = 0;
-      this.nightslots.length = 0;
-      this.morningslots.length = 0;
-      this.eveningslots.length = 0;
-      this.aftrenoonslots.length = 0;
-      this.mrngcolorcode = ""
-      this.afternooncolorcode = ""
-      this.evengcolorcode = ""
-      this.nightcolorcode = ""
-      this.mrngAppointmenttype = "",
-        this.eveningappointmentType = "",
-        this.afternoonappointmentType = "",
-        this.nightappointmenttype = ""
-      this.dayid = []
-      this.cleardropdown5 = []
+      else if (this.nightappointmenttype == '2') {
+        this.nightcolorcode = '#4e66b0'
+        this.appontmenttypeid.push(2)
+      }
+      else if (this.nightappointmenttype == '5') {
+        this.nightcolorcode = '#90EE90'
+        this.appontmenttypeid.push(5)
+      }
+      var entity = {
+        'Sno': this.idcount,
+        'DoctorID': this.doctorid,
+        'DoctorAvailability': this.name,
+        'DoctorAvailabilityID': this.availabilityid,
+        'Hospital_Clinic': this.hospital_ClinicName,
+        'Hospital_ClinicID': this.hosipitalidd,
+        // 'Day': this.dayid[i].dayOfTheWeek,
+        // 'DayID': this.dayid[i].id,
+        'Fees': this.fees,
+        'Session1': this.session1,
+        'Session2': this.session2,
+        'Morning': this.mrng,
+        'Afternoon': this.afternoon,
+        'Evening': this.evening,
+        'Night': this.night,
+        'Morningid': this.mrngid,
+        'Afternoonid': this.afternoonid,
+        'Eveningid': this.eveningid,
+        'Nightid': this.nightid,
+        'mrngAppointmenttype': this.mrngAppointmenttype,
+        'afternoonappointmentType': this.afternoonappointmentType,
+        'eveningappointmentType': this.eveningappointmentType,
+        'nightappointmenttype': this.nightappointmenttype,
+        'MrngColorCode': this.mrngcolorcode,
+        'Afternooncolorcode': this.afternooncolorcode,
+        'Evngcolorcode': this.evengcolorcode,
+        'Nightcolorcode': this.nightcolorcode,
+        'StartTime': this.mrngfromslot,
+        'EndTime': this.mrngtoslot
+      }
+      this.qwerty.push(entity);
+      this.idcount = this.idcount + 1;
+      debugger
+      var mrngslots = this.mrngfromlist.findIndex(x => x.id == this.mrngtoid);
+      this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 1, this.mrngfromlist.length);
+      debugger
     }
+    this.session1 = "";
+    this.session2 = "";
+    this.cleardropdown1 = [];
+    this.cleardropdown2 = [];
+    this.cleardropdown3 = [];
+    this.cleardropdown4 = [];
+    this.abcd = "";
+    this.dis2 = "";
+    this.dis1 = "";
+    this.dis3 = "";
+    this.eveningslots.length = 0;
+    this.morningslotarray.length = 0;
+    this.morningslotidarray.length = 0;
+    this.eveningarray.length = 0;
+    this.afternoonslotarray.length = 0;
+    this.nightslotsarray.length = 0;
+    this.nightslots.length = 0;
+    this.morningslots.length = 0;
+    this.eveningslots.length = 0;
+    this.aftrenoonslots.length = 0;
+    this.mrngcolorcode = ""
+    this.afternooncolorcode = ""
+    this.evengcolorcode = ""
+    this.nightcolorcode = ""
+    this.mrngAppointmenttype = "",
+      this.eveningappointmentType = "",
+      this.afternoonappointmentType = "",
+      this.nightappointmenttype = ""
+    // this.dayid = []
+    // this.cleardropdown5 = []
+
+    this.mrngfromid = "";
+    this.mrngtoid = "";
+    this.noonfromid = "";
+    this.noontoid = "";
+    this.evngfromid = "";
+    this.evngtoid = "";
+    this.nightfromid = "";
+    this.nighttoid = ""
   }
+  // }
+
 
   public insertdetails() {
-
-
+    debugger
     var entity = {
       'DoctorID': this.doctorid,
       'DoctorAvalibity': this.name,
@@ -836,253 +1004,200 @@ export class DocworkingdetailsComponent implements OnInit {
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
 
       if (data != 0) {
+        debugger
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
-
-        if (this.availabilityid == '1' || this.availabilityid == '2') {
-
-          this.inserdoctorsessiondetails();
-        }
-        if (this.availabilityid == '3') {
-          for (let s = 0; s < this.qwerty.length; s++) {
-
-
-            let mrng = this.qwerty[s].Morning;
-            let ms = mrng.split(" to ", 3);
-            let mst = ms[0];
-            let met = ms[1];
-
-            let noon = this.qwerty[s].Afternoon;
-            let ns = noon.split(" to ", 3);
-            let nst = ns[0];
-            let net = ns[1];
-
-            let evng = this.qwerty[s].Evening;
-            let es = evng.split(" to ", 3);
-            let est = es[0];
-            let eet = es[1];
-
-            let nyt = this.qwerty[s].Night;
-            let nys = nyt.split(" to ", 3);
-            let nyst = nys[0];
-            let nyet = nys[1];
-
-            var entity = {
-              'DoctorHospitalDetailsID': this.docid,
-              'MrngStartTime': mst,
-              'MrngEndTime': met,
-              'NoonStartTime': nst,
-              'NoonEndTime': net,
-              'EvngStartTime': est,
-              'EvngEndTime': eet,
-              'NightStartTime': nyst,
-              'NightEndTime': nyet,
-              'DayID': this.qwerty[s].DayID,
-              'MrngAppointtypeID': this.qwerty[s].mrngAppointmenttype,
-              'AfternoonAppointmentTypeID': this.qwerty[s].afternoonappointmentType,
-              'EveningAppointmentTypeID': this.qwerty[s].eveningappointmentType,
-              'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
-            }
-            this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
-
-              if (data != 0) {
-                if (this.languageid == 1) {
-                  Swal.fire('Completed', 'Slots saved successfully', 'success');
-                  location.href = "#/DocWorkingDash"
-                }
-                else {
-                  Swal.fire('Détails enregistrés');
-                  location.href = "#/DocWorkingDash"
-                }
-
-              }
-            })
-          }
-
-          this.insertdoctorslotsbyid();
-        }
-        if (this.languageid == 1) {
-          Swal.fire('Completed', 'Slots saved successfully', 'success');
-          location.href = "#/DocWorkingDash"
-
-        }
-        else {
-          Swal.fire('Détails enregistrés');
-          location.href = "#/DocWorkingDash"
-
-        }
+        this.insertdoctorslotsbyid();
+        debugger
+        // if (this.languageid == 1) {
+        //   Swal.fire('Completed', 'Slots saved successfully', 'success');
+        //   location.href = "#/DocWorkingDash"
+        //   debugger
+        // }
+        // else {
+        //   Swal.fire('Détails enregistrés');
+        //   location.href = "#/DocWorkingDash"
+        //   debugger
+        // }
         this.tablecount = 0;
-
       }
       else {
         Swal.fire('OOPS', 'Doctor Already Exist');
       }
-
     })
   }
 
 
-
-  public insertdetailsadmin() {
-
-
-    var entity = {
-      'DoctorID': this.doctorid,
-      'DoctorAvalibity': this.name,
-      'Fees': this.fees,
-      'OnlineBooking': 1,
-      'InHospital': 1,
-      'Hospital_ClinicID': this.hosipitalidd,
-      'DoctorAvailabilityID': this.availabilityid,
-    }
-    this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
-
-      if (data != 0) {
-        this.docid = data;
-        this.insertbooktype();
-        this.insertbookappointmenttype()
-
-        if (this.availabilityid == '1' || this.availabilityid == '2') {
-
-          this.inserdoctorsessiondetails();
-        }
-        if (this.availabilityid == '3') {
-          for (let s = 0; s < this.qwerty.length; s++) {
+  // public insertdetailsadmin() {
 
 
-            let mrng = this.qwerty[s].Morning;
-            let ms = mrng.split(" to ", 3);
-            let mst = ms[0];
-            let met = ms[1];
+  //   var entity = {
+  //     'DoctorID': this.doctorid,
+  //     'DoctorAvalibity': this.name,
+  //     'Fees': this.fees,
+  //     'OnlineBooking': 1,
+  //     'InHospital': 1,
+  //     'Hospital_ClinicID': this.hosipitalidd,
+  //     'DoctorAvailabilityID': this.availabilityid,
+  //   }
+  //   this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
 
-            let noon = this.qwerty[s].Afternoon;
-            let ns = noon.split(" to ", 3);
-            let nst = ns[0];
-            let net = ns[1];
+  //     if (data != 0) {
+  //       this.docid = data;
+  //       this.insertbooktype();
+  //       this.insertbookappointmenttype()
 
-            let evng = this.qwerty[s].Evening;
-            let es = evng.split(" to ", 3);
-            let est = es[0];
-            let eet = es[1];
+  //       if (this.availabilityid == '1' || this.availabilityid == '2') {
 
-            let nyt = this.qwerty[s].Night;
-            let nys = nyt.split(" to ", 3);
-            let nyst = nys[0];
-            let nyet = nys[1];
+  //         this.inserdoctorsessiondetails();
+  //       }
+  //       if (this.availabilityid == '3') {
+  //         for (let s = 0; s < this.qwerty.length; s++) {
 
-            var entity = {
-              'DoctorHospitalDetailsID': this.docid,
-              'MrngStartTime': mst,
-              'MrngEndTime': met,
-              'NoonStartTime': nst,
-              'NoonEndTime': net,
-              'EvngStartTime': est,
-              'EvngEndTime': eet,
-              'NightStartTime': nyst,
-              'NightEndTime': nyet,
-              'DayID': this.qwerty[s].DayID,
-              'MrngAppointtypeID': this.qwerty[s].mrngAppointmenttype,
-              'AfternoonAppointmentTypeID': this.qwerty[s].afternoonappointmentType,
-              'EveningAppointmentTypeID': this.qwerty[s].eveningappointmentType,
-              'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
-            }
-            this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
 
-              if (data != 0) {
-                if (this.languageid == 1) {
-                  Swal.fire('Completed', 'Slots saved successfully', 'success');
-                  location.href = "#/DocWorkingDash"
-                } else {
-                  Swal.fire('Détails enregistrés');
-                  location.href = "#/DocWorkingDash"
-                }
+  //           let mrng = this.qwerty[s].Morning;
+  //           let ms = mrng.split(" to ", 3);
+  //           let mst = ms[0];
+  //           let met = ms[1];
 
-              }
-            })
-          }
+  //           let noon = this.qwerty[s].Afternoon;
+  //           let ns = noon.split(" to ", 3);
+  //           let nst = ns[0];
+  //           let net = ns[1];
 
-          this.insertdoctorslotsbyid();
-        }
-        if (this.languageid == 1) {
-          Swal.fire('Completed', 'Slots saved successfully', 'success');
-        } else {
-          Swal.fire('Détails enregistrés');
-        }
+  //           let evng = this.qwerty[s].Evening;
+  //           let es = evng.split(" to ", 3);
+  //           let est = es[0];
+  //           let eet = es[1];
 
-        this.tablecount = 0;
+  //           let nyt = this.qwerty[s].Night;
+  //           let nys = nyt.split(" to ", 3);
+  //           let nyst = nys[0];
+  //           let nyet = nys[1];
 
-      }
-      else {
-        Swal.fire('OOPS', 'Doctor Already Exist');
-      }
+  //           var entity = {
+  //             'DoctorHospitalDetailsID': this.docid,
+  //             'MrngStartTime': mst,
+  //             'MrngEndTime': met,
+  //             'NoonStartTime': nst,
+  //             'NoonEndTime': net,
+  //             'EvngStartTime': est,
+  //             'EvngEndTime': eet,
+  //             'NightStartTime': nyst,
+  //             'NightEndTime': nyet,
+  //             'DayID': this.qwerty[s].DayID,
+  //             'MrngAppointtypeID': this.qwerty[s].mrngAppointmenttype,
+  //             'AfternoonAppointmentTypeID': this.qwerty[s].afternoonappointmentType,
+  //             'EveningAppointmentTypeID': this.qwerty[s].eveningappointmentType,
+  //             'NightAppointmentTypeID': this.qwerty[s].nightappointmenttype
+  //           }
+  //           this.docservice.InsertDoctorSlotStartAndEndTime(entity).subscribe(data => {
 
-    })
-  }
+  //             if (data != 0) {
+  //               if (this.languageid == 1) {
+  //                 Swal.fire('Completed', 'Slots saved successfully', 'success');
+  //                 location.href = "#/DocWorkingDash"
+  //               } else {
+  //                 Swal.fire('Détails enregistrés');
+  //                 location.href = "#/DocWorkingDash"
+  //               }
 
-  public inserdoctorsessiondetails() {
+  //             }
+  //           })
+  //         }
 
-    for (let i = 0; i < this.qwerty.length; i++) {
+  //         this.insertdoctorslotsbyid();
+  //       }
+  //       if (this.languageid == 1) {
+  //         Swal.fire('Completed', 'Slots saved successfully', 'success');
+  //       } else {
+  //         Swal.fire('Détails enregistrés');
+  //       }
 
-      var entity = {
-        'DoctorID': this.qwerty[i].DoctorID,
-        'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
-        'DayID': this.qwerty[i].DayID,
-        'Session1': this.qwerty[i].Session1,
-        'Session2': this.qwerty[i].Session2,
-        'LanguageID': 1
-      }
-      this.docservice.InsertDoctorSessionDetails(entity).subscribe(data => {
+  //       this.tablecount = 0;
 
-        if (data != 0) {
-          if (this.languageid == 1) {
-            Swal.fire('Completed', 'Slots saved successfully', 'success');
-            location.href = "#/DocWorkingDash"
-          }
-          else {
-            Swal.fire('Détails enregistrés');
-            location.href = "#/DocWorkingDash"
-          }
+  //     }
+  //     else {
+  //       Swal.fire('OOPS', 'Doctor Already Exist');
+  //     }
 
-        }
-        else {
-          Swal.fire('OOPS', 'Doctor Sessions Already Exists');
-        }
+  //   })
+  // }
 
-      })
-    }
-  }
+
+
+  // public inserdoctorsessiondetails() {
+
+  //   for (let i = 0; i < this.qwerty.length; i++) {
+
+  //     var entity = {
+  //       'DoctorID': this.qwerty[i].DoctorID,
+  //       'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
+  //       'DayID': this.qwerty[i].DayID,
+  //       'Session1': this.qwerty[i].Session1,
+  //       'Session2': this.qwerty[i].Session2,
+  //       'LanguageID': 1
+  //     }
+  //     this.docservice.InsertDoctorSessionDetails(entity).subscribe(data => {
+
+  //       if (data != 0) {
+  //         if (this.languageid == 1) {
+  //           Swal.fire('Completed', 'Slots saved successfully', 'success');
+  //           location.href = "#/DocWorkingDash"
+  //         }
+  //         else {
+  //           Swal.fire('Détails enregistrés');
+  //           location.href = "#/DocWorkingDash"
+  //         }
+
+  //       }
+  //       else {
+  //         Swal.fire('OOPS', 'Doctor Sessions Already Exists');
+  //       }
+
+  //     })
+  //   }
+  // }
+
+
   public insertdoctorslotsbyid() {
-
-    for (let i = 0; i < this.qwerty.length; i++) {
-      var entity = {
-        'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
-        'DoctorID': this.qwerty[i].DoctorID,
-        'DayID': this.qwerty[i].DayID,
-        'DoctorHospitalDetailsID': this.docid,
-        'Morning': this.qwerty[i].Morningid,
-        'Noon': this.qwerty[i].Afternoonid,
-        'Evening': this.qwerty[i].Eveningid,
-        'Night': this.qwerty[i].Nightid,
-        'MrngAppointtypeID': this.qwerty[i].mrngAppointmenttype,
-        'AfternoonAppointmentTypeID': this.qwerty[i].afternoonappointmentType,
-        'EveningAppointmentTypeID': this.qwerty[i].eveningappointmentType,
-        'NightAppointmentTypeID': this.qwerty[i].nightappointmenttype
-      }
-      this.docservice.InsertDoctorSlotByID(entity).subscribe(data => {
-
-        if (data != 0) {
-          if (this.languageid == 1) {
-            Swal.fire('Completed', 'Slots saved successfully', 'success');
-            location.href = "#/DocWorkingDash"
-          }
-          else {
-            Swal.fire('Détails enregistrés');
-            location.href = "#/DocWorkingDash"
-          }
-
+    // this.docservice.InsertDoctorSlotsNew(this.dayid,this.qwerty,this.docid).subscribe(data => {
+    //   debugger
+      
+    // })
+    for (let j = 0; j < this.dayid.length; j++) {
+      debugger
+      for (let i = 0; i < this.qwerty.length; i++) {
+        debugger
+        var entity = {
+          'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
+          'DoctorID': this.qwerty[i].DoctorID,
+          'DayID': this.dayid[j].id,
+          'DoctorHospitalDetailsID': this.docid,
+          'Morning': this.qwerty[i].Morningid,
+          'Noon': this.qwerty[i].Afternoonid,
+          'Evening': this.qwerty[i].Eveningid,
+          'Night': this.qwerty[i].Nightid,
+          'MrngAppointtypeID': this.qwerty[i].mrngAppointmenttype,
+          'AfternoonAppointmentTypeID': this.qwerty[i].afternoonappointmentType,
+          'EveningAppointmentTypeID': this.qwerty[i].eveningappointmentType,
+          'NightAppointmentTypeID': this.qwerty[i].nightappointmenttype
         }
-      })
+        this.docservice.InsertDoctorSlotByID(entity).subscribe(data => {
+          debugger
+          if (data != 0) {
+          }
+        })
+      }
+    }
+    if (this.languageid == 1) {
+      Swal.fire('Completed', 'Slots saved successfully', 'success');
+      location.href = "#/DocWorkingDash"
+    }
+    else {
+      Swal.fire('Détails enregistrés');
+      location.href = "#/DocWorkingDash"
     }
   }
 

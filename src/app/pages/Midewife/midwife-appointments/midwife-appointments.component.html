@@ -80,9 +80,9 @@
               </a>&nbsp;
               <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
               <a [ngbTooltip]="tipcontent3"
-                *ngIf="app.accepted=='0'&&app.midwivesCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
+                *ngIf="app.accepted=='0'&&app.midwivesCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'&&app.midWifecancelValidation=='1'">
                 <img src="assets/Images/can.png" style="height:19px;" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetCancelAppointmentID(app.id,app.patientID,app.emailID,app.name,app.bookedTime,app.paidAmount,app.walletAmount)" /></a>&nbsp;
+                  (click)="GetCancelAppointmentID(app.id,app.patientID,app.emailID,app.name,app.bookedTime,app.paidAmount,app.walletAmount,app.mobileNumber)" /></a>&nbsp;
 
               <ng-template #tipcontent10>{{labels[0].visited}}</ng-template>
               <a [ngbTooltip]="tipcontent10"

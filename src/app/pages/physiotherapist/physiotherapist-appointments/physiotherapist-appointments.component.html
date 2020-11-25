@@ -73,25 +73,25 @@
                 <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
                   (click)="GetAcceptAppointmentID(app.id,app.physioID,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName)"
                   style="height:19px;" />
-              </a>
+              </a>&nbsp;
               <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
-              <a [ngbTooltip]="tipcontent3" *ngIf="app.accepted=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'">
+              <a [ngbTooltip]="tipcontent3" *ngIf="app.accepted=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'&&app.physioCancelvalidation=='1'">
                 <img src="assets/Images/can.png" style="height:19px;" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName,app.paidAmount,app.walletAmount)" />
-              </a>
+                  (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName,app.paidAmount,app.walletAmount,app.mobileNumber)" />
+              </a>&nbsp;
 
               <ng-template #tipcontent4>{{labels[0].visited}}</ng-template>
               <a [ngbTooltip]="tipcontent4"
                 *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'">
                 <img src="assets/Images/Visit.png" style="height:19px;"
                   (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.name,app.patientID,app.emailID)" />
-              </a>
+              </a>&nbsp;
 
               <ng-template #tipcontent23>{{labels[0].notVisited}}</ng-template>
               <a [ngbTooltip]="tipcontent23"
                 *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'">
                 <img src="assets/Images/notvisit.png" style="height:19px;" (click)="UpdatepatientNotVisited(app.id)" />
-              </a>
+              </a>&nbsp;
 
               <ng-template #tipcontent9>Patient Details</ng-template>
               <a [ngbTooltip]="tipcontent9">

@@ -191,7 +191,31 @@
                   [(ngModel)]="monthlysubription" class="form-control"
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Contract start date :</label>
+        
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractstartdate" bsDatepicker>
+              </div>
             </div>
+            <br />
+        
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Contract end date :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" bsDatepicker>
+              </div>
+            </div>
+           
           </div>
           <div *ngIf="subscriptiontype=='2'">
             <div class="row">
@@ -203,8 +227,30 @@
                   [(ngModel)]="appointmentpercentage" class="form-control"
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Contract start date :</label>
+        
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractstartdate" bsDatepicker>
+              </div>
             </div>
-         
+            <br />
+        
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Contract end date :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" bsDatepicker>
+              </div>
+            </div> 
           </div>
           <div *ngIf="subscriptiontype=='3'">
             <div class="row">
@@ -226,6 +272,28 @@
                 <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
                   [(ngModel)]="monthlysubription" class="form-control"
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Contract start date :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="Contract start date" name="contractstartdate" [minDate]="today"  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractstartdate" bsDatepicker>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Contract end date :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" bsDatepicker>
               </div>
             </div>
           </div><br>

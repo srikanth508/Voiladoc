@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -89,6 +90,7 @@ export class OrdersComponent implements OnInit {
     this.getdiagnosticAppointmentsbyid();
 
     this.getlanguage()
+    this.Obseravabletimer();
 
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
@@ -96,6 +98,18 @@ export class OrdersComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+  }
+
+
+  Obseravabletimer() {
+    
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+
+      this.getdiagnosticAppointmentsbyid()
+
+
+    });
   }
 
   public getlanguage() {
@@ -421,23 +435,33 @@ export class OrdersComponent implements OnInit {
   }
 
 
-
+public dummattchmenturl=[]
 
   public onattachmentUpload(abcd) {
-
+    this.dummattchmenturl=[]
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+    
   }
 
   public uploadattachments() {
     this.docservice.DiagnosticRecordUploads(this.attachments).subscribe(res => {
 
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
+      this.dummattchmenturl.push(res);
+      let a = this.dummattchmenturl[0].slice(2);
 
       let b = 'http://14.192.17.225' + a;
       this.showphoto.push(b)

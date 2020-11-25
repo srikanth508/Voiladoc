@@ -129,10 +129,20 @@ public GetDeatsils(details)
         this.docservice.UpdateDoctorLogins(entity).subscribe(data => {
           if (data != 0) {
             // Swal.fire('Added Successfully.');
-            Swal.fire('Completed', 'Password updated successfully', 'success');
-            this.pp = 0;
-            this.getdoctorloginfordash()
-            document.getElementById('close').click();
+            if(this.languageid==1)
+            {
+              Swal.fire('Completed', 'Password updated successfully', 'success');
+              this.pp = 0;
+              this.getdoctorloginfordash()
+              document.getElementById('close').click();
+            }
+            else{
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              this.pp = 0;
+              this.getdoctorloginfordash()
+              document.getElementById('close').click();
+            }
+         
           }
           else {
             Swal.fire("user name already exists");

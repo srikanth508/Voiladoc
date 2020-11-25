@@ -149,10 +149,10 @@
                   <td style="border:none">
                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
                     <a [ngbTooltip]="tipcontent3"
-                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'">
+                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.doctorCancelvalidation=='1'">
                       <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
                         data-target="#exampleModal"
-                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.paidAmount,details.walletAmount)" />
+                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -567,7 +567,7 @@
             </div>
             <div class="col-lg-2">
               <button class="btn btn-default" style="background-color: #f18235;color: white;"
-                (click)="cancelledappointment()">{{labels[0].save}}</button>
+                (click)="cancelledappointment()"  data-dismiss="modal">{{labels[0].save}}</button>
             </div>
           </div>
         </div>
@@ -2311,7 +2311,7 @@
                     <td>
                       <a >
                         <img src="assets/Images/edit.png" data-toggle="modal"
-                          data-target="#exampleModalCenterRefferalss" *ngIf="ref.showmyediticon=='1'"  title="Edit" style="height:25px;"
+                          data-target="#exampleModalCenterRefferalss" *ngIf="ref.showmyediticon =='1'"  title="Edit" style="height:25px;"
                           (click)="GetReferalletter(ref)" />
                       </a>
                     </td>

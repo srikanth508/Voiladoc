@@ -112,6 +112,7 @@ export class SidebarComponent implements OnInit {
   public Registeredusers: any;
   public Approveddash: any;
   public RejectedDash: any;
+  public subscriptions:any;
   ngOnInit() {
 
     this.display = "none";
@@ -402,6 +403,10 @@ export class SidebarComponent implements OnInit {
             if (this.menulist[s].subMenuName == 'Rejected dashboard') {
               this.RejectedDash = 1;
             }
+            if (this.menulist[s].subMenuName == 'Subscriptions') {
+              this.subscriptions = 1;
+            }
+
           }
         })
     }

@@ -126,10 +126,21 @@ public pp:any;
       this.password = '';
       this.docservice.UpdatePhysiotherapistLogin(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire('Success', 'Password Updated Successfully', 'success');
-          this.pp=0;
-          document.getElementById('close').click();
-          this.GetPhysiotherapistLoginAdmin()
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Password Updated Successfully', 'success');
+            this.pp=0;
+            document.getElementById('close').click();
+            this.GetPhysiotherapistLoginAdmin()
+          }
+          else
+          {
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            this.pp=0;
+            document.getElementById('close').click();
+            this.GetPhysiotherapistLoginAdmin()
+          }
+       
         }
         else{
           Swal.fire("User Name Already Exists");

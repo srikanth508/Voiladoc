@@ -50,6 +50,9 @@ export class EditHospitalClinicComponent implements OnInit {
   public labels: any;
   public dropzonelable: any;
   public subscriptiontype: any;
+  public contractstartdate: any;
+  public contractenddate: any;
+
 
 
 
@@ -83,6 +86,8 @@ export class EditHospitalClinicComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+
+    this.GetSubscriptionrevenue();
 
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
@@ -201,14 +206,26 @@ export class EditHospitalClinicComponent implements OnInit {
   public appointmentpercentage: any;
 
 
-
   public GetHospitalRevenuesubscriptions() {
     debugger
     this.docservice.GetHospitalClinic_RevenueSubscriptions(this.id).subscribe(data => {
       this.subscriptionslist = data;
       this.subscriptiontype = this.subscriptionslist[0].subscriptionTypeID,
         this.monthlysubription = this.subscriptionslist[0].monthlySubscription,
-        this.appointmentpercentage = this.subscriptionslist[0].appointmentPercentage
+        this.appointmentpercentage = this.subscriptionslist[0].appointmentPercentage,
+        this.contractstartdate = this.subscriptionslist[0].contractStartdate,
+        this.contractenddate = this.subscriptionslist[0].contractEnddate
+    })
+  }
+
+
+  public subscrilist: any;
+
+
+  public GetSubscriptionrevenue() {
+    this.docservice.GetHospitalClinic_RevenueSubscriptionsByHospitalID(this.id).subscribe(data => {
+      this.subscrilist = data;
+
     })
   }
 
@@ -306,29 +323,35 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public InsertSubscriptionRevenue() {
+    debugger
     var entity5 = {
       'SubscriptionTypeID': this.subscriptiontype,
       'MonthlySubscription': this.monthlysubription,
       'AppointmentPercentage': this.appointmentpercentage,
-      'HospitalClinicID': this.id
+      'HospitalClinicID': this.id,
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
     }
     this.docservice.InsertHospitalClinic_RevenueSubscriptions(entity5).subscribe(data => {
       if (data != 0) {
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Updated Successfully');
           this.GetHospitalRevenuesubscriptions();
+          this.GetSubscriptionrevenue()
         }
-        else if(this.languageid==6)
-        {
+        else if (this.languageid == 6) {
           Swal.fire('Mis à jour avec succés');
           this.GetHospitalRevenuesubscriptions();
+          this.GetSubscriptionrevenue();
         }
-     
+      }
+      else {
+        Swal.fire('This Contrat Dates Already Exists');
+        this.GetHospitalRevenuesubscriptions();
       }
     })
   }
-  
+
   public Getsubscriptontype() {
     debugger
     this.appointmentpercentage = 0

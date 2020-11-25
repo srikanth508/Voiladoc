@@ -423,8 +423,17 @@ export class DoctorregistrationComponent implements OnInit {
     this.idproof.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+ 
   }
 
   public uploadid() {
@@ -560,8 +569,17 @@ export class DoctorregistrationComponent implements OnInit {
     this.DoctorSignatureUpload();
     // }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+ 
   }
 
   public DoctorSignatureUpload() {
@@ -594,9 +612,17 @@ export class DoctorregistrationComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+ 
   }
 
   public uploadattachments() {
@@ -627,8 +653,17 @@ export class DoctorregistrationComponent implements OnInit {
     this.uploadattachments1();
     // }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+ 
   }
 
   public uploadattachments1() {
@@ -661,8 +696,17 @@ export class DoctorregistrationComponent implements OnInit {
     this.uploadattachments2();
     // }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+ 
   }
   public uploadattachments2() {
     this.docservice.DoctorMedicalProof(this.attachments2).subscribe(res => {

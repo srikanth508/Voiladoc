@@ -62,7 +62,7 @@
     </div>
     <div class="col-lg-4">
       <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
-        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate2" name="Selecteddate2"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate" name="Selecteddate"
         (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
@@ -86,7 +86,7 @@
       <div class="col-lg-4">
         <select class="form-control" (change)="GetDoctorID($event)">
           <option value="0">Select Doctor</option>
-          <option *ngFor="let user of userslist" value="{{user.nurseID}}">{{user.nurseName}}</option>
+          <option *ngFor="let doc of Doctorlist" value="{{doc.doctorID}}">{{doc.doctorName}}</option>
         </select>
       </div>
     </div>
@@ -136,15 +136,15 @@
     </div>
     <br>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].address}} : </label>
     </div>
     <div class="col-lg-4">
-      <!-- <input type="text"> -->
-      <textarea class="form-control" [(ngModel)]="address" name="address" rows="4"></textarea>
+     
+      <textarea class="form-control" [(ngModel)]="address" placeholder="Address" name="address" rows="4"></textarea>
     </div>
-  </div>
+  </div> -->
   <br>
   <div class="row">
     <div class="col-lg-3">
@@ -164,13 +164,13 @@
       <select class="form-control"  (change)="GetPaymentTypeID($event)">
         <option value="0" >Select Payment Type</option>
         <option value="4">Cash</option>
-        <option value="2">Credit Card / Debit Card</option>
+        <option value="2">Credit Card / Debit Card Using Swipe Machine</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>
     </div>
   </div>
   <br>
-  <div *ngIf="PaymentTypeID=='2'||PaymentTypeID=='3'">
+  <!-- <div *ngIf="PaymentTypeID=='2'||PaymentTypeID=='3'">
     <div class="row">
       <div class="col-lg-3">
         <label>Card No</label>
@@ -199,7 +199,7 @@
       </div>
     </div>
   </div>
-  <br>
+  <br> -->
 
   <div class="row">
     <div class="col-lg-3">

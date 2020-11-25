@@ -1366,6 +1366,7 @@ export class VediocallComponent implements OnInit {
           data => {
             debugger
             window.close();
+            
           }, error => {
           }
         )

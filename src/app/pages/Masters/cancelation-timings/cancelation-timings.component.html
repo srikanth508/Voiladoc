@@ -1,0 +1,177 @@
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>Cancellation Settings </h5>
+    </div>
+    <div class="col-lg-6">
+    </div>
+    <!-- <div class="col-lg-3">
+      <button type="button" routerLink="/CityMaster"
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].add}}</button>
+    </div> -->
+  </div>
+  <br>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="Search">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Patient In Clinic Cancellation Time</th>
+            <th>Patient Video Cancellation Time</th>
+            <th>Cod Cancellation Time</th>
+            <th>Doctor Cancellation Time</th>
+            <th>Nurse Cancellation Time</th>
+            <th>Physiotherapist Cancellation Time</th>
+            <th>Patient Home Care Cancellation Time</th>
+            <th>Patient Home Care Cancellation Time</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let details of cancelationtimings|filter:term">
+            <td>{{details.patientInclinicCancelledTime}}</td>
+            <td>{{details.patientVideoCallTime}}</td>
+            <td>{{details.patientHomeVisitCancelledCodTime}}</td>
+            <td>{{details.doctorCancelledTime}}</td>
+            <td>{{details.nurseCancelledTime}}</td>
+            <td>{{details.physioCancelledTime}}</td>
+            <td>{{details.midwifeCancelledTime}}</td>
+            <td>{{details.homeCareCancelationTime}}</td>
+            <td>
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" data-toggle="modal" data-target="#CancelationTime" style="width: 18px"
+                  (click)="GetCancelTimings(details)">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div><br><br>
+  </div><br><br>
+  <br>
+</div><br><br><br><br>
+
+
+
+<div class="modal fade" id="CancelationTime" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" style="width:752px;margin-left: 186px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cancellation Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-5">
+              <label style="margin-left: -14px;">Patient In clinic Cancellation Time : </label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" [(ngModel)]="patientinclinictimings"
+                name="patientinclinictimings">
+            </div>
+          </div><br>
+        </div>
+
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>Patient Video Cancellation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="patientvideocalltiminngs"
+              name="patientvideocalltiminngs">
+          </div>
+        </div><br>
+
+
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>COD Cancellation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="codcancelationtime" name="codcancelationtime">
+          </div>
+        </div><br>
+
+
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>Doctor Cancellation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="doctorCancelledTime" name="doctorCancelledTime">
+          </div>
+        </div><br>
+
+
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>Nurse Cancellation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="nurseCancelledTime" name="nurseCancelledTime">
+          </div>
+        </div><br>
+
+
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>Physiotherapist Cancellation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="physioCancelledTime" name="physioCancelledTime">
+          </div>
+        </div><br>
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>Midwife Cancellation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="midwifeCancelledTime" name="midwifeCancelledTime">
+          </div>
+        </div><br>
+        <div class="row" style="overflow: auto;">
+          <div class="col-lg-5">
+            <label>Home Care Cancelation Time : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="homeCareCancelationTime"
+              name="homeCareCancelationTime">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+              (click)="updatedetails()" data-dismiss="modal">Update</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-lg-10">
+            <label style=" margin-right: 241px;">Note : Please Enter Cancellation Time In Hours Format </label>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+              data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

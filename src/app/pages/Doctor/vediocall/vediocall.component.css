@@ -260,13 +260,14 @@ color:white;
   /* box-shadow: 1px 10px lightgrey; */
   border-bottom: 3px solid lightgray;
   text-align: left;
-  font-family: 'Bookman Old Style';
+  /* font-family: 'Bookman Old Style'; */
+  font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
 }
 
 label {
   font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
   font-weight: 774774;
-  color: #828282;
+  /* color: #828282; */
   font-size: 13px;
 }
 
@@ -276,4 +277,8 @@ label {
 }
 .modal-backdrop.in{
   opacity:.7;
+}
+
+.span{
+  font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
 }

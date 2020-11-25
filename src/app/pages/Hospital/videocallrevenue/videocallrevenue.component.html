@@ -57,7 +57,7 @@
             <th *ngIf="languageid==6">Montant payé</th>
           </tr>
           <tr *ngFor="let details of cancelledlist|filter:term">
-            <td>{{details.appdate}}</td>
+            <td>{{details.apptDateTime}}</td>
             <td>{{details.appointmentID}}</td>
             <td>{{details.slots}}</td>
             <td>{{details.doctorName}}</td>

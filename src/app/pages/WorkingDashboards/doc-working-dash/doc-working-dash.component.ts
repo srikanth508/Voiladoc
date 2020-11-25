@@ -106,7 +106,7 @@ export class DocWorkingDashComponent implements OnInit {
   public search: any;
 
   ngOnInit() {
-    // this.daysname = '';
+     this.daysname = '';
     // this.doctorname = '';
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
@@ -175,6 +175,7 @@ export class DocWorkingDashComponent implements OnInit {
       }
     )
   }
+  public docselect:any;
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
@@ -182,6 +183,7 @@ export class DocWorkingDashComponent implements OnInit {
         this.labels = data;
         this.search = this.labels[0].search,
           this.SelectLabel = this.labels[0].select
+          this.docselect=this.labels[0].selectDoctor
       }, error => {
       }
     )

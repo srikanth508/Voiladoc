@@ -131,7 +131,7 @@
       <br />
     </div>
 
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
@@ -148,7 +148,7 @@
       </div>
       <br />
       <br />
-    </div>
+    </div> -->
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
@@ -280,4 +280,370 @@
       <br />
     </div>
   </div>
-</div>
+</div><br><br>
+
+<!-- Hospital Subscription Revenue -->
+
+<div class="container-fluid card card-hover">
+  <br>
+  <h3 style="text-align: center;">Hospital/Clinic Subscription Fess And Revenue</h3>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="HospitalRevenueSelecteddate($event)"
+        bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="HospitalRevenueSelecteddate($event)"
+        bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <ng-multiselect-dropdown [placeholder]="'Select Hospital'" [data]="hospitallist" [settings]="hospdd"
+        (onSelect)="GetAllSubScriptionRevenueID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of hospitalSubscriptionslist">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Hospital Subscription Revenue</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.hospitalMonthlySubscription}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of hospitalSubscriptionslist">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Doctor Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.doctorsHospitalrevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of hospitalSubscriptionslist">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Nurse Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.nursehospitalRevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of hospitalSubscriptionslist">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Midwife Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.midwifehospitalrevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of hospitalSubscriptionslist">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Physiotherapist Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.physiohospitlrevenue
+            }}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+
+  </div>
+</div><br><br>
+
+
+
+
+
+<!-- Independent People Revenue -->
+
+<div class="container-fluid card card-hover">
+ 
+  <br>
+  <h3 style="text-align: center;">Independent Subscription Fess And Revenue</h3>
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value1" (ngModelChange)="ChangAllIndependentPeople($event)"
+        bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value1" (ngModelChange)="ChangAllIndependentPeople($event)"
+        bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetTypeID($event)">
+        <option value="0">Select</option>
+        <option value="1">Doctor</option>
+        <option value="2">Nurse</option>
+        <option value="3">Midwife</option>
+        <option value="4">Physiotherapist</option>
+      </select>
+    </div>
+    <div class="col-lg-3" *ngIf="typeid=='1'">
+      <ng-multiselect-dropdown [placeholder]="'Select Doctor'" [data]="inddoctorslist" [settings]="docdd"
+        (onSelect)="GetHomecareTypeID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+
+    <div class="col-lg-3" *ngIf="typeid=='2'">
+      <ng-multiselect-dropdown [placeholder]="'Select Nurse'" [data]="nurselist1" [settings]="nursedd"
+        (onSelect)="GetNurseID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+
+    <div class="col-lg-3" *ngIf="typeid=='3'">
+      <ng-multiselect-dropdown [placeholder]="'Select Midwife'" [data]="midwifes1" [settings]="midwifedd"
+        (onSelect)="GetMidWifeID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+
+    <div class="col-lg-3" *ngIf="typeid=='4'">
+      <ng-multiselect-dropdown [placeholder]="'Select Physiotherapist'" [data]="physiolist1" [settings]="physiodd"
+        (onSelect)="GetPhysiotherapistID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div><br>
+
+
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             Doctor Subscription Revenue</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.doctorsMonthlySubscription}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             Nurse Subscription Revenue</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.nurseMonthlySubscription}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             MidWife Subscription Revenue</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.midwifemonthlysubscription}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             Physiotherapist Subscription Revenue</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.independentPhysiorevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             Doctor Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.independentDoctorrevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             Nurse Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.independentNurseRevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             MidWife Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.independentMidwifeRevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
+        *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+             Physiotherapist Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.independentPhysiorevenue}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of IndependentSubscriptionList">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Physiotherapist Revenue From Appointment Fees</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.physiohospitlrevenue
+            }}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+
+  </div> -->
+</div><br><br>
+
+
+<!-- Sponsered Revenue -->

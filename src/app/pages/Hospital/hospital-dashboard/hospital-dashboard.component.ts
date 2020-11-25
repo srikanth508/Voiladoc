@@ -69,13 +69,14 @@ export class HospitalDashboardComponent implements OnInit {
     this.getbookappointmentbyhospitalbyhospitalid();
     this.gethospitaldoctorsforadmin();
     this.getdepartmentmaster();
+    this.GetAllHomecareAppointments();
     this.getlanguage();
   }
 
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
 
       }, error => {
@@ -83,38 +84,58 @@ export class HospitalDashboardComponent implements OnInit {
     )
   }
   public getbookappointmentbyhospitalbyhospitalid() {
-   
+
     this.docservice.GetDoctorsByHospitalClicniID(this.hospitalid, this.languageid, this.startdate, this.enddate).subscribe(
       data => {
-       
+
         this.detailslist = data;
         this.dummlist = this.detailslist;
       }, error => {
       }
     )
   }
+
+  public homecarecountslist: any;
+
+  public GetAllHomecareAppointments() {
+
+    this.docservice.GetAllHomecareAppointmentCounts(this.languageid, this.startdate, this.enddate, this.hospitalid).subscribe(
+      data => {
+
+        this.homecarecountslist = data;
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+
   selectedDate(data) {
-   
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
-    this.getbookappointmentbyhospitalbyhospitalid()
+    this.getbookappointmentbyhospitalbyhospitalid();
+    this.GetAllHomecareAppointments();
   }
 
   public GetDoctorID(docid) {
-   
+
     this.reportdoctorid = docid;
     localStorage.setItem('Reportdocid', this.reportdoctorid);
     localStorage.setItem('startdate', this.startdate)
     localStorage.setItem('enddate', this.enddate)
   }
   public gethospitaldoctorsforadmin() {
-   
+
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-       
+
         this.doctorlist = data;
       }, error => {
       }
@@ -122,10 +143,10 @@ export class HospitalDashboardComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
@@ -133,7 +154,7 @@ export class HospitalDashboardComponent implements OnInit {
   }
   public GetDoctorName(even) {
     if (even.target.value != 0) {
-     
+
       this.doctorname = even.target.value;
       this.detailslist = this.dummlist.filter(x => x.doctorName == this.doctorname)
     }
@@ -145,7 +166,7 @@ export class HospitalDashboardComponent implements OnInit {
 
   public GetDepartmentName(even) {
     if (even.target.value != 0) {
-     
+
       this.deptname = even.target.value;
       this.detailslist = this.dummlist.filter(x => x.departmentname == this.deptname)
     }

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-midwife-appointments',
   templateUrl: './midwife-appointments.component.html',
@@ -92,10 +93,24 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getmidwifeappointments();
     this.getserverdateandtime();
-
+    this.Obseravabletimer();
 
     this.getlanguage()
   }
+
+
+  Obseravabletimer() {
+    
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+
+      this.getmidwifeappointments()
+
+
+    });
+  }
+
+
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
@@ -150,7 +165,9 @@ export class MidwifeAppointmentsComponent implements OnInit {
     )
   }
 
-  public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount) {
+  public canpatientmobileno:any;
+
+  public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount,mobileNumber) {
    
     this.canappointmentid = id
     this.canpatientid = patientID;
@@ -159,6 +176,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.canbookedtime = bookedTime;
     this.paidamount = paidAmount;
     this.walletAmount = walletAmount;
+    this.canpatientmobileno=mobileNumber;
 
 
    
@@ -183,12 +201,12 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.docservice.UpdateBook_Midwives_AppointmentCancelledBit(this.canappointmentid).subscribe(
       data => {
        
-        Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+        // Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
       }, error => {
       }
     )
     this.updatereson();
-    this.updatedateails();
+    // this.updatedateails();
     this.getmidwifeappointments();
     this.getphisyioappointments()
   }
@@ -204,7 +222,9 @@ export class MidwifeAppointmentsComponent implements OnInit {
       let test = res;
       Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
       this.getmidwifeappointments();
-      this.getphisyioappointments()
+      this.getphisyioappointments();
+      this.SendCancelPatientmail()
+      this.sendsms();
       this.InsertCancelNotification();
       this.InsertNotiFicationcancel();
 
@@ -415,13 +435,16 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
 
+
+
+
   public InsertCancelNotification() {
    
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
         'Notification': "Appointment Cancelled by MidWife.",
-        'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+        'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
         'NotificationTypeID': 24,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -437,7 +460,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
       var entity = {
         'PatientID': this.canpatientid,
         'Notification': "Rendez-vous annulé par la sage-femme.",
-        'Description': "Votre rendez-vous avec " + this.canname + " prévu pour " + this.canbookedtime + " a été annulé.Hemos cargado su billetera con Ar" + this.paidamount + " Utilice el mismo para la próxima reserva",
+        'Description': "Votre rendez-vous avec " + this.canname + " prévu pour " + this.canbookedtime + " a été annulé.",
         'NotificationTypeID': 24,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -456,7 +479,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
    
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.We have Loaded Back Your Wallet With Ar" + this.paidamount + " Please Use Same For Next Booking",
+        'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -468,7 +491,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.canname + " prévu pour " + this.canbookedtime + " a été annulé.Hemos cargado su billetera con Ar" + this.paidamount + " Utilice el mismo para la próxima reserva",
+        'Description': "Votre rendez-vous avec " + this.canname + " prévu pour " + this.canbookedtime + " a été annulé.",
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -479,6 +502,43 @@ export class MidwifeAppointmentsComponent implements OnInit {
       })
     }
   }
+
+
+public emailattchementurl=[];
+public cclist:any;
+public bcclist:any;
+
+
+  public SendCancelPatientmail() {
+    debugger
+    var entity = {
+      'emailto': this.canemailid,
+      'emailsubject': "The Midwife " + this.canname + " Has Cancelled Your Appointment ",
+      'emailbody':  "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
+
+  
+  public sendsms() {
+    debugger
+    let Entity = {
+      'Contacts': this.canpatientmobileno,
+      'TextMessage': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
+    }
+    this.docservice.SendSMS(Entity).subscribe(data => {
+      debugger
+
+
+    })
+  }
+
+
 
   visitappointid:any;
   //visited notification

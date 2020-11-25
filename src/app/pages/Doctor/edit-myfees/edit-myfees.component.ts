@@ -65,8 +65,21 @@ export class EditMyfeesComponent implements OnInit {
 
     this.getdoctorfeess()
     this.GetAppointmentType()
+    this.getlanguage()
   }
 
+  public labels1:any;
+
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+     
+      }, error => {
+      }
+    )
+  }
 
   public GetAppointmentType() {
     this.docservice.GetBookAppointmentTypeMasterWebByLanguageID(this.languageid).subscribe(data => {
@@ -236,8 +249,17 @@ export class EditMyfeesComponent implements OnInit {
       'VoilaDocCommisiion': this.voiladoccommission
     }
     this.docservice.UpdateDoctorCommissionFees(entity).subscribe(data => {
-      Swal.fire('Fees Updated Successfully');
-      location.href="#/MyFees"
+      if(this.languageid==1)
+      {
+        Swal.fire('Fees Updated Successfully');
+        // location.href="#/MyFees"
+      }
+      else if(this.languageid==6)
+      {
+        Swal.fire('Mis à jour avec succés !');
+        // location.href="#/MyFees"
+      }
+
     })
 
   }

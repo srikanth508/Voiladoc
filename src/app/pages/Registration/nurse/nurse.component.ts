@@ -53,18 +53,29 @@ export class NurseComponent implements OnInit {
   public dummid: any;
   public education: any;
   public spokenlanguages: any;
-  dropzonelable:any;
+  dropzonelable: any;
+  public search: any;
 
   ngOnInit() {
-   
+
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
-    this.getlanguage();
+
+    this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search
+      }, error => {
+      }
+    )
+    // this.getlanguage();
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
@@ -72,7 +83,7 @@ export class NurseComponent implements OnInit {
 
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.specilisationlist = data;
 
         this.specilisatiodd = {
@@ -83,7 +94,8 @@ export class NurseComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -91,7 +103,7 @@ export class NurseComponent implements OnInit {
     )
     this.docservice.GetServiceMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         let temp: any = data;
         this.servicelist = temp.filter(x => x.typeID == 2);
 
@@ -103,7 +115,8 @@ export class NurseComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -123,10 +136,10 @@ export class NurseComponent implements OnInit {
 
 
   public gethosptilclinicforadmin() {
-   
+
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-       
+
         this.hospitalcliniclist = data;
         this.hospitadd = {
           singleSelection: true,
@@ -135,7 +148,8 @@ export class NurseComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -144,15 +158,16 @@ export class NurseComponent implements OnInit {
 
 
   public GetHospitalID(item: any) {
-   
+
     this.hospitalclinicid = item.id;
   }
   public getlanguage() {
     this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search
       }, error => {
       }
     )
@@ -165,7 +180,7 @@ export class NurseComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -174,19 +189,20 @@ export class NurseComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
   }
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -196,7 +212,8 @@ export class NurseComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -205,7 +222,7 @@ export class NurseComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -213,84 +230,101 @@ export class NurseComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-   
+
     this.deptid = even.target.value;
   }
 
   public GetSpecilizationID(item: any) {
-   
+
     this.specilisationid.push(item);
-   
+
   }
 
   public GetServiceID(item: any) {
-   
+
     this.serviceid.push(item);
-   
+
   }
 
 
-  public dummnursephoto=[]
+  public dummnursephoto = []
   public onattachmentUpload(abcd) {
-   
-    this.dummnursephoto=[]
-    // for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
-    // }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    this.dummnursephoto = []
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+    // }
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+
+  
   }
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
       this.dummnursephoto.push(res);
       let a = this.dummnursephoto[0].slice(2);
-     
+
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
 
-  public dummidentityproof=[]
+  public dummidentityproof = []
 
   public onidUpload(abcd) {
-   this.dummidentityproof=[]
+    this.dummidentityproof = []
     // for (let i = 0; i < abcd.length; i++) {
-      this.idproof.push(abcd.addedFiles[0]);
-      this.uploadid();
+    this.idproof.push(abcd.addedFiles[0]);
+    this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
   }
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
-     
+
       this.idproofurl.push(res);
       this.dummidentityproof.push(res);
       let a = this.dummidentityproof[0].slice(2);
-     
+
       let b = 'http://14.192.17.225' + a;
       this.showidproof.push(b)
       this.idproof.length = 0;
-     
+
     })
     // this.sendattachment();
   }
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -307,12 +341,12 @@ export class NurseComponent implements OnInit {
   }
 
   public GetAreaID(item3: any) {
-   
+
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -341,43 +375,51 @@ export class NurseComponent implements OnInit {
       'SpokenLanguages': this.spokenlanguages
     }
     this.docservice.InsertNurseRegistration(entity).subscribe(data => {
-     
+
 
       let nurseid = data;
-      if(nurseid!=0)
-      {
+      if (nurseid != 0) {
 
-      
 
-      for (let s = 0; s < this.serviceid.length; s++) {
-        var serviceentity = {
-          'NurseID': nurseid,
-          'ServiceID': this.serviceid[s].id,
-          'LanguageID': 1
+
+        for (let s = 0; s < this.serviceid.length; s++) {
+          var serviceentity = {
+            'NurseID': nurseid,
+            'ServiceID': this.serviceid[s].id,
+            'LanguageID': 1
+          }
+          this.docservice.InsertNurseServices(serviceentity).subscribe(data => {
+          })
         }
-        this.docservice.InsertNurseServices(serviceentity).subscribe(data => {
-        })
-      }
 
-      for (let s = 0; s < this.specilisationid.length; s++) {
-        var specentity = {
-          'NurseID': nurseid,
-          'SpecializationID': this.specilisationid[s].id,
-          'LanguageID': 1
+        for (let s = 0; s < this.specilisationid.length; s++) {
+          var specentity = {
+            'NurseID': nurseid,
+            'SpecializationID': this.specilisationid[s].id,
+            'LanguageID': 1
+          }
+          this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
+          })
         }
-        this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
-        })
+        if(this.languageid==1)
+        {
+          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+          this.spinner.hide();
+          location.href = '#/NurseDashboard';
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('', 'Inscription terminée avec succès !', 'success');
+          this.spinner.hide();
+          location.href = '#/NurseDashboard';
+        }
+     
       }
-      Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-      this.spinner.hide();
-      location.href = '#/NurseDashboard';
-    }
-    else 
-    {
-      Swal.fire('Error', 'Details Already Exists', 'success');
-      this.spinner.hide();
-      location.href = '#/NurseDashboard';
-    }
+      else {
+        Swal.fire('Error', 'Details Already Exists', 'success');
+        this.spinner.hide();
+        location.href = '#/NurseDashboard';
+      }
     })
   }
 }

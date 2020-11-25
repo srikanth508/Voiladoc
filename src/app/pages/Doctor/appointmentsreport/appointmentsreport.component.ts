@@ -39,6 +39,7 @@ export class AppointmentsreportComponent implements OnInit {
   public sdate: any;
   public edate: any;
   public diffid: any;
+  public showreason:any;
 
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
@@ -85,10 +86,12 @@ export class AppointmentsreportComponent implements OnInit {
 
 
       this.diffid = params['id']
+
     }
     )
     if (this.diffid == undefined) {
       this.getcancelledappoinrtments();
+      this.showreason=1;
     }
     else if (this.diffid == '1') {
       this.docservice.GetCancelledAppointmentReportsForDoctorwEB(this.sdate, this.edate, this.languageid).subscribe(
@@ -166,9 +169,9 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
-        this.cancelledlist = data;
-        this.dummlist = this.cancelledlist;
+        // this.cancelledlist = data;
+        this.dummlist = data;
+        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1);
         this.count = this.cancelledlist.length
       }, error => {
       }
@@ -180,10 +183,11 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
-        this.cancelledlist = data;
-        this.dummlist = this.cancelledlist;
-        this.count = this.cancelledlist.length
+        debugger
+        this.dummlist = data;
+        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1);
+        this.count = this.cancelledlist.length;
+        debugger
       }, error => {
       }
     )

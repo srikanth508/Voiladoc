@@ -153,9 +153,9 @@ export class PhysioFeesComponent implements OnInit {
       }
       this.docservice.InsertPhsyioTherapistCommissionDeatails(entity).subscribe(data => {
         if (data != 0) {
-          if (this.independent == 2) {
-            this.InsertPhysioRevenue()
-          }
+          // if (this.independent == 2) {
+          //   this.InsertPhysioRevenue()
+          // }
           Swal.fire('Success', 'Details Saved Successfully');
           location.href = "#/PhysiFeedash"
         }

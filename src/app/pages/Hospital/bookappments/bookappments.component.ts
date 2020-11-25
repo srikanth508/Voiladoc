@@ -185,7 +185,8 @@ export class BookappmentsComponent implements OnInit {
         'PRelation': '',
         'NurseID': 1,
         'ReasonForVisit': this.ReasonForVisit,
-        'PaidAmount': this.PaidAmount
+        'PaidAmount': this.PaidAmount,
+        'HomeVisit':0
       }
       this.docservice.InsertBookAppointmentForWeb(entity).subscribe(data => {
         this.appointmentid = data;

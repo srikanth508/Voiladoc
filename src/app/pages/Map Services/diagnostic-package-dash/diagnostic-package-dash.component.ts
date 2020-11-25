@@ -30,8 +30,8 @@ export class DiagnosticPackageDashComponent implements OnInit {
   public dummpackagelist: any;
   dummdiagnosticid: any;
   diagnosticname: any;
- 
-  
+
+
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -41,7 +41,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
@@ -49,7 +49,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels2 = data;
       }, error => {
       }
@@ -62,10 +62,10 @@ export class DiagnosticPackageDashComponent implements OnInit {
     this.getlanguage();
   }
   public getlanguage() {
-   
+
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -73,14 +73,14 @@ export class DiagnosticPackageDashComponent implements OnInit {
   }
   public GetDiagnosticPackages() {
 
-   
+
     if (this.diagnosticenterid != undefined) {
       this.docservice.GetDiagnosticCenterPackages(this.languageid).subscribe(
         data => {
-         
+
           this.dummpackagelist = data;
           this.packagelist = this.dummpackagelist.filter(x => x.diagnosticCenterID == this.diagnosticenterid)
-          this.count= this.packagelist.length;
+          this.count = this.packagelist.length;
         }, error => {
         }
       )
@@ -88,10 +88,10 @@ export class DiagnosticPackageDashComponent implements OnInit {
     else {
       this.docservice.GetDiagnosticCenterPackages(this.languageid).subscribe(
         data => {
-         
+
           this.dummpackagelist = data;
-          this.packagelist =  this.dummpackagelist
-          this.count= this.packagelist.length;
+          this.packagelist = this.dummpackagelist
+          this.count = this.packagelist.length;
 
         }, error => {
         }
@@ -99,27 +99,25 @@ export class DiagnosticPackageDashComponent implements OnInit {
     }
   }
   public DeleteDiagnostocServces(id) {
-   
+
     this.docservice.DeleteDiagnosticCenterPackages(id).subscribe(
       data => {
-       
-        if(this.languageid==1)
-        {
+
+        if (this.languageid == 1) {
           Swal.fire("Deleted Successfully");
           this.GetDiagnosticPackages();
         }
-        else if(this.languageid==6)
-        {
+        else if (this.languageid == 6) {
           Swal.fire("Supprimé avec succès");
           this.GetDiagnosticPackages();
         }
-     
+
       }, error => {
       }
     )
   }
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }
@@ -208,8 +206,42 @@ export class DiagnosticPackageDashComponent implements OnInit {
 
 
 
+  public packagename: any;
+  public packageprice: any;
+  public packageDescription: any;
+
+  public id: any;
+
+  public GetPackages(details) {
+    debugger
+    this.id=details.id
+    this.packagename = details.packageName
+    this.packageDescription = details.description
+    this.packageprice = details.price
+  }
 
 
+  public UpdatePackages() {
+    var entity = {
+      'ID': this.id,
+      'PackageName': this.packagename,
+      'Description': this.packageDescription,
+      'Price': this.packageprice,
+      'LanguageID': this.languageid
+    }
+    this.docservice.UpdateDiagnosticCenterPackages(entity).subscribe(data => {
+      let res = data;
+      if (this.languageid == 1) {
+        Swal.fire('Success', 'Updated Successfully');
+        this.GetDiagnosticPackages();
+      }
+      else {
+        Swal.fire('Succès', 'Mis à jour avec succés');
+        this.GetDiagnosticPackages();
+      }
+
+    })
+  }
 
 
 

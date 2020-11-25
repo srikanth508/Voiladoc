@@ -130,9 +130,19 @@ public insertdetails() {
       this.password = '';
       this.docservice.UpdateNurseLogin(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire('Success', 'Password Updated successfully', 'success');
-          this.GetNurseLoginAdmin();
-          document.getElementById('close').click();
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Password Updated successfully', 'success');
+            this.GetNurseLoginAdmin();
+            document.getElementById('close').click();
+          }
+          else
+          {
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            this.GetNurseLoginAdmin();
+            document.getElementById('close').click();
+          }
+        
         }
         else {
           Swal.fire("User Name Already Exists");

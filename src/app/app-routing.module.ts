@@ -318,6 +318,14 @@ import { VoiladocRegisteredUsersComponent } from './pages/Sales/voiladoc-registe
 import { ApprovedUsersComponent } from './pages/Sales/approved-users/approved-users.component';
 import { RejectedusersComponent } from './pages/Sales/rejectedusers/rejectedusers.component';
 import { HomeCareAppointmentsComponent } from './pages/Home care/home-care-appointments/home-care-appointments.component';
+import { HomecareAppdashComponent } from './pages/Home care/homecare-appdash/homecare-appdash.component';
+import { IndependentSubscriptionsComponent } from './pages/HomeVisitsFees/independent-subscriptions/independent-subscriptions.component';
+import { IndependentsubdashComponent } from './pages/HomeVisitsFees/independentsubdash/independentsubdash.component';
+import { CancelationTimingsComponent } from './pages/Masters/cancelation-timings/cancelation-timings.component';
+import { NurseCancelledAppComponent } from './pages/Nurse/nurse-cancelled-app/nurse-cancelled-app.component';
+import { CancelledmidwifeAppsComponent } from './pages/Midewife/cancelledmidwife-apps/cancelledmidwife-apps.component';
+import { CancelledPhysioappointmentsComponent } from './pages/physiotherapist/cancelled-physioappointments/cancelled-physioappointments.component';
+import { AllCancelledAppointmentsComponent } from './pages/AdminDashboard/all-cancelled-appointments/all-cancelled-appointments.component';
 
 
 
@@ -715,8 +723,17 @@ const routes: Routes = [
   { path: 'ApprovedUsers', component: ApprovedUsersComponent },
   { path: 'Rejectedusers', component: RejectedusersComponent },
   { path: 'HomeCareAppointments', component: HomeCareAppointmentsComponent },
+  { path: 'HomecareAppdash', component: HomecareAppdashComponent },
+  { path: 'IndependentSubscriptions', component: IndependentSubscriptionsComponent },
+  { path: 'Independentsubdash', component: IndependentsubdashComponent },
+  { path: 'CancelationTimings', component: CancelationTimingsComponent },
+  { path: 'CancelationTimings', component: CancelationTimingsComponent },
+  { path: 'NurseCancelledApp', component: NurseCancelledAppComponent },
+  { path: 'CancelledmidwifeApps', component: CancelledmidwifeAppsComponent },
+  { path: 'CancelledPhysioappointments', component: CancelledPhysioappointmentsComponent },
+  { path: 'AllCancelledAppointments', component: AllCancelledAppointmentsComponent },
+  
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

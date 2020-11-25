@@ -111,8 +111,11 @@
 
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
+        <span *ngFor="let photo of showphoto">
+          <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+        </span>
       </div>
-      <div class="col-lg-5 ">
+      <div class="col-lg-5 specforimg" >
         <p>
           {{labels[0].image}}
         </p>

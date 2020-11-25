@@ -50,8 +50,16 @@ export class ReceptionstloginComponent implements OnInit {
      
       if (data != 0) {
         // Swal.fire('Added Successfully.');
-        Swal.fire('Completed', 'Receptionist saved successfully', 'success');
-        location.href = "#/ReceptionstloginDash"
+        if(this.languageID==1)
+        {
+          Swal.fire('Completed', 'Receptionist saved successfully', 'success');
+          location.href = "#/ReceptionstloginDash"
+        }
+        else{
+          Swal.fire('', 'Mis à jour avec succés', 'success');
+          location.href = "#/ReceptionstloginDash"
+        }
+   
       }
       else
       {

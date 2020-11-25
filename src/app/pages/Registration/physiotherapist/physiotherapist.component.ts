@@ -55,11 +55,21 @@ export class PhysiotherapistComponent implements OnInit {
   public spokenlanguages: any;
   public dummdepartmentlist: any;
   dropzonelable: any;
+  public search: any;
   ngOnInit() {
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
 
+    this.docservice.GetAdmin_PhysiotherapistRegistration_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search;
+      }, error => {
+      }
+    )
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
@@ -83,7 +93,8 @@ export class PhysiotherapistComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -103,7 +114,8 @@ export class PhysiotherapistComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -145,7 +157,8 @@ export class PhysiotherapistComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -170,7 +183,8 @@ export class PhysiotherapistComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -192,7 +206,8 @@ export class PhysiotherapistComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -213,17 +228,22 @@ export class PhysiotherapistComponent implements OnInit {
   }
 
 
-  public dummphotourl=[]
+  public dummphotourl = []
   public onattachmentUpload(abcd) {
 
-    this.dummphotourl=[]
+    this.dummphotourl = []
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
   }
 
   public uploadattachments() {
@@ -253,18 +273,24 @@ export class PhysiotherapistComponent implements OnInit {
     this.serviceid.push(item);
 
   }
-  public dummidentiurl=[]
+  public dummidentiurl = []
 
   public onidUpload(abcd) {
 
-    this.dummidentiurl=[]
+    this.dummidentiurl = []
 
     // for (let i = 0; i < abcd.length; i++) {
     this.idproof.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
   }
 
   public uploadid() {
@@ -340,8 +366,7 @@ export class PhysiotherapistComponent implements OnInit {
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       let physioid = data;
       debugger
-      if (data != 0) 
-      {
+      if (data != 0) {
         for (let s = 0; s < this.serviceid.length; s++) {
           var serviceentity = {
             'PhysiotherapyID': physioid,
@@ -363,17 +388,26 @@ export class PhysiotherapistComponent implements OnInit {
 
           })
         }
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-        this.spinner.hide();
-        location.href = '#/PhysiotherapistDashboard';
+        if(this.languageid==1)
+        {
+          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+          this.spinner.hide();
+          location.href = '#/PhysiotherapistDashboard';
+        }
+        else if(this.languageid==6)
+        {
+          Swal.fire('', 'Détails enregistrés avec succès', 'success');
+          this.spinner.hide();
+          location.href = '#/PhysiotherapistDashboard';
+        }
+   
       }
-      else
-      {
+      else {
         Swal.fire('Error', 'Details Already Exists', 'success');
         this.spinner.hide();
         location.href = '#/PhysiotherapistDashboard';
       }
-      })
+    })
 
   }
 

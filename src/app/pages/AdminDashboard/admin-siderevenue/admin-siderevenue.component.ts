@@ -13,6 +13,8 @@ export class AdminSiderevenueComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
 
   value: any;
+
+  value1: any;
   SDate = new Date();
   EDate = new Date();
   startdate: any;
@@ -47,13 +49,19 @@ export class AdminSiderevenueComponent implements OnInit {
   public arealist: any;
   public areadd = {};
 
+  public month: any;
+  public year: any;
+  public monthstartdate: any;
+  public monthenddate: any;
+
 
   ngOnInit() {
+    debugger
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-
+    debugger
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -63,15 +71,16 @@ export class AdminSiderevenueComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-
+    debugger
     this.languageid = localStorage.getItem('LanguageID');
+
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
     var lll = this.EDate.setDate(this.EDate.getDate() + 0);
 
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-
+    debugger
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -84,8 +93,24 @@ export class AdminSiderevenueComponent implements OnInit {
     this.hospitalid = 0;
     this.doctorid = 0;
     this.cityid = 0
+    this.subHospitalID = 0;
+    debugger
+
+    this.docservice.GetMonthStartDateAndEndDate().subscribe(
+      data => {
+        debugger
+        this.serverdateandtime = data[0];
+        this.monthstartdate = this.serverdateandtime.startMonth,
+          this.monthenddate = this.serverdateandtime.endMonth
+          debugger
+          this.GetAllHospitalSubscriptions();
+          this.GetAllIndepenentPeopleRevenue();
+      }, error => {
+      }
+    )
     this.getlanguage()
     this.GetCounts()
+
     this.getIndependentDoctors()
 
 
@@ -105,8 +130,16 @@ export class AdminSiderevenueComponent implements OnInit {
       }
     )
 
-
     this.GetAreaMaster()
+    
+  
+
+
+    //all independent
+
+    this.GetAllIndependentNurseList();
+    this.GetAllIndependentphysiotherapits();
+    this.GetAllIndependentMidWife();
   }
 
 
@@ -127,16 +160,16 @@ export class AdminSiderevenueComponent implements OnInit {
 
 
   public GetCounts() {
-    debugger
+
     this.docservice.GetDoctorCommissionFeesByAdminRevenue(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
       data => {
-        debugger
+
         this.allcounts = data;
         this.docrevenue = this.allcounts[0].totalamount
-        debugger
+
         this.docservice.GetNurseCommissionDeatailsAdminRevenue(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
           data => {
-            debugger
+
             this.nursecount = data;
 
           }, error => {
@@ -144,40 +177,40 @@ export class AdminSiderevenueComponent implements OnInit {
         )
         this.docservice.GetMidWifeCommissionDeatailsAdminRevenue(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
           data => {
-            debugger
+
             this.midwifecount = data;
 
-            debugger
+
 
           }, error => {
           }
         )
         this.docservice.GetPhsyioTherapistCommissionDeatailsAdminRevenue(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
           data => {
-            debugger
+
             this.physiocount = data;
-            debugger
+
           }, error => {
           }
         )
         this.docservice.GetHospitalRevenue(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
           data => {
-            debugger
+
             this.hospitalrevenue = data;
-            debugger
+
           }, error => {
           }
         )
         this.docservice.GetDoctorCommissionFeesByAdminRevenueForIndependentDoctor(this.startdate, this.enddate, this.doctorid, this.cityid).subscribe(
           data => {
-            debugger
+
             this.indepedentlist = data;
 
-            debugger
+
           }, error => {
           }
         )
-        debugger
+
 
       }, error => {
       }
@@ -190,7 +223,7 @@ export class AdminSiderevenueComponent implements OnInit {
   public getIndependentDoctors() {
     this.docservice.GetDoctorForAdminByLanguageIDIndependentDoctors(this.languageid).subscribe(
       data => {
-        debugger
+
         this.inddoctorslist = data;
 
         this.docdd = {
@@ -203,98 +236,33 @@ export class AdminSiderevenueComponent implements OnInit {
           allowSearchFilter: true
         };
 
-        debugger
+
       }, error => {
       }
     )
   }
 
   public GetHospitalID(item: any) {
-    debugger
+
     this.hospitalid = item.id
     this.GetCounts()
   }
 
   public GetDoctorID(item1: any) {
-    debugger
+
     this.doctorid = item1.id;
 
     this.docservice.GetDoctorCommissionFeesByAdminRevenueForIndependentDoctor(this.startdate, this.enddate, this.doctorid, this.cityid).subscribe(
       data => {
-        debugger
+
         this.indepedentlist = data;
 
-        debugger
+
       }, error => {
       }
     )
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // public GetDoctorCommission() {
-  //   this.docservice.GetPatientPaymentDetailsAdminDoctorsCommission(this.startdate, this.enddate).subscribe(
-  //     data => {
-
-  //       this.doccommissioncount = data;
-
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-
-
-  // public GetNurseCommissionCount() {
-  //   this.docservice.GetNurse_PatientPaymentDetailsNurseRevenue(this.startdate, this.enddate).subscribe(
-  //     data => {
-
-  //       this.Nursecommssioncount = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-  // public GetidwifeommissionsRevenue() {
-  //   this.docservice.GetMidWife_PatientPaymentDetailsAdminRevenue(this.startdate, this.enddate).subscribe(
-  //     data => {
-
-  //       this.midwifecommissioncount = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-  // public GetPhysiotherapistcount() {
-  //   this.docservice.GetPhysiotherapist_PatientPaymentDetailsAdminRevenue(this.startdate, this.enddate).subscribe(
-  //     data => {
-
-  //       this.physiocommissioncount = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
 
 
   public GetAreaMaster() {
@@ -330,83 +298,217 @@ export class AdminSiderevenueComponent implements OnInit {
     this.cityid = even.target.value;
     this.hospitalid = 0;
     this.GetCounts()
-    debugger
+
   }
 
-  public GetAreaIndependentDoctor(even)
-  {
+  public GetAreaIndependentDoctor(even) {
     this.cityid = even.target.value;
     this.hospitalid = 0;
     this.docservice.GetDoctorCommissionFeesByAdminRevenueForIndependentDoctor(this.startdate, this.enddate, this.doctorid, this.cityid).subscribe(
       data => {
-        debugger
+
         this.indepedentlist = data;
 
-        debugger
+
       }, error => {
       }
     )
-    debugger
+
+  }
+
+  // hospital subscriptions
+
+  public hospitalSubscriptionslist: any;
+
+  public GetAllHospitalSubscriptions() {
+   
+
+    this.docservice.GetAllHospitalSubscriptionRevenue(this.monthstartdate, this.monthenddate, this.subHospitalID).subscribe(
+      data => {
+
+        this.hospitalSubscriptionslist = data;
+
+      }, error => {
+      }
+    )
+
+  }
+
+
+  public subHospitalID: any;
+
+  public GetAllSubScriptionRevenueID(item: any) {
+
+    this.subHospitalID = item.id;
+    this.GetAllHospitalSubscriptions()
+  }
+
+  public HospitalRevenueSelecteddate(data) {
+    this.monthstartdate = data[0].toLocaleString().split(',')[0];
+    this.monthenddate = data[1].toLocaleString().split(',')[0];
+    this.GetAllHospitalSubscriptions()
   }
 
 
 
-  // public GetCountsByCityID() {
-  //   debugger
-  //   this.docservice.GetDoctorCommissionFeesByAdminRevenue(this.startdate, this.enddate, 0, this.cityid).subscribe(
-  //     data => {
-  //       debugger
-  //       this.allcounts = data;
-  //       this.docrevenue = this.allcounts[0].totalamount
-  //       debugger
-  //       this.docservice.GetNurseCommissionDeatailsAdminRevenue(this.startdate, this.enddate, 0, this.cityid).subscribe(
-  //         data => {
-  //           debugger
-  //           this.nursecount = data;
 
-  //         }, error => {
-  //         }
-  //       )
-  //       this.docservice.GetMidWifeCommissionDeatailsAdminRevenue(this.startdate, this.enddate, 0, this.cityid).subscribe(
-  //         data => {
-  //           debugger
-  //           this.midwifecount = data;
+  //independent subscriptions
 
-  //           debugger
+public serverdateandtime:any;
+  
+ 
 
-  //         }, error => {
-  //         }
-  //       )
-  //       this.docservice.GetPhsyioTherapistCommissionDeatailsAdminRevenue(this.startdate, this.enddate, 0, this.cityid).subscribe(
-  //         data => {
-  //           debugger
-  //           this.physiocount = data;
-  //           debugger
-  //         }, error => {
-  //         }
-  //       )
-  //       this.docservice.GetHospitalRevenue(this.startdate, this.enddate, 0, this.cityid).subscribe(
-  //         data => {
-  //           debugger
-  //           this.hospitalrevenue = data;
-  //           debugger
-  //         }, error => {
-  //         }
-  //       )
-  //       this.docservice.GetDoctorCommissionFeesByAdminRevenueForIndependentDoctor(this.startdate, this.enddate, 0 , this.cityid).subscribe(
-  //         data => {
-  //           debugger
-  //           this.indepedentlist = data;
 
-  //           debugger
-  //         }, error => {
-  //         }
-  //       )
-  //       debugger
+  public dummnurse: any;
+  public nurselist1: any;
+  public nursedd = {};
 
-  //     }, error => {
-  //     }
-  //   )
-  // }
 
+  public GetAllIndependentNurseList() {
+    this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
+      data => {
+
+        this.dummnurse = data;
+        this.nurselist1 = this.dummnurse.filter(x => x.hospitalClinicID == 612)
+
+        this.nursedd = {
+          singleSelection: true,
+          idField: 'nurseID',
+          textField: 'nurseName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true
+        };
+
+
+      }, error => {
+      }
+    )
+  }
+  dummphysiolist: any;
+  public physiolist1: any;
+  public physiodd = {};
+
+
+  public GetAllIndependentphysiotherapits() {
+    this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
+      data => {
+
+        this.dummphysiolist = data;
+        this.physiolist1 = this.dummphysiolist.filter(x => x.hospitalClinicID == 613)
+
+        this.physiodd = {
+          singleSelection: true,
+          idField: 'physiotherapyID',
+          textField: 'name',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true
+        };
+
+      }, error => {
+      }
+    )
+  }
+
+  public dummmidwifes: any;
+  public midwifes1: any;
+  public midwifedd = {};
+
+
+  public GetAllIndependentMidWife() {
+    this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
+      data => {
+
+        this.dummmidwifes = data;
+        this.midwifes1 = this.dummmidwifes.filter(x => x.hospitalClinicID == 614)
+
+        this.midwifedd = {
+          singleSelection: true,
+          idField: 'midWifeID',
+          textField: 'name',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true
+        };
+
+      }, error => {
+      }
+    )
+  }
+
+
+  public ChangAllIndependentPeople(data) {
+    this.monthstartdate = data[0].toLocaleString().split(',')[0];
+    this.monthenddate = data[1].toLocaleString().split(',')[0];
+    this.GetCounts();
+    localStorage.setItem('StartTime', this.startdate)
+    localStorage.setItem('EndDate', this.enddate)
+    this.GetAllIndepenentPeopleRevenue();
+  }
+
+  public IndependentSubscriptionList: any;
+
+  public GetAllIndepenentPeopleRevenue() {
+
+    debugger
+    this.docservice.GetAllIndepenedentSubscriptionRevenue(this.monthstartdate, this.monthenddate, 0).subscribe(
+      data => {
+
+        this.IndependentSubscriptionList = data;
+
+      }, error => {
+      }
+    )
+
+  }
+
+  public typeid: any;
+
+  public GetTypeID(even) {
+    this.typeid = even.target.value;
+  }
+
+
+
+
+  public filterdid: any;
+
+  public GetHomecareTypeID(item: any) {
+    this.filterdid = item.id;
+    this.GetAllIndependentPeopleRevenueByTypeID();
+  }
+
+
+  public GetNurseID(item2:any)
+  {
+    this.filterdid = item2.nurseID;
+    this.GetAllIndependentPeopleRevenueByTypeID();
+  }
+
+  public GetMidWifeID(item3:any)
+  {
+    this.filterdid = item3.midWifeID;
+    this.GetAllIndependentPeopleRevenueByTypeID();
+  }
+
+  public GetPhysiotherapistID(item4:any)
+  {
+    this.filterdid = item4.physiotherapyID;
+    this.GetAllIndependentPeopleRevenueByTypeID();
+  }
+
+  public GetAllIndependentPeopleRevenueByTypeID() {
+    this.docservice.GetAllIndepenedentSubscriptionRevenueByTypeID(this.monthstartdate, this.monthenddate, 0, this.typeid, this.filterdid).subscribe(
+      data => {
+
+        this.IndependentSubscriptionList = data;
+
+      }, error => {
+      }
+    )
+  }
 }

@@ -27,7 +27,7 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-3" *ngIf="id!='undefined'">
+    <div class="col-lg-3" *ngIf="notshowdrop=='1'">
       <select class="form-control" (change)="GetHospitalID($event)">
         <option value="0">Select Hospital/ Clinic</option>
         <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
@@ -53,8 +53,8 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].appointmentyDate}}</th>
-            <th id="imp"  *ngIf="id!='undefined'">Nurse Name</th>
-            <th>Hospital / Clinic Name</th>
+            <th id="imp"  *ngIf="notshowdrop=='1'">Nurse Name</th>
+            <th *ngIf="notshowdrop=='1'">Hospital / Clinic Name</th>
             <th>{{labels[0].patientname}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
@@ -65,8 +65,8 @@
           </tr>
           <tr *ngFor="let app of appointmentreportlist|filter:term">
             <td>{{app.apptDatetime}}</td>
-            <td  *ngIf="id!='undefined'">{{app.nurseName}}</td>
-            <td>{{app.hospital_ClinicName}}</td>
+            <td  *ngIf="notshowdrop=='1'">{{app.nurseName}}</td>
+            <td *ngIf="notshowdrop=='1'">{{app.hospital_ClinicName}}</td>
             <td>{{app.patientName}}</td>
             <td>{{app.mobileNumber}}</td>
             <td>{{app.emailID}}</td>

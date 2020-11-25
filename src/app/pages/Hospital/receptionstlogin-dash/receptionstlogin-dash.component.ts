@@ -71,9 +71,18 @@ export class ReceptionstloginDashComponent implements OnInit {
     this.docservice.UpdateReceiptionistLogin(entity).subscribe(data => {
       if(data!=0)
       {
-        Swal.fire('Updated Successfully');
-        this.getreceptionlogin();
-        document.getElementById('close').click();
+        if(this.languageID==1)
+        {
+          Swal.fire('Updated Successfully');
+          this.getreceptionlogin();
+          document.getElementById('close').click();
+        }
+        else
+        {
+          Swal.fire('','Mis à jour avec succés');
+          this.getreceptionlogin();
+          document.getElementById('close').click();
+        }
    
       }
       else{

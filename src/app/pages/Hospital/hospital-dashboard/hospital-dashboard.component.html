@@ -35,9 +35,9 @@
   <!-- <h3 style="text-align: center;">{{labels[0].docAppts}}</h3> -->
   <br>
   <div class="row">
-   
+
     <div class="col-lg-3" *ngFor="let dets of detailslist">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;height: 188px;" >
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;height: 188px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 14px;">{{dets.doctorName}}</b>
@@ -49,7 +49,7 @@
         </label>
         <br />
         <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;"  routerLink="/DocREports"
+        <label style="color: black;font-size: 30px;color: #f17e2d;" routerLink="/DocREports"
           (click)="GetDoctorID(dets.doctorID)">
           <b>
             <u style="font-size: 20px;">{{dets.count}}</u>
@@ -62,4 +62,117 @@
     </div>
     <br />
   </div>
-</div>
+</div><br>
+
+
+
+
+
+<div class="container-fluid card card-hover">
+  <br>
+  <h3 style="text-align: center;">Home Care Appointments</h3>
+  <br>
+  <div class="row">
+    <div class="col-lg-3" *ngFor="let home of homecarecountslist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;height: 188px;">
+        <!-- <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">{{dets.doctorName}}</b>
+        </label>
+        <br /> -->
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">Doctor Appointments</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" routerLink="/DocREports"
+          (click)="GetDoctorID(dets.doctorID)">
+          <b>
+            <u style="font-size: 20px;">{{home.doctorHomevistappointments}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+      <!-- <p style="margin-left: 56px;margin-top: -16px;">Leads</p> -->
+    </div>
+
+    <div class="col-lg-3" *ngFor="let home of homecarecountslist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;height: 188px;">
+        <!-- <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">{{dets.doctorName}}</b>
+        </label>
+        <br /> -->
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">Nurse Appointments</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" routerLink="/DocREports"
+          (click)="GetDoctorID(dets.doctorID)">
+          <b>
+            <u style="font-size: 20px;">{{home.nurseappcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+      <!-- <p style="margin-left: 56px;margin-top: -16px;">Leads</p> -->
+    </div>
+    
+    <div class="col-lg-3" *ngFor="let home of homecarecountslist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;height: 188px;">
+        <!-- <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">{{dets.doctorName}}</b>
+        </label>
+        <br /> -->
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">Physiotherapist Appointments</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" routerLink="/DocREports"
+          (click)="GetDoctorID(dets.doctorID)">
+          <b>
+            <u style="font-size: 20px;">{{home.physioappcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+      <!-- <p style="margin-left: 56px;margin-top: -16px;">Leads</p> -->
+    </div>
+
+    <div class="col-lg-3" *ngFor="let home of homecarecountslist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;height: 188px;">
+        <!-- <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">{{dets.doctorName}}</b>
+        </label>
+        <br /> -->
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">Midwife Appointments</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;" routerLink="/DocREports"
+          (click)="GetDoctorID(dets.doctorID)">
+          <b>
+            <u style="font-size: 20px;">{{home.midwiveappcount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+      <!-- <p style="margin-left: 56px;margin-top: -16px;">Leads</p> -->
+    </div>
+    <br />
+  </div>
+
+</div><br>

@@ -30,7 +30,7 @@
         <option *ngFor="let doc of doctorlist" value={{doc.id}}>{{doc.doctorName}}</option>
       </select> -->
 
-      <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="doctorlist"
+      <ng-multiselect-dropdown [placeholder]="docselect"  [data]="doctorlist"
         [settings]="docdd" (onSelect)="GetDoctorID($event)">
       </ng-multiselect-dropdown>
     </div>

@@ -3,8 +3,8 @@
     <div class="col-lg-6">
       <!-- <p>Doctor Video</p> -->
       <!-- <br><br> -->
-      <h6 *ngIf="languageid=='1'"><b>Patient Video</b> <b><span style="margin-left: 550px;" id="demo"></span></b> </h6>
-      <h6 *ngIf="languageid=='6'"><b>Vidéo patient</b> <b><span style="margin-left: 550px;" id="demo"></span></b> </h6>
+      <h6 *ngIf="languageid=='1'">Patient Video <span style="margin-left: 550px;" id="demo"></span> </h6>
+      <h6 *ngIf="languageid=='6'">Vidéo patient <span style="margin-left: 550px;" id="demo"></span> </h6>
       <!-- <h6   id="demo"></h6> -->
       <div class="row">
         <div *ngIf="session">
@@ -146,21 +146,21 @@
             <td class="tabletdstyles">
 
               {{labels[0].doyoudrinkalcohol}} :
-              <label *ngIf="alcohol=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="alcohol=='0'"> {{labels[0].yes}}</label>
+              <span *ngIf="alcohol=='1'"> {{labels[0].yes}}</span>
+              <span *ngIf="alcohol=='0'"> {{labels[0].yes}}</span>
 
             </td>
           </tr>
           <tr>
             <td class="tabletdstyles">
 
-              {{labels[0].weight}} : <b>{{wight}}</b>
+              {{labels[0].weight}} : {{wight}}
             </td>
 
             <td class="tabletdstyles">
               {{labels[0].areyoasmoker}} :
-              <label *ngIf="Smoker=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="Smoker=='0'"> {{labels[0].yes}}</label>
+              <span *ngIf="Smoker=='1'"> {{labels[0].yes}}</span>
+              <span *ngIf="Smoker=='0'"> {{labels[0].yes}}</span>
             </td>
           </tr>
           <tr>
@@ -173,8 +173,8 @@
 
               {{labels[0].doyouecescise}} :
 
-              <label *ngIf="exercise=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="exercise=='0'"> {{labels[0].yes}}</label>
+              <span *ngIf="exercise=='1'"> {{labels[0].yes}}</span>
+              <span *ngIf="exercise=='0'"> {{labels[0].yes}}</span>
 
             </td>
           </tr>
@@ -182,8 +182,8 @@
             <td class="tabletdstyles">
               {{labels[0].medicalinsurance}} :
 
-              <label *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</label>
+              <span *ngIf="medicalinsurence=='1'"> {{labels[0].yes}}</span>
+              <span *ngIf="medicalinsurence=='0'"> {{labels[0].yes}}</span>
 
               <!-- {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b> -->
             </td>
@@ -195,14 +195,14 @@
             <td style="text-align: left;border:2px solid">
               {{labels[0].isThePatientPregnant}} :
 
-              <label *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</label>
+              <span *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</span>
+              <span *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</span>
             </td>
             <td class="tabletdstyles">
               Breast feeding :
 
-              <label *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</label>
-              <label *ngIf="breastFeeding=='0'">{{labels[0].no}}</label>
+              <span *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</span>
+              <span *ngIf="breastFeeding=='0'">{{labels[0].no}}</span>
             </td>
           </tr>
           <tr>
@@ -213,12 +213,12 @@
               Photos : <img src="assets/Images/imgicon.png" *ngIf="photoexist=='1'" title="{{labels[0].images}}"
                 (click)="GetImagesID()" data-toggle="modal" data-target="#exampleModalLong2"
                 style="margin: 2%;width: 20px;" />
-              <label style="font-family: Bookman Old Style;" *ngIf="photoexist=='0'">No Photos</label>&nbsp; <br>
+              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;" *ngIf="photoexist=='0'">No Photos</span>&nbsp; <br>
 
               Videos : <img src="assets/Images/showvedio.png" *ngIf="videoexist=='1'" data-toggle="modal"
                 data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetVedioID()" />&nbsp;
-              <label style="font-family: Bookman Old Style;" *ngIf="videoexist=='0'">No Videos</label>
+              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;" *ngIf="videoexist=='0'">No Videos</span>
 
             </td>
           </tr>

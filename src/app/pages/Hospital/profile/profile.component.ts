@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   public validEmail: any;
   public showdrop: any;
   public id: any;
-  public showphoto=[];
+  public showphoto = [];
   public multiplephotos: any;
   public mulphoto: any;
   public multipleid: any;
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
 
   public attachments5 = [];
   public attachmentsurl5 = [];
-  dropzonelable:any;
+  dropzonelable: any;
   ngOnInit() {
 
     this.spinner.show();
@@ -69,19 +69,17 @@ export class ProfileComponent implements OnInit {
 
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
 
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
 
@@ -91,7 +89,7 @@ export class ProfileComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
       }, error => {
       }
@@ -99,16 +97,16 @@ export class ProfileComponent implements OnInit {
   }
 
   public GetCountryID(even) {
-   
+
     this.countryid = even.target.value;
     this.getcitymaster()
-   
+
   }
 
   public getcitymaster() {
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -116,7 +114,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public GetCityID(even) {
-   
+
     this.cityid = even.target.value;
     this.getareamasterbyid()
   }
@@ -125,9 +123,9 @@ export class ProfileComponent implements OnInit {
   public gethospitalclinicdetailsbyid() {
     this.docservice.GetHospital_ClinicDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
-       
+
         this.details = data[0];
-       
+
         this.hospitalname = this.details.hospital_ClinicName,
           this.phno = this.details.phoneNo,
           this.contactpersonname = this.details.contactPersonName,
@@ -156,7 +154,7 @@ export class ProfileComponent implements OnInit {
     )
   }
   public updatedetails() {
-   
+
     var entity = {
       'LanguageID': this.languageid,
       'Hospital_ClinicID': this.id,
@@ -180,7 +178,12 @@ export class ProfileComponent implements OnInit {
       let test = res;
       this.gethospitalclinicdetailsbyid();
       this.GetMultiplePhotos()
-      Swal.fire(' Updated Successfully');
+      if (this.languageid == 1) {
+        Swal.fire(' Updated Successfully');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succés');
+      }
     })
 
   }
@@ -188,44 +191,51 @@ export class ProfileComponent implements OnInit {
     this.showdrop = 1;
   }
 
-public showphotosss=[]
+  public showphotosss = []
 
-public dummshowphotossss=[]
+  public dummshowphotossss = []
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
+    debugger
+    this.dummshowphotossss = []
+    this.attachments.push(abcd.addedFiles[0]);
+    debugger
+    debugger
+    if (this.attachments[0].type == 'image/jpg' || this.attachments[0].type == 'image/png') {
       debugger
-      this.dummshowphotossss=[]
-      this.attachments.push(abcd.addedFiles[0]);
-      debugger
-      debugger
-      if(this.attachments[0].type=='image/jpg' ||this.attachments[0].type=='image/png')
-      {
+      if (this.languageid == 1) {
         debugger
-        if(this.languageid==1)
-        {
-          debugger
-          this.uploadattachments();
-          Swal.fire('Added Successfully');
-          abcd.length = 0;
-        }
-        else if(this.languageid==6)
-        {
-          this.uploadattachments();
-          Swal.fire('Ajouté avec succès');
-          abcd.length = 0;
-        }
+        this.uploadattachments();
+        Swal.fire('Added Successfully');
+        abcd.length = 0;
       }
-      else{
-        debugger
+      else if (this.languageid == 6) {
+        this.uploadattachments();
+        Swal.fire('Ajouté avec succès');
+        abcd.length = 0;
+      }
+    }
+    else {
+      debugger
+      if(this.languageid==1)
+      {
         Swal.fire('Please Add Jpg/Png Format');
         abcd.length = 0;
         this.attachments.length = 0;
       }
-      debugger
-    // }
+      else
+      {
+        Swal.fire('Ajouter uniquement le format JPEG / PNG');
+        abcd.length = 0;
+        this.attachments.length = 0;
+      }
   
+    }
+    debugger
+    // }
+
   }
   public uploadattachments() {
     debugger
@@ -234,38 +244,43 @@ public dummshowphotossss=[]
       this.attachmentsurl.push(res);
       this.dummshowphotossss.push(res);
       let a = this.dummshowphotossss[0].slice(2);
-     debugger
+      debugger
       let b = 'http://14.192.17.225' + a;
       this.showphotosss.push(b);
       debugger
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
 
   public updatephoto() {
-   
+
     var entity = {
       'ID': this.id,
       'HospitalLogoUrl': this.attachmentsurl[0]
     }
     this.docservice.UpdateHospital_ClinicDetailsMasterPhoto(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Updated Successfully');
+      if (this.languageid == 1) {
+        Swal.fire(' Updated Successfully');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succés');
+      }
       this.gethospitalclinicdetailsbyid();
       this.showdrop = 0;
-      this.dummshowphotossss.length=0;
-      this.showphotosss.length=0;
+      this.dummshowphotossss.length = 0;
+      this.showphotosss.length = 0;
     })
   }
 
 
   public GetMultiplePhotos() {
-   
+
     this.docservice.GetHospital_ClinicPhotosByHospitalclinicID(this.id).
       subscribe(data => {
-       
+
         this.multiplephotos = data;
         //  this.mulphoto = this.multiplephotos.photoURL
       }, error => {
@@ -274,41 +289,46 @@ public dummshowphotossss=[]
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
       }, error => {
       }
     )
   }
   public GetAreaID(even) {
-   
+
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
   }
   public GetHospitalID(hospitalid) {
-   
+
     this.multipleid = hospitalid;
     this.mulbit = 1;
   }
 
   public UpdateMultiplePhotos() {
-   
+
     var entity = {
       'ID': this.multipleid,
       'PhotoURL': this.attachmentsurl[0]
     }
     this.docservice.UpdateHospital_ClinicPhotos(entity).subscribe(res => {
       let test = res;
-      Swal.fire('Updated Successfully');
+      if (this.languageid == 1) {
+        Swal.fire(' Updated Successfully');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succés');
+      }
 
       this.GetMultiplePhotos();
       this.mulbit = 0;
@@ -318,25 +338,23 @@ public dummshowphotossss=[]
 
 
 
-public dummshowsignatureurl=[]
+  public dummshowsignatureurl = []
 
-public showphotoss=[]
+  public showphotoss = []
 
 
   public onattachmentUploadhospitals(abcd) {
     this.dummshowsignatureurl = []
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments5.push(abcd.addedFiles[0]);
-      this.uploadmoreimages();
+    this.attachments5.push(abcd.addedFiles[0]);
+    this.uploadmoreimages();
     // }
     debugger
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire('Ajouté avec succès.');
       abcd.length = 0;
     }
@@ -353,7 +371,7 @@ public showphotoss=[]
       let b = 'http://14.192.17.225' + a;
       this.showphotoss.push(b)
       this.attachments5.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -366,9 +384,17 @@ public showphotoss=[]
         'PhotoURL': this.attachmentsurl5[i]
       }
       this.docservice.InsertHospital_ClinicPhotos(entity).subscribe(data => {
-       
+
         if (data != 0) {
-          Swal.fire('Completed', 'Photos Added Successfully');
+          if(this.languageid==1)
+          {
+            Swal.fire('Completed', 'Photos Added Successfully');
+          }
+          else
+          {
+            Swal.fire('', 'Mis à jour avec succés');
+          }
+        
         }
       })
     }

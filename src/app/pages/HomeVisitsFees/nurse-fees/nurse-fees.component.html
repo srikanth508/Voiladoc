@@ -99,7 +99,7 @@
     </div>
   </div>
   <br> -->
-  <div class="row" *ngIf="independent=='2'">
+  <!-- <div class="row" *ngIf="independent=='2'">
     <div class="col-lg-3">
       <label>Subscription Type :</label>
       <span class="required">*</span>
@@ -231,7 +231,7 @@
       </div>
     </div>
     <br />
-  </div><br>
+  </div><br> -->
   <div class="row">
     <div class="col-lg-5">
     </div>
@@ -239,7 +239,7 @@
       <button type="button"  *ngIf="showbutton=='0'" text_align="center" class="btn btn-block btn-md allbtns btncolor"
         (click)="insertdetails()" [disabled]="FeesForm.form.invalid">{{labels[0].save}}</button>
         <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        *ngIf="showbutton=='1'" [disabled]="FeesForm.form.invalid"  (click)="updatedetails()">Update</button>
+        *ngIf="showbutton=='1'" [disabled]="FeesForm.form.invalid"  (click)="updatedetails()">{{labels[0].update}}</button>
     </div>
     <div class="col-lg-5">
     </div>

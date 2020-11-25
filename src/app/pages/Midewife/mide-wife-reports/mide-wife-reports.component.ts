@@ -33,6 +33,7 @@ export class MideWifeReportsComponent implements OnInit {
   public sdate: any;
   public edate: any;
   public listid: any;
+  public showdropdown:any;
   ngOnInit() {
 
     this.options = {
@@ -83,11 +84,12 @@ export class MideWifeReportsComponent implements OnInit {
 
     if (this.listid == undefined) {
       this.GetAppointmentReportsList();
+   
     }
     else {
       this.docservice.GetBook_Book_Midwives_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-
+          this.showdropdown=1
           this.appointmentreportlist = data;
           this.dummlist = this.appointmentreportlist
         }, error => {

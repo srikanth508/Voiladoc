@@ -107,9 +107,18 @@ export class DoctorComponent implements OnInit {
          
           if (data != 0) {
             // Swal.fire('Added Successfully.');
-            Swal.fire('Completed', 'Doctor saved successfully', 'success');
-            location.href = "#/Doctordash"
-            this.pp = 0;
+            if(this.languageid==1)
+            {
+              Swal.fire('Completed', 'Doctor saved successfully', 'success');
+              location.href = "#/Doctordash"
+              this.pp = 0;
+            }
+            else{
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              location.href = "#/Doctordash"
+              this.pp = 0;
+            }
+          
           }
           else {
             Swal.fire("Doctor Login Already Exists");

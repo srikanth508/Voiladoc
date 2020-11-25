@@ -109,8 +109,16 @@ export class NurseLoginComponent implements OnInit {
         this.docservice.InsertNurseLogin(entity).subscribe(data => {
          
           if (data != 0) {
-            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-            location.href="#/NurseLoginDashboard"
+            if(this.languageid==1)
+            {
+              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+              location.href="#/NurseLoginDashboard"
+            }
+            else{
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              location.href="#/NurseLoginDashboard"
+            }
+        
           }
           else {
             Swal.fire("Nurse Login Already Exists");

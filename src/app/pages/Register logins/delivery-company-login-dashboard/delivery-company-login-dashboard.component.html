@@ -71,7 +71,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Password</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].editPassword}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -107,7 +107,9 @@
             </div>
             <div class="col-lg-2">
               <button type="button"  class="btn allbtns btncolor"
-                (click)="insertdetails()"   [disabled]="doctorForm.form.invalid">Update</button>
+                (click)="insertdetails()"   [disabled]="doctorForm.form.invalid">
+                {{labels[0].update}}
+                </button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -115,7 +117,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="close"  class="btn btncolor" data-dismiss="modal">Close</button>
+        <button type="button" id="close"  class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

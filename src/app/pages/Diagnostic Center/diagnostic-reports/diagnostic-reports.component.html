@@ -78,7 +78,7 @@
         <tr>
           <th id="imp">{{labels[0].ordedate}}</th>
           <th id="imp">{{labels[0].orderNumber}}</th>
-          <th id="imp">Diagnostic Center Name</th>
+          <th id="imp" *ngIf="showdrop=='1'">Diagnostic Center Name</th>
           <th>{{labels[0].patientname}}</th>
           <th>{{labels[0].phoneNo}}</th>
           <th>{{labels[0].emailId}}</th>
@@ -92,7 +92,7 @@
         <tr *ngFor="let details of Approvelist|filter:term">
           <td>{{details.appdate}}</td>
           <td>{{details.id}}</td>
-          <td>{{details.diagnosticCenterName}}</td>
+          <td *ngIf="showdrop=='1'">{{details.diagnosticCenterName}}</td>
           <td>{{details.patientName}}</td>
           <td>{{details.mobileNumber}}</td>
           <td>{{details.emailID}}</td>

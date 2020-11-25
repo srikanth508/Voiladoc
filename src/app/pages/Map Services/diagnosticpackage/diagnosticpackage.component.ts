@@ -213,11 +213,20 @@ export class DiagnosticpackageComponent implements OnInit {
       this.docservice.InsertDiagnosticPackageRelatedTests(gh).subscribe(data => {
 
         if (data != 0) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-          this.tablecount = 0;
-          this.testid.length = 0;
-          this.spinner.hide();
-          location.href = "#/DiagnosticPackageDash"
+          if (this.languageid == 1) {
+            Swal.fire('Completed', 'Details saved successfully', 'success');
+            this.tablecount = 0;
+            this.testid.length = 0;
+            this.spinner.hide();
+            location.href = "#/DiagnosticPackageDash"
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            this.tablecount = 0;
+            this.testid.length = 0;
+            this.spinner.hide();
+            location.href = "#/DiagnosticPackageDash"
+          }
         }
       })
     }

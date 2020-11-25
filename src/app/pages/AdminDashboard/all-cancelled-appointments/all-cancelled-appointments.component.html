@@ -1,0 +1,93 @@
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-6">
+      <!-- <h5>{{labels[0].appointmentreports}}</h5> -->
+      <h5>Cancelled Appointments</h5>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <!-- <div class="col-lg-2">
+    </div> -->
+    <div class="col-lg-2">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="Gettypeid($event)" [(ngModel)]="typeid" name="typeid">
+        <option selected value="0">{{labels[0].select}}</option>
+        <option value="1">Doctor</option>
+        <option value="2">Nurse</option>
+        <option value="3">Physiotherapist</option>
+        <option value="4">Midwife</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <label>Paid Amount : {{paidamount}}</label>
+      <label style="margin-left: 58px;">Count : {{count}}</label>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="MidWife">
+        <thead>
+          <tr>
+            <th id="imp">{{labels[0].appointmentdate}}</th>
+            <th>{{labels[0].appointmentID}}</th>
+            <th>Type</th>
+            <th *ngIf="typeid=='1'">Doctor Name</th>
+            <th *ngIf="typeid=='2'">Nurse Name</th>
+            <th *ngIf="typeid=='3'">Physiotherapist Name</th>
+            <th *ngIf="typeid=='4'">Midwife Name</th>
+            <th *ngIf="typeid=='1'">Appointment Type</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].phoneno}}</th>
+            <th>{{labels[0].email}}</th>
+            <th>{{labels[0].address}}</th>
+            <th id="imp">{{labels[0].appointmentTime}}</th>
+            <th>{{labels[0].reason}}</th>
+            <th>{{labels[0].status}}</th>
+          </tr>
+          <tr *ngFor="let app of appointmentreportlist|filter:term">
+            <td>{{app.appdate}}</td>
+            <td>{{app.id}}</td>
+            <td>{{app.typeName}}</td>
+            <td>{{app.provdername}}</td>
+            <td *ngIf="typeid=='1'">{{app.combinationValue}}</td>
+            <td>{{app.patientName}}</td>
+            <td>{{app.mobileNumber}}</td>
+            <td>{{app.emailID}}</td>
+            <td>{{app.address}}</td>
+            <td>{{app.bookedtime}}</td>
+            <td>{{app.reasonForCancel}}</td>
+            <td style="color:red">
+              {{app.status}}
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>

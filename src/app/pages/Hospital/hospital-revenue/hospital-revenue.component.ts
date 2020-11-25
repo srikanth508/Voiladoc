@@ -82,7 +82,7 @@ export class HospitalRevenueComponent implements OnInit {
       }, error => {
       }
     )
-    this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
+    this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
        
         this.detailslist1 = data;
@@ -118,6 +118,7 @@ export class HospitalRevenueComponent implements OnInit {
     this.homecarerev = this.NurseRevenueCount + this.PhysioRevenue;
   }
 
+
   homecareappointment
   public homecareAppointments() {
     this.docservice.GetNurse_AppointmentCounts(this.hospitalid).subscribe(
@@ -135,7 +136,6 @@ export class HospitalRevenueComponent implements OnInit {
       }, error => {
       }
     )
-
     this.homecareappointment = this.NurseAppointmentsCount + this.physioAppointmentsCount;
   }
 
@@ -144,7 +144,7 @@ export class HospitalRevenueComponent implements OnInit {
       data => {
        
         this.detailslist = data;
-        this.totalreveue = Number(this.detailslist[0].inclinicRevenue) + Number(this.detailslist[0].vedioconferenceRevenue) + Number(this.detailslist[0].homeVisitRevenue),
+        this.totalreveue = Number(this.detailslist[0].inclinicRevenue) + Number(this.detailslist[0].vedioconferenceRevenue) + Number(this.detailslist[0].homeVisitRevenue)+Number(this.detailslist[0].nurseRevenue)+Number(this.detailslist[0].midwifehospitalrevenue)+Number(this.detailslist[0].physiohospitlrevenue),
           this.totalappointments = Number(this.detailslist[0].clicniccount) + Number(this.detailslist[0].vedocallappointmentcount) + Number(this.detailslist[0].homeVisitAppointments)
 
       }, error => {
@@ -159,7 +159,7 @@ export class HospitalRevenueComponent implements OnInit {
     // this.enddate = sdate[1];
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
-    this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
+    this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
        
         this.detailslist1 = data;

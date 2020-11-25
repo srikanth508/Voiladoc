@@ -51,11 +51,9 @@ export class TotalHospitalApointmentsComponent implements OnInit {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
            
-            this.Revenuelist = data;
             this.filterdummrevenuelist = data;
+            this.Revenuelist =  this.filterdummrevenuelist.filter(x=>x.isVisited==1)
             this.count = this.Revenuelist.length;
-
-
             // this.grandtotal=0
             this.grandtotal = this.Revenuelist.map(a => a.paidAmount).reduce(function (a, b) {
               return a + b;
