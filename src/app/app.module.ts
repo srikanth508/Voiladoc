@@ -351,6 +351,8 @@ import { NurseCancelledAppComponent } from './pages/Nurse/nurse-cancelled-app/nu
 import { CancelledmidwifeAppsComponent } from './pages/Midewife/cancelledmidwife-apps/cancelledmidwife-apps.component';
 import { CancelledPhysioappointmentsComponent } from './pages/physiotherapist/cancelled-physioappointments/cancelled-physioappointments.component';
 import { AllCancelledAppointmentsComponent } from './pages/AdminDashboard/all-cancelled-appointments/all-cancelled-appointments.component';
+import { MyTeamComponent } from './pages/Diagnostic Center/my-team/my-team.component';
+import { MyTeamDashboardComponent } from './pages/Diagnostic Center/my-team-dashboard/my-team-dashboard.component';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -695,6 +697,8 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     CancelledmidwifeAppsComponent,
     CancelledPhysioappointmentsComponent,
     AllCancelledAppointmentsComponent,
+    MyTeamComponent,
+    MyTeamDashboardComponent,
    
   ],
   imports: [

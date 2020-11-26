@@ -326,6 +326,8 @@ import { NurseCancelledAppComponent } from './pages/Nurse/nurse-cancelled-app/nu
 import { CancelledmidwifeAppsComponent } from './pages/Midewife/cancelledmidwife-apps/cancelledmidwife-apps.component';
 import { CancelledPhysioappointmentsComponent } from './pages/physiotherapist/cancelled-physioappointments/cancelled-physioappointments.component';
 import { AllCancelledAppointmentsComponent } from './pages/AdminDashboard/all-cancelled-appointments/all-cancelled-appointments.component';
+import { MyTeamDashboardComponent } from './pages/Diagnostic Center/my-team-dashboard/my-team-dashboard.component';
+import { MyTeamComponent } from './pages/Diagnostic Center/my-team/my-team.component';
 
 
 
@@ -733,6 +735,8 @@ const routes: Routes = [
   { path: 'CancelledPhysioappointments', component: CancelledPhysioappointmentsComponent },
   { path: 'AllCancelledAppointments', component: AllCancelledAppointmentsComponent },
   
+  { path: 'MyTeamDashboard', component: MyTeamDashboardComponent },
+  { path: 'MyTeam', component: MyTeamComponent },
 ];
 
 @NgModule({

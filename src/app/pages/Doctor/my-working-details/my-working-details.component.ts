@@ -3,6 +3,7 @@ import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-my-working-details',
   templateUrl: './my-working-details.component.html',
@@ -98,7 +99,9 @@ export class MyWorkingDetailsComponent implements OnInit {
   eveningappointmentType: any;
   nightappointmenttype: any;
   public appointmentypeid: any;
-
+  public Timings:any;
+  public search:any;
+  
   ngOnInit() {  
    
     this.doctorid = localStorage.getItem('userid');
@@ -110,10 +113,13 @@ export class MyWorkingDetailsComponent implements OnInit {
         this.workingdetails = data;
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
         this.slottypeid=list[0].slotDurationID
-        this.GetMorningSlotsMasterbyid();
-        this.GetAfternoonSlotsMasterbyID();
-        this.GetEveningSlotsMasterByID();
-        this.GetNightSlotsMasterByID();
+        this.spinner.show();
+        this.GetDoctorTimings();
+
+        // this.GetMorningSlotsMasterbyid();
+        // this.GetAfternoonSlotsMasterbyID();
+        // this.GetEveningSlotsMasterByID();
+        // this.GetNightSlotsMasterByID();
       }, error => {
       }
     )
@@ -125,6 +131,23 @@ export class MyWorkingDetailsComponent implements OnInit {
     this.GetDaysMaster()
     this.getlanguage();
   }
+
+
+  public GetDoctorTimings()
+{
+  debugger
+  this.docservice.GetDoctorSlotsByDoctorID(this.doctorid,this.slottypeid,this.languageid).subscribe(
+    data => {
+      debugger
+      this.Timings = data;
+      this.spinner.hide();
+    }, error => {
+    }
+  )
+}
+
+
+
 
 
   public GetDaysMaster() {

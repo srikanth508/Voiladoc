@@ -8,7 +8,7 @@ import { pipeDef } from '@angular/core/src/view';
 })
 
 export class HelloDoctorService {
-  // public host5 = "http://localhost:4199/";
+   public host5 = "http://localhost:4199/";
   //public host1 = "http://localhost:4199/";
   //latestsoln date 29-07-2020
 
@@ -4748,15 +4748,45 @@ export class HelloDoctorService {
   //   return this.http.post(this.url, list1,list2)
   // }
   
-
   public GetAllCancelledAppoentmentReport(typeid,sdate,edate,lid) {
     
     return this.http.get<any[]>(this.host + '/Hospital/GetAllCancelledAppoentmentReport?TypeID='+typeid+'&Sdate='+sdate+'&Edate='+edate+'&LanguageID='+lid);
   }
 
-  
+
   public InsertDoctorSlotsNew(list1,list2,did) {
     debugger
     return this.http.get<any[]>(this.host + '/Hospital/InsertDoctorSlotsNew?dayslist='+list1+'&slotslist='+list2+'&DoctorID='+did);
   }
+
+  public GetDoctorSlotsByDoctorID(doctorid,slottypeid,lid) {
+    
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorSlotsByDoctorID?DoctorID='+doctorid+'&SlotTypeID='+slottypeid+'&LanguageID='+lid);
+  }
+
+  public GetDoctorcalenderSlotsByDoctorID(doctorid,slottypeid,startdate,lid) {
+    
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorcalenderSlotsByDoctorID?DoctorID='+doctorid+'&SlotTypeID='+slottypeid+'&StartDate='+startdate+'&LanguageID='+lid);
+  }
+
+
+
+  public InsertMyTeam(data) {
+    this.url = this.host + '/Master/InsertMyTeam';
+    return this.http.post(this.url, data)
+  }
+  public UpdateMyTeam(data) {
+    this.url = this.host + '/Hospital/UpdateMyTeam';
+    return this.http.post(this.url, data)
+  }
+  public GetMyTeam(did) {
+    
+    return this.http.get<any[]>(this.host + '/Master/GetMyTeam?DiagnosticID='+did);
+  }
+
+  public DeleteMyTeam(id) {
+
+    return this.http.get<any[]>(this.host + '/Master/DeleteMyTeam?ID=' + id);
+  }
+
 }

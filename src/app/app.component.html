@@ -816,7 +816,7 @@
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button>
                             <button class="chatnow" data-dismiss="modal" style="float: right;"
-                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)">Seen all</button>
+                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)">{{labels[0].seenAll}}</button>
                         </div>
                         <div *ngIf="nurseid!=undefined||midwifeid!=undefined||physioid!=undefined">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"

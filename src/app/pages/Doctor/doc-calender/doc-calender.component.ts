@@ -20,13 +20,22 @@ export class DocCalenderComponent implements OnInit {
   year: any;
   labels: any;
   Select: any;
+  public enddate: any;
 
   ngOnInit() {
 
-
-
     this.doctorid = localStorage.getItem('userid');
     this.languageid = localStorage.getItem('LanguageID');
+
+
+    var future = new Date(); // get today date
+    debugger
+    future.setDate(future.getDate() + 7);
+
+    // this.TodatDate = new Date();
+    // debugger
+    // this.enddate = date.setDate(date.getDate() + 7);
+    // debugger
 
 
     this.docservice.GetDoctorHospitalDetailsWeb(this.doctorid, this.languageid).subscribe(
@@ -34,7 +43,7 @@ export class DocCalenderComponent implements OnInit {
         ;
         this.workingdetails = data;
       })
-      
+
     this.getlanguage()
 
     this.timeSheetTablearray = [];
@@ -46,17 +55,20 @@ export class DocCalenderComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     this.month = date.getMonth();
     this.year = date.getFullYear();
 
-    var startdate = new Date(this.year, this.month, 1);
+
+
+
+
+
+    var startdate = new Date(this.year, this.TodatDate, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-   
-    var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
-
+    var lastDay = new Date(this.year, this.TodatDate + 7, 0).getDate();
 
     for (let h = 0; h < lastDay; h++) {
 
@@ -86,7 +98,7 @@ export class DocCalenderComponent implements OnInit {
 
       // let kkk = this.timeSheetTablearray[t]._fulldate;
       // let validatedate = kkk.substring(0, 10);
-    
+
       // let validatedate = kkk.substring(0, 10);
       // this.timeSheetTablearray[t]["_day"] = validatedate;
       // let kk = this.workingdetails.filter(x => x.day == validatedate);
@@ -107,7 +119,7 @@ export class DocCalenderComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.Select = this.labels[0].selectt;
       }, error => {
@@ -125,16 +137,16 @@ export class DocCalenderComponent implements OnInit {
       this.disablelist = data;
 
       for (let t = 0; t < this.timeSheetTablearray.length; t++) {
-       
+
 
         let kkk = this.timeSheetTablearray[t]._fulldate;
         let validatedate = kkk.substring(0, 10);
-       
+
         this.timeSheetTablearray[t]["_fulldate"] = validatedate;
 
         let zz = this.disablelist.filter(x => x.date == validatedate && x.doctorID == this.doctorid);
-       
-       
+
+
         if (zz.length > 0) {
           for (let i = 0; i < zz.length; i++) {
 
@@ -175,7 +187,7 @@ export class DocCalenderComponent implements OnInit {
             }
           }
 
-         
+
         }
         else {
 
@@ -209,43 +221,42 @@ export class DocCalenderComponent implements OnInit {
           let kk = this.workingdetails.filter(x => x.day == validatedate);
 
           if (kk.length > 0) {
-            if (kk[0].dayOfTheWeek != undefined)
-            {
-             
-             this.timeSheetTablearray[t]["day"] = kk[0].day;
-            this.timeSheetTablearray[t]["mrngStartTime"] = kk[0].mrngStartTime;
-            this.timeSheetTablearray[t]["mrngEndTime"] = kk[0].mrngEndTime;
-            this.timeSheetTablearray[t]["noonStartTime"] = kk[0].noonStartTime;
-            this.timeSheetTablearray[t]["noonEndTime"] = kk[0].noonEndTime;
-            this.timeSheetTablearray[t]["evngStartTime"] = kk[0].evngStartTime;
-            this.timeSheetTablearray[t]["evngEndTime"] = kk[0].evngEndTime;
-            this.timeSheetTablearray[t]["nightStartTime"] = kk[0].nightStartTime;
-            this.timeSheetTablearray[t]["nightEndTime"] = kk[0].nightEndTime;
-            this.timeSheetTablearray[t]["doctorName"] = kk[0].doctorName;
-            this.timeSheetTablearray[t]["hospital_ClinicName"] = kk[0].hospital_ClinicName;
-            this.timeSheetTablearray[t]["doctorHospitalDetailsID"] = kk[0].doctorHospitalDetailsID;
+            if (kk[0].dayOfTheWeek != undefined) {
 
-            this.timeSheetTablearray[t]["mrngAppointtypeID"] = kk[0].mrngAppointtypeID;
-            this.timeSheetTablearray[t]["afternoonAppointmentTypeID"] = kk[0].afternoonAppointmentTypeID;
-            this.timeSheetTablearray[t]["eveningAppointmentTypeID"] = kk[0].eveningAppointmentTypeID;
-            this.timeSheetTablearray[t]["nightAppointmentTypeID"] = kk[0].nightAppointmentTypeID;
-            // this.timeSheetTablearray[t]["mtextcolor"] = kk[0].mtextcolor;
-            // this.timeSheetTablearray[t]["atextcolor"] = kk[0].atextcolor;
-            // this.timeSheetTablearray[t]["etextcolor"] = kk[0].etextcolor;
-            // this.timeSheetTablearray[t]["ntextcolor"] = kk[0].ntextcolor;
+              this.timeSheetTablearray[t]["day"] = kk[0].day;
+              this.timeSheetTablearray[t]["mrngStartTime"] = kk[0].mrngStartTime;
+              this.timeSheetTablearray[t]["mrngEndTime"] = kk[0].mrngEndTime;
+              this.timeSheetTablearray[t]["noonStartTime"] = kk[0].noonStartTime;
+              this.timeSheetTablearray[t]["noonEndTime"] = kk[0].noonEndTime;
+              this.timeSheetTablearray[t]["evngStartTime"] = kk[0].evngStartTime;
+              this.timeSheetTablearray[t]["evngEndTime"] = kk[0].evngEndTime;
+              this.timeSheetTablearray[t]["nightStartTime"] = kk[0].nightStartTime;
+              this.timeSheetTablearray[t]["nightEndTime"] = kk[0].nightEndTime;
+              this.timeSheetTablearray[t]["doctorName"] = kk[0].doctorName;
+              this.timeSheetTablearray[t]["hospital_ClinicName"] = kk[0].hospital_ClinicName;
+              this.timeSheetTablearray[t]["doctorHospitalDetailsID"] = kk[0].doctorHospitalDetailsID;
 
-            this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
+              this.timeSheetTablearray[t]["mrngAppointtypeID"] = kk[0].mrngAppointtypeID;
+              this.timeSheetTablearray[t]["afternoonAppointmentTypeID"] = kk[0].afternoonAppointmentTypeID;
+              this.timeSheetTablearray[t]["eveningAppointmentTypeID"] = kk[0].eveningAppointmentTypeID;
+              this.timeSheetTablearray[t]["nightAppointmentTypeID"] = kk[0].nightAppointmentTypeID;
+              // this.timeSheetTablearray[t]["mtextcolor"] = kk[0].mtextcolor;
+              // this.timeSheetTablearray[t]["atextcolor"] = kk[0].atextcolor;
+              // this.timeSheetTablearray[t]["etextcolor"] = kk[0].etextcolor;
+              // this.timeSheetTablearray[t]["ntextcolor"] = kk[0].ntextcolor;
 
-            this.timeSheetTablearray[t]["nomrngslots"] = kk[0].nomrngslots;
-            this.timeSheetTablearray[t]["noafternoonslots"] = kk[0].noafternonslots;
-            this.timeSheetTablearray[t]["noevengslots"] = kk[0].noeveningslots;
-            this.timeSheetTablearray[t]["nonightslots"] = kk[0].nonightslots;
+              this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
 
+              this.timeSheetTablearray[t]["nomrngslots"] = kk[0].nomrngslots;
+              this.timeSheetTablearray[t]["noafternoonslots"] = kk[0].noafternonslots;
+              this.timeSheetTablearray[t]["noevengslots"] = kk[0].noeveningslots;
+              this.timeSheetTablearray[t]["nonightslots"] = kk[0].nonightslots;
 
 
 
+
+            }
           }
-        }
         }
 
       }, error => {
@@ -258,7 +269,7 @@ export class DocCalenderComponent implements OnInit {
   date: any;
 
   public GetDisableslots(doctorHospitalDetailsID, timeid, date) {
-   
+
     this.dochosptailid = doctorHospitalDetailsID;
     this.timeid = timeid;
     this.date = date;
@@ -293,7 +304,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public GetDeleteSlots(doctorHospitalDetailsID, timeid, date) {
-   
+
     this.dochosptailid = doctorHospitalDetailsID;
     this.timeid = timeid;
     this.date = date;
@@ -302,7 +313,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public getdeleteslots() {
-   
+
     this.docservice.DeleteDisableSlots(this.dochosptailid, this.doctorid, this.timeid, this.date).subscribe(data => {
       if (this.languageid == 1) {
         Swal.fire('Enabled Successfully');
@@ -328,7 +339,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public GetDeleteAllSlotsDay() {
-   
+
     this.timeid = 0
     for (let i = 0; i < 4; i++) {
       this.timeid = this.timeid + 1
@@ -393,7 +404,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public ChangeMonth(even) {
-   
+
     this.month = even.target.value;
     this.timeSheetTablearray = [];
     this.TodatDate = new Date();
@@ -405,13 +416,13 @@ export class DocCalenderComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(date.getFullYear(), this.month, 1);
     var Lastdate;
     var firstDay = new Date(date.getFullYear(), this.month, 1).getDate();
-   
+
     var lastDay = new Date(date.getFullYear(), this.month + 1, 0).getDate();
 
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
@@ -431,7 +442,7 @@ export class DocCalenderComponent implements OnInit {
 
 
       let date = startdate.getDate();
-     
+
 
       let month = new Date(startdate).toDateString().substring(4, 7);
 
@@ -466,13 +477,13 @@ export class DocCalenderComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-   
+
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
 
@@ -492,7 +503,7 @@ export class DocCalenderComponent implements OnInit {
 
 
       let date = startdate.getDate();
-     
+
       this.showmonth = new Date(startdate).toDateString().substring(4, 7);
       let month = new Date(startdate).toDateString().substring(4, 7);
 

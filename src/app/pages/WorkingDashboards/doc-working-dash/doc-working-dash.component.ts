@@ -139,7 +139,12 @@ export class DocWorkingDashComponent implements OnInit {
         }
       )
     }
+
+
   }
+
+
+
 
   public getdoctorforadmin() {
 
@@ -220,21 +225,42 @@ export class DocWorkingDashComponent implements OnInit {
 
   public GetDoctorID(item: any) {
     this.doctorid = item.id
-    this.GetDoctorsworkinglist()
-
+    this.spinner.show();
+    // this.GetDoctorsworkinglist()
+    debugger
     this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
       data => {
+        debugger
         this.workingdetails = data;
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
-        this.slottypeid = list[0].slotDurationID
-        this.GetMorningSlotsMasterbyid();
-        this.GetAfternoonSlotsMasterbyID();
-        this.GetEveningSlotsMasterByID();
-        this.GetNightSlotsMasterByID();
+        this.slottypeid = list[0].slotDurationID;
+        // this.GetMorningSlotsMasterbyid();
+        // this.GetAfternoonSlotsMasterbyID();
+        // this.GetEveningSlotsMasterByID();
+        // this.GetNightSlotsMasterByID();
+        this.GetDoctorTimings();
+      
       }, error => {
       }
     )
   }
+
+
+  public Timings:any;
+
+public GetDoctorTimings()
+{
+  debugger
+  this.docservice.GetDoctorSlotsByDoctorID(this.doctorid,this.slottypeid,this.languageid).subscribe(
+    data => {
+      debugger
+      this.Timings = data;
+      this.spinner.hide();
+    }, error => {
+    }
+  )
+}
+
 
 
   public GetDoctorsworkinglist() {

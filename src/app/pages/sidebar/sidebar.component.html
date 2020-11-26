@@ -719,6 +719,10 @@
                 <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].offers}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/MyTeamDashboard">
+                <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp;  {{labels[0].myTeam}} 
+            </a>
+
             <!-- PHARMACY -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/Pharmacyprofile">
                 <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myProfile}}

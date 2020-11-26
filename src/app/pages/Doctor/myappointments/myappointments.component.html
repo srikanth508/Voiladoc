@@ -117,7 +117,7 @@
               <!-- [routerLink]="['/Mychats',details.doctorID,details.patientID]" -->
               <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
               <button type="button" class="strtchatbtn" [ngbTooltip]="tipcontent36"
-                *ngIf="details.appointmentTypeID=='2'&&details.disableall=='1'"
+                *ngIf="details.appointmentTypeID=='2'&&details.disableall=='1'&&details.cancelled=='0'&&details.docCancelled=='0'"
                 (click)="GetChatShowID(details.patientID,details.appdate,details.slots,details.pEmail,details.appointmentID)">{{labels[0].chat}}</button>
             </td>
             <td>{{details.appointmentID}}</td>
@@ -3405,7 +3405,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Early call</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].earlyCall}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
