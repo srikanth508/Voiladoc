@@ -63,11 +63,11 @@
     <div class="col-lg-4">
       <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate" name="Selecteddate"
-        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        (ngModelChange)="GetDate($event)" [minDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"
-        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        (ngModelChange)="GetDate($event)" [minDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
   </div><br>
   <div class="row">

@@ -106,7 +106,7 @@ export class DocWorkingDashComponent implements OnInit {
   public search: any;
 
   ngOnInit() {
-     this.daysname = '';
+    this.daysname = '';
     // this.doctorname = '';
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
@@ -180,7 +180,7 @@ export class DocWorkingDashComponent implements OnInit {
       }
     )
   }
-  public docselect:any;
+  public docselect: any;
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
@@ -188,7 +188,7 @@ export class DocWorkingDashComponent implements OnInit {
         this.labels = data;
         this.search = this.labels[0].search,
           this.SelectLabel = this.labels[0].select
-          this.docselect=this.labels[0].selectDoctor
+        this.docselect = this.labels[0].selectDoctor
       }, error => {
       }
     )
@@ -234,32 +234,32 @@ export class DocWorkingDashComponent implements OnInit {
         this.workingdetails = data;
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
         this.slottypeid = list[0].slotDurationID;
+        this.dochspid = list[0].id;
         // this.GetMorningSlotsMasterbyid();
         // this.GetAfternoonSlotsMasterbyID();
         // this.GetEveningSlotsMasterByID();
         // this.GetNightSlotsMasterByID();
         this.GetDoctorTimings();
-      
+
       }, error => {
       }
     )
   }
 
 
-  public Timings:any;
+  public Timings: any;
 
-public GetDoctorTimings()
-{
-  debugger
-  this.docservice.GetDoctorSlotsByDoctorID(this.doctorid,this.slottypeid,this.languageid).subscribe(
-    data => {
-      debugger
-      this.Timings = data;
-      this.spinner.hide();
-    }, error => {
-    }
-  )
-}
+  public GetDoctorTimings() {
+    debugger
+    this.docservice.GetDoctorSlotsByDoctorID(this.doctorid, this.slottypeid, this.languageid).subscribe(
+      data => {
+        debugger
+        this.Timings = data;
+        this.spinner.hide();
+      }, error => {
+      }
+    )
+  }
 
 
 
@@ -451,229 +451,7 @@ public GetDoctorTimings()
     this.eveningslots = this.eveningslots.slice(item3.id)
   }
 
-
-
-
-  public adddetails() {
-
-    if (this.morningslots.length == 0 && this.aftrenoonslots.length == 0 && this.eveningslots.length == 0 && this.nightslots.length == 0) {
-
-      var entitysds = {
-
-        'DoctorHospitalDetailsID': this.dochspid,
-        'DayID': this.dayid,
-        'TimeID': this.timeid,
-        'AppointmentTypeID': this.appointmentypeid
-      }
-      this.docservice.UpdateDoctorSlotStartAndEndTimeAppointmentType(entitysds).subscribe(data => {
-
-        Swal.fire('Success', 'Updated Successfully')
-        this.GetDoctorsworkinglist()
-        this.insertbookappointmenttype()
-      })
-    }
-    else {
-      this.tablecount = 1;
-
-      for (let i = 0; i < this.morningslots.length; i++) {
-        this.morningslotarray.push(this.morningslots[i].slots);
-
-        this.morningslotidarray.push(this.morningslots[i].id)
-      }
-
-      this.slotname = this.morningslotarray;
-      this.mrng = this.slotname.join(' to ')
-      this.slotnameid = this.morningslotidarray;
-      this.mrngid = this.slotnameid.join(',')
-
-
-      for (let i = 0; i < this.aftrenoonslots.length; i++) {
-        this.afternoonslotarray.push(this.aftrenoonslots[i].slots);
-
-        this.afternoonslotidarray.push(this.aftrenoonslots[i].id)
-      }
-
-      this.slotname1 = this.afternoonslotarray;
-      this.afternoon = this.slotname1.join(' to ');
-      this.slotnameid1 = this.afternoonslotidarray;
-      this.afternoonid = this.slotnameid1.join(',');
-
-
-      for (let i = 0; i < this.eveningslots.length; i++) {
-        this.eveningarray.push(this.eveningslots[i].slots);
-
-        this.eveningarrayid.push(this.eveningslots[i].id);
-      }
-
-      this.slotname2 = this.eveningarray;
-      this.evening = this.slotname2.join(' to ');
-      this.slotnameid2 = this.eveningarrayid;
-      this.eveningid = this.slotnameid2.join(',');
-
-      for (let i = 0; i < this.nightslots.length; i++) {
-        this.nightslotsarray.push(this.nightslots[i].slots);
-
-        this.nightslotsarrayid.push(this.nightslots[i].id);
-      }
-
-      this.slotname3 = this.nightslotsarray;
-      this.night = this.slotname3.join(' to ');
-      this.slotnameid3 = this.nightslotsarrayid;
-      this.nightid = this.slotnameid3.join(',');
-
-      var entity = {
-        'Sno': this.idcount,
-        'DoctorID': this.doctorid,
-        'DoctorAvailability': this.name,
-        'DoctorAvailabilityID': this.availabilityid,
-        'Hospital_Clinic': this.hospital_ClinicName,
-        'Hospital_ClinicID': this.hosipitalidd,
-        'Day': this.day,
-        'DayID': this.dayid,
-        'Fees': this.fees,
-        'Session1': this.session1,
-        'Session2': this.session2,
-        'Morning': this.mrng,
-        'Afternoon': this.afternoon,
-        'Evening': this.evening,
-        'Night': this.night,
-        'Morningid': this.mrngid,
-        'Afternoonid': this.afternoonid,
-        'Eveningid': this.eveningid,
-        'Nightid': this.nightid
-      }
-      this.qwerty.push(entity);
-      this.idcount = this.idcount + 1;
-      this.session1 = "";
-      this.session2 = "";
-      this.cleardropdown1 = [];
-      this.cleardropdown2 = [];
-      this.cleardropdown3 = [];
-      this.cleardropdown4 = [];
-      this.abcd = "";
-      this.dis2 = "";
-      this.dis1 = "";
-      this.dis3 = "";
-      this.eveningslots.length = 0;
-      this.morningslotarray.length = 0;
-      this.morningslotidarray.length = 0;
-      this.eveningarray.length = 0;
-      this.afternoonslotarray.length = 0;
-      this.nightslotsarray.length = 0;
-      this.nightslots.length = 0;
-      this.morningslots.length = 0;
-      this.eveningslots.length = 0;
-      this.aftrenoonslots.length = 0;
-
-
-
-      this.docservice.DeleteDoctorSlotsByDoctor(this.doctorid, this.dochspid, this.dayid, this.timeid).subscribe(res => {
-
-        for (let s = 0; s < this.qwerty.length; s++) {
-
-
-          let mrng = this.qwerty[s].Morning;
-          let ms = mrng.split(" to ", 3);
-          let mst = ms[0];
-          let met = ms[1];
-
-          let noon = this.qwerty[s].Afternoon;
-          let ns = noon.split(" to ", 3);
-          let nst = ns[0];
-          let net = ns[1];
-
-          let evng = this.qwerty[s].Evening;
-          let es = evng.split(" to ", 3);
-          let est = es[0];
-          let eet = es[1];
-
-          let nyt = this.qwerty[s].Night;
-          let nys = nyt.split(" to ", 3);
-          let nyst = nys[0];
-          let nyet = nys[1];
-
-
-          if (this.timeid == 1) {
-            var entityssssss = {
-              'DoctorHospitalDetailsID': this.dochspid,
-              'DayID': this.dayid,
-              'TimeID': this.timeid,
-              'StartTime': mst,
-              'EndTime': met,
-              'AppointmentTypeID': this.appointmentypeid
-            }
-          }
-          else if (this.timeid == 2) {
-            var entityssssss = {
-              'DoctorHospitalDetailsID': this.dochspid,
-              'DayID': this.dayid,
-              'TimeID': this.timeid,
-              'StartTime': nst,
-              'EndTime': net,
-              'AppointmentTypeID': this.appointmentypeid
-            }
-          }
-          else if (this.timeid == 3) {
-            var entityssssss = {
-              'DoctorHospitalDetailsID': this.dochspid,
-              'DayID': this.dayid,
-              'TimeID': this.timeid,
-              'StartTime': est,
-              'EndTime': eet,
-              'AppointmentTypeID': this.appointmentypeid
-            }
-          }
-          else if (this.timeid == 4) {
-            var entityssssss = {
-              'DoctorHospitalDetailsID': this.dochspid,
-              'DayID': this.dayid,
-              'TimeID': this.timeid,
-              'StartTime': nyst,
-              'EndTime': nyet,
-              'AppointmentTypeID': this.appointmentypeid
-            }
-          }
-          this.docservice.UpdateDoctorSlotStartAndEndTime(entityssssss).subscribe(data => {
-
-            this.GetDoctorsworkinglist()
-          })
-        }
-
-        for (let i = 0; i < this.qwerty.length; i++) {
-          var entitys = {
-            'Hospital_ClinicID': this.hspcliid,
-            'DoctorID': this.doctorid,
-            'DayID': this.dayid,
-            'DoctorHospitalDetailsID': this.dochspid,
-            'Morning': this.qwerty[i].Morningid,
-            'Noon': this.qwerty[i].Afternoonid,
-            'Evening': this.qwerty[i].Eveningid,
-            'Night': this.qwerty[i].Nightid,
-            'MrngAppointtypeID': this.appointmentypeid,
-            'AfternoonAppointmentTypeID': this.appointmentypeid,
-            'EveningAppointmentTypeID': this.appointmentypeid,
-            'NightAppointmentTypeID': this.appointmentypeid
-          }
-          this.docservice.InsertDoctorSlotByID(entitys).subscribe(data => {
-
-            this.GetDoctorsworkinglist();
-          })
-        }
-      })
-      if (this.languageid == 1) {
-        Swal.fire('Completed', 'Slots saved successfully', 'success');
-        this.GetDoctorsworkinglist()
-      }
-      else {
-        Swal.fire('Détails enregistrés');
-        this.GetDoctorsworkinglist()
-      }
-
-      //location.href="#/MyWorkingDetails";
-      //this.GetDoctorHospitalDetails();
-    }
-  }
-
+public docslotid:any;
 
   public insertbookappointmenttype() {
     var entity = {
@@ -687,175 +465,64 @@ public GetDoctorTimings()
     })
   }
 
+  public allappointmentid: any;
 
-
-
-
-
-  public deleteparticular(dochspid, dayid, timeid) {
-
-    if (this.languageid == 1) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You Want to Delete This Day Slot!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteDoctorSlotsByDoctor(this.doctorid, dochspid, dayid, timeid).subscribe(res => {
-            let test = res;
-            this.GetDoctorsworkinglist()
-          })
-          Swal.fire(
-            'Deleted!',
-            'Slot has been deleted.',
-            'success'
-          )
-        }
-        else {
-          this.GetDoctorsworkinglist()
-        }
-      })
-    }
-    else {
-      Swal.fire({
-        title: 'Êtes-vous sûr(e) ?',
-        text: "Supprimer !",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Qui',
-        cancelButtonText: 'Annuler'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteDoctorSlotsByDoctor(this.doctorid, dochspid, dayid, timeid).subscribe(res => {
-            let test = res;
-            this.GetDoctorsworkinglist()
-          })
-          Swal.fire(
-            'Deleted!',
-            'Slot has been deleted.',
-            'success'
-          )
-        }
-        else {
-          this.GetDoctorsworkinglist()
-        }
-      })
-    }
+  public GetDay1List(details) {
+    this.appointmentypeid = details.mondayappointmentID;
+    this.slotid = details.mondaySlotID;
+    this.allappointmentid = details.mondayappointmentID;
+    this.dayid = details.mondayDayID;
+    this.docslotid= details.docMondaySlotID;
   }
 
 
-  public deletebydochspid(dochspid, dayid) {
-    if (this.languageid == 1) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You Want to Delete This Day Slot!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteDoctorSlotsByDocHspDetailsID(dochspid, dayid).subscribe(res => {
-            let test = res;
-            debugger
-            this.GetDoctorsworkinglist()
-            this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
-              data => {
-                this.workingdetails = data;
 
-              }, error => {
-              }
-            )
-
-          })
-          Swal.fire(
-            'Deleted!',
-            'Slot has been deleted.',
-            'success'
-          )
-          this.GetDoctorsworkinglist()
-          this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
-            data => {
-              this.workingdetails = data;
-              // this.workingdetails = this.workingdetails.filter(x => x.doctorID == this.doctorid)
-
-            }, error => {
-            }
-          )
-          debugger
-        }
-        else {
-          this.GetDoctorsworkinglist()
-
-          debugger
-        }
-      })
-    }
-    else {
-      debugger
-      Swal.fire({
-        title: 'Êtes-vous sûr(e) ?',
-        text: "Supprimer !",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Qui',
-        cancelButtonText: 'Annuler'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteDoctorSlotsByDocHspDetailsID(dochspid, dayid).subscribe(res => {
-            let test = res;
-            this.GetDoctorsworkinglist()
-            debugger
-          })
-          Swal.fire(
-            'Deleted!',
-            'Slot has been deleted.',
-            'success'
-          )
-        }
-        else {
-          this.GetDoctorsworkinglist()
-          debugger
-        }
-      })
-    }
+  public GetDay2List(details) {
+    this.appointmentypeid = details.tuesdayAppointmentID;
+    this.slotid = details.tuesdaySlotID;
+    this.allappointmentid = details.tuesdayAppointmentID;
+    this.dayid = details.tuesDayID;
+    this.docslotid= details.docTuesDaySlotID;
   }
 
-  public DeleteDoctorSlots(id) {
+  public GetDay3List(details) {
+    this.appointmentypeid = details.wednesdayAppointmentID;
+    this.slotid = details.wednessdaySlotID;
+    this.allappointmentid = details.wednesdayAppointmentID;
+    this.dayid = details.wednessDayID;
+    this.docslotid= details.docWednessDaySlotID;
+  }
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteDoctorSlots(id).subscribe(res => {
-          let test = res;
-          this.GetDoctorsworkinglist()
-        })
-        Swal.fire(
-          'Deleted!',
-          'Slot has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.GetDoctorsworkinglist()
-      }
-    })
+  public GetDay4List(details) {
+    this.appointmentypeid = details.thursdayAppointmentID;
+    this.slotid = details.tursdaySlotID;
+    this.allappointmentid = details.thursdayAppointmentID;
+    this.dayid = details.thursDayID;
+    this.docslotid= details.docThursaDaySlotID;
+  }
+
+  public GetDay5List(details) {
+    this.appointmentypeid = details.fridayAppointmentID;
+    this.slotid = details.fridaySlotID;
+    this.allappointmentid = details.fridayAppointmentID;
+    this.dayid = details.friDayID;
+    this.docslotid= details.docFridayDaySlotID;
+  }
+
+  public GetDay6List(details) {
+    this.appointmentypeid = details.saturdayAppintmentID;
+    this.slotid = details.saturdaySlotID;
+    this.allappointmentid = details.saturdayAppintmentID;
+    this.dayid = details.saturDayID;
+    this.docslotid= details.docSatDaySlotID;
+  }
+
+  public GetDay7List(details) {
+    this.appointmentypeid = details.sundayAppointmentID;
+    this.slotid = details.sundaySlotID;
+    this.allappointmentid = details.sundayAppointmentID;
+    this.dayid = details.sunDayID;
+    this.docslotid= details.doSunDaySlotID;
   }
 
 
@@ -864,5 +531,180 @@ public GetDoctorTimings()
     this.hopitslname = even.target.value;
   }
 
+  public Updateslots() {
+    debugger
+    this.spinner.show();
+    if (this.allappointmentid == 4 && this.appointmentypeid == 1) {
+      var entity1 = {
+        'SlotID': this.docslotid,
+        'DoctorID': this.doctorid,
+        'DayID': this.dayid,
+        'Hospital_ClinicID': this.hospitalid,
+        'LanguageID': this.languageid,
+        'AppointmentTypeID': this.appointmentypeid,
+        'DoctorHospitalDetailsID': this.dochspid
+      }
+      this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
+        Swal.fire('Updated Successfully');
+        this.spinner.show();
+        this.GetDoctorTimings()
+
+      })
+    }
+
+    else if (this.allappointmentid == 4 && this.appointmentypeid == 2) {
+      this.spinner.show();
+      var entity1 = {
+        'SlotID': this.docslotid,
+        'DoctorID': this.doctorid,
+        'DayID': this.dayid,
+        'Hospital_ClinicID': this.hospitalid,
+        'LanguageID': this.languageid,
+        'AppointmentTypeID': this.appointmentypeid,
+        'DoctorHospitalDetailsID': this.dochspid
+      }
+      this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
+        Swal.fire('Updated Successfully');
+       
+        this.GetDoctorTimings()
+        
+      })
+    }
+    else if (this.allappointmentid == 4 && this.appointmentypeid == 5) {
+      this.spinner.show();
+      var entity1 = {
+        'SlotID': this.docslotid,
+        'DoctorID': this.doctorid,
+        'DayID': this.dayid,
+        'Hospital_ClinicID': this.hospitalid,
+        'LanguageID': this.languageid,
+        'AppointmentTypeID': this.appointmentypeid,
+        'DoctorHospitalDetailsID': this.dochspid
+      }
+      this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
+        Swal.fire('Updated Successfully');
+        this.spinner.show();
+        this.GetDoctorTimings()
+      })
+
+    }
+else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
+      this.spinner.show();
+      var entity1 = {
+        'SlotID': this.docslotid,
+        'DoctorID': this.doctorid,
+        'DayID': this.dayid,
+        'Hospital_ClinicID': this.hospitalid,
+        'LanguageID': this.languageid,
+        'AppointmentTypeID': this.appointmentypeid,
+        'DoctorHospitalDetailsID': this.dochspid
+      }
+      this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
+        Swal.fire('Updated Successfully');
+        this.spinner.show();
+        this.GetDoctorTimings()
+      })
+      
+    }
+
+    else if (this.allappointmentid == 1 && this.appointmentypeid == 4) {
+      this.spinner.show();
+      this.docservice.DeleteDoctSlots(this.slotid).subscribe(
+        data => {
+          debugger
+          Swal.fire('Updated Successfully');
+          this.spinner.show();
+          this.GetDoctorTimings()
+        }, error => {
+        }
+      )
+    }
+    else if (this.allappointmentid == 2 && this.appointmentypeid == 4) {
+      this.spinner.show();
+      this.docservice.DeleteDoctSlots(this.slotid).subscribe(
+        data => {
+          debugger
+          Swal.fire('Updated Successfully');
+         
+          this.GetDoctorTimings()
+        }, error => {
+        }
+      )
+    }
+    else if (this.allappointmentid == 5 && this.appointmentypeid == 4) {
+      this.spinner.show();
+      this.docservice.DeleteDoctSlots(this.slotid).subscribe(
+        data => {
+          debugger
+          Swal.fire('Updated Successfully');
+        
+          this.GetDoctorTimings()
+        }, error => {
+        }
+      )
+    }
+    else if (this.allappointmentid == 6 && this.appointmentypeid == 4) {
+      this.spinner.show();
+      this.docservice.DeleteDoctSlots(this.slotid).subscribe(
+        data => {
+          debugger
+          Swal.fire('Updated Successfully');
+        
+          this.GetDoctorTimings()
+        }, error => {
+        }
+      )
+    }
+    else if (this.appointmentypeid == 1 || this.appointmentypeid == 2 || this.appointmentypeid == 5 || this.appointmentypeid == 6&& this.allappointmentid == 1||this.allappointmentid == 2||this.allappointmentid == 5||this.allappointmentid == 6) {
+      debugger
+      this.spinner.show();
+      var entity = {
+        'ID': this.slotid,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
+        Swal.fire('Updated Successfully');
+    
+        this.GetDoctorTimings()
+      })
+    }
+    else{
+      Swal.fire('Updated Successfully');
+    }
+    // else if (this.appointmentypeid == 2 && this.allappointmentid == 2) {
+    //   debugger
+    //   var entity = {
+    //     'ID': this.slotid,
+    //     'AppointmentTypeID': this.appointmentypeid
+    //   }
+    //   this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
+    //     Swal.fire('Updated Successfully');
+    //     this.GetDoctorTimings()
+    //   })
+    // }
+    // else if (this.appointmentypeid == 5 && this.allappointmentid == 5) {
+    //   debugger
+    //   var entity = {
+    //     'ID': this.slotid,
+    //     'AppointmentTypeID': this.appointmentypeid
+    //   }
+    //   this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
+    //     Swal.fire('Updated Successfully');
+    //     this.GetDoctorTimings()
+    //   })
+    // }
+    // else if (this.appointmentypeid == 4) {
+    //   this.docservice.DeleteDoctSlots(this.slotid).subscribe(
+    //     data => {
+    //       debugger
+    //       Swal.fire('Updated Successfully');
+
+    //     }, error => {
+    //     }
+    //   )
+    // }
+  }
+
 
 }
+

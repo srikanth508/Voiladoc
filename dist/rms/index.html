@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Voiladoc</title>
@@ -8,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -23,15 +22,15 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
-  <link rel="stylesheet" type="text/css"
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
     integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
     crossorigin="anonymous"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
     integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 
 
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -80,7 +79,7 @@
           if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
             aCallback(anHttpRequest.responseText);
         }
-        debugger
+        
         anHttpRequest.open("GET", aUrl, true);
         anHttpRequest.send(null);
       }
@@ -113,22 +112,22 @@
     }
 
     function customnotify() {
-      debugger;
-      debugger
+      ;
+      
       userid = localStorage.getItem('userid');
       if (userid != undefined || userid != null || userid != "") {
         if (getCookie("doc_id") == ""||getCookie("doc_id") == "null") {
           setCookie("doc_id", userid);
         }
-        debugger
+        
       }
       if (getCookie("doc_id") != "") {
 
         var client = new HttpClient();
         client.get(localStorage.getItem('WebUrl') + '/Doctor/GetNotifications_DoctorByDoctorIDWebSide?DoctorID=' + getCookie("doc_id"), function (response) {
-          debugger;
+          ;
           var res = JSON.parse(response);
-          debugger
+          
           for (var i = 0; i < res.length; i++) {
             // do something with response
             var notification = new Notification(res[i].notification, {
@@ -138,7 +137,7 @@
 
             /* Remove the notification from Notification Center when clicked.*/
             // notification.onclick = function () {
-            //   debugger;
+            //   ;
             //   // window.open(url);
             // };
 
@@ -164,6 +163,6 @@
 <body>
 
   <app-root></app-root>
-<script type="text/javascript" src="runtime.7692800a3b66884bd362.js"></script><script type="text/javascript" src="polyfills.8a52d81d84821b2ff6c8.js"></script><script type="text/javascript" src="scripts.444f34f8bbb89a186cf1.js"></script><script type="text/javascript" src="main.9764d1bd6edb11b1c438.js"></script></body>
+<script type="text/javascript" src="runtime.7692800a3b66884bd362.js"></script><script type="text/javascript" src="polyfills.8a52d81d84821b2ff6c8.js"></script><script type="text/javascript" src="scripts.444f34f8bbb89a186cf1.js"></script><script type="text/javascript" src="main.56132b75610a0717dfec.js"></script></body>
 
 </html>

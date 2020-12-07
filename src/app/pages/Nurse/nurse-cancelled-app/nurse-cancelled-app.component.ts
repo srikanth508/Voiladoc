@@ -90,7 +90,7 @@ export class NurseCancelledAppComponent implements OnInit {
     this.docservice.GetBook_Nurse_AppointmentReports(this.nurseid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
         this.dummlist = data;
-        this.appointmentreportlist = this.dummlist.filter(x=>x.nurseCancelled==1)
+        this.appointmentreportlist = this.dummlist.filter(x=>x.nurseCancelled==1||x.cancelled==1)
         this.count = this.appointmentreportlist.length
       }, error => {
       }

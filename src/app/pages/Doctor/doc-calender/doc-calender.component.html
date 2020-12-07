@@ -1,3 +1,6 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-8">
@@ -14,56 +17,55 @@
   </div>
 </div>
 <br>
-
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label style="
-      font-size: 15px;">{{labels[0].year}} : {{year}}</label>
-      <label style="margin-left: 13px;
-      font-size: 15px;">{{labels[0].month}} : {{showmonth}}</label>
+      <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="todaydate" (ngModelChange)="GetDoctorDates($event)"
+        [minDate]="today" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+
+      <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="todaydate" name="todaydate"
+        (ngModelChange)="GetDoctorDates($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
-    <div class="col-lg-3"  style="margin-right: -17px;">
-      <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">
-        <option value="">{{labels[0].selectYear}}</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-      </select>
+
+    <div class="col-lg-2"  >
+      <span style="margin-left: 56px;">Change Schedule </span>
     </div>
-    <div class="col-lg-3" style="margin-right: -22px;">
-      <select class="form-control" (change)="ChangeMonth($event)" [(ngModel)]="month" name="month">
-        <option value="">{{labels[0].selectMonth}}</option>
-        <option value="0">{{labels[0].jan}}</option>
-        <option value="1">{{labels[0].feb}}</option>
-        <option value="2">{{labels[0].march}}</option>
-        <option value="3">{{labels[0].april}}</option>
-        <option value="4">{{labels[0].may}}</option>
-        <option value="5">{{labels[0].june}}</option>
-        <option value="6">{{labels[0].july}}</option>
-        <option value="7">{{labels[0].aug}}</option>
-        <option value="8">{{labels[0].sept}}</option>
-        <option value="9">{{labels[0].oct}}</option>
-        <option value="10">{{labels[0].nov}}</option>
-        <option value="11">{{labels[0].dec}}</option>
-      </select>
+    <div class="col-lg-3" >
+      <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
+        (click)="GetTypeID($event)" value="1"> Day Wise &nbsp;
+      <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"
+        (click)="GetTypeID($event)" value="2"> Time Wise
+    </div>
+
+
+
+    <!-- <div class="col-lg-1 rectangle">
+      <p> {{labels[0].inclinic}}</p>
     </div>
     <div class="col-lg-1">
-      <div class="rectangle">
-        <span style="margin-left: 5px;">{{labels[0].inclinic}}</span>
+      <div class="vdioerect" style="margin-left: -8px;">
+        <p style="width: 120px;"> {{labels[0].video}}</p>
       </div>
     </div>
-    <div class="col-lg-1">
-      <div class="vdioerect">
-        <span style="margin-left: 2px;">{{labels[0].video}}</span>
+    <div class="col-lg-1 ">
+      <div class="homevisit" style="margin-left: 19px;">
+        <p> {{labels[0].homeVisit}}</p>
       </div>
     </div>
-    <div class="col-lg-1">
-      <div class="homevisit">
-        <span style="margin-left: 11px;">{{labels[0].homeVisit}}</span>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: 23px;
+      width: 136px;">
+        <p> {{labels[0].notAvailable}}</p>
       </div>
     </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 62px;width: 120px;">
+        <p> {{labels[0].meeting}}</p>
+      </div>
+    </div> -->
   </div>
   <br>
   <div class="row">
@@ -72,20 +74,88 @@
         <table class="table" style="overflow: auto;">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>{{labels[0].day}}</th>
-              <!-- <th>Doctor Name</th> -->
-              <th>{{labels[0].hospitalOrClinicName}}</th>
-              <th>{{labels[0].morning}}</th>
-              <th>{{labels[0].afternoon}}</th>
-              <th>{{labels[0].evening}}</th>
-              <th>{{labels[0].night}}</th>
-              <th>{{labels[0].actions}}</th>
+              <th>Timings</th>
+              <th>
+                {{DayDatelist[0].date|date}}<br>
+                {{DayDatelist[0].day}}</th>
+              <th>
+                {{DayDatelist[1].date|date}}<br>
+                {{DayDatelist[1].day}}</th>
+              <th>
+                {{DayDatelist[2].date|date}}<br>
+                {{DayDatelist[2].day}}</th>
+              <th>
+                {{DayDatelist[3].date|date}}<br>
+                {{DayDatelist[3].day}}</th>
+              <th>
+                {{DayDatelist[4].date|date}}<br>
+                {{DayDatelist[4].day}}</th>
+              <th>
+                {{DayDatelist[5].date|date}}<br>
+                {{DayDatelist[5].day}}</th>
+              <th>
+                {{DayDatelist[6].date|date}}<br>
+                {{DayDatelist[6].day}}</th>
             </tr>
-            <tr *ngFor="let equi of timeSheetTablearray">
+            <tr *ngFor="let details of workingdetails">
+              <td>{{details.slotname}}</td>
+              <td [style.background-color]="details.day1color" style="color:white">{{details.day1}}<br>
+                {{details.day1Availabilty}}<br>
+                <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
+                <a [ngbTooltip]="tipcontent9503" style="color:black">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay1List(details)">
+                </a>
+              </td>
+              <td [style.background-color]="details.day2color" style="color:white">{{details.day2}}<br>
+                {{details.day2Availabilty}}<br>
+                <a [ngbTooltip]="tipcontent9503" style="color:black">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay2List(details)">
+                </a>
+              </td>
+              <td [style.background-color]="details.day3color" style="color:white">{{details.day3}}<br>
+                {{details.day3Availabilty}}<br>
+                <a [ngbTooltip]="tipcontent9503">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay3List(details)">
+                </a>
+              </td>
+              <td [style.background-color]="details.day4color" style="color:white">{{details.day4}}<br>
+                {{details.day4Availabilty}}<br>
+                <a [ngbTooltip]="tipcontent9503" style="color:black">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay4List(details)">
+                </a>
+              </td>
+              <td [style.background-color]="details.day5color" style="color:white">{{details.day5}}<br>
+                {{details.day5Availabilty}}<br>
+                <a [ngbTooltip]="tipcontent9503" style="color:black">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay5List(details)">
+                </a>
+              </td>
+              <td [style.background-color]="details.day6color" style="color:white">{{details.day6}}<br>
+                {{details.day6Availabilty}}<br>
+                <a [ngbTooltip]="tipcontent9503" style="color:black">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay6List(details)">
+                </a>
+              </td>
+              <td [style.background-color]="details.day7color" style="color:white">{{details.day7}}<br>
+                {{details.day7Availabilty}}<br>
+                <a [ngbTooltip]="tipcontent9503" style="color:black">
+                  <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
+                    (click)="GetDay7List(details)">
+                </a>
+              </td>
+            </tr>
+
+
+            <!-- <tr *ngFor="let equi of timeSheetTablearray">
               <td>{{equi._date}}</td>
               <td> {{equi.dayOfTheWeek}} </td>
-              <!-- <td>{{equi.doctorName}}</td> -->
+         
               <td>{{equi.hospital_ClinicName}}</td>
               <td [style.background-color]="equi.mrngAppointtypeID"  style="color: white;">
                 {{equi.mrngStartTime}} - {{equi.mrngEndTime}}
@@ -164,9 +234,194 @@
                     title="Enable" (click)="GetDeleteAllSlots(equi.doctorHospitalDetailsID,equi._fulldate)" style="width: 40px">
                 </a>
               </td>
-            </tr>
+            </tr> -->
           </thead>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="edittest" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="width: 600px;">
+    <div class="modal-content" style="width: 600px;">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="languageid=='1'">Edit</h4>
+        <h4 class="modal-title" *ngIf="languageid=='6'">Éditer</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="1"> &nbsp;
+            {{labels[0].inclinic}} &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp;
+            {{labels[0].video}} &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
+            {{labels[0].homeVisit}} &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="4"> &nbsp;
+            {{labels[0].notAvailable}}&nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
+            {{labels[0].meeting}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+            <button type="button" data-dismiss="modal" class="btn btn-block btncolor"
+              (click)="insertdetails()">{{labels[0].update_label}}</button>
+          </div>
+          <div class="col-lg-4">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="EditDayWiseSlots" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 600px;">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="languageid=='1'">Edit</h4>
+        <h4 class="modal-title" *ngIf="languageid=='6'">Éditer</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body" style="width: 600px;">
+        <div class="row">
+          <div class="col-lg-3">
+            <span>Date </span>
+          </div>
+          <div class="col-lg-6">
+            <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+              [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="daychangedate"
+              (ngModelChange)="GetdaychangeDate($event)" [minDate]="today"
+              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+
+            <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="daychangedate"
+              (ngModelChange)="GetdaychangeDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="radio" [(ngModel)]="Daywiseappointmentid" name="Daywiseappointmentid" [value]="1"> &nbsp;
+            {{labels[0].inclinic}} &nbsp;
+            <input type="radio" [(ngModel)]="Daywiseappointmentid" name="Daywiseappointmentid" [value]="2"> &nbsp;
+            {{labels[0].video}} &nbsp;
+            <input type="radio" [(ngModel)]="Daywiseappointmentid" name="Daywiseappointmentid" [value]="5"> &nbsp;
+            {{labels[0].homeVisit}}&nbsp;
+            <input type="radio" [(ngModel)]="Daywiseappointmentid" name="Daywiseappointmentid" [value]="4"> &nbsp;
+            {{labels[0].notAvailable}}&nbsp;
+            <input type="radio" [(ngModel)]="Daywiseappointmentid" name="Daywiseappointmentid" [value]="6"> &nbsp;
+            {{labels[0].meeting}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+            <button type="button" data-dismiss="modal" class="btn btn-block btncolor"
+              (click)="InsertDayWiseSlots()">{{labels[0].update_label}}</button>
+          </div>
+          <div class="col-lg-4">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="EdittimeWiseSlots" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 600px;">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="languageid=='1'">Edit</h4>
+        <h4 class="modal-title" *ngIf="languageid=='6'">Éditer</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body" style="width: 600px;">
+        <div class="row">
+          <div class="col-lg-3">
+            <span>Date </span>
+          </div>
+          <div class="col-lg-6">
+            <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+              [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="timechangedate"
+              (ngModelChange)="GetTimewisechangedate($event)" [minDate]="today"
+              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+
+            <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="timechangedate"
+              (ngModelChange)="GetTimewisechangedate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+              bsDatepicker>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <span>{{labels[0].startTime}} </span>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-control" (change)="getmrngfrom($event)" [(ngModel)]="mrngfromid" name="mrngfromid">
+              <option value="">{{labels[0].startTime}}</option>
+              <option *ngFor="let mrngfrm of mrngfromlist" value="{{ mrngfrm.id }}">{{ mrngfrm.slots }}</option>
+            </select>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <span>{{labels[0].endTime}} </span>
+          </div>
+          <div class="col-lg-6" style="margin-top: 0px;">
+            <select class="form-control" (change)="getmrngto($event)" [(ngModel)]="mrngtoid" name="mrngtoid">
+              <option value="">{{labels[0].endTime}}</option>
+              <option *ngFor="let mrngto of mrngtolist" value="{{ mrngto.id }}">{{ mrngto.slots
+              }}</option>
+            </select>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="1"> &nbsp;
+            {{labels[0].inclinic}} &nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="2"> &nbsp;
+            {{labels[0].video}} &nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="5"> &nbsp;
+            {{labels[0].homeVisit}}&nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="4"> &nbsp;
+            {{labels[0].notAvailable}}&nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="6"> &nbsp;
+            {{labels[0].meeting}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+            <button type="button" data-dismiss="modal" class="btn btn-block btncolor"
+              (click)="InsertTimeWiseSlots()">{{labels[0].update_label}}</button>
+          </div>
+          <div class="col-lg-4">
+          </div>
+        </div>
       </div>
     </div>
   </div>

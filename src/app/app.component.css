@@ -10,7 +10,14 @@
 }
 .caps{
   text-transform: uppercase;
-  
+}
+
+.chatnow1 {
+  background-color: #f18235;
+  border: none;
+  color: white;
+  font-size: 13px;
+  margin-left: -2px;
 }
 
 .sidenav {

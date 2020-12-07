@@ -1,0 +1,87 @@
+<div class="container-fluid card card:hover">
+    <br>
+    <div class="row ">
+        <div class="col-lg-3">
+            <h5>Sent Invoices</h5>
+        </div>
+        <div class="col-lg-3">
+            <select class="form-control" (change)="GetType($event)">
+            <option selected value="">Select</option>
+            <option  value="Hospital">Hospital</option>
+            <option  value="Clinic">Clinic</option>
+            <option  value="Doctor">Doctor</option>
+            <option  value="Nurse">Nurse</option>
+            <option  value="Physiotherapist">Physiotherapist</option>
+            <option  value="MidWives">MidWife</option>
+         </select>
+        </div>
+    </div>
+    <br>
+</div><br>
+<div class="container-fluid card card:hover ">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-3">
+            <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="Search">
+        </div>
+    </div><br>
+    <div class="row" *ngIf="show==1">
+        <div class="col-lg-12" style="overflow: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th *ngIf="type=='Hospital'||type=='Clinic'">Hospital/Clinic Name</th>
+                        <th *ngIf="type=='Doctor'">Doctor Name</th>
+                        <th *ngIf="type=='Nurse'">Nurse Name</th>
+                        <th *ngIf="type=='Physiotherapist'">Physiotherapist Name</th>
+                        <th *ngIf="type=='MidWives'">MidWife Name</th>
+                        <th>Invoice Date</th>
+                        <th *ngIf="type=='Hospital'||type=='Clinic'">Contact Person</th>
+                        <th>Phone No</th>
+                        <th>Invoice</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr *ngFor="let list of invoiceslist|filter:term">
+                        <td>{{list.hospital_ClinicName}}</td>
+                        <td>{{list.modifiedDate|date}}</td>
+                        <td *ngIf="type=='Hospital'||type=='Clinic'">{{list.contactPersonName}}</td>
+                        <td>{{list.phoneNo}}</td>
+                        <td>
+                            <a href="{{list.invoiceUrl}}" target="blank">
+                                <img src="assets/Images/pdf.png" style="width:8%;">
+                            </a>
+                        </td>
+                        <td><button (click)="Makestatuspaid(list.id)" data-toggle="modal" data-target="#exampleModal">Paid</button></td>
+                    </tr>
+                </thead>
+            </table>
+        </div><br><br>
+    </div><br><br>
+    <br>
+</div><br><br><br><br>
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Paid Date</label>
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" placeholder="MM/DD/YYYY" class="form-control" [(ngModel)]="today" [bsConfig]="{ showWeekNumbers:false }" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" (ngModelChange)="selectedDate($event)" bsDatepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Paid</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

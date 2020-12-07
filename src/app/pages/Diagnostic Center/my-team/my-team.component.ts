@@ -11,7 +11,7 @@ export class MyTeamComponent implements OnInit {
   languageid: any;
   labels: any;
   id: any;
-  showbit: number;
+  showbit: any;
   name: any;
   phoneno: any;
   email: any;
@@ -63,6 +63,7 @@ export class MyTeamComponent implements OnInit {
         EmailID: this.email,
         Address: this.address,
         UserName: this.username,
+        LanguageID:this.languageid,
         Password: this.password
     }
     this.docservice.InsertMyTeam(entity).subscribe(res => {

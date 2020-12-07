@@ -832,25 +832,108 @@
                         <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
                             style="float: right;"
                             (click)="Update_appointmentFordemand(docnoti.doctorHospitalDetailsID,docnoti.doctorID,docnoti.appointmentID,docnoti.id,docnoti.emailID,docnoti.doctorName,docnoti.date)">{{labels[0].accept}}</button>
-                        <br><br>
+                        <br>
+                        <div *ngIf="pharmacyid!=undefined">
+                            <button class="chatnow1" data-toggle="modal" data-target="#Medicines"
+                                (click)="ViewMedicines(docnoti)">View Medicines</button>
+                            <br><br>
+                        </div>
                     </div>
+                </div>
+                <div class="card card-hover newcard" *ngFor="let phanoti of pharmcunoti">
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-8">
+                            <p style="margin-left: 10px;"><b>{{phanoti.notification}}</b></p>
+                            <p style="margin-left: 10px;">{{phanoti.description}}</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <p><b>{{phanoti.date}}</b></p>
+                        </div>
+                        <div class="col-lg-2">
+                            <p><b>{{phanoti.notificationtime}}</b></p><br>
+                            <!-- <i class="fa fa-minus" aria-hidden="true" *ngIf="phanoti.show=='0'"
+                                (click)="ViewMedicines(phanoti)"></i>
+
+                            <i class="fa fa-plus fa-2x" *ngIf="phanoti.show=='1'"
+                                style="margin-left: 5px; margin-top: 3px;" aria-hidden="true"
+                                (click)="ViewMedicines(phanoti)"></i> -->
+                            <button class="chatnow1" data-toggle="modal" data-target="#Medicines"
+                                (click)="ViewMedicines(phanoti)">View Medicines</button>
+                        </div>
+                    </div><br>
                 </div><br>
             </div>
             <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div> -->
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="Medicines" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="width:898px;margin-left: 186px;">
+            <div class="modal-header modal-xl">
+                <h5 class="modal-title" id="exampleModalLongTitle">Medicines</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Sig</th>
+                                    <th>Quantity</th>
+                                    <!-- <th>How many refills</th>
+                                    <th>Note to pharmacist</th> -->
+                                    <!-- <th>Actions</th> -->
+                                </tr>
+                                <tr *ngFor="let ss of orderedmedicinelist">
+                                    <td>{{ss.medicineName}}</td>
+                                    <td>{{ss.sig}}</td>
+                                    <td>{{ss.quantity}}</td>
+                                    <!-- <td>{{ss.refills}}</td>
+                                    <td>{{ss.noteToPharmacist}}</td> -->
+                                    <!-- <td>
+                                        <input type="checkbox" (change)="ChangeAvailableMedicines(medicinelist,$event)"
+                                            [checked]="ss.availableBit=='0'">
+                                    </td> -->
+                                </tr>
+                            </table>
+                        </div>
+                    </div><br><br>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button class="chatnow" data-dismiss="modal" style="float: right;"
+                                (click)="AcceptPharmacyOrder()">{{labels[0].accept}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="chatnow" data-dismiss="modal" style="float: left;"
+                                (click)="RejectPhrmacyOrder()"  data-dismiss="modal">{{labels[0].reject}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 
 
 
@@ -942,6 +1025,12 @@
     
     </div>
 </div> -->
+
+
+
+
+
+
 
 
 

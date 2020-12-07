@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
+import { NgxSpinnerService } from "ngx-spinner";
 import { NgDateRangePickerOptions } from "ng-daterangepicker";
 @Component({
   selector: 'app-diagnostic-slots-dash',
@@ -10,7 +11,7 @@ import { NgDateRangePickerOptions } from "ng-daterangepicker";
 })
 export class DiagnosticSlotsDashComponent implements OnInit {
   options: NgDateRangePickerOptions;
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
 
   public languageid: any;
   public labels: any;
@@ -78,7 +79,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
-
+    this.spinner.show();
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
         this.labels = data;
@@ -116,25 +117,38 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public getWorkingdetils() {
-    if (this.diagnosticid != undefined) {
-      this.docservice.GetDiagnosticRelatedSlotsStartTimeEndTime(this.languageid).subscribe(
-        data => {
 
-          this.dummworkingdetails = data;
-          this.Workingdetails = this.dummworkingdetails.filter(x => x.diagnosticCenterID == this.diagnosticid)
-        },
-        error => { }
-      );
-    }
-    else {
-      this.docservice.GetDiagnosticRelatedSlotsStartTimeEndTime(this.languageid).subscribe(
-        data => {
 
-          this.Workingdetails = data;
-        },
-        error => { }
-      );
-    }
+
+    this.docservice.GetDiagnosticSlots(this.diagnosticid,this.languageid).subscribe(
+          data => {
+  
+            this.Workingdetails = data;
+            this.spinner.hide();
+          },
+          error => { }
+        );
+
+
+    // if (this.diagnosticid != undefined) {
+    //   this.docservice.GetDiagnosticRelatedSlotsStartTimeEndTime(this.languageid).subscribe(
+    //     data => {
+
+    //       this.dummworkingdetails = data;
+    //       this.Workingdetails = this.dummworkingdetails.filter(x => x.diagnosticCenterID == this.diagnosticid)
+    //     },
+    //     error => { }
+    //   );
+    // }
+    // else {
+    //   this.docservice.GetDiagnosticRelatedSlotsStartTimeEndTime(this.languageid).subscribe(
+    //     data => {
+
+    //       this.Workingdetails = data;
+    //     },
+    //     error => { }
+    //   );
+    // }
 
 
   }

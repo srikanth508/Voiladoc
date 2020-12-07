@@ -446,6 +446,12 @@
             </div>
             <br>
             <div class="row">
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div><br>
+            <div class="row">
               <div class="col-lg-5">
               </div>
               <div class="col-lg-2">
@@ -467,7 +473,7 @@
                         <th>{{labels[0].duration}}</th> -->
                       <th>{{labels[0].sig}}</th>
                       <th>{{labels[0].dispenseQuantity}}</th>
-                      <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
+                      <th>{{labels[0].noteToPharmasist}}</th>
                       <!-- <th>{{labels[0].diagnosis}}</th> -->
                       <th>{{labels[0].substistude}} </th>
                       <th>{{labels[0].howmanyRefills}}</th>
@@ -481,7 +487,7 @@
                       <td>{{medicinelist.SIG}}</td>
 
                       <td>{{medicinelist.DispenseQuantity}}</td>
-                      <!-- <td>{{medicinelist.NoteToPharmasist}}</td> -->
+                      <td>{{medicinelist.NoteToPharmasist}}</td>
                       <td>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
@@ -500,12 +506,7 @@
                 </table>
               </div>
             </div><br>
-            <div class="row">
-              <div class="col-lg-6">
-                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
-                  placeholder="{{labels[0].noteToPharmasist}}">
-              </div>
-            </div><br>
+          
             <div class="row" *ngIf="tablecuont1=='1'">
               <div class="col-lg-5">
               </div>
@@ -803,13 +804,8 @@
                   </tr>
                   <tr *ngFor="let presciption of prescrptionlist">
                     <td>{{presciption.date}}</td>
-                    <!-- <td>{{presciption.medicinetype}}</td> -->
                     <td>{{presciption.medicineName}}</td>
-                    <!-- <td>{{presciption.unitOfMeasure}}</td>
-                      <td>{{presciption.dosage}}</td>
-                      <td>{{presciption.duration}}</td> -->
                     <td>{{presciption.sig}}</td>
-
                     <td>{{presciption.dispenseQuantity}}</td>
                     <td>{{presciption.howmanyRefills}}</td>
                     <td>
@@ -824,11 +820,10 @@
                         <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
                           (click)="deleteprscriptonforpatient(presciption.id)">
                       </a>&nbsp;&nbsp; -->
-                      <button type="button" class="form-control"
+                      <!-- <button type="button" class="form-control"
                      style="background-color: #1dbfd2;"   (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
-                    <br>
-
-                      <ng-template #tipcontent9503>Edit</ng-template>
+                    <br> -->
+                      <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
                         <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal" data-target="#edirprescription"
                           (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 24px">

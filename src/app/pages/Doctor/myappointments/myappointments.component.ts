@@ -322,6 +322,7 @@ export class MyappointmentsComponent implements OnInit {
     this.geticdcode()
     this.GetDrugnamemaster()
     this.oberserableTimerBookDocAppoinment()
+    this.observableDoctorAutoCancelledAppointments();
 
     // document.getElementById('Scheduled').style.display = "block";
 
@@ -337,7 +338,6 @@ export class MyappointmentsComponent implements OnInit {
 
 
     this.image = 0;
-
 
   }
 
@@ -400,10 +400,17 @@ export class MyappointmentsComponent implements OnInit {
   oberserableTimerBookDocAppoinment() {
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
+      this.getbookappointmentbydoctorid();
 
-      this.getbookappointmentbydoctorid()
+    });
+  }
 
 
+  observableDoctorAutoCancelledAppointments() {
+    const source = timer(1000, 20000);
+    const abc = source.subscribe(val => {
+
+      this.getbookappointDoctorNotJoinedAppointments();
     });
   }
 
@@ -429,6 +436,13 @@ export class MyappointmentsComponent implements OnInit {
     let fgdgfgd = even;
     this.p = even;
   }
+
+
+
+
+
+
+
 
   selectedDate(data) {
 
@@ -747,9 +761,9 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
-  public canparientname:any;
+  public canparientname: any;
 
-  public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount, pmobileNo,details) {
+  public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount, pmobileNo, details) {
     debugger
     this.appid = appointmentID;
     this.cancelpatientid = patientID,
@@ -760,7 +774,7 @@ export class MyappointmentsComponent implements OnInit {
     this.paidamount = paidAmount;
     this.walletamount = walletAmount,
       this.cancelpatientmobileno = pmobileNo;
-      this.canparientname=details.pName
+    this.canparientname = details.pName
     debugger
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
   }
@@ -817,8 +831,8 @@ export class MyappointmentsComponent implements OnInit {
     debugger
     var entity = {
       'emailto': this.canemail,
-      'emailsubject': "Your Doctor " + this.candoctorname + " Has Cancelled Your Appointment At Time "+this.canslots,
-      'emailbody': 'Dear '+this.canparientname+','+ "<br><br>" +'We regret to inform that your Doctor '+ this.candoctorname+ ' has cancelled your appointment of '+this.canslots+'. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients'+ "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'emailsubject': "Your Doctor " + this.candoctorname + " Has Cancelled Your Appointment At Time " + this.canslots,
+      'emailbody': 'Dear ' + this.canparientname + ',' + "<br><br>" + 'We regret to inform that your Doctor ' + this.candoctorname + ' has cancelled your appointment of ' + this.canslots + '. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
       'attachmenturl': this.emailattchementurl,
       'cclist': this.cclist,
       'bcclist': this.bcclist
@@ -861,7 +875,6 @@ export class MyappointmentsComponent implements OnInit {
         if (data != 0) {
 
         }
-
       })
     }
   }
@@ -876,13 +889,16 @@ export class MyappointmentsComponent implements OnInit {
       let test = res;
       if (this.languageid == 1) {
         Swal.fire(' Cancelled', 'Appointment cancelled successfully');
+        this.reason = "";
         // this.updatedateails()
         this.insercancelnotoification();
         this.Insertnotificatiacceptforcansel();
+
       }
       else if (this.languageid == 6) {
         Swal.fire('', 'Rendez-vous annulé avec succès');
         // this.updatedateails()
+        this.reason = "";
         this.insercancelnotoification();
         this.Insertnotificatiacceptforcansel();
       }
@@ -1359,7 +1375,7 @@ export class MyappointmentsComponent implements OnInit {
         'SIG': this.qwerty2[i].SIG,
         // 'Duration': this.qwerty2[i].Duration,
         'DispenseQuantity': this.qwerty2[i].DispenseQuantity,
-        'NoteToPharmasist': this.notetopharmacist,
+        'NoteToPharmasist': this.qwerty2[i].NoteToPharmasist,
         // 'Diagnosis': this.qwerty2[i].Diagnosis,
         'HowmanyRefills': this.qwerty2[i].HowmanyRefills,
         'LocalDoctorID': this.localdocid,
@@ -1380,6 +1396,8 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
             this.qwerty2 = []
+
+            this.display = "none";
           }
           else if (this.languageid == 6) {
             Swal.fire('L’ordonnance a bien été sauvegardée');
@@ -1389,6 +1407,7 @@ export class MyappointmentsComponent implements OnInit {
             this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
             this.qwerty2 = []
+            this.display = "none";
           }
         }
       })
@@ -1702,6 +1721,9 @@ export class MyappointmentsComponent implements OnInit {
             this.testid.length = 0;
             this.tsetssslist = 0;
             this.testssid = 0;
+            this.testdisplay = "none";
+
+
           }
           else if (this.languageid == 6) {
             Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
@@ -1714,6 +1736,7 @@ export class MyappointmentsComponent implements OnInit {
             this.testid.length = 0;
             this.tsetssslist = 0;
             this.testssid = 0;
+            this.testdisplay = "none";
           }
 
         }
@@ -1920,10 +1943,13 @@ export class MyappointmentsComponent implements OnInit {
     //  window.open("#/Vediocall", "_blank");
     this.getserverdateandtime();
     if (this.serverdate == appdate) {
+      debugger
       if (this.servertime >= slots) {
+        debugger
         if (this.servertime <= endtime) {
+          debugger
           this.docservice.showvid = 1;
-
+          debugger
           window.open("#/Vediocall", "_blank");
         }
         else {
@@ -2327,7 +2353,7 @@ export class MyappointmentsComponent implements OnInit {
           }
 
         }
-
+        this.soapdisplay = "none"
         this.clear()
         this.icdcode = ""
         this.icddesc = ""
@@ -3478,8 +3504,10 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
+  public dummprescriptionphotourl = []
 
   public onattachmentUpload1(abcd) {
+    this.dummprescriptionphotourl = []
 
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
@@ -3496,15 +3524,18 @@ export class MyappointmentsComponent implements OnInit {
 
   }
 
+  public shoprescphoto = [];
+
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
 
       this.attachmentsurl1.push(res);
+      this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
 
       let b = 'http://14.192.17.225' + a;
 
-      // this.showdocphoto.push(b)
+      this.shoprescphoto.push(b)
 
 
       this.attachments1.length = 0;
@@ -4421,4 +4452,124 @@ export class MyappointmentsComponent implements OnInit {
 
   }
 
+
+
+
+  // Doctor Auto Cancelled Appointments
+
+  public DoctotNotJoinedList: any;
+
+  public getbookappointDoctorNotJoinedAppointments() {
+    this.docservice.GetBookAppointmentByDoctorIDAutoCancelled(this.doctorid, this.todaydate).subscribe(data => {
+      this.DoctotNotJoinedList = data;
+      debugger
+      if (this.DoctotNotJoinedList.length != 0) {
+        var list = this.DoctotNotJoinedList[0]
+
+        this.DoctorCancelledAppointment(list)
+        debugger
+      }
+    })
+  }
+
+  public DoctorCancelledAppointment(list) {
+    debugger
+    this.docservice.UpdateBookAppointmentByDocCancel(list.id).subscribe(
+      data => {
+        debugger
+        this.getbookappointmentbydoctorid();
+        this.getbookappointmentbydocid();
+        this.SendDoctorAutoCancelMail(list);
+        this.insertDoctorAutoCancelNotification(list);
+        this.InserDoctorAutocancelNotification(list)
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+  public SendDoctorAutoCancelMail(list) {
+    debugger
+    var entity = {
+      'emailto': list.pEmail,
+      'emailsubject': "Your Doctor " + list.doctorName + " Has Cancelled Your Appointment At Time " + list.notificationdate,
+      'emailbody': 'Dear ' + list.pName + ',' + "<br><br>" + 'We regret to inform that your Doctor ' + list.doctorName + ' has cancelled your appointment of ' + list.notificationdate + '. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
+
+
+
+  public insertDoctorAutoCancelNotification(list) {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': "Dr. " + list.doctorName + "has cancelled your appointment scheduled for " + list.notificationdate + '. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients',
+        'ToUser': list.pEmail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "VDésolé, le docteur " + this.candoctorname + " A annulé votre rendez-vous " + list.notificationdate + + '. Veuillez utiliser l application voiladoc pour reporter ou demander un remboursement. Pour toute aide supplémentaire. Veuillez contacter nos clients d assistance',
+        'ToUser': list.pEmail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+  }
+
+
+  public InserDoctorAutocancelNotification(list) {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': list.relationPatientID,
+        'Notification': "Appointment Cancelled By Doctor.",
+        'Description': "Dr." + list.doctorName + " has cancelled your appointment scheduled for " + list.notificationdate,
+        'NotificationTypeID': 11,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': list.id
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': list.relationPatientID,
+        'Notification': "Rendez-vous annulé par le médecin.",
+        'Description': "Dr." + list.doctorName + " a annulé votre rendez-vous prévu pour " + list.notificationdate,
+        'NotificationTypeID': 11,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': list.id
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+  }
 }

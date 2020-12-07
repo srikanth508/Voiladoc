@@ -32,6 +32,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public appointmenttime: any;
   public hospitalid: any;
   public reasonforvisit: any;
+  public mindate=new Date();
 
   ngOnInit() {
     this.hospitalid = localStorage.getItem('hospitalid');

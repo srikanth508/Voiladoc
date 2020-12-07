@@ -12,6 +12,7 @@ export class MyTeamDashboardComponent implements OnInit {
   labels: any;
   myteamlist: any;
   term: any;
+  public count:any;
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
@@ -33,6 +34,7 @@ export class MyTeamDashboardComponent implements OnInit {
 public GetMyTeam() {
     this.docservice.GetMyTeam(localStorage.getItem('diagnosticid')).subscribe(data => {
         this.myteamlist = data;
+        this.count= this.myteamlist.length
     })
 }
 public Delete(id) {

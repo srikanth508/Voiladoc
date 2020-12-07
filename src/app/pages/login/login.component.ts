@@ -722,6 +722,71 @@ export class LoginComponent implements OnInit {
         }
       )
     }
+    if (this.roleid == "22") {
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+        data => {
+          this.result = data;
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].firstName)
+            localStorage.setItem('roleid', '22');
+            localStorage.setItem('finanacemanagerid', this.result[0].id);
+            sessionStorage.setItem('temp', '1');
+             location.href = '#/BillingDashboard';
+            location.reload();
+          }
+          else {
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
+          }
+        }, error => {
+        }
+      )
+    }
+    if (this.roleid == "23") {
+      debugger
+      this.docservice.GetDiagnosticReceptionistLoginByUserNameAndPassword(this.uname, this.pwd,localStorage.getItem('WebUrl')).subscribe(
+        data => {
+         debugger;          
+         this.result = data;         
+          if (this.result.length != '0') {
+            localStorage.setItem('user', this.result[0].userName);          
+            localStorage.setItem('roleid', '23');
+            localStorage.setItem('diagnosticid', this.result[0].diagnosticID);
+            localStorage.setItem('Receptionstid', this.result[0].id);
+            localStorage.setItem('receptiostname', this.result[0].name);
+            sessionStorage.setItem('temp', '1');
+            location.href = '#/DiagnosticAppointmentDash';
+            location.reload();
+          }
+          else {
+            if(this.LanguageID==1)
+            {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if(this.LanguageID==6)
+            {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
+          }
+        }, error => {
+        }
+      )
+    }
+
     // if (this.roleid == "21") {
     //   this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
     //     data => {

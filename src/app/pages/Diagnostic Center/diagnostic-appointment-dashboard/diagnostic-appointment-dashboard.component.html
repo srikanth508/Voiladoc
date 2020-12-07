@@ -1,0 +1,142 @@
+<div class="container-fluid card card:hover headerrspace">
+  <div class="row headerspace" style="margin-top: 10px;">
+      <div class="col-lg-9">
+          <h5>{{labels[0].diagnosticAppointments}}</h5>
+      </div>
+      <div class="col-lg-3">
+          <button type="button" routerLink="/NewAppointment" style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].newAppointment}}</button>
+      </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+      <div class="col-lg-3">
+          <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+          <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+      </div>
+      <div class="col-lg-3">
+          <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
+      </div>
+  </div><br>
+  <div class="row">
+      <div class="col-lg-12" style="overflow: auto;">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Appointment Date</th>
+                      <th>{{labels[0].slot}}</th>
+                      <th>{{labels[0].patientname}}</th>
+                      <th>{{labels[0].phoneNo}}</th>
+                      <th>{{labels[0].emailId}}</th>
+                      <th>{{labels[0].address}}</th>
+                      <th>{{labels[0].homeSample}}</th>
+                      <th>{{labels[0].details}}</th>
+                      <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let list of diagnosticappointmentlist|filter:term">
+                      <td>{{list.date|date}}</td>
+                      <td>{{list.slotName}}</td>
+                      <td>{{list.patientName}}</td>
+                      <td>{{list.mobileNumber}}</td>
+                      <td>{{list.emailID}}</td>
+                      <td>{{list.address}}</td>
+                      <td> <label *ngIf="list.homeSampleBit=='1'">{{labels[0].yes}}</label>
+                          <label *ngIf="list.homeSampleBit=='0'">{{labels[0].no}}</label></td>
+                      <td>
+                          <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
+                          <a [ngbTooltip]="tipcontent18" *ngIf="list.testsCount!=0">
+                              <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(list.id)">
+                          </a>&nbsp;
+                          <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
+                          <a [ngbTooltip]="tipcontent20" *ngIf="list.packageCount!=0">
+                              <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:20px;" (click)="GetPackageID(list.id)">
+                          </a>
+                      </td>
+                     <td>
+
+                     </td>
+                  </tr>
+              </thead>
+          </table><br>
+      </div><br><br>
+
+  </div>
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{{labels[0].tests}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+              </div>
+              <div class="modal-body">
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <table>
+                                  <thead>
+                                      <tr>
+                                          <th>{{labels[0].tests}}</th>
+                                          <th>Description</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                      <tr *ngFor="let listss of testslist">
+                                          <td>{{listss.testName}}</td>
+                                          <td>{{listss.description}}</td>
+                                          <td><input type="checkbox"[(ngModel)]="listss.available"></td>
+                                      </tr>
+                                  </thead>
+                              </table>
+                          </div>
+                      </div><br>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{{labels[0].packages}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+              </div>
+              <div class="modal-body">
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <table>
+                                  <thead>
+                                      <tr>
+                                          <th>{{labels[0].packageName}}</th>
+                                          <th>{{labels[0].tests}}</th>
+                                          <th>Description</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                      <tr *ngFor="let listsssss of packagelist">
+                                          <td>{{listsssss.packageName}}</td>
+                                          <td>{{listsssss.testNames}}</td>
+                                          <td>{{listsssss.description}}</td>
+                                          <td></td>
+                                      </tr>
+                                  </thead>
+                              </table>
+                          </div>
+                      </div><br>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+              </div>
+          </div>
+      </div>
+  </div>

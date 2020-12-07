@@ -1,0 +1,118 @@
+<div class="container-fluid card card:hover headerspace">
+    <div class="row headerspace">
+        <div class="col-lg-6">
+            <h5>Dashboard</h5>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container-fluid card card-hover">
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <select class="form-control" (change)="GetType($event)">
+            <option selected value="">Select</option>
+            <option  value="Hospital">Hospital</option>
+            <option  value="Clinic">Clinic</option>
+            <option  value="Doctor">Doctor</option>
+            <option  value="Nurse">Nurse</option>
+            <option  value="Physiotherapist">Physiotherapist</option>
+            <option  value="MidWives">MidWife</option>
+          </select>
+        </div>
+        <div class="col-lg-3">
+            <select class="form-control" (change)="GetYear($event)">
+          <option selected value="">Select Year</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+        </select>
+        </div>
+        <div class="col-lg-3">
+            <select class="form-control" (change)="GetMonth($event)">         
+        <option selected value="">Select Month</option>
+        <option value="1">January</option>
+        <option value="2">Febraury</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option  value="10">October</option>
+        <option  value="11">November</option>
+        <option  value="12">December</option>
+      </select>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" >
+                <br />
+                <label style="color: black;font-size: 30px;color: white;"><b
+            style="font-size: 15px;">Invoices Sent</b></label>
+                <br />
+                <br />
+                <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">{{sentinvoicecount}}</u></b></label>
+            </div>
+            <br />
+            <br />
+        </div>
+        <div class="col-lg-3">
+            <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" >
+                <br />
+                <label style="color: black;font-size: 30px;color: white;"><b
+            style="font-size: 15px;">paid Invoices</b></label>
+                <br />
+                <br />
+                <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">{{paidinvoicecount}}</u></b></label>
+            </div>
+            <br />
+            <br />
+        </div>
+        <div class="col-lg-3">
+            <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+                <br />
+                <label style="color: black;font-size: 30px;color: white;"><b
+            style="font-size: 15px;">Pending Invoices</b></label>
+                <br />
+                <br />
+                <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">{{pendinginvoicecount}}</u></b></label>
+            </div>
+            <br />
+            <br />
+        </div>
+
+        <div class="col-lg-3">
+            <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+                <br />
+                <label style="color: black;font-size: 30px;color: white;"><b
+            style="font-size: 15px;">Paid Amount</b></label>
+                <br />
+                <br />
+                <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">{{pendingamount}}</u></b></label>
+            </div>
+            <br />
+            <br />
+        </div>
+        <div class="col-lg-3">
+            <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
+                <br />
+                <label style="color: black;font-size: 30px;color: white;"><b
+            style="font-size: 15px;">Pending Amount</b></label>
+                <br />
+                <br />
+                <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u style="font-size: 20px;">{{paidamount}}</u></b></label>
+            </div>
+            <br />
+            <br />
+        </div>
+        <br />
+    </div>
+
+</div>

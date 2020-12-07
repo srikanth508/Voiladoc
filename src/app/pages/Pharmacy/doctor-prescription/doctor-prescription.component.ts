@@ -147,6 +147,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   dateofbirth: any;
   noteetopharmasict: any;
   referencenumber: any;
+  public orderedmedicinelist: any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
@@ -170,30 +171,40 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.noteetopharmasict = this.list[0].notetoopharmacistt,
       this.referencenumber = this.list[0].referenceNumber
 
-    let meds = this.list[0].allMedicines.split(',');
-    let quan = this.list[0].quantity.split(',');
+    this.docservice.GetPatientOrderedMedicines(this.listid).subscribe(
+      data => {
+
+        this.orderedmedicinelist = data;
+      }, error => {
+      }
+    )
 
 
 
-    let sig = this.list[0].sig.split(',');
+    // let meds = this.list[0].allMedicines.split(',');
+    // let quan = this.list[0].quantity.split(',');
+
+
+
+    // let sig = this.list[0].sig.split(',');
     // let notetopharmacist = this.list[0].noteToPharmacist.split(',');
-    let howmanyrefills = this.list[0].renovolment.split(',');
+    // let howmanyrefills = this.list[0].renovolment.split(',');
     // let issubastaible = this.list[0].isSubatianablenotPermittesd.split(',');
     // let mtype = this.list[0].medicineTypeID.split(',');
 
-    for (let i = 0; i < meds.length; i++) {
-      var medetty = {
-        'medicine': meds[i],
-        'quantity': quan[i],
-        'Sig': sig[i],
-        // 'NoteToPharmacist': notetopharmacist[i],
-        'howmanyrefills': howmanyrefills[i],
+    // for (let i = 0; i < meds.length; i++) {
+    //   var medetty = {
+    //     'medicine': meds[i],
+    //     'quantity': quan[i],
+    //     'Sig': sig[i],
+    //     // 'NoteToPharmacist': notetopharmacist[i],
+    //     'howmanyrefills': howmanyrefills[i],
 
-        // 'issubastaible': issubastaible[i]
-        // 'Medicinetype': mtype[i]
-      }
-      this.myarray.push(medetty);
-    }
+    //     // 'issubastaible': issubastaible[i]
+    //     // 'Medicinetype': mtype[i]
+    //   }
+    //   this.myarray.push(medetty);
+    // }
 
   }
 
@@ -374,35 +385,68 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.delipatientid = patientID;
     this.delipharmacyname = pharmacyName;
     this.deliemail = emailID;
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Order has been delivered!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes,  Delivered!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeliveredPatientMedicineDetails(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Order has been delivered!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes,  Delivered!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeliveredPatientMedicineDetails(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+            this.InsertDeliverNotification();
+            this.InsertNotiFicationDeliver();
+          })
+          Swal.fire(
+            'Delivered!',
+            'Order has been Delivered.',
+            'success'
+          )
+        }
+        else {
           this.GetPharmacyOrders();
           this.getpharmacyorders();
-          this.InsertDeliverNotification();
-          this.InsertNotiFicationDeliver();
-        })
-        Swal.fire(
-          'Delivered!',
-          'Order has been Delivered.',
-          'success'
-        )
-      }
-      else {
-        this.GetPharmacyOrders();
-        this.getpharmacyorders();
-      }
-    })
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: "La commande a été livrée!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui!',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeliveredPatientMedicineDetails(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+            this.InsertDeliverNotification();
+            this.InsertNotiFicationDeliver();
+          })
+          Swal.fire(
+            'Livré!',
+            'La commande a été livrée.',
+            'success'
+          )
+        }
+        else {
+          this.GetPharmacyOrders();
+          this.getpharmacyorders();
+        }
+      })
+    }
+
   }
 
 
@@ -653,9 +697,17 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     this.docservice.UpdatePatient_TextMedicineDetailsFullyAvailableBit(entity).subscribe(data => {
       let res = data;
-      Swal.fire('Success', 'Updated Successfully');
-      this.amounttopay = ""
-      this.GetPharmacyOrders()
+      if (this.languageid == 1) {
+        Swal.fire('Success', 'Updated Successfully');
+        this.amounttopay = ""
+        this.GetPharmacyOrders()
+      }
+      else {
+        Swal.fire('Succès', 'Mis à jour avec succés');
+        this.amounttopay = ""
+        this.GetPharmacyOrders()
+      }
+
     })
   }
 
@@ -719,9 +771,17 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     this.docservice.UpdatePatient_TextMedicineDetailsPartialBit(entity).subscribe(data => {
       let res = data;
-      Swal.fire('Success', 'Updated Successfully');
-      this.amounttopay = ""
-      this.GetPharmacyOrders()
+      if (this.languageid == 1) {
+        Swal.fire('Success', 'Updated Successfully');
+        this.amounttopay = ""
+        this.GetPharmacyOrders()
+      }
+      else {
+        Swal.fire('Succès', 'Mis à jour avec succés');
+        this.amounttopay = ""
+        this.GetPharmacyOrders()
+      }
+
     })
   }
 
@@ -740,35 +800,68 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public GetReadyForDelivery(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "This Order Is Ready For Delivery!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Ready!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetDeliveredPatnerAssignReadyForAvailable(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
 
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "This Order Is Ready For Delivery!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Ready!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.GetDeliveredPatnerAssignReadyForAvailable(id).subscribe(res => {
-          let test = res;
+          })
+          Swal.fire(
+            'Success!',
+            'Order Is Ready for Delivery.',
+            'success'
+          )
+        }
+        else {
           this.GetPharmacyOrders();
           this.getpharmacyorders();
+        }
+      })
+    }
+    else {
 
-        })
-        Swal.fire(
-          'Success!',
-          'Order Is Ready for Delivery.',
-          'success'
-        )
-      }
-      else {
-        this.GetPharmacyOrders();
-        this.getpharmacyorders();
-      }
-    })
+      Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: "Cette commande est prête pour la livraison!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetDeliveredPatnerAssignReadyForAvailable(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+
+          })
+          Swal.fire(
+            'Succès!',
+            'La commande est prête pour la livraison.',
+            'success'
+          )
+        }
+        else {
+          this.GetPharmacyOrders();
+          this.getpharmacyorders();
+        }
+      })
+
+    }
+
   }
 
 
@@ -1104,4 +1197,39 @@ export class DoctorPrescriptionComponent implements OnInit {
   // {
   //   this.showwindow=0;
   // }
+
+
+  public ChangeAvailableMedicines(medicinelist, even) {
+    if (even.target.checked == true) {
+      this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(medicinelist.id).subscribe(res => {
+        debugger
+        this.GetPharmacyOrders();
+      })
+    }
+    if (even.target.checked == false) {
+      this.docservice.UpdatePatientOrderedMedicinesUnAvailableMedicines(medicinelist.id).subscribe(res => {
+        debugger
+        this.GetPharmacyOrders();
+      })
+    }
+  }
+
+
+  public Updateavailablemedicines() {
+    for (let i = 0; i < this.orderedmedicinelist.length; i++) {
+      debugger
+      var entity = {
+        'ID': this.orderedmedicinelist[i].id,
+        'Amount': this.orderedmedicinelist[i].amount,
+        'AvailableBit': this.orderedmedicinelist[i].availableBit,
+        'Quantity': this.orderedmedicinelist[i].quantity,
+      }
+      this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(entity).subscribe(data => {
+        debugger
+      })
+    }
+    Swal.fire('Updated Successfully');
+ 
+
+  }
 }

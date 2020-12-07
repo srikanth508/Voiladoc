@@ -50,6 +50,7 @@ export class DoctorslotsComponent implements OnInit {
   labels: any;
   serverdateandtime: any;
   doctorfees: any;
+  public mindate=new Date();
   ngOnInit() {
    
     this.languageid = localStorage.getItem('LanguageID');

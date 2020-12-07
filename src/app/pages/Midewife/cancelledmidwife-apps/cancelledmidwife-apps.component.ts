@@ -111,7 +111,7 @@ export class CancelledmidwifeAppsComponent implements OnInit {
       data => {
 
         this.dummlist = data;
-        this.appointmentreportlist = this.dummlist.filter(x => x.midwivesCancelled == 1)
+        this.appointmentreportlist = this.dummlist.filter(x => x.midwivesCancelled == 1||x.cancelled==1)
       }, error => {
       }
     )

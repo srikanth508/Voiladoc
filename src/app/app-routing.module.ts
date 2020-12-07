@@ -328,6 +328,15 @@ import { CancelledPhysioappointmentsComponent } from './pages/physiotherapist/ca
 import { AllCancelledAppointmentsComponent } from './pages/AdminDashboard/all-cancelled-appointments/all-cancelled-appointments.component';
 import { MyTeamDashboardComponent } from './pages/Diagnostic Center/my-team-dashboard/my-team-dashboard.component';
 import { MyTeamComponent } from './pages/Diagnostic Center/my-team/my-team.component';
+import { ReceptionistLoginDashboardComponent } from './pages/Diagnostic Center/receptionist-login-dashboard/receptionist-login-dashboard.component';
+import { ReceptionistLoginComponent } from './pages/Diagnostic Center/receptionist-login/receptionist-login.component';
+import { DiagnosticAppointmentDashboardComponent } from './pages/Diagnostic Center/diagnostic-appointment-dashboard/diagnostic-appointment-dashboard.component';
+import { NewAppointmentComponent } from './pages/Diagnostic Center/new-appointment/new-appointment.component';
+import { NewBillingComponent } from './pages/Billing/new-billing/new-billing.component';
+import { SentInvoicesComponent } from './pages/Billing/sent-invoices/sent-invoices.component';
+import { PaidInvoicesComponent } from './pages/Billing/paid-invoices/paid-invoices.component';
+import { DiagfnosticCalenderComponent } from './pages/Diagnostic Center/diagfnostic-calender/diagfnostic-calender.component';
+import { BillingDashboardComponent } from './pages/Billing/billing-dashboard/billing-dashboard.component';
 
 
 
@@ -734,9 +743,20 @@ const routes: Routes = [
   { path: 'CancelledmidwifeApps', component: CancelledmidwifeAppsComponent },
   { path: 'CancelledPhysioappointments', component: CancelledPhysioappointmentsComponent },
   { path: 'AllCancelledAppointments', component: AllCancelledAppointmentsComponent },
-  
   { path: 'MyTeamDashboard', component: MyTeamDashboardComponent },
   { path: 'MyTeam', component: MyTeamComponent },
+  { path: 'MyTeam/:id', component: MyTeamComponent },
+  { path: 'ReceptionistLoginDashboard', component: ReceptionistLoginDashboardComponent },
+  { path: 'ReceptionistLogin', component: ReceptionistLoginComponent },
+  { path: 'ReceptionistLogin/:id', component: ReceptionistLoginComponent },
+  { path: 'DiagnosticAppointmentDash', component: DiagnosticAppointmentDashboardComponent },
+  { path: 'NewAppointment', component: NewAppointmentComponent },
+  { path: 'NewBilling', component: NewBillingComponent },
+  { path: 'SentInvoices', component: SentInvoicesComponent },
+  { path: 'PaidInvoices', component: PaidInvoicesComponent },
+  { path: 'DiagfnosticCalender', component: DiagfnosticCalenderComponent },
+  { path: 'BillingDashboard', component: BillingDashboardComponent },
+  
 ];
 
 @NgModule({

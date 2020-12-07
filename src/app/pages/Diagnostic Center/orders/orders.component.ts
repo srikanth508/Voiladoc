@@ -102,7 +102,7 @@ export class OrdersComponent implements OnInit {
 
 
   Obseravabletimer() {
-    
+
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
 
@@ -176,8 +176,7 @@ export class OrdersComponent implements OnInit {
     this.acceptcenter = diagnosticCenterName;
     this.accslot = slotName;
     this.acpaemail = emailID;
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
         text: "Do you want to accept this order ?",
@@ -207,8 +206,7 @@ export class OrdersComponent implements OnInit {
         }
       })
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire({
         // title: 'Are you sure?',
         text: "Voulez-vous accepter cette commande ?",
@@ -245,8 +243,7 @@ export class OrdersComponent implements OnInit {
 
   public UpdateDiagnosticAppointmentsNotVisitedBit(appointmentID) {
 
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
         text: "This Patient has Not Visited!",
@@ -274,8 +271,7 @@ export class OrdersComponent implements OnInit {
         }
       })
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire({
         // title: 'Are you sure?',
         text: "Le patient ne s’est pas présenté ?",
@@ -345,8 +341,7 @@ export class OrdersComponent implements OnInit {
         }
       })
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire({
         // title: 'Are you sure?',
         text: "Le patient s'est-il présenté ?",
@@ -422,12 +417,10 @@ export class OrdersComponent implements OnInit {
     }
     this.docservice.UpdateDiagnosticAppointmentsReasonForCancel(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('', 'Order Cancelled Successfully');
       }
-      else if(this.languageid==6)
-      {
+      else if (this.languageid == 6) {
         Swal.fire('', 'Commande annulée avec succès.');
       }
     })
@@ -435,25 +428,23 @@ export class OrdersComponent implements OnInit {
   }
 
 
-public dummattchmenturl=[]
+  public dummattchmenturl = []
 
   public onattachmentUpload(abcd) {
-    this.dummattchmenturl=[]
+    this.dummattchmenturl = []
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire('Mis à jour avec succés');
       abcd.length = 0;
     }
-    
+
   }
 
   public uploadattachments() {
@@ -538,11 +529,21 @@ public dummattchmenturl=[]
       this.docservice.UpdatePatient_DiagnosticUploads(entity).subscribe(data => {
 
         if (data != undefined) {
-          Swal.fire('Success', 'Report Updated Successfully');
-          this.notes = "";
-          this.attachmentsurl.length = 0;
-          this.showphoto.length = 0;
-          this.VisitOrder(this.appointmentsid);
+          if (this.languageid == 1) {
+            Swal.fire('Success', 'Report Updated Successfully');
+            this.notes = "";
+            this.attachmentsurl.length = 0;
+            this.showphoto.length = 0;
+            this.VisitOrder(this.appointmentsid);
+          }
+          else {
+            Swal.fire('Succès', 'Rapport mis à jour avec succès');
+            this.notes = "";
+            this.attachmentsurl.length = 0;
+            this.showphoto.length = 0;
+            this.VisitOrder(this.appointmentsid);
+          }
+
         }
       })
     }
@@ -797,6 +798,70 @@ public dummattchmenturl=[]
       })
     }
   }
+
+
+  public homesamplelist: any;
+  public orderid: any;
+
+  public GetAssaignOrderdetails(details) {
+    debugger
+    this.orderid = details.id;
+    this.patientid = details.patientID
+    this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
+      this.homesamplelist = data;
+    })
+  }
+
+
+
+  public Insertdetails(list) {
+    debugger
+    var entity = {
+      'OrderID': this.orderid,
+      'PatientID': this.patientid,
+      'DeliveryPatnerID': list.id
+    }
+    this.docservice.InsertDiagnostic_HomeSampleOrders(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Success', 'Order Assigned Successfully');
+        this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
+          this.homesamplelist = data;
+        })
+        this.getdiagnosticAppointment()
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Success', 'Order Assigned Successfully');
+        this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
+          this.homesamplelist = data;
+
+        })
+        this.getdiagnosticAppointment()
+      }
+    })
+  }
+
+
+
+  public InsertAvailabletest() {
+    for (let i = 0; i < this.testslist.length; i++) {
+      var entity = {
+        'ID': this.testslist[i].bookediid,
+        'Available': this.testslist[i].available
+      }
+      this.docservice.UpdateDiagnosticBookedTests(entity).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succés');
+        }
+      })
+    }
+
+  }
 }
+
+
+
 
 

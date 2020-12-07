@@ -73,19 +73,19 @@
             </td>
             <td>
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">{{labels[0].accepted}}</label>
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'&&details.readyfordelivery=='0'">{{labels[0].accepted}}</label>
               <label style="color:red"
                 *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
 
-              <label style="color:green"
+              <!-- <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">
                 {{labels[0].fullyAvailable}}</label>
 
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='1'&&details.readyfordelivery=='0'">
-                {{labels[0].partailAvailable}}</label>
+                {{labels[0].partailAvailable}}</label> -->
 
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='0'">
@@ -114,26 +114,25 @@
                     </a>
                   </td>
                   <td style="border:none">
-                    <ng-template #tipcontent84>{{labels[0].fullyAvailable}}</ng-template>
+                    <!-- <ng-template #tipcontent84>{{labels[0].fullyAvailable}}</ng-template>
                     <a [ngbTooltip]="tipcontent84"
                       *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
                       <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
-                        data-target="#exampleModal3" (click)="GetFullyOrderDetails(details)" /></a>
+                        data-target="#exampleModal3" (click)="GetFullyOrderDetails(details)" /></a> -->
                   </td>
                   <td style="border:none">
-
-                    <ng-template #tipcontent89>{{labels[0].partailAvailable}}</ng-template>
+                    <!-- <ng-template #tipcontent89>{{labels[0].partailAvailable}}</ng-template>
                     <a [ngbTooltip]="tipcontent89"
                       *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">
                       <img src="assets/Images/edit.png" style="height:20px;" data-toggle="modal"
-                        data-target="#exampleModal4" (click)="GetPartialOrderDetails(details)" /></a>
+                        data-target="#exampleModal4" (click)="GetPartialOrderDetails(details)" /></a> -->
                   </td>
                 </tr>
                 <tr>
                   <td style="border:none">
                     <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
                     <a [ngbTooltip]="tipcontent899"
-                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'||details.partialBit=='1'&&details.readyfordelivery=='0'">
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'">
                       <img src="assets/Images/edit.png" style="height:20px;"
                         (click)="GetReadyForDelivery(details.id)" /></a>
                   </td>
@@ -228,7 +227,6 @@
               </aside>
             </div>
           </div><br>
-
           <div class="row">
             <div class="col-lg-12">
               <aside id="info-block">
@@ -251,15 +249,38 @@
                                 {{labels[0].quantity}}</th>
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].howmanyrefills}}</th>
+
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                Substitute Permitted</th>
+
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].notetoPharmsict}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                Amount</th>
                               <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].notetoPharmsict}}</th> -->
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">Actions</th>
                             </tr>
-                            <tr *ngFor="let medicinelist of myarray">
+                            <tr *ngFor="let medicinelist of orderedmedicinelist">
                               <!-- <td>{{medicinelist.Medicinetype}}</td> -->
-                              <td style="border: 2px solid black;">{{medicinelist.medicine}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.Sig}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.quantity}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.howmanyrefills}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.medicineName}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.sig}}</td>
+                              <td style="border: 2px solid black;">
+                                <!-- {{medicinelist.quantity}} -->
+                    
+                                <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
+                                class="form-control" placeholder=" {{labels[0].quantity}}">
+                              </td>
+                              <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.noteToPharmacist}}</td>
+                              <td style="border: 2px solid black;">
+                                <input type="text" [(ngModel)]="medicinelist.amount" name="medicinelist.amount"
+                                  class="form-control" placeholder="Amount">
+                              </td>
+                              <td style="border: 2px solid black;">
+                                <input type="checkbox" [(ngModel)]="medicinelist.availableBit">
+                              </td>
                               <!-- <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td> -->
                             </tr>
                           </thead>
@@ -273,8 +294,11 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-lg-8">
-              <label>{{labels[0].notetoPharmsict}} : {{noteetopharmasict}} </label>
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+                data-dismiss="modal" (click)="Updateavailablemedicines()"> {{labels[0].update}}</button>
             </div>
             <div class="col-lg-4">
               <!-- <img src="{{docsignatureurl}}"> -->
@@ -385,7 +409,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-4">
             <label>Photo :</label>
           </div>
@@ -400,7 +424,7 @@
             </div>
           </div>
         </div>
-        <br>
+        <br> -->
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].amountToPay}} :</label>

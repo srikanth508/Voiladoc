@@ -7,22 +7,22 @@
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <div *ngIf="dummdiagnosticid=='undefined'">
-  <div class="row " style="margin-top:20px;">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].diagnosticCenter}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <!-- <select class="dropdown form-control ng-pristine" (change)="GetDiagnosticID($event)">
+    <div class="row " style="margin-top:20px;">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].diagnosticCenter}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <!-- <select class="dropdown form-control ng-pristine" (change)="GetDiagnosticID($event)">
           <option value="" selected>Select</option>
           <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.diagnosticCenterName}}</option>
         </select> -->
-      <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
-        [settings]="diadnosticdd" (onSelect)="GetDiagnosticID($event)">
-      </ng-multiselect-dropdown>
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
+          [settings]="diadnosticdd" (onSelect)="GetDiagnosticID($event)">
+        </ng-multiselect-dropdown>
+      </div>
     </div>
-  </div>
-  <BR>
+    <BR>
   </div>
   <div *ngIf="dummdiagnosticid!='undefined'">
     <div class="row " style="margin-top:20px;">
@@ -35,89 +35,101 @@
             <option value="" selected>Select</option>
             <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.diagnosticCenterName}}</option>
           </select> -->
-      <input type="text" disabled class="form-control" [(ngModel)]="diagnosticname" name="diagnosticname">
+        <input type="text" disabled class="form-control" [(ngModel)]="diagnosticname" name="diagnosticname">
       </div>
     </div>
     <BR>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>
+        {{labels[0].day}}: </label>
+      <span class="required">*</span>
     </div>
-    <div class="row">
-      <div class="col-lg-3">
-        <label>
-          {{labels[0].day}}: </label>
-          <span class="required">*</span>
-      </div>
-      <div class="col-lg-4">
-        <!-- <select class="form-control" (change)="GetDaysID($event)">
+    <div class="col-lg-4">
+      <!-- <select class="form-control" (change)="GetDaysID($event)">
           <option value="" selected> {{labels[0].select}}</option>
           <option *ngFor="let days of  dayslist" value={{days.id}}>{{days.dayOfTheWeek}}</option>
         </select> -->
 
-        <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="dayslist" [settings]="daysdd"
-          (onSelect)="GetDaysID($event)" (onDeSelect)="GetDaysID($event)">
-        </ng-multiselect-dropdown>
-      </div>
-    </div>
-    <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="Slot_label">{{labels[0].slots}}:</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <label class="Slot_label">{{labels[0].morning}}:</label>
-
-    </div>
-    <div class="col-lg-4">
-      <label class="Slot_label">{{labels[0].afternoon}}:</label>
-
-    </div>
-   </div>
-  <div class="row">
-    <div class="col-lg-3">
-    </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="dis1=='1'" [(ngModel)]="dropdownclear1" [data]="slotslist"
-        [settings]="slotsdd" (onSelect)="GetMrngSlotsID($event)">
-      </ng-multiselect-dropdown>
-    </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="dis2=='1'" [(ngModel)]="dropdownclear2" [data]="slotslist1"
-        [settings]="slotsdd1" (onSelect)="GetAfternoonSlotsID($event)">
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="dayslist" [settings]="daysdd"
+        (onSelect)="GetDaysID($event)" (onDeSelect)="GetDaysID($event)">
       </ng-multiselect-dropdown>
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-lg-3">
+      <label class="Slot_label">{{labels[0].slots}}:</label>
+      <span class="required">*</span>
     </div>
-    <div class="col-lg-4">
-      <label class="Slot_label">{{labels[0].evening}}:</label>
+    <div class="col-lg-9">
+      <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="1"> &nbsp;
+      Home Sample
+      &nbsp;
+      <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="2"> &nbsp;
+      Diagnostic Center  &nbsp;
+      <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="3"> &nbsp;
+      Both
+      &nbsp;
     </div>
-    <div class="col-lg-4">
-      <label class="Slot_label">{{labels[0].night}}:</label>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-lg-3">
     </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="dis3=='1'" [(ngModel)]="dropdownclear3" [data]="slotslist2"
-        [settings]="slotsdd2" (onSelect)="GetEvngSlotsID($event)">
-      </ng-multiselect-dropdown>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="getmrngfrom($event)" [(ngModel)]="mrngfromid" name="mrngfromid">
+        <option value="">{{labels[0].startTime}}</option>
+        <option *ngFor="let mrngfrm of mrngfromlist" value="{{ mrngfrm.id }}">{{ mrngfrm.slotName }}</option>
+      </select>
     </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="SelectLabel"  [disabled]="dis4=='1'" [(ngModel)]="dropdownclear4" [data]="slotslist3"
-        [settings]="slotsdd3" (onSelect)="GetNightSlotsID($event)">
-      </ng-multiselect-dropdown>
+    <div class="col-lg-3" style="margin-top: 0px;">
+      <select class="form-control" (change)="getmrngto($event)" [(ngModel)]="mrngtoid" name="mrngtoid">
+        <option value="">{{labels[0].endTime}}</option>
+        <option *ngFor="let mrngto of mrngtolist" value="{{ mrngto.id }}">{{ mrngto.slotName
+        }}</option>
+      </select>
     </div>
   </div><br>
   <div class="row">
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">Add</button>
     </div>
     <div class="col-lg-5">
     </div>
   </div><br>
+  <div class="row" *ngIf="tablecount=='1'">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].startTime}}</th>
+            <th>{{labels[0].endTime}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of qwerty">
+            <td [style.background-color]="details.Color">{{details.StartTime}}</td>
+            <td [style.background-color]="details.Color">
+              {{details.EndTime}}</td>
+            <td>
+              <ng-template #tipcontent2>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" (click)="delete(details.Sno)" style="width: 20px;margin-left: 10px;">
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+  <div class="row" *ngIf="tablecount=='1'">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails1()">Save</button>
+    </div>
+    <div class="col-lg-5">
+    </div>
+  </div><br>
+  <br>
 </div>

@@ -81,7 +81,7 @@ export class AppComponent {
     this.nurseid = localStorage.getItem('nurseid');
     this.midwifeid = localStorage.getItem('midwifeid');
     this.physioid = localStorage.getItem('physioid');
-    this.supportid = localStorage.getItem('supportid')
+    this.supportid = localStorage.getItem('supportid');
     this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
@@ -117,8 +117,6 @@ export class AppComponent {
       if (this.doctorid != null) {
         this.GetDoctorNotifications();
         this.GetChatnotificationslist();
-
-
         this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
           this.doctorNotifications = data;
           this.notificationcount = data[0].notifycount;
@@ -171,8 +169,23 @@ export class AppComponent {
             this.notificationcount = Number(this.doctorNotifications[0].notifycount);
           })
       }
+      else if (this.pharmacyid != null && this.pharmacyid != undefined) {
+        this.docservice.GetNotification_Pharmacy(this.pharmacyid).subscribe
+          (datas => {
+            this.notificationcount = 0;
+
+            this.pharmcunoti = datas;
+            this.notificationcount = Number(this.pharmcunoti[0].notifycount);
+            // Swal.fire('New Notifications');
+          })
+      }
+
     });
   }
+
+  public pharmcunoti: any;
+
+
 
 
   public GetDoctorNotifications() {
@@ -609,4 +622,240 @@ export class AppComponent {
     })
   }
 
+
+
+
+
+
+
+  //phrmacy notifications
+
+
+  public RejectPhrmacyOrder() {
+    this.docservice.UpdateNotification_PharmacyRejected(this.pharmacyid, this.details.orderID).subscribe(
+      data => {
+        debugger
+        this.InsertRejectNotification();
+        this.InsertPharmcyRejectedNotification();
+        if (this.details.sendnotification == 2) {
+          debugger
+          this.InsertAllPhrmacyrejectedOrder();
+          this.InsertRejectAllpharmacy();
+          this.UpdateReorderBit();
+          this.Deletemedicine();
+        }
+        if (this.languageid == 1) {
+          Swal.fire('Success', 'Order Rejected Successfully');
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Succès', 'Commande rejetée avec succès');
+        }
+      }, error => {
+      }
+    )
+  }
+
+  public Deletemedicine() {
+    this.docservice.DeletePatient_TextMedicineDetailsByID(this.details.orderID).subscribe(data => {
+
+    })
+  }
+
+
+  public InsertRejectAllpharmacy() {
+    debugger
+    var entity = {
+      'Description': "All Pharmacies Rejected Your Order. Please Reorder Again.",
+      'ToUser': this.details.emailID,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+  }
+
+  public InsertRejectNotification() {
+    var entity = {
+      'Description': this.details.pharmacyName + " Rejected You Medicine Order ",
+      'ToUser': this.details.emailID,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+  public AcceptPharmacyOrder() {
+    this.docservice.UpdateNotification_PharmacyAccepted(this.pharmacyid, this.details.orderID).subscribe(
+      data => {
+        this.InsertAcceptedNotification()
+        this.InsertPharmacyAcceptNotifications()
+        if (this.languageid == 1) {
+          Swal.fire('Success', 'Order Accepted Successfully');
+          location.href = "#/DoctorPrescription"
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Succès', 'Commande acceptée avec succès');
+          location.href = "#/DoctorPrescription"
+        }
+      }, error => {
+      }
+    )
+  }
+
+  public InsertAcceptedNotification() {
+    var entity = {
+      'Description': this.details.pharmacyName + " Accepted You Medicine Order ",
+      'ToUser': this.details.emailID,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+  }
+
+
+
+  public InsertPharmacyAcceptNotifications() {
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.details.patientID,
+        'Notification': this.details.pharmacyName + " Accepted Your Medicine order",
+        'Description': this.details.pharmacyName + " Accepted Your Medicine order",
+        'NotificationTypeID': 201,
+        'Date': new Date(),
+        'LanguageID': this.languageid,
+        'AppointmentID': 0
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.details.patientID,
+        'Notification': this.details.pharmacyName + " Accepté votre commande de médicaments.",
+        'Description': this.details.pharmacyName + " Accepté votre commande de médicaments.",
+        'NotificationTypeID': 201,
+        'Date': new Date(),
+        'LanguageID': this.languageid,
+        'AppointmentID': 0
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+
+      })
+    }
+  }
+
+
+  public InsertPharmcyRejectedNotification() {
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.details.patientID,
+        'Notification': this.details.pharmacyName + " Rejected Your Medicine order",
+        'Description': this.details.pharmacyName + " Rejected Your Medicine order",
+        'NotificationTypeID': 202,
+        'Date': new Date(),
+        'LanguageID': this.languageid,
+        'AppointmentID': 0
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.details.patientID,
+        'Notification': this.details.pharmacyName + " Accepté votre commande de médicaments.",
+        'Description': this.details.pharmacyName + " Accepté votre commande de médicaments.",
+        'NotificationTypeID': 202,
+        'Date': new Date(),
+        'LanguageID': this.languageid,
+        'AppointmentID': 0
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        if (data != 0) {
+        }
+      })
+    }
+  }
+  public show1: any;
+  public acceptrejectid: any;
+  public details: any;
+
+  public orderedmedicinelist: any;
+  public ViewMedicines(docnoti) {
+    this.acceptrejectid = docnoti.id
+    this.details = docnoti
+    this.docservice.GetPatientOrderedMedicines(docnoti.orderID).subscribe(
+      data => {
+        this.orderedmedicinelist = data;
+      }, error => {
+      }
+    )
+  }
+
+  public prescriptionid: any;
+  public UpdateReorderBit() {
+    for (let i = 0; i < this.orderedmedicinelist.length; i++) {
+      debugger
+      this.prescriptionid = this.orderedmedicinelist[i].docPrID
+      this.docservice.UpdateDoctor_PatientPrescriptionreorderBit(this.prescriptionid).subscribe(
+        data => {
+          debugger
+        }, error => {
+        }
+      )
+    }
+
+  }
+
+
+  public InsertAllPhrmacyrejectedOrder() {
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.details.patientID,
+        'Notification': "All pharmacies Rejected Your Order.Please Reorder Again ",
+        'Description': "All pharmacies Rejected Your Order.Please Reorder Again ",
+        'NotificationTypeID': 202,
+        'Date': new Date(),
+        'LanguageID': this.languageid,
+        'AppointmentID': 0
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.details.patientID,
+        'Notification': "All pharmacies Rejected Your Order.Please Reorder Again.",
+        'Description': "All pharmacies Rejected Your Order.Please Reorder Again ",
+        'NotificationTypeID': 202,
+        'Date': new Date(),
+        'LanguageID': this.languageid,
+        'AppointmentID': 0
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+        if (data != 0) {
+        }
+      })
+    }
+  }
 }

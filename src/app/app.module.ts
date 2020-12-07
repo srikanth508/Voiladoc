@@ -353,8 +353,16 @@ import { CancelledPhysioappointmentsComponent } from './pages/physiotherapist/ca
 import { AllCancelledAppointmentsComponent } from './pages/AdminDashboard/all-cancelled-appointments/all-cancelled-appointments.component';
 import { MyTeamComponent } from './pages/Diagnostic Center/my-team/my-team.component';
 import { MyTeamDashboardComponent } from './pages/Diagnostic Center/my-team-dashboard/my-team-dashboard.component';
+import { ReceptionistLoginDashboardComponent } from './pages/Diagnostic Center/receptionist-login-dashboard/receptionist-login-dashboard.component';
+import { ReceptionistLoginComponent } from './pages/Diagnostic Center/receptionist-login/receptionist-login.component';
+import { NewAppointmentComponent } from './pages/Diagnostic Center/new-appointment/new-appointment.component';
+import { DiagnosticAppointmentDashboardComponent } from './pages/Diagnostic Center/diagnostic-appointment-dashboard/diagnostic-appointment-dashboard.component';
 
-
+import { NewBillingComponent } from './pages/Billing/new-billing/new-billing.component';
+import { SentInvoicesComponent } from './pages/Billing/sent-invoices/sent-invoices.component';
+import { PaidInvoicesComponent } from './pages/Billing/paid-invoices/paid-invoices.component';
+import { DiagfnosticCalenderComponent } from './pages/Diagnostic Center/diagfnostic-calender/diagfnostic-calender.component';
+import { BillingDashboardComponent } from './pages/Billing/billing-dashboard/billing-dashboard.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
   url: 'http://14.192.17.225/RMSAPI/Master/UploadZIP/',
@@ -699,6 +707,15 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     AllCancelledAppointmentsComponent,
     MyTeamComponent,
     MyTeamDashboardComponent,
+    ReceptionistLoginDashboardComponent,
+    ReceptionistLoginComponent,
+    NewAppointmentComponent,
+    DiagnosticAppointmentDashboardComponent,
+    NewBillingComponent,
+    SentInvoicesComponent,
+    PaidInvoicesComponent,
+    DiagfnosticCalenderComponent,
+    BillingDashboardComponent
    
   ],
   imports: [

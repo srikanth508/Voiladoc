@@ -295,23 +295,6 @@ export class DocworkingdetailsComponent implements OnInit {
     this.booktypeid = this.booktypeid.slice(item7.id)
   }
 
-  // public GetAppointmentTypeID(item8: any) {
-  //  
-  //   this.appontmenttypeid.push(item8);
-  //   this.showid = item8.id
-  // }
-  // if (this.showid == 1 && this.showid != 2) {
-  //   this.mrngAppointmenttype = 1
-  //   this.afternoonappointmentType = 1
-  //   this.eveningappointmentType = 1
-  //   this.nightappointmenttype = 1
-  // }
-  // else {
-  //   this.mrngAppointmenttype = 0
-  //   this.afternoonappointmentType = 0
-  //   this.eveningappointmentType = 0
-  //   this.nightappointmenttype = 0
-  // }
 
 
   public onItemDeSelect8(item8: any) {
@@ -870,6 +853,10 @@ export class DocworkingdetailsComponent implements OnInit {
         this.mrngcolorcode = '#90EE90'
         this.appontmenttypeid.push(5)
       }
+      else if (this.mrngAppointmenttype == '6') {
+        this.mrngcolorcode = '#00ff80'
+        this.appontmenttypeid.push(5)
+      }
 
       if (this.afternoonappointmentType == '1') {
         this.afternooncolorcode = '#bae6fb'
@@ -1200,6 +1187,8 @@ export class DocworkingdetailsComponent implements OnInit {
       location.href = "#/DocWorkingDash"
     }
   }
+
+
 
   public delete(Sno) {
 

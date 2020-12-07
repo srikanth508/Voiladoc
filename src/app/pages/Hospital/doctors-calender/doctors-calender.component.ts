@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
+import { formatDate } from "@angular/common";
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-doctors-calender',
   templateUrl: './doctors-calender.component.html',
   styleUrls: ['./doctors-calender.component.css']
 })
 export class DoctorsCalenderComponent implements OnInit {
+  head1: any;
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
   public timeSheetTablearray = [];
   public TodatDate: any;
   public doctorid: any;
@@ -22,33 +25,38 @@ export class DoctorsCalenderComponent implements OnInit {
   hospitalid: any;
   dummlist: any;
   doctorlist: any;
-  public docdd={};
-  public search;any;
+  public docdd = {};
+  public search: any;
+  public today = new Date();
+  public todaydate: any;
   ngOnInit() {
-
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
-    
+    debugger
+    const format = 'yyyy-MM-dd';
+    const myDate = new Date();
+    const locale = 'en-US';
+    this.todaydate = formatDate(myDate, format, locale);
+    debugger
+
+    this.getlanguage()
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-       
+        debugger
         this.labels = data;
         this.Select = this.labels[0].selectDoctor;
-        this.search=this.labels[0].search;
-        
+        this.search = this.labels[0].search;
+
       }, error => {
       }
     )
+    debugger
 
-    // this.getlanguage()
-
-
+    debugger
     this.docservice.GetDoctorHospitalDetailsDoctors(this.languageid).subscribe(
       data => {
-       
         this.dummlist = data;
         this.doctorlist = this.dummlist.filter(x => x.hospital_ClinicID == this.hospitalid)
-
         this.docdd = {
           singleSelection: true,
           idField: 'doctorID',
@@ -63,390 +71,386 @@ export class DoctorsCalenderComponent implements OnInit {
       }
     )
 
-    this.timeSheetTablearray = [];
-    this.TodatDate = new Date();
-    var date = new Date();
-
-    var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
-    var Lastdate;
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-   
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
-    this.month = date.getMonth();
-    this.year = date.getFullYear();
-
-    var startdate = new Date(this.year, this.month, 1);
-    var Lastdate;
-    var firstDay = new Date(this.year, this.month, 1).getDate();
-   
-    var lastDay = new Date(this.year, this.month + 1, 0).getDate();
-
-    this.showmonth = new Date(startdate).toDateString().substring(4, 7);
-
-    // for (let h = 0; h < lastDay; h++) {
-
-    //   //let day = firstDay.toDateString().substring(0, 3);
-    //   let day = "";
-
-    //   if (this.timeSheetTablearray.length == 0) {
-
-    //     day = new Date(startdate.setDate(startdate.getDate())).toDateString().substring(0, 3);
-    //   }
-    //   else {
-    //     day = new Date(startdate.setDate(startdate.getDate() + 0)).toDateString().substring(0, 3);
-    //   }
-
-
-    //   let date = startdate.getDate();
-    //   this.showmonth = new Date(startdate).toDateString().substring(4, 7);
-    //   let month = new Date(startdate).toDateString().substring(4, 7);
-
-
-    //   let subfulldate = new Date(startdate.setDate(startdate.getDate() + 1));
-
-
-    //   let fulldate = subfulldate.toISOString();
-
-    //   let montdata = { _day: day, _date: date, _month: month, _fulldate: fulldate, hrs: 0 };
-    //   this.timeSheetTablearray.push(montdata);
-
-
-    // }
-
-    // this.GetDoctorHospitalDetails();
-    // this.getGetDoctorDisabledSlots()
+    this.mrngfromid = "";
+    this.mrngtoid = "";
   }
 
-  public GetDoctorID(item:any) {
+  public DayDatelist: any;
+  public slottypeid: any;
+
+
+  public date1: any;
+  public day1: any;
+
+
+
+  public date2: any;
+  public day2: any;
+
+
+  public date3: any;
+  public day3: any;
+
+
+  public date4: any;
+  public day4: any;
+
+  public date5: any;
+  public day5: any;
+
+  public date6: any;
+  public day6: any;
+
+  public date7: any;
+  public day7: any;
+
+  public GetMyDoctorWorkingDetails() {
+    debugger
+    this.docservice.GetDoctorcalenderSlotsByDoctorID(this.doctorid, this.slottypeid, this.todaydate, this.languageid).subscribe(
+      data => {
+        this.spinner.hide();
+        debugger
+        //this.workingdetails = data;
+        this.DayDatelist = data[0];
+
+        this.date1 = this.DayDatelist[0].date,
+          this.day1 = this.DayDatelist[0].day
+
+        this.date2 = this.DayDatelist[1].date,
+          this.day2 = this.DayDatelist[1].day
+
+        this.date3 = this.DayDatelist[2].date,
+          this.day3 = this.DayDatelist[2].day
+
+        this.date4 = this.DayDatelist[3].date,
+          this.day4 = this.DayDatelist[3].day
+
+        this.date5 = this.DayDatelist[4].date,
+          this.day5 = this.DayDatelist[4].day
+
+        this.date6 = this.DayDatelist[5].date,
+          this.day6 = this.DayDatelist[5].day
+
+        this.date7 = this.DayDatelist[6].date,
+          this.day7 = this.DayDatelist[6].day
+        // let sfdsfd=this.DayDatelist.map("date");
+        // this.head1=sfdsfd[0];
+        this.workingdetails = data[1];
+        debugger
+
+      }, error => {
+      }
+    )
+  }
+
+  public showtable = 1;
+  public dummlist2: any;
+
+  public GetDoctorID(item: any) {
     this.doctorid = ""
-   
-    this.doctorid =item.doctorID
-   
-
-    this.timeSheetTablearray = [];
-    this.TodatDate = new Date();
-    var date = new Date();
-    this.showmonth = "";
-
-    // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
-    // var Lastdate;
-    // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    //
-    // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
-    // this.month = date.getMonth();
-
-    var startdate = new Date(this.year, this.month, 1);
-    var Lastdate;
-    var firstDay = new Date(this.year, this.month, 1).getDate();
-   
-    var lastDay = new Date(this.year, this.month + 1, 0).getDate();
-
-
-
-    for (let h = 0; h < lastDay; h++) {
-
-      //let day = firstDay.toDateString().substring(0, 3);
-      let day = "";
-
-      if (this.timeSheetTablearray.length == 0) {
-
-        day = new Date(startdate.setDate(startdate.getDate())).toDateString().substring(0, 3);
+    this.showtable = 1;
+    debugger
+    this.doctorid = item.doctorID
+    this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
+      data => {
+        this.spinner.show();
+        this.dummlist2 = data;
+        var list = this.dummlist2.filter(x => x.id == this.doctorid)
+        this.slottypeid = list[0].slotDurationID
+        this.GetMorningSlotsMasterbyid();
+        this.GetMyDoctorWorkingDetails();
+      }, error => {
       }
-      else {
-        day = new Date(startdate.setDate(startdate.getDate() + 0)).toDateString().substring(0, 3);
+    )
+
+    this.docservice.GetDoctorHospitalsByDoctorID(this.languageid, this.doctorid).subscribe(
+      data => {
+        this.hosptalist = data;
+        this.dochospitalid = this.hosptalist[0].id
+
+      }, error => {
       }
-
-
-      let date = startdate.getDate();
-     
-      this.showmonth = new Date(startdate).toDateString().substring(4, 7);
-      let month = new Date(startdate).toDateString().substring(4, 7);
-
-
-      let subfulldate = new Date(startdate.setDate(startdate.getDate() + 1));
-
-
-      let fulldate = subfulldate.toISOString();
-
-      let montdata = { _day: day, _date: date, _month: month, _fulldate: fulldate, hrs: 0 };
-      this.timeSheetTablearray.push(montdata);
-
-
+    )
+    if (this.doctorid == undefined) {
+      this.showcalender = 0
     }
-
-
-
-    this.GetDoctorHospitalDetails();
-    this.getGetDoctorDisabledSlots()
+    else {
+      this.showcalender = 1
+    }
   }
+  public hosptalist: any;
+  public showcalender: any;
 
 
 
+  public GetDoctorDates(even) {
+    this.spinner.show();
+    debugger
+    this.todaydate = even.toLocaleString().split(',')[0];
+    debugger
+    this.GetMyDoctorWorkingDetails();
+  }
 
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.Select = this.labels[0].selectDoctor;
-        this.search=this.labels[0].search;
-        
-      }, error => {
-      }
-    )
-  }
-
-
-
-  disablelist: any;
-  fulldate: any;
-
-  public getGetDoctorDisabledSlots() {
-    this.docservice.GetDoctorDisabledSlots().subscribe(data => {
-      this.disablelist = data;
-
-      for (let t = 0; t < this.timeSheetTablearray.length; t++) {
-       
-
-        let kkk = this.timeSheetTablearray[t]._fulldate;
-        let validatedate = kkk.substring(0, 10);
-       
-        this.timeSheetTablearray[t]["_fulldate"] = validatedate;
-
-        let zz = this.disablelist.filter(x => x.date == validatedate && x.doctorID == this.doctorid);
-       
-       
-        if (zz.length > 0) {
-          for (let i = 0; i < zz.length; i++) {
-
-            if (zz[i].timeID == 1) {
-              this.timeSheetTablearray[t]["date"] = zz[i].date;
-              this.timeSheetTablearray[t]["mrngtimeid"] = zz[i].timeID;
-              this.timeSheetTablearray[t]["afternoontimeid"] = 6;
-              this.timeSheetTablearray[t]["eveningtimeid"] = 6;
-              this.timeSheetTablearray[t]["niighttimeid"] = 6;
-
-            }
-            else if (zz[i].timeID == 2) {
-              this.timeSheetTablearray[t]["date"] = zz[i].date;
-              this.timeSheetTablearray[t]["afternoontimeid"] = zz[i].timeID;
-              this.timeSheetTablearray[t]["eveningtimeid"] = 6;
-              this.timeSheetTablearray[t]["niighttimeid"] = 6;
-
-            }
-
-            else if (zz[i].timeID == 3) {
-              this.timeSheetTablearray[t]["date"] = zz[i].date;
-              this.timeSheetTablearray[t]["eveningtimeid"] = zz[i].timeID;
-              this.timeSheetTablearray[t]["niighttimeid"] = 6;
-            }
-
-            else if (zz[i].timeID == 4) {
-              this.timeSheetTablearray[t]["date"] = zz[i].date;
-              this.timeSheetTablearray[t]["niighttimeid"] = zz[i].timeID;
-            }
-            else {
-
-              this.timeSheetTablearray[t]["mrngtimeid"] = 6
-              this.timeSheetTablearray[t]["afternoontimeid"] = 6
-              this.timeSheetTablearray[t]["eveningtimeid"] = 6
-              this.timeSheetTablearray[t]["niighttimeid"] = 6
-
-            }
-
-          }
-
-         
-        }
-        else {
-
-          this.timeSheetTablearray[t]["mrngtimeid"] = 6
-          this.timeSheetTablearray[t]["afternoontimeid"] = 6
-          this.timeSheetTablearray[t]["eveningtimeid"] = 6
-          this.timeSheetTablearray[t]["niighttimeid"] = 6
-
-        }
-      }
-    })
-  }
-
-
-
-
-
-
-
-
-  public GetDoctorHospitalDetails() {
-    ;
-    this.docservice.GetDoctorHospitalDetailsWeb(this.doctorid, this.languageid).subscribe(
-      data => {
-        ;
-        this.workingdetails = data;
-
-        ;
-        for (let t = 0; t < this.timeSheetTablearray.length; t++) {
-
-          let kkk = this.timeSheetTablearray[t]._day;
-
-
-          let validatedate = kkk.substring(0, 10);
-          this.timeSheetTablearray[t]["_day"] = validatedate;
-          let kk = this.workingdetails.filter(x => x.day == validatedate);
-
-          if (kk.length > 0) {
-            this.timeSheetTablearray[t]["day"] = kk[0].day;
-            this.timeSheetTablearray[t]["mrngStartTime"] = kk[0].mrngStartTime;
-            this.timeSheetTablearray[t]["mrngEndTime"] = kk[0].mrngEndTime;
-            this.timeSheetTablearray[t]["noonStartTime"] = kk[0].noonStartTime;
-            this.timeSheetTablearray[t]["noonEndTime"] = kk[0].noonEndTime;
-            this.timeSheetTablearray[t]["evngStartTime"] = kk[0].evngStartTime;
-            this.timeSheetTablearray[t]["evngEndTime"] = kk[0].evngEndTime;
-            this.timeSheetTablearray[t]["nightStartTime"] = kk[0].nightStartTime;
-            this.timeSheetTablearray[t]["nightEndTime"] = kk[0].nightEndTime;
-            this.timeSheetTablearray[t]["doctorName"] = kk[0].doctorName;
-            this.timeSheetTablearray[t]["hospital_ClinicName"] = kk[0].hospital_ClinicName;
-            this.timeSheetTablearray[t]["doctorHospitalDetailsID"] = kk[0].doctorHospitalDetailsID;
-
-            this.timeSheetTablearray[t]["mrngAppointtypeID"] = kk[0].mrngAppointtypeID;
-            this.timeSheetTablearray[t]["afternoonAppointmentTypeID"] = kk[0].afternoonAppointmentTypeID;
-            this.timeSheetTablearray[t]["eveningAppointmentTypeID"] = kk[0].eveningAppointmentTypeID;
-            this.timeSheetTablearray[t]["nightAppointmentTypeID"] = kk[0].nightAppointmentTypeID;
-            this.timeSheetTablearray[t]["dayOfTheWeek"] = kk[0].dayOfTheWeek;
-
-            
-            this.timeSheetTablearray[t]["nomrngslots"] = kk[0].nomrngslots;
-            this.timeSheetTablearray[t]["noafternoonslots"] = kk[0].noafternonslots;
-            this.timeSheetTablearray[t]["noevengslots"] = kk[0].noeveningslots;
-            this.timeSheetTablearray[t]["nonightslots"] = kk[0].nonightslots;
-
-          }
-        }
+        this.search = this.labels[0].search;
 
       }, error => {
       }
     )
   }
 
-  dochosptailid: any;
-  timeid: any;
-  date: any;
 
-  public GetDisableslots(doctorHospitalDetailsID, timeid, date) {
-   
-    this.dochosptailid = doctorHospitalDetailsID;
-    this.timeid = timeid;
-    this.date = date;
-    this.insertdetails()
+
+
+
+
+  public dayid: any;
+  public slotID: any;
+  public appointmenttypeid: any;
+  public dochospitalid: any;
+  public appointmentdate: any;
+  public appointmentypeid: any;
+
+
+
+
+  public GetDay1List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day1DayID
+    this.slotID = details.day1SlotID
+    this.appointmentypeid = details.day1AppointmentTypeID,
+      this.appointmentdate = details.day1AppointmentDate
+    debugger
+
+  }
+
+
+
+  public GetDay2List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day2DayID
+    this.slotID = details.day2SlotID
+    this.appointmentypeid = details.day2AppointmentTypeID,
+      this.appointmentdate = details.day2AppointmentDate
+    debugger
+
+  }
+
+
+  public GetDay3List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day3DayID
+    this.slotID = details.day3SlotID
+    this.appointmentypeid = details.day3AppointmentTypeID,
+      this.appointmentdate = details.day3AppointmentDate
+    debugger
+
+  }
+
+
+  public GetDay4List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day4DayID
+    this.slotID = details.day4SlotID
+    this.appointmentypeid = details.day4AppointmentTypeID,
+      this.appointmentdate = details.day4AppointmentDate
+    debugger
+  }
+
+  public GetDay5List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day5DayID
+    this.slotID = details.day5SlotID
+    this.appointmentypeid = details.day5AppointmentTypeID,
+      this.appointmentdate = details.day5AppointmentDate
+    debugger
+  }
+
+  public GetDay6List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day6DayID
+    this.slotID = details.day6SlotID
+    this.appointmentypeid = details.day6AppointmentTypeID,
+      this.appointmentdate = details.day6AppointmentDate
+    debugger
+  }
+
+
+  public GetDay7List(details) {
+    this.appointmentypeid = '';
+    debugger
+    this.dayid = details.day7DayID
+    this.slotID = details.day7SlotID
+    this.appointmentypeid = details.day7AppointmentTypeID,
+      this.appointmentdate = details.day7AppointmentDate
+    debugger
+
   }
 
 
   public insertdetails() {
     var entity = {
-      'DoctorHospitalID': this.dochosptailid,
+      'SlotID': this.slotID,
       'DoctorID': this.doctorid,
-      'TimeID': this.timeid,
-      'Date': this.date
+      'DayID': this.dayid,
+      'Hospital_ClinicID': this.hospitalid,
+      'DoctorHospitalDetailsID': this.dochospitalid,
+      'AppointmentTypeID': this.appointmentypeid,
+      'AppointmentDate': this.appointmentdate
     }
-    this.docservice.InsertDoctorDisabledSlots(entity).subscribe(data => {
-      Swal.fire('Disabled Successfully');
-      this.GetDoctorHospitalDetails();
-      this.getGetDoctorDisabledSlots()
+    this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+      }
+      this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotID, this.appointmentdate).subscribe(data => {
+        this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
+          debugger
+          if (data1.length != 0) {
+            debugger
+            var list = data1[0];
+            this.patientid = list.relationPatientID,
+              this.email = list.pEmail,
+              this.mobileno = list.pMobileNo,
+              this.doctorname = list.doctorName,
+              this.notificationdate = list.notificationdate,
+              this.appointmentid = list.id,
+              this.patientname = list.pName
+            this.Insertnotificatiacceptforcansel();
+            this.insercancelnotoification();
+            this.SendCancelPatientmail();
+          }
+        })
 
-    })
-  }
-
-
-  public GetDeleteSlots(doctorHospitalDetailsID, timeid, date) {
-   
-    this.dochosptailid = doctorHospitalDetailsID;
-    this.timeid = timeid;
-    this.date = date;
-    this.getdeleteslots()
-  }
-
-
-  public getdeleteslots() {
-   
-    this.docservice.DeleteDisableSlots(this.dochosptailid, this.doctorid, this.timeid, this.date).subscribe(data => {
-      Swal.fire('Enabled Successfully');
-      this.GetDoctorHospitalDetails();
-      this.getGetDoctorDisabledSlots()
-
-
-    })
-  }
-
-
-
-  public GetDeleteAllSlots(doctorHospitalDetailsID, date) {
-    this.dochosptailid = doctorHospitalDetailsID;
-    this.date = date;
-    this.GetDeleteAllSlotsDay()
-  }
-
-
-  public GetDeleteAllSlotsDay() {
-   
-    this.timeid = 0
-    for (let i = 0; i < 4; i++) {
-      this.timeid = this.timeid + 1
-      this.docservice.DeleteDisableSlots(this.dochosptailid, this.doctorid, this.timeid, this.date).subscribe(data => {
-        if(this.languageid==1)
-        {
-          Swal.fire('Enabled Successfully');
-          this.GetDoctorHospitalDetails();
-          this.getGetDoctorDisabledSlots()
-        }
-        else{
-          Swal.fire('Activé avec succès !');
-          this.GetDoctorHospitalDetails();
-          this.getGetDoctorDisabledSlots()
-        }
-
-
+        this.GetMyDoctorWorkingDetails();
+        this.spinner.show();
       })
-    }
 
+
+    })
   }
 
 
+  public patientid: any;
+  public email: any;
+  public mobileno: any;
+  public doctorname: any;
+  public notificationdate: any;
+  public appointmentid: any;
+  public patientname: any;
 
 
-  public GetAllDisableSlots(doctorHospitalDetailsID, date) {
-    this.dochosptailid = doctorHospitalDetailsID;
-    this.date = date;
-    this.disableAllday()
-  }
+
+  // public GetBookappoinmentpatientDetails() {
+  //   this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data => {
+  //     if(data.length!=0)
+
+  //     var list = data[0];
+  //     this.patientid = list.relationPatientID,
+  //       this.email = list.pEmail,
+  //       this.mobileno = list.pMobileNo
+
+
+  //   })
+  // }
 
 
 
-  public disableAllday() {
-    this.timeid = 0
-    for (let i = 0; i < 4; i++) {
-      this.timeid = this.timeid + 1
+  public Insertnotificatiacceptforcansel() {
+
+    if (this.languageid == '1') {
       var entity = {
-        'DoctorHospitalID': this.dochosptailid,
-        'DoctorID': this.doctorid,
-        'TimeID': this.timeid,
-        'Date': this.date
+        'Description': "Dr." + this.doctorname + " has cancelled your appointment scheduled for " + this.notificationdate,
+        'ToUser': this.email,
       }
-      this.docservice.InsertDoctorDisabledSlots(entity).subscribe(data => {
-        if(this.languageid==1)
-        {
-          Swal.fire('Disabled Successfully');
-          this.GetDoctorHospitalDetails();
-          this.getGetDoctorDisabledSlots()
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
         }
-        else if(this.languageid==6)
-        {
-          Swal.fire('Désactivé avec succès !');
-          this.GetDoctorHospitalDetails();
-          this.getGetDoctorDisabledSlots()
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "Dr." + this.doctorname + " a annulé votre rendez-vous prévu pour " + this.notificationdate,
+        'ToUser': this.email,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
         }
-   
+      })
+    }
+  }
+
+  public emailattchementurl = []
+  public cclist: any;
+  public bcclist: any;
+
+
+  public SendCancelPatientmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Your Doctor " + this.doctorname + " Has Cancelled Your Appointment At Time " + this.notificationdate,
+      'emailbody': 'Dear ' + this.patientname + ',' + "<br><br>" + 'We regret to inform that your Doctor ' + this.doctorname + ' has cancelled your appointment of ' + this.notificationdate + '. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
+
+
+
+  public insercancelnotoification() {
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientid,
+        'Notification': "Appointment Cancelled By Doctor.",
+        'Description': "Dr." + this.doctorname + " has cancelled your appointment scheduled for " + this.notificationdate,
+        'NotificationTypeID': 11,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientid,
+        'Notification': "Rendez-vous annulé par le médecin.",
+        'Description': "Dr." + this.doctorname + "a annulé votre rendez-vous prévu pour " + this.notificationdate,
+        'NotificationTypeID': 11,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+
       })
     }
   }
@@ -456,122 +460,265 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
 
-  public ChangeMonth(even) {
-   
-    this.month = even.target.value;
-    this.timeSheetTablearray = [];
-    this.TodatDate = new Date();
-    var date = new Date();
-    this.showmonth = "";
-    let month = ""
-    // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
-    // var Lastdate;
-    // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    //
-    // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
-    // this.month = date.getMonth();
+  // Full Day Slot Change By date
 
-    var startdate = new Date(date.getFullYear(), this.month, 1);
-    var Lastdate;
-    var firstDay = new Date(date.getFullYear(), this.month, 1).getDate();
-   
-    var lastDay = new Date(date.getFullYear(), this.month + 1, 0).getDate();
 
-    this.showmonth = new Date(startdate).toDateString().substring(4, 7);
+  public typeID: any;
 
-    for (let h = 0; h < lastDay; h++) {
+  public GetTypeID(even) {
+    this.typeID = even.target.value;
+  }
 
-      //let day = firstDay.toDateString().substring(0, 3);
-      let day = "";
 
-      if (this.timeSheetTablearray.length == 0) {
 
-        day = new Date(startdate.setDate(startdate.getDate())).toDateString().substring(0, 3);
+  public daychangedate: any;
+  public dayslist: any;
+  public dayname: any;
+  public dayidslist: any;
+  public datechangedayid: any;
+
+
+  public GetdaychangeDate(even) {
+    debugger
+    this.daychangedate = even.toLocaleString().split(',')[0];
+    this.Getdays()
+  }
+
+  public Getdays() {
+    debugger
+    this.docservice.GetDaysHomecare(this.daychangedate).subscribe(data => {
+      debugger
+      this.dayslist = data[0];
+      this.dayname = this.dayslist.dayName
+      debugger
+      this.Getdayssid();
+    }, error => {
+    })
+  }
+
+  public Getdayssid() {
+    this.docservice.GetDayID(this.dayname).subscribe(data => {
+      debugger
+      this.dayidslist = data;
+      this.datechangedayid = this.dayidslist[0].dayID;
+
+    }, error => {
+    })
+  }
+
+  public slotslist: any;
+  public mrngfromlist: any;
+
+  public GetMorningSlotsMasterbyid() {
+
+    this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
+      data => {
+        debugger
+        this.slotslist = data;
+        this.mrngfromlist = data;
+      }, error => {
+      }
+    )
+  }
+
+
+
+  public Daywiseappointmentid: any;
+
+
+  public InsertDayWiseSlots() {
+    debugger
+    if (this.daychangedate == undefined || this.daychangedate == null) {
+      Swal.fire('Please Select Date')
+    }
+    else if (this.Daywiseappointmentid == undefined || this.Daywiseappointmentid == null) {
+      Swal.fire('Please Select Type')
+    }
+    else {
+      debugger
+      for (let j = 0; j < this.slotslist.length; j++) {
+        var entity = {
+          'SlotID': this.slotslist[j].id,
+          'DoctorID': this.doctorid,
+          'DayID': this.datechangedayid,
+          'Hospital_ClinicID': this.hospitalid,
+          'DoctorHospitalDetailsID': this.dochospitalid,
+          'AppointmentTypeID': this.Daywiseappointmentid,
+          'AppointmentDate': this.daychangedate
+        }
+        this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
+
+          this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data => {
+            this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data1 => {
+              debugger
+              if (data1.length != 0) {
+                debugger
+                var list = data1[0];
+                this.patientid = list.relationPatientID,
+                  this.email = list.pEmail,
+                  this.mobileno = list.pMobileNo,
+                  this.doctorname = list.doctorName,
+                  this.notificationdate = list.notificationdate,
+                  this.appointmentid = list.id,
+                  this.patientname = list.pName
+                this.Insertnotificatiacceptforcansel();
+                this.insercancelnotoification();
+                this.SendCancelPatientmail();
+                this.GetMyDoctorWorkingDetails();
+              }
+            })
+          })
+        })
+      }
+      this.GetMyDoctorWorkingDetails();
+      this.spinner.show();
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
       }
       else {
-        day = new Date(startdate.setDate(startdate.getDate() + 0)).toDateString().substring(0, 3);
+        Swal.fire('Mis à jour avec succés');
       }
-
-
-      let date = startdate.getDate();
-     
-
-      let month = new Date(startdate).toDateString().substring(4, 7);
-
-
-      let subfulldate = new Date(startdate.setDate(startdate.getDate() + 1));
-
-
-      let fulldate = subfulldate.toISOString();
-
-      let montdata = { _day: day, _date: date, _month: month, _fulldate: fulldate, hrs: 0 };
-      this.timeSheetTablearray.push(montdata);
-
-
+      this.Daywiseappointmentid = "";
+      this.daychangedate = ""
     }
-    this.GetDoctorHospitalDetails();
-    this.getGetDoctorDisabledSlots()
   }
 
 
 
 
-  public ChangeYear(even) {
-    this.year = even.target.value;
+  // time wise changes
 
-    this.timeSheetTablearray = [];
-    this.TodatDate = new Date();
-    var date = new Date();
-    this.showmonth = "";
+  public timechangedayid: any;
+  public timechangedate: any;
 
-    // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
-    // var Lastdate;
-    // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    //
-    // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
-    // this.month = date.getMonth();
+  public GetTimewisechangedate(even) {
+    this.timechangedate = even.toLocaleString().split(',')[0];
+    this.Getdaystime()
 
-    var startdate = new Date(this.year, this.month, 1);
-    var Lastdate;
-    var firstDay = new Date(this.year, this.month, 1).getDate();
-   
-    var lastDay = new Date(this.year, this.month + 1, 0).getDate();
+  }
 
 
+  public Getdaystime() {
+    debugger
+    this.docservice.GetDaysHomecare(this.timechangedate).subscribe(data => {
+      debugger
+      this.dayslist = data[0];
+      this.dayname = this.dayslist.dayName
+      debugger
+      this.Getdayssidbytime();
+    }, error => {
+    })
+  }
 
-    for (let h = 0; h < lastDay; h++) {
+  public Getdayssidbytime() {
+    this.docservice.GetDayID(this.dayname).subscribe(data => {
+      debugger
+      this.dayidslist = data;
+      this.timechangedayid = this.dayidslist[0].dayID;
 
-      //let day = firstDay.toDateString().substring(0, 3);
-      let day = "";
+    }, error => {
+    })
+  }
 
-      if (this.timeSheetTablearray.length == 0) {
 
-        day = new Date(startdate.setDate(startdate.getDate())).toDateString().substring(0, 3);
+  public mrngfromid: any;
+  public mrngfromslot: any;
+  public mrngtolist: any;
+  public mrngtoid: any;
+  public mrngtoslot: any;
+
+  public getmrngfrom(even) {
+    this.mrngfromid = even.target.value;
+    var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+    this.mrngfromslot = qwerty[0].slots;
+    this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+    this.mrngtoid = "";
+  }
+
+  public getmrngto(even) {
+    this.mrngtoid = even.target.value;
+    var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+    this.mrngtoslot = qwerty[0].slots;
+    this.GetGetSlotsByIDPlanning();
+  }
+
+  public timewisechangeslotlist: any;
+
+  public GetGetSlotsByIDPlanning() {
+    this.docservice.GetSlotsByIDPlanning(this.mrngfromid, this.mrngtoid).subscribe(data => {
+      debugger
+
+      this.timewisechangeslotlist = data;
+
+    }, error => {
+    })
+  }
+
+
+  public timewiseappointmentid: any;
+
+
+  public InsertTimeWiseSlots() {
+    debugger
+    if (this.timechangedate == undefined || this.timechangedate == null) {
+      Swal.fire('Please Select Date')
+    }
+    else if (this.timewiseappointmentid == undefined || this.timewiseappointmentid == null) {
+      Swal.fire('Please Select Type')
+    }
+    else if (this.mrngfromid == "" || this.mrngtoid == "") {
+      Swal.fire('Please Select Time')
+    }
+    else {
+      debugger
+      for (let j = 0; j < this.timewisechangeslotlist.length; j++) {
+        var entity = {
+          'SlotID': this.timewisechangeslotlist[j].id,
+          'DoctorID': this.doctorid,
+          'DayID': this.timechangedayid,
+          'Hospital_ClinicID': this.hospitalid,
+          'DoctorHospitalDetailsID': this.dochospitalid,
+          'AppointmentTypeID': this.timewiseappointmentid,
+          'AppointmentDate': this.timechangedate
+        }
+        this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
+
+          this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data => {
+            this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data1 => {
+              debugger
+              if (data1.length != 0) {
+                debugger
+                var list = data1[0];
+                this.patientid = list.relationPatientID,
+                  this.email = list.pEmail,
+                  this.mobileno = list.pMobileNo,
+                  this.doctorname = list.doctorName,
+                  this.notificationdate = list.notificationdate,
+                  this.appointmentid = list.id,
+                  this.patientname = list.pName
+                this.Insertnotificatiacceptforcansel();
+                this.insercancelnotoification();
+                this.SendCancelPatientmail();
+                this.GetMyDoctorWorkingDetails();
+              }
+            })
+          })
+        })
+      }
+      this.GetMyDoctorWorkingDetails();
+      this.spinner.show();
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
       }
       else {
-        day = new Date(startdate.setDate(startdate.getDate() + 0)).toDateString().substring(0, 3);
+        Swal.fire('Mis à jour avec succés');
       }
-
-
-      let date = startdate.getDate();
-     
-      this.showmonth = new Date(startdate).toDateString().substring(4, 7);
-      let month = new Date(startdate).toDateString().substring(4, 7);
-
-
-      let subfulldate = new Date(startdate.setDate(startdate.getDate() + 1));
-
-
-      let fulldate = subfulldate.toISOString();
-
-      let montdata = { _day: day, _date: date, _month: month, _fulldate: fulldate, hrs: 0 };
-      this.timeSheetTablearray.push(montdata);
-
-
+      this.timewiseappointmentid = "";
+      this.timechangedate = "";
+      this.mrngtoid = "";
+      this.mrngfromid = "";
     }
-    this.GetDoctorHospitalDetails();
-    this.getGetDoctorDisabledSlots()
   }
+
+
 }

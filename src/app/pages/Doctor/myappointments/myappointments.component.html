@@ -806,6 +806,16 @@
             </div>
             <br>
 
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].noteToPharmasist}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}">
+              </div>
+            </div>
+            <br>
             <!-- <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].diagnosiss}} :</label>
@@ -862,11 +872,10 @@
                       <th>{{labels[0].dispenseQuantity}}</th>
                       <th>{{labels[0].howmanyRefills}}</th>
                       <th>{{labels[0].substistude}} </th>
-                      <!-- <th>{{labels[0].noteToPharmasist}}</th> -->
+                      <th>{{labels[0].noteToPharmasist}}</th>
                       <!-- <th>ICD Code</th> -->
                       <!-- <th>{{labels[0].diagnosis}}</th> -->
                       <th>Actions</th>
-
                     </tr>
                     <tr *ngFor="let medicinelist of qwerty2">
                       <td>{{medicinelist.MedicineName}}</td>
@@ -880,6 +889,7 @@
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='1'">{{labels[0].yes}}</span>
                         <span *ngIf="medicinelist.SubstainablenotPermitted=='2'"> {{labels[0].no}}</span>
                       </td>
+                      <td>{{medicinelist.NoteToPharmasist}}</td>
                       <td>
                         <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
                         <a [ngbTooltip]="tipcontent2">
@@ -898,16 +908,7 @@
               </div>
             </div>
             <br>
-            <div class="row">
-              <div class="col-lg-4">
-                <label>{{labels[0].noteToPharmasist}} :</label>
-              </div>
-              <div class="col-lg-6">
-                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
-                  placeholder="{{labels[0].noteToPharmasist}}">
-              </div>
-            </div>
-            <br>
+         
             <div class="row" *ngIf="tablecuont1=='1'">
               <div class="col-lg-5">
               </div>
@@ -2651,6 +2652,9 @@
             <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
               <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
             </ngx-dropzone>
+            <span *ngFor="let photo of shoprescphoto">
+              <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+            </span>
           </div>
         </div>
         <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
@@ -3250,7 +3254,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content" style="width:898px;margin-left: 186px;">
       <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle">Insurence details</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].insurencedetails}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -3261,10 +3265,10 @@
             <div class="col-lg-12">
               <table style="font-size: 14px;">
                 <tr>
-                  <th>Insurance Photo</th>
-                  <th>Insurance name </th>
-                  <th>Insurance no</th>
-                  <th>Description </th>
+                  <th>{{labels1[0].insurancePhoto}}</th>
+                  <th>{{labels1[0].insuranceName}}</th>
+                  <th>{{labels1[0].insuranceNo}}</th>
+                  <th>{{labels1[0].description}} </th>
                 <tr *ngFor="let insurence of insurancedetails">
                   <td>
                     <img src="{{insurence.photoURL}}" style="width: 50px;height: 50px;" data-toggle="modal"
@@ -3296,7 +3300,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Insurance photo</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels1[0].insurancePhoto}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

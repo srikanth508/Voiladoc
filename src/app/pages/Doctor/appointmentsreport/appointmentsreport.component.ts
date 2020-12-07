@@ -171,7 +171,7 @@ export class AppointmentsreportComponent implements OnInit {
       data => {
         // this.cancelledlist = data;
         this.dummlist = data;
-        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1);
+        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1||x.cancelled==1);
         this.count = this.cancelledlist.length
       }, error => {
       }
@@ -185,7 +185,7 @@ export class AppointmentsreportComponent implements OnInit {
       data => {
         debugger
         this.dummlist = data;
-        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1);
+        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1||x.cancelled==1);
         this.count = this.cancelledlist.length;
         debugger
       }, error => {

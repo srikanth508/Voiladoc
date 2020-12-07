@@ -26,11 +26,11 @@
       [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/dd/yyyy' }"
        bsDatepicker> -->
 
-      <input *ngIf="languageid==1" type="text" min="{{todaydatesssssss}}"  class="form-control" placeholder="MM/DD/YYYY"
+      <input *ngIf="languageid==1" type="text" [minDate]="mindate"  class="form-control" placeholder="MM/DD/YYYY"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate2" name="Selecteddate2"
         (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
-      <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+      <input *ngIf="languageid==6" type="text"  [minDate]="mindate" class="form-control" placeholder="jj/mm/aa"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"
         (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
       <!-- <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)"> -->

@@ -110,12 +110,12 @@
                 <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
               </a>&nbsp;
 
-              <ng-template #tipcontent9>Illness Photos</ng-template>
+              <!-- <ng-template #tipcontent9>Illness Photos</ng-template>
               <a [ngbTooltip]="tipcontent9">
                 <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
                   style="height:30px;" (click)="GetIllnessPhotos(app.id)" />
               </a>
-              &nbsp;
+              &nbsp; -->
 
               <ng-template #tipcontent9>Patient Details</ng-template>
               <a [ngbTooltip]="tipcontent9">
@@ -162,7 +162,7 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button class="btn btn-primary" (click)="CancelAppointment()">{{labels[0].save}}</button>
+              <button class="btn btn-primary" (click)="CancelAppointment()" data-dismiss="modal">{{labels[0].save}}</button>
             </div>
           </div>
         </div>

@@ -104,7 +104,7 @@ export class CancelledPhysioappointmentsComponent implements OnInit {
       data => {
 
         this.dummlist = data;
-        this.appointmentreportlist = this.dummlist.filter(x=>x.physioCancelled==1)
+        this.appointmentreportlist = this.dummlist.filter(x=>x.physioCancelled==1||x.cancelled==1)
         this.count = this.appointmentreportlist.length
       }, error => {
       }

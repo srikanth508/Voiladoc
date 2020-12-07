@@ -38,6 +38,7 @@ export class BookappointmentComponent implements OnInit {
   todaydatesss: any;
   Selecteddate2: any;
   todaydatesssssss:any;
+  public mindate=new Date();
   ngOnInit() {
     //
     // const format = 'yyyy-MM-dd';
