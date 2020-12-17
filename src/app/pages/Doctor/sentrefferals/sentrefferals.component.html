@@ -14,10 +14,10 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{ labels[0].search }}" />
@@ -104,8 +104,8 @@
           <div class="row">
             <div class="col-lg-6" *ngFor="let att of attachments">
               <img src="assets/Images/pdf.png" style="  width: 99px;" (click)="GetPdf(att.attchments)"><br>
-              <button type="button" style="background-color: #f18235;color: white;"
-                (click)="GetPdf(att.attchments)" class="btn btn-default">{{ labels1[0].view }}</button> &nbsp; &nbsp;
+              <button type="button" style="background-color: #f18235;color: white;" (click)="GetPdf(att.attchments)"
+                class="btn btn-default">{{ labels1[0].view }}</button> &nbsp; &nbsp;
               <button type="button" style="background-color: #f18235;color: white;" (click)="Deletefile(att.id)"
                 class="btn btn-default">{{ labels[0].delete }}</button>
             </div>
@@ -176,8 +176,11 @@
               <label for="" class="reglabel">{{labels1[0].attachments}} :</label>
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)"
-                class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (click)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                <span *ngFor="let pho of showdocphoto">
+                  <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
+                </span>
               </ngx-dropzone>
             </div>
             <div>
@@ -219,7 +222,7 @@
           <form #soapForm="ngForm">
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].subjective}}</b></label>
+                <label>{{labels4[0].subjective}}</label>
               </div>
               <div class="col-lg-7">
                 <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
@@ -229,7 +232,7 @@
             <br>
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].objective}}</b></label>
+                <label>{{labels4[0].objective}}</label>
                 <span style="color: red;">*</span>
               </div>
               <div class="col-lg-7">
@@ -239,7 +242,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].assessment}}</b></label>
+                <label>{{labels4[0].assessment}}</label>
                 <span style="color: red;">*</span>
               </div>
               <div class="col-lg-7">
@@ -250,7 +253,7 @@
 
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].plan}}</b></label>
+                <label>{{labels4[0].plan}}</label>
                 <span style="color: red;">*</span>
               </div>
               <div class="col-lg-7">
@@ -260,7 +263,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].diagnosisCode}}</b> </label>
+                <label>{{labels4[0].diagnosisCode}} </label>
                 <!-- <span style="color: red;">*</span> -->
               </div>
               <div class="col-lg-7">
@@ -280,7 +283,7 @@
       </div><br> -->
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].followUpPlan}}</b> </label>
+                <label>{{labels4[0].followUpPlan}}</label>
                 <!-- <span style="color: red;">*</span> -->
               </div>
               <div class="col-lg-7">
@@ -302,7 +305,7 @@
       <br> -->
             <div class="row">
               <div class="col-lg-3">
-                <label><b>{{labels4[0].notes}}</b> </label>
+                <label>{{labels4[0].notes}}</label>
                 <!-- <span style="color: red;">*</span> -->
               </div>
               <div class="col-lg-7">

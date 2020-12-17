@@ -3,7 +3,8 @@
   <div class=" row headerspace">
     <div class="col-lg-5">
       <!-- <h5>{{labels[0].appointmentReports}}</h5> -->
-      <h5>Cancelled Appointments</h5>
+      <h5 *ngIf="languageid=='1'">Cancelled Appointments</h5>
+      <h5 *ngIf="languageid=='6'">RENDEZ-VOUS ANNULÉ</h5>
     </div>
     <div class="col-lg-4">
     </div>
@@ -57,7 +58,7 @@
             <th>{{labels[0].email}}</th>
             <th>{{labels[0].address}}</th>
             <th id="imp">{{labels[0].appointmentTime}}</th>
-            <th>Reason for cancel</th>
+            <th>{{labels[0].reasonforcaancel}}</th>
             <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let app of appointmentreportlist|filter:term">

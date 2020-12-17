@@ -34,10 +34,12 @@ export class AppointmentsComponent implements OnInit {
   public doctorname: any;
   public dummlist: any;
   roleid;
-  termsss:any;
+  termsss: any;
+  labels1:any;
   ngOnInit() {
     this.roleid = localStorage.getItem('roleid');
 
+    this.PaymentTypeID="";
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -74,10 +76,10 @@ export class AppointmentsComponent implements OnInit {
     this.hospitalid = localStorage.getItem('hospitalid');
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.search=this.labels[0].search
-        this.select=this.labels[0].selectDoctor
+        this.search = this.labels[0].search
+        this.select = this.labels[0].selectDoctor
 
       }, error => {
       }
@@ -86,30 +88,41 @@ export class AppointmentsComponent implements OnInit {
     this.getbookappointmentbyhospitalbyhospitalid();
     this.getdepartmentmaster();
     this.gethospitaldoctorsforadmin();
-  
+
+
+    this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
+      data => {
+       
+        this.labels1 = data;
+      
+
+      }, error => {
+      }
+    )
+
   }
-  public select:any;
+  public select: any;
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.search=this.labels[0].search
-        this.select=this.labels[0].selectDoctor
+        this.search = this.labels[0].search
+        this.select = this.labels[0].selectDoctor
 
       }, error => {
       }
     )
   }
 
-  public docdd={};
-  public search:any;
+  public docdd = {};
+  public search: any;
 
   public gethospitaldoctorsforadmin() {
-   
+
     this.docservice.GetHospitalDoctorsForAdmin(this.hospitalid, this.languageid).subscribe(
       data => {
-       
+
         this.doctorlist = data;
 
         this.docdd = {
@@ -128,13 +141,13 @@ export class AppointmentsComponent implements OnInit {
     )
   }
 
-  public GetDoctorName(item:any) {
+  public GetDoctorName(item: any) {
 
     // if (item.target.value != 0) {
     //  debugger
-      this.doctorname = item.doctorName
-      this.appointmentlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
-      this.count = this.appointmentlist.length;
+    this.doctorname = item.doctorName
+    this.appointmentlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
+    this.count = this.appointmentlist.length;
     // }
     // else if (item.target.value == 0) {
     //   this.getbookappointmentbyhospitalbyhospitalid();
@@ -143,10 +156,10 @@ export class AppointmentsComponent implements OnInit {
 
 
   public getbookappointmentbyhospitalbyhospitalid() {
-   
+
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.appointmentlist = data;
         this.dummlist = this.appointmentlist;
         this.count = this.appointmentlist.length;
@@ -156,7 +169,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -168,19 +181,19 @@ export class AppointmentsComponent implements OnInit {
 
 
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
     )
   }
   public GetDepartmentName(even) {
-   
+
     if (even.target.value != 0) {
-     
+
       this.term = even.target.value;
       this.appointmentlist = this.dummlist.filter(x => x.departmentname == this.term)
       this.count = this.appointmentlist.length;
@@ -190,7 +203,7 @@ export class AppointmentsComponent implements OnInit {
     }
   }
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }
@@ -198,10 +211,9 @@ export class AppointmentsComponent implements OnInit {
 
 
   ReasonForCancel: any;
-  public cancelappoinement(id,res) {
+  public cancelappoinement(id, res) {
     if (res != null) {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire({
           title: 'Are you sure?',
           text: "You Want to Cancel This Appointment!",
@@ -212,7 +224,7 @@ export class AppointmentsComponent implements OnInit {
           confirmButtonText: 'Yes, Cancel it!'
         }).then((result) => {
           if (result.value) {
-  
+
             let Entity = {
               'ID': id,
               'CancelReason': res
@@ -232,8 +244,7 @@ export class AppointmentsComponent implements OnInit {
           }
         })
       }
-      else if(this.languageid==6)
-      {
+      else if (this.languageid == 6) {
         Swal.fire({
           title: 'Êtes-vous sûr',
           text: "Annulation de rendez-vous !",
@@ -245,7 +256,7 @@ export class AppointmentsComponent implements OnInit {
           cancelButtonText: 'non'
         }).then((result) => {
           if (result.value) {
-  
+
             let Entity = {
               'ID': id,
               'CancelReason': res
@@ -265,19 +276,74 @@ export class AppointmentsComponent implements OnInit {
           }
         })
       }
-   
+
     }
     else {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire("Please enter reason for cancellation !");
       }
-      else if(this.languageid==6)
-     {
-      Swal.fire("Veuillez saisir le motif de l'annulation !")
-     }
+      else if (this.languageid == 6) {
+        Swal.fire("Veuillez saisir le motif de l'annulation !")
+      }
     }
 
+  }
+
+  public PaymentTypeID: any;
+
+  public GetPaymentTypeID(even) {
+    this.PaymentTypeID = even.target.value;
+  }
+
+  public patientid: any;
+  public appointmentid: any;
+  public doctorid: any;
+  public PaidAmount: any;
+  public appointmenttypeid: any;
+  public feeslist:any;
+
+  public GetDetails(details) {
+    this.patientid = details.patientID,
+      this.appointmentid = details.appointmentID
+    this.doctorid = details.doctorID
+    this.appointmenttypeid = details.appointmentTypeID
+
+    this.docservice.GetDoctorCommissionFeesByDoctorID(this.doctorid, this.appointmenttypeid).subscribe(data=>
+      {
+        this.feeslist=data;
+        this.PaidAmount=this.feeslist[0].fees
+      })
+  }
+
+
+
+  public insertpaymentDetails() {
+    var entity = {
+      'PatientID': this.patientid,
+      'AppointmentID': this.appointmentid,
+      'DoctorID': this.doctorid,
+      'PaymentType': this.PaymentTypeID,
+      'PaidAmount': this.PaidAmount,
+      'TotalFeesOfDoctor': this.PaidAmount,
+      'PaymentDate': new Date(),
+      'Reason': 'Payment Made For Appointment By Receptionst',
+    }
+    this.docservice.InsertPatientPaymentDetailsWeb(entity).subscribe(data => {
+      if(data!=0)
+      {
+        if(this.languageid==1)
+        {
+          Swal.fire('Paid Successfully');
+        }
+       else
+       {
+        Swal.fire('Payé avec succès');
+       }
+
+      }
+      this.getbookappointmentbyhospitalbyhospitalid()
+
+    })
   }
 
 }

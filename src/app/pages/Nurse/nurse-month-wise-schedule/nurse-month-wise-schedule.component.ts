@@ -145,9 +145,19 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
       'Date': this.date
     }
     this.docservice.InsertNurseDisabledSlots(entity).subscribe(data => {
-      Swal.fire('Disabled Successfully');
-      this.GetNurseTimings()
-      this.GetNurseDisabledList()
+      if(this.languageid==1)
+      {
+        Swal.fire('Disabled Successfully');
+        this.GetNurseTimings()
+        this.GetNurseDisabledList()
+      }
+      else
+      {
+        Swal.fire('Désactivé avec succès');
+        this.GetNurseTimings()
+        this.GetNurseDisabledList()
+      }
+
     })
 
   }
@@ -188,10 +198,19 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
   public GetDeleteSlots(date) {
    
     this.docservice.DeleteNurseDisabledSlots(this.nurseid, date).subscribe(data => {
+      if(this.languageid==1)
+      {
+        Swal.fire('Enabled Successfully')
+        this.GetNurseTimings()
+        this.GetNurseDisabledList()
+      }
+      else
+      {
+        Swal.fire('Activer avec succès')
+        this.GetNurseTimings()
+        this.GetNurseDisabledList()
+      }
 
-      Swal.fire('Enabled Successfully')
-      this.GetNurseTimings()
-      this.GetNurseDisabledList()
     })
   }
 

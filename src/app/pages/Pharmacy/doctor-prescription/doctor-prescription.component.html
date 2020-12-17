@@ -173,7 +173,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width: 800px;
+    <div class="modal-content" style="width: 939px;
       height: auto;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
@@ -251,12 +251,12 @@
                                 {{labels[0].howmanyrefills}}</th>
 
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                Substitute Permitted</th>
+                               {{labels[0].substitablenotpermitedd}}</th>
 
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].notetoPharmsict}}</th>
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                Amount</th>
+                                {{labels[0].amount}}</th>
                               <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].notetoPharmsict}}</th> -->
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">Actions</th>
@@ -298,7 +298,7 @@
             </div>
             <div class="col-lg-2">
               <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-                data-dismiss="modal" (click)="Updateavailablemedicines()"> {{labels[0].update}}</button>
+              *ngIf="showedit=='0'"  data-dismiss="modal" (click)="Updateavailablemedicines()"> {{labels[0].update}}</button>
             </div>
             <div class="col-lg-4">
               <!-- <img src="{{docsignatureurl}}"> -->

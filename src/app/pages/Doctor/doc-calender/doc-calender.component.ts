@@ -218,7 +218,14 @@ export class DocCalenderComponent implements OnInit {
       'AppointmentDate': this.appointmentdate
     }
     this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
-      Swal.fire('Updated Successfully');
+      if(this.languageid==1)
+      {
+        Swal.fire('Updated Successfully');
+      }
+      else
+      {
+        Swal.fire('Mis à jour avec succès !');
+      }
       this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotID, this.appointmentdate).subscribe(data => {
         this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
           debugger

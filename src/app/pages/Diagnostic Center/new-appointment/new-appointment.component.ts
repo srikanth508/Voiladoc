@@ -5,393 +5,563 @@ import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import { formatDate, ɵNullViewportScroller } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-new-appointment',
-  templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.css']
+    selector: 'app-new-appointment',
+    templateUrl: './new-appointment.component.html',
+    styleUrls: ['./new-appointment.component.css']
 })
 export class NewAppointmentComponent implements OnInit {
-  testlist: any;
+    testlist: any;
     type: number;
     idcount: number;
     appointmentid: any;
-  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
-  public patientdd = {}
-  public patientslist: any;
-  public patientid: any;
-  languageid: any;
-  labels: any;
-  diagnosticid: any;
-  labels1: any;
-  SelectLabel: any;
-  options: NgDateRangePickerOptions;
-  packageslist: any;
-  public todaydate: any;
-  SDate = new Date();
-  EDate = new Date();
-  startdate: any;
-  enddate: any;
-  value: any;
-  public today = new Date();
-  dayidslist: any;
-  dayid: any;
-  morningslotslist: any;
-  afternoonslotslist: any;
-  eveningslotslist: any;
-  nigntslotslist: any;
-  selectedtestlist = [];
-  selectedpackagelist = [];
-  allselectedtestandpakages = [];
-  table: number;
-  totalamount: any;
-  homesample: any;
-  diagnosticslotid: any;
-  slotname: any;
-  ngOnInit() {
-    debugger
-    this.type = 1;
-    this.idcount = 1;
-    this.options = {
-        theme: 'default',
-        range: 'tm',
-        dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
-        dateFormat: 'yyyy/MM/dd',
-        outputFormat: 'YYYY/MM/DD',
-        startOfWeek: 1
-    };
-
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let newformat = hours >= 12 ? 'PM' : 'AM';
-    // Find current hour in AM-PM Format 
-    hours = hours % 12;
-    // To display "0" as "12" 
-    hours = hours ? hours : 12;
-    minutes = minutes < 10 ? 0 + minutes : minutes;
-
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
-
-    const format = 'yyyy-MM-dd';
-    const myDate = new Date();
-    const locale = 'en-US';
-    this.todaydate = formatDate(myDate, format, locale);
-    this.selecteddate = this.todaydate;
-    this.diagnosticid = localStorage.getItem('diagnosticid');
-    this.startdate = formatDate(kkk, format, locale);
-    this.enddate = formatDate(lll, format, locale);
-    this.languageid = localStorage.getItem('LanguageID');
-    this.diagnosticid = localStorage.getItem('diagnosticid');
-    this.docservice.GetDiagnosticCenterTestsByID(this.diagnosticid, this.languageid).subscribe(data => {
-        this.testlist = data;
-    })
-    // document.getElementById("def_open").click();
-    this.GetPatients();
-    this.Getlanagage();
-    var gsDayNames = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-    ];
-    var d = new Date(this.todaydate);
-    var dayName = gsDayNames[d.getDay()];
-    this.docservice.GetDayID(dayName).subscribe(data => {
-
-        this.dayidslist = data;
-        this.dayid = this.dayidslist[0].dayID;
-
-        this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 1, this.dayid).subscribe(
-            data => {
-                debugger
-                this.morningslotslist = data;
-            }, error => {
-            }
-        )
-        this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 2, this.dayid).subscribe(
-            data => {
-
-                this.afternoonslotslist = data;
-            }, error => {
-            }
-        )
-        this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 3, this.dayid).subscribe(
-            data => {
-
-                this.eveningslotslist = data;
-            }, error => {
-            }
-        )
-        this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 4, this.dayid).subscribe(
-            data => {
-
-                this.nigntslotslist = data;
-            }, error => {
-            }
-        )
-    })
-  }
-
-
-  public Getlanagage() {
-    this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
-        data => {
-
-            this.labels = data;
-            this.SelectLabel = this.labels[0].select;
-
-        }, error => {
-        }
-    )
-
-    this.docservice.GetAdmin_DiagnosticLoginOrdersAndOrderReport_Label(this.languageid).subscribe(
-        data => {
-            debugger
-            this.labels1 = data;
-        }, error => {
-        }
-    )
-}
-public GetPatients() {
-    this.docservice.GetPatientRegistrationBook().subscribe(
-        data => {
-
-            this.patientslist = data;
-
-            this.patientdd = {
-                singleSelection: true,
-                idField: 'id',
-                textField: 'patientName',
-                selectAllText: 'Select All',
-                unSelectAllText: 'UnSelect All',
-                itemsShowLimit: 3,
-                allowSearchFilter: true
-            };
-        },
-        error => { }
-    );
-}
-
-patientname: any;
-public GetPatientID(item: any) {
-
-    this.patientid = item.id;
-    var list = this.patientslist.filter(x => x.id == this.patientid)
-    this.patientname = list[0].patientName
-}
-
-public openCity(evt, cityName) {
-    debugger
-    var i, tabcontent, tablinks;
-    if (cityName == "Tests") {
+    constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
+    public patientdd = {}
+    public patientslist: any;
+    public patientid: any;
+    languageid: any;
+    labels: any;
+    diagnosticid: any;
+    labels1: any;
+    SelectLabel: any;
+    options: NgDateRangePickerOptions;
+    packageslist: any;
+    public todaydate: any;
+    SDate = new Date();
+    EDate = new Date();
+    startdate: any;
+    enddate: any;
+    value: any;
+    public today = new Date();
+    dayidslist: any;
+    dayid: any;
+    morningslotslist: any;
+    afternoonslotslist: any;
+    eveningslotslist: any;
+    nigntslotslist: any;
+    selectedtestlist = [];
+    selectedpackagelist = [];
+    allselectedtestandpakages = [];
+    table: number;
+    totalamount: any;
+    homesample: any;
+    diagnosticslotid: any;
+    slotname: any;
+    ngOnInit() {
+        debugger
         this.type = 1;
+        
+        this.idcount = 1;
+        this.options = {
+            theme: 'default',
+            range: 'tm',
+            dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
+            dateFormat: 'yyyy/MM/dd',
+            outputFormat: 'YYYY/MM/DD',
+            startOfWeek: 1
+        };
+
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let newformat = hours >= 12 ? 'PM' : 'AM';
+        // Find current hour in AM-PM Format 
+        hours = hours % 12;
+        // To display "0" as "12" 
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? 0 + minutes : minutes;
+
+        var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
+        var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+
+        const format = 'yyyy-MM-dd';
+        const myDate = new Date();
+        const locale = 'en-US';
+        this.todaydate = formatDate(myDate, format, locale);
+        this.selecteddate = this.todaydate;
+        this.diagnosticid = localStorage.getItem('diagnosticid');
+        this.startdate = formatDate(kkk, format, locale);
+        this.enddate = formatDate(lll, format, locale);
+        this.languageid = localStorage.getItem('LanguageID');
+        this.diagnosticid = localStorage.getItem('diagnosticid');
         this.docservice.GetDiagnosticCenterTestsByID(this.diagnosticid, this.languageid).subscribe(data => {
             this.testlist = data;
         })
-    }
-    else {
-        this.type = 2;
-        this.docservice.GetDiagnosticPackagesByIDMob(this.diagnosticid, this.languageid).subscribe(data => {
-            this.packageslist = data;
+        // document.getElementById("def_open").click();
+        this.GetPatients();
+        this.Getlanagage();
+        var gsDayNames = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ];
+        var d = new Date(this.todaydate);
+        var dayName = gsDayNames[d.getDay()];
+        this.docservice.GetDayID(dayName).subscribe(data => {
+
+            this.dayidslist = data;
+            this.dayid = this.dayidslist[0].dayID;
+
+            this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 1, this.dayid).subscribe(
+                data => {
+                    debugger
+                    this.morningslotslist = data;
+                }, error => {
+                }
+            )
+            this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 2, this.dayid).subscribe(
+                data => {
+
+                    this.afternoonslotslist = data;
+                }, error => {
+                }
+            )
+            this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 3, this.dayid).subscribe(
+                data => {
+
+                    this.eveningslotslist = data;
+                }, error => {
+                }
+            )
+            this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 4, this.dayid).subscribe(
+                data => {
+
+                    this.nigntslotslist = data;
+                }, error => {
+                }
+            )
         })
     }
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
 
-public GetSelectedTests(even, list) {
-    debugger;
-    if (even.target.checked == true) {
-        this.selectedtestlist.push(list);
-    }
-    else {
-        debugger;
-        for (let k = 0; k < this.selectedtestlist.length; k++) {
-            var index = this.selectedtestlist.indexOf(this.selectedtestlist);
-            debugger;
-            if (index === -1) {
-                debugger;
-                this.selectedtestlist.splice(index, 1);
-            } else {
-                this.selectedtestlist.push(this.selectedtestlist);
+    public Getlanagage() {
+        this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
+            data => {
+
+                this.labels = data;
+                this.SelectLabel = this.labels[0].select;
+
+            }, error => {
             }
-        }
-    }
-}
-public GetSelectedPackages(even, list) {
-    debugger;
-    if (even.target.checked == true) {
-        this.selectedpackagelist.push(list);
-    }
-    else {
-        debugger;
-        for (let k = 0; k < this.selectedpackagelist.length; k++) {
-            var index = this.selectedpackagelist.indexOf(this.selectedpackagelist);
-            debugger;
-            if (index === -1) {
-                debugger;
-                this.selectedpackagelist.splice(index, 1);
-            } else {
-                this.selectedpackagelist.push(this.selectedpackagelist);
-            }
-        }
-    }
-}
+        )
 
-public AddAll() {
-    debugger;
-    this.table = 1;
-    if (this.type == 1) {
-        for (let i = 0; i < this.selectedtestlist.length; i++) {
-            var testentity = {
-                Sno: this.idcount,
-                TestID: this.selectedtestlist[i].diagnosticCenterTestsID,
-                Testorpackage: this.selectedtestlist[i].testName,
-                Price: this.selectedtestlist[i].price,
-                PackageID: null
+        this.docservice.GetAdmin_DiagnosticLoginOrdersAndOrderReport_Label(this.languageid).subscribe(
+            data => {
+                debugger
+                this.labels1 = data;
+            }, error => {
             }
-            this.allselectedtestandpakages.push(testentity);
-            this.idcount = this.idcount + 1;
-            this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function(a, b) {
-                return a + b;
-            });
-        }
-        this.selectedtestlist = [];
+        )
     }
-    else {
-        for (let i = 0; i < this.selectedpackagelist.length; i++) {
-            var packgeentity = {
-                Sno: this.idcount,
-                TestID: null,
-                Testorpackage: this.selectedpackagelist[i].packageName,
-                Price: this.selectedpackagelist[i].price,
-                PackageID: this.selectedpackagelist[i].id
-            }
-            this.allselectedtestandpakages.push(packgeentity);
-            this.idcount = this.idcount + 1;
-            this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function(a, b) {
-                return a + b;
-            });
-        }
-        this.selectedpackagelist = [];
+    public GetPatients() {
+        this.docservice.GetPatientRegistrationBook().subscribe(
+            data => {
+
+                this.patientslist = data;
+
+                this.patientdd = {
+                    singleSelection: true,
+                    idField: 'id',
+                    textField: 'patientName',
+                    selectAllText: 'Select All',
+                    unSelectAllText: 'UnSelect All',
+                    itemsShowLimit: 3,
+                    allowSearchFilter: true
+                };
+            },
+            error => { }
+        );
     }
 
-}
+    patientname: any;
+    public GetPatientID(item: any) {
 
-public delete(Sno) {
-    debugger
-    for (let i = 0; i < this.allselectedtestandpakages.length; i++) {
+        this.patientid = item.id;
+        var list = this.patientslist.filter(x => x.id == this.patientid)
+        this.patientname = list[0].patientName
+    }
+
+    public openCity(evt, cityName) {
         debugger
-        if (Sno == this.allselectedtestandpakages[i].Sno) {
-            debugger
-            this.allselectedtestandpakages.splice(i, 1);
-            this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function(a, b) {
-                return a + b;
-            });
+        var i, tabcontent, tablinks;
+        if (cityName == "Tests") {
+            this.type = 1;
+            this.docservice.GetDiagnosticCenterTestsByID(this.diagnosticid, this.languageid).subscribe(data => {
+                this.testlist = data;
+            })
         }
+        else {
+            this.type = 2;
+            this.docservice.GetDiagnosticPackagesByIDMob(this.diagnosticid, this.languageid).subscribe(data => {
+                this.packageslist = data;
+            })
+        }
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
     }
-    debugger
-}
-public BookAppointment() {
-    debugger
-    var entity = {
-        PatientID: this.patientid,
-        DiagnosticCenterID: this.diagnosticid,
-        DiagnosticSlotID: this.diagnosticslotid,
-        Date: this.todaydate,
-        TotalPrice: this.totalamount,
-        HomeSampleBit: this.homesample,
-        DiagnopatientNmae: this.patientname
-    }
-    this.docservice.InsertDiagnosticAppointments(entity).subscribe(data => {
-        this.appointmentid = data;
+
+
+    public GetSelectedTests(even, list) {
         debugger;
-        if (data != undefined) {
-            for (let k = 0; k < this.allselectedtestandpakages.length; k++) {
-                var entity2 = {
-                    DiagnosticCenterTestsID: this.allselectedtestandpakages[k].TestID,
-                    PackageID: this.allselectedtestandpakages[k].PackageID,
-                    DiagnosticAppointmentsID: this.appointmentid
+        if (even.target.checked == true) {
+            this.selectedtestlist.push(list);
+        }
+        else {
+            debugger;
+            for (let k = 0; k < this.selectedtestlist.length; k++) {
+                var index = this.selectedtestlist.indexOf(this.selectedtestlist);
+                debugger;
+                if (index === -1) {
+                    debugger;
+                    this.selectedtestlist.splice(index, 1);
+                } else {
+                    this.selectedtestlist.push(this.selectedtestlist);
                 }
-                this.docservice.InsertDiagnosticBookedTests(entity2).subscribe(data => {
-                    debugger
-                    if (data != undefined) {
-                      
-                    }
-                })
             }
         }
-        Swal.fire("Booked Successfully");
-        location.href = "#/DiagnosticAppointmentDash";    
-    })
-}
+    }
+    public GetSelectedPackages(even, list) {
+        debugger;
+        if (even.target.checked == true) {
+            this.selectedpackagelist.push(list);
+        }
+        else {
+            debugger;
+            for (let k = 0; k < this.selectedpackagelist.length; k++) {
+                var index = this.selectedpackagelist.indexOf(this.selectedpackagelist);
+                debugger;
+                if (index === -1) {
+                    debugger;
+                    this.selectedpackagelist.splice(index, 1);
+                } else {
+                    this.selectedpackagelist.push(this.selectedpackagelist);
+                }
+            }
+        }
+    }
 
-public GetDiagnosticSlotID(slist) {
-    debugger;
-    this.diagnosticslotid = slist.id;
-    this.slotname = slist.slotName;
-}
-selecteddate: any;
-selectedDate(even) {
-    debugger
-    this.selecteddate = even.toLocaleString().split(',')[0];
-    var gsDayNames = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-    ];
-    var d = new Date(this.todaydate);
-    var dayName = gsDayNames[d.getDay()];
-    this.docservice.GetDayID(dayName).subscribe(data => {
+    public AddAll() {
+        debugger;
+        this.table = 1;
+        if (this.type == 1) {
+            for (let i = 0; i < this.selectedtestlist.length; i++) {
+                var testentity = {
+                    Sno: this.idcount,
+                    TestID: this.selectedtestlist[i].id,
+                    Testorpackage: this.selectedtestlist[i].testName,
+                    Price: this.selectedtestlist[i].price,
+                    PackageID: null
+                }
+                this.allselectedtestandpakages.push(testentity);
+                this.idcount = this.idcount + 1;
+                this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function (a, b) {
+                    return a + b;
+                });
+            }
+            this.selectedtestlist = [];
+        }
+        else {
+            for (let i = 0; i < this.selectedpackagelist.length; i++) {
+                var packgeentity = {
+                    Sno: this.idcount,
+                    TestID: null,
+                    Testorpackage: this.selectedpackagelist[i].packageName,
+                    Price: this.selectedpackagelist[i].price,
+                    PackageID: this.selectedpackagelist[i].id
+                }
+                this.allselectedtestandpakages.push(packgeentity);
+                this.idcount = this.idcount + 1;
+                this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function (a, b) {
+                    return a + b;
+                });
+            }
+            this.selectedpackagelist = [];
+        }
 
-        this.dayidslist = data;
-        this.dayid = this.dayidslist[0].dayID;
-    this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
-        data => {
+    }
+
+    public delete(Sno) {
+        debugger
+        for (let i = 0; i < this.allselectedtestandpakages.length; i++) {
             debugger
-            this.morningslotslist = data;
-        }, error => {
+            if (Sno == this.allselectedtestandpakages[i].Sno) {
+                debugger
+                this.allselectedtestandpakages.splice(i, 1);
+                this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function (a, b) {
+                    return a + b;
+                });
+            }
         }
-    )
-    this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 2, this.dayid).subscribe(
-        data => {
-
-            this.afternoonslotslist = data;
-        }, error => {
+        debugger
+    }
+    public BookAppointment() {
+        debugger
+        var entity = {
+            PatientID: this.patientid,
+            DiagnosticCenterID: this.diagnosticid,
+            DiagnosticSlotID: this.diagnosticslotid,
+            Date: this.todaydate,
+            TotalPrice: this.totalamount,
+            HomeSampleBit: this.homesample,
+            DiagnopatientNmae: this.patientname
         }
-    )
-    this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 3, this.dayid).subscribe(
-        data => {
+        this.docservice.InsertDiagnosticAppointments(entity).subscribe(data => {
+            this.appointmentid = data;
+            debugger;
+            if (data != undefined) {
+                for (let k = 0; k < this.allselectedtestandpakages.length; k++) {
+                    var entity2 = {
+                        DiagnosticCenterTestsID: this.allselectedtestandpakages[k].TestID,
+                        PackageID: this.allselectedtestandpakages[k].PackageID,
+                        DiagnosticAppointmentsID: this.appointmentid
+                    }
+                    this.docservice.InsertDiagnosticBookedTests(entity2).subscribe(data => {
+                        debugger
+                        if (data != undefined) {
 
-            this.eveningslotslist = data;
-        }, error => {
+                        }
+                    })
+                }
+            }
+            Swal.fire("Booked Successfully");
+            location.href = "#/DiagnosticAppointmentDash";
+        })
+    }
+
+    public GetDiagnosticSlotID(slist) {
+        debugger;
+        this.diagnosticslotid = slist.id;
+        this.slotname = slist.slotName;
+    }
+    selecteddate: any;
+    selectedDate(even) {
+        debugger
+        this.selecteddate = even.toLocaleString().split(',')[0];
+        if (this.homesample == 1) {
+            var gsDayNames = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ];
+            var d = new Date(this.todaydate);
+            var dayName = gsDayNames[d.getDay()];
+            this.docservice.GetDayID(dayName).subscribe(data => {
+
+                this.dayidslist = data;
+                this.dayid = this.dayidslist[0].dayID;
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
+                    data => {
+                        debugger
+                        this.morningslotslist = data;
+                        this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 2, this.dayid).subscribe(
+                    data => {
+
+                        this.afternoonslotslist = data;
+                        this.afternoonslotslist = this.afternoonslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 3, this.dayid).subscribe(
+                    data => {
+
+                        this.eveningslotslist = data;
+                        this.eveningslotslist = this.eveningslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 4, this.dayid).subscribe(
+                    data => {
+
+                        this.nigntslotslist = data;
+                        this.nigntslotslist = this.nigntslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+
+            })
+
         }
-    )
-    this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 4, this.dayid).subscribe(
-        data => {
+        else {
+            var gsDayNames = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ];
+            var d = new Date(this.todaydate);
+            var dayName = gsDayNames[d.getDay()];
+            this.docservice.GetDayID(dayName).subscribe(data => {
 
-            this.nigntslotslist = data;
-        }, error => {
+                this.dayidslist = data;
+                this.dayid = this.dayidslist[0].dayID;
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
+                    data => {
+                        debugger
+                        this.morningslotslist = data;
+                        this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 2, this.dayid).subscribe(
+                    data => {
+
+                        this.afternoonslotslist = data;
+                        this.afternoonslotslist = this.afternoonslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 3, this.dayid).subscribe(
+                    data => {
+
+                        this.eveningslotslist = data;
+                        this.eveningslotslist = this.eveningslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 4, this.dayid).subscribe(
+                    data => {
+
+                        this.nigntslotslist = data;
+                        this.nigntslotslist = this.nigntslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+
+            })
+
         }
-    )
+    }
 
-    })
-}
+
+    public onChange() {
+        debugger;
+        if (this.homesample == 1) {
+            var gsDayNames = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ];
+            var d = new Date(this.todaydate);
+            var dayName = gsDayNames[d.getDay()];
+            this.docservice.GetDayID(dayName).subscribe(data => {
+
+                this.dayidslist = data;
+                this.dayid = this.dayidslist[0].dayID;
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
+                    data => {
+                        debugger
+                        this.morningslotslist = data;
+                        this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 2, this.dayid).subscribe(
+                    data => {
+
+                        this.afternoonslotslist = data;
+                        this.afternoonslotslist = this.afternoonslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 3, this.dayid).subscribe(
+                    data => {
+
+                        this.eveningslotslist = data;
+                        this.eveningslotslist = this.eveningslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 4, this.dayid).subscribe(
+                    data => {
+
+                        this.nigntslotslist = data;
+                        this.nigntslotslist = this.nigntslotslist.filter(x => x.typeID == 1);
+                    }, error => {
+                    }
+                )
+
+            })
+
+        }
+        else {
+            var gsDayNames = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ];
+            var d = new Date(this.todaydate);
+            var dayName = gsDayNames[d.getDay()];
+            this.docservice.GetDayID(dayName).subscribe(data => {
+
+                this.dayidslist = data;
+                this.dayid = this.dayidslist[0].dayID;
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
+                    data => {
+                        debugger
+                        this.morningslotslist = data;
+                        this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 2, this.dayid).subscribe(
+                    data => {
+
+                        this.afternoonslotslist = data;
+                        this.afternoonslotslist = this.afternoonslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 3, this.dayid).subscribe(
+                    data => {
+
+                        this.eveningslotslist = data;
+                        this.eveningslotslist = this.eveningslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+                this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 4, this.dayid).subscribe(
+                    data => {
+
+                        this.nigntslotslist = data;
+                        this.nigntslotslist = this.nigntslotslist.filter(x => x.typeID == 2);
+                    }, error => {
+                    }
+                )
+
+            })
+
+        }
+    }
+
 }

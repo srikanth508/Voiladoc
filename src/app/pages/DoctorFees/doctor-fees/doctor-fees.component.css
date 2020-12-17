@@ -35,5 +35,9 @@
         label{
           text-transform: lowercase;
         }
+        #imp
+        {
+            text-transform: none;
+        }
    
    

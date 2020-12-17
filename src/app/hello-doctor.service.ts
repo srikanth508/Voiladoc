@@ -8,14 +8,14 @@ import { pipeDef } from '@angular/core/src/view';
 })
 
 export class HelloDoctorService {
-  //  public host = "http://localhost:4199/";
+  public host5 = "http://localhost:4199/";
   // public host = "http://localhost:4199/";
   //latestsoln date 29-07-2020
 
   public host = localStorage.getItem('WebUrl');
 
-  // private host1 = "http://localhost:4199/";
   private host1 = "https://14.192.17.225/VoilaDocWebAPI";
+
 
   private host2 = "https://14.192.17.225/VoiladocRegistrationsWebApi";
 
@@ -4891,9 +4891,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Diagnostic/DeletePatient_TextMedicineDetailsByID?ID=' + id);
   }
 
-  public GetDiagnosticSlots(did, lid) {
+  public GetDiagnosticSlots(did, lid, typeid) {
 
-    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticSlots?DiagnosticCenterID=' + did + '&LanguageID=' + lid);
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticSlots?DiagnosticCenterID=' + did + '&LanguageID=' + lid + '&TypeIDs=' + typeid);
   }
 
   public GetMyTeamAssainOrders(id) {
@@ -4963,12 +4963,107 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Master/MakePaymentPaid?ID=' + id + '&PaidDate=' + paiddate);
   }
 
-  public GetDiaGnosticSlotsByCalender(did, lid, appdate) {
+  public GetDiaGnosticSlotsByCalender(did, lid, appdate, typeids) {
 
-    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiaGnosticSlotsByCalender?DiagnosticCenterID=' + did + '&LanguageID=' + lid + '&AppointmentDate=' + appdate);
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiaGnosticSlotsByCalender?DiagnosticCenterID=' + did + '&LanguageID=' + lid + '&AppointmentDate=' + appdate + '&TypeIDs=' + typeids);
   }
-  public GetCountsForDashboard(type,month,year) {
-    return this.http.get<any[]>(this.host + '/Master/GetCountsForDashboard?Type='+type +'&Month='+month +'&Year='+year);
-}
+  public GetCountsForDashboard(type, month, year) {
+    return this.http.get<any[]>(this.host + '/Master/GetCountsForDashboard?Type=' + type + '&Month=' + month + '&Year=' + year);
+  }
+
+  public UpdateNurseRegistrationPhoto(data) {
+    this.url = this.host + '/Master/UpdateNurseRegistrationPhoto';
+    return this.http.post(this.url, data)
+  }
+  public UpdateMidWivesRegistrationPhoto(data) {
+    this.url = this.host + '/Master/UpdateMidWivesRegistrationPhoto';
+    return this.http.post(this.url, data)
+  }
+  public UpdatePhysiotherapyRegistrationPhoto(data) {
+    this.url = this.host + '/Master/UpdatePhysiotherapyRegistrationPhoto';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdateDiagnosticRelatedSlotsWeb(data) {
+    this.url = this.host + '/Diagnostic/UpdateDiagnosticRelatedSlotsWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public DeleteDiagnosticRelatedSlots(id) {
+    return this.http.get<any[]>(this.host + '/Diagnostic/DeleteDiagnosticRelatedSlots?ID=' + id);
+  }
+
+  public InsertDiagnosticRelatedSlotsWeb(data) {
+    this.url = this.host + '/Diagnostic/InsertDiagnosticRelatedSlotsWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public InsertDiagnosticRelatedSlotsByDateWise(data) {
+    this.url = this.host + '/Diagnostic/InsertDiagnosticRelatedSlotsByDateWise';
+    return this.http.post(this.url, data)
+  }
+
+
+  public GetDiagnosticCancelledAppointmentByDateWise(diagnosticid, slotid, appdate) {
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticCancelledAppointmentByDateWise?DiagnosticID=' + diagnosticid + '&DiagnosticSlotID=' + slotid + '&ApptDatetime=' + appdate);
+  }
+
+  public GetDiagnosticPaymentLinkMaster(DID) {
+    return this.http.get<any[]>(this.host + '/Master/GetDiagnosticPaymentLinkMaster?DiagnosticID=' + DID);
+  }
+  public DeleteDiagnosticPaymentLinkMaster(id) {
+
+    return this.http.get<any[]>(this.host + '/Master/DeleteDiagnosticPaymentLinkMaster?ID=' + id);
+  }
+  public UpdateDiagnosticPaymentLinkMaster(data) {
+    this.url = this.host + '/Master/UpdateDiagnosticPaymentLinkMaster';
+    return this.http.post(this.url, data)
+  }
+
+  public InsertDiagnosticPaymentLinkMaster(data) {
+    this.url = this.host + '/Master/InsertDiagnosticPaymentLinkMaster';
+    return this.http.post(this.url, data)
+  }
+
+  public GetDiagnosticAppointmentsByUsersReport(id, sdate, edate, lid) {
+
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticAppointmentsByUsersReport?DiagnosticCenterID=' + id + '&SDate=' + sdate + '&EDate=' + edate + '&LanguageID=' + lid);
+  }
+
+  public GetDiagnosticSlotsByIDPlanning(startid, endid) {
+
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticSlotsByIDPlanning?StartID=' + startid + '&EndID=' + endid);
+  }
+
+
+  public UpdatePatient_TextMedicineDetails(id) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/UpdatePatient_TextMedicineDetails?ID=' + id);
+  }
+
+
+  public InsertSupportForWeb1(data) {
+    this.url = this.host + '/Doctor/InsertSupportForWeb1';
+    return this.http.post(this.url, data)
+  }
+
+  public GetDoctorCommissionFeesByDoctorID(doctorid, appointmentypeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorCommissionFeesByDoctorID?DoctorID=' + doctorid + '&AppointmentTypeID=' + appointmentypeid);
+  }
+
+  public GetPatientRefundStatusWeb(lid, sdate, edate) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatientRefundStatusWeb?LanguageID=' + lid + '&StartDate=' + sdate + '&EndDate=' + edate);
+  }
+
+  public UpdatePatientRefundStatus(data) {
+    this.url = this.host + '/Doctor/UpdatePatientRefundStatus';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdatePatientRefundStatusByBankDetails(data) {
+    this.url = this.host + '/Doctor/UpdatePatientRefundStatusByBankDetails';
+    return this.http.post(this.url, data)
+  }
 
 }

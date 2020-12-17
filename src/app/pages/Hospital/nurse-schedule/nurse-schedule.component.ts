@@ -184,7 +184,6 @@ export class NurseScheduleComponent implements OnInit {
   }
 
 
-
   public GetNurseTimings() {
     ;
     this.docservice.GetNurseHospitalDetailsWeb(this.nurseid, this.languageid).subscribe(
@@ -208,7 +207,9 @@ export class NurseScheduleComponent implements OnInit {
             this.timeSheetTablearray[t]["startime"] = kk[0].startime;
             this.timeSheetTablearray[t]["endtime"] = kk[0].endtime;
             this.timeSheetTablearray[t]["nurseName"] = kk[0].nurseName;
+            this.timeSheetTablearray[t]["colorcode"] = '#808080'
           }
+    
         }
       }, error => {
       }

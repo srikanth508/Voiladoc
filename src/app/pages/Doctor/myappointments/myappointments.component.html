@@ -328,12 +328,13 @@
                   data-target="#exampleModalCenter90" (click)="GetSoapPatientID(details.patientID)" />
                 <!-- [routerLink]="['/Soapdash',details.patientID]" -->
               </a>&nbsp;
-              
+
               <ng-template #tipcontent9283>{{labels[0].previousmedicalcertificate}}</ng-template>
               <a [ngbTooltip]="tipcontent9283"
                 *ngIf="details.noShow=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'">
-                <img src="assets/Images/previoussoap.png" style="height:25px;" data-toggle="modal"
-                  data-target="#Previousmedicalcertificate" (click)="GetPreviousmediclcertificates(details.patientID)" />
+                <img src="assets/Images/medical.png" style="height:25px;" data-toggle="modal"
+                  data-target="#Previousmedicalcertificate"
+                  (click)="GetPreviousmediclcertificates(details.patientID)" />
                 <!-- [routerLink]="['/Soapdash',details.patientID]" -->
               </a>
               <!-- <ng-template #tipcontent11>{{labels[0].misUseComments}}</ng-template>
@@ -567,7 +568,7 @@
             </div>
             <div class="col-lg-2">
               <button class="btn btn-default" style="background-color: #f18235;color: white;"
-                (click)="cancelledappointment()"  data-dismiss="modal">{{labels[0].save}}</button>
+                (click)="cancelledappointment()" data-dismiss="modal">{{labels[0].save}}</button>
             </div>
           </div>
         </div>
@@ -805,14 +806,17 @@
               </div>
             </div>
             <br>
-
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].noteToPharmasist}} :</label>
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                <!-- <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}"> -->
+                <textarea rows="4" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
                   placeholder="{{labels[0].noteToPharmasist}}">
+
+                  </textarea>
               </div>
             </div>
             <br>
@@ -908,7 +912,18 @@
               </div>
             </div>
             <br>
-         
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].followup}}</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="0">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div><br>
+
             <div class="row" *ngIf="tablecuont1=='1'">
               <div class="col-lg-5">
               </div>
@@ -954,6 +969,17 @@
       <div class="modal-body" style="height:500px;width:800px;overflow-y: auto;">
         <div class="container-fluid">
           <form #diaForm="ngForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].followup}}</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="0">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div><br>
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testType}} :</label>
@@ -1103,8 +1129,19 @@
             <br>
             <div class="row">
               <div class="col-lg-3">
+                <label>{{labels[0].followup}}</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="0">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].subjective}}</b>
+                  {{labels[0].subjective}}
                 </label>
               </div>
               <div class="col-lg-7">
@@ -1116,7 +1153,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].objective}}</b>
+                  {{labels[0].objective}}
                 </label>
                 <span style="color: red;">*</span>
               </div>
@@ -1129,7 +1166,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].assessment}}</b>
+                  {{labels[0].assessment}}
                 </label>
                 <span style="color: red;">*</span>
               </div>
@@ -1142,7 +1179,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].plan}}</b>
+                  {{labels[0].plan}}
                 </label>
                 <span style="color: red;">*</span>
               </div>
@@ -1168,7 +1205,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].diagnposticCode}}</b> :</label>
+                  {{labels[0].diagnposticCode}} :</label>
               </div>
               <div class="col-lg-7">
                 <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
@@ -1206,7 +1243,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].diagnosticDescription}}</b> :</label>
+                  {{labels[0].diagnosticDescription}} :</label>
               </div>
               <div class="col-lg-7">
                 <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
@@ -1219,7 +1256,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].followUpPlan}}</b>
+                  {{labels[0].followUpPlan}}
                 </label>
                 <!-- <span style="color: red;">*</span> -->
               </div>
@@ -1232,7 +1269,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].signature}}</b>
+                  {{labels[0].signature}}
                 </label>
                 <!-- <span style="color: red;">*</span> -->
               </div>
@@ -1245,7 +1282,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].notes}}</b>
+                  {{labels[0].notes}}
                 </label>
               </div>
               <div class="col-lg-7">
@@ -1258,7 +1295,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].saveastemplate}}</b>
+                  {{labels[0].saveastemplate}}
                 </label>
               </div>
               <div class="col-lg-7">
@@ -1272,7 +1309,7 @@
             <div class="row" *ngIf="savetemplate=='1'">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].templateName}}</b>
+                  {{labels[0].templateName}}
                 </label>
               </div>
               <div class="col-lg-7">
@@ -1284,7 +1321,7 @@
             <div class="row" *ngIf="misuse=='1'">
               <div class="col-lg-3">
                 <label>
-                  <b>{{labels[0].misUseComments}}</b>
+                  {{labels[0].misUseComments}}
                 </label>
               </div>
               <div class="col-lg-7">
@@ -1357,8 +1394,8 @@
                     <td>
                       <ng-template #tipcontent9503>Edit</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
-                        <img src="assets/Images/edit.png" *ngIf="dia.showmyediticon=='1'" data-toggle="modal" data-target="#edittest"
-                          (click)="GetDiaEditList(dia)" style="width: 18px">
+                        <img src="assets/Images/edit.png" *ngIf="dia.showmyediticon=='1'" data-toggle="modal"
+                          data-target="#edittest" (click)="GetDiaEditList(dia)" style="width: 18px">
                       </a>
                     </td>
                   </tr>
@@ -1522,8 +1559,9 @@
                   <td>
                     <ng-template #tipcontent9503>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent9503" style="color:black">
-                      <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal" data-target="#edirprescription"
-                        (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 18px">
+                      <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal"
+                        data-target="#edirprescription" (click)="GetPriviouesPrescriptionlist(presciption)"
+                        style="width: 18px">
                     </a>
                   </td>
                 </tr>
@@ -2248,6 +2286,9 @@
               <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
+              <span *ngFor="let pho of shoprescphoto">
+                <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
+              </span>
             </div>
             <div>
             </div>
@@ -2298,22 +2339,23 @@
                     <td>{{ref.doctorPhNo}}</td>
                     <td>{{ref.doctorEmail}}</td>
                     <td>
-                      <a >
-                        <img src="assets/Images/sendrefereal.png" title="{{ labels[0].patientCondition }}" data-toggle="modal" data-target="#exampleModal9500"
-                          style="height:25px;" (click)="GetPatientCondition(ref)" />
+                      <a>
+                        <img src="assets/Images/sendrefereal.png" title="{{ labels[0].patientCondition }}"
+                          data-toggle="modal" data-target="#exampleModal9500" style="height:25px;"
+                          (click)="GetPatientCondition(ref)" />
                       </a>
                     </td>
                     <td>
-                      <a >
+                      <a>
                         <img src="assets/Images/viewfile.png" data-toggle="modal" data-target="#exampleModal545"
                           style="height:25px;" title="View" (click)="GetAppointmentID(ref)" />
                       </a>
                     </td>
                     <td>
-                      <a >
+                      <a>
                         <img src="assets/Images/edit.png" data-toggle="modal"
-                          data-target="#exampleModalCenterRefferalss" *ngIf="ref.showmyediticon =='1'"  title="Edit" style="height:25px;"
-                          (click)="GetReferalletter(ref)" />
+                          data-target="#exampleModalCenterRefferalss" *ngIf="ref.showmyediticon =='1'" title="Edit"
+                          style="height:25px;" (click)="GetReferalletter(ref)" />
                       </a>
                     </td>
                   </tr>
@@ -2407,7 +2449,7 @@
             </div>
             <div class="col-lg-2">
               <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="UpdateRefferalLetter()" data-dismiss="modal">Update</button>
+                (click)="UpdateRefferalLetter()" data-dismiss="modal">{{labels[0].update}}</button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -2470,10 +2512,10 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-6"  *ngFor="let att of attachments">
+            <div class="col-lg-6" *ngFor="let att of attachments">
               <img src="assets/Images/pdf.png" style="width: 90px;" (click)="GetPdf(att.attchments)"><br>
-              <button type="button" style="background-color: #f18235;color: white;"
-                (click)="GetPdf(att.attchments)" class="btn btn-default">{{ labels1[0].view }}</button> &nbsp; &nbsp;
+              <button type="button" style="background-color: #f18235;color: white;" (click)="GetPdf(att.attchments)"
+                class="btn btn-default">{{ labels1[0].view }}</button> &nbsp; &nbsp;
               <button type="button" style="background-color: #f18235;color: white;" (click)="Deletefile(att.id)"
                 class="btn btn-default">{{ labels[0].delete }}</button>
             </div>
@@ -2499,7 +2541,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Upload</h5>
+        <h5 class="modal-title" id="exampleModalLabel"  *ngIf="languageid=='6'">Télécharger</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -2514,6 +2557,9 @@
               <ngx-dropzone [multiple]="false" (change)="onattachmentUpload15($event)" class="dropzone_vendorinvoice">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
+              <span *ngFor="let photo of showattachdoc">
+                <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+              </span>
             </div>
             <div>
             </div>
@@ -2523,8 +2569,8 @@
       </div>
       <div class="modal-footer" style="justify-content: center;">
         <button type="button" style="background-color: #f18235;color: white; text-align: center;"
-          class="btn btn-default" (click)="InsertDoctorRefererlasAttachemenys()"
-          data-dismiss="modal">{{ labels[0].save }}</button>
+          class="btn btn-default" (click)="InsertDoctorRefererlasAttachemenys()" data-dismiss="modal">{{ labels[0].save
+          }}</button>
       </div>
     </div>
   </div>
@@ -2813,8 +2859,8 @@
                   <td>
                     <ng-template #tipcontent9504>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent9504" style="color:black">
-                      <img src="assets/Images/edit.png" *ngIf="soap.showmyediticon=='1'" data-toggle="modal" data-target="#EditSoapnotes"
-                        (click)="GetEditPrevioussoap(soap)" style="width: 18px">
+                      <img src="assets/Images/edit.png" *ngIf="soap.showmyediticon=='1'" data-toggle="modal"
+                        data-target="#EditSoapnotes" (click)="GetEditPrevioussoap(soap)" style="width: 18px">
                     </a>
 
                   </td>
@@ -3012,8 +3058,8 @@
 
 <!-- Previous medical certificate -->
 
-<div class="modal fade" id="Previousmedicalcertificate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
+<div class="modal fade" id="Previousmedicalcertificate" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content" style="width:898px;margin-left: 186px;">
       <div class="modal-header modal-xl">
@@ -3048,8 +3094,9 @@
                   <td>
                     <ng-template #tipcontent95585>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent95585" style="color:black">
-                      <img src="assets/Images/edit.png" *ngIf="ss.showmyediticon=='1'" data-toggle="modal" data-target="#EditMedicalcertificate"
-                      (click)="GetSickSlipIDForEdit(ss.patientID,ss.id)" style="width: 18px"></a>
+                      <img src="assets/Images/edit.png" *ngIf="ss.showmyediticon=='1'" data-toggle="modal"
+                        data-target="#EditMedicalcertificate" (click)="GetSickSlipIDForEdit(ss.patientID,ss.id)"
+                        style="width: 18px"></a>
                   </td>
                 </tr>
               </table>
@@ -3075,11 +3122,11 @@
             <p [innerHTML]="desc"></p>
           </div>
           <div class="col-lg-3">
-            <p style="color:#25116A; font-family: book man old;">{{doctorname}}</p>
-            <p style="color:#25116A;margin-top: -12px;font-family: book man old;">{{hospital_ClinicName}}</p>
-            <p  style="color:#25116A;margin-top: -12px;font-family: book man old;">{{address}}</p>
-            <p  style="color:#25116A;margin-top: -12px; font-family: book man old;">{{registrationNo}}</p>
-            <p  style="color:#25116A;margin-top: -12px;font-family: book man old;">{{docmobileno}}</p>
+            <p>{{doctorname}}</p>
+            <p>{{hospital_ClinicName}}</p>
+            <p>{{address}}</p>
+            <p>{{registrationNo}}</p>
+            <p>{{docmobileno}}</p>
           </div>
         </div>
       </div>
@@ -3097,8 +3144,8 @@
 
 
 
-<div class="modal fade" id="EditMedicalcertificate" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="EditMedicalcertificate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
@@ -3226,8 +3273,8 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button type="button" class="btn btncolor" style="background-color: #f18235;"
-              data-dismiss="modal"  (click)="UpdateSickSlip()">Update</button>
+              <button type="button" class="btn btncolor" style="background-color: #f18235;" data-dismiss="modal"
+                (click)="UpdateSickSlip()">{{labels[0].update}}</button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -3372,19 +3419,19 @@
                   <td>{{view.dietaryIssues}}</td>
                   <td>
                     <p *ngIf="view.alcohol=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
-                    <p *ngIf="view.alcohol=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
+                    <p *ngIf="view.alcohol=='0'" style="margin-top: 14px;"></p>
                   </td>
                   <td>
                     <p *ngIf="view.smoker=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
-                    <p *ngIf="view.smoker=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
+                    <p *ngIf="view.smoker=='0'" style="margin-top: 14px;"></p>
                   </td>
                   <td>
                     <p *ngIf="view.exercise=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
-                    <p *ngIf="view.exercise=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
+                    <p *ngIf="view.exercise=='0'" style="margin-top: 14px;"></p>
                   </td>
                   <td>
                     <p *ngIf="view.medicalinsurance=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
-                    <p *ngIf="view.medicalinsurance=='0'" style="margin-top: 14px;">{{labels[0].no}}</p>
+                    <p *ngIf="view.medicalinsurance=='0'" style="margin-top: 14px;"></p>
                   </td>
                 </tr>
               </table>

@@ -15,7 +15,7 @@
   <br>
   <div class="row">
     <div class="col-lg-3" >
-      <input type="search" placeholder="search" [(ngModel)]="term" class="form-control">
+      <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
     <div class="col-lg-3" *ngIf="id=='1'">
       <select class="form-control" (change)="GetHosptalWiseAppointments($event)">
@@ -58,8 +58,8 @@
             <th>{{labels[0].appointmentNumber}}</th>
             <th>{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].appointmentType}}</th>
-            <th>Hospital name</th>
-            <th>Doctor name</th>
+            <th  *ngIf="id=='1'||id=='2'">{{labels[0].hospitalName}}</th>
+            <th  *ngIf="id=='1'||id=='2'">{{labels[0].doctorName}}</th>
             <th>{{labels[0].ailment}}</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].mobileNo}}</th>
@@ -71,8 +71,8 @@
             <td>{{details.id}}</td>
             <td>{{details.slots}}</td>
             <td>{{details.combinationValue}}</td>
-            <td>{{details.hospital_ClinicName}}</td>
-            <td>{{details.doctorName}}</td>
+            <td *ngIf="id=='1'||id=='2'">{{details.hospital_ClinicName}}</td>
+            <td *ngIf="id=='1'||id=='2'">{{details.doctorName}}</td>
             <td>{{details.reasonForVisit}}</td>
             <td>{{details.pName}}</td>
             <td>{{details.pMobileNo}}</td>

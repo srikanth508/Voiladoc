@@ -19,17 +19,14 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
     </div>
-
     <div class="col-lg-3">
-    
-
-      <ng-multiselect-dropdown [placeholder]="docselect"  [data]="doctorlist"
-        [settings]="docdd" (onSelect)="GetDoctorID($event)">
+      <ng-multiselect-dropdown [placeholder]="docselect" [data]="doctorlist" [settings]="docdd"
+        (onSelect)="GetDoctorID($event)">
       </ng-multiselect-dropdown>
     </div>
-    <div class="col-lg-3" style="margin-right: -28px;">
+    <!-- <div class="col-lg-1" >
 
-    </div>
+    </div> -->
     <div class="col-lg-1" style="margin-right: -17px;">
       <div class="rectangle"><span style="margin-left: 5px;">{{labels[0].inclinic}}</span></div>
     </div>
@@ -37,7 +34,17 @@
       <div class="vdioerect"> <span style="margin-left: 11px;">{{labels[0].video}}</span></div>
     </div>
     <div class="col-lg-1" style="margin-left: 28px;">
-      <div class="homecare"><span>Home Visit</span></div>
+      <div class="homecare"><span>{{labels[0].homeVisit}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: -4px;width: 152%; ">
+        <p> {{labels[0].notAvailable}}</p>
+      </div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 11px;width: 109%;">
+        <p> {{labels[0].meeting}}</p>
+      </div>
     </div>
   </div>
   <br>
@@ -46,14 +53,14 @@
       <table>
         <thead>
           <tr>
-            <th>Time</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
+            <th>{{labels[0].timings}}</th>
+            <th>{{labels[0].monday}}</th>
+            <th>{{labels[0].tuesday}}</th>
+            <th>{{labels[0].wednessday}}</th>
+            <th>{{labels[0].thursday}}</th>
+            <th>{{labels[0].friday}}</th>
+            <th>{{labels[0].saturday}}</th>
+            <th>{{labels[0].sunday}}</th>
           </tr>
           <tr *ngFor="let details of Timings">
             <td>{{details.slotname}}</td>
@@ -62,51 +69,51 @@
               <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay1List(details)">
+                  (click)="GetDay1List(details)">
               </a>
 
             </td>
             <td [style.background-color]="details.tuesdayColor" style="color:white">{{details.tuesday}}<br>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay2List(details)">
+                  (click)="GetDay2List(details)">
               </a>
-              
+
             </td>
             <td [style.background-color]="details.wednesdayColor" style="color:white">{{details.wednesday}}<br>
 
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay3List(details)">
+                  (click)="GetDay3List(details)">
               </a>
 
             </td>
             <td [style.background-color]="details.thursdayColor" style="color:white">{{details.thursday}}<br>
-            
+
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay4List(details)">
+                  (click)="GetDay4List(details)">
               </a>
             </td>
             <td [style.background-color]="details.fridayColor" style="color:white">{{details.friday}}<br>
-            
+
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay5List(details)">
+                  (click)="GetDay5List(details)">
               </a>
             </td>
             <td [style.background-color]="details.saturdayColor" style="color:white">{{details.saturday}}<br>
-            
+
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay7List(details)">
+                  (click)="GetDay7List(details)">
               </a>
             </td>
             <td [style.background-color]="details.sundayColor" style="color:white">{{details.sunday}}<br>
-          
+
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                (click)="GetDay1List(details)">
+                  (click)="GetDay1List(details)">
               </a>
             </td>
           </tr>
@@ -152,7 +159,7 @@
           </div>
           <div class="col-lg-3">
             <button type="button" data-dismiss="modal" class="btn btn-block btncolor"
-          (click)="Updateslots()"   >{{labels[0].update_label}}</button>
+              (click)="Updateslots()">{{labels[0].update_label}}</button>
           </div>
           <div class="col-lg-4">
           </div>

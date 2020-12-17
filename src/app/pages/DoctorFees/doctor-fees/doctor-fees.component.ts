@@ -265,8 +265,17 @@ export class DoctorFeesComponent implements OnInit {
       }
       this.docservice.InsertDoctorCommissionFees(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire('Success', 'Details Saved Successfully');
-          location.href = "#/DoctorFeeDash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Details Saved Successfully');
+            location.href = "#/DoctorFeeDash"
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('', 'Mis à jour avec succès !');
+            location.href = "#/DoctorFeeDash"
+          }
+        
         }
         else {
           if (this.languageid == 1) {

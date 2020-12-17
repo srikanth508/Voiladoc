@@ -66,7 +66,7 @@
                   (click)="DeletePhsyioTherapistCommissionDeatails(list.id)">
               </a>&nbsp;
 
-              <ng-template #tipcontent6>edit</ng-template>
+              <ng-template #tipcontent6>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent6">
                 <img src="assets/Images/edit.png" title="Edit"
                 [routerLink]="['/PhysioFees',list.id]" style="width: 20px">

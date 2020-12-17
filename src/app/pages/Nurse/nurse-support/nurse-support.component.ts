@@ -72,8 +72,16 @@ export class NurseSupportComponent implements OnInit {
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
           this.insertnotification()
-          Swal.fire('Issue Raised Successflly')
-          location.href = "#/NurseSupportDash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Issue Raised Successflly')
+            location.href = "#/NurseSupportDash"
+          }
+          else
+          {
+            Swal.fire('Problème soulevé avec succès')
+            location.href = "#/NurseSupportDash"
+          }
         }
       })
     }
@@ -86,17 +94,28 @@ export class NurseSupportComponent implements OnInit {
       this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
+ 
   }
+
+  public showphoto=[];
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
      
       this.issuephotourl.push(res);
       let a = this.issuephotourl[0].slice(2);
-     
       let b = 'http://14.192.17.225' + a;
+      this.showphoto.push(b);
 
      
     })

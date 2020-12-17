@@ -3,6 +3,7 @@ import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
+import { IfStmt } from '@angular/compiler';
 @Component({
   selector: 'app-nurse-fees',
   templateUrl: './nurse-fees.component.html',
@@ -161,12 +162,30 @@ export class NurseFeesComponent implements OnInit {
           //   debugger
           //   this.InsertNurseRevenue();
           // }
-          Swal.fire('Success', 'Details Saved Successfully');
-          location.href = "#/NurseFeeDash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Details Saved Successfully');
+            location.href = "#/NurseFeeDash"
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('', 'Mis à jour avec succès !');
+            location.href = "#/NurseFeeDash"
+          }
+       
         }
         else {
-          Swal.fire("This Service Already Exists");
-          this.tablecount = 0;
+          if(this.languageid==1)
+          {
+            Swal.fire("This Service Already Exists");
+            this.tablecount = 0;
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire("Ce service existe déjà");
+            this.tablecount = 0;
+          }
+       
         }
       })
     }

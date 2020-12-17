@@ -7,7 +7,7 @@
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <aw-wizard>
-    <aw-wizard-step stepTitle="{{labels[0].profile}}">
+    <!-- <aw-wizard-step stepTitle="{{labels[0].profile}}"> -->
       <div class="container-fluid divspacee" style="margin-top:20px;">
         <div class="row">
           <div class="col-lg-8">
@@ -258,16 +258,15 @@
               <button class="btn btncolor" (click)="updatephoto()">{{labels[0].update}}</button>
             </div>
           </div>
-
         </div>
         <br>
       </div>
       <br>
-      <button type="button" awNextStep style="float: right;margin-bottom: 5px;"
-        class="btn btncolor ">{{labels[0].next}}</button>
+      <!-- <button type="button" awNextStep style="float: right;margin-bottom: 5px;"
+        class="btn btncolor ">{{labels[0].next}}</button> -->
       <!-- <button type="button" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button> -->
-    </aw-wizard-step>
-    <aw-wizard-step stepTitle="{{labels[0].addphotos}}" awOptionalStep>
+    <!-- </aw-wizard-step> -->
+    <!-- <aw-wizard-step stepTitle="{{labels[0].addphotos}}" awOptionalStep>
       <br>
       <div class="container-fluid">
         <div class="row">
@@ -303,8 +302,8 @@
 
       <button type="button" awPreviousStep style="    float: left;
       margin-bottom: 15px" class="btn btncolor ">{{labels[0].previous}}</button>
-      <!-- <button type="button" awNextStep>Go to next step</button> -->
-    </aw-wizard-step>
+    
+    </aw-wizard-step> -->
 
   </aw-wizard>
 </div>

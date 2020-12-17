@@ -185,9 +185,10 @@ export class PharmacyprofileComponent implements OnInit {
     this.photoid = id;
     this.pffbit = 1
   }
+  public dummattachmenturl=[];
 
   public onattachmentUpload(abcd) {
-
+    this.dummattachmenturl = []
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -201,12 +202,15 @@ export class PharmacyprofileComponent implements OnInit {
       abcd.length = 0;
     }
   }
+
+
+
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
 
       this.attachmentsurl.push(res);
-      let a = this.attachmentsurl[0].slice(2);
-
+      this.dummattachmenturl.push(res);
+      let a = this.dummattachmenturl[0].slice(2);
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
@@ -229,7 +233,12 @@ export class PharmacyprofileComponent implements OnInit {
       let test = res;
       if (this.languageid == 1) {
         this.getpharmacydetailsforadmin();
-        Swal.fire(' Updated Successfully');
+        if (this.languageid == 1) {
+          Swal.fire(' Updated Successfully');
+        }
+        else {
+          Swal.fire('Supprimé avec succès');
+        }
         this.GetPhotos();
         this.pffbit = 0;
         this.showphoto.length = 0;

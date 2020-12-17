@@ -1,0 +1,65 @@
+<br>
+<div class="container-fluid card card:hover headerspace">
+    <div class="row headerspace">
+        <div class="col-lg-9" style="margin-top:4px;">
+            <h5>{{labels[0].paymentLinkDashboard}}</h5>
+        </div>
+        <div class="col-lg-3" style="text-align: end;">
+            <button type="button" routerLink="/NewPaymentLink" *ngIf="paymentlinklist.length==0" class="btn btncolor">{{labels[0].addNewPaymentLink}}</button>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-3">
+            <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+        </div>
+        <div class="col-lg-7">
+
+        </div>
+        <div class="col-lg-2">
+            <label style="margin-left: 60px;">Count : {{count}}</label>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12" style="overflow: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{labels[0].paymentLink}} </th>
+                        <th>{{labels[0].action}}</th>
+                    </tr>
+                    <tr *ngFor="let list of paymentlinklist|filter:term">
+
+                        <td>{{list.paymentLink}}</td>
+                        <td>
+                            <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                            <a [ngbTooltip]="tipcontent2">
+                                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="Delete(list.id)">
+                            </a>&nbsp;
+
+                            <ng-template #tipcontent95585>Edit</ng-template>
+                            <a [ngbTooltip]="tipcontent95585" style="color:black">
+                                <img src="assets/Images/edit.png" style="width: 18px" [routerLink]="['/NewPaymentLink',list.id]"></a>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <!-- <div class="col-lg-12" style="text-align: center">
+      <br>
+      <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+      </pagination-controls>
+  </div> -->
+    <br>
+</div>
+<br>
+<br>
+<br>
+<br>

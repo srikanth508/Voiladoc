@@ -2,7 +2,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
-      <h5>Home care Appointments</h5>
+      <h5>{{labels[0].homecareappointments}}</h5>
     </div>
   </div>
 </div>
@@ -43,22 +43,22 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label>Select Appointment By : </label>
+      <label id="imp">{{labels[0].selectappointmentby}} : </label>
     </div>
     <div class="col-lg-4">
       <select class="form-control" (change)="GetTypeID($event)">
-        <option value="0">Select Appointment By</option>
-        <option value="1">Doctor</option>
-        <option value="2">Nurse</option>
-        <option value="3">Physiotherapist</option>
-        <option value="4">Midwife</option>
+        <option value="0">{{labels[0].selectappointmentby}}</option>
+        <option value="1">{{labels[0].doctor}}</option>
+        <option value="2">{{labels[0].nurse}}</option>
+        <option value="3">{{labels[0].physiotherapist}}</option>
+        <option value="4">{{labels[0].midwife}}</option>
       </select>
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label>Appointment Date : </label>
+      <label id="imp">{{labels[0].appointmentdate}} : </label>
     </div>
     <div class="col-lg-4">
       <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
@@ -72,7 +72,7 @@
   </div><br>
   <div class="row">
     <div class="col-lg-3">
-      <label>Appointment Time : </label>
+      <label id="imp">{{labels[0].appointmenttime}} : </label>
     </div>
     <div class="col-lg-4">
       <input type="time" class="form-control" [(ngModel)]="appointmenttime" name="appointmenttime" (change)="GetAppointmentTimeChange($event)">
@@ -81,11 +81,11 @@
   <div *ngIf="typeid=='1'">
     <div class="row">
       <div class="col-lg-3">
-        <label>Select Doctor </label>
+        <label>{{labels[0].selectdoctor}} </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" (change)="GetDoctorID($event)">
-          <option value="0">Select Doctor</option>
+          <option value="0">{{labels[0].selectdoctor}}</option>
           <option *ngFor="let doc of Doctorlist" value="{{doc.doctorID}}">{{doc.doctorName}}</option>
         </select>
       </div>
@@ -95,7 +95,7 @@
   <div *ngIf="typeid=='2'">
     <div class="row">
       <div class="col-lg-3">
-        <label>Nurse </label>
+        <label>{{labels[0].selectNurse}} </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" (change)="GetNurseID($event)">
@@ -111,11 +111,11 @@
     <div class="row">
 
       <div class="col-lg-3">
-        <label>Physiotherapist </label>
+        <label>{{labels[0].selectphysiotherpist}} </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" (change)="GetPhysiotheerapist($event)">
-          <option value="0">Select Physiotherapist</option>
+          <option value="0">{{labels[0].selectphysiotherpist}}</option>
           <option *ngFor="let physio of physiolist" value="{{physio.physiotherapyID}}">{{physio.name}}</option>
         </select>
       </div>
@@ -125,11 +125,11 @@
   <div *ngIf="typeid=='4'">
     <div class="row">
       <div class="col-lg-3">
-        <label>Select midwife </label>
+        <label>{{labels[0].selectmiwife}} </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" (change)="GetmidwifeID($event)">
-          <option value="0">Select midwife</option>
+          <option value="0">{{labels[0].selectmiwife}}</option>
           <option *ngFor="let midwife of midwifelist" value="{{midwife.midWifeID}}">{{midwife.name}}</option>
         </select>
       </div>
@@ -148,23 +148,25 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label>Reason For Visit : </label>
+      <label>{{labels[0].reasonforvisit}} : </label>
     </div>
     <div class="col-lg-4">
       <!-- <input type="text"> -->
-      <textarea class="form-control" [(ngModel)]="reasonforvisit" placeholder="Reason For Visit" name="reasonforvisit" rows="4"></textarea>
+      <textarea class="form-control" [(ngModel)]="reasonforvisit" placeholder="{{labels[0].reasonforvisit}}" name="reasonforvisit" rows="4"></textarea>
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label class="DEPARTMENT_label"> Payment Type :</label>
+      <label class="DEPARTMENT_label"> {{labels[0].paymenttype}} :</label>
     </div>
     <div class="col-lg-4">
       <select class="form-control"  (change)="GetPaymentTypeID($event)">
-        <option value="0" >Select Payment Type</option>
-        <option value="4">Cash</option>
-        <option value="2">Credit Card / Debit Card Using Swipe Machine</option>
+        <option value="0" >{{labels[0].paymenttype}}</option>
+        <option *ngIf="languageid=='1'" value="4">Cash</option>
+        <option  *ngIf="languageid=='1'" value="2">Credit Card / Debit Card Using Swipe Machine</option>
+        <option  *ngIf="languageid=='6'" value="4">Encaisser</option>
+        <option  *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>
     </div>
@@ -203,7 +205,7 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <label>Amount : </label>
+      <label>{{labels[0].amount}} : </label>
     </div>
     <div class="col-lg-4">
       <input type="text" class="form-control" disabled [(ngModel)]="amount" name="amount">

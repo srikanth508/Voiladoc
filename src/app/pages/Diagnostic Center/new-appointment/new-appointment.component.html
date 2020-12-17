@@ -1,218 +1,243 @@
 <div class="container-fluid card card:hover headerspace">
-  <div class="row headerspace">
-      <div class="col-lg-3">
-          <h5 *ngIf="languageid=='1'">Book Appointment</h5>
-          <h5 *ngIf="languageid=='6'">RENDEZ-VOUS</h5>
-      </div>
-  </div>
+    <div class="row headerspace">
+        <div class="col-lg-3">
+            <h5 *ngIf="languageid=='1'">Book Appointment</h5>
+            <h5 *ngIf="languageid=='6'">RENDEZ-VOUS</h5>
+        </div>
+    </div>
 </div>
 <br>
 <div class="container-fluid card card-hover">
-  <div class="row" style="margin-top:20px;">
-      <div class="col-lg-3">
-          <label>{{labels[0].patient}} : </label>
-      </div>
-      <div class="col-lg-4">
-          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="patientslist" [settings]="patientdd" (onSelect)="GetPatientID($event)">
-          </ng-multiselect-dropdown>
-      </div>
-  </div>
-  <br>
-  <div class="row">
-      <div class="tab">
-          <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open" *ngIf="languageid=='1'">Tests</button>
-          <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='1'">Packages</button>
-          <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open" *ngIf="languageid=='6'">Des tests</button>
-          <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='6'">Paquets</button>
-      </div>
-  </div>
-  <br>
-  <div class="row">
-      <div class="col-lg-12">
-          <table *ngIf="type==1">
-              <tr>
-                  <th>{{labels1[0].tests}}</th>
-                  <th>{{labels1[0].amount}}</th>
-                  <th>{{labels1[0].select}}</th>
-              </tr>
-              <tr *ngFor="let list of testlist">
-                  <td>{{list.testName}}</td>
-                  <td>{{list.price}} MAD</td>
-                  <td><input type="checkbox" (change)="GetSelectedTests($event,list)"></td>
-              </tr>
-          </table>
-          <table *ngIf="type==2">
-              <tr>
-                  <th>{{labels1[0].packageName}}</th>
-                  <th>{{labels1[0].amount}}</th>
-                  <th>{{labels1[0].select}}</th>
-              </tr>
-              <tr *ngFor="let list of packageslist">
-                  <td>{{list.packageName}}</td>
-                  <td>{{list.price}} MAD</td>
-                  <td><input type="checkbox" (change)="GetSelectedPackages($event,list)"></td>
-              </tr>
-          </table>
-      </div>
-  </div>
-  <br>
-  <div class="row">
-      <div class="col-lg-5"></div>
-      <div class="col-lg-2">
-          <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="AddAll()">Add</button>
-      </div>
-  </div>
-  <br>
-  <div class="row" *ngIf="table==1">
-      <table>
-          <tr>
-              <th>Selected Tests/Packages</th>
-              <th>Amount</th>
-              <th>Action</th>
-          </tr>
-          <tr *ngFor="let list of allselectedtestandpakages">
-              <td>{{list.Testorpackage}}</td>
-              <td>{{list.Price}}</td>
-              <td>
-                  <ng-template #tipcontent2>Delete</ng-template>
-                  <a [ngbTooltip]="tipcontent2">
-                      <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="delete(list.Sno)">
-                  </a>&nbsp;
-              </td>
-          </tr>
-      </table><br><br>
-      <div class="col-lg-12" style="text-align: end;">
-          <label>Total Amount:{{totalamount}}</label>
-      </div>
-  </div>
-  <br>
-  <div class="row">
-      <div class="col-lg-3">
-          <label>{{labels[0].slot}} : </label>
-      </div>
-      <div class="col-lg-4">
-          <select class="form-control" data-toggle="modal" data-target="#slots" *ngIf="diagnosticslotid==undefined||diagnosticslotid==null">
-       <option selected hidden>Select Slot</option>
-     </select>
-          <input type="text" class="form-control" *ngIf="diagnosticslotid!=undefined||diagnosticslotid!=null" placeholder="{{slotname}}" data-toggle="modal" data-target="#slots">
-      </div>
-  </div>
-  <br>
-  <div class="row">
-      <div class="col-lg-3">
-          <label>Home Sample Pickup: </label>
-      </div>
-      <div class="col-lg-4">
-          <input type="radio" name="homesample" [(ngModel)]="homesample" value="1">&nbsp;Yes
-          <input type="radio" name="homesample" [(ngModel)]="homesample" value="0">&nbsp;No
-      </div>
-  </div>
-  <br>
-  <div class="row">
-      <div class="col-lg-5"></div>
-      <div class="col-lg-2">
-          <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="BookAppointment()">Book</button>
-      </div>
-  </div>
-  <br>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+            <label>{{labels[0].patient}} : </label>
+        </div>
+        <div class="col-lg-4">
+            <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="patientslist" [settings]="patientdd"
+                (onSelect)="GetPatientID($event)">
+            </ng-multiselect-dropdown>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="tab">
+            <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open"
+                *ngIf="languageid=='1'">Tests</button>
+            <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='1'">Packages</button>
+            <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open" *ngIf="languageid=='6'">Des
+                tests</button>
+            <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='6'">Paquets</button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <table *ngIf="type==1">
+                <tr>
+                    <th>{{labels1[0].tests}}</th>
+                    <th>{{labels1[0].amount}}</th>
+                    <th>{{labels1[0].select}}</th>
+                </tr>
+                <tr *ngFor="let list of testlist">
+                    <td>{{list.testName}}</td>
+                    <td>{{list.price}} MAD</td>
+                    <td><input type="checkbox" (change)="GetSelectedTests($event,list)"></td>
+                </tr>
+            </table>
+            <table *ngIf="type==2">
+                <tr>
+                    <th>{{labels1[0].packageName}}</th>
+                    <th>{{labels1[0].amount}}</th>
+                    <th>{{labels1[0].select}}</th>
+                </tr>
+                <tr *ngFor="let list of packageslist">
+                    <td>{{list.packageName}}</td>
+                    <td>{{list.price}} MAD</td>
+                    <td><input type="checkbox" (change)="GetSelectedPackages($event,list)"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-2">
+            <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+                (click)="AddAll()">Add</button>
+        </div>
+    </div>
+    <br>
+    <div class="row" *ngIf="table==1">
+        <table>
+            <tr>
+                <th>Selected Tests/Packages</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let list of allselectedtestandpakages">
+                <td>{{list.Testorpackage}}</td>
+                <td>{{list.Price}}</td>
+                <td>
+                    <ng-template #tipcontent2>Delete</ng-template>
+                    <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                            (click)="delete(list.Sno)">
+                    </a>&nbsp;
+                </td>
+            </tr>
+        </table><br><br>
+        <div class="col-lg-12" style="text-align: end;">
+            <label>Total Amount:{{totalamount}}</label>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <label>Home Sample Pickup: </label>
+        </div>
+        <div class="col-lg-4">
+            <input type="radio" name="homesample" [(ngModel)]="homesample" (ngModelChange)="onChange()"
+                value="1">&nbsp;Yes
+            <input type="radio" name="homesample" [(ngModel)]="homesample" (ngModelChange)="onChange()"
+                value="0">&nbsp;No
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <label>{{labels[0].slot}} : </label>
+        </div>
+        <div class="col-lg-4">
+            <select class="form-control" data-toggle="modal" data-target="#slots"
+                *ngIf="diagnosticslotid==undefined||diagnosticslotid==null">
+                <option selected hidden>Select Slot</option>
+            </select>
+            <input type="text" class="form-control" *ngIf="diagnosticslotid!=undefined||diagnosticslotid!=null"
+                placeholder="{{slotname}}" data-toggle="modal" data-target="#slots">
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-2">
+            <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+                (click)="BookAppointment()">Book</button>
+        </div>
+    </div>
+    <br>
 </div>
 
 
 <div class="modal fade" id="slots" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Select Slots</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-          </div>
-          <div class="modal-body">
-              <div class="row">
-                  <div class="col-lg-3">
-                      <label>Date</label>
-                  </div>
-                  <div class="col-lg-4">
-                      <input *ngIf="languageid==1" type="text" placeholder="MM/DD/YYYY" class="form-control" [minDate]="today" [(ngModel)]="today" [bsConfig]="{ showWeekNumbers:false }" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" (ngModelChange)="selectedDate($event)" bsDatepicker>
-                      <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control" [minDate]="today" [(ngModel)]="today" [bsConfig]="{ showWeekNumbers:false }" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="selectedDate($event)" bsDatepicker>
-                  </div>
-              </div>
-              <br>
-              <div class="card">
-                  <div class="row">
-                      <div class="col-lg-12" style="margin-left: 15px;">
-                          <h4 *ngIf="languageid=='1'">Morning</h4>
-                          <h4 *ngIf="languageid=='6'">Matin</h4>
-                      </div>
-                      <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of morningslotslist">
-                          <label data-dismiss="modal" style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;" (click)="GetDiagnosticSlotID(slot)">{{slot.slotName}}</label>
-                      </div>
-                      <div class="col-lg-12">
-                          <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.morningslotslist.length==0">
-                              <label>No Slots Available</label>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <br>
-              <div class="card">
-                  <div class="row">
-                      <div class="col-lg-12" style="margin-left: 15px;">
-                          <h4 *ngIf="languageid=='1'">Afternoon</h4>
-                          <h4 *ngIf="languageid=='6'">Après midi</h4>
-                      </div>
-                      <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of afternoonslotslist">
-                          <label data-dismiss="modal" style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;" (click)="GetDiagnosticSlotID(slot)">{{slot.slotName}}</label>
-                      </div>
-                      <div class="col-lg-12" style="margin-left: 5px;">
-                          <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.afternoonslotslist.length==0">
-                              <label>No Slots Available</label>
-                          </div>
-                          <br>
-                      </div>
-                  </div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Slots</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Date</label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input *ngIf="languageid==1" type="text" placeholder="MM/DD/YYYY" class="form-control"
+                            [minDate]="today" [(ngModel)]="today" [bsConfig]="{ showWeekNumbers:false }"
+                            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" (ngModelChange)="selectedDate($event)"
+                            bsDatepicker>
+                        <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
+                            [minDate]="today" [(ngModel)]="today" [bsConfig]="{ showWeekNumbers:false }"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (ngModelChange)="selectedDate($event)"
+                            bsDatepicker>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-left: 15px;">
+                            <h4 *ngIf="languageid=='1'">Morning</h4>
+                            <h4 *ngIf="languageid=='6'">Matin</h4>
+                        </div>
+                        <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of morningslotslist">
+                            <label data-dismiss="modal"
+                                style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;"
+                                (click)="GetDiagnosticSlotID(slot)">{{slot.slotName}}</label>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.morningslotslist.length==0">
+                                <label>No Slots Available</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-left: 15px;">
+                            <h4 *ngIf="languageid=='1'">Afternoon</h4>
+                            <h4 *ngIf="languageid=='6'">Après midi</h4>
+                        </div>
+                        <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of afternoonslotslist">
+                            <label data-dismiss="modal"
+                                style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;"
+                                (click)="GetDiagnosticSlotID(slot)">{{slot.slotName}}</label>
+                        </div>
+                        <div class="col-lg-12" style="margin-left: 5px;">
+                            <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.afternoonslotslist.length==0">
+                                <label>No Slots Available</label>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
 
-              </div>
-              <br>
-              <div class="card">
-                  <div class="row">
-                      <div class="col-lg-12" style="margin-left: 15px;">
-                          <h4 *ngIf="languageid=='1'">Evening</h4>
-                          <h4 *ngIf="languageid=='6'">Soir</h4>
-                      </div>
-                      <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of eveningslotslist">
-                          <label data-dismiss="modal" style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;" (click)="GetDiagnosticSlotID(slot)">{{slot.slotName}}</label>
-                      </div>
-                      <div class="col-lg-12" style="margin-left: 5px;">
-                          <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.eveningslotslist.length==0">
-                              <label>No Slots Available</label>
-                          </div>
-                          <br>
-                      </div>
-                  </div>
-              </div>
-              <br>
-              <div class="card">
-                  <div class="row">
-                      <div class="col-lg-12" style="margin-left: 15px;">
-                          <h4 *ngIf="languageid=='1'">Night </h4>
-                          <h4 *ngIf="languageid=='6'">Nuit</h4>
-                      </div>
-                      <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of nigntslotslist">
-                          <label style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 100%;" (click)="GetDiagnosticSlotID(slot)" data-dismiss="modal">{{slot.slotName}}</label>
-                      </div>
-                      <div class="col-lg-12" style="margin-left: 5px;">
-                          <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.nigntslotslist.length==0">
-                              <label>No Slots Available</label>
-                          </div>
-                          <br>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-      </div>
-  </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-left: 15px;">
+                            <h4 *ngIf="languageid=='1'">Evening</h4>
+                            <h4 *ngIf="languageid=='6'">Soir</h4>
+                        </div>
+                        <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of eveningslotslist">
+                            <label data-dismiss="modal"
+                                style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 62%;"
+                                (click)="GetDiagnosticSlotID(slot)">{{slot.slotName}}</label>
+                        </div>
+                        <div class="col-lg-12" style="margin-left: 5px;">
+                            <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.eveningslotslist.length==0">
+                                <label>No Slots Available</label>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-left: 15px;">
+                            <h4 *ngIf="languageid=='1'">Night </h4>
+                            <h4 *ngIf="languageid=='6'">Nuit</h4>
+                        </div>
+                        <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of nigntslotslist">
+                            <label
+                                style="text-align: center; border: 3px solid #1dbfd2;color:#1dbfd2; height: 28px;width: 100%;"
+                                (click)="GetDiagnosticSlotID(slot)" data-dismiss="modal">{{slot.slotName}}</label>
+                        </div>
+                        <div class="col-lg-12" style="margin-left: 5px;">
+                            <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.nigntslotslist.length==0">
+                                <label>No Slots Available</label>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

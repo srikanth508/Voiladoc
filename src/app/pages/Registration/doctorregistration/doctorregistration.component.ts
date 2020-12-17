@@ -146,7 +146,8 @@ export class DoctorregistrationComponent implements OnInit {
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         //  itemsShowLimit: 3,
-        allowSearchFilter: true
+        allowSearchFilter: true,
+        searchPlaceholderText: this.search,
       };
     }, error => {
     })
@@ -167,7 +168,8 @@ export class DoctorregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -212,7 +214,9 @@ export class DoctorregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+
         };
       }, error => {
       }
@@ -260,7 +264,11 @@ export class DoctorregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+          enableCheckAll: false,
+          // allowSearchFilter: true
+         
         };
 
       }, error => {
@@ -324,6 +332,9 @@ export class DoctorregistrationComponent implements OnInit {
     }
     else if (this.slotid == undefined || this.slotid == 0) {
       Swal.fire("Please Select Slot Duration");
+    }
+    else if (this.hospitalclinicid == undefined || this.hospitalclinicid == 0) {
+      Swal.fire("Please Select Hospital/Clinic");
     }
     else {
       if (this.attachmentsurl1.length == 0) {
@@ -756,7 +767,8 @@ export class DoctorregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }

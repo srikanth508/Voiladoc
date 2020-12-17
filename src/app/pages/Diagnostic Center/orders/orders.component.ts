@@ -454,23 +454,24 @@ export class OrdersComponent implements OnInit {
       this.dummattchmenturl.push(res);
       let a = this.dummattchmenturl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
-      this.showphoto.push(b)
+      // let b = 'http://14.192.17.225' + a;
+      this.showphoto.push('assets/Images/pdf.png')
       this.attachments.length = 0;
 
     })
     // this.sendattachment();
   }
 
+  public diacentername: any;
 
-  public GetUploadReportID(id, patientid, diagnosticCenterID) {
+  public GetUploadReportID(id, patientid, diagnosticCenterID, email, diacenter) {
 
     this.appointmentsid = id;
     this.patientid = patientid;
     this.diaid = diagnosticCenterID;
+    this.patientemail = email;
+    this.diacentername = diacenter;
   }
-
-
 
 
 
@@ -503,6 +504,25 @@ export class OrdersComponent implements OnInit {
         }
       })
     }
+    this.Insertnotificationsoapnotesazuere();
+
+  }
+
+  public patientemail: any;
+
+  public Insertnotificationsoapnotesazuere() {
+
+    var entity = {
+      'Description': this.diacentername + " has uploaded your report. please open voiladoc app and check ",
+      'ToUser': this.patientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+
   }
 
   public VisitOrder(appointmentsid) {

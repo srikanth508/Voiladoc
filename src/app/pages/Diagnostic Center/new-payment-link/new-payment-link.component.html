@@ -1,0 +1,38 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+      <div class="col-lg-3">
+          <h5>{{labels[0].newPaymentLink}}</h5>
+      </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card-hover">
+  <form #myteam="ngForm">
+      <div class="row">
+          <div class="col-lg-8">
+              <div class="row" style="margin-top:20px;">
+                  <div class="col-lg-4">
+                      <label>{{labels[0].paymentLink}} :</label>
+                      <span class="required">*</span>
+                  </div>
+                  <div class="col-lg-6">
+                      <input type="text" placeholder="{{labels[0].paymentLink}}" required class="form-control" [(ngModel)]="paymentlink" name="paymentlink"></div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-lg-5">
+                  </div>
+                  <div class="col-lg-2">
+                      <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='0'" (click)="InsertDetailes()" [disabled]="myteam.form.invalid">{{labels[0].save}}</button>
+                      <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='1'" (click)="UpdateDetailes()" [disabled]="myteam.form.invalid">{{labels[0].update}}</button>
+                  </div>
+                  <div class="col-lg-3">
+                  </div>
+              </div>
+          </div>
+      </div>
+      <br>
+  </form>
+</div>
+<br>
+<br>

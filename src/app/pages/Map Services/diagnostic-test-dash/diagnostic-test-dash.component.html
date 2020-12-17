@@ -36,8 +36,10 @@
     <div class="col-lg-7">
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 60px;">Count : {{count}}</label>
+      <label style="margin-left: 60px;" *ngIf="languageid=='1'">Count : {{count}}</label>
+      <label style="margin-left: 60px;" *ngIf="languageid=='6'">Nombre : {{count}}</label>
     </div>
+
   </div>
   <br>
   <div class="row">
@@ -68,7 +70,7 @@
                 <img src="assets/Images/dell.png" style="width: 20px;margin-left: -2px;"
                   (click)="DeleteDiagnostocServces(details.id)">
               </a>
-              &nbsp; 
+              &nbsp;
               <ng-template #tipcontent1>Edit</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditDiagnosticTest',details.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 18px"></a>

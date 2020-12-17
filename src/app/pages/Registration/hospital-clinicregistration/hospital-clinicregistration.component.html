@@ -40,7 +40,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].hospitalClinicName}}" name="hospitalclinicname" required
+              <input type="text" class="textformat" placeholder="{{labels[0].hospitalClinicName}}" name="hospitalclinicname" required
                 [(ngModel)]="hospitalclinicname" class="form-control">
             </div>
           </div>
@@ -48,12 +48,12 @@
           <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].hospitalPhoneNo}} :</label>
-
+              <span class="required">*</span>
             </div>
 
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].hospitalPhoneNo}}" maxlength="13" name="hospitalphno"
-                [(ngModel)]="hospitalphno" class="form-control"
+                [(ngModel)]="hospitalphno" class="form-control" required
                 onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
 
@@ -62,24 +62,23 @@
           <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].contactPersonName}} :</label>
-
+              <span class="required">*</span>
             </div>
 
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].contactPersonName}}" name="contactpersonname"
+              <input type="text" required placeholder="{{labels[0].contactPersonName}}" name="contactpersonname"
                 [(ngModel)]="contactpersonname" class="form-control">
             </div>
-
           </div>
           <br />
           <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].contactPersonPhoneNumber}}:</label>
-
+              <span class="required">*</span>
             </div>
 
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13"
+              <input type="text" required placeholder="{{labels[0].contactPersonPhoneNumber}}" maxlength="13"
                 name="contactpersonphno" [(ngModel)]="contactpersonphno" class="form-control"
                 onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
@@ -89,10 +88,10 @@
           <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].email}}:</label>
-
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email"
+              <input type="email" placeholder="{{labels[0].email}}" required name="email" [(ngModel)]="email"
                 class="form-control" (ngModelChange)="onChange($event)">
             </div>
           </div>
@@ -174,20 +173,21 @@
               <span class="required">*</span>
             </div>
             <div class="col-md-8">
-              <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()" value="1">Monthly Subscription
+              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()" value="1">Monthly Subscription
               &nbsp;
-              <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype"  (click)="Getsubscriptontype()" value="2"> Appointment
+              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"  (click)="Getsubscriptontype()" value="2"> Appointment
               percentage &nbsp;
-              <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype"   (click)="Getsubscriptontype()" value="3"> Both
+              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"   (click)="Getsubscriptontype()" value="3"> Both
             </div>
           </div><br>
           <div *ngIf="subscriptiontype=='1'">
             <div class="row">
               <div class="col-lg-3">
                 <label>MONTHLY SUBSCRIPTION :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
-                <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+                <input type="text" placeholder="Monthly Subscription"  name="monthlysubription"
                   [(ngModel)]="monthlysubription" class="form-control"
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
@@ -195,32 +195,32 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>Contract start date :</label>
-        
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
                 <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                placeholder="Contract start date" [minDate]="today" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractstartdate" bsDatepicker>
               </div>
             </div>
             <br />
-        
             <div class="row">
               <div class="col-lg-3">
                 <label>Contract end date :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
                 <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                placeholder="Contract end date" [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractenddate" bsDatepicker>
               </div>
             </div>
-           
           </div>
           <div *ngIf="subscriptiontype=='2'">
             <div class="row">
               <div class="col-lg-3">
                 <label>Appointment Percentage :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
                 <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
@@ -231,23 +231,23 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>Contract start date :</label>
-        
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
                 <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                placeholder="Contract start date"  [minDate]="today" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractstartdate" bsDatepicker>
               </div>
             </div>
             <br />
-        
             <div class="row">
               <div class="col-lg-3">
                 <label>Contract end date :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
                 <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                placeholder="Contract end date"  [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractenddate" bsDatepicker>
               </div>
             </div> 
@@ -278,9 +278,10 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>Contract start date :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
-                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                <input type="text" class="form-control" [minDate]="today" [bsConfig]="{ showWeekNumbers:false }"
                 placeholder="Contract start date" name="contractstartdate" [minDate]="today"  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractstartdate" bsDatepicker>
               </div>
@@ -289,16 +290,16 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>Contract end date :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-4">
                 <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                placeholder="Contract end date" [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractenddate" bsDatepicker>
               </div>
             </div>
           </div><br>
-
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-3">
               <label>Open 24 hrs:</label>
               <span class="required">*</span>
@@ -308,9 +309,8 @@
               <input type="radio" name="fulltime" [(ngModel)]="hospitalfulltimebit" value="1" Checked>{{labels[0].yes}}
               <input type="radio" name="fulltime" [(ngModel)]="hospitalfulltimebit" value="0">{{labels[0].no}}
             </div>
-          </div>
-
-          <div class="row" *ngIf="hospitalfulltimebit==0">
+          </div> -->
+          <div class="row" >
             <div class="col-lg-3">
               <label>{{labels[0].timings}}:</label>
               <!-- <span class="required">*</span> -->

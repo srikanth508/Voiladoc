@@ -63,6 +63,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public dummdiagnosticid: any;
   public diagnosticname: any;
   public search: any;
+
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
@@ -76,10 +77,12 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     this.GetDiagnosticNightSlotsMaster();
     this.tablecount = 0;
     this.GetDaysMaster()
-
     this.mrngfromid = "";
     this.mrngtoid = "";
     this.idcount = 1;
+    this.diafromid = "";
+    this.diatoid = "";
+
   }
 
 
@@ -106,6 +109,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
   public GetDaysID(item10: any) {
     // this.dayid = item10.id;
+    debugger
     this.dayid.push(item10)
   }
 
@@ -149,6 +153,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   }
 
   public mrngfromlist: any;
+  public diagnsticfromlist: any;
 
   public GetdicgnosticMasterSlotByID() {
 
@@ -157,6 +162,8 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
         this.slotslist = data;
         this.mrngfromlist = this.slotslist;
+
+        this.diagnsticfromlist = this.slotslist;
         // this.slotsdd = {
         //   singleSelection: false,
         //   idField: 'id',
@@ -235,7 +242,6 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     )
   }
 
-
   dis1
   dis2
   dis3
@@ -277,6 +283,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public appointmenttype: any;
   public idcount: any;
   public colorcode: any;
+  public cleardropwn = [];
 
   public adddetails() {
 
@@ -289,61 +296,117 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     else {
       debugger
       this.tablecount = 1
-      var mrgfrm = {
-        slotName: this.mrngfromslot,
-        id: this.mrngfromid
-      };
-      this.mrngslots.push(mrgfrm);
-      debugger
-      var mrgto = {
-        slotName: this.mrngtoslot,
-        id: this.mrngtoid
-      };
-      this.mrngslots.push(mrgto);
-      debugger
-      for (let i = 0; i < this.mrngslots.length; i++) {
-        this.mrngslotarray.push(this.mrngslots[i].slotName)
 
-        this.mrngslotarrayid.push(this.mrngslots[i].id)
+      if (this.appointmenttype == 1) {
+        var mrgfrm = {
+          slotName: this.mrngfromslot,
+          id: this.mrngfromid
+        };
+        this.mrngslots.push(mrgfrm);
+        debugger
+        var mrgto = {
+          slotName: this.mrngtoslot,
+          id: this.mrngtoid
+        };
+        this.mrngslots.push(mrgto);
+        debugger
+        for (let i = 0; i < this.mrngslots.length; i++) {
+          this.mrngslotarray.push(this.mrngslots[i].slotName)
+
+          this.mrngslotarrayid.push(this.mrngslots[i].id)
+        }
+
+        this.slotname = this.mrngslotarray;
+        this.mrng = this.slotname.join(' to ')
+        this.slotnameid = this.mrngslotarrayid;
+        this.mrngid = this.slotnameid.join(',')
+
+        if (this.appointmenttype == '1') {
+          this.colorcode = '#ADD8E6'
+        }
+        else if (this.appointmenttype == '2') {
+          this.colorcode = '#5F9EA0'
+        }
+
+        var entity = {
+          'Sno': this.idcount,
+          'DiagnosticName': this.diagnosticname,
+          'Morning': this.mrng,
+          'Nightid': this.nightid,
+          'mrngAppointmenttype': this.appointmenttype,
+          'StartTime': this.mrngfromslot,
+          'EndTime': this.mrngtoslot,
+          'Color': this.colorcode,
+          'AppointmentTypeID': this.appointmenttype,
+          'Morningid': this.mrngid,
+          'DiagnosticCenterID': this.diagnosticid
+        }
       }
 
-      this.slotname = this.mrngslotarray;
-      this.mrng = this.slotname.join(' to ')
-      this.slotnameid = this.mrngslotarrayid;
-      this.mrngid = this.slotnameid.join(',')
+      if (this.appointmenttype == 2) {
+        var mrgfrm = {
+          slotName: this.diagnosticfromslot,
+          id: this.diafromid
+        };
+        this.mrngslots.push(mrgfrm);
+        debugger
+        var mrgto = {
+          slotName: this.diagnostictoslot,
+          id: this.diatoid
+        };
+        this.mrngslots.push(mrgto);
+        debugger
+        for (let i = 0; i < this.mrngslots.length; i++) {
+          this.mrngslotarray.push(this.mrngslots[i].slotName)
 
-      if (this.appointmenttype == '1') {
-        this.colorcode = '#993366'
+          this.mrngslotarrayid.push(this.mrngslots[i].id)
+        }
+        this.slotname = this.mrngslotarray;
+        this.mrng = this.slotname.join(' to ')
+        this.slotnameid = this.mrngslotarrayid;
+        this.mrngid = this.slotnameid.join(',')
+
+        if (this.appointmenttype == '1') {
+          this.colorcode = '#ADD8E6'
+        }
+        else if (this.appointmenttype == '2') {
+          this.colorcode = '#5F9EA0'
+        }
+        var entity = {
+          'Sno': this.idcount,
+          'DiagnosticName': this.diagnosticname,
+          'Morning': this.mrng,
+          'Nightid': this.nightid,
+          'mrngAppointmenttype': this.appointmenttype,
+          'StartTime': this.diagnosticfromslot,
+          'EndTime': this.diagnostictoslot,
+          'Color': this.colorcode,
+          'AppointmentTypeID': this.appointmenttype,
+          'Morningid': this.mrngid,
+          'DiagnosticCenterID': this.diagnosticid
+        }
       }
-      else if (this.appointmenttype == '2') {
-        this.colorcode = '#4000ff'
-      }
-      else if (this.appointmenttype == '3') {
-        this.colorcode = '#00ffff'
-      }
-      var entity = {
-        'Sno': this.idcount,
-        'DiagnosticName': this.diagnosticname,
-        'Morning': this.mrng,
-        'Nightid': this.nightid,
-        'mrngAppointmenttype': this.appointmenttype,
-        'StartTime': this.mrngfromslot,
-        'EndTime': this.mrngtoslot,
-        'Color': this.colorcode,
-        'AppointmentTypeID': this.appointmenttype,
-        'Morningid': this.mrngid,
-      }
+
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
+      if (this.appointmenttype == 1) {
+        var mrngslots = this.mrngfromlist.findIndex(x => x.id == this.mrngtoid);
+        this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 1, this.mrngfromlist.length);
+      }
+      else if (this.appointmenttype == 2) {
+        var diaslots = this.diagnsticfromlist.findIndex(x => x.id == this.diatoid);
+        this.diagnsticfromlist = this.diagnsticfromlist.slice(diaslots + 1, this.diagnsticfromlist.length);
+      }
       debugger
-      var mrngslots = this.mrngfromlist.findIndex(x => x.id == this.mrngtoid);
-      this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 1, this.mrngfromlist.length);
     }
     this.mrngfromid = "";
     this.mrngtoid = "";
+    this.diafromid = "";
+    this.diatoid = "";
     this.appointmenttype = "";
     this.morningslots = [];
-    this.morningslots.length = 0
+    this.morningslots.length = 0;
+    this.cleardropwn.length = 0;
 
   }
 
@@ -467,34 +530,70 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   // }
 
 
+
   public insertdetails1() {
     debugger
-    for (let j = 0; j < this.dayid.length; j++) {
+    var entity = {
+      'dayList': this.dayid,
+      'slotsList': this.qwerty,
+
+      // 'DiagnosticCenterID': this.diagnosticid
+      // 'Morning': this.qwerty[i].Morningid,
+      // 'AppointmentTypeID': this.qwerty[i].AppointmentTypeID,
+      // 'Noon': this.afternoonid,
+      // 'Evening': this.evngid,
+      // 'Night': this.nightid,
+    }
+    this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
       debugger
-      for (let i = 0; i < this.qwerty.length; i++) {
-        var entity = {
-          'DiagnosticCenterID': this.diagnosticid,
-          'DayID': this.dayid[j].id,
-          'Morning': this.qwerty[i].Morningid,
-          'AppointmentTypeID': this.qwerty[i].AppointmentTypeID,
-          'Noon': this.afternoonid,
-          'Evening': this.evngid,
-          'Night': this.nightid,
+      if (data == 0) {
+        if (this.languageid == 1) {
+          Swal.fire('', 'Added Successfully');
+          location.href = "#/DiagnosticSlotsDash"
         }
-        this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-          debugger
-        })
+        else {
+          Swal.fire('', 'Ajouté avec succès');
+          location.href = "#/DiagnosticSlotsDash"
+        }
       }
-    }
-    if (this.languageid == 1) {
-      Swal.fire('', 'Added Successfully');
-      location.href = "#/DiagnosticSlotsDash"
-    }
-    else {
-      Swal.fire('', 'Ajouté avec succès');
-      location.href = "#/DiagnosticSlotsDash"
-    }
+    })
+
+
+
   }
+
+
+
+
+
+  // public insertdetails1() {
+  //   debugger
+  //   for (let j = 0; j < this.dayid.length; j++) {
+  //     debugger
+  //     for (let i = 0; i < this.qwerty.length; i++) {
+  //       var entity = {
+  //         'DiagnosticCenterID': this.diagnosticid,
+  //         'DayID': this.dayid[j].id,
+  //         'Morning': this.qwerty[i].Morningid,
+  //         'AppointmentTypeID': this.qwerty[i].AppointmentTypeID,
+  //         'Noon': this.afternoonid,
+  //         'Evening': this.evngid,
+  //         'Night': this.nightid,
+  //       }
+  //       this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
+  //         debugger
+  //       })
+  //     }
+  //   }
+  //   if (this.languageid == 1) {
+  //     Swal.fire('', 'Added Successfully');
+  //     location.href = "#/DiagnosticSlotsDash"
+  //   }
+  //   else {
+  //     Swal.fire('', 'Ajouté avec succès');
+  //     location.href = "#/DiagnosticSlotsDash"
+  //   }
+  // }
 
 
 
@@ -520,6 +619,34 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
     this.mrngtoslot = qwerty[0].slotName;
   }
+
+  public diafromid: any;
+  public diagnosticfromslot: any;
+  public diagnostictolist: any;
+  public diatoid: any;
+  public diatoslot: any;
+  public diatolist: any;
+  public diagnostictoslot: any;
+
+
+
+  public GetDiagnosticFromSlots(even) {
+    this.diafromid = even.target.value;
+    var qwerty = this.diagnsticfromlist.filter(x => x.id == this.diafromid);
+    this.diagnosticfromslot = qwerty[0].slotName;
+    this.diatolist = this.diagnsticfromlist.filter(x => x.id > this.diafromid);
+    this.diatoid = "";
+  }
+
+
+  public getDiagnosticToSlots(even) {
+    this.diatoid = even.target.value;
+    var qwerty = this.diatolist.filter(x => x.id == this.diatoid);
+    this.diagnostictoslot = qwerty[0].slotName;
+  }
+
+
+
 
 
   public delete(Sno) {

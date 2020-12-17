@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-12">
-      <h5>{{labels[0].diagnosticSlotRegisration}}</h5>
+      <!-- <h5>{{labels[0].diagnosticSlotRegisration}}</h5> -->
+      <h5>Planning</h5>
     </div>
   </div>
 </div>
@@ -60,40 +61,57 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label class="Slot_label">{{labels[0].slots}}:</label>
+      <label class="Slot_label">{{labels[0].scheduletype}}:</label>
       <span class="required">*</span>
     </div>
     <div class="col-lg-9">
       <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="1"> &nbsp;
-      Home Sample
+     {{labels[0].homesample}}
       &nbsp;
       <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="2"> &nbsp;
-      Diagnostic Center  &nbsp;
-      <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="3"> &nbsp;
+      {{labels[0].diagnosticentre}} &nbsp;
+      <!-- <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="3"> &nbsp;
       Both
-      &nbsp;
+      &nbsp; -->
     </div>
     <div class="col-lg-3">
+      <label class="Slot_label">{{labels[0].slots}}:</label>
+      <span class="required">*</span>
     </div>
-    <div class="col-lg-3">
+
+    <div class="col-lg-3" *ngIf="appointmenttype=='1'">
       <select class="form-control" (change)="getmrngfrom($event)" [(ngModel)]="mrngfromid" name="mrngfromid">
         <option value="">{{labels[0].startTime}}</option>
         <option *ngFor="let mrngfrm of mrngfromlist" value="{{ mrngfrm.id }}">{{ mrngfrm.slotName }}</option>
       </select>
     </div>
-    <div class="col-lg-3" style="margin-top: 0px;">
+    <div class="col-lg-3" style="margin-top: 0px;" *ngIf="appointmenttype=='1'">
       <select class="form-control" (change)="getmrngto($event)" [(ngModel)]="mrngtoid" name="mrngtoid">
         <option value="">{{labels[0].endTime}}</option>
         <option *ngFor="let mrngto of mrngtolist" value="{{ mrngto.id }}">{{ mrngto.slotName
-        }}</option>
+          }}</option>
       </select>
     </div>
+    <div class="col-lg-3" *ngIf="appointmenttype=='2'">
+      <select class="form-control" (change)="GetDiagnosticFromSlots($event)" [(ngModel)]="diafromid" name="diafromid">
+        <option value="">{{labels[0].startTime}}</option>
+        <option *ngFor="let mrngfrm of diagnsticfromlist" value="{{ mrngfrm.id }}">{{ mrngfrm.slotName }}</option>
+      </select>
+    </div>
+    <div class="col-lg-3" style="margin-top: 0px;" *ngIf="appointmenttype=='2'">
+      <select class="form-control" (change)="getDiagnosticToSlots($event)" [(ngModel)]="diatoid" name="diatoid">
+        <option value="">{{labels[0].endTime}}</option>
+        <option *ngFor="let mrngto of diatolist" value="{{ mrngto.id }}">{{ mrngto.slotName
+          }}</option>
+      </select>
+    </div>
+
   </div><br>
   <div class="row">
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">Add</button>
+      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">{{labels[0].add}}</button>
     </div>
     <div class="col-lg-5">
     </div>
@@ -126,7 +144,7 @@
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails1()">Save</button>
+      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails1()">{{labels[0].save}}</button>
     </div>
     <div class="col-lg-5">
     </div>

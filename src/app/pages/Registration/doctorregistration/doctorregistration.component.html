@@ -30,10 +30,10 @@
           <div class="row">
             <div class="col-lg-3">
               <label class="Phone_label">{{labels[0].phoneNo}} :</label>
-
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].phoneNo}}" maxlength="13" name="phoneno" [(ngModel)]="phoneno"
+              <input type="text" placeholder="{{labels[0].phoneNo}}" required maxlength="13" name="phoneno" [(ngModel)]="phoneno"
                 class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
@@ -41,9 +41,10 @@
           <div class="row">
             <div class="col-lg-3">
               <label class="Email_label">{{labels[0].email}} :</label>
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email"
+              <input type="email" required placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email"
                 class="form-control" (ngModelChange)="onChange($event)">
             </div>
           </div>
@@ -61,12 +62,12 @@
           <div class="row">
             <div class="col-lg-3">
               <label class="Email_label">{{labels[0].gender}} :</label>
-
+              <span class="required">*</span>
             </div>
             <div class="col-lg-3">
-              <input type="radio" name="gender" [(ngModel)]="gender" (click)="GetGenderID($event)" value="1">
+              <input type="radio" name="gender" [(ngModel)]="gender" required (click)="GetGenderID($event)" value="1">
               {{labels[0].male}} &nbsp;
-              <input type="radio" name="gender" [(ngModel)]="gender" (click)="GetGenderID($event)" value="2">
+              <input type="radio" name="gender" [(ngModel)]="gender" required (click)="GetGenderID($event)" value="2">
               {{labels[0].female}}
             </div>
           </div>
@@ -77,7 +78,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <textarea class="form-control" rows="4" name="address" required [(ngModel)]="address"
+              <textarea class="form-control" rows="4" required name="address" required [(ngModel)]="address"
                 placeholder="Address"></textarea>
             </div>
           </div>
@@ -88,7 +89,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
+              <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="countrylist" [settings]="countrydd"
                 (onSelect)="GetCountryID($event)">
               </ng-multiselect-dropdown>
             </div>
@@ -135,7 +136,7 @@
           <br>
           <div class="row">
             <div class="col-lg-3">
-              <label class="DEPARTMENT_label">Slot Duration :</label>
+              <label class="DEPARTMENT_label">{{labels[0].slotDuration}} :</label>
               <span class="required">*</span>
             </div>
             <div class="col-lg-4" (change)="GetSlotDurationID($event)">
@@ -188,7 +189,6 @@
             </div>
           </div>
           <br>
-     
           <div class="row">
             <div class="col-lg-3">
               <label class="Address_label">{{labels[0].description}} :</label>
@@ -269,6 +269,7 @@
           <div class="row" *ngIf="dummid==null">
             <div class="col-lg-3">
               <label>HOSPITAL/ClINIC : </label>
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
               <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist"

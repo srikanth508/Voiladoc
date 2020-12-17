@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
-      <h5>{{labels[0].myworkschedule}}</h5>
+      <!-- <h5>{{labels[0].myworkschedule}}</h5> -->
+      <h5>Agenda</h5>
     </div>
 
     <div class="col-lg-3" style="margin-top: -12px;">
@@ -54,7 +55,7 @@
             <td>
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
-                <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal" (click)="GetDetsilsID(details.physiotherapyHospitalDetailsID,details.dayID,details.startDateTime,details.endDateTime,details.id)"
+                <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal" (click)="GetDetsilsID(details.physiotherapyHospitalDetailsID,details.dayID,details.starttime,details.endtime,details.id)"
                   style="width: 20px">
               </a>&nbsp;
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
@@ -62,7 +63,7 @@
                 <img src="assets/Images/dell.png" (click)="DeletePhysiotherapistWorkingDetails(details.physiotherapyHospitalDetailsID,details.dayID,details.id)"
                   style="width: 20px;margin-left: 10px;">
               </a>
-              <ng-template #tipcontent3>Enable</ng-template>
+              <ng-template #tipcontent3>{{labels[0].enable}}</ng-template>
               <a *ngIf="details.enable==1" [ngbTooltip]="tipcontent3">
                 <img src="assets/Images/dactive.png" (click)="EnablePhysiotherapistWorkingDetails(details.id)" style="width: 40px;margin-left: 10px;">
               </a>

@@ -1,0 +1,82 @@
+<br>
+<div class="container-fluid card card-hover">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>Completed Refunds Dashboard</h5>
+    </div>
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button class="btn btncolor" (click)="getglmasterexcel()"
+        *ngIf="showexportbutton=='1'">{{labels[0].exportExcel}}</button>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-2">
+      <label><b style="margin-left: 50px;">{{labels[0].count}} : {{count}}</b></label>
+    </div>
+  </div><br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Appointment">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Appointment With</th>
+            <th>Patient Name</th>
+            <th>Mobile Number</th>
+            <th>Refund Type</th>
+            <th>Card holder Name</th>
+            <th>Bank Name</th>
+            <th>Account Number</th>
+            <th>Status</th>
+            <!-- <th>{{labels[0].actions}}</th> -->
+          </tr>
+          <tr *ngFor="let refund of refundlist|filter:term">
+            <td>{{refund.appointmentDate}}</td>
+            <td>{{refund.providerType}}</td>
+            <td>{{refund.patientName}}</td>
+            <td>{{refund.mobileNumber}}</td>
+            <td>
+              <label *ngIf="refund.callBack=='1'">Call back</label>
+              <label *ngIf="refund.bankDetails=='1'">Bank Details</label>
+            </td>
+            <td>{{refund.cardHolderName}}</td>
+            <td>{{refund.bankName}}</td>
+            <td>{{refund.accountNumber}}</td>
+            <td style="color:green">
+              {{refund.status}}
+            </td>
+          <!-- <td>
+            <ng-template #tipcontent88>Call Back</ng-template>
+            <a [ngbTooltip]="tipcontent88">
+              <img src="assets/Images/callback.png" *ngIf="refund.callBack=='1'&&refund.completed=='0'" style="height:25px;" data-toggle="modal"
+                data-target="#callback" (click)="GetCallbackStatus(refund)" />
+            </a>&nbsp;
+            <ng-template #tipcontent88>Bank details</ng-template>
+            <a [ngbTooltip]="tipcontent99">
+              <img src="assets/Images/bank.png" *ngIf="refund.bankDetails=='1'&&refund.completed=='0'" style="height:25px;" data-toggle="modal"
+                data-target="#bankdetails" (click)="GetTransctionPhotodetails(refund)" />
+
+            </a>&nbsp;
+          </td> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+</div><br>
+

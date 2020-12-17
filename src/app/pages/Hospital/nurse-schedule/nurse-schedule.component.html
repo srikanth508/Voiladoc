@@ -4,7 +4,6 @@
       <h5>{{labels[0].nurseMonthWise}}</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;">
-
     </div>
   </div>
 </div>
@@ -13,8 +12,9 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <b>{{labels[0].year}} : {{year}}</b>
-      <b style="margin-left: 27px;">{{labels[0].month}} : {{showmonth}}</b>
+    {{labels[0].year}} : {{year}}<br>
+    
+     {{labels[0].month}} : {{showmonth}}
     </div>
     <div class="col-lg-3">
       <!-- <select class="form-control" (change)="GetNurseID($event)">
@@ -69,14 +69,14 @@
               <th>{{labels[0].endTime}}</th>
               <th>{{labels[0].actions}}</th>
             </tr>
-            <tr *ngFor="let equi of timeSheetTablearray">
-              <td>{{equi._date}}</td>
-              <td> {{equi.dayOfTheWeek}} </td>
-              <td> {{equi.nurseName}} </td>
-              <td> {{equi.hospital_ClinicName}} </td>
-              <td> {{equi.startime}} </td>
-              <td> {{equi.endtime}} </td>
-              <td>
+            <tr *ngFor="let equi of timeSheetTablearray" >
+              <td  [style.background-color]="equi.colorcode">{{equi._date}}</td>
+              <td  [style.background-color]="equi.colorcode"> {{equi.dayOfTheWeek}} </td>
+              <td  [style.background-color]="equi.colorcode"> {{equi.nurseName}} </td>
+              <td  [style.background-color]="equi.colorcode"> {{equi.hospital_ClinicName}} </td>
+              <td  [style.background-color]="equi.colorcode"> {{equi.startime}} </td>
+              <td  [style.background-color]="equi.colorcode"> {{equi.endtime}} </td>
+              <td  [style.background-color]="equi.colorcode">
                 <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
                 <a [ngbTooltip]="tipcontent6">
                   <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px" (click)="GetDisableDate(equi.nursehospitalid,equi._fulldate)">

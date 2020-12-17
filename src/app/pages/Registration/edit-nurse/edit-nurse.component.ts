@@ -36,21 +36,25 @@ export class EditNurseComponent implements OnInit {
   public countryid: any;
   public countrylist: any;
   public countrydd = {};
-  public citydd = {}; 
+  public citydd = {};
   public areadd = {};
   public languageid: any;
-  public labels:any;
+  public labels: any;
+  public photourl: any;
+  public attachments = [];
+  public attachmentsurl = [];
+  public dropzonelable: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id'];
 
     }
     )
     this.languageid = localStorage.getItem('LanguageID');
-    this.docservice.GetNurseRegistrationByIDAndLanguageID(this.id,this.languageid).subscribe(
+    this.docservice.GetNurseRegistrationByIDAndLanguageID(this.id, this.languageid).subscribe(
       data => {
-       
+        debugger
         this.nursedetails = data;
         this.name = this.nursedetails[0].nurseName;
         this.phno = this.nursedetails[0].phoneNo;
@@ -65,39 +69,48 @@ export class EditNurseComponent implements OnInit {
         this.cityid = this.nursedetails[0].cityID;
         this.areaid = this.nursedetails[0].areaID;
         this.pincode = this.nursedetails[0].pincode;
+        this.photourl = this.nursedetails[0].photoURL;
+        this.attachmentsurl[0] = this.nursedetails[0].photoUrlPath;
+        debugger
         this.GetCountryMaster();
         this.getcitymasterbyid();
         this.getareamasterbyid();
       }, error => {
       }
     )
- 
+
     this.GetCountryMaster();
     this.getdepartment();
     this.getlanguage()
 
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
 
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
-    )  
+    )
   }
   public GetDepartmentID(even) {
-   
+
     this.deptid = even.target.value;
   }
 
   public getdepartment() {
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
@@ -107,7 +120,7 @@ export class EditNurseComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -115,18 +128,18 @@ export class EditNurseComponent implements OnInit {
     )
   }
   public GetCountryID(even) {
-   
+
     this.countryid = even.target.value;
     this.getcitymasterbyid()
-   
+
 
   }
 
 
   public getcitymasterbyid() {
-    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
+    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
       }, error => {
@@ -134,16 +147,16 @@ export class EditNurseComponent implements OnInit {
     )
   }
   public GetCityID(even) {
-   
+
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
 
   public getareamasterbyid() {
-   
-    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
+
+    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
       }, error => {
       }
@@ -151,12 +164,12 @@ export class EditNurseComponent implements OnInit {
   }
 
   public GetAreaID(even) {
-   
+
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -164,9 +177,8 @@ export class EditNurseComponent implements OnInit {
 
 
   public updatedetails() {
-   
     var entity = {
-      'LanguageID':this.languageid,
+      'LanguageID': this.languageid,
       'ID': this.id,
       'NurseName': this.name,
       'PhoneNo': this.phno,
@@ -182,13 +194,83 @@ export class EditNurseComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID': this.countryid
     }
-   
     this.docservice.UpdateNurseRegistration(entity).subscribe(data => {
       if (data != undefined) {
-        Swal.fire("Updated Successfully");
+        if (this.languageid == 1) {
+          Swal.fire("Updated Successfully");
+        }
+        else if (this.languageid == 6) {
+          Swal.fire("Mis à jour avec succés");
+        }
       }
     })
+  }
 
+
+
+  public dummnursephoto = []
+  public onattachmentUpload(abcd) {
+    this.attachmentsurl = [];
+    this.dummnursephoto = []
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+    // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+  }
+
+  public showphoto = [];
+  public uploadattachments() {
+    this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
+      this.attachmentsurl.push(res);
+      this.dummnursephoto.push(res);
+      let a = this.dummnursephoto[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+
+      this.showphoto.push(b)
+      this.attachments.length = 0;
+
+    })
+    // this.sendattachment();
+  }
+
+  public editbit: any;
+
+  public GetEditPhoto() {
+    this.editbit = 1;
+  }
+
+
+  public updatephoto() {
+    debugger
+    var entity = {
+      'ID': this.id,
+      'PhotoUrl': this.attachmentsurl[0]
+    }
+    this.docservice.UpdateNurseRegistrationPhoto(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire("Updated Successfully");
+        this.editbit = 0;
+        this.dummnursephoto.length=0;
+        this.attachmentsurl.length=0;
+        this.ngOnInit();
+      }
+      else if (this.languageid == 6) {
+        Swal.fire("Mis à jour avec succés");
+        this.editbit = 0;
+        this.dummnursephoto.length=0;
+        this.attachmentsurl.length=0;
+        this.ngOnInit();
+      }
+    })
   }
 
 }

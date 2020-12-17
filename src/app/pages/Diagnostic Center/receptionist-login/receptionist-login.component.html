@@ -1,7 +1,10 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-      <div class="col-lg-3">
-          <h5>{{label[0].receptionistLogin}}</h5>
+      <div class="col-lg-6">
+          <!-- <h5>{{label[0].receptionistLogin}}</h5> -->
+          <h5 *ngIf="languageid=='1'">Add Receptionist</h5>
+
+          <h5 *ngIf="languageid=='6'">AJOUTER DES SECRÉTAIRES</h5>
       </div>
   </div>
 </div>

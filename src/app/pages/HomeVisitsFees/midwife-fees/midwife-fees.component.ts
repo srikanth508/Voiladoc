@@ -157,12 +157,30 @@ export class MidwifeFeesComponent implements OnInit {
           // if (this.independent == 2) {
           //   this.InsertMidwifeRevenue()
           // }
-          Swal.fire('Success', 'Details Saved Successfully');
-          location.href = "#/MidwifeFeesDash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Details Saved Successfully');
+            location.href = "#/MidwifeFeesDash"
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('', 'Mis à jour avec succès !');
+            location.href = "#/MidwifeFeesDash"
+          }
+     
         }
         else {
-          location.href = "#/MidwifeFeesDash"
-          Swal.fire("This Service Already Exists");
+          if(this.languageid==1)
+          {
+            location.href = "#/MidwifeFeesDash"
+            Swal.fire("This Service Already Exists");
+          }
+       else if(this.languageid==6)
+          {
+            location.href = "#/MidwifeFeesDash"
+            Swal.fire("Ce service existe déjà");
+          }
+  
 
         }
       })

@@ -156,12 +156,29 @@ export class PhysioFeesComponent implements OnInit {
           // if (this.independent == 2) {
           //   this.InsertPhysioRevenue()
           // }
-          Swal.fire('Success', 'Details Saved Successfully');
-          location.href = "#/PhysiFeedash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Details Saved Successfully');
+            location.href = "#/PhysiFeedash"
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('', 'Mis à jour avec succès !');
+            location.href = "#/PhysiFeedash"
+          }
+       
         }
         else {
-          location.href = "#/PhysiFeedash"
-          Swal.fire("This Service Already Exists");
+          if(this.languageid==1)
+          {
+            location.href = "#/PhysiFeedash"
+            Swal.fire("This Service Already Exists");
+          }
+         else if(this.languageid==6)
+          {
+            location.href = "#/PhysiFeedash"
+            Swal.fire("Ce service existe déjà");
+          }
 
         }
       })

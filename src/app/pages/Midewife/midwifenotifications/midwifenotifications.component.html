@@ -18,7 +18,7 @@
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
-      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="term">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term">
     </div>
     <div class="col-lg-4">
 

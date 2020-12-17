@@ -148,6 +148,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   noteetopharmasict: any;
   referencenumber: any;
   public orderedmedicinelist: any;
+  public showedit: any;
 
   public GetMedicines(id) {
     this.myarray.length = 0;
@@ -169,15 +170,16 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.prescriptiondate = this.list[0].prescriptionAddedDate,
       this.dateofbirth = this.list[0].dateofbirth,
       this.noteetopharmasict = this.list[0].notetoopharmacistt,
-      this.referencenumber = this.list[0].referenceNumber
+      this.referencenumber = this.list[0].referenceNumber,
+      this.showedit = this.list[0].showUpdate,
 
-    this.docservice.GetPatientOrderedMedicines(this.listid).subscribe(
-      data => {
+      this.docservice.GetPatientOrderedMedicines(this.listid).subscribe(
+        data => {
 
-        this.orderedmedicinelist = data;
-      }, error => {
-      }
-    )
+          this.orderedmedicinelist = data;
+        }, error => {
+        }
+      )
 
 
 
@@ -209,7 +211,6 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
   selectedDate(data) {
-
 
     // var sdate = data.split('-')
     // this.startdate= sdate[0]
@@ -1228,8 +1229,15 @@ export class DoctorPrescriptionComponent implements OnInit {
         debugger
       })
     }
-    Swal.fire('Updated Successfully');
- 
+    if (this.languageid == 1) {
+      Swal.fire('Updated Successfully');
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succès !');
+    }
+    this.docservice.UpdatePatient_TextMedicineDetails(this.listid).subscribe(data => {
 
+    })
+    this.GetPharmacyOrders()
   }
 }

@@ -6,7 +6,8 @@
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button *ngIf="languageid==1" type="button" routerLink="/DoctorFees" class="btn btncolor">Add Fees
       </button>
-      <button style="margin-right: 10px;" *ngIf="languageid==6" type="button" routerLink="/DoctorFees" class="btn btncolor">Ajouter
+      <button style="margin-right: 10px;" *ngIf="languageid==6" type="button" routerLink="/DoctorFees"
+        class="btn btncolor">Ajouter
       </button>
     </div>
   </div>
@@ -59,12 +60,13 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteDoctorCommissionFees(list.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteDoctorCommissionFees(list.id)">
               </a>&nbsp;
-              <ng-template #tipcontent6>edit</ng-template>
+              <ng-template #tipcontent6>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent6">
-                <img src="assets/Images/edit.png" title="Edit"
-                [routerLink]="['/EditMyfees',list.id]" style="width: 20px">
+                <img src="assets/Images/edit.png" title="Edit" [routerLink]="['/EditMyfees',list.id]"
+                  style="width: 20px">
               </a>
             </td>
           </tr>

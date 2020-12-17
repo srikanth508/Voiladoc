@@ -363,6 +363,17 @@ import { SentInvoicesComponent } from './pages/Billing/sent-invoices/sent-invoic
 import { PaidInvoicesComponent } from './pages/Billing/paid-invoices/paid-invoices.component';
 import { DiagfnosticCalenderComponent } from './pages/Diagnostic Center/diagfnostic-calender/diagfnostic-calender.component';
 import { BillingDashboardComponent } from './pages/Billing/billing-dashboard/billing-dashboard.component';
+import { NewPaymentLinkComponent } from './pages/Diagnostic Center/new-payment-link/new-payment-link.component';
+import { PaymentLinkDashboardComponent } from './pages/Diagnostic Center/payment-link-dashboard/payment-link-dashboard.component';
+import { UserPlanningComponent } from './pages/Diagnostic Center/user-planning/user-planning.component';
+import { PharmacySupportComponent } from './pages/Pharmacy/pharmacy-support/pharmacy-support.component';
+import { PharmacySupportDashComponent } from './pages/Pharmacy/pharmacy-support-dash/pharmacy-support-dash.component';
+import { PharmacyCompletedTicketsComponent } from './pages/Pharmacy/pharmacy-completed-tickets/pharmacy-completed-tickets.component';
+import { DiagnosticSupportComponent } from './pages/Diagnostic Center/diagnostic-support/diagnostic-support.component';
+import { DiagnosticSupportDashComponent } from './pages/Diagnostic Center/diagnostic-support-dash/diagnostic-support-dash.component';
+import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-completed-tickets/dia-completed-tickets.component';
+import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
+import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
   url: 'http://14.192.17.225/RMSAPI/Master/UploadZIP/',
@@ -715,7 +726,18 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     SentInvoicesComponent,
     PaidInvoicesComponent,
     DiagfnosticCalenderComponent,
-    BillingDashboardComponent
+    BillingDashboardComponent,
+    NewPaymentLinkComponent,
+    PaymentLinkDashboardComponent,
+    UserPlanningComponent,
+    PharmacySupportComponent,
+    PharmacySupportDashComponent,
+    PharmacyCompletedTicketsComponent,
+    DiagnosticSupportComponent,
+    DiagnosticSupportDashComponent,
+    DiaCompletedTicketsComponent,
+    RefundSupportComponent,
+    RefundCompletedTicketsComponent
    
   ],
   imports: [

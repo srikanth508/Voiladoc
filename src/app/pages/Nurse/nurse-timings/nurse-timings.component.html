@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid==1">My Workschedule</h5>
-      <h5 *ngIf="languageid==6">AGENDA</h5>
+      <h5 *ngIf="languageid==6">Planning</h5>
     </div>
     <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
       <button *ngIf="languageid==1" type="button" style="float: right; width:auto;" class="btn  btncolor"
@@ -61,7 +61,7 @@
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetDetsilsID(details.nurseHospitalDetailsID,details.dayID,details.startDateTime,details.endDateTime,details.nsid)"
+                  (click)="GetDetsilsID(details.nurseHospitalDetailsID,details.dayID,details.startime,details.endtime,details.nsid)"
                   style="width: 20px">
               </a>&nbsp;
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
@@ -70,12 +70,12 @@
                   (click)="DeleteNurseWorkingDetails(details.nurseHospitalDetailsID,details.dayID)"
                   style="width: 20px;margin-left: 10px;">
               </a>
-              <ng-template #tipcontent3>Enable</ng-template>
+              <ng-template #tipcontent3>{{labels[0].enable}}</ng-template>
               <a *ngIf="details.enable==1" [ngbTooltip]="tipcontent3">
                 <img src="assets/Images/dactive.png" (click)="EnableNurseWorking(details.nsid)"
                   style="width: 40px;margin-left: 10px;">
               </a>
-              <ng-template #tipcontent4>Disable</ng-template>
+              <ng-template #tipcontent4>{{labels[0].disable}}</ng-template>
               <a *ngIf="details.enable==NULL ||details.enable==0 " [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/active.png" (click)="DisableNurseWorking(details.nsid)"
                   style="width: 40px;margin-left: 10px;">
@@ -148,7 +148,7 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button class="btn btn-primary" (click)="updatedetails()"
+              <button class="btn"  style="background-color: #f18235;color: white;" (click)="updatedetails()"
                 data-dismiss="modal">{{labels[0].update}}</button>
             </div>
           </div>

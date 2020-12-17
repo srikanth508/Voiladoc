@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid=='1'">My Workschedule</h5>
-      <h5 *ngIf="languageid=='6'">Agenda</h5>
+      <h5 *ngIf="languageid=='6'">Planning</h5>
     </div>
     <div class="col-lg-3" style="text-align:end; margin-top: -12px;">
       <button *ngIf="languageid=='1'" type="button" style="float: right; width: auto;" class="btn  btncolor"
@@ -75,7 +75,7 @@
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetDetsilsID(details.midWifeHospitalDetailsID,details.dayID,details.startDateTime,details.endDateTime,details.id)"
+                  (click)="GetDetsilsID(details.midWifeHospitalDetailsID,details.dayID,details.starttime,details.endtime,details.id)"
                   style="width: 20px">
               </a>&nbsp;
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
@@ -84,7 +84,7 @@
                   (click)="DeleteMidWifeWorkingDetails(details.midWifeHospitalDetailsID,details.dayID)"
                   style="width: 20px;margin-left: 10px;">
               </a>
-              <ng-template #tipcontent3>Enable</ng-template>
+              <ng-template #tipcontent3>{{labels[0].enable}}</ng-template>
               <a *ngIf="details.enable==1" [ngbTooltip]="tipcontent3">
                 <img src="assets/Images/dactive.png" (click)="EnableMidWifeWorkingDetails(details.id)"
                   style="width: 40px;margin-left: 10px;">
@@ -105,8 +105,6 @@
 <br>
 <br>
 <br>
-
-
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -163,13 +161,13 @@
             </div>
             <div class="col-lg-2">
               <button class="btn btn-primary" (click)="updatedetails()"
-                data-dismiss="modal">{{labels[0].update}}</button>
+                data-dismiss="modal" style="background-color: #f18235;color: white;">{{labels[0].update}}</button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-btncolor" style="background-color: #f18235;color: white;" data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

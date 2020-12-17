@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
-      <h5>Planning</h5>
+      <h5 *ngIf="languageid=='1'">Nurse AGENDA</h5>
+      <h5 *ngIf="languageid=='6'">INFIRMIÈRES AGENDA</h5>
       <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
     </div>
     <div class="col-lg-3">
@@ -13,8 +14,8 @@
   <br>
   <div class="row">
     <div class="col-lg-2">
-      <b style="font-size: 15px;">{{labels[0].year}} : {{year}}</b>
-      <b style="font-size: 15px;margin-left: 6px;">{{labels[0].month}} : {{showmonth}}</b>
+      {{labels[0].year}} : {{year}}<br>
+      {{labels[0].month}} : {{showmonth}}
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">
@@ -52,8 +53,8 @@
               <th>{{labels[0].day}}</th>
               <!-- <th>Doctor Name</th> -->
               <th>{{labels[0].hospitalOrClinicName}}</th>
-              <th>Start Time</th>
-              <th>End Time</th>
+              <th>{{labels[0].startTime}}</th>
+              <th>{{labels[0].endTime}}</th>
               <th>Actions</th>
             </tr>
             <tr *ngFor="let equi of timeSheetTablearray">

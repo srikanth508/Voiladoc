@@ -45,6 +45,12 @@
     .nextbtncolor{
         background: #444a48;
         color:white;
-       
        }
-   
+       .placeholder::first-letter
+       {
+         text-transform: uppercase;
+       }
+     
+       
+input::placeholder
+{ text-transform: lowercase; }

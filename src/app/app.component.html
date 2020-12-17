@@ -835,7 +835,7 @@
                         <br>
                         <div *ngIf="pharmacyid!=undefined">
                             <button class="chatnow1" data-toggle="modal" data-target="#Medicines"
-                                (click)="ViewMedicines(docnoti)">View Medicines</button>
+                                (click)="ViewMedicines(docnoti)">{{labels10[0].viewMedicines}}</button>
                             <br><br>
                         </div>
                     </div>
@@ -877,7 +877,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content" style="width:898px;margin-left: 186px;">
             <div class="modal-header modal-xl">
-                <h5 class="modal-title" id="exampleModalLongTitle">Medicines</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">{{labels10[0].medicines}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -887,10 +887,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <table>
-                                <tr>
-                                    <th>Medicine Name</th>
-                                    <th>Sig</th>
-                                    <th>Quantity</th>
+                                <tr>    
+                                    <th>{{labels10[0].medicines}}</th>
+                                    <th>{{labels10[0].sig}}</th>
+                                    <th>{{labels10[0].quantity}}</th>
                                     <!-- <th>How many refills</th>
                                     <th>Note to pharmacist</th> -->
                                     <!-- <th>Actions</th> -->
@@ -923,7 +923,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-                    data-dismiss="modal">Close</button>
+                    data-dismiss="modal">{{labels[0].close}}</button>
             </div>
         </div>
     </div>

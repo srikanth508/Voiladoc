@@ -48,9 +48,17 @@ export class OffersDashboardComponent implements OnInit {
    
     this.docservice.DeletePharmacyOffer(id).subscribe(
       data => {
-       
-       Swal.fire("Deleted Successfully");
-       this.getpharmacyoffersbypharmacyid();
+        if(this.languageid==1)
+        {
+  
+          Swal.fire("Deleted Successfully");
+          this.getpharmacyoffersbypharmacyid();
+        }
+        else{
+          Swal.fire("Supprimé avec succès");
+          this.getpharmacyoffersbypharmacyid();
+        }
+     
       }, error => {
       }
     )

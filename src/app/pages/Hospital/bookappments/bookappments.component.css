@@ -1,10 +1,13 @@
 label::first-letter{
     text-transform: uppercase;
   }
-  label{
+  /* label{
     text-transform: lowercase;
-  }
+  } */
   .headerspace{
     margin-top: 10px;
     text-transform:uppercase;
   }
+#imp{
+  text-transform:none;
+}

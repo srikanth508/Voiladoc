@@ -61,21 +61,21 @@
           <tr>
             <th>{{labels[0].orderDate}}</th>
             <th>{{labels[0].orderNumber}}</th>
-            <th *ngIf="diffid!='undefined'">Pharmacy Name</th>
+            <th *ngIf="showdrop=='1'">{{labels[0].pharmcyname}}</th>
             <th *ngIf="languageid=='1'">Prescription Type</th>
-            <th *ngIf="languageid=='6'">Format de ordonnance</th>
+            <th *ngIf="languageid=='6'">Format de l’ordonnance</th>
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].mailId}}</th>
             <th>{{labels[0].deliveryAddress}}</th>
-            <th>Amount</th>
+            <th>{{labels[0].amount}}</th>
             <th>{{labels[0].medicines}}</th>
             <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let details of reportlist|filter:term">
             <td>{{details.date}}</td>
             <td>{{details.id}}</td>
-            <td  *ngIf="diffid!='undefined'">{{details.pharmacyName}}</td>
+            <td  *ngIf="showdrop=='1'">{{details.pharmacyName}}</td>
             <td>
               <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
               <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>

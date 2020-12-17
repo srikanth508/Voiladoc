@@ -50,6 +50,7 @@ export class AppComponent {
   setvideosidebar: any;
   hidesidebar
   docnoti
+  labels10: any;
 
   ngOnInit() {
     this.show = 1;
@@ -98,8 +99,8 @@ export class AppComponent {
       this.isDescktopResolution = true;
     }
 
-
     this.GetChatnotificationslist();
+    this.getlanguageprescription();
   }
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
@@ -110,6 +111,19 @@ export class AppComponent {
       }
     )
   }
+
+
+  public getlanguageprescription() {
+    this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
+      data => {
+
+        this.labels10 = data;
+      }, error => {
+      }
+    )
+  }
+
+
   oberserableTimer() {
 
     const source = timer(1000, 2000);

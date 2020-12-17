@@ -72,3 +72,11 @@
     /* background-image: none; */
     border-radius: 4px;
   }
+  .meeting
+  {
+    height: 30px;
+    width: 100px;
+    background-color: #00ff80;
+    color:white;
+    margin-left: 22px;
+  }

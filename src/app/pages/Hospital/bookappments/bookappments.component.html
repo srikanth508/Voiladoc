@@ -52,7 +52,7 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label>{{labels[0].aptdate}} : </label>
+      <label >{{labels[0].aptdate}} : </label>
     </div>
     <div class="col-lg-4">
       <input type="text" class="form-control" disabled [(ngModel)]="appdate" name="appdate">
@@ -95,13 +95,15 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <label class="DEPARTMENT_label"> Payment Type :</label>
+      <label class="DEPARTMENT_label"> {{labels[0].paymenttype}} :</label>
     </div>
     <div class="col-lg-4">
       <select class="form-control" [(ngModel)]="PaymentTypeID" (change)="GetPaymentTypeID($event)">
-        <option value="" selected>Select Payment Type</option>
-        <option value="4">Cash</option>
-        <option value="2">Credit Card / Debit Card</option>
+        <option value="" selected>S{{labels[0].paymenttype}}</option>
+        <option *ngIf="languageid=='1'" value="4">Cash</option>
+        <option *ngIf="languageid=='1'"  value="2">Credit Card / Debit Card</option>
+        <option *ngIf="languageid=='6'" value="4">Encaisser</option>
+        <option *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>
     </div>
@@ -140,7 +142,7 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <label class="DEPARTMENT_label"> Amount :</label>
+      <label class="DEPARTMENT_label"> {{labels[0].amount}} :</label>
     </div>
     <div class="col-lg-4">
       <input type="number" [(ngModel)]="PaidAmount" id="Amount" name="PaidAmount" class="form-control">

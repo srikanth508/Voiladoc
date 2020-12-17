@@ -32,6 +32,7 @@
         <option value="nurse">Nurse </option>
         <option value="physio">Physiotherapist </option>
         <option value="midwife">Midwife </option>
+        <option value="Doctor">Doctor </option>
       </select>
     </div>
     <div class="col-lg-3" style="text-align: end;">
@@ -75,6 +76,7 @@
             <td *ngIf="details.type=='nurse'">Nurse</td>
             <td *ngIf="details.type=='physio'">Physiotherapist</td>
             <td *ngIf="details.type=='midwife'">Midwife</td>
+            <td *ngIf="details.type=='Doctor'">Doctor</td>
             <td>{{details.nurseName}}</td>
             <td>{{details.reasonForVisit}}</td>
             <td>{{details.patientName}}</td>

@@ -41,6 +41,9 @@
 
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
+        <span *ngFor="let pic of showphoto">
+          <img src="{{pic}}" style="width: 40px;height:40px;">
+        </span>
       </div>
     </div>
     <br>

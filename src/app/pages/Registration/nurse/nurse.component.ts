@@ -333,7 +333,8 @@ export class NurseComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search
         };
       }, error => {
       }
@@ -362,7 +363,7 @@ export class NurseComponent implements OnInit {
       'Address': this.address,
       'CityID': this.cityid,
       'AreaID': this.areaid,
-      'DepartementID': this.deptid,
+      'DepartementID': 2,
       'Experience': this.exp,
       'Description': this.description,
       'HomeVisit': Number(this.homevisit),

@@ -35,6 +35,7 @@
       <table id="Doc">
         <thead>
           <tr>
+            <th>{{labels[0].photo}}</th>
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].emailID}}</th>
@@ -45,6 +46,7 @@
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let nurse of physioist|filter:term">
+            <td><img src="{{nurse.photoURL}}" style="height: 50px;width: 50px;" /></td>
             <td>{{nurse.name}}</td>
             <td>{{nurse.phoneNo}}</td>
             <td>{{nurse.email}}</td>

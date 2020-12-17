@@ -74,3 +74,19 @@ label::first-letter{
     text-transform: lowercase;
   } */
  
+  input::placeholder
+ { text-transform: lowercase; }
+
+
+  .placeholder::first-letter
+  {
+    text-transform: uppercase;
+  }
+
+.textarea{
+  text-transform: lowercase; 
+}
+
+input:placeholder-shown {
+  text-transform: lowercase; 
+}

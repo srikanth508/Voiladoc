@@ -4,3 +4,6 @@ label::first-letter{
   label{
     text-transform: lowercase;
   }
+  #imp{
+    text-transform: none;
+  }

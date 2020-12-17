@@ -104,8 +104,17 @@ export class PhysiotherapistTimingsComponent implements OnInit {
    
     this.docservice.UpdatePhysiotherapistWorkingDetails(entity).subscribe(data => {
       if (data != undefined) {
-        Swal.fire("Updated Successfully");
-        this.getphysiolist();
+        if(this.languageid==1)
+        {
+          Swal.fire("Updated Successfully");
+          this.getphysiolist();
+        }
+        else
+        {
+          Swal.fire("Supprimé avec succès");
+          this.getphysiolist();
+        }
+      
 
       }
     })
@@ -113,7 +122,8 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   }
 
   public DeletePhysiotherapistWorkingDetails(nsid, dayid) {
-   
+   if(this.languageid==1)
+   {
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Day Slot!",
@@ -138,6 +148,35 @@ export class PhysiotherapistTimingsComponent implements OnInit {
         this.getphysiolist();
       }
     })
+   }
+   else{
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      // text: "You Want to Delete This Day Slot!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler'
+
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeletePhysiotherapistWorkingDetails(nsid, dayid).subscribe(res => {
+          let test = res;
+          this.getphysiolist();
+        })
+        Swal.fire(
+          'Supprimé!',
+          'Le jour a été supprimé.',
+          'success'
+        )
+      }
+      else {
+        this.getphysiolist();
+      }
+    })
+   }
   }
 
   public addnew() {
@@ -154,27 +193,151 @@ export class PhysiotherapistTimingsComponent implements OnInit {
     this.daysname = even.target.value;
   }
 
-  public DisablePhysiotherapistWorkingDetails(id) {
-    this.docservice.DisablePhysiotherapistWorkingDetails(id).subscribe(
-      data => {
+  // public DisablePhysiotherapistWorkingDetails(id) {
+  //   this.docservice.DisablePhysiotherapistWorkingDetails(id).subscribe(
+  //     data => {
        
-        Swal.fire('Disabled', 'Physiotherapist Working Details has been Disabled');
-        this.getphysiolist();
+  //       Swal.fire('Disabled', 'Physiotherapist Working Details has been Disabled');
+  //       this.getphysiolist();
 
-      }, error => {
-      }
-    )
-  }
-  public EnablePhysiotherapistWorkingDetails(id) {
-    this.docservice.EnablePhysiotherapistWorkingDetails(id).subscribe(
-      data => {
+  //     }, error => {
+  //     }
+  //   )
+  // }
+  // public EnablePhysiotherapistWorkingDetails(id) {
+  //   this.docservice.EnablePhysiotherapistWorkingDetails(id).subscribe(
+  //     data => {
        
-        Swal.fire('Enabled', 'Physiotherapist Working Details has has been Enabled');
-        this.getphysiolist();
+  //       Swal.fire('Enabled', 'Physiotherapist Working Details has has been Enabled');
+  //       this.getphysiolist();
 
-      }, error => {
-      }
-    )
-  }
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
+
+
+
+
+
+
+  public DisablePhysiotherapistWorkingDetails(nsid) {
+    if(this.languageid==1)
+    {
+     Swal.fire({
+       title: 'Are you sure?',
+       text: "You Want to Disable This Day!",
+       type: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, disable it!'
+     }).then((result) => {
+       if (result.value) {
+         this.docservice.DisablePhysiotherapistWorkingDetails(nsid).subscribe(res => {
+           let test = res;
+           this.getphysiolist();
+         })
+         Swal.fire(
+           'Deleted!',
+           'Day has been disabled.',
+           'success'
+         )
+       }
+       else {
+         this.getphysiolist();
+       }
+     })
+    }
+    else{
+     Swal.fire({
+       title: 'Êtes-vous sûr ?',
+       // text: "You Want to Delete This Day Slot!",
+       type: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Oui, Désactiver !',
+       cancelButtonText: 'Annuler'
+ 
+     }).then((result) => {
+       if (result.value) {
+         this.docservice.DisablePhysiotherapistWorkingDetails(nsid).subscribe(res => {
+           let test = res;
+           this.getphysiolist();
+         })
+         Swal.fire(
+           'Supprimé!',
+           'Le jour a été désactivé.',
+           'success'
+         )
+       }
+       else {
+         this.getphysiolist();
+       }
+     })
+    }
+   }
+
+
+
+   
+  public EnablePhysiotherapistWorkingDetails(nsid) {
+    if(this.languageid==1)
+    {
+     Swal.fire({
+       title: 'Are you sure?',
+       text: "You Want to Enable This Day!",
+       type: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, enable it!'
+     }).then((result) => {
+       if (result.value) {
+         this.docservice.EnablePhysiotherapistWorkingDetails(nsid).subscribe(res => {
+           let test = res;
+           this.getphysiolist();
+         })
+         Swal.fire(
+           'Deleted!',
+           'Day has been enabled.',
+           'success'
+         )
+       }
+       else {
+         this.getphysiolist();
+       }
+     })
+    }
+    else{
+     Swal.fire({
+       title: 'Êtes-vous sûr ?',
+       // text: "You Want to Delete This Day Slot!",
+       type: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Oui, Activer !',
+       cancelButtonText: 'Annuler'
+ 
+     }).then((result) => {
+       if (result.value) {
+         this.docservice.EnablePhysiotherapistWorkingDetails(nsid).subscribe(res => {
+           let test = res;
+           this.getphysiolist();
+         })
+         Swal.fire(
+           'Supprimé!',
+           'Le jour a été activé',
+           'success'
+         )
+       }
+       else {
+         this.getphysiolist();
+       }
+     })
+    }
+   }
 }

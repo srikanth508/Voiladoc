@@ -259,7 +259,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'Pincode': this.pincode,
         'CountryID': this.countryid,
         'MonthlySubscription': this.monthlysubription,
-        'Hospitalfulltimebit': this.hospitalfulltimebit
+        'Hospitalfulltimebit': 0
       }
       this.docservice.InsertHospitalClinicDetailsMaster(entity).subscribe(data => {
 

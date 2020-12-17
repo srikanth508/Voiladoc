@@ -74,12 +74,15 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   SelectLabel: any;
   // public dayid = []
   search: any;
+  labels3:any;
 
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
-    this.diagnosticid = localStorage.getItem('diagnosticid')
-    this.spinner.show();
+    this.diagnosticid = localStorage.getItem('diagnosticid');
+    this.typeidss = 2;
+      this.spinner.show();
+  
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
         this.labels = data;
@@ -88,6 +91,17 @@ export class DiagnosticSlotsDashComponent implements OnInit {
       }, error => {
       }
     )
+
+
+    this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels3= data;
+        
+      }, error => {
+      }
+    )
+
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
@@ -107,27 +121,22 @@ export class DiagnosticSlotsDashComponent implements OnInit {
       }, error => {
       }
     )
-
+    document.getElementById("defaultOpen").click();
     this.getWorkingdetils()
-    this.GetdicgnosticMasterSlotByID()
-    this.GetdicgnosticAfternoonSlotsMaster()
-    this.GetDiagnosticEveningSlotsMaster()
-    this.GetDiagnosticNightSlotsMaster()
+
   }
 
 
   public getWorkingdetils() {
+    // this.Workingdetails.length = 0;
+    this.docservice.GetDiagnosticSlots(this.diagnosticid, this.languageid, this.typeidss).subscribe(
+      data => {
 
-
-
-    this.docservice.GetDiagnosticSlots(this.diagnosticid,this.languageid).subscribe(
-          data => {
-  
-            this.Workingdetails = data;
-            this.spinner.hide();
-          },
-          error => { }
-        );
+        this.Workingdetails = data;
+        this.spinner.hide();
+      },
+      error => { }
+    );
 
 
     // if (this.diagnosticid != undefined) {
@@ -163,424 +172,197 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   }
 
 
+  public id: any;
+  public typeid: any;
+  public slotid: any;
+  public alltypeid: any;
 
-  public GetdicgnosticMasterSlotByID() {
-
-    this.docservice.GetDiagnosticSlotMasterByTimeID(1).subscribe(
-      data => {
-
-        this.slotslist = data;
-        this.slotsdd = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slotName',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: true,
-          enableCheckAll: false,
-          searchPlaceholderText: this.search,
-        };
-      }, error => {
-      }
-    )
-  }
-  public GetdicgnosticAfternoonSlotsMaster() {
-
-    this.docservice.GetDiagnosticSlotMasterByTimeID(2).subscribe(
-      data => {
-
-        this.slotslist1 = data;
-        this.slotsdd1 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slotName',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: true,
-          enableCheckAll: false,
-          searchPlaceholderText: this.search,
-        };
-      }, error => {
-      }
-    )
-  }
-  public GetDiagnosticEveningSlotsMaster() {
-
-    this.docservice.GetDiagnosticSlotMasterByTimeID(3).subscribe(
-      data => {
-
-        this.slotslist2 = data;
-        this.slotsdd2 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slotName',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: true,
-          enableCheckAll: false,
-          searchPlaceholderText: this.search,
-        };
-      }, error => {
-      }
-    )
-  }
-  public GetDiagnosticNightSlotsMaster() {
-    this.docservice.GetDiagnosticSlotMasterByTimeID(4).subscribe(
-      data => {
-
-        this.slotslist3 = data;
-        this.slotsdd3 = {
-          singleSelection: false,
-          idField: 'id',
-          textField: 'slotName',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: true,
-          enableCheckAll: false,
-          searchPlaceholderText: this.search,
-        };
-      }, error => {
-      }
-    )
-  }
-
-  dis3
-  dis4
-  dis1
-  dis2
-
-  public GetMrngSlotsID(item: any) {
-
-    this.mrngslots.push(item);
-
-    if (this.mrngslots.length == 2) {
-      this.dis1 = 1;
-    }
-
-  }
-  public GetAfternoonSlotsID(item1: any) {
-
-    this.afternoonslots.push(item1);
-    if (this.afternoonslots.length == 2) {
-      this.dis2 = 1;
-    }
-  }
-  public GetEvngSlotsID(item2) {
-
-    this.evngslots.push(item2);
-    if (this.evngslots.length == 2) {
-      this.dis3 = 1;
-    }
-  }
-  public GetNightSlotsID(item3: any) {
-
-    this.nightslots.push(item3);
-    if (this.evngslots.length == 2) {
-      this.dis4 = 1;
-    }
+  public GetMondayID(details) {
+    debugger
+    this.id = details.mondayID;
+    this.dayid = details.mondayDayID;
+    this.typeid = details.monDayTypeID;
+    this.slotid = details.mondaySlotID;
+    this.alltypeid = details.monDayTypeID;
   }
 
 
+  public GetTuesDayID(details) {
+    debugger
+    this.id = details.tuesdayID;
+    this.dayid = details.tuesDayDayID;
+    this.typeid = details.tueasDayTypeID;
+    this.slotid = details.tuesadayslotID;
+    this.alltypeid = details.tueasDayTypeID;
+  }
 
 
+  public GetWednessDayID(details) {
+    debugger
+    this.id = details.wednessdayID;
+    this.dayid = details.wednessDayDayID;
+    this.typeid = details.wednessDayTypeID;
+    this.slotid = details.wedessdaySlotID;
+    this.alltypeid = details.wednessDayTypeID;
+  }
 
 
+  public GetThursadyID(details) {
+    debugger
+    this.id = details.thursdayID;
+    this.dayid = details.thursDayDayID;
+    this.typeid = details.thurDayTypeID;
+    this.slotid = details.thursdaySlotID;
+    this.alltypeid = details.thurDayTypeID;
+  }
 
-  public insertdetails() {
+  public GetFridayID(details) {
+    debugger
+    this.id = details.fridayID;
+    this.dayid = details.fridayDayDayID;
+    this.typeid = details.friDayTypeID;
+    this.slotid = details.fridaySlotID;
+    this.alltypeid = details.friDayTypeID;
+  }
 
-    for (let i = 0; i < this.mrngslots.length; i++) {
-      this.mrngslotarray.push(this.mrngslots[i].slotName)
+  public GetSaturdatID(details) {
+    debugger
+    this.id = details.saturdayID;
+    this.dayid = details.satDayDayID;
+    this.typeid = details.satDayTypeID;
+    this.slotid = details.saturdaySlotID;
+    this.alltypeid = details.satDayTypeID;
+  }
 
-      this.mrngslotarrayid.push(this.mrngslots[i].id)
-    }
+  public GetSundayID(details) {
+    debugger
+    this.id = details.sundayID;
+    this.dayid = details.sunDayDayID;
+    this.typeid = details.sunDayTypeID;
+    this.slotid = details.sundaySlotID;
+    this.alltypeid = details.sunDayTypeID;
+  }
 
-    this.slotname = this.mrngslotarray;
-    this.mrng = this.slotname.join(' to ')
-    this.slotnameid = this.mrngslotarrayid;
-    this.mrngid = this.slotnameid.join(',')
-
-
-    for (let i = 0; i < this.afternoonslots.length; i++) {
-      this.afternoonslotarray.push(this.afternoonslots[i].slotName)
-
-      this.afternoonslotarrayid.push(this.afternoonslots[i].id)
-    }
-
-    this.slotname1 = this.afternoonslotarray;
-    this.afternoon = this.slotname1.join(' to ')
-    this.slotnameid1 = this.afternoonslotarrayid;
-    this.afternoonid = this.slotnameid1.join(',')
-
-
-    for (let i = 0; i < this.evngslots.length; i++) {
-      this.evngslotarray.push(this.evngslots[i].slotName)
-
-      this.evngslotarrayid.push(this.evngslots[i].id)
-    }
-
-    this.slotname2 = this.evngslotarray;
-    this.evng = this.slotname2.join(' to ')
-    this.slotnameid12 = this.evngslotarrayid;
-    this.evngid = this.slotnameid12.join(',')
-
-
-    for (let i = 0; i < this.nightslots.length; i++) {
-      this.nightslotarray.push(this.nightslots[i].slotName)
-
-      this.nightslotarrayid.push(this.nightslots[i].id)
-    }
-
-    this.slotname3 = this.nightslotarray;
-    this.night = this.slotname3.join(' to ')
-    this.slotnameid13 = this.nightslotarrayid;
-    this.nightid = this.slotnameid13.join(',')
-
-
-    this.docservice.DeleteDiagnosticRelatedSlotsStartTimeEndTime(this.diagnosticid, this.dayid, this.timeid).subscribe(res => {
-
-
-      let mrng = this.mrng;
-      let ms = mrng.split(" to ", 3);
-      let mst = ms[0];
-      let met = ms[1];
-
-      let noon = this.afternoon;
-      let ns = noon.split(" to ", 3);
-      let nst = ns[0];
-      let net = ns[1];
-
-      let evng = this.evng;
-      let es = evng.split(" to ", 3);
-      let est = es[0];
-      let eet = es[1];
-
-      let nyt = this.night;
-      let nys = nyt.split(" to ", 3);
-      let nyst = nys[0];
-      let nyet = nys[1];
-
-      if (this.timeid == 1) {
-        var entitys = {
-          'DiagnosticCenterID': this.diagnosticid,
-          'DayID': this.dayid,
-          'TimeID': this.timeid,
-          'StartTime': mst,
-          'EndTime': met
-        }
-        this.docservice.UpdateDiagnosticRelatedSlotsStartTimeEndTime(entitys).subscribe(data => {
-
-        })
-      }
-      if (this.timeid == 2) {
-        var entitys = {
-          'DiagnosticCenterID': this.diagnosticid,
-          'DayID': this.dayid,
-          'TimeID': this.timeid,
-          'StartTime': nst,
-          'EndTime': net
-        }
-        this.docservice.UpdateDiagnosticRelatedSlotsStartTimeEndTime(entitys).subscribe(data => {
-
-        })
-      }
-      if (this.timeid == 3) {
-        var entitys = {
-          'DiagnosticCenterID': this.diagnosticid,
-          'DayID': this.dayid,
-          'TimeID': this.timeid,
-          'StartTime': est,
-          'EndTime': eet
-        }
-        this.docservice.UpdateDiagnosticRelatedSlotsStartTimeEndTime(entitys).subscribe(data => {
-
-        })
-      }
-      if (this.timeid == 4) {
-        var entitys = {
-          'DiagnosticCenterID': this.diagnosticid,
-          'DayID': this.dayid,
-          'TimeID': this.timeid,
-          'StartTime': nyst,
-          'EndTime': nyet
-        }
-        this.docservice.UpdateDiagnosticRelatedSlotsStartTimeEndTime(entitys).subscribe(data => {
-
-        })
-      }
-    })
-
-    var entity = {
-      'DiagnosticCenterID': this.diagnosticid,
-      'DayID': this.dayid,
-      'Morning': this.mrngid,
-      'Noon': this.afternoonid,
-      'Evening': this.evngid,
-      'Night': this.nightid,
-    }
-    this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-
-      if (this.languageid == 1) {
-        Swal.fire('', 'Added Successfully')
-      }
-      else {
-        Swal.fire('', 'Ajouté avec succès')
-
-      }
+  public updatedetails() {
+    debugger
+    if (this.alltypeid == 4 && this.typeid == 1) {
+      this.spinner.show();
       this.getWorkingdetils()
-      this.dropdownclear1 = []
-      this.dropdownclear2 = []
-      this.dropdownclear3 = []
-      this.dropdownclear4 = []
-      this.mrngslotarray = []
-      this.evngslotarray = []
-      this.afternoonslotarray = []
-      this.nightslotarray = []
+      var entity = {
+        'DiagnosticCenterID': this.diagnosticid,
+        'DiagnosticSlotID': this.slotid,
+        'DayID': this.dayid,
+        'TypeID': this.typeid
+      }
+      this.docservice.InsertDiagnosticRelatedSlotsWeb(entity).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+          this.getWorkingdetils()
+        }
+        else {
+          Swal.fire('Mis à jour avec succés');
+          this.getWorkingdetils()
+        }
+      })
 
-      this.dis1 =
-        this.dis2 = ""
-      this.dis3 = ""
-      this.dis4 = ""
-      this.mrngslotarrayid.length = 0
-      this.evngslotarrayid.length = 0
-      this.afternoonslotarrayid.length = 0
-      this.nightslotarrayid.length = 0
-      //   this.mrngid=[]
-      //   this.evngid=[]
-      //   this.afternoonid=[]
-      //   this.nightid=[]
-      //  this.mrng=[]
-      //  this.evng=[]
-      //  this.afternoon=[]
-      //  this.night=[]
-    })
+    }
+    else if (this.alltypeid == 4 && this.typeid == 2) {
+      debugger
+      this.spinner.show();
+      var entity = {
+        'DiagnosticCenterID': this.diagnosticid,
+        'DiagnosticSlotID': this.slotid,
+        'DayID': this.dayid,
+        'TypeID': this.typeid
+      }
+      this.docservice.InsertDiagnosticRelatedSlotsWeb(entity).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+          this.getWorkingdetils()
+        }
+        else {
+          Swal.fire('Mis à jour avec succés');
+          this.getWorkingdetils()
+        }
+      })
 
+    }
+    else if (this.alltypeid == 1 && this.typeid == 4) {
+      this.spinner.show();
+      this.docservice.DeleteDiagnosticRelatedSlots(this.id).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+          this.getWorkingdetils()
+        }
+        else {
+          Swal.fire('Mis à jour avec succés');
+          this.getWorkingdetils()
+        }
+      })
+
+    }
+    else if (this.alltypeid == 2 && this.typeid == 4) {
+      this.spinner.show();
+      this.docservice.DeleteDiagnosticRelatedSlots(this.id).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+          this.getWorkingdetils()
+        }
+        else {
+          Swal.fire('Mis à jour avec succés');
+          this.getWorkingdetils()
+        }
+      })
+
+    }
+    else if (this.typeid == 1 || this.typeid == 2 && this.alltypeid == 1 || this.alltypeid == 2) {
+      this.spinner.show();
+      var entity1 = {
+        'ID': this.id,
+        'TypeID': this.typeid
+      }
+      this.docservice.UpdateDiagnosticRelatedSlotsWeb(entity1).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+          this.getWorkingdetils()
+        }
+        else {
+          Swal.fire('Mis à jour avec succés');
+          this.getWorkingdetils()
+        }
+      })
+    }
   }
 
 
 
+  public typeidss: any;
 
-  public deleteTimeWise(diagnosticCenterID, dayID, timeid) {
 
-    if (this.languageid == 1) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You Want to Delete  Slot!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteDiagnosticRelatedSlotsStartTimeEndTime(diagnosticCenterID, dayID, timeid).subscribe(res => {
-            let test = res;
-            this.getWorkingdetils()
-          })
-          Swal.fire(
-            'Deleted!',
-            'Slot has been deleted.',
-            'success'
-          )
-        }
-        else {
-          this.getWorkingdetils()
-        }
-      })
+  public openCity(evt, cityName) {
+    debugger
+    var i, tabcontent, tablinks;
+
+    if (cityName == "Diagnosticcenter") {
+      this.typeidss = 2;
+      this.spinner.show();
+      this.getWorkingdetils();
     }
-    else if (this.languageid == 6) {
-      Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: "Supprimer !",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui',
-        cancelButtonText: 'Non'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteDiagnosticRelatedSlotsStartTimeEndTime(diagnosticCenterID, dayID, timeid).subscribe(res => {
-            let test = res;
-            this.getWorkingdetils()
-          })
-          Swal.fire(
-            'Supprimé!',
-            'L emplacement a été supprimé',
-            'success'
-          )
-        }
-        else {
-          this.getWorkingdetils()
-        }
-      })
+    else {
+      this.typeidss = 1;
+      this.spinner.show();
+      this.getWorkingdetils();
     }
 
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
   }
-
-
-  public DeleteDaySlots(diagnosticCenterID, dayID) {
-
-    if(this.languageid==1)
-    {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You Want to Delete this Day!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-       
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteADiagnosticRelatedSlotsStartTimeEndTimeDay(diagnosticCenterID, dayID).subscribe(res => {
-            let test = res;
-            this.getWorkingdetils()
-          })
-          Swal.fire(
-            'Deleted!',
-            'Day slots has been deleted.',
-            'success'
-          )
-        }
-        else {
-          this.getWorkingdetils()
-        }
-      })
-    }
-    else if(this.languageid==6)
-    {
-      Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: "Supprimer !",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui',
-        cancelButtonText: 'Non'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.DeleteADiagnosticRelatedSlotsStartTimeEndTimeDay(diagnosticCenterID, dayID).subscribe(res => {
-            let test = res;
-            this.getWorkingdetils()
-          })
-          Swal.fire(
-            'Supprimé!',
-            'Les créneaux horaires ont été supprimés. ',
-            'success'
-          )
-        }
-        else {
-          this.getWorkingdetils()
-        }
-      })
-    }
-  
-  }
-
 }

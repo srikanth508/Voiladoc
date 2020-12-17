@@ -55,11 +55,23 @@
           text-transform: lowercase;
         }
 
+
 .placeholder{
   text-transform: lowercase;
 }
 
-.placeholder::first-letter
+/* .placeholder::first-letter
 {
-  text-transform: uppercase;
+  text-transform: lowercase;
+} */
+
+
+input::placeholder
+ { text-transform: lowercase; }
+
+ input::placeholder::first-letter
+  { text-transform: uppercase; }
+
+.textarea{
+  text-transform: lowercase; 
 }

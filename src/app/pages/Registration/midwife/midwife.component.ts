@@ -168,7 +168,7 @@ export class MidwifeComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: false,
+          allowSearchFilter: true,
           searchPlaceholderText: this.search
         };
       }, error => {
@@ -270,7 +270,7 @@ export class MidwifeComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: false,
+          allowSearchFilter: true,
           searchPlaceholderText: this.search
         };
       }, error => {
@@ -300,7 +300,7 @@ export class MidwifeComponent implements OnInit {
       'Address': this.address,
       'CityID': this.cityid,
       'AreaID': this.areaid,
-      'DepartementID': this.deptid,
+      'DepartementID': 2,
       'Experience': this.exp,
       'Description': this.description,
       'HomeVisit': Number(this.homevisit),

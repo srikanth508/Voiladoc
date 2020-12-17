@@ -32,8 +32,8 @@ export class DiagnostictestComponent implements OnInit {
   public labels: any;
   public languageid: any;
   dummdiagnosticid: any;
-  public searchlable:any;
-  diatestdd={};
+  public searchlable: any;
+  diatestdd = {};
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -46,7 +46,7 @@ export class DiagnostictestComponent implements OnInit {
     this.idcount = 1;
   }
   public getlanguage() {
-   
+
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
         this.labels = data;
@@ -58,10 +58,10 @@ export class DiagnostictestComponent implements OnInit {
   }
   SelectLabel
   public getdiagnosticforadmin() {
-   
+
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -81,10 +81,10 @@ export class DiagnostictestComponent implements OnInit {
 
 
   public getdiagnostictestmaster() {
-   
+
     this.docservice.GetDiagnosticTestMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.testlist = data;
 
         this.diatestdd = {
@@ -103,11 +103,11 @@ export class DiagnostictestComponent implements OnInit {
     )
   }
 
-  public GetTestID(item4:any) {
-    this.testid =item4.id;
+  public GetTestID(item4: any) {
+    this.testid = item4.id;
 
     for (let i = 0; i < this.testlist.length; i++) {
-     
+
       if (this.testlist[i].id == this.testid) {
         this.testname = this.testlist[i].short
       }
@@ -129,13 +129,13 @@ export class DiagnostictestComponent implements OnInit {
 
   }
   public GetDiagnosticID(item2: any) {
-   
+
     this.diagnosticid = item2.id;
     this.docservice.GetDiagnosticCenterDetailsByID(this.diagnosticid).subscribe(
       data => {
-       
+
         this.details = data[0];
-       
+
         this.diagnosticname = this.details.diagnosticCenterName
 
       }, error => {
@@ -161,7 +161,7 @@ export class DiagnostictestComponent implements OnInit {
     this.price = "";
   }
   public insertdetails() {
-   
+
     this.spinner.show();
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
@@ -171,27 +171,44 @@ export class DiagnostictestComponent implements OnInit {
         'Price': this.qwerty[i].Price,
       }
       this.docservice.InsertDiagnosticCenterTests(entity).subscribe(data => {
-       
+
         if (data != 0) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-          this.tablecount = 0;
-          this.spinner.hide();
-          location.href = "#/DiagnosticTestDash"
+          if (this.languageid == 1) {
+            Swal.fire('Completed', 'Details saved successfully', 'success');
+            this.tablecount = 0;
+            this.spinner.hide();
+            location.href = "#/DiagnosticTestDash"
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Terminé', 'Détails enregistrés avec succès !', 'success');
+            this.tablecount = 0;
+            this.spinner.hide();
+            location.href = "#/DiagnosticTestDash"
+          }
+
         }
         else {
-          Swal.fire("Service Already Exists");
-          this.spinner.hide();
-          location.href = "#/DiagnosticTestDash"
+          if (this.languageid == 1) {
+            Swal.fire("Service Already Exists");
+            this.spinner.hide();
+            location.href = "#/DiagnosticTestDash"
+          }
+          else if (this.languageid == 6) {
+            Swal.fire("Le service existe déjà");
+            this.spinner.hide();
+            location.href = "#/DiagnosticTestDash"
+          }
+
         }
       })
     }
   }
   public delete(sno) {
-   
+
     for (let i = 0; i < this.qwerty.length; i++) {
-     
+
       if (sno == this.qwerty[i].Sno) {
-       
+
         this.qwerty.splice(i, 1);
       }
     }

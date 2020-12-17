@@ -76,7 +76,7 @@
     <br>
     <div class="row">
       <div class="col-lg-2">
-        <label>Timings : </label>
+        <label>{{labels[0].scheduletype}} : </label>
       </div>
       <div class="col-lg-1">
       </div>
@@ -90,9 +90,10 @@
         <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="5"> &nbsp;
         {{labels[0].homeVisit}}
         <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="6"> &nbsp;
-        Meeting
+        {{labels[0].meeting}}
       </div>
       <div class="col-lg-2">
+        <label>{{labels[0].timings}} : </label>
       </div>
       <div class="col-lg-3">
         <select class="form-control" (change)="getmrngfrom($event)" [(ngModel)]="mrngfromid" name="mrngfromid">
@@ -109,87 +110,9 @@
         </select>
       </div>
     </div><br>
-    <!-- evening timings -->
-<!-- 
-    <div class="row">
-      <div class="col-lg-2">
-        <label>{{labels[0].evening}} : </label>
-      </div>
-      <div class="col-lg-1">
-
-      </div>
-      <div class="col-lg-9">
-        <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="1"> &nbsp;
-        {{labels[0].inclinic}} &nbsp;
-        <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="2"> &nbsp;
-        {{labels[0].video}} &nbsp;
-        <input type="radio" [(ngModel)]="eveningappointmentType" name="eveningappointmentType" value="5"> &nbsp;
-        {{labels[0].homeVisit}}
-      </div>
-      <div class="col-lg-2">
-
-      </div>
-      <div class="col-lg-3">
-    
-        <select class="form-control" (change)="getevngfrom($event)" [(ngModel)]="evngfromid" name="evngfromid">
-          <option value="">{{labels[0].startTime}}</option>
-          <option *ngFor="let evngfrm of evngfromlist" value="{{ evngfrm.id }}">{{ evngfrm.slots }}</option>
-        </select>
-      </div>
-      <div class="col-lg-3" style="margin-top: 0px;">
-       
-        <select class="form-control" (change)="getevngto($event)" [(ngModel)]="evngtoid" name="evngtoid">
-          <option value="">{{labels[0].endTime}}</option>
-          <option *ngFor="let evngto of evngtolist" value="{{ evngto.id }}">{{
-            evngto.slots
-          }}</option>
-        </select>
-      </div>
-    </div><br> -->
-
-    <!-- 
-night timings -->
-    <!-- <div class="row">
-      <div class="col-lg-2">
-        <label>{{labels[0].night}} : </label>
-      </div>
-      <div class="col-lg-1">
-
-      </div>
-      <div class="col-lg-9">
-        <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="1"> &nbsp;
-        {{labels[0].inclinic}}
-        &nbsp;
-        <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="2"> &nbsp;
-        {{labels[0].video}} &nbsp;
-        <input type="radio" [(ngModel)]="nightappointmenttype" name="nightappointmenttype" value="5"> &nbsp;
-        {{labels[0].homeVisit}}
-      </div>
-      <div class="col-lg-2">
-
-      </div>
-      <div class="col-lg-3">
   
-     
-        <select class="form-control" (change)="getnightfrom($event)" [(ngModel)]="nightfromid" name="nightfromid">
-          <option value="">{{labels[0].startTime}}</option>
-          <option *ngFor="let nightfrm of nightfromlist" value="{{ nightfrm.id }}">{{ nightfrm.slots }}</option>
-        </select>
-      </div>
-      <div class="col-lg-3" style="margin-top: 0px;">
-   
-    
-        <select class="form-control" (change)="getnightto($event)" [(ngModel)]="nighttoid" name="nighttoid">
-          <option value="">{{labels[0].endTime}}</option>
-          <option *ngFor="let nightto of nighttolist" value="{{ nightto.id }}">{{
-        nightto.slots
-      }}</option>
-        </select>
-      </div>
-    </div>
-    <br> -->
     <div class="row">
-      <div class="col-lg-5">
+      <div class="col-lg-3">
       </div>
       <div class="col-lg-2">
         <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()"
@@ -203,6 +126,11 @@ night timings -->
       </div>
       <div class="col-lg-1" style="margin-left: 30px;">
         <div class="homecare"><span style="margin-left: 11px;"> {{labels[0].homeVisit}}</span></div>
+      </div>
+      <div class="col-lg-1 ">
+        <div class="meeting" style="margin-left: 31px;width: 120px;">
+          <p> {{labels[0].meeting}}</p>
+        </div>
       </div>
     </div>
     <br>

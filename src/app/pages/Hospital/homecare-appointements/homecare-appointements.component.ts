@@ -49,7 +49,7 @@ export class HomecareAppointementsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
     this.getdepartmentmaster();
-    this.docservice.GetHomecareRevenue(this.hospitalid, '2020-01-01', '2022-07-07').subscribe(
+    this.docservice.GetHomecareRevenue(this.hospitalid, this.sdate, this.edate).subscribe(
       data => {
        
         this.dummlist = data;
@@ -113,7 +113,7 @@ export class HomecareAppointementsComponent implements OnInit {
   public GetTypeID(event) {
    
     if (event.target.value == 'none') {
-      this.docservice.GetHomecareRevenue(this.hospitalid, '2020-01-01', '2022-07-07').subscribe(
+      this.docservice.GetHomecareRevenue(this.hospitalid,  this.sdate, this.edate).subscribe(
         data => {
          
           this.dummlist = data;
@@ -129,7 +129,7 @@ export class HomecareAppointementsComponent implements OnInit {
       )
     }
     else {
-      this.docservice.GetHomecareRevenue(this.hospitalid, '2020-01-01', '2022-07-07').subscribe(
+      this.docservice.GetHomecareRevenue(this.hospitalid,  this.sdate, this.edate).subscribe(
         data => {
          
           this.dummlist = data;

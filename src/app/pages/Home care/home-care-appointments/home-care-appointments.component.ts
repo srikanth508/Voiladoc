@@ -26,7 +26,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public serverdateandtime: any;
   public todaydate: any;
   public selecteddate: any;
-  public Selecteddate2: any;
+  public Selecteddate2: any;  
   public todaydatesss: any;
   public todaydatesssssss: any;
   public appointmenttime: any;

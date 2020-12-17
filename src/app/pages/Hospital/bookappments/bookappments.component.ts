@@ -38,6 +38,7 @@ export class BookappmentsComponent implements OnInit {
   labels: any
   SelectLabel: any
   appointmentid: any;
+  search:any;
   ngOnInit() {
     this.user = localStorage.getItem('user');
     this.languageid = localStorage.getItem('LanguageID');
@@ -52,6 +53,7 @@ export class BookappmentsComponent implements OnInit {
        
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
 
       }, error => {
       }
@@ -139,7 +141,8 @@ export class BookappmentsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search
         };
       },
       error => { }

@@ -15,10 +15,10 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
     </div>
@@ -31,6 +31,7 @@
         <option value="nurse">Nurse </option>
         <option value="physio">Physiotherapist </option>
         <option value="midwife">Midwife </option>
+        <option value="Doctor">Doctor </option>
       </select>
     </div>
     <div *ngIf="languageid==6&&roleid==3" class="col-lg-3">
@@ -38,7 +39,8 @@
         <option value="none" *ngIf="languageid==6">Type de revenus</option>
         <option value="nurse">Infirmières </option>
         <option value="physio">Physiothérapeutes </option>
-        <option value="midwife">Sage-femmes
+        <option value="midwife">Sage-femmes</option>
+        <option value="Doctor">Docteur </option>
       </select>
     </div>
 
@@ -84,6 +86,7 @@
             <td *ngIf="details.type=='nurse'">Nurse</td>
             <td *ngIf="details.type=='physio'">Physiotherapist</td>
             <td *ngIf="details.type=='midwife'">Midwife</td>
+            <td *ngIf="details.type=='Doctor'">Doctor</td>
             <td>{{details.nurseName}}</td>
             <td>{{details.reasonForVisit}}</td>
             <td>{{details.patientName}}</td>

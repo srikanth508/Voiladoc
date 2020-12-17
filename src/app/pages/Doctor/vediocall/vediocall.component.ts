@@ -902,8 +902,6 @@ export class VediocallComponent implements OnInit {
 
         this.medicationlist = data;
 
-
-
       }, error => {
       }
     )
@@ -925,7 +923,6 @@ export class VediocallComponent implements OnInit {
 
     this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
-
         this.diagnosticlist = data;
       }, error => {
       }
@@ -1105,7 +1102,6 @@ export class VediocallComponent implements OnInit {
 
 
   public insertsoapnotes1() {
-
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -1904,25 +1900,40 @@ export class VediocallComponent implements OnInit {
         'ClinicalInfo': this.qwerty[i].ClinicalInfo
       }
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
-
         if (data != 0) {
-
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+            this.tablecount = 0;
+            this.qwerty = []
+            this.qwerty.length = 0
+            this.testid.length = 0;
+            this.testssid = 0;
+            this.getpatient_diagnosticdetails()
           }
           else {
+            debugger
             Swal.fire('Détails enregistrés', 'Test de laboratoire');
+            this.getpatient_diagnosticdetails();
+            this.tablecount = 0;
+            this.qwerty = []
+            this.qwerty.length = 0
+            this.testid.length = 0;
+            this.testssid = 0;
+          
           }
           this.tablecount = 0;
           this.qwerty = []
           this.qwerty.length = 0
           this.testid.length = 0;
           this.testssid = 0;
+          debugger
           this.getpatient_diagnosticdetails()
           this.Insertnotificationtest()
         }
+        this.getpatient_diagnosticdetails()
       })
     }
+    this.getpatient_diagnosticdetails()
   }
 
 

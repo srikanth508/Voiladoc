@@ -9,23 +9,25 @@
 <div class="container-fluid card card-hover">
   <br>
   <div class="col-lg-3">
-    <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-      [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-    <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-      [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+      class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+      class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
 
   </div>
   <!-- <h3 style="text-align: center;">{{labels[0].revenue}}</h3> -->
   <br>
   <div class="row">
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
-      <div class="optionsboxdown" [routerLink]="['/TotalHospitalApointments',1]" style="cursor: pointer;border-radius: 16px;">
+      <div class="optionsboxdown" [routerLink]="['/TotalHospitalApointments',1]"
+        style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
+         
           <b style="font-size: 15px;">
             {{labels[0].totalRevenue}} </b>
 
-        </label>
+        </label> <br>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
@@ -41,8 +43,10 @@
       <div class="optionsboxdown" [routerLink]="['/InclinicRevenue']" style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
+         <b>Revenus</b> <br>
           <b style="font-size: 15px;">
-            {{labels[0].in_Clinic_Revenue}} </b>
+
+            {{labels[0].incinicrevenue}} </b>
 
         </label>
         <br />
@@ -60,9 +64,10 @@
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
       <div class="optionsboxdown" [routerLink]="['/Videocallrevenue']" style="cursor: pointer;border-radius: 16px;">
         <br>
+        <b>Revenus</b> <br>
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            {{labels[0].video_Conference_Revenuee}} </b>
+            {{labels[0].videorevenue}} </b>
         </label>
         <br />
         <br />
@@ -79,8 +84,9 @@
       <div class="optionsboxdown" [routerLink]="['/HomecareRevenue']" style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
+          <b>Revenus</b> <br>
           <b style="font-size: 15px;">
-            {{labels[0].homecareRev}}</b>
+            {{labels[0].homecarerevenue}}</b>
         </label>
         <br />
         <br />
@@ -97,14 +103,16 @@
   </div>
 
   <div class="row">
-
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
-      <div class="optionsboxdown" [routerLink]="['/TotalHospitalApointments',2]" style="cursor: pointer;border-radius: 16px;">
+      <div class="optionsboxdown" [routerLink]="['/TotalHospitalApointments',2]"
+        style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
+          <!-- <b>{{labels[0].hosappointments}}</b> <br> -->
           <b style="font-size: 15px;">
             {{labels[0].totalAppointments}} </b>
         </label>
+        <br />
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
@@ -118,14 +126,17 @@
     </div>
 
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
-      <div class="optionsboxdown" [routerLink]="['/InclinicAppointements']" style="cursor: pointer;border-radius: 16px;">
+      <div class="optionsboxdown" [routerLink]="['/InclinicAppointements']"
+        style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
+          <b>{{labels[0].hosappointments}}</b> <br>
           <b style="font-size: 15px;">
-            {{labels[0].in_Clinic_Appointments}}</b>
+            {{labels[0].incinicrevenue}} </b>
         </label>
         <br />
         <br />
+      
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;" [routerLink]="['/InclinicAppointements']">{{clinic.clicniccount}}</u>
@@ -137,17 +148,20 @@
     </div>
 
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
-      <div class="optionsboxdown" [routerLink]="['/Videocallappointements']" style="cursor: pointer;border-radius: 16px;">
+      <div class="optionsboxdown" [routerLink]="['/Videocallappointements']"
+        style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
+          <b>{{labels[0].hosappointments}}</b> <br>
           <b style="font-size: 15px;">
-            {{labels[0].video_Conference_Appointmentss}}</b>
+            {{labels[0].videorevenue}} </b>
         </label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;" [routerLink]="['/Videocallappointements']">{{clinic.vedocallappointmentcount}}</u>
+            <u style="font-size: 20px;"
+              [routerLink]="['/Videocallappointements']">{{clinic.vedocallappointmentcount}}</u>
           </b>
         </label>
       </div>
@@ -155,11 +169,13 @@
     </div>
 
     <div class="col-lg-3">
-      <div class="optionsboxdown" [routerLink]="['/HomecareAppointements']" style="cursor: pointer;border-radius: 16px;">
+      <div class="optionsboxdown" [routerLink]="['/HomecareAppointements']"
+        style="cursor: pointer;border-radius: 16px;">
         <br>
+        <b>{{labels[0].hosappointments}}</b> <br>
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            {{labels[0].homecareappointment}}</b>
+            {{labels[0].homecarerevenue}}</b>
         </label>
         <br />
         <br />
@@ -174,7 +190,7 @@
     <br />
   </div>
 
-  <div *ngIf="languageid=='6'">
+  <!-- <div *ngIf="languageid=='6'">
     <div class="row" *ngFor="let clinic of detailslist">
    
       <div class="col-lg-3">
@@ -212,9 +228,9 @@
         <br>
       </div>
     </div><br>
-  </div>
+  </div> -->
 
-  <div *ngIf="languageid=='1'">
+  <!-- <div *ngIf="languageid=='1'">
     <div class="row" *ngFor="let clinic of detailslist">
    
       <div class="col-lg-3">
@@ -253,7 +269,7 @@
         <br>
       </div>
     </div><br>
-  </div>
+  </div> -->
 
 </div>
 <br>

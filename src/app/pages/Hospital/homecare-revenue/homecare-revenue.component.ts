@@ -51,11 +51,11 @@ export class HomecareRevenueComponent implements OnInit {
     this.roleid = localStorage.getItem('roleid');
     this.getlanguage();
     this.getdepartmentmaster();
-    this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid,  this.sdate, this.edate).subscribe(
+    this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.sdate, this.edate).subscribe(
       data => {
-       
+
         this.dummlist = data;
-        this.cancelledlist = this.dummlist;
+        this.cancelledlist = this.dummlist.filter(x => x.isVisited == 1);
         let total1 = 0;
         this.cancelledlist.forEach(element => {
           total1 += element.paidAmount;
@@ -68,10 +68,10 @@ export class HomecareRevenueComponent implements OnInit {
   }
 
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
@@ -83,7 +83,7 @@ export class HomecareRevenueComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -91,13 +91,13 @@ export class HomecareRevenueComponent implements OnInit {
   }
 
   public GetTypeID(event) {
-   
+
     if (event.target.value == 'none') {
       this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
-         
+
           this.dummlist = data;
-          this.cancelledlist = this.dummlist;
+          this.cancelledlist = this.dummlist.filter(x => x.isVisited == 1);
           let total1 = 0;
           this.cancelledlist.forEach(element => {
             total1 += element.paidAmount;
@@ -109,11 +109,11 @@ export class HomecareRevenueComponent implements OnInit {
       )
     }
     else {
-      this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid,  this.sdate, this.edate).subscribe(
+      this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.sdate, this.edate).subscribe(
         data => {
-         
+
           this.dummlist = data;
-          this.cancelledlist = this.dummlist.filter(x => x.type == event.target.value);
+          this.cancelledlist = this.dummlist.filter(x => x.type == event.target.value && x.isVisited == 1);
           let total1 = 0;
           this.cancelledlist.forEach(element => {
             total1 += element.paidAmount;
@@ -136,9 +136,9 @@ export class HomecareRevenueComponent implements OnInit {
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
-       
+
         this.dummlist = data;
-        this.cancelledlist = this.dummlist;
+        this.cancelledlist = this.dummlist.filter(x => x.isVisited == 1);
         let total1 = 0;
         this.cancelledlist.forEach(element => {
           total1 += element.paidAmount;
@@ -155,7 +155,7 @@ export class HomecareRevenueComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -173,7 +173,7 @@ export class HomecareRevenueComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

@@ -9,3 +9,6 @@
   th{
     text-transform: lowercase;
   }
+  #imp{
+    text-transform: none;
+  }

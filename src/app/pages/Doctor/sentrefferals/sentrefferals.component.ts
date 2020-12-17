@@ -88,10 +88,11 @@ export class SentrefferalsComponent implements OnInit {
   public soaplist: any;
 
   public labels4: any;
-  
+
   user
   MobileNumber
   Hospital_ClinicName
+  dropzonelable: any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -122,7 +123,7 @@ export class SentrefferalsComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -133,7 +134,12 @@ export class SentrefferalsComponent implements OnInit {
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
     this.CurrentTime = hours + ':' + minutes + ' ' + newformat;
-
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
 
 
     this.getlanguage();
@@ -141,7 +147,7 @@ export class SentrefferalsComponent implements OnInit {
 
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       }, error => {
       }
@@ -156,7 +162,7 @@ export class SentrefferalsComponent implements OnInit {
   public getkang() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels4 = data;
       }, error => {
       }
@@ -165,7 +171,7 @@ export class SentrefferalsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -173,9 +179,9 @@ export class SentrefferalsComponent implements OnInit {
   }
 
   public GetDoctorRefererals() {
-    this.docservice.GetDoctorReferals(this.doctorid, 1,this.startdate,this.enddate).subscribe(
+    this.docservice.GetDoctorReferals(this.doctorid, 1, this.startdate, this.enddate).subscribe(
       data => {
-       
+
         let temp: any = data
         this.docreferels = temp.filter(x => x.assignDoctorID == this.doctorid && x.languageID == this.languageid);
       },
@@ -193,12 +199,12 @@ export class SentrefferalsComponent implements OnInit {
   appointmentID
   patientID
   public GetAppointmentID(doc) {
-   
+
     this.appointmentID = doc.appointmentID;
     this.patientID = doc.patientID
     this.docservice.GetDoctorReferalAttachments(this.appointmentID).subscribe(
       data => {
-       
+
         this.attachments = data;
       },
       error => { }
@@ -206,8 +212,8 @@ export class SentrefferalsComponent implements OnInit {
   }
 
   public GetSickSlipID() {
-   
-    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid,this.languageid).subscribe(
+
+    this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid, this.languageid).subscribe(
       data => {
         this.details = data[0];
         this.patientname = this.details.pName,
@@ -230,14 +236,14 @@ export class SentrefferalsComponent implements OnInit {
   }
 
   public GetPdf(attchments) {
-   
+
     document.getElementById('closeview').click();
     window.open(attchments, '_blank');
   }
 
 
   public UpdateDoctorReferalsCompletedBit(id) {
-   
+
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -301,14 +307,14 @@ export class SentrefferalsComponent implements OnInit {
 
 
   public UpdateRefferalLetter() {
-   
+
 
     var entity = {
       'ID': this.appointmentid,
       'ReferalNotes': this.referalnotes
     }
     this.docservice.UpdateDoctorReferals(entity).subscribe(data => {
-     
+
 
       if (this.languageid == 1) {
         document.getElementById('close').click();
@@ -329,9 +335,9 @@ export class SentrefferalsComponent implements OnInit {
 
 
 
-    
+
   selectedDate(data) {
-   
+
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -343,15 +349,15 @@ export class SentrefferalsComponent implements OnInit {
 
 
   public GetSopaNotesID(id) {
-   
+
     this.id = id;
     this.GetSoapNotesByID();
   }
   public GetSoapNotesByID() {
-   
+
     this.docservice.GetSoapNotesByPatientRefereal(this.id, this.languageid).subscribe(
       data => {
-       
+
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist == undefined || this.soaplist.length == 0) {
           this.subjective = "";
@@ -399,7 +405,7 @@ export class SentrefferalsComponent implements OnInit {
 
 
   public Deletefile(id) {
-   
+
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -457,28 +463,36 @@ export class SentrefferalsComponent implements OnInit {
   public attachments1 = [];
   public attachmentsurl1 = [];
   public onattachmentUpload1(abcd) {
-   
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd[i]);
-      this.uploadattachments1();
+
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments1.push(abcd.addedFiles[0]);
+    this.uploadattachments1();
+    // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
     }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    else if (this.languageid == 6) {
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
+
   }
+  public showdocphoto = []
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-     
+
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-     
+
       let b = 'http://14.192.17.225' + a;
 
-      // this.showdocphoto.push(b)
-     
+      this.showdocphoto.push(b)
+
 
       this.attachments1.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -490,14 +504,14 @@ export class SentrefferalsComponent implements OnInit {
         'AttachmentUrl': this.attachmentsurl1[i],
       }
       this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
-       
+
         if (data != 0) {
-          
+
           Swal.fire('Uploaded Successfully');
         }
       })
     }
-   
+
   }
 
 

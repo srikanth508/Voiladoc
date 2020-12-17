@@ -72,3 +72,21 @@
     background-color: #90EE90;
     color:white;
   }
+
+  .Notavailable
+  {
+    height: 30px;
+    width: 100px;
+    background-color: #D3D3D3;
+    color:black;
+    margin-left: 22px;
+  }
+
+  .meeting
+  {
+    height: 30px;
+    width: 100px;
+    background-color: #00ff80;
+    color:black;
+    margin-left: 22px;
+  }

@@ -72,8 +72,16 @@ export class PhyioSupportComponent implements OnInit {
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
           this.insertnotification()
-          Swal.fire('Issue Raised Successflly')
-          location.href = "#/PhyioSupportDash"
+          if(this.languageid==1)
+          {
+            Swal.fire('Issue Raised Successflly')
+            location.href = "#/PhyioSupportDash"
+          }
+          else{
+            Swal.fire('Problème soulevé avec succès')
+            location.href = "#/PhyioSupportDash"
+          }
+        
         }
       })
     }
@@ -85,9 +93,19 @@ export class PhyioSupportComponent implements OnInit {
       this.issuephoto.push(abcd.addedFiles[0]);
       this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else{
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
+ 
   }
+
+  public showphoto=[];
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
@@ -96,7 +114,7 @@ export class PhyioSupportComponent implements OnInit {
       let a = this.issuephotourl[0].slice(2);
      
       let b = 'http://14.192.17.225' + a;
-
+      this.showphoto.push(b);
      
     })
     // this.sendattachment();
