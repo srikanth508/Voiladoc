@@ -301,17 +301,20 @@ export class AppointmentsComponent implements OnInit {
   public PaidAmount: any;
   public appointmenttypeid: any;
   public feeslist:any;
+  public doctorslotid:any;
 
   public GetDetails(details) {
     this.patientid = details.patientID,
       this.appointmentid = details.appointmentID
     this.doctorid = details.doctorID
-    this.appointmenttypeid = details.appointmentTypeID
+    this.appointmenttypeid = details.appointmentTypeID,
+    this.doctorslotid=details.doctorSlotID
 
-    this.docservice.GetDoctorCommissionFeesByDoctorID(this.doctorid, this.appointmenttypeid).subscribe(data=>
+    this.docservice.GetDoctorCommissionFeesByDoctorID(this.doctorslotid,this.appointmenttypeid).subscribe(data=>
       {
+        debugger
         this.feeslist=data;
-        this.PaidAmount=this.feeslist[0].fees
+        this.PaidAmount=this.feeslist[0].doctorFees
       })
   }
 

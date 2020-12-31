@@ -20,7 +20,7 @@ export class RecpsupportComponent implements OnInit {
 
   public labels: any;
   public receptionid: any;
-  dropzonelable:any;
+  dropzonelable: any;
   ngOnInit() {
     this.description = ""
 
@@ -29,29 +29,27 @@ export class RecpsupportComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.GetLanguageMaster()
 
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-     
+
       this.labels = res;
-     
+
     })
   }
   removetgdescription: any;
 
   public insertdetails() {
-   
+
     if (this.issuephotourl == null && this.issuephotourl.length == 0 && this.issuephotourl == undefined) {
-     
+
       Swal.fire('Please upload image')
     }
     else {
@@ -74,33 +72,49 @@ export class RecpsupportComponent implements OnInit {
       this.docservice.InsertSupportForWeb(entity).subscribe(data => {
         if (data != 0) {
           this.insertnotification()
-          Swal.fire('Issue Raised Successflly')
+          if(this.languageid==1)
+          { 
+            Swal.fire('Issue Raised Successflly')
           location.href = "#/RecpsupportDash"
+          }
+          else
+        {
+          Swal.fire("Ticket d'assistance soumis avec succès")
+          location.href = "#/RecpsupportDash"
+        }
+         
         }
       })
     }
   }
 
+  public showphoto=[];
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
-      this.issuephoto.push(abcd.addedFiles[0]);
-      this.uploadid();
+    this.issuephoto.push(abcd.addedFiles[0]);
+    this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
   }
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-     
+
       this.issuephotourl.push(res);
       let a = this.issuephotourl[0].slice(2);
-     
+
       let b = 'http://14.192.17.225' + a;
 
-     
+      this.showphoto.push(b);
     })
     // this.sendattachment();
   }

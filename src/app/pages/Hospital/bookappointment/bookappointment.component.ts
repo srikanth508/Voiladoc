@@ -37,8 +37,8 @@ export class BookappointmentComponent implements OnInit {
   serverdateandtime: any;
   todaydatesss: any;
   Selecteddate2: any;
-  todaydatesssssss:any;
-  public mindate=new Date();
+  todaydatesssssss: any;
+  public mindate = new Date();
   ngOnInit() {
     //
     // const format = 'yyyy-MM-dd';
@@ -53,24 +53,24 @@ export class BookappointmentComponent implements OnInit {
       data => {
         this.serverdateandtime = data;
         if (this.languageid == 1) {
-         
+
           this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.Selecteddate2 = this.serverdateandtime.todaydatesss.toLocaleString()
           // this.Selecteddate2=this.datepipe.transform(this.todaydatesss, 'dd/MM/yyyy')
 
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
-          this.todaydatesssssss=this.serverdateandtime.todaydateeeesss.toLocaleString()
+          this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
 
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
 
         }
         else if (this.languageid == 6) {
-         
+
           this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
-          this.todaydatesssssss=this.serverdateandtime.todaydateeeesss.toLocaleString()
+          this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
         }
       }, error => {
@@ -104,22 +104,26 @@ export class BookappointmentComponent implements OnInit {
 
     this.getdepartmentmaster();
     this.GetAreaMaster();
+  
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
+        this.search=  this.labels[0].search
+        this.select=this.labels[0].selectdoctor
       }, error => {
       }
     )
     this.getDoctorss()
     this.getdoctorslots()
   }
-
+  public search:any;
+  public select:any;
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }
@@ -128,10 +132,10 @@ export class BookappointmentComponent implements OnInit {
 
 
   public GetAreaMaster() {
-   
+
     this.docservice.GetAreaMasterWeb().subscribe(
       data => {
-       
+
         this.arealist = data;
       }, error => {
       }
@@ -139,7 +143,7 @@ export class BookappointmentComponent implements OnInit {
   }
 
   public GetAreaID(even) {
-   
+
     this.areaid = even.target.value;
 
     var list = this.arealist.filter(x => x.id == this.areaid)
@@ -148,7 +152,7 @@ export class BookappointmentComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-   
+
     if (even.target.value != 0) {
       this.departmentid = even.target.value;
       this.doctorslist = this.dummdoctorslist.filter(x => x.departmentID == this.departmentid)
@@ -159,23 +163,39 @@ export class BookappointmentComponent implements OnInit {
   }
 
   public GetAppointmentTypeID(even) {
-   
+
     this.appointmentypeid = even.target.value;
     this.getDoctorss();
   }
 
+public docdd={};
+
+
   public getDoctorss() {
-   
+
     this.docservice.GetDoctorDetails_ForVideoConferenceForWeb(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid).subscribe(
       data => {
-       
+
         this.doctorslist = data;
         this.dummdoctorslist = data;
+        this.filterdummlist = data;
+        this.docdd = {
+          singleSelection: true,
+          idField: 'doctorID',
+          textField: 'doctorName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
+
+
       }, error => {
       }
     )
   }
-
+  public filterdummlist: any;
 
   selecteddate: any;
   getday: any;
@@ -184,11 +204,11 @@ export class BookappointmentComponent implements OnInit {
   public GetDate(even) {
 
     if (this.languageid == 1) {
-     
+
       //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
       // this.selecteddate = even.target.value;
       // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
-     
+
       this.selecteddates1 = even.toLocaleString().split(',')[0];
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
       // this.selecteddate = even.target.value;
@@ -208,18 +228,18 @@ export class BookappointmentComponent implements OnInit {
       var d = new Date(this.selecteddates1);
       var dayName = gsDayNames[d.getDay()];
       this.docservice.GetDayID(dayName).subscribe(data => {
-       
+
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
 
         this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
           data => {
-           
+
             this.doctorslist = data;
             this.dummdoctorslist = data;
             this.selecteddates1 = even.toLocaleString().split(',')[0];
             this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-           
+
             if (this.selecteddates1 == this.todaydatesssssss) {
               this.getdoctorslots()
             }
@@ -234,11 +254,11 @@ export class BookappointmentComponent implements OnInit {
 
     }
     else if (this.languageid == 6) {
-     
+
       //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
       // this.selecteddate = even.target.value;
       // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
-     
+
       this.selecteddates1 = even.toLocaleString().split(',')[0];
 
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
@@ -259,13 +279,13 @@ export class BookappointmentComponent implements OnInit {
       var d = new Date(this.selecteddates1);
       var dayName = gsDayNames[d.getDay()];
       this.docservice.GetDayID(dayName).subscribe(data => {
-       
+
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
 
         this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
           data => {
-           
+
             this.doctorslist = data;
             this.dummdoctorslist = data;
 
@@ -288,7 +308,7 @@ export class BookappointmentComponent implements OnInit {
   minutes: any;
 
   public getdoctorslots() {
-   
+
     let d = new Date();
     this.hours = d.getHours() + 2
     this.minutes = d.getMinutes() + 30
@@ -298,7 +318,7 @@ export class BookappointmentComponent implements OnInit {
 
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
-       
+
         this.dummdoctorslots = data;
         this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > cts)
 
@@ -311,7 +331,7 @@ export class BookappointmentComponent implements OnInit {
   public getdoctotsbyid() {
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
-       
+
         this.doctorslots = data;
       }, error => {
       }
@@ -322,11 +342,26 @@ export class BookappointmentComponent implements OnInit {
     this.slotid = even.target.value;
     this.docservice.GetDoctorDetails_ForVideoConferenceForWeb2(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.slotid, this.selecteddates1).subscribe(
       data => {
-       
+
         this.doctorslist = data;
         this.dummdoctorslist = data;
+        this.filterdummlist = data;
       }, error => {
       }
     )
+  }
+
+  public doctorid: any;
+
+  public GetDoctorID(item2:any) {
+    debugger
+    // if (even.target.value != 0) {
+      this.doctorid = item2.doctorID;
+      this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
+    
+    // else {
+    //   this.getDoctorss();
+    //   // this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
+    // }
   }
 }

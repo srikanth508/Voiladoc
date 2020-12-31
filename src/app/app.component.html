@@ -756,8 +756,6 @@
                         </div>
                     </div>
 
-
-
                 </div>
             </div>
 
@@ -813,10 +811,10 @@
                         <p style="float:left"><b>{{docnoti.notificationtime}}</b></p><br>
                         <br>
                         <div *ngIf="doctorid!=undefined">
-                            <button class="chatnow" data-dismiss="modal" style="float: left;"
-                                (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button>
+                            <!-- <button class="chatnow" data-dismiss="modal" style="float: left;"
+                                (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button> -->
                             <button class="chatnow" data-dismiss="modal" style="float: right;"
-                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)">{{labels[0].seenAll}}</button>
+                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)">{{labels[0].seenAll}}</button><br>
                         </div>
                         <div *ngIf="nurseid!=undefined||midwifeid!=undefined||physioid!=undefined">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
@@ -859,7 +857,7 @@
                                 style="margin-left: 5px; margin-top: 3px;" aria-hidden="true"
                                 (click)="ViewMedicines(phanoti)"></i> -->
                             <button class="chatnow1" data-toggle="modal" data-target="#Medicines"
-                                (click)="ViewMedicines(phanoti)">View Medicines</button>
+                                (click)="ViewMedicines(phanoti)">{{labels[0].viewMedicines}}</button>
                         </div>
                     </div><br>
                 </div><br>

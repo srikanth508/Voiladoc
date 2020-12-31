@@ -27,25 +27,27 @@
     <!-- <div class="col-lg-1" >
 
     </div> -->
-    <div class="col-lg-1" style="margin-right: -17px;">
-      <div class="rectangle"><span style="margin-left: 5px;">{{labels[0].inclinic}}</span></div>
+
+    <div class="col-lg-1" style="margin-right: -1px;">
+      <div class="rectangle"><span style="margin-left: 21px;">{{labels[0].inclinic}}</span></div>
     </div>
-    <div class="col-lg-1" style="margin-right: 5px;">
-      <div class="vdioerect"> <span style="margin-left: 11px;">{{labels[0].video}}</span></div>
+    <div class="col-lg-1" style="margin-right: -6px;">
+      <div class="vdioerect"> <span style="margin-left: 18px;">{{labels[0].video}}</span></div>
     </div>
-    <div class="col-lg-1" style="margin-left: 28px;">
-      <div class="homecare"><span>{{labels[0].homeVisit}}</span></div>
+    <div class="col-lg-1" style="margin-left: 33px;">
+      <div class="homecare"><span style="margin-left: 20px;">{{labels[0].homeVisit}}</span></div>
     </div>
     <div class="col-lg-1 ">
-      <div class="Notavailable" style="margin-left: -4px;width: 152%; ">
-        <p> {{labels[0].notAvailable}}</p>
+      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
+        <p style="margin-left:12px"> {{labels[0].notAvailable}}</p>
       </div>
     </div>
     <div class="col-lg-1 ">
-      <div class="meeting" style="margin-left: 11px;width: 109%;">
-        <p> {{labels[0].meeting}}</p>
+      <div class="meeting" style="margin-left: 42px;width: 127%;">
+        <p style="margin-left:12px"> {{labels[0].meeting}}</p>
       </div>
     </div>
+
   </div>
   <br>
   <div class="row">
@@ -65,55 +67,63 @@
           <tr *ngFor="let details of Timings">
             <td>{{details.slotname}}</td>
             <td [style.background-color]="details.mondayColor" style="color:white">{{details.monday}}<br>
-
+              <span *ngIf="details.mondayappointmentID!=6&&details.mondayappointmentID!=4">{{details.mondayFees}}</span>
+              <br>
               <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay1List(details)">
               </a>
-
             </td>
             <td [style.background-color]="details.tuesdayColor" style="color:white">{{details.tuesday}}<br>
+              <label *ngIf="details.tuesdayAppointmentID!=6&&details.tuesdayAppointmentID!=4">
+                {{details.tuesdayFees}}</label> <br>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay2List(details)">
               </a>
-
             </td>
             <td [style.background-color]="details.wednesdayColor" style="color:white">{{details.wednesday}}<br>
-
-              <a [ngbTooltip]="tipcontent9503" style="color:black">
+              <label *ngIf="details.wednesdayAppointmentID!=6&&details.wednesdayAppointmentID!=4">
+                {{details.wednessdayFees}}</label> <br>
+              <a [ngbTooltip]="tipcontent9503" style="color:rgb(221, 15, 15)">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay3List(details)">
               </a>
-
             </td>
             <td [style.background-color]="details.thursdayColor" style="color:white">{{details.thursday}}<br>
-
+              <label *ngIf="details.thursdayAppointmentID!=6&&details.thursdayAppointmentID!=4">{{details.thursdayFees
+                }}</label>
+              <br>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay4List(details)">
               </a>
             </td>
             <td [style.background-color]="details.fridayColor" style="color:white">{{details.friday}}<br>
-
+              <label
+                *ngIf="details.fridayAppointmentID!=6&&details.fridayAppointmentID!=4">{{details.fridayFees}}</label>
+              <br>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay5List(details)">
               </a>
             </td>
             <td [style.background-color]="details.saturdayColor" style="color:white">{{details.saturday}}<br>
-
+              <label
+                *ngIf="details.saturdayAppintmentID!=6&&details.saturdayAppintmentID!=4">{{details.satdayFees}}</label>
+              <br>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                  (click)="GetDay7List(details)">
+                  (click)="GetDay6List(details)">
               </a>
             </td>
             <td [style.background-color]="details.sundayColor" style="color:white">{{details.sunday}}<br>
-
+              <label *ngIf="details.sundayAppointmentID!=6&&details.sundayAppointmentID!=4"> {{details.sundayFees
+                }}</label> <br>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
-                  (click)="GetDay1List(details)">
+                  (click)="GetDay7List(details)">
               </a>
             </td>
           </tr>
@@ -154,6 +164,14 @@
           </div>
         </div>
         <br>
+        <div class="row">
+          <div class="col-lg-3">
+          </div>
+          <div class="col-lg-3">
+            <input type="text" *ngIf="appointmentypeid!=4&&appointmentypeid!=6" class="form-control" [(ngModel)]="fees"
+              name="fees" placeholder="Fees">
+          </div>
+        </div><br>
         <div class="row">
           <div class="col-lg-4">
           </div>

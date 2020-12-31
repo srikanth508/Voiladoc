@@ -348,6 +348,7 @@ import { DiagnosticSupportDashComponent } from './pages/Diagnostic Center/diagno
 import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-completed-tickets/dia-completed-tickets.component';
 import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
 import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
+import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
 
 
 
@@ -634,10 +635,9 @@ const routes: Routes = [
   { path: 'ReceptionstloginDash', component: ReceptionstloginDashComponent },
   { path: 'BookDoctors', component: BookDoctorsComponent },
 
-
   { path: 'Bookappointment', component: BookappointmentComponent },
-  { path: 'Doctorslots/:doctorID/:id/:hospital_ClinicID/:appointmentTypeID/:bookingTypeID/:feesNumber', component: DoctorslotsComponent },
-  { path: 'Bookappments/:doctorSlotID/:slotName', component: BookappmentsComponent },
+  { path: 'Doctorslots/:doctorID/:id/:hospital_ClinicID/:appointmentTypeID/:bookingTypeID', component: DoctorslotsComponent },
+  { path: 'Bookappments/:doctorSlotID/:slotName/:doctorFees', component: BookappmentsComponent },
 
 
   { path: 'MidwifeWorkingDetails/:id', component: MidwifeWorkingDetailsComponent },
@@ -779,6 +779,7 @@ const routes: Routes = [
   { path: 'DiaCompletedTickets', component: DiaCompletedTicketsComponent },
   { path: 'RefundSupport', component: RefundSupportComponent },
   { path: 'RefundCompletedTickets', component: RefundCompletedTicketsComponent },
+  { path: 'AllDiagnosticCalender', component: AllDiagnosticCalenderComponent },
 ];
 
 @NgModule({

@@ -56,6 +56,7 @@ export class PhysiotherapistComponent implements OnInit {
   public dummdepartmentlist: any;
   dropzonelable: any;
   public search: any;
+  public dummapecilizationlist: any;
   ngOnInit() {
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -63,10 +64,9 @@ export class PhysiotherapistComponent implements OnInit {
 
     this.docservice.GetAdmin_PhysiotherapistRegistration_Label(this.languageid).subscribe(
       data => {
-
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        this.search=this.labels[0].search;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -82,8 +82,8 @@ export class PhysiotherapistComponent implements OnInit {
 
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
-
-        this.specilisationlist = data;
+        this.dummapecilizationlist = data;
+        this.specilisationlist = this.dummapecilizationlist.filter(x => x.departmentID == 31)
 
         this.specilisatiodd = {
           singleSelection: false,
@@ -389,19 +389,17 @@ export class PhysiotherapistComponent implements OnInit {
 
           })
         }
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.spinner.hide();
           location.href = '#/PhysiotherapistDashboard';
         }
-        else if(this.languageid==6)
-        {
+        else if (this.languageid == 6) {
           Swal.fire('', 'Détails enregistrés avec succès', 'success');
           this.spinner.hide();
           location.href = '#/PhysiotherapistDashboard';
         }
-   
+
       }
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');

@@ -50,43 +50,45 @@
         }
 
                
-  .rectangle {
-    height: 30px;
-    width: 83px;
-    background-color: #bae6fb;
- 
-  }
-
-  .vdioerect
-  {
-    height: 30px;
-    width: 130px;
-    background-color: #4e66b0;
-    color:white;
-  }
-
-  .homecare
-  {
-    height: 30px;
-    width: 94px;
-    background-color: #90EE90;
-    color:white;
-  }
-
-  .Notavailable
-  {
-    height: 30px;
-    width: 100px;
-    background-color: #D3D3D3;
-    color:black;
-    margin-left: 22px;
-  }
-
-  .meeting
-  {
-    height: 30px;
-    width: 100px;
-    background-color: #00ff80;
-    color:black;
-    margin-left: 22px;
-  }
+        .rectangle {
+          height: 30px;
+          width: 120px;
+          background-color: #322C6C;
+          color:white;
+        }
+      
+        .vdioerect
+        {
+          height: 30px;
+          width: 132px;
+          background-color: #4D65Af;
+          color:white;
+          margin-left: 20px;
+        }
+      
+        .homecare
+        {
+          height: 30px;
+          width: 100px;
+          background-color: #0099FF;
+          color:white;
+          margin-left: 22px;
+        }
+      
+        .Notavailable
+        {
+          height: 30px;
+          width: 100px;
+          background-color: #D3D3D3;
+          color:white;
+          margin-left: 22px;
+        }
+      
+        .meeting
+        {
+          height: 30px;
+          width: 100px;
+          background-color: #FFC000;
+          color:white;
+          margin-left: 22px;
+        }

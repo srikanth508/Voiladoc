@@ -70,7 +70,7 @@
         
               </div>
               <div class="col-lg-6">
-                <input type="datetime-local"  [(ngModel)]="licensevalidtill" name="licensevalidtill"
+                <input type="date"  [(ngModel)]="licensevalidtill" name="licensevalidtill"
                   class="form-control">
               </div>
             </div><br>
@@ -149,6 +149,30 @@
                   onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
               </div>
             </div><br>
+            <!-- <div class="row">
+              <div class="col-lg-4">
+                <label>Diagnostics Appointments Per Slot: </label>
+               
+              </div>
+              <div class="col-lg-6">
+                <input class="form-control" type="text" name="diagnosticappointmentperslot" [(ngModel)]="diagnosticappointmentperslot"
+                  placeholder="Diagnostics Appointments Per Slot"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Home Sample orders Per Slot : </label>
+               
+              </div>
+              <div class="col-lg-6">
+                <input class="form-control" type="text" name="homesampleordersperslot" [(ngModel)]="homesampleordersperslot"
+                  placeholder="Home Sample orders Per Slot"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br> -->
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].timings}}:</label>

@@ -128,6 +128,7 @@ export class HomecareAppdashComponent implements OnInit {
     var sdate = data.split('-')
     this.startdate = sdate[0];
     this.enddate = sdate[1];
+    
     this.docservice.GetHomecareRevenue(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
 
@@ -228,9 +229,19 @@ export class HomecareAppdashComponent implements OnInit {
 
   public cancelledappointment() {
     this.docservice.GetCanacelledHomecareAppointmentsByRecp(this.appointmentid, this.typeid, this.reasonforcancel).subscribe(data => {
-      Swal.fire('Appointment Cancelled Successfully');
+      if(this.languageid==1)
+      {
+        Swal.fire('Appointment Cancelled Successfully');
+        this.GetHomecarerevenue();
+        this.reasonforcancel=""
+      }
+      else
+     {
+      Swal.fire('','Rendez-vous annulé');
       this.GetHomecarerevenue();
       this.reasonforcancel=""
+     }
+     
     })
   }
 }

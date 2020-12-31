@@ -99,10 +99,10 @@
     </div>
     <div class="col-lg-4">
       <select class="form-control" [(ngModel)]="PaymentTypeID" (change)="GetPaymentTypeID($event)">
-        <option value="" selected>S{{labels[0].paymenttype}}</option>
+        <option value="" selected>{{labels[0].paymenttype}}</option>
         <option *ngIf="languageid=='1'" value="4">Cash</option>
         <option *ngIf="languageid=='1'"  value="2">Credit Card / Debit Card</option>
-        <option *ngIf="languageid=='6'" value="4">Encaisser</option>
+        <option *ngIf="languageid=='6'" value="4">Espèces</option>
         <option *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>
@@ -112,16 +112,21 @@
   <div *ngIf="PaymentTypeID=='2'||PaymentTypeID=='3'">
     <div class="row">
       <div class="col-lg-3">
-        <label>Card No</label>
+        <label *ngIf="languageid=='1'" >Card No</label>
+        <label *ngIf="languageid=='6'">Numéro de carte</label>
+        
       </div>
       <div class="col-lg-4">
-        <input placeholder="Enter Card No" type="text" class="form-control" id="CardNo" name="CardNo" maxlength=12>
+        <input placeholder="Enter Card No" type="text" *ngIf="languageid=='1'"  class="form-control" id="CardNo" name="CardNo" maxlength=12>
+
+        <input placeholder="Numéro de carte" type="text" *ngIf="languageid=='6'"  class="form-control" id="CardNo" name="CardNo" maxlength=12>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>Expiry Date</label>
+        <label *ngIf="languageid=='1'">Expiry Date</label>
+        <label *ngIf="languageid=='6'">Date d'expiration</label>
       </div>
       <div class="col-lg-4">
         <input type="text" class="form-control" placeholder="MM" id="month" maxlength=2 />
@@ -145,7 +150,7 @@
       <label class="DEPARTMENT_label"> {{labels[0].amount}} :</label>
     </div>
     <div class="col-lg-4">
-      <input type="number" [(ngModel)]="PaidAmount" id="Amount" name="PaidAmount" class="form-control">
+      <input type="number" [(ngModel)]="PaidAmount" disabled id="Amount" name="PaidAmount" class="form-control">
     </div>
   </div>
   <br>

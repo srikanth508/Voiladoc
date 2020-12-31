@@ -60,8 +60,6 @@ export class NurseworkingdashComponent implements OnInit {
             allowSearchFilter: true,
             searchPlaceholderText: this.search,
           };
-
-
         }, error => {
         }
       )

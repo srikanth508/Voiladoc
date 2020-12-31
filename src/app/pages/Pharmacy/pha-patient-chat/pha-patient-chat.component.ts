@@ -38,11 +38,11 @@ export class PhaPatientChatComponent implements OnInit {
       this.image=0;
       this.getserverdateandtime()
       this.oberserableTimer();
-      this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
+      // this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
        
-        this.chatID = res[0].chatID;
-        this.getPreviousChat();
-      })
+      //   this.chatID = res[0].chatID;
+      //   this.getPreviousChat();
+      // })
     }
     )
   
@@ -64,34 +64,34 @@ export class PhaPatientChatComponent implements OnInit {
 
 
   public dosendmsg() {
-    this.getChat();
+    // this.getChat();
   }
 
-  public getChat() {
-    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
+  // public getChat() {
+  //   this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
      
 
-      if (res.length > 0) {
-        this.chatID = res[0].chatID;
-       this.InsertChatDetails();
-       this.getPreviousChat();
-      }
-      else {
-        var entity = {
-          'PharmacyID': this.pharmacyid,
-          'PatientID': this.patientid
-        }
-        this.docservice.InserPharmacy_ChatMaster(entity).subscribe(data => {
+  //     if (res.length > 0) {
+  //       this.chatID = res[0].chatID;
+  //      this.InsertChatDetails();
+  //      this.getPreviousChat();
+  //     }
+  //     else {
+  //       var entity = {
+  //         'PharmacyID': this.pharmacyid,
+  //         'PatientID': this.patientid
+  //       }
+  //       this.docservice.InserPharmacy_ChatMaster(entity).subscribe(data => {
          
-          if (data != 0) {
-            this.chatID = data;
-             this.InsertChatDetails();
-             this.getPreviousChat();
-          }
-        })
-      }
-    })
-  }
+  //         if (data != 0) {
+  //           this.chatID = data;
+  //            this.InsertChatDetails();
+  //            this.getPreviousChat();
+  //         }
+  //       })
+  //     }
+  //   })
+  // }
 
 
   public InsertChatDetails() {

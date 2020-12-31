@@ -785,6 +785,8 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'Hospitalfulltimebit': 1,
       'ContractStartDate': new Date(),
       'ContractEndDate': new Date(),
+      'DiagnosticAppointmentPerSlot':0,
+      'HomeSampleOrdersPerSlot':0
     }
     this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
 

@@ -19,8 +19,6 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   public Workingdetails: any;
   public diagnosticid: any;
   public dummworkingdetails: any;
-
-
   public diagnosticlist: any;
 
   public slotslist: any;
@@ -74,15 +72,14 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   SelectLabel: any;
   // public dayid = []
   search: any;
-  labels3:any;
+  labels3: any;
 
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid');
     this.typeidss = 2;
-      this.spinner.show();
-  
+
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
         this.labels = data;
@@ -92,23 +89,19 @@ export class DiagnosticSlotsDashComponent implements OnInit {
       }
     )
 
-
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
 
-        this.labels3= data;
-        
+        this.labels3 = data;
       }, error => {
       }
     )
-
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
         debugger
         this.labels1 = data;
         this.SelectLabel = this.labels1[0].select;
-
       },
       error => { }
     );
@@ -121,10 +114,36 @@ export class DiagnosticSlotsDashComponent implements OnInit {
       }, error => {
       }
     )
-    document.getElementById("defaultOpen").click();
-    this.getWorkingdetils()
 
+    this.getdiagnosticforadmin();
+    document.getElementById("defaultOpen").click();
+    // this.getWorkingdetils()
   }
+
+
+
+  public getdiagnosticforadmin() {
+
+    this.docservice.GetDiagnosticForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.diagnosticlist = data;
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+  public GetDiagnosticcenterID(even) {
+    debugger
+    this.diagnosticid = even.target.value;
+    this.spinner.show();
+    this.getWorkingdetils();
+  }
+
+
 
 
   public getWorkingdetils() {
@@ -166,6 +185,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public GetDiagnosticID(diagnosticCenterID, dayID, timeid) {
+
     this.diagnosticid = diagnosticCenterID,
       this.dayid = dayID,
       this.timeid = timeid
@@ -184,6 +204,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.monDayTypeID;
     this.slotid = details.mondaySlotID;
     this.alltypeid = details.monDayTypeID;
+    this.totalappoiments = details.mondayTotalappointments;
   }
 
 
@@ -194,6 +215,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.tueasDayTypeID;
     this.slotid = details.tuesadayslotID;
     this.alltypeid = details.tueasDayTypeID;
+    this.totalappoiments = details.tuesdayTotalappointments;
   }
 
 
@@ -204,6 +226,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.wednessDayTypeID;
     this.slotid = details.wedessdaySlotID;
     this.alltypeid = details.wednessDayTypeID;
+    this.totalappoiments = details.wednessdayTotalappointments;
   }
 
 
@@ -214,6 +237,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.thurDayTypeID;
     this.slotid = details.thursdaySlotID;
     this.alltypeid = details.thurDayTypeID;
+    this.totalappoiments = details.thusdayTotalappointments;
   }
 
   public GetFridayID(details) {
@@ -223,6 +247,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.friDayTypeID;
     this.slotid = details.fridaySlotID;
     this.alltypeid = details.friDayTypeID;
+    this.totalappoiments = details.fridayTotalappointments;
   }
 
   public GetSaturdatID(details) {
@@ -232,6 +257,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.satDayTypeID;
     this.slotid = details.saturdaySlotID;
     this.alltypeid = details.satDayTypeID;
+    this.totalappoiments = details.satdayTotalappointments;
   }
 
   public GetSundayID(details) {
@@ -241,7 +267,10 @@ export class DiagnosticSlotsDashComponent implements OnInit {
     this.typeid = details.sunDayTypeID;
     this.slotid = details.sundaySlotID;
     this.alltypeid = details.sunDayTypeID;
+    this.totalappoiments = details.sundayTotalappointments;
+
   }
+  public totalappoiments: any;
 
   public updatedetails() {
     debugger
@@ -252,7 +281,8 @@ export class DiagnosticSlotsDashComponent implements OnInit {
         'DiagnosticCenterID': this.diagnosticid,
         'DiagnosticSlotID': this.slotid,
         'DayID': this.dayid,
-        'TypeID': this.typeid
+        'TypeID': this.typeid,
+        'TotalAppointments': this.totalappoiments
       }
       this.docservice.InsertDiagnosticRelatedSlotsWeb(entity).subscribe(data => {
         if (this.languageid == 1) {
@@ -264,7 +294,6 @@ export class DiagnosticSlotsDashComponent implements OnInit {
           this.getWorkingdetils()
         }
       })
-
     }
     else if (this.alltypeid == 4 && this.typeid == 2) {
       debugger
@@ -273,7 +302,8 @@ export class DiagnosticSlotsDashComponent implements OnInit {
         'DiagnosticCenterID': this.diagnosticid,
         'DiagnosticSlotID': this.slotid,
         'DayID': this.dayid,
-        'TypeID': this.typeid
+        'TypeID': this.typeid,
+        'TotalAppointments': this.totalappoiments
       }
       this.docservice.InsertDiagnosticRelatedSlotsWeb(entity).subscribe(data => {
         if (this.languageid == 1) {
@@ -313,13 +343,13 @@ export class DiagnosticSlotsDashComponent implements OnInit {
           this.getWorkingdetils()
         }
       })
-
     }
     else if (this.typeid == 1 || this.typeid == 2 && this.alltypeid == 1 || this.alltypeid == 2) {
       this.spinner.show();
       var entity1 = {
         'ID': this.id,
-        'TypeID': this.typeid
+        'TypeID': this.typeid,
+        'TotalAppointments': this.totalappoiments
       }
       this.docservice.UpdateDiagnosticRelatedSlotsWeb(entity1).subscribe(data => {
         if (this.languageid == 1) {

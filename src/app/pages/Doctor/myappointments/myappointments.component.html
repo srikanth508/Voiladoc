@@ -2818,25 +2818,25 @@
 <div class="modal fade" id="exampleModalCenter90" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-xl">
-    <div class="modal-content" style="width:1000px;margin-left: 140px;">
+    <div class="modal-content" style="width:1200px;margin-left: 80px;">
       <div class="modal-header modal-xl">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].soap}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" stylw="width:1100px">
-        <div class="container-fluid">
-          <div class="row" style="overflow: auto;">
+      <div class="modal-body">
+        <div class="container-fluid ">
+          <div class="row" style="overflow: auto;height:400px;">
             <div class="col-lg-12">
-              <table style="font-size: 14px;">
+              <table style="font-size: 16px;" >
                 <tr>
                   <th>{{labels[0].department}}</th>
                   <th>{{labels[0].doctorName}}</th>
-                  <th>{{labels[0].subjective}}</th>
+                  <th style="width: 113px;">{{labels[0].subjective}}</th>
                   <th>{{labels[0].objective}}</th>
-                  <th>{{labels[0].assessment}}</th>
-                  <th>{{labels[0].plan}}</th>
+                  <th >{{labels[0].assessment}}</th>
+                  <th >{{labels[0].plan}}</th>
                   <th>{{labels[0].diagnposticCode}}</th>
                   <th>{{labels[0].diagnosticDescription}}</th>
                   <th>{{labels[0].followUpPlan}}</th>
@@ -2844,18 +2844,18 @@
                   <th>{{labels[0].notes}} </th>
                   <th>Actions</th>
                 </tr>
-                <tr *ngFor="let soap of soaplist1">
+                <tr *ngFor="let soap of soaplist1" >
                   <td>{{soap.departmentname}}</td>
-                  <td>{{soap.doctorName}}</td>
-                  <td>{{soap.subjective}}</td>
-                  <td>{{soap.objective}}</td>
-                  <td>{{soap.assessment}}</td>
+                  <td >{{soap.doctorName}}</td>
+                  <td >{{soap.subjective}}</td>
+                  <td >{{soap.objective}}</td>
+                  <td >{{soap.assessment}}</td>
                   <td>{{soap.plan}}</td>
-                  <td>{{soap.icrDescription}}</td>
+                  <td >{{soap.icrDescription}}</td>
                   <td>{{soap.diagnosisCode}}</td>
                   <td>{{soap.followUpPlan}}</td>
-                  <td>{{soap.signature}}</td>
-                  <td>{{soap.notes}}</td>
+                  <td >{{soap.signature}}</td>
+                  <td >{{soap.notes}}</td>
                   <td>
                     <ng-template #tipcontent9504>Edit</ng-template>
                     <a [ngbTooltip]="tipcontent9504" style="color:black">

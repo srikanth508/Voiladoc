@@ -41,7 +41,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
     this.activatedroute.params.subscribe(params => {
-     
+
       this.ID = params["id"];
       this.hospitalid = localStorage.getItem('hospitalid');
       this.startdate = localStorage.getItem("StartDate");
@@ -50,9 +50,9 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 1) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-           
+
             this.filterdummrevenuelist = data;
-            this.Revenuelist =  this.filterdummrevenuelist.filter(x=>x.isVisited==1)
+            this.Revenuelist = this.filterdummrevenuelist.filter(x => x.isVisited == 1)
             this.count = this.Revenuelist.length;
             // this.grandtotal=0
             this.grandtotal = this.Revenuelist.map(a => a.paidAmount).reduce(function (a, b) {
@@ -66,7 +66,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 2) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-           
+
             this.Revenuelist = data;
             this.filterdummrevenuelist = data;
             this.count = this.Revenuelist.length;
@@ -78,7 +78,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 3) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-           
+
             this.dummRevenuelist = data;
 
             this.Revenuelist = this.dummRevenuelist.filter(x => x.appointmentTypeID == 5)
@@ -90,7 +90,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
       if (this.ID == 4) {
         this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
           data => {
-           
+
             this.dummRevenuelist = data;
 
             this.Revenuelist = this.dummRevenuelist.filter(x => x.appointmentTypeID == 5)
@@ -106,7 +106,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -118,26 +118,27 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   value: any
 
 
-  // selectedDate(data) {
-  //  
-  //   var sdate = data.split('-')
-  //   this.startdate = sdate[0];
-  //   this.enddate = sdate[1];
-  //   this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
-  //     data => {
-  //      
-  //       this.dummlist = data;
-  //       this.cancelledlist = this.dummlist.filter(x => x.appointmentTypeID == 2);
-  //       let total1 = 0;
-  //       this.cancelledlist.forEach(element => {
-  //         total1 += element.paidAmount;
-  //       });
-  //       this.TotalAmount = total1
-  //       this.count = this.cancelledlist.length;
-  //     }, error => {
-  //     }
-  //   )
-  // }
+  selectedDate(data) {
+    debugger
+
+    var sdate = data.split('-')
+    this.startdate = sdate[0];
+    this.enddate = sdate[1];
+    this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
+      data => {
+
+        this.filterdummrevenuelist = data;
+        this.Revenuelist = this.Revenuelist;
+        this.count = this.Revenuelist.length;
+        // this.grandtotal=0
+        this.grandtotal = this.Revenuelist.map(a => a.paidAmount).reduce(function (a, b) {
+          return a + b;
+        });
+
+      }, error => {
+      }
+    )
+  }
 
 
 
@@ -147,7 +148,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -165,7 +166,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -180,10 +181,10 @@ export class TotalHospitalApointmentsComponent implements OnInit {
 
   appointmenttypeid: any;
   public GetAppointmentType(even) {
-   
+
     this.appointmenttypeid = even.target.value;
     if (even.target.value != 0) {
-      this.Revenuelist=this.filterdummrevenuelist.filter(x=>x.appointmentTypeID==this.appointmenttypeid)
+      this.Revenuelist = this.filterdummrevenuelist.filter(x => x.appointmentTypeID == this.appointmenttypeid)
       this.count = this.Revenuelist.length;
 
       // this.grandtotal=0
@@ -191,10 +192,10 @@ export class TotalHospitalApointmentsComponent implements OnInit {
         return a + b;
       });
     }
-    else{
+    else {
       this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
         data => {
-         
+
           this.Revenuelist = data;
           this.filterdummrevenuelist = data;
           this.count = this.Revenuelist.length;

@@ -1398,8 +1398,8 @@ debugger
             Swal.fire('Completed', 'Prescription saved successfully', 'success');
             this.tablecuont1 = 0;
             this.VisitDoctorAppointmentStatus(this.preappointmentid);
-            this.InsertPrscriptionNotifications()
-            this.InsertNotificationPrescription()
+            // this.InsertPrscriptionNotifications()
+            // this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
             this.qwerty2 = []
             this.display = "none";
@@ -1413,8 +1413,7 @@ debugger
             Swal.fire('L’ordonnance a bien été sauvegardée');
             this.tablecuont1 = 0;
             this.VisitDoctorAppointmentStatus(this.preappointmentid);
-            this.InsertPrscriptionNotifications()
-            this.InsertNotificationPrescription()
+         
             this.GetDoctorPrescrptionTemplates()
             this.qwerty2 = []
             this.display = "none";
@@ -1428,6 +1427,8 @@ debugger
         }
       })
     }
+    this.InsertPrscriptionNotifications()
+    this.InsertNotificationPrescription()
   }
 
   public InsertNotificationPrescription() {
@@ -2781,12 +2782,19 @@ debugger
 
 
   public InsertSickSlipGenarator() {
-    
+   
+    const qwer = 'dd-MMM-yyyy';
+    const pljdjf = 'en-US';
+    const frdat = this.fromdate;
+    this.fromdate = formatDate(frdat, qwer, pljdjf);
+    const todat = this.todate;
+    this.todate = formatDate(todat, qwer, pljdjf);
+
     if (this.languageid == 1) {
       this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     else {
-      this.desc = '<p>DATE : ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + ' </b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+      this.desc = '<p>DATE : ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + ' </b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate + ',<br><br>Date de fin : ' + this.todate + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
 
     if (this.languageid == 1) {
@@ -2798,12 +2806,12 @@ debugger
       this.mobiledescription = document.getElementById("qwerty").innerText;
     }
     
-    const qwer = 'dd-MMM-yyyy';
-    const pljdjf = 'en-US';
-    const frdat = this.fromdate;
-    this.fromdate = formatDate(frdat, qwer, pljdjf);
-    const todat = this.todate;
-    this.todate = formatDate(todat, qwer, pljdjf);
+    // const qwer = 'dd-MMM-yyyy';
+    // const pljdjf = 'en-US';
+    // const frdat = this.fromdate;
+    // this.fromdate = formatDate(frdat, qwer, pljdjf);
+    // const todat = this.todate;
+    // this.todate = formatDate(todat, qwer, pljdjf);
 
     if (this.languageid == 1) {
       var entity = {

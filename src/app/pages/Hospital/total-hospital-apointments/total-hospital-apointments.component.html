@@ -7,7 +7,7 @@
       <h5 *ngIf="ID=='4'&&languageid=='1'">Doctor Home Visit Revenue</h5>
 
       <h5 *ngIf="ID=='1'&&languageid=='6'">REVENUS TOTAL </h5>
-      <h5 *ngIf="ID=='2'&&languageid=='6'">Nombre total de rendez-vous</h5>
+      <h5 *ngIf="ID=='2'&&languageid=='6'">RENDEZ-VOUS TOTAL</h5>
       <h5 *ngIf="ID=='3'&&languageid=='6'">RENDEZ-VOUS MEDECINS VISITES A DOMICILE </h5>
       <h5 *ngIf="ID=='4'&&languageid=='6'">REVENUS MEDECINS VISITES A DOMICILE </h5>
     </div>
@@ -20,18 +20,16 @@
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <!-- <div class="col-lg-4">
+    <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-   
-    </div> -->
-    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-2">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
-
-    <div class="col-lg-3">
+    <div class="col-lg-2">
       <div *ngIf="ID=='2'||ID=='1'">
       <select class="form-control" (change)="GetAppointmentType($event)">
         <option value="0">{{labels[0].selectAppType}}</option>
@@ -41,10 +39,8 @@
       </select>
     </div>
     </div>
-    <div class="col-lg-1">
-    </div>
-    <div class="col-lg-3">
-      <div *ngIf="ID=='1'">
+    <div class="col-lg-3" *ngIf="ID=='1'">
+      <div >
       <label *ngIf="languageid==1" style="margin-left: 124px;">Total Revenue : {{grandtotal}}</label>
       <label *ngIf="languageid==6" style="margin-left: 124px;">Revenu total : {{grandtotal}}</label>
     </div>
@@ -64,7 +60,7 @@
             <th id="imp">{{labels[0].appointmentNumber}}</th>
             <th id="imp">{{labels[0].appointmentTime}}</th>
             <th *ngIf="languageid==1">Doctor Name</th>
-            <th *ngIf="languageid==6">Nom du doctuer</th>
+            <th *ngIf="languageid==6">Nom du docteur</th>
             <th id="imp">{{labels[0].appointmentType}}</th>
             <th>{{labels[0].ailment}}</th>
             <th>{{labels[0].patientName}}</th>

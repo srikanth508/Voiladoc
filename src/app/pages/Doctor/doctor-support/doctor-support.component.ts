@@ -94,20 +94,18 @@ export class DoctorSupportComponent implements OnInit {
     this.issuephoto.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire('Mis à jour avec succés');
       abcd.length = 0;
     }
-  
+
   }
 
-  public showphoto=[];
+  public showphoto = [];
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
@@ -149,9 +147,13 @@ export class DoctorSupportComponent implements OnInit {
     })
 
   }
+  public starttime: any;
 
 
 
-
+  public gettime(even) {
+    debugger
+    this.starttime = even.target.value;
+  }
 
 }

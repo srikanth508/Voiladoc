@@ -48,15 +48,15 @@
       </div>
       <br>
     </div>
- 
+
     <div class="row">
       <div class="col-lg-2">
         <label>{{labels[0].bookingType}}: </label>
         <span class="requird">*</span>
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="bookingtype"
-          [settings]="bookingtypedd" (onSelect)="GetBookingTpeID($event)" (onDeSelect)="onItemDeSelect7($event)">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="bookingtype" [settings]="bookingtypedd"
+          (onSelect)="GetBookingTpeID($event)" (onDeSelect)="onItemDeSelect7($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -68,8 +68,8 @@
         <span class="requird">*</span>
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'"  
-          [data]="dayslist" [settings]="daysdd" (onSelect)="GetDaysID($event)" (onDeSelect)="onItemDeSelect($event)">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="dayslist"
+          [settings]="daysdd" (onSelect)="GetDaysID($event)" (onDeSelect)="onItemDeSelect($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -102,15 +102,24 @@
         </select>
       </div>
       <div class="col-lg-3" style="margin-top: 0px;">
-  
+
         <select class="form-control" (change)="getmrngto($event)" [(ngModel)]="mrngtoid" name="mrngtoid">
           <option value="">{{labels[0].endTime}}</option>
           <option *ngFor="let mrngto of mrngtolist" value="{{ mrngto.id }}">{{ mrngto.slots
-          }}</option>
+            }}</option>
         </select>
       </div>
     </div><br>
-  
+    <div class="row">
+      <div class="col-lg-2">
+        <label  *ngIf="mrngAppointmenttype!=6">Fees : </label>
+        <span class="requird"  *ngIf="mrngAppointmenttype!=6">*</span>
+      </div>
+      <div class="col-lg-3">
+        <input type="text" class="form-control" *ngIf="mrngAppointmenttype!=6" [(ngModel)]="fees" required name="fees"
+          placeholder="Fees">
+      </div>
+    </div><br>
     <div class="row">
       <div class="col-lg-3">
       </div>
@@ -118,7 +127,22 @@
         <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()"
           [disabled]="doctorForm.form.invalid">{{labels[0].add}}</button>
       </div>
-      <div class="col-lg-1">
+
+      <div class="col-lg-1" style="margin-right: -1px;">
+        <div class="rectangle"><span style="margin-left: 21px;">{{labels[0].inclinic}}</span></div>
+      </div>
+      <div class="col-lg-1" style="margin-right: -6px;">
+        <div class="vdioerect"> <span style="margin-left: 18px;">{{labels[0].video}}</span></div>
+      </div>
+      <div class="col-lg-1" style="margin-left: 33px;">
+        <div class="homecare"><span style="margin-left: 20px;">{{labels[0].homeVisit}}</span></div>
+      </div>
+
+      <div class="col-lg-1 ">
+        <div class="meeting" style="margin-left: 29px;width: 127%;">
+          <p style="margin-left:12px"> {{labels[0].meeting}}</p>
+        </div>
+        <!-- <div class="col-lg-1">
         <div class="rectangle"><span style="margin-left: 5px;">{{labels[0].inclinic}}</span></div>
       </div>
       <div class="col-lg-1">
@@ -130,7 +154,7 @@
       <div class="col-lg-1 ">
         <div class="meeting" style="margin-left: 31px;width: 120px;">
           <p> {{labels[0].meeting}}</p>
-        </div>
+        </div> -->
       </div>
     </div>
     <br>
@@ -140,29 +164,19 @@
           <thead>
             <tr>
               <th *ngIf="hospitalid!='3'">{{labels[0].hospitalClinic}}</th>
-              <!-- <th>AVAILABILITY TYPE</th> -->
-              <!-- <th>{{labels[0].day}}</th> -->
-              <!-- <th>{{labels[0].fees}}</th> -->
-              <th *ngIf="availabilityid=='3'">{{labels[0].startTime}}</th>
-              <th *ngIf="availabilityid=='3'">{{labels[0].endTime}}</th>
-              <!-- <th *ngIf="availabilityid=='3'">{{labels[0].evening}}</th>
-              <th *ngIf="availabilityid=='3'">{{labels[0].night}}</th>
-              <th *ngIf="availabilityid=='1'||availabilityid=='2'">SESSiON1</th>
-              <th *ngIf="availabilityid=='1'||availabilityid=='2'">SESSiON2</th> -->
+
+              <th>{{labels[0].startTime}}</th>
+              <th>{{labels[0].endTime}}</th>
+              <th>Fees</th>
               <th>{{labels[0].actions}}</th>
             </tr>
             <tr *ngFor="let details of qwerty">
-              <td *ngIf="hospitalid!='3'">{{details.Hospital_Clinic}}</td>
-              <!-- <td>{{details.DoctorAvailability}}</td> -->
-              <!-- <td>{{details.Day}}</td> -->
-              <!-- <td>{{details.Fees}}</td> -->
-              <td *ngIf="availabilityid=='3'" [style.background-color]="details.MrngColorCode">{{details.StartTime}}</td>
-              <td *ngIf="availabilityid=='3'" [style.background-color]="details.MrngColorCode">
+              <td>{{details.Hospital_Clinic}}</td>
+              <td [style.background-color]="details.MrngColorCode" style="color:white">{{details.StartTime}}
+              </td>
+              <td [style.background-color]="details.MrngColorCode" style="color:white">
                 {{details.EndTime}}</td>
-              <!-- <td *ngIf="availabilityid=='3'" [style.background-color]="details.Evngcolorcode">{{details.Evening}}</td>
-              <td *ngIf="availabilityid=='3'" [style.background-color]="details.Nightcolorcode">{{details.Night}}</td>
-              <td *ngIf="availabilityid=='1'||availabilityid=='2'">{{details.Session1}}</td>
-              <td *ngIf="availabilityid=='1'||availabilityid=='2'">{{details.Session2}}</td> -->
+              <td> {{details.Fees}}</td>
               <td>
                 <ng-template #tipcontent2>Delete</ng-template>
                 <a [ngbTooltip]="tipcontent2">
@@ -183,7 +197,7 @@
         <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
           (click)="insertdetailsadmin()">{{labels[0].save}}</button>
       </div> -->
-      <div  class="col-lg-2">
+      <div class="col-lg-2">
         <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
           (click)="insertdetails()">{{labels[0].save}}</button>
       </div>

@@ -64,6 +64,19 @@ export class DoctorRevComponent implements OnInit {
             }
           })
       }
+      if (this.id == 3) {
+        this.docservice.GetBookAppointmentByDoctorID(this.doctorID, this.startdate, this.enddate, this.languageid).subscribe(
+          data => {
+           
+            this.appointmentdummlist = data;
+            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 5 && x.isVisited == 1)
+            this.GrandTotal = 0
+            for (let i = 0; i < this.appointmentlist.length; i++) {
+             
+              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].paidAmount;
+            }
+          })
+      }
     }
     )
 

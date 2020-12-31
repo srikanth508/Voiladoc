@@ -89,7 +89,7 @@ export class DoctorslotsComponent implements OnInit {
         this.hospitalclinicid = params['hospital_ClinicID'];
         this.appointmenttypeid = params['appointmentTypeID'];
         this.bookingTypeID = params['bookingTypeID'];
-        this.doctorfees = params['feesNumber'];
+        // this.doctorfees = params['feesNumber'];
 
 
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
@@ -427,74 +427,5 @@ export class DoctorslotsComponent implements OnInit {
     )
   }
 
-
-
-
-
-
-  // public GetDate(even) {
-  //  
-  //   // this.todaydate = even.target.value;
-  //    this.todaydate = even.toLocaleString().split(',')[0];
-
-  //   // this.dayid = (this.SDate).getDay();
-  //   // localStorage.setItem('appointmentate', this.todaydate);
-  //  // this.todaydate = new Date(date);
-  //   this.dayid = (this.SDate).getDay();
-  //   localStorage.setItem('appointmentate', this.todaydate);
-  //   this.getdoctormorningslots();
-  //   this.getafternoonslots();
-  //   this.geteveningslots();
-  //   this.GetNightslots();
-  // }
-
-
-
-  // public getdoctormorningslots() {
-  //  
-  //   this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
-  //   this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid).subscribe(
-  //     data => {
-  //      
-  //       this.doctorslots = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-  // public getafternoonslots() {
-  //  
-  //   this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
-  //   this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid).subscribe(
-  //     data => {
-  //      
-  //       this.afternoonslots = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
-  // public geteveningslots() {
-  //  
-  //   this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
-  //   this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid).subscribe(
-  //     data => {
-  //      
-  //       this.eveningslosts = data
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-  // public GetNightslots() {
-  //  
-  //   this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
-  //   this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid).subscribe(
-  //     data => {
-  //      
-  //       this.nightslots = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
 
 }

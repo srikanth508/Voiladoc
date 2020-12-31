@@ -9,61 +9,61 @@
   </div>
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
-  <form #Supportform="ngForm"> 
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].issue}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <input type="text" placeholder="{{labels[0].issue}}" required class="form-control" [(ngModel)]="issuename" name="issuename"
-       >
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].description}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <ckeditor [editor]="Editor"  [(ngModel)]="description" name="description" data=""></ckeditor>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].photo}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <ngx-dropzone  [multiple]="false" (change)="onattachmentUpload($event)"
-      >
-       <!-- <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label> -->
-       <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
-      </ngx-dropzone>
-      <div>
-        <span *ngFor="let photo of showphoto">
-          <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
-        </span>
+  <form #Supportform="ngForm">
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].issue}} :</label>
+        <span class="required">*</span>
       </div>
-      <!-- class="dropzone_vendorinvoice" -->
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].issue}}" required class="form-control" [(ngModel)]="issuename"
+          name="issuename">
+      </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-5">
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].description}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ckeditor [editor]="Editor" [(ngModel)]="description" name="description" data=""></ckeditor>
+      </div>
     </div>
-    <div class="col-lg-2">
-      <button type="button" text_align="center" (click)="insertdetails()"
-        class="btn btn-block btn-md allbtns btncolor" [disabled]="Supportform.form.invalid">{{labels[0].save}}</button>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].photo}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)">
+          <!-- <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label> -->
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+        </ngx-dropzone>
+        <div>
+          <span *ngFor="let photo of showphoto">
+            <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+          </span>
+        </div>
+        <!-- class="dropzone_vendorinvoice" -->
+      </div>
     </div>
-    <div class="col-lg-5">
+    <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" (click)="insertdetails()"
+          class="btn btn-block btn-md allbtns btncolor"
+          [disabled]="Supportform.form.invalid">{{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
     </div>
-  </div>
-  <br>
-</form>
+    <br>
+  </form>
 </div>
 <br><br><br>
 

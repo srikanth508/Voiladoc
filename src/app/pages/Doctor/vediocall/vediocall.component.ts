@@ -2557,12 +2557,12 @@ export class VediocallComponent implements OnInit {
     this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
       let res = data;
       if (this.languageid == 1) {
-        Swal.fire('Deleted Successfully');
+        // Swal.fire('Deleted Successfully');
         // this.allergieslist = [];
         this.getpatientdetails()
       }
       else if (this.languageid == 6) {
-        Swal.fire('Deleted Successfully');
+        // Swal.fire('Deleted Successfully');
         // this.allergieslist = [];
         this.getpatientdetails()
       }

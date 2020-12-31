@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid==1">Homecare Appointment</h5>
-      <h5 *ngIf="languageid==6">Revenus Soins à domicile</h5>
+      <h5 *ngIf="languageid==6">RENDEZ-VOUS VISITE À DOMICILE</h5>
     </div>
     <div class="col-lg-3" style="margin-top: -12px;text-align: end;">
       <button class="btn  btncolor" (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
@@ -28,11 +28,16 @@
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)">
         <option value="none" *ngIf="languageid==1">Select Appointment Type </option>
-        <option value="none" *ngIf="languageid==6">Type de revenus</option>
-        <option value="nurse">Nurse </option>
-        <option value="physio">Physiotherapist </option>
-        <option value="midwife">Midwife </option>
-        <option value="Doctor">Doctor </option>
+        <option value="none" *ngIf="languageid==6">Par catégorie</option>
+        <option value="nurse"  *ngIf="languageid==1">Nurse </option>
+        <option value="physio"  *ngIf="languageid==1">Physiotherapist </option>
+        <option value="midwife"  *ngIf="languageid==1">Midwife </option>
+        <option value="Doctor"  *ngIf="languageid==1">Doctor </option>
+
+        <option value="nurse" *ngIf="languageid==6">Infirmiers </option>
+        <option value="physio" *ngIf="languageid==6">Physiothérapeutes </option>
+        <option value="midwife" *ngIf="languageid==6">Sages-femmes </option>
+        <option value="Doctor" *ngIf="languageid==6">Docteurs </option>
       </select>
     </div>
     <div class="col-lg-3" style="text-align: end;">

@@ -29,12 +29,13 @@ export class LoginComponent implements OnInit {
   public countrydetails: any;
   public host: any;
   public labels: any;
- 
+ public Showpass: any;
+
 
   constructor(public docservice: HelloDoctorService, private router: Router, private spinner: NgxSpinnerService) { }
   ngOnInit() {
 
-
+    this.Showpass = 1;
     this.spinner.show();
     setTimeout(() => {
       /** spinner ends after 5 seconds */
@@ -44,13 +45,13 @@ export class LoginComponent implements OnInit {
 
     this.docservice.GetCountrySwitch().subscribe(
       data => {
-       
+
         this.countrylist = data;
       }, error => {
       }
     )
+   
 
- 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
     //    
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
   public getlang(url) {
     this.docservice.GetLanguageMaster(url).subscribe(
       data => {
-       
+
         this.languagelist = data;
       }, error => {
       }
@@ -74,16 +75,16 @@ export class LoginComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
       this.docservice.GetCountrySwitchByCountryID(this.countryid).subscribe(
         data => {
-         
+
           this.countrydetails = data;
-         
+
           localStorage.setItem('WebUrl', this.countrydetails[0].webBaseURL);
           // this.host = this.docservice.host;
-         
+
           this.getlang(this.countrydetails[0].webBaseURL)
         }, error => {
         }
@@ -96,7 +97,7 @@ export class LoginComponent implements OnInit {
   }
 
   public GetLanguageID(even) {
-   
+
     this.LanguageID = even.target.value;
     this.getlanguage();
     localStorage.setItem('LanguageID', this.LanguageID);
@@ -108,10 +109,10 @@ export class LoginComponent implements OnInit {
   }
 
   public getroletypemaster() {
-   
+
     this.docservice.GetRoleTypesMasterBYID(this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
       data => {
-       
+
         this.rolelist = data;
       }, error => {
       }
@@ -120,7 +121,7 @@ export class LoginComponent implements OnInit {
   public getlanguage() {
     this.docservice.Getloginlabel(this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -128,7 +129,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-   
+
     if (this.roleid == null || this.roleid == undefined) {
       if (this.LanguageID == 1) {
         Swal.fire('Error', 'Please select role!');
@@ -144,9 +145,9 @@ export class LoginComponent implements OnInit {
       if (this.roleid == "1") {
         this.docservice.GetSalesRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
           data => {
-           
+
             this.result = data;
-           
+
             if (this.result != null) {
               localStorage.setItem('user', '')
               localStorage.setItem('roleid', '1');
@@ -157,19 +158,17 @@ export class LoginComponent implements OnInit {
               location.href = '#/Docdash';
               location.reload();
             } else {
-              if(this.LanguageID==1)
-              {
+              if (this.LanguageID == 1) {
                 Swal.fire('Error', 'Username or Password is not valid!');
                 this.uname = "";
                 this.pwd = "";
               }
-              else if(this.LanguageID==6)
-              {
+              else if (this.LanguageID == 6) {
                 Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
                 this.uname = "";
                 this.pwd = "";
               }
-     
+
             }
           }, error => {
           }
@@ -179,9 +178,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "2") {
       this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].doctorName)
             localStorage.setItem('roleid', '2');
@@ -195,14 +194,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -215,9 +212,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "3") {
       this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].hospital_ClinicName)
             localStorage.setItem('roleid', '3');
@@ -227,14 +224,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -247,29 +242,27 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "4") {
       this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].diagnosticCenterName)
             localStorage.setItem('roleid', '4');
             localStorage.setItem('diagnosticid', this.result[0].diagnosticCenterID);
             sessionStorage.setItem('temp', '1');
-            location.href = '#/Profiles';
+            location.href = '#/Orders';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-              {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if(this.LanguageID==6)
-              {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
+            if (this.LanguageID == 1) {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if (this.LanguageID == 6) {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
 
           }
         }, error => {
@@ -279,9 +272,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "5") {
       this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].pharmacyName)
             localStorage.setItem('roleid', '5');
@@ -291,14 +284,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -311,9 +302,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "7") {
       this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].nurseName)
             localStorage.setItem('roleid', '7');
@@ -324,29 +315,27 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
             }
           }
         }, error => {
-        }
+        }   
       )
     }
     if (this.roleid == "8") {
       this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].name)
             localStorage.setItem('roleid', '8');
@@ -357,14 +346,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -377,9 +364,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "9") {
       this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].name)
             localStorage.setItem('roleid', '9');
@@ -389,18 +376,16 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-              {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if(this.LanguageID==6)
-              {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
+            if (this.LanguageID == 1) {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if (this.LanguageID == 6) {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -409,9 +394,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "10") {
       this.docservice.GetDeliveryCompanyLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].companyName)
             localStorage.setItem('roleid', '10');
@@ -421,14 +406,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -442,9 +425,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "11") {
       this.docservice.GetLocalDoctorRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].doctorName)
             localStorage.setItem('roleid', '11');
@@ -454,18 +437,16 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-              {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if(this.LanguageID==6)
-              {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
+            if (this.LanguageID == 1) {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if (this.LanguageID == 6) {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -474,9 +455,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "12") {
       this.docservice.GetMeridionalAdmin_LoginUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', 'Manny')
             localStorage.setItem('roleid', '12');
@@ -486,14 +467,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -506,9 +485,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "13") {
       this.docservice.GetSupportRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('supportid', this.result[0].id)
             localStorage.setItem('user', this.result[0].name)
@@ -519,18 +498,16 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-              {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if(this.LanguageID==6)
-              {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
+            if (this.LanguageID == 1) {
+              Swal.fire('Error', 'Username or Password is not valid!');
+              this.uname = "";
+              this.pwd = "";
+            }
+            else if (this.LanguageID == 6) {
+              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+              this.uname = "";
+              this.pwd = "";
+            }
           }
         }, error => {
         }
@@ -539,9 +516,9 @@ export class LoginComponent implements OnInit {
     if (this.roleid == "14") {
       this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         
+
           this.result = data;
-         
+
           if (this.result.length != '0') {
             localStorage.setItem('user', this.result[0].hospital_ClinicName)
             localStorage.setItem('roleid', '14');
@@ -553,14 +530,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -573,7 +548,7 @@ export class LoginComponent implements OnInit {
     // management logins
 
     if (this.roleid == "15") {
-      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
         data => {
           this.result = data;
           if (this.result.length != '0') {
@@ -581,18 +556,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '15');
             localStorage.setItem('countrymanagerid', this.result[0].id);
             sessionStorage.setItem('temp', '1');
-             location.href = '#/AdminDash';
+            location.href = '#/AdminDash';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -603,7 +576,7 @@ export class LoginComponent implements OnInit {
       )
     }
     if (this.roleid == "17") {
-      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
         data => {
           this.result = data;
           if (this.result.length != '0') {
@@ -611,18 +584,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '17');
             localStorage.setItem('implementationid', this.result[0].id);
             sessionStorage.setItem('temp', '1');
-             location.href = '#/AdminDash';
+            location.href = '#/AdminDash';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -633,7 +604,7 @@ export class LoginComponent implements OnInit {
       )
     }
     if (this.roleid == "18") {
-      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
         data => {
           this.result = data;
           if (this.result.length != '0') {
@@ -641,18 +612,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '18');
             localStorage.setItem('clientserviceid', this.result[0].id);
             sessionStorage.setItem('temp', '1');
-             location.href = '#/AdminDash';
+            location.href = '#/AdminDash';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -663,7 +632,7 @@ export class LoginComponent implements OnInit {
       )
     }
     if (this.roleid == "19") {
-      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
         data => {
           this.result = data;
           if (this.result.length != '0') {
@@ -671,18 +640,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '19');
             localStorage.setItem('salesmanagerid', this.result[0].id);
             sessionStorage.setItem('temp', '1');
-             location.href = '#/AdminDash';
+            location.href = '#/AdminDash';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -693,7 +660,7 @@ export class LoginComponent implements OnInit {
       )
     }
     if (this.roleid == "20") {
-      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
         data => {
           this.result = data;
           if (this.result.length != '0') {
@@ -701,18 +668,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '20');
             localStorage.setItem('salesrepresntativeid', this.result[0].id);
             sessionStorage.setItem('temp', '1');
-             location.href = '#/AdminDash';
+            location.href = '#/AdminDash';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -723,7 +688,7 @@ export class LoginComponent implements OnInit {
       )
     }
     if (this.roleid == "22") {
-      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+      this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
         data => {
           this.result = data;
           if (this.result.length != '0') {
@@ -731,18 +696,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '22');
             localStorage.setItem('finanacemanagerid', this.result[0].id);
             sessionStorage.setItem('temp', '1');
-             location.href = '#/BillingDashboard';
+            location.href = '#/BillingDashboard';
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -754,12 +717,12 @@ export class LoginComponent implements OnInit {
     }
     if (this.roleid == "23") {
       debugger
-      this.docservice.GetDiagnosticReceptionistLoginByUserNameAndPassword(this.uname, this.pwd,localStorage.getItem('WebUrl')).subscribe(
+      this.docservice.GetDiagnosticReceptionistLoginByUserNameAndPassword(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
         data => {
-         debugger;          
-         this.result = data;         
+          debugger;
+          this.result = data;
           if (this.result.length != '0') {
-            localStorage.setItem('user', this.result[0].userName);          
+            localStorage.setItem('user', this.result[0].userName);
             localStorage.setItem('roleid', '23');
             localStorage.setItem('diagnosticid', this.result[0].diagnosticID);
             localStorage.setItem('Receptionstid', this.result[0].id);
@@ -769,14 +732,12 @@ export class LoginComponent implements OnInit {
             location.reload();
           }
           else {
-            if(this.LanguageID==1)
-            {
+            if (this.LanguageID == 1) {
               Swal.fire('Error', 'Username or Password is not valid!');
               this.uname = "";
               this.pwd = "";
             }
-            else if(this.LanguageID==6)
-            {
+            else if (this.LanguageID == 6) {
               Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
               this.uname = "";
               this.pwd = "";
@@ -812,11 +773,17 @@ export class LoginComponent implements OnInit {
 
 
   public onchangeFunction(even) {
-   
+
     this.roleid = even.target.value;
     localStorage.setItem('roleid', this.roleid);
   }
 
+  public hidepassord() {
+    this.Showpass = 0;
+  }
 
-
+  public showpassword()
+  {
+    this.Showpass = 1;
+  }
 }

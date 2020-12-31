@@ -37,6 +37,7 @@
         <option value="0">{{labels[0].selectAppointmentType}}</option>
         <option value="1">{{labels[0].inClinic}}</option>
         <option value="2">{{labels[0].vedioConference}}</option>
+        <option value="5">{{labels[0].homeVisit}}</option>
       </select>
     </div>
     <div class="col-lg-3"></div>
@@ -60,7 +61,9 @@
             <th>{{labels[0].app_Time}}</th>
             <th>{{labels[0].departmentt}}</th>
             <th>{{labels[0].doctorr}}</th>
-            <th>{{labels[0].doctorrfees}}</th>
+            <th *ngIf="languageid=='1'">Paid Amount</th>
+            <th *ngIf="languageid=='6'">Paiement reçu</th>
+            <!-- <th>{{labels[0].doctorrfees}}</th> -->
             <th>{{labels[0].patientnamee}}</th>
             <!-- <th>{{labels[0].reasonVisit}}</th> -->
             <th *ngIf="languageid=='1'">Reason for visit</th>
@@ -70,14 +73,14 @@
           </tr>
           <tr *ngFor="let details of doctorlist|filter:term|filter:term1">
             <td>{{details.appointmentID}}</td>
-            <td>{{details.apptDateTime}}</td>
+            <td>{{details.appointmentdatess}}</td>
             <td>{{details.slots}}</td>
             <td>{{details.departmentname}}</td>
             <td>{{details.doctorName}}</td>
             <td>{{details.paidAmount}}</td>
             <td>{{details.patientName}}</td>
             <td>{{details.reasonForVisit}}</td>
-            <td>{{details.combinationValue}}</td>
+            <td>{{details.appointmentTypeText}}</td>
             <td>{{details.paymentType}}</td>
           </tr>
         </thead>

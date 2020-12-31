@@ -122,6 +122,7 @@ export class DocWorkingDashComponent implements OnInit {
         data => {
 
           this.dummlist = data;
+
           this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
 
           this.docdd = {
@@ -139,7 +140,6 @@ export class DocWorkingDashComponent implements OnInit {
         }
       )
     }
-
 
   }
 
@@ -225,6 +225,8 @@ export class DocWorkingDashComponent implements OnInit {
 
   public GetDoctorID(item: any) {
     this.doctorid = item.id
+
+
     this.spinner.show();
     // this.GetDoctorsworkinglist()
     debugger
@@ -235,6 +237,7 @@ export class DocWorkingDashComponent implements OnInit {
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
         this.slottypeid = list[0].slotDurationID;
         this.dochspid = list[0].id;
+        this.hospitalid=list[0].hospital_ClinicID;
         // this.GetMorningSlotsMasterbyid();
         // this.GetAfternoonSlotsMasterbyID();
         // this.GetEveningSlotsMasterByID();
@@ -468,61 +471,75 @@ public docslotid:any;
   public allappointmentid: any;
 
   public GetDay1List(details) {
+    debugger
     this.appointmentypeid = details.mondayappointmentID;
     this.slotid = details.mondaySlotID;
     this.allappointmentid = details.mondayappointmentID;
     this.dayid = details.mondayDayID;
     this.docslotid= details.docMondaySlotID;
+    this.fees=details.mondayFees;
   }
 
 
 
   public GetDay2List(details) {
+    debugger
     this.appointmentypeid = details.tuesdayAppointmentID;
     this.slotid = details.tuesdaySlotID;
     this.allappointmentid = details.tuesdayAppointmentID;
     this.dayid = details.tuesDayID;
     this.docslotid= details.docTuesDaySlotID;
+    this.fees=details.tuesdayFees;
   }
 
   public GetDay3List(details) {
+    debugger
     this.appointmentypeid = details.wednesdayAppointmentID;
     this.slotid = details.wednessdaySlotID;
     this.allappointmentid = details.wednesdayAppointmentID;
     this.dayid = details.wednessDayID;
     this.docslotid= details.docWednessDaySlotID;
+    this.fees=details.wednessdayFees;
   }
 
   public GetDay4List(details) {
+    debugger
     this.appointmentypeid = details.thursdayAppointmentID;
     this.slotid = details.tursdaySlotID;
     this.allappointmentid = details.thursdayAppointmentID;
     this.dayid = details.thursDayID;
     this.docslotid= details.docThursaDaySlotID;
+    this.fees=details.thursdayFees;
   }
 
   public GetDay5List(details) {
+    debugger
     this.appointmentypeid = details.fridayAppointmentID;
     this.slotid = details.fridaySlotID;
     this.allappointmentid = details.fridayAppointmentID;
     this.dayid = details.friDayID;
     this.docslotid= details.docFridayDaySlotID;
+    this.fees=details.fridayFees;
   }
 
   public GetDay6List(details) {
+    debugger
     this.appointmentypeid = details.saturdayAppintmentID;
     this.slotid = details.saturdaySlotID;
     this.allappointmentid = details.saturdayAppintmentID;
     this.dayid = details.saturDayID;
     this.docslotid= details.docSatDaySlotID;
+    this.fees=details.satdayFees;
   }
 
   public GetDay7List(details) {
+    debugger
     this.appointmentypeid = details.sundayAppointmentID;
     this.slotid = details.sundaySlotID;
     this.allappointmentid = details.sundayAppointmentID;
     this.dayid = details.sunDayID;
     this.docslotid= details.doSunDaySlotID;
+    this.fees=details.sundayFees;
   }
 
 
@@ -542,12 +559,14 @@ public docslotid:any;
         'Hospital_ClinicID': this.hospitalid,
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
-        'DoctorHospitalDetailsID': this.dochspid
+        'DoctorHospitalDetailsID': this.dochspid,
+        'DoctorFees':this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
         Swal.fire('Updated Successfully');
         this.spinner.show();
-        this.GetDoctorTimings()
+        this.GetDoctorTimings();
+        this.insertbookappointmenttype()
 
       })
     }
@@ -561,12 +580,14 @@ public docslotid:any;
         'Hospital_ClinicID': this.hospitalid,
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
-        'DoctorHospitalDetailsID': this.dochspid
+        'DoctorHospitalDetailsID': this.dochspid,
+        'DoctorFees':this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
         Swal.fire('Updated Successfully');
-       
+        this.insertbookappointmenttype()
         this.GetDoctorTimings()
+        
         
       })
     }
@@ -579,17 +600,20 @@ public docslotid:any;
         'Hospital_ClinicID': this.hospitalid,
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
-        'DoctorHospitalDetailsID': this.dochspid
+        'DoctorHospitalDetailsID': this.dochspid,
+        'DoctorFees':this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
         Swal.fire('Updated Successfully');
         this.spinner.show();
+        this.insertbookappointmenttype()
         this.GetDoctorTimings()
       })
 
     }
 else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
+      debugger
       var entity1 = {
         'SlotID': this.docslotid,
         'DoctorID': this.doctorid,
@@ -597,14 +621,15 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
         'Hospital_ClinicID': this.hospitalid,
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
-        'DoctorHospitalDetailsID': this.dochspid
+        'DoctorHospitalDetailsID': this.dochspid,
+        'DoctorFees':this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
         Swal.fire('Updated Successfully');
         this.spinner.show();
+        this.insertbookappointmenttype()
         this.GetDoctorTimings()
       })
-      
     }
 
     else if (this.allappointmentid == 1 && this.appointmentypeid == 4) {
@@ -614,6 +639,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
           debugger
           Swal.fire('Updated Successfully');
           this.spinner.show();
+          this.insertbookappointmenttype()
           this.GetDoctorTimings()
         }, error => {
         }
@@ -655,16 +681,17 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
         }
       )
     }
-    else if (this.appointmentypeid == 1 || this.appointmentypeid == 2 || this.appointmentypeid == 5 || this.appointmentypeid == 6&& this.allappointmentid == 1||this.allappointmentid == 2||this.allappointmentid == 5||this.allappointmentid == 6) {
+    else if (this.appointmentypeid == 1 || this.appointmentypeid == 2 || this.appointmentypeid == 5 || this.appointmentypeid == 6 && this.allappointmentid == 1||this.allappointmentid == 2||this.allappointmentid == 5||this.allappointmentid == 6) {
       debugger
       this.spinner.show();
       var entity = {
         'ID': this.slotid,
-        'AppointmentTypeID': this.appointmentypeid
+        'AppointmentTypeID': this.appointmentypeid,
+        'DoctorFees':this.fees
       }
       this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
         Swal.fire('Updated Successfully');
-    
+        this.insertbookappointmenttype()
         this.GetDoctorTimings()
       })
     }

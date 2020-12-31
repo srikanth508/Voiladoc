@@ -34,11 +34,11 @@ export class NurseChatComponent implements OnInit {
     this.image=0;
     this.getserverdateandtime()
     this.oberserableTimer();
-    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
+    // this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
      
-      this.chatID = res[0].chatID;
-      this.getPreviousChat();
-    })
+    //   this.chatID = res[0].chatID;
+    //   this.getPreviousChat();
+    // })
 
   }
   public getserverdateandtime() {

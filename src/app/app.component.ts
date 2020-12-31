@@ -807,6 +807,8 @@ export class AppComponent {
       })
     }
   }
+
+  
   public show1: any;
   public acceptrejectid: any;
   public details: any;
@@ -815,7 +817,7 @@ export class AppComponent {
   public ViewMedicines(docnoti) {
     this.acceptrejectid = docnoti.id
     this.details = docnoti
-    this.docservice.GetPatientOrderedMedicines(docnoti.orderID).subscribe(
+    this.docservice.GetPatientOrderedMedicines(docnoti.orderID,this.languageid).subscribe(
       data => {
         this.orderedmedicinelist = data;
       }, error => {

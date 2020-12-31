@@ -42,7 +42,7 @@ export class DocdashComponent implements OnInit {
   public countrymanaerid: any;
   public showexportbutton: any;
   public salesrepresntiveid: any;
-  public showeditbutton:any;
+  public showeditbutton: any;
 
   ngOnInit() {
     this.departmentname = ""
@@ -57,12 +57,11 @@ export class DocdashComponent implements OnInit {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
 
-    if(this.salesrepresntiveid!=undefined)
-    {
-      this.showeditbutton=1
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
     }
-    else{
-      this.showeditbutton=0;
+    else {
+      this.showeditbutton = 0;
     }
     if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
@@ -93,7 +92,7 @@ export class DocdashComponent implements OnInit {
         this.getdoctorforadmin();
         debugger
       }
-      else if(this.id!=undefined){
+      else if (this.id != undefined) {
         this.docservice.GetDoctorForAdminByLanguageIDWeb(this.startdate, this.enddate, this.languageid).subscribe(
           data => {
             debugger
@@ -118,7 +117,7 @@ export class DocdashComponent implements OnInit {
     }
     )
 
-  
+
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
 
@@ -318,62 +317,60 @@ export class DocdashComponent implements OnInit {
 
 
   public deletedoctorregistration(id) {
-if(this.languageid==1)
-{
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You Want to Delete This Doctor!",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.value) {
-      this.docservice.DeleteDoctorRegistration(id).subscribe(res => {
-        let test = res;
-        this.ngOnInit()
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorRegistration(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Doctor has been deleted.',
+            'success'
+          )
+        }
+        else {
+          this.ngOnInit()
+        }
       })
-      Swal.fire(
-        'Deleted!',
-        'Doctor has been deleted.',
-        'success'
-      )
     }
-    else {
-      this.ngOnInit()
-    }
-  })
-}
-else if(this.languageid==6)
-{
-  Swal.fire({
-    title: 'Êtes-vous sûr ?',
-    // text: "You Want to Delete This Doctor!",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, supprimer !',
-    cancelButtonText: 'Annuler'
-  }).then((result) => {
-    if (result.value) {
-      this.docservice.DeleteDoctorRegistration(id).subscribe(res => {
-        let test = res;
-        this.ngOnInit()
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDoctorRegistration(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Le médecin a été supprimé.',
+            'success'
+          )
+        }
+        else {
+          this.ngOnInit()
+        }
       })
-      Swal.fire(
-        'Supprimé!',
-        'Le médecin a été supprimé.',
-        'success'
-      )
     }
-    else {
-      this.ngOnInit()
-    }
-  })
-}
-   
+
   }
 
 

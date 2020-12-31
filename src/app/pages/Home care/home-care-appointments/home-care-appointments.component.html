@@ -66,7 +66,7 @@
         (ngModelChange)="GetDate($event)" [minDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"
+        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate1" name="selecteddate1"
         (ngModelChange)="GetDate($event)" [minDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
   </div><br>
@@ -165,7 +165,7 @@
         <option value="0" >{{labels[0].paymenttype}}</option>
         <option *ngIf="languageid=='1'" value="4">Cash</option>
         <option  *ngIf="languageid=='1'" value="2">Credit Card / Debit Card Using Swipe Machine</option>
-        <option  *ngIf="languageid=='6'" value="4">Encaisser</option>
+        <option  *ngIf="languageid=='6'" value="4">Espèces</option>
         <option  *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>

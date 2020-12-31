@@ -41,7 +41,7 @@
           <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}
           ">
             <td>{{details.appdate}}</td>
-            <td>{{details.slotName}}</td>
+            <td>{{details.slotTime}}</td>
             <td>{{details.id}}</td>
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
@@ -74,7 +74,9 @@
               <label
                 *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
                 style="color: red;">{{labels[0].cancelled}}</label>
-              <label *ngIf="details.approved=='1'" style="color: yellowgreen;">{{labels[0].visited}}</label>
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'" style="color: yellowgreen;">{{labels[0].visited}}</label>
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'" style="color: yellowgreen;">Report Delivered</label>
+
               <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
               <label
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'"
@@ -266,7 +268,7 @@
                   <tr>
                     <th>{{labels[0].tests}}</th>
                     <th>Description</th>
-                    <th>Actions</th>
+                    <th>{{labels[0].available}}</th>
                   </tr>
                   <tr *ngFor="let listss of testslist">
                     <td>{{listss.testName}}</td>

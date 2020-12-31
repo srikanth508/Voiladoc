@@ -159,6 +159,10 @@ export class MidwifeFeesDashComponent implements OnInit {
 
 
 
+
+  
+
+
   public DeleteMidWifeCommissionDeatails(id) {
    
     Swal.fire({

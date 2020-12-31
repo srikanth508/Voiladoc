@@ -64,6 +64,9 @@ export class ProfilesComponent implements OnInit {
     }
   }
 
+  public diagnosticappointmentperslot:any;
+  public homesampleordersperslot:any;
+
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
   public getdiagnosticdetailsforadmin() {
     this.docservice.GetDiagnosticDetailsForAdminByLanguageID(this.id,this.languageid).subscribe(
@@ -87,7 +90,9 @@ export class ProfilesComponent implements OnInit {
           this.photourl = this.details.photoURL
         this.areaid = this.details.areaID,
           this.countryid = this.details.countryID,
-          this.pincode = this.details.pincode
+          this.pincode = this.details.pincode,
+          this.diagnosticappointmentperslot=this.details.diagnosticAppointmentPerSlot,
+          this.homesampleordersperslot=this.details.homeSampleOrdersPerSlot,
           this.GetCountryMaster();
           this.getcitymaster();
           this.getareamasterbyid();
@@ -160,7 +165,9 @@ export class ProfilesComponent implements OnInit {
       'Description': this.description,
       'AreaID': this.areaid,
       'Pincode': this.pincode,
-      'CountryID': this.countryid
+      'CountryID': this.countryid,
+      'DiagnosticAppointmentPerSlot':this.diagnosticappointmentperslot,
+      'HomeSampleOrdersPerSlot':this.homesampleordersperslot
     }
     this.docservice.UpdateDiagnosticCenterProfile(entity).subscribe(res => {
       let test = res;

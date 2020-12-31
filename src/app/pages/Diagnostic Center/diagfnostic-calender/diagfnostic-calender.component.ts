@@ -26,7 +26,11 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public today = new Date();
   public recepid: any;
   public showedit: any;
-  public labelsss:any;
+  public labelsss: any;
+  term1: any;
+  timechangedate1: any;
+  public totalappointments: any;
+  public daychangedate1: any;
   ngOnInit() {
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -77,7 +81,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
       data => {
 
         this.labelsss = data;
-      
+
       }, error => {
       }
     )
@@ -98,7 +102,6 @@ export class DiagfnosticCalenderComponent implements OnInit {
       },
       error => { }
     );
-
   }
 
 
@@ -122,7 +125,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day1DayID
     this.appointmentdate = details.day1AppointmentDate
     this.slotid = details.day1SlotID
-    this.typeid = details = details.day1TypeID
+    this.typeid = details.day1TypeID
+    this.totalappointments = details.day1Appointments
   }
 
   public GetDay2Details(details) {
@@ -130,7 +134,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day2DayID
     this.appointmentdate = details.day2AppointmentDate
     this.slotid = details.day2SlotID
-    this.typeid = details = details.day2TypeID
+    this.typeid = details.day2TypeID
+    this.totalappointments = details.day2Appointments
   }
 
   public GetDay3Details(details) {
@@ -138,7 +143,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day3DayID
     this.appointmentdate = details.day3AppointmentDate
     this.slotid = details.day3SlotID
-    this.typeid = details = details.day3TypeID
+    this.typeid = details.day3TypeID
+    this.totalappointments = details.day3Appointments
   }
 
 
@@ -147,7 +153,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day4DayID
     this.appointmentdate = details.day4AppointmentDate
     this.slotid = details.day4SlotID
-    this.typeid = details = details.day4TypeID
+    this.typeid = details.day4TypeID
+    this.totalappointments = details.day4Appointments
   }
 
 
@@ -156,7 +163,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day5DayID
     this.appointmentdate = details.day5AppointmentDate
     this.slotid = details.day5SlotID
-    this.typeid = details = details.day5TypeID
+    this.typeid = details.day5TypeID
+    this.totalappointments = details.day5Appointments
   }
 
 
@@ -165,7 +173,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day6DayID
     this.appointmentdate = details.day6AppointmentDate
     this.slotid = details.day6SlotID
-    this.typeid = details = details.day6TypeID
+    this.typeid = details.day6TypeID
+    this.totalappointments = details.day6Appointments
   }
 
 
@@ -174,7 +183,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.dayid = details.day7DayID
     this.appointmentdate = details.day7AppointmentDate
     this.slotid = details.day7SlotID
-    this.typeid = details = details.day7TypeID
+    this.typeid = details.day7TypeID
+    this.totalappointments = details.day7Appointments
   }
 
 
@@ -186,7 +196,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
       'DiagnosticSlotID': this.slotid,
       'DayID': this.dayid,
       'TypeID': this.typeid,
-      'AppointmentDate': this.appointmentdate
+      'AppointmentDate': this.appointmentdate,
+      'TotalAppointments': this.totalappointments
     }
     this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
       this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotid, this.appointmentdate).subscribe(data => {
@@ -244,6 +255,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
   public GetTypeID(even) {
     this.typeID = even.target.value;
+    this.totalappointments = 0;
   }
 
 
@@ -319,10 +331,20 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public InsertDayWiseSlots() {
     debugger
     if (this.daychangedate == undefined || this.daychangedate == null) {
-      Swal.fire('Please Select Date')
+      if (this.languageid == 1) {
+        Swal.fire('Please Select Date');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Sélectionner une date');
+      }
     }
     else if (this.Daywiseappointmentid == undefined || this.Daywiseappointmentid == null) {
-      Swal.fire('Please Select Type')
+      if (this.languageid == 1) {
+        Swal.fire('Please Select Type');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Veuillez sélectionner le type');
+      }
     }
     else {
       debugger
@@ -333,7 +355,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
           'DiagnosticSlotID': this.slotslist[i].id,
           'DayID': this.datechangedayid,
           'TypeID': this.Daywiseappointmentid,
-          'AppointmentDate': this.daychangedate
+          'AppointmentDate': this.daychangedate,
+          'TotalAppointments': this.totalappointments
         }
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotslist[i].id, this.daychangedate).subscribe(data => {
@@ -345,11 +368,13 @@ export class DiagfnosticCalenderComponent implements OnInit {
       }
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
-        this.getWorkingdetils()
+        this.getWorkingdetils();
+        this.totalappointments = ""
       }
       else {
         Swal.fire('Mis à jour avec succés');
         this.getWorkingdetils()
+        this.totalappointments = ""
       }
     }
   }
@@ -433,13 +458,28 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public InsertTimeWiseSlots() {
     debugger
     if (this.timechangedate == undefined || this.timechangedate == null) {
-      Swal.fire('Please Select Date')
+      if (this.languageid == 1) {
+        Swal.fire('Please Select Date');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Sélectionner une date');
+      }
     }
     else if (this.timewiseappointmentid == undefined || this.timewiseappointmentid == null) {
-      Swal.fire('Please Select Type')
+      if (this.languageid == 1) {
+        Swal.fire('Please Select Type');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Veuillez sélectionner le type');
+      }
     }
     else if (this.mrngfromid == "" || this.mrngtoid == "") {
-      Swal.fire('Please Select Time')
+      if (this.languageid == 1) {
+        Swal.fire('Please Select Time');
+      }
+      else {
+        Swal.fire("Veuillez sélectionner l'heure");
+      }
     }
     else {
       debugger
@@ -450,7 +490,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
           'DiagnosticSlotID': this.timewisechangeslotlist[i].id,
           'DayID': this.timechangedayid,
           'TypeID': this.timewiseappointmentid,
-          'AppointmentDate': this.timechangedate
+          'AppointmentDate': this.timechangedate,
+          'TotalAppointments': this.totalappointments
         }
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.timewisechangeslotlist[i].id, this.timechangedate).subscribe(data => {
@@ -461,18 +502,20 @@ export class DiagfnosticCalenderComponent implements OnInit {
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
         this.getWorkingdetils();
-        this.timewiseappointmentid="";
-        this.timechangedate="";
+        this.timewiseappointmentid = "";
+        this.timechangedate = "";
         this.mrngtoid = "";
-        this.mrngtoid="";
+        this.mrngtoid = "";
+        this.totalappointments = ""
       }
       else {
         Swal.fire('Mis à jour avec succés');
         this.getWorkingdetils();
-        this.timewiseappointmentid="";
-        this.timechangedate="";
+        this.timewiseappointmentid = "";
+        this.timechangedate = "";
         this.mrngtoid = "";
-        this.mrngtoid="";
+        this.mrngtoid = "";
+        this.totalappointments = ""
       }
     }
   }

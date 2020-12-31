@@ -3,8 +3,8 @@
     <div class="col-lg-6">
       <!-- <p>Doctor Video</p> -->
       <!-- <br><br> -->
-      <h6 *ngIf="languageid=='1'">Patient Video <span style="margin-left: 550px;" id="demo"></span> </h6>
-      <h6 *ngIf="languageid=='6'">Vidéo patient <span style="margin-left: 550px;" id="demo"></span> </h6>
+      <h6 *ngIf="languageid=='1'" style="margin-top:6px">Patient Video <span style="margin-left: 550px;" id="demo"></span> </h6>
+      <h6 *ngIf="languageid=='6'"  style="margin-top:6px">Vidéo patient <span style="margin-left: 550px;" id="demo"></span> </h6>
       <!-- <h6   id="demo"></h6> -->
       <div class="row">
         <div *ngIf="session">
@@ -1702,7 +1702,7 @@
                   <tr *ngFor="let allergilist of myarray">
                     <td>{{allergilist.Showallergies}}</td>
                     <td>
-                      <ng-template #tipcontent2>Delete</ng-template>
+                      <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
                       <a [ngbTooltip]="tipcontent2">
                         <img src="assets/Images/dell.png" (click)="deletealergeies(allergilist.Snoo)"
                           style="width: 20px;margin-left: 10px;">

@@ -8,11 +8,11 @@ import { pipeDef } from '@angular/core/src/view';
 })
 
 export class HelloDoctorService {
-  public host5 = "http://localhost:4199/";
-  // public host = "http://localhost:4199/";
+
+   //  public host = "http://localhost:4199/";
   //latestsoln date 29-07-2020
 
-  public host = localStorage.getItem('WebUrl');
+ public host = localStorage.getItem('WebUrl');
 
   private host1 = "https://14.192.17.225/VoilaDocWebAPI";
 
@@ -2077,9 +2077,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Admin/InserPharmacy_ChatMaster';
     return this.http.post(this.url, data)
   }
-  public GetPharmacyChatID(nid, pid) {
+  public GetPharmacyChatID(nid, pid,appid) {
 
-    return this.http.get<any[]>(this.host + '/Admin/GetPharmacyChatID?PharmacyID=' + nid + '&PatientID=' + pid);
+    return this.http.get<any[]>(this.host + '/Admin/GetPharmacyChatID?PharmacyID=' + nid + '&PatientID=' + pid+'&AppointmentID='+appid);
   }
   public GetPharmacy_ChatDetails(cid) {
 
@@ -4812,9 +4812,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Pharmacy/GetNotification_Pharmacy?PharmacyID=' + pharmacyid);
   }
 
-  public GetPatientOrderedMedicines(orderid) {
+  public GetPatientOrderedMedicines(orderid,lid) {
 
-    return this.http.get<any[]>(this.host + '/Pharmacy/GetPatientOrderedMedicines?OrderID=' + orderid);
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetPatientOrderedMedicines?OrderID=' + orderid+'&LanguageID='+lid);
   }
 
   public UpdateNotification_PharmacyAccepted(pharmacyid, orderid) {
@@ -5066,4 +5066,27 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
+  public GetBookAppointmentByDateWiseAppointmentCount(appdate, doctorid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByDateWiseAppointmentCount?AppointmentDate=' + appdate + '&DoctorID=' + doctorid);
+  }
+
+  public GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(appdate, doctorid,slotid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount?AppointmentDate=' + appdate + '&DoctorID=' + doctorid+'&SlotID='+slotid);
+  }
+
+
+  public GetNursePriceDetails(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetNursePriceDetails?NurseID=' + id);
+  }
+
+  public GetPhysioPriceDetailsWeb(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetPhysioPriceDetailsWeb?PhysioID=' + id);
+  }
+
+  public GetMidwifePriceDetails(MidwifeID) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetMidwifePriceDetails?MidwifeID=' + MidwifeID);
+  }
 }

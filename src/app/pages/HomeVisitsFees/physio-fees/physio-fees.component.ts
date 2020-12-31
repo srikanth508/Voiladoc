@@ -62,8 +62,56 @@ export class PhysioFeesComponent implements OnInit {
       }, error => {
       }
     )
-    this.getphysiotherapist()
+    this.idcount = 1;
+    this.getphysiotherapist();
+    this.GetTimings();
   }
+
+
+  public starttime: any;
+  public strttimeid: any;
+  public endtimelist: any;
+  public endtime: any;
+  public endtimeid: any;
+
+
+  public GetStartTime(even) {
+    debugger
+    let list = even.target.value.split(',')
+
+    this.starttime = list[0];
+    this.strttimeid = list[1];
+    this.endtimelist = this.Timeings.filter(x => x.id > this.strttimeid);
+  }
+
+  public GetEndTime(even) {
+    debugger
+    let list = even.target.value.split(',');
+    this.endtime = list[0];
+    this.endtimeid = list[1];
+  }
+
+
+
+  Timeings: any;
+  dummtimings: any;
+
+  public GetTimings() {
+    this.docservice.GetSlotMasterTimings().subscribe(
+      data => {
+
+        this.Timeings = data;
+        this.dummtimings = data;
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+
 
   public getphysiotherapist() {
     if (this.hospitalclinicid == undefined) {
@@ -98,91 +146,80 @@ export class PhysioFeesComponent implements OnInit {
     this.physihospitalid = list1[0].id,
       this.hospitalid = list1[0].hospitalClinicID,
       this.hospitalname = list1[0].hospital_ClinicName
+    this.physioname = list1[0].name
     debugger
-    // this.gethospitals();
-  }
-
-  // public gethospitals() {
-  //   this.docservice.GetPhysiotherapyHospitalDetailsByHospitals(this.physioid, this.languageid).subscribe(
-  //     data => {
-
-  //       this.hospitalist = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-  // public GetHospitalID(even) {
-
-  //   this.hospitalid = even.target.value;
-
-
-  //   var list = this.hospitalist.filter(x => x.hospital_ClinicID == this.hospitalid)
-  //   this.physihospitalid = list[0].id
-  // }
-
-
-
-  public GetDoccommission(physiofees) {
-
-    this.voiladoccommission = 100 - Number(physiofees);
 
   }
 
+
+
+  public qwerty = [];
+  public idcount: any;
+  public tablecount: any;
+
+
+  public adddetails() {
+    var entity = {
+      'Sno': this.idcount,
+      'PhysioID': this.physioid,
+      'PhysioHospitalID': this.physihospitalid,
+      'HospitalID': this.hospitalid,
+      'HomeVisitFees': this.homevisitfee,
+      'StartTime': this.starttime,
+      'EndTime': this.endtime,
+      'Physioname': this.physioname,
+      'StartTimeID':this.strttimeid
+    }
+    this.qwerty.push(entity);
+    this.idcount = this.idcount + 1;
+    this.tablecount = 1;
+    var mrngslots = this.Timeings.findIndex(x => x.id == this.endtimeid);
+    this.Timeings = this.Timeings.slice(mrngslots, this.Timeings.length);
+    this.starttime = "";
+    this.endtime = "";
+    this.endtimelist.length = 0;
+    this.homevisitfee = "";
+  }
 
   public insertdetails() {
-    if (this.physioid == undefined) {
-      Swal.fire("Please Select Nurse");
-    }
-    else if (this.hospitalid == undefined) {
-      Swal.fire("Please Select Hospital / Clinic");
-    }
-    // else if (this.fees == undefined) {
-    //   Swal.fire("Please Select Fees");
-    // }
 
-    else {
-
+    for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'PhysioID': this.physioid,
         'PhysioHospitalID': this.physihospitalid,
         'HospitalID': this.hospitalid,
-        'HomeVisitFees': this.homevisitfee,
-        'PhysioFee': this.physiofees,
-        'VoilaDocCommission': this.voiladoccommission
+        'HomeVisitFees': this.qwerty[i].HomeVisitFees,
+        'StartTime': this.qwerty[i].StartTime,
+        'EndTime': this.qwerty[i].EndTime
       }
       this.docservice.InsertPhsyioTherapistCommissionDeatails(entity).subscribe(data => {
         if (data != 0) {
-          // if (this.independent == 2) {
-          //   this.InsertPhysioRevenue()
-          // }
-          if(this.languageid==1)
-          {
-            Swal.fire('Success', 'Details Saved Successfully');
-            location.href = "#/PhysiFeedash"
-          }
-          else if(this.languageid==6)
-          {
-            Swal.fire('', 'Mis à jour avec succès !');
-            location.href = "#/PhysiFeedash"
-          }
-       
-        }
-        else {
-          if(this.languageid==1)
-          {
-            location.href = "#/PhysiFeedash"
-            Swal.fire("This Service Already Exists");
-          }
-         else if(this.languageid==6)
-          {
-            location.href = "#/PhysiFeedash"
-            Swal.fire("Ce service existe déjà");
-          }
 
         }
+
       })
     }
+    this.tablecount = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Success', 'Details Saved Successfully');
+      // location.href = "#/PhysiFeedash"
+    }
+    if (this.languageid == 6) {
+      Swal.fire('', 'Mis à jour avec succès !');
+      // location.href = "#/PhysiFeedash"
+    }
+    // else {
+    //   if (this.languageid == 1) {
+    //     location.href = "#/PhysiFeedash"
+    //     Swal.fire("This Service Already Exists");
+    //   }
+    //   else if (this.languageid == 6) {
+    //    location.href = "#/PhysiFeedash"
+    //     Swal.fire("Ce service existe déjà");
+    //   }
+
+    // }
+
   }
 
 
@@ -199,7 +236,9 @@ export class PhysioFeesComponent implements OnInit {
           this.homevisitfee = list2[0].homeVisitFees,
           this.physiofee = list2[0].physioFee,
           this.voiladoccommission = list2[0].voilaDocCommission,
-          this.physioname = list2[0].name
+          this.physioname = list2[0].name,
+          this.starttime=list2[0].startTime,
+          this.endtime=list2[0].endTime
       }, error => {
       }
     )
@@ -251,34 +290,23 @@ export class PhysioFeesComponent implements OnInit {
       )
     }
   }
-  public monthlysubription: any;
-  public appointmentpercentage: any;
-  public subscriptiontype: any;
-  public contractstartdate: any;
-  public contractenddate: any;
 
 
-  public Getsubscriptontype() {
+  
+  public delete(Sno) {
     debugger
-    this.appointmentpercentage = 0;
-    this.monthlysubription = 0;
-  }
-
-
-  public InsertPhysioRevenue() {
-    debugger
-    var entity1 = {
-      'SubscriptionTypeID': this.subscriptiontype,
-      'HospitalID': this.hospitalid,
-      'PhysiotherapistID': this.physioid,
-      'MonthlySubscription': this.monthlysubription,
-      'AppointmentPercentage': this.appointmentpercentage,
-      'ContractStartdate': this.contractstartdate,
-      'ContractEnddate': this.contractenddate
+    for (let i = 0; i < this.qwerty.length; i++) {
+      if (Sno == this.qwerty[i].Sno) {
+      debugger
+        var mrngslots = this.dummtimings.findIndex(x => x.id ==  this.qwerty[i].StartTimeID);
+        this.Timeings = this.dummtimings.slice(mrngslots, this.dummtimings.length);
+        debugger
+        this.qwerty.splice(i, 1);
+      }
     }
-    this.docservice.InsertIndependentPhysiotherapist_Revenue(entity1).subscribe(data => {
+    if (this.qwerty.length == 0) {
+      this.tablecount = 0;
+    }
 
-    })
   }
-
 }

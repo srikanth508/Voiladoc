@@ -374,6 +374,10 @@ import { DiagnosticSupportDashComponent } from './pages/Diagnostic Center/diagno
 import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-completed-tickets/dia-completed-tickets.component';
 import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
 import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
+import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
+
+
+
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
   url: 'http://14.192.17.225/RMSAPI/Master/UploadZIP/',
@@ -737,7 +741,8 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DiagnosticSupportDashComponent,
     DiaCompletedTicketsComponent,
     RefundSupportComponent,
-    RefundCompletedTicketsComponent
+    RefundCompletedTicketsComponent,
+    AllDiagnosticCalenderComponent
    
   ],
   imports: [
@@ -760,6 +765,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     [BrowserModule, NgxPaginationModule],
     CKEditorModule,
     NgxTagsInputModule,
+   
 
     TranslatorModule.forRoot({
       providedLanguages: ['en', 'fr'],

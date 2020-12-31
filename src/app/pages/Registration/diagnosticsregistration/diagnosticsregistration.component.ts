@@ -157,6 +157,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
 
 
+  public diagnosticappointmentperslot:any;
+  public homesampleordersperslot:any;
 
 
   public GetCityID(item1: any) {
@@ -233,6 +235,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'Hospitalfulltimebit': this.hospitalfulltimebit,
         'ContractStartDate': this.contractstartdate,
         'ContractEndDate': this.contractenddate,
+        'DiagnosticAppointmentPerSlot':this.diagnosticappointmentperslot,
+        'HomeSampleOrdersPerSlot':this.homesampleordersperslot
       }
       this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
        

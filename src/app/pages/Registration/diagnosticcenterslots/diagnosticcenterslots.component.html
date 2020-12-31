@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
-  <div *ngIf="dummdiagnosticid=='undefined'">
+  <div *ngIf="shodrop=='1'">
     <div class="row " style="margin-top:20px;">
       <div class="col-lg-3">
         <label class="dname_label">{{labels[0].diagnosticCenter}} :</label>
@@ -25,22 +25,22 @@
     </div>
     <BR>
   </div>
-  <div *ngIf="dummdiagnosticid!='undefined'">
+  <!-- <div *ngIf="dummdiagnosticid!='0'">
     <div class="row " style="margin-top:20px;">
       <div class="col-lg-3">
         <label class="dname_label">{{labels[0].diagnosticCenter}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <!-- <select class="dropdown form-control ng-pristine" (change)="GetDiagnosticID($event)">
+        <select class="dropdown form-control ng-pristine" (change)="GetDiagnosticID($event)">
             <option value="" selected>Select</option>
             <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.diagnosticCenterName}}</option>
-          </select> -->
-        <input type="text" disabled class="form-control" [(ngModel)]="diagnosticname" name="diagnosticname">
+          </select>
+         <input type="text" disabled class="form-control" [(ngModel)]="diagnosticname" name="diagnosticname"> 
       </div>
     </div>
     <BR>
-  </div>
+  </div> -->
   <div class="row">
     <div class="col-lg-3">
       <label>
@@ -66,13 +66,10 @@
     </div>
     <div class="col-lg-9">
       <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="1"> &nbsp;
-     {{labels[0].homesample}}
+      {{labels[0].homesample}}
       &nbsp;
       <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="2"> &nbsp;
       {{labels[0].diagnosticentre}} &nbsp;
-      <!-- <input type="radio" [(ngModel)]="appointmenttype" name="appointmenttype" value="3"> &nbsp;
-      Both
-      &nbsp; -->
     </div>
     <div class="col-lg-3">
       <label class="Slot_label">{{labels[0].slots}}:</label>
@@ -92,6 +89,12 @@
           }}</option>
       </select>
     </div>
+
+    <div class="col-lg-2" *ngIf="appointmenttype=='1'">
+      <input type="text" class="form-control" placeholder="No of Appointments" [(ngModel)]="homenoofappointments"
+        name="homenoofappointments">
+    </div>
+
     <div class="col-lg-3" *ngIf="appointmenttype=='2'">
       <select class="form-control" (change)="GetDiagnosticFromSlots($event)" [(ngModel)]="diafromid" name="diafromid">
         <option value="">{{labels[0].startTime}}</option>
@@ -105,13 +108,18 @@
           }}</option>
       </select>
     </div>
+    <div class="col-lg-2" *ngIf="appointmenttype=='2'">
+      <input type="text" class="form-control" placeholder="No of Appointments" [(ngModel)]="dianoofappointments"
+        name="dianoofappointments">
+    </div>
 
   </div><br>
   <div class="row">
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">{{labels[0].add}}</button>
+      <button type="button" class="btn btn-block btn-md allbtns btncolor"
+        (click)="adddetails()">{{labels[0].add}}</button>
     </div>
     <div class="col-lg-5">
     </div>
@@ -123,12 +131,16 @@
           <tr>
             <th>{{labels[0].startTime}}</th>
             <th>{{labels[0].endTime}}</th>
+            <th>Schedule Type</th>
+            <th>No of Appointments</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of qwerty">
             <td [style.background-color]="details.Color">{{details.StartTime}}</td>
             <td [style.background-color]="details.Color">
               {{details.EndTime}}</td>
+              <td>{{details.AppointmentName}}</td>
+            <td>{{details.NoOfAppointments}}</td>
             <td>
               <ng-template #tipcontent2>Delete</ng-template>
               <a [ngbTooltip]="tipcontent2">
@@ -144,7 +156,8 @@
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button type="button" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails1()">{{labels[0].save}}</button>
+      <button type="button" class="btn btn-block btn-md allbtns btncolor"
+        (click)="insertdetails1()">{{labels[0].save}}</button>
     </div>
     <div class="col-lg-5">
     </div>

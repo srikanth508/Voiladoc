@@ -33,7 +33,8 @@ export class NurseFeesComponent implements OnInit {
   public id: any;
   public showbutton: any;
   public showindependentradio: any;
- 
+  public dummtimings: any;
+
 
 
   ngOnInit() {
@@ -62,16 +63,31 @@ export class NurseFeesComponent implements OnInit {
       }
     }
     )
+    this.idcount = 1;
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
 
         this.labels = data;
-       
+
       }, error => {
       }
     )
     this.getnurse();
+    this.GetTimings();
+  }
+
+
+  Timeings: any
+  public GetTimings() {
+    this.docservice.GetSlotMasterTimings().subscribe(
+      data => {
+
+        this.Timeings = data;
+        this.dummtimings = data;
+      }, error => {
+      }
+    )
   }
 
 
@@ -97,10 +113,6 @@ export class NurseFeesComponent implements OnInit {
     }
   }
 
-  public GetDoccommission(nursefees) {
-
-    this.voiladoccommission = 100 - Number(nursefees);
-  }
 
 
   public GetNurseID(even) {
@@ -136,63 +148,8 @@ export class NurseFeesComponent implements OnInit {
   }
 
 
-  public insertdetails() {
-    if (this.nurseid == undefined) {
-      Swal.fire("Please Select Nurse");
-    }
-    else if (this.hospitalid == undefined) {
-      Swal.fire("Please Select Hospital / Clinic");
-    }
-    // else if (this.fees == undefined) {
-    //   Swal.fire("Please Select Fees");
-    // }
-
-    else {
-      var entity = {
-        'NurseID': this.nurseid,
-        'NurseHospitalID': this.nursehospitalid,
-        'HospitalID': this.hospitalid,
-        'HomeVisitFees': this.homevisitfee,
-        'NurseFee': this.nursefees,
-        'VoilaDocCommission': this.voiladoccommission
-      }
-      this.docservice.InsertNurseCommissionDeatails(entity).subscribe(data => {
-        if (data != 0) {
-          // if (this.independent == 2) {
-          //   debugger
-          //   this.InsertNurseRevenue();
-          // }
-          if(this.languageid==1)
-          {
-            Swal.fire('Success', 'Details Saved Successfully');
-            location.href = "#/NurseFeeDash"
-          }
-          else if(this.languageid==6)
-          {
-            Swal.fire('', 'Mis à jour avec succès !');
-            location.href = "#/NurseFeeDash"
-          }
-       
-        }
-        else {
-          if(this.languageid==1)
-          {
-            Swal.fire("This Service Already Exists");
-            this.tablecount = 0;
-          }
-          else if(this.languageid==6)
-          {
-            Swal.fire("Ce service existe déjà");
-            this.tablecount = 0;
-          }
-       
-        }
-      })
-    }
-  }
 
   nursefeelist: any;
-
 
   public GetNurseCommisiionDetails() {
     this.docservice.GetNurseCommissionDeatails(this.languageid).subscribe(
@@ -202,13 +159,96 @@ export class NurseFeesComponent implements OnInit {
         var list = this.nursefeelist.filter(x => x.id == this.id)
         this.homevisitfee = list[0].homeVisitFees,
           this.nursename = list[0].nurseName,
-          this.hospitalname = list[0].hospital_ClinicName
+          this.hospitalname = list[0].hospital_ClinicName,
+          this.starttime = list[0].startTime,
+          this.endtime = list[0].endTime
+
       }, error => {
       }
     )
   }
 
   public independent: any;
+  public starttime: any;
+  public endtime: any;
+  public strttimeid: any;
+  public endtimelist: any;
+  public endtimeid: any;
+
+
+  public GetStartTime(even) {
+    debugger
+    let list = even.target.value.split(',')
+
+    this.starttime = list[0];
+    this.strttimeid = list[1];
+    this.endtimelist = this.Timeings.filter(x => x.id > this.strttimeid);
+  }
+
+  public GetEndTime(even) {
+    debugger
+    let list = even.target.value.split(',');
+    this.endtime = list[0];
+    this.endtimeid = list[1];
+  }
+
+
+  public adddetails() {
+    var entity1 = {
+      'Sno': this.idcount,
+      'HomeVisitFees': this.homevisitfee,
+      'NurseFee': this.nursefees,
+      'StartTime': this.starttime,
+      'EndTime': this.endtime,
+      'NurseName': this.nursename,
+      'StartTimeID': this.strttimeid
+    }
+    this.qwerty.push(entity1);
+    this.idcount = this.idcount + 1;
+    this.tablecount = 1;
+    var mrngslots = this.Timeings.findIndex(x => x.id == this.endtimeid);
+    this.Timeings = this.Timeings.slice(mrngslots, this.Timeings.length);
+    this.starttime = "";
+    this.endtime = "";
+    this.endtimelist.length = 0;
+    this.homevisitfee = "";
+  }
+
+
+
+  public insertdetails() {
+    debugger
+    for (let i = 0; i < this.qwerty.length; i++) {
+      var entity = {
+        'NurseID': this.nurseid,
+        'NurseHospitalID': this.nursehospitalid,
+        'HospitalID': this.hospitalid,
+        'HomeVisitFees': this.qwerty[i].HomeVisitFees,
+        'StartTime': this.qwerty[i].StartTime,
+        'EndTime': this.qwerty[i].EndTime,
+      }
+      this.docservice.InsertNurseCommissionDeatails(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Success', 'Details Saved Successfully');
+        }
+        else {
+          Swal.fire('Error', 'Home Visit Charges Exist For This Time band Please Edit Same Fees');
+        }
+      })
+    }
+    this.tablecount = 0;
+    // if (this.languageid == 1) {
+    //   Swal.fire('Success', 'Details Saved Successfully');
+    //   // location.href = "#/NurseFeeDash"
+    // }
+    // else if (this.languageid == 6) {
+    //   Swal.fire('', 'Mis à jour avec succès !');
+    //   // location.href = "#/NurseFeeDash"
+    // }
+
+  }
+
+
 
   public updatedetails() {
     var entity1 = {
@@ -219,7 +259,7 @@ export class NurseFeesComponent implements OnInit {
     }
     this.docservice.UpdateNurseCommissionDeatails(entity1).subscribe(data => {
       if (this.languageid == 1) {
-      
+
         Swal.fire('Updated Successfully');
 
         location.href = "#/NurseFeeDash"
@@ -274,20 +314,24 @@ export class NurseFeesComponent implements OnInit {
     this.monthlysubription = 0;
   }
 
-  public InsertNurseRevenue() {
-    debugger
-    var entity1 = {
-      'SubscriptionTypeID': this.subscriptiontype,
-      'HospitalID': this.hospitalid,
-      'NurseID': this.nurseid,
-      'MonthlySubscription': this.monthlysubription,
-      'AppointmentPercentage': this.appointmentpercentage,
-      'ContractStartdate': this.contractstartdate,
-      'ContractEnddate': this.contractenddate
-    }
-    this.docservice.InsertIndependentNurse_Revene(entity1).subscribe(data => {
 
-    })
+
+  public delete(Sno) {
+    debugger
+    for (let i = 0; i < this.qwerty.length; i++) {
+      if (Sno == this.qwerty[i].Sno) {
+        debugger
+        var mrngslots = this.dummtimings.findIndex(x => x.id == this.qwerty[i].StartTimeID);
+        this.Timeings = this.dummtimings.slice(mrngslots, this.dummtimings.length);
+        debugger
+        this.qwerty.splice(i, 1);
+      }
+    }
+    if (this.qwerty.length == 0) {
+      this.tablecount = 0;
+    }
+
   }
+
 
 }

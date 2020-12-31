@@ -112,7 +112,15 @@ export class SidebarComponent implements OnInit {
   public Registeredusers: any;
   public Approveddash: any;
   public RejectedDash: any;
-  public subscriptions:any;
+  public subscriptions: any;
+  public diagnosticplanning: any;
+
+
+  public midwifeagenda: any;
+  public doctoragenda: any;
+  public nurseagenda: any;
+  public physiotherapistagenda: any;
+  diagnosticagenda:any;
   ngOnInit() {
 
     this.display = "none";
@@ -406,11 +414,31 @@ export class SidebarComponent implements OnInit {
             if (this.menulist[s].subMenuName == 'Subscriptions') {
               this.subscriptions = 1;
             }
-
+            if (this.menulist[s].subMenuName == 'DIagnostic Planning') {
+              this.diagnosticplanning = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Doctor Agenda') {
+              this.doctoragenda = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Nurse Agenda') {
+              this.nurseagenda = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Physiotherapist Agenda') {
+              this.physiotherapistagenda = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Midwife Agenda') {
+              this.midwifeagenda = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Diagnostic Agenda') {
+              this.diagnosticagenda = 1;
+            }
           }
         })
     }
   }
+ 
+
+
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {

@@ -26,13 +26,15 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public serverdateandtime: any;
   public todaydate: any;
   public selecteddate: any;
-  public Selecteddate2: any;  
+  public Selecteddate2: any;
   public todaydatesss: any;
   public todaydatesssssss: any;
   public appointmenttime: any;
   public hospitalid: any;
   public reasonforvisit: any;
-  public mindate=new Date();
+  public mindate = new Date();
+  public search: any;
+  public selecteddate1: any;
 
   ngOnInit() {
     this.hospitalid = localStorage.getItem('hospitalid');
@@ -44,10 +46,13 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
 
       }, error => {
       }
     )
+
+    this.randomid = 0;
 
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
@@ -60,7 +65,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
           this.appointmenttime = this.serverdateandtime.presentTime,
-          this.todaydate = this.serverdateandtime.todaydate
+            this.todaydate = this.serverdateandtime.todaydate
           // localStorage.setItem('SelectedDate', this.todaydatesssssss)
         }
         else if (this.languageid == 6) {
@@ -75,7 +80,6 @@ export class HomeCareAppointmentsComponent implements OnInit {
       }, error => {
       }
     )
-
   }
 
 
@@ -92,7 +96,8 @@ export class HomeCareAppointmentsComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       },
       error => { }
@@ -217,6 +222,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
         debugger
       }, error => {
       })
+      this.GetnurseFess();
     }
     if (this.typeid == 3) {
       debugger
@@ -227,6 +233,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
         debugger
       }, error => {
       })
+      this.GetPhysioFees();
     }
     if (this.typeid == 4) {
       debugger
@@ -237,6 +244,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
         debugger
       }, error => {
       })
+      this.GetMidWifeFess();
     }
   }
 
@@ -253,16 +261,52 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public nurseid: any;
   public nursehospitalid: any;
   public amount: any;
+  public nursefees: any;
+  public randomid: any;
 
   public GetNurseID(even) {
     debugger
     this.nurseid = even.target.value;
-
-    var list = this.dummnurselist.filter(x => x.nurseID == this.nurseid)
-    this.nursehospitalid = list[0].nurseHospitalDetailsID,
-      this.amount = list[0].fees
-
+    debugger
+    this.GetnurseFess();
   }
+
+  public testid: any;
+
+  public GetnurseFess() {
+    // this.amount = 0;
+    this.docservice.GetNursePriceDetails(this.nurseid).subscribe(data => {
+      debugger
+
+      this.nursefees = data;
+
+      for (let i = 0; i < this.nursefees.length; i++) {
+        debugger
+        if (this.nursefees[i].startTimeNew <= this.appointmenttime && this.appointmenttime <= this.nursefees[i].endTimeNew) {
+
+          if (this.amount = "" && this.testid === 0) {
+            this.testid = 1;
+            this.amount = this.nursefees[i].feesNumber
+          }
+          else {
+          }
+        }
+        else {
+          if (this.amount == 0 || this.amount == "" || this.amount == undefined) {
+            this.testid = 2
+            this.amount = this.nursefees[i].feesNumber
+          }
+          else if (this.amount != 0 && this.testid == 1) {
+
+          }
+          else if (this.amount != 0 && this.testid == 2) {
+            this.amount = this.nursefees[i].feesNumber
+          }
+        }
+      }
+    })
+  }
+
 
   public physioid: any;
   public dummphysiolist: any;
@@ -271,12 +315,48 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public GetPhysiotheerapist(even) {
     this.physioid = even.target.value;
 
-    var list = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
-    this.physiohospitalid = list[0].physioHospitalDetailsID
-    this.amount = list[0].fees
+    // var list = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
+    // this.physiohospitalid = list[0].physioHospitalDetailsID
+    // this.amount = list[0].fees
   }
 
 
+  public physiofees: any;
+  public phytestiddd: any;
+
+  public GetPhysioFees() {
+    this.docservice.GetPhysioPriceDetailsWeb(this.physioid).subscribe(data => {
+      debugger
+
+      this.physiofees = data;
+
+      for (let i = 0; i < this.physiofees.length; i++) {
+
+        debugger
+        if (this.physiofees[i].startTimeNew <= this.appointmenttime && this.appointmenttime <= this.physiofees[i].endTimeNew) {
+
+          if (this.amount = "" && this.phytestiddd === 0) {
+            this.phytestiddd = 1;
+            this.amount = this.physiofees[i].feesNumber
+          }
+          else {
+          }
+        }
+        else {
+          if (this.amount == 0 || this.amount == "" || this.amount == undefined) {
+            this.phytestiddd = 2
+            this.amount = this.physiofees[i].feesNumber
+          }
+          else if (this.amount != 0 && this.phytestiddd == 1) {
+
+          }
+          else if (this.amount != 0 && this.phytestiddd == 2) {
+            this.amount = this.physiofees[i].feesNumber
+          }
+        }
+      }
+    })
+  }
 
   public midwifeid: any;
   public midwifehospitalid: any;
@@ -288,8 +368,45 @@ export class HomeCareAppointmentsComponent implements OnInit {
     var list = this.dummmidwifelist.filter(x => x.midWifeID == this.midwifeid)
     this.midwifehospitalid = list[0].midWifeHospitalDetailsID
     this.amount = list[0].fees
-
   }
+
+
+  public midwifefees: any;
+  public midtestid:any;
+
+  public GetMidWifeFess() {
+    this.docservice.GetMidwifePriceDetails(this.midwifeid).subscribe(data => {
+      debugger
+
+      this.midwifefees = data;
+      for (let i = 0; i < this.midwifefees.length; i++) {
+        debugger
+        if (this.midwifefees[i].startTimeNew <= this.appointmenttime && this.appointmenttime <= this.midwifefees[i].endTimeNew) {
+
+          if (this.amount = "" && this.midtestid === 0) {
+            this.midtestid = 1;
+            this.amount = this.midwifefees[i].feesNumber
+          }
+          else {
+          }
+        }
+        else {
+          if (this.amount == 0 || this.amount == "" || this.amount == undefined) {
+            this.midtestid = 2
+            this.amount = this.midwifefees[i].feesNumber
+          }
+          else if (this.amount != 0 && this.midtestid == 1) {
+
+          }
+          else if (this.amount != 0 && this.midtestid == 2) {
+            this.amount = this.midwifefees[i].feesNumber
+          }
+        }
+      }
+    })
+  }
+
+
 
 
   public bookappointment() {
@@ -368,8 +485,14 @@ export class HomeCareAppointmentsComponent implements OnInit {
           this.nurseappointid = data;
           debugger
           this.NursePatientPaymentdetails();
-          Swal.fire('Appointment Booked Successfully');
-          location.href = "#/HomecareAppdash"
+          if (this.languageid == 1) {
+            Swal.fire('Appointment Booked Successfully');
+            location.href = "#/HomecareAppdash"
+          }
+          else {
+            Swal.fire('Rendez-vous est réservé');
+            location.href = "#/HomecareAppdash"
+          }
         }
       })
     }
@@ -443,8 +566,15 @@ export class HomeCareAppointmentsComponent implements OnInit {
           this.physioappointmentid = data;
           debugger
           this.PhysioPatientpaymentDetails();
-          Swal.fire('Appointment Booked Successfully');
-          location.href = "#/HomecareAppdash"
+          if (this.languageid == 1) {
+            Swal.fire('Appointment Booked Successfully');
+            location.href = "#/HomecareAppdash"
+          }
+          else {
+            Swal.fire('Rendez-vous est réservé');
+            location.href = "#/HomecareAppdash"
+          }
+
         }
       })
     }
@@ -518,8 +648,15 @@ export class HomeCareAppointmentsComponent implements OnInit {
           this.midwifeappointmentid = data;
           debugger
           this.BookMidwifepaymentdetails();
-          Swal.fire('Appointment Booked Successfully');
-          location.href = "#/HomecareAppdash"
+          if (this.languageid == 1) {
+            Swal.fire('Appointment Booked Successfully');
+            location.href = "#/HomecareAppdash"
+          }
+          else {
+            Swal.fire('Rendez-vous est réservé');
+            location.href = "#/HomecareAppdash"
+          }
+
         }
       })
     }
@@ -553,8 +690,13 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
   public bookDoctorappointment() {
 
-    if (this.patientid == null || this.patientid == undefined||this.doctorid==undefined) {
-      Swal.fire("Please Select Mandatory Fields")
+    if (this.patientid == null || this.patientid == undefined || this.doctorid == undefined) {
+      if (this.languageid == 1) {
+        Swal.fire("Please Select Mandatory Fields")
+      }
+      else {
+        Swal.fire("Veuillez remplir tous les champs obligatoires.")
+      }
     }
     else {
       var entity = {
@@ -575,7 +717,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
         'NurseID': 1,
         'ReasonForVisit': this.reasonforvisit,
         'PaidAmount': this.amount,
-        'HomeVisit':1
+        'HomeVisit': 1
       }
       this.docservice.InsertBookAppointmentForWeb(entity).subscribe(data => {
         this.docappointmentid = data;
@@ -584,8 +726,14 @@ export class HomeCareAppointmentsComponent implements OnInit {
           // this.SendNotification();
           this.insertpaymentDetails()
           //this.sendmail();
-          Swal.fire('Success', 'Appointment Booked Successfully');
-           location.href = "#/HomecareAppdash"
+          if (this.languageid == 1) {
+            Swal.fire('Success', 'Appointment Booked Successfully');
+            location.href = "#/HomecareAppdash"
+          }
+          else {
+            Swal.fire('Rendez-vous est réservé');
+            location.href = "#/HomecareAppdash"
+          }
         }
       })
     }

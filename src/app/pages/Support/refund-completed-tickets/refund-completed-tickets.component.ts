@@ -17,7 +17,7 @@ export class RefundCompletedTicketsComponent implements OnInit {
 
   constructor(public docservice: HelloDoctorService) { }
 
-  
+
   options: NgDateRangePickerOptions;
   issuelist: any;
   languageid: any;
@@ -43,7 +43,7 @@ export class RefundCompletedTicketsComponent implements OnInit {
   showexportbutton: any;
   refundlist: any;
   comments: any;
-  dummrefundlist:any;
+  dummrefundlist: any;
   ngOnInit() {
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
     this.supportid = localStorage.getItem('supportid');
@@ -91,12 +91,13 @@ export class RefundCompletedTicketsComponent implements OnInit {
       this.dropzonelable = "Télécharger des fichiers"
     }
   }
+  
 
   public GetRefunfSupport() {
     this.docservice.GetPatientRefundStatusWeb(this.languageid, this.startdate, this.enddate).subscribe(res => {
 
       this.dummrefundlist = res;
-      this.refundlist=this.dummrefundlist.filter(x=>x.completed==1)
+      this.refundlist = this.dummrefundlist.filter(x => x.completed == 1)
       this.count = this.refundlist.length;
     })
   }
@@ -134,7 +135,7 @@ export class RefundCompletedTicketsComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -152,7 +153,7 @@ export class RefundCompletedTicketsComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -164,5 +165,76 @@ export class RefundCompletedTicketsComponent implements OnInit {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
+
+  public transctionslip: any;
+
+
+  public GetTransctiuonSlip(refund) {
+    this.transctionslip = refund.transctionPhoto
+  }
+
+
+
+  
+  public GetTransctionPhotodetails(details) {
+    this.id = details.id
+  }
+
+
+
+  
+  public UpdatePatientRefundStatusByBankDetails() {
+    var entity = {
+      'ID': this.id,
+      'Comments': this.comments,
+      'TransctionPhoto': this.issuephotourl[0],
+    }
+    this.docservice.UpdatePatientRefundStatusByBankDetails(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+        this.GetRefunfSupport();
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+        this.GetRefunfSupport();
+      }
+    })
+  }
+
+
+
+  identityattachmentsurlssss = []
+  showidentityproof = [];
+
+  public onattachmentUpload(abcd) {
+
+    // for (let i = 0; i < abcd.length; i++) {
+    this.identityattachmentsurlssss = []
+    this.issuephoto.push(abcd.addedFiles[0]);
+    this.uploadid();
+    // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
+  }
+
+  public uploadid() {
+    this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
+
+      this.issuephotourl.push(res);
+      this.identityattachmentsurlssss.push(res);
+      let a = this.identityattachmentsurlssss[0].slice(2);
+
+      let b = 'http://14.192.17.225' + a;
+      this.showidentityproof.push(b)
+
+    })
+    // this.sendattachment();
+  }
 
 }

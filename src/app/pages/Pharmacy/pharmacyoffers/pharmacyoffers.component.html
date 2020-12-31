@@ -5,7 +5,10 @@
     </div>
 
     <div class="col-lg-2" style="text-align: end;">
-      <button type="button" routerLink="/OffersDashboard" style="margin-top: -10px;" class="btn btncolor">{{labels[0].dashboard}}</button>
+      <button type="button" routerLink="/OffersDashboard" style="margin-top: -10px;" *ngIf="languageid=='1'" class="btn btncolor">Dashboard</button>
+
+
+      <button type="button" routerLink="/OffersDashboard" style="margin-top: -10px;" *ngIf="languageid=='6'" class="btn btncolor">Tableau de bord offres</button>
     </div>
   </div>
 </div>

@@ -11,240 +11,156 @@
 <div class="container-fluid card card-hover">
   <br>
   <form #Feesform="ngForm">
-  <div class="row"  *ngIf="showindependentradio=='0'&&showbutton=='0'">
-    <div class="col-lg-3">
+    <div class="row" *ngIf="showindependentradio=='0'&&showbutton=='0'">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <input type="radio" [(ngModel)]="independent" name="independent" value="1"
+          (click)="GetIndependentPhysiotherapist($event)"> Hospital Physiotherapist &nbsp; &nbsp;
+        <input type="radio" [(ngModel)]="independent" name="independent" value="2"
+          (click)="GetIndependentPhysiotherapist($event)"> Independent Physiotherapist &nbsp; &nbsp;
+      </div>
     </div>
-    <div class="col-lg-6">
-      <input type="radio" [(ngModel)]="independent"   name="independent" value="1" (click)="GetIndependentPhysiotherapist($event)"> Hospital Physiotherapist &nbsp; &nbsp;
-      <input type="radio" [(ngModel)]="independent"   name="independent" value="2" (click)="GetIndependentPhysiotherapist($event)"> Independent Physiotherapist &nbsp; &nbsp;
+    <div class="row" style="margin-top: 20px;" *ngIf="showindependentradio=='1'">
+      <div class="col-lg-3">
+        <label>{{labels[0].physiotherapist}} : </label>
+        <span class="requird">*</span>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='0'">
+        <select class="form-control" (change)="GetphysioID($event)">
+          <option>{{labels[0].select}}</option>
+          <option *ngFor="let physio of physiolist" value="{{physio.physiotherapyID}}">{{physio.name}}</option>
+        </select>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='1'">
+        <input type="text" class="form-control" disabled [(ngModel)]="physioname" name="physioname">
+      </div>
     </div>
-  </div>
-  <div class="row" style="margin-top: 20px;" *ngIf="showindependentradio=='1'">
-    <div class="col-lg-3">
-      <label>{{labels[0].physiotherapist}} : </label>
-      <span class="requird">*</span>
-    </div>
-    <div class="col-lg-4"  *ngIf="showbutton=='0'">
-      <select class="form-control"  (change)="GetphysioID($event)">
-        <option>{{labels[0].select}}</option>
-        <option *ngFor="let physio of physiolist"  value="{{physio.physiotherapyID}}">{{physio.name}}</option>
-      </select>
-    </div>
-    <div class="col-lg-4"  *ngIf="showbutton=='1'">
-      <input type="text" class="form-control" disabled [(ngModel)]="physioname" name="physioname" >
-    </div>
-  </div>
 
-  <div class="row" style="margin-top: 20px;" *ngIf="showindependentradio=='0'">
-    <div class="col-lg-3">
-      <label>{{labels[0].physiotherapist}} : </label>
-      <span class="requird">*</span>
+    <div class="row" style="margin-top: 20px;" *ngIf="showindependentradio=='0'">
+      <div class="col-lg-3">
+        <label>{{labels[0].physiotherapist}} : </label>
+        <span class="requird">*</span>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='0'">
+        <select class="form-control" (change)="GetphysioID($event)">
+          <option>{{labels[0].select}}</option>
+          <option *ngFor="let physio of physiolist1" value="{{physio.physiotherapyID}}">{{physio.name}}</option>
+        </select>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='1'">
+        <input type="text" class="form-control" disabled [(ngModel)]="physioname" name="physioname">
+      </div>
     </div>
-    <div class="col-lg-4"  *ngIf="showbutton=='0'">
-      <select class="form-control"  (change)="GetphysioID($event)">
-        <option>{{labels[0].select}}</option>
-        <option *ngFor="let physio of physiolist1"  value="{{physio.physiotherapyID}}">{{physio.name}}</option>
-      </select>
-    </div>
-    <div class="col-lg-4"  *ngIf="showbutton=='1'">
-      <input type="text" class="form-control" disabled [(ngModel)]="physioname" name="physioname" >
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].hospitalClinic}} : </label>
-      <span class="requird">*</span>
-    </div>
-    <div class="col-lg-4">
-      <!-- <select class="form-control"   (change)="GetHospitalID($event)">
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].hospitalClinic}} : </label>
+        <span class="requird">*</span>
+      </div>
+      <div class="col-lg-4">
+        <!-- <select class="form-control"   (change)="GetHospitalID($event)">
         <option>{{labels[0].select}}</option>
         <option *ngFor="let hos of hospitalist" value="{{hos.hospital_ClinicID}}">{{hos.hospital_ClinicName}}</option>
       </select> -->
 
-      <input type="text" class="form-control" disabled [(ngModel)]="hospitalname" name="hospitalname">
+        <input type="text" class="form-control" disabled [(ngModel)]="hospitalname" name="hospitalname">
+      </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].homeVisitCharges}} : </label>
-      <span class="requird">*</span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].startTime}} : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='0'">
+        <select class="form-control" required (change)="GetStartTime($event)">
+          <option value="0">{{labels[0].startTime}}</option>
+          <option *ngFor="let day of Timeings" value={{day.slotName}},{{day.id}}>{{day.slotName}}
+          </option>
+        </select>
+        <!-- <input type="time" class="form-control" required [(ngModel)]="starttime" name="starttime"> -->
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='1'">
+        <input type="time" class="form-control" disabled [(ngModel)]="starttime" name="starttime">
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" [(ngModel)]="homevisitfee" name="homevisitfee" placeholder="{{labels[0].homeVisitCharges}}"
-      onkeypress='return(event.charCode>=48&&event.charCode<=57)' required>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].endTime}} : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='0'">
+        <select class="form-control" required (change)="GetEndTime($event)">
+          <option value="0">{{labels[0].endTime}}</option>
+          <option *ngFor="let day of endtimelist" value={{day.slotName}},{{day.id}}>{{day.slotName}}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-4" *ngIf="showbutton=='1'">
+        <input type="time" class="form-control" disabled [(ngModel)]="endtime" name="endtime">
+      </div>
     </div>
-  </div>
-  <br>
-  <!-- <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].physiofee}}: </label>
-      <span class="requird">*</span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].homeVisitCharges}} : </label>
+        <span class="requird">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" [(ngModel)]="homevisitfee" name="homevisitfee"
+          placeholder="{{labels[0].homeVisitCharges}}" onkeypress='return(event.charCode>=48&&event.charCode<=57)'
+          required>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" 
-        [(ngModel)]="physiofees" name="physiofees"  (ngModelChange)="GetDoccommission(physiofees)" placeholder="Phsiotherapist Fees">
+    <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="Feesform.form.invalid"
+          *ngIf="showbutton=='0'" (click)="adddetails()">{{labels[0].add}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].voildoccommssion}} : </label>
-      <span class="requird">*</span>
+    <br>
+    <div class="row" *ngIf="tablecount=='1'">
+      <div class="col-lg-12">
+        <table>
+          <tr>
+            <th>{{labels[0].physiotherapist}}</th>
+            <th>{{labels[0].startTime}}</th>
+            <th>{{labels[0].endTime}}</th>
+            <th>{{labels[0].homeVisitCharges}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let det of qwerty">
+            <td>{{det.Physioname}}</td>
+            <td>{{det.StartTime}}</td>
+            <td>{{det.EndTime}}</td>
+            <td>{{det.HomeVisitFees}}</td>
+            <td>
+              <img src="assets/Images/dell.png" (click)="delete(det.Sno)">
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" disabled placeholder="{{labels[0].voildoccommssion}}"
-        [(ngModel)]="voiladoccommission" name="voiladoccommission">
-    </div>
-  </div>
-  <br> -->
-<!-- 
-  <div class="row" *ngIf="independent=='2'">
-    <div class="col-lg-3">
-      <label>Subscription Type :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-md-8">
-      <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()" value="1">Monthly Subscription
-      &nbsp;
-      <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype"  (click)="Getsubscriptontype()" value="2"> Appointment
-      percentage &nbsp;
-      <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype"   (click)="Getsubscriptontype()" value="3"> Both
-    </div>
-  </div><br>
+    <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" *ngIf="showbutton=='0'&&tablecount=='1'" text_align="center"
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
 
-  <div *ngIf="subscriptiontype=='1'">
-    <div class="row">
-      <div class="col-lg-3">
-        <label>MONTHLY SUBSCRIPTION :</label>
+        <button type="button" *ngIf="showbutton=='1'" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="updatedetails()">{{labels[0].update}}</button>
       </div>
-      <div class="col-lg-4">
-        <input type="text" placeholder="Monthly Subscription" maxlength="3" name="monthlysubription"
-          [(ngModel)]="monthlysubription" class="form-control"
-          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      <div class="col-lg-5">
       </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Contract start date :</label>
-
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-        placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-        [(ngModel)]="contractstartdate" bsDatepicker>
-      </div>
-    </div>
-    <br />
-
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Contract end date :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-        placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-        [(ngModel)]="contractenddate" bsDatepicker>
-      </div>
-    </div>
-    <br />
-  </div>
-
-  <div *ngIf="subscriptiontype=='2'">
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Appointment Percentage :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" placeholder="Appointment Percentage" maxlength="3" name="appointmentpercentage"
-          [(ngModel)]="appointmentpercentage" class="form-control"
-          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Contract start date :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-        placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-        [(ngModel)]="contractstartdate" bsDatepicker>
-      </div>
-    </div>
-    <br />
-
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Contract end date :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-        placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-        [(ngModel)]="contractenddate" bsDatepicker>
-      </div>
-    </div>
-    <br />
-  </div>
-  <div *ngIf="subscriptiontype=='3'">
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Appointment Percentage :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" placeholder="Appointment Percentage" maxlength="3" name="appointmentpercentage"
-          [(ngModel)]="appointmentpercentage" class="form-control"
-          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-      </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-lg-3">
-        <label>MONTHLY SUBSCRIPTION :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
-          [(ngModel)]="monthlysubription" class="form-control"
-          onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Contract start date :</label>
-
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-        placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-        [(ngModel)]="contractstartdate" bsDatepicker>
-      </div>
-    </div>
-    <br />
-
-    <div class="row">
-      <div class="col-lg-3">
-        <label>Contract end date :</label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-        placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-        [(ngModel)]="contractenddate" bsDatepicker>
-      </div>
-    </div>
-    <br />
-  </div><br> -->
-  <div class="row">
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button type="button"  *ngIf="showbutton=='0'" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="insertdetails()" [disabled]="Feesform.form.invalid">{{labels[0].save}}</button>
-
-        <button type="button"  *ngIf="showbutton=='1'" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="updatedetails()" [disabled]="Feesform.form.invalid">{{labels[0].update}}</button>
-    </div>
-    <div class="col-lg-5">
-    </div>
-  </div><br><br>
-</form>
+    </div><br><br>
+  </form>
 </div>

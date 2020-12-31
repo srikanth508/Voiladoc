@@ -46,6 +46,7 @@ export class BookappmentsComponent implements OnInit {
      
       this.doctorslotid = params['doctorSlotID'];
       this.slotname = params['slotName'];
+      this.PaidAmount=params['doctorFees'];
     }
     )
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
@@ -73,7 +74,7 @@ export class BookappmentsComponent implements OnInit {
     this.appointmentate = localStorage.getItem('appointmentate')
     this.appoentmenTypeid = localStorage.getItem('Appointmenttypeid');
     this.bookingtypeid = localStorage.getItem('BookingTypeID');
-    this.PaidAmount = localStorage.getItem('fees');
+    // this.PaidAmount = localStorage.getItem('fees');
 
     if (this.appoentmenTypeid == 1) {
       this.combinationvalue = 'In Clinic';
@@ -93,7 +94,7 @@ export class BookappmentsComponent implements OnInit {
     // const pljdjf = 'en-US';
     // const frdat = this.appointmentate;
     // this.appdate = formatDate(frdat, qwer, pljdjf);
-
+    this.PaymentTypeID="";
 
     this.GetPatients()
     this.GetNurses();
@@ -198,8 +199,16 @@ export class BookappmentsComponent implements OnInit {
           this.SendNotification();
           this.insertpaymentDetails()
           //this.sendmail();
-          Swal.fire('Success', 'Appointment Booked Successfully');
-          location.href = "#/Appointments"
+          if(this.languageid==1)
+          {
+            Swal.fire('Success', 'Appointment Booked Successfully');
+            location.href = "#/Appointments"
+          }
+          else if(this.languageid==6)
+          {
+            Swal.fire('Rendez-vous est réservé');
+            location.href = "#/Appointments"
+          }
         }
       })
     }

@@ -42,23 +42,20 @@
           <tr>
             <th>{{labels[0].physiotherapist}}</th>
             <!-- <th>{{labels[0].hospitalClinic}}</th> -->
-            <!-- <th>{{labels[0].country}}</th>
-              <th>{{labels[0].province}}</th>
-              <th>{{labels[0].city}}</th> -->
+            <th>{{labels[0].startTime}}</th>
+            <th>{{labels[0].endTime}}</th>
             <th>{{labels[0].homeVisitCharges}}</th>
-            <!-- <th>{{labels[0].physiofee}}</th>
-            <th>{{labels[0].voildoccommssion}}</th> -->
+          
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let list of physiolist|filter:term">
             <td>{{list.name}}</td>
+            <td>{{list.startTime}}</td>
+            <td>{{list.endTime}}</td>
             <!-- <td>{{list.hospital_ClinicName}}</td> -->
-            <!-- <td>{{list.country}}</td>
-              <td>{{list.city}}</td>
-              <td>{{list.areaName}}</td> -->
+      
             <td>{{list.homeVisitFees}}</td>
-            <!-- <td>{{list.physioFee}}%</td>
-            <td>{{list.voilaDocCommission}}%</td> -->
+       
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">

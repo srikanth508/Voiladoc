@@ -18,8 +18,9 @@
   <br>
   <div class="row">
     <div class="tab">
-      <button class="tablinks" (click)="openCity($event, 'Diagnosticcenter')" id="defaultOpen">{{labels[0].diagnosticentre}}
-        </button>
+      <button class="tablinks" (click)="openCity($event, 'Diagnosticcenter')"
+        id="defaultOpen">{{labels[0].diagnosticentre}}
+      </button>
       <button class="tablinks" (click)="openCity($event, 'Homesample')">{{labels[0].homesample}}</button>
     </div>
   </div>
@@ -38,10 +39,10 @@
           [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="todaydate1" name="todaydate1"
           (ngModelChange)="GetDoctorDates($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
       </div>
-      <div class="col-lg-2"  *ngIf="typeidss=='2'">
+      <div class="col-lg-2" *ngIf="typeidss=='2'">
         <span style="margin-left: 56px;">{{labelsss[0].changeSchedule}} </span>
       </div>
-      <div class="col-lg-3"  *ngIf="typeidss=='2'">
+      <div class="col-lg-3" *ngIf="typeidss=='2'">
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
           (click)="GetTypeID($event)" value="1"> {{labelsss[0].daywise}} &nbsp;
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"
@@ -56,46 +57,66 @@
             <tr>
               <th>{{labelsss[0].timings}}</th>
               <th>
-                {{DayDatelist[0].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[0].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[0].day}}</th>
               <th>
-                {{DayDatelist[1].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[1].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[1].day}}</th>
               <th>
-                {{DayDatelist[2].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[2].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[2].day}}</th>
               <th>
-                {{DayDatelist[3].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[3].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[3].day}}</th>
               <th>
-                {{DayDatelist[4].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[4].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[4].day}}</th>
               <th>
-                {{DayDatelist[5].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[5].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[5].day}}</th>
               <th>
-                {{DayDatelist[6].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[6].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[6].day}}</th>
             </tr>
-            <tr *ngFor="let details of Workingdetails">
+            <tr *ngFor="let details of Workingdetails|filter:term">
               <td>{{details.slotname}}</td>
               <td [style.background-color]="details.mondayColor" style="color:white">{{details.monday}}<br>
                 <p [style.color]="details.mondayAvailabiltyColor">{{details.mondayAvailabilty}}</p>
-                <span>{{details.mondayPatientName}}</span><br>
-                <span>{{details.day1MobileNo}}</span><br>
-                <span>{{details.mondaypatnerName}}</span><br>
+
+                <table style="box-shadow:none;overflow: auto;">
+                  <tr *ngFor="let ptientdeatils of details.day1patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay1Details(details)">
                 </a><br>
               </td>
               <td [style.background-color]="details.tuesdayColor" style="color:white">{{details.tuesday}}<br>
+                <p [style.color]="details.mondayAvailabiltyColor">{{details.tuesdayAvailabilty}}</p>
+                <table style="box-shadow:none;overflow: auto;">
+                  <tr *ngFor="let ptientdeatils of details.day2patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <!-- <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td> -->
+                  </tr>
+                </table>
 
-                <p [style.color]="details.tuesdayAvailabiltyColor">{{details.tuesdayAvailabilty}}</p>
-
-                <span>{{details.tuesdayPatientName}}</span><br>
-                <span>{{details.day2MobileNo}}</span><br>
-                <span>{{details.tuesdaypatnerName}}</span><br>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay2Details(details)">
@@ -104,9 +125,19 @@
               <td [style.background-color]="details.wednesdayColor" style="color:white">{{details.wednesday}}<br>
                 <p [style.color]="details.wednessdayAvailabiltyColor">{{details.wednessdayAvailabilty}}</p>
 
-                <span>{{details.wedPatientName}}</span><br>
-                <span>{{details.day3MobileNo}}</span><br>
-                <span>{{details.wedpatnerName}}</span><br>
+                <table style="box-shadow:none;overflow: auto;">
+                  <tr *ngFor="let ptientdeatils of details.day3patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <!-- <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td> -->
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay3Details(details)">
@@ -115,21 +146,40 @@
 
               <td [style.background-color]="details.thursdayColor" style="color:white">{{details.thursday}}<br>
                 <p [style.color]="details.thursadayAvailabiltyColor"> {{details.thursadayAvailabilty}}</p>
-                <span>{{details.thusPatientName}}</span><br>
-                <span>{{details.day4MobileNo}}</span><br>
-                <span>{{details.thursdaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day4patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <!-- <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td> -->
+                  </tr>
+                </table>
 
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay4Details(details)">
                 </a><br>
               </td>
-
               <td [style.background-color]="details.fridayColor" style="color:white">{{details.friday}}<br>
                 <p [style.color]="details.fridayAvailabiltyColor">{{details.fridayAvailabilty}}</p>
-                <span>{{details.fridatPatientName}}</span><br>
-                <span>{{details.day5MobileNo}}</span><br>
-                <span>{{details.fridaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day5patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <!-- <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td> -->
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay5Details(details)">
@@ -137,10 +187,19 @@
               </td>
               <td [style.background-color]="details.saturdayColor" style="color:white">{{details.saturday}}<br>
                 <p [style.color]="details.saturdayAvailabiltyColor">{{details.saturdayAvailabilty}}</p>
-
-                <span>{{details.satdayPatientName}}</span><br>
-                <span>{{details.day6MobileNo}}</span><br>
-                <span>{{details.satdaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day6patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <!-- <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td> -->
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay6Details(details)">
@@ -148,9 +207,19 @@
               </td>
               <td [style.background-color]="details.sundayColor" style="color:white">{{details.sunday}}<br>
                 <p [style.color]="details.sundayAvailabiltyColor"> {{details.sundayAvailabilty}}</p>
-                <span>{{details.sundayPatientName}}</span><br>
-                <span>{{details.day7MobileNo}}</span><br>
-                <span>{{details.sundaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day7patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <!-- <td style="border:none">
+                      {{ptientdeatils.appointmentStatus}}
+                    </td> -->
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay7Details(details)">
@@ -167,7 +236,7 @@
   <div id="Homesample" class="tabcontent">
     <div class="row" style="margin-top:10px;">
       <div class="col-lg-3">
-        <input type="text" class="form-control" placeholder="{{labels1[0].search}}" [(ngModel)]="term" name="term">
+        <input type="text" class="form-control" placeholder="{{labels1[0].search}}" [(ngModel)]="term1" name="term1">
       </div>
       <div class="col-lg-3">
         <input *ngIf="languageid==1" type="text" class="form-control" placeholder="Select Date"
@@ -178,10 +247,10 @@
           [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="todaydate1" name="todaydate1"
           (ngModelChange)="GetDoctorDates($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
       </div>
-      <div class="col-lg-2"  *ngIf="typeidss=='1'">
+      <div class="col-lg-2" *ngIf="typeidss=='1'">
         <span style="margin-left: 56px;">{{labelsss[0].changeSchedule}} </span>
       </div>
-      <div class="col-lg-3"  *ngIf="typeidss=='1'">
+      <div class="col-lg-3" *ngIf="typeidss=='1'">
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
           (click)="GetTypeID($event)" value="1"> {{labelsss[0].daywise}} &nbsp;
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"
@@ -196,34 +265,44 @@
             <tr>
               <th>{{labelsss[0].timings}}</th>
               <th>
-                {{DayDatelist[0].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[0].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[0].day}}</th>
               <th>
-                {{DayDatelist[1].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[1].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[1].day}}</th>
               <th>
-                {{DayDatelist[2].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[2].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[2].day}}</th>
               <th>
-                {{DayDatelist[3].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[3].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[3].day}}</th>
               <th>
-                {{DayDatelist[4].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[4].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[4].day}}</th>
               <th>
-                {{DayDatelist[5].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[5].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[5].day}}</th>
               <th>
-                {{DayDatelist[6].date|date:'dd,MMM,yyyy'}}<br>
+                {{DayDatelist[6].date|date:'dd-MM-yyyy'}}<br>
                 {{DayDatelist[6].day}}</th>
             </tr>
-            <tr *ngFor="let details of Workingdetails">
+            <tr *ngFor="let details of Workingdetails|filter:term1">
               <td>{{details.slotname}}</td>
               <td [style.background-color]="details.mondayColor" style="color:white">{{details.monday}}<br>
                 <p [style.color]="details.mondayAvailabiltyColor">{{details.mondayAvailabilty}}</p>
-                <span>{{details.mondayPatientName}}</span><br>
-                <span>{{details.day1MobileNo}}</span><br>
-                <span>{{details.mondaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day1patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay1Details(details)">
@@ -233,9 +312,19 @@
 
                 <p [style.color]="details.tuesdayAvailabiltyColor">{{details.tuesdayAvailabilty}}</p>
 
-                <span>{{details.tuesdayPatientName}}</span><br>
-                <span>{{details.day2MobileNo}}</span><br>
-                <span>{{details.tuesdaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day2patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay2Details(details)">
@@ -244,10 +333,19 @@
               </td>
               <td [style.background-color]="details.wednesdayColor" style="color:white">{{details.wednesday}}<br>
                 <p [style.color]="details.wednessdayAvailabiltyColor">{{details.wednessdayAvailabilty}}</p>
-
-                <span>{{details.wedPatientName}}</span><br>
-                <span>{{details.day3MobileNo}}</span><br>
-                <span>{{details.wedpatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day3patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay3Details(details)">
@@ -256,10 +354,19 @@
 
               <td [style.background-color]="details.thursdayColor" style="color:white">{{details.thursday}}<br>
                 <p [style.color]="details.thursadayAvailabiltyColor"> {{details.thursadayAvailabilty}}</p>
-                <span>{{details.thusPatientName}}</span><br>
-                <span>{{details.day4MobileNo}}</span><br>
-                <span>{{details.thursdaypatnerName}}</span><br>
-
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day4patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay4Details(details)">
@@ -268,9 +375,19 @@
 
               <td [style.background-color]="details.fridayColor" style="color:white">{{details.friday}}<br>
                 <p [style.color]="details.fridayAvailabiltyColor">{{details.fridayAvailabilty}}</p>
-                <span>{{details.fridatPatientName}}</span><br>
-                <span>{{details.day5MobileNo}}</span><br>
-                <span>{{details.fridaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day5patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay5Details(details)">
@@ -279,9 +396,19 @@
               <td [style.background-color]="details.saturdayColor" style="color:white">{{details.saturday}}<br>
                 <p [style.color]="details.saturdayAvailabiltyColor">{{details.saturdayAvailabilty}}</p>
 
-                <span>{{details.satdayPatientName}}</span><br>
-                <span>{{details.day6MobileNo}}</span><br>
-                <span>{{details.satdaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day6patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay6Details(details)">
@@ -289,9 +416,19 @@
               </td>
               <td [style.background-color]="details.sundayColor" style="color:white">{{details.sunday}}<br>
                 <p [style.color]="details.sundayAvailabiltyColor"> {{details.sundayAvailabilty}}</p>
-                <span>{{details.sundayPatientName}}</span><br>
-                <span>{{details.day7MobileNo}}</span><br>
-                <span>{{details.sundaypatnerName}}</span><br>
+                <table style="box-shadow:none">
+                  <tr *ngFor="let ptientdeatils of details.day7patientdetails ">
+                    <td style="border:none">
+                      {{ptientdeatils.patientName}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.mobileNumber}}
+                    </td>
+                    <td style="border:none">
+                      {{ptientdeatils.agentname}}
+                    </td>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" *ngIf="showedit=='1'" data-target="#myModal"
                     style="width: 18px" (click)="GetDay7Details(details)">
@@ -335,6 +472,15 @@
         </div>
         <br>
         <div class="row">
+          <div class="col-lg-3">
+            <span   *ngIf="typeid!='4'">{{labels[0].slotcapacity}}</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" *ngIf="typeid!='4'" [(ngModel)]="totalappointments"
+            placeholder="{{labels[0].slotcapacity}}"   name="totalappointments">
+          </div>
+        </div><br>
+        <div class="row">
           <div class="col-lg-4">
           </div>
           <div class="col-lg-4">
@@ -373,7 +519,7 @@
               [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
             <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="daychangedate"
+              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="daychangedate1"
               (ngModelChange)="GetdaychangeDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
           </div>
         </div><br>
@@ -394,6 +540,15 @@
           </div>
         </div>
         <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <span  *ngIf="Daywiseappointmentid!='4'">{{labels[0].slotcapacity}}</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" [(ngModel)]="totalappointments" *ngIf="Daywiseappointmentid!='4'"
+            placeholder="{{labels[0].slotcapacity}}"   name="totalappointments">
+          </div>
+        </div><br>
         <div class="row">
           <div class="col-lg-4">
           </div>
@@ -432,7 +587,7 @@
               [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
             <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="timechangedate"
+              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="timechangedate1"
               (ngModelChange)="GetTimewisechangedate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
               bsDatepicker>
           </div>
@@ -456,7 +611,7 @@
             <select class="form-control" (change)="getmrngto($event)" [(ngModel)]="mrngtoid" name="mrngtoid">
               <option value="">{{labels[0].endTime}}</option>
               <option *ngFor="let mrngto of mrngtolist" value="{{ mrngto.id }}">{{ mrngto.slotName
-              }}</option>
+                }}</option>
             </select>
           </div>
         </div><br>
@@ -474,9 +629,19 @@
             </span>
             <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="4"> &nbsp;
             {{labelsss[0].notAvailable}} &nbsp;
+
           </div>
         </div>
         <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <span  *ngIf="timewiseappointmentid!='4'">{{labels[0].slotcapacity}}</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" *ngIf="timewiseappointmentid!='4'" [(ngModel)]="totalappointments"
+              name="totalappointments" placeholder="{{labels[0].slotcapacity}}">
+          </div>
+        </div><br>
         <div class="row">
           <div class="col-lg-4">
           </div>

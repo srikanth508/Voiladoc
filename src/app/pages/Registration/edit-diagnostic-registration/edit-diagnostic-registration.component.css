@@ -31,3 +31,18 @@
         background-color: #f18235;
         color:white;
     }
+    input::first-letter{
+        text-transform: uppercase;
+    }
+    label{
+      text-transform: lowercase;
+    } 
+    /* input{
+        text-transform: lowercase;
+      } */
+      textarea::first-letter{
+        text-transform: lowercase;
+      }
+      label::first-letter{
+        text-transform: uppercase;
+      }

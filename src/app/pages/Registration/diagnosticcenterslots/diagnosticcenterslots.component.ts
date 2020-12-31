@@ -64,11 +64,22 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public diagnosticname: any;
   public search: any;
 
+  public dianoofappointments: any;
+  public homenoofappointments: any;
+  public shodrop: any;
+
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
     this.dummdiagnosticid = localStorage.getItem('diagnosticid')
     this.diagnosticname = localStorage.getItem('user')
+
+    if (this.diagnosticid == undefined) {
+      this.shodrop = 1;
+    }
+    else {
+      this.shodrop = 0;
+    }
     this.getlanguage()
     this.getdiagnosticCenterList();
     this.GetdicgnosticMasterSlotByID();
@@ -285,8 +296,10 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public colorcode: any;
   public cleardropwn = [];
 
-  public adddetails() {
+  public AppointmentName: any;
 
+  public adddetails() {
+    debugger
     if (this.diagnosticid == undefined || this.diagnosticid == null) {
       Swal.fire("Please Select Diagnostic Center");
     }
@@ -312,10 +325,8 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         debugger
         for (let i = 0; i < this.mrngslots.length; i++) {
           this.mrngslotarray.push(this.mrngslots[i].slotName)
-
           this.mrngslotarrayid.push(this.mrngslots[i].id)
         }
-
         this.slotname = this.mrngslotarray;
         this.mrng = this.slotname.join(' to ')
         this.slotnameid = this.mrngslotarrayid;
@@ -323,11 +334,12 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
         if (this.appointmenttype == '1') {
           this.colorcode = '#ADD8E6'
+          this.AppointmentName = 'Home Sample'
         }
         else if (this.appointmenttype == '2') {
           this.colorcode = '#5F9EA0'
+          this.AppointmentName = 'Diagnostic Center'
         }
-
         var entity = {
           'Sno': this.idcount,
           'DiagnosticName': this.diagnosticname,
@@ -339,7 +351,10 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           'Color': this.colorcode,
           'AppointmentTypeID': this.appointmenttype,
           'Morningid': this.mrngid,
-          'DiagnosticCenterID': this.diagnosticid
+          'DiagnosticCenterID': this.diagnosticid,
+          'NoOfAppointments': this.homenoofappointments,
+          'AppointmentName': this.AppointmentName,
+          'MrngfromID': this.mrngfromid
         }
       }
 
@@ -368,9 +383,11 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
         if (this.appointmenttype == '1') {
           this.colorcode = '#ADD8E6'
+          this.AppointmentName = 'Home Sample'
         }
         else if (this.appointmenttype == '2') {
           this.colorcode = '#5F9EA0'
+          this.AppointmentName = 'Diagnostic Center'
         }
         var entity = {
           'Sno': this.idcount,
@@ -383,10 +400,13 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           'Color': this.colorcode,
           'AppointmentTypeID': this.appointmenttype,
           'Morningid': this.mrngid,
-          'DiagnosticCenterID': this.diagnosticid
+          'DiagnosticCenterID': this.diagnosticid,
+          'NoOfAppointments': this.dianoofappointments,
+          'AppointmentName': this.AppointmentName,
+          'MrngfromID': this.diafromid
         }
       }
-
+      debugger
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
       if (this.appointmenttype == 1) {
@@ -407,127 +427,15 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     this.morningslots = [];
     this.morningslots.length = 0;
     this.cleardropwn.length = 0;
-
+    this.homenoofappointments = ""
+    this.dianoofappointments = ""
+    this.mrngslotarray = [];
+    this.mrngslotarray.length = 0;
+    this.mrngslots = [];
+    this.mrngslotarrayid = [];
+    this.slotnameid = "";
   }
 
-  // public insertdetails() {
-
-  //   if (this.diagnosticid == undefined || this.diagnosticid == null) {
-  //     Swal.fire("Please Select Diagnostic Center")
-  //   }
-  //   else {
-
-  //     for (let i = 0; i < this.mrngslots.length; i++) {
-  //       this.mrngslotarray.push(this.mrngslots[i].slotName)
-
-  //       this.mrngslotarrayid.push(this.mrngslots[i].id)
-  //     }
-
-  //     this.slotname = this.mrngslotarray;
-  //     this.mrng = this.slotname.join(' to ')
-  //     this.slotnameid = this.mrngslotarrayid;
-  //     this.mrngid = this.slotnameid.join(',')
-
-
-  //     for (let i = 0; i < this.afternoonslots.length; i++) {
-  //       this.afternoonslotarray.push(this.afternoonslots[i].slotName)
-
-  //       this.afternoonslotarrayid.push(this.afternoonslots[i].id)
-  //     }
-
-  //     this.slotname1 = this.afternoonslotarray;
-  //     this.afternoon = this.slotname1.join(' to ')
-  //     this.slotnameid1 = this.afternoonslotarrayid;
-  //     this.afternoonid = this.slotnameid1.join(',')
-
-
-  //     for (let i = 0; i < this.evngslots.length; i++) {
-  //       this.evngslotarray.push(this.evngslots[i].slotName)
-
-  //       this.evngslotarrayid.push(this.evngslots[i].id)
-  //     }
-
-  //     this.slotname2 = this.evngslotarray;
-  //     this.evng = this.slotname2.join(' to ')
-  //     this.slotnameid12 = this.evngslotarrayid;
-  //     this.evngid = this.slotnameid12.join(',')
-
-
-  //     for (let i = 0; i < this.nightslots.length; i++) {
-  //       this.nightslotarray.push(this.nightslots[i].slotName)
-
-  //       this.nightslotarrayid.push(this.nightslots[i].id)
-  //     }
-
-  //     this.slotname3 = this.nightslotarray;
-  //     this.night = this.slotname3.join(' to ')
-  //     this.slotnameid13 = this.nightslotarrayid;
-  //     this.nightid = this.slotnameid13.join(',')
-
-
-
-  //     for (let i = 0; i < this.dayid.length; i++) {
-
-
-  //       let mrng = this.mrng;
-  //       let ms = mrng.split(" to ", 3);
-  //       let mst = ms[0];
-  //       let met = ms[1];
-
-  //       let noon = this.afternoon;
-  //       let ns = noon.split(" to ", 3);
-  //       let nst = ns[0];
-  //       let net = ns[1];
-
-  //       let evng = this.evng;
-  //       let es = evng.split(" to ", 3);
-  //       let est = es[0];
-  //       let eet = es[1];
-
-  //       let nyt = this.night;
-  //       let nys = nyt.split(" to ", 3);
-  //       let nyst = nys[0];
-  //       let nyet = nys[1];
-
-  //       var entity1 = {
-  //         'DiagnosticCenterID': this.diagnosticid,
-  //         'MrngStartTime': mst,
-  //         'MrngEndTime': met,
-  //         'AfternoonStartTime': nst,
-  //         'AfternoonEndTime': net,
-  //         'EvngStartTime': est,
-  //         'EvngEndTime': eet,
-  //         'NightStartTime': nyst,
-  //         'NightEndTime': nyet,
-  //         'DayID': this.dayid[i].id
-  //       }
-  //       this.docservice.InsertDiagnosticRelatedSlotsStartTimeEndTime(entity1).subscribe(data => {
-
-  //       })
-
-  //       var entity = {
-  //         'DiagnosticCenterID': this.diagnosticid,
-  //         'DayID': this.dayid[i].id,
-  //         'Morning': this.mrngid,
-  //         'Noon': this.afternoonid,
-  //         'Evening': this.evngid,
-  //         'Night': this.nightid,
-  //       }
-  //       this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-
-  //         if (this.languageid == 1) {
-  //           Swal.fire('', 'Added Successfully');
-  //           location.href = "#/DiagnosticSlotsDash"
-  //         }
-  //         else {
-  //           Swal.fire('', 'Ajouté avec succès');
-  //           location.href = "#/DiagnosticSlotsDash"
-  //         }
-
-  //       })
-  //     }
-  //   }
-  // }
 
 
 
@@ -536,13 +444,6 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     var entity = {
       'dayList': this.dayid,
       'slotsList': this.qwerty,
-
-      // 'DiagnosticCenterID': this.diagnosticid
-      // 'Morning': this.qwerty[i].Morningid,
-      // 'AppointmentTypeID': this.qwerty[i].AppointmentTypeID,
-      // 'Noon': this.afternoonid,
-      // 'Evening': this.evngid,
-      // 'Night': this.nightid,
     }
     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
       debugger
@@ -655,7 +556,16 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
       if (Sno == this.qwerty[i].Sno) {
 
-        this.qwerty.splice(i, 1);
+        if (this.qwerty[i].mrngAppointmenttype == 1) {
+          var mrngslots = this.slotslist.findIndex(x => x.id == this.qwerty[i].MrngfromID);
+          this.mrngfromlist = this.slotslist.slice(mrngslots, this.slotslist.length);
+          this.qwerty.splice(i, 1);
+        }
+        if (this.qwerty[i].mrngAppointmenttype == 2) {
+          var mrngslots = this.slotslist.findIndex(x => x.id == this.qwerty[i].MrngfromID);
+          this.diagnsticfromlist = this.slotslist.slice(mrngslots, this.slotslist.length);
+          this.qwerty.splice(i, 1);
+        }
       }
     }
 

@@ -7,7 +7,7 @@
     <div class="col-lg-3" style="text-align: end; margin-top:-5px;">
       <button type="button" *ngIf="languageid==1" routerLink="/PatientReg"
         class="btn btncolor">{{ labels[0].add }}</button>
-      <button type="button" *ngIf="languageid==6" routerLink="/PatientReg" class="btn btncolor">Ajouter</button>
+      <button type="button" *ngIf="languageid==6" routerLink="/PatientReg" class="btn btncolor">Enregistrer de nouveaux patients</button>
     </div>
   </div>
 </div>
@@ -44,7 +44,7 @@
             <th *ngIf="languageid=='6'">Date d'enregistrement</th>
             <th>{{ labels[0].mobileNumber }}</th>
             <th>{{ labels[0].emailID }}</th>
-            <th>{{ labels[0].password }}</th>
+            <!-- <th>{{ labels[0].password }}</th> -->
             <!-- <th *ngIf="roleid!='14' || roleid!='3'">{{labels[0].patientWallet }}</th> -->
             <!-- <th>{{ labels[0].actions }}</th> -->
           </tr>
@@ -54,7 +54,7 @@
             <td>{{list.registereddate}}</td>
             <td>{{list.mobileNumber}}</td>
             <td>{{list.emailID}}</td>
-            <td>{{list.password}}</td>
+            <!-- <td>{{list.password}}</td> -->
             <!-- <td *ngIf="roleid!=14 || roleid!=3">{{list.walletAmount}}</td> -->
           </tr>
         </thead>

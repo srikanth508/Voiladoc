@@ -28,7 +28,7 @@
             <th>{{labels[0].orderDate}}</th>
             <th>{{labels[0].orderNumber}}</th>
             <th *ngIf="languageid=='1'">Prescription Type</th>
-            <th *ngIf="languageid=='6'">Format de ordonnance</th>
+            <th *ngIf="languageid=='6'">Format d'ordonnance</th>
             <th *ngIf="languageid=='1'">Pick Up Type</th>
             <th *ngIf="languageid=='6'">Retrait et Livraison </th>
             <!-- <th>{{labels[0].substitablenotpermitedd}} </th> -->
@@ -133,7 +133,7 @@
                     <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
                     <a [ngbTooltip]="tipcontent899"
                       *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'">
-                      <img src="assets/Images/edit.png" style="height:20px;"
+                      <img src="assets/Images/readyfordel.png" style="height:20px;"
                         (click)="GetReadyForDelivery(details.id)" /></a>
                   </td>
                   <td style="border:none">
@@ -144,12 +144,17 @@
                         (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
                     </a>
                   </td>
+
                   <td style="border:none">
+                    <!-- <span style="float: right;cursor: pointer;color: green;color: aliceblue;
+                    margin-left: 0%;">{{details.chatcount}}</span> -->
                     <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
                     <a [ngbTooltip]="tipcontent36">
+                      <span style="color: green;position: absolute;margin-left: 25px;">{{details.chatcount}}</span>
                       <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'" data-toggle="modal"
                         data-target="#asssignss" style="margin: 2%;width: 30px;"
-                        (click)="GetPharmacyPatientID(details.patientID,details.patientemail)" />
+                        (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id)" />
+
                     </a>
                   </td>
                 </tr>
@@ -251,7 +256,7 @@
                                 {{labels[0].howmanyrefills}}</th>
 
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                               {{labels[0].substitablenotpermitedd}}</th>
+                                {{labels[0].substitablenotpermitedd}}</th>
 
                               <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].notetoPharmsict}}</th>
@@ -267,9 +272,9 @@
                               <td style="border: 2px solid black;">{{medicinelist.sig}}</td>
                               <td style="border: 2px solid black;">
                                 <!-- {{medicinelist.quantity}} -->
-                    
+
                                 <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
-                                class="form-control" placeholder=" {{labels[0].quantity}}">
+                                  class="form-control" placeholder=" {{labels[0].quantity}}">
                               </td>
                               <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
@@ -298,7 +303,8 @@
             </div>
             <div class="col-lg-2">
               <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-              *ngIf="showedit=='0'"  data-dismiss="modal" (click)="Updateavailablemedicines()"> {{labels[0].update}}</button>
+                *ngIf="showedit=='0'" data-dismiss="modal" (click)="Updateavailablemedicines()">
+                {{labels[0].update}}</button>
             </div>
             <div class="col-lg-4">
               <!-- <img src="{{docsignatureurl}}"> -->
@@ -311,8 +317,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-            data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
+          <button type="button" style="background-color: #322b6b; color: white;margin-right: 546px;"
+            class="btn btn-default" data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
             data-dismiss="modal">{{labels[0].close}}</button>
         </div>

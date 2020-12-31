@@ -108,7 +108,6 @@ export class OrdersComponent implements OnInit {
 
       this.getdiagnosticAppointmentsbyid()
 
-
     });
   }
 
@@ -465,7 +464,6 @@ export class OrdersComponent implements OnInit {
   public diacentername: any;
 
   public GetUploadReportID(id, patientid, diagnosticCenterID, email, diacenter) {
-
     this.appointmentsid = id;
     this.patientid = patientid;
     this.diaid = diagnosticCenterID;
@@ -548,7 +546,7 @@ export class OrdersComponent implements OnInit {
       }
       this.docservice.UpdatePatient_DiagnosticUploads(entity).subscribe(data => {
 
-        if (data != undefined) {
+        if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Success', 'Report Updated Successfully');
             this.notes = "";
@@ -556,8 +554,8 @@ export class OrdersComponent implements OnInit {
             this.showphoto.length = 0;
             this.VisitOrder(this.appointmentsid);
           }
-          else {
-            Swal.fire('Succès', 'Rapport mis à jour avec succès');
+          else if(this.languageid == 6) {
+            Swal.fire('Rapport envoyé');
             this.notes = "";
             this.attachmentsurl.length = 0;
             this.showphoto.length = 0;
@@ -850,10 +848,9 @@ export class OrdersComponent implements OnInit {
         this.getdiagnosticAppointment()
       }
       else if (this.languageid == 6) {
-        Swal.fire('Success', 'Order Assigned Successfully');
+        Swal.fire('', 'Commande assignée');
         this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
           this.homesamplelist = data;
-
         })
         this.getdiagnosticAppointment()
       }

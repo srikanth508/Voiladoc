@@ -25,7 +25,7 @@ export class NurseScheduleComponent implements OnInit {
   public count: any;
   public hospitalclinicid: any;
   public nursedd = {};
-  public search:any;
+  public search: any;
 
   ngOnInit() {
 
@@ -36,27 +36,8 @@ export class NurseScheduleComponent implements OnInit {
     var date = new Date();
     this.getlanguage()
 
+    this.getnurselist()
 
-    this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
-      data => {
-
-        this.dummlist = data;
-        this.nurselist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
-        this.count = this.nurselist.length;
-
-        this.nursedd = {
-          singleSelection: true,
-          idField: 'id',
-          textField: 'nurseName',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          //  itemsShowLimit: 3,
-          allowSearchFilter: true,
-          searchPlaceholderText: this.search,
-        };
-      }, error => {
-      }
-    )
 
     // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
     // var Lastdate;
@@ -110,7 +91,59 @@ export class NurseScheduleComponent implements OnInit {
 
 
 
-  public GetNurseID(item:any) {
+
+  public getnurselist() {
+    if (this.hospitalclinicid != undefined) {
+      this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
+        data => {
+
+          this.dummlist = data;
+          this.nurselist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+          this.count = this.nurselist.length;
+
+          this.nursedd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'nurseName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
+          };
+        }, error => {
+        }
+      )
+    }
+    else if (this.hospitalclinicid == undefined) {
+      this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
+        data => {
+          this.dummlist = data;
+          this.nurselist = data;
+          this.count = this.nurselist.length;
+
+          this.nursedd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'nurseName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
+          };
+        }, error => {
+        }
+      )
+    }
+
+  }
+
+
+
+
+
+  public GetNurseID(item: any) {
     this.nurseid = item.id;
 
 
@@ -177,7 +210,7 @@ export class NurseScheduleComponent implements OnInit {
 
         this.labels = data;
         this.Select = this.labels[0].selectNurse;
-        this.search=this.labels[0].search;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -209,7 +242,7 @@ export class NurseScheduleComponent implements OnInit {
             this.timeSheetTablearray[t]["nurseName"] = kk[0].nurseName;
             this.timeSheetTablearray[t]["colorcode"] = '#808080'
           }
-    
+
         }
       }, error => {
       }

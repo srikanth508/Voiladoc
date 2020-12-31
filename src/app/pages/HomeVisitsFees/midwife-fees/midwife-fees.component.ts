@@ -63,7 +63,8 @@ export class MidwifeFeesComponent implements OnInit {
       }, error => {
       }
     )
-    this.getmidwifes()
+    this.getmidwifes();
+    this.GetTimings();
   }
 
   public getmidwifes() {
@@ -98,93 +99,88 @@ export class MidwifeFeesComponent implements OnInit {
     var list1 = this.dummlist.filter(x => x.midWifeID == this.midwifeid)
     this.midwifehospitalid = list1[0].midwifehospitalid,
       this.hospitalid = list1[0].hospitalClinicID,
-      this.hospitalname = list1[0].hospital_ClinicName
-
-    // this.getmidwifehosiptals();
-  }
-
-
-  // public getmidwifehosiptals() {
-  //   this.docservice.GetMidWifeHospitalDetailsByHospitals(this.midwifeid, this.languageid).subscribe(
-  //     data => {
-
-  //       this.hospitalist = data;
-  //     }, error => {
-  //     }
-  //   )
-  // }
-
-  public GetDoccommission(midwifefee) {
-
-    this.voiladoccommission = 100 - Number(midwifefee);
+      this.hospitalname = list1[0].hospital_ClinicName,
+      this.midwifename = list1[0].name
 
   }
 
+  public qwerty = [];
+  public tablecount: any;
+  public idcount: any;
 
-  // public GetHospitalID(even) {
 
-  //   this.hospitalid = even.target.value;
 
-  //   var list = this.hospitalist.filter(x => x.hospitalClinicID == this.hospitalid)
 
-  //   this.midwifehospitalid = list[0].id
-  // }
+  public addetails() {
+    var entity1 = {
+      'Sno': this.idcount,
+      'MidwifeID': this.midwifeid,
+      'MidWifeHospitalID': this.midwifehospitalid,
+      'HospitalID': this.hospitalid,
+      'HomeVisitFees': this.homevisitfee,
+      'StartTime': this.starttime,
+      'EndTime': this.endtime,
+      'MidWifeName': this.midwifename,
+      'StartTimeID':this.strttimeid
+    }
+    this.qwerty.push(entity1);
+    this.idcount = this.idcount + 1;
+    this.tablecount = 1;
+    var mrngslots = this.Timeings.findIndex(x => x.id == this.endtimeid);
+    this.Timeings = this.Timeings.slice(mrngslots, this.Timeings.length);
+    this.starttime = "";
+    this.endtime = "";
+    this.endtimelist.length = 0;
+    this.homevisitfee = "";
+  }
 
 
   public insertdetails() {
-    if (this.midwifeid == undefined) {
-      Swal.fire("Please Select Midwife");
-    }
-    else if (this.hospitalid == undefined) {
-      Swal.fire("Please Select Hospital / Clinic");
-    }
-    // else if (this.fees == undefined) {
-    //   Swal.fire("Please Select Fees");
-    // }
-
-    else {
-
+    debugger
+    for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'MidwifeID': this.midwifeid,
         'MidWifeHospitalID': this.midwifehospitalid,
         'HospitalID': this.hospitalid,
-        'HomeVisitFees': this.homevisitfee,
-        'MidWIfeFee': this.midwifefee,
-        'VoilaDocCommission': this.voiladoccommission
+        'HomeVisitFees': this.qwerty[i].HomeVisitFees,
+        'StartTime': this.qwerty[i].StartTime,
+        'EndTime': this.qwerty[i].EndTime
       }
       this.docservice.InsertMidWifeCommissionDeatails(entity).subscribe(data => {
+        debugger
         if (data != 0) {
-          // if (this.independent == 2) {
-          //   this.InsertMidwifeRevenue()
+          // if (this.languageid == 1) {
+          //   Swal.fire('Success', 'Details Saved Successfully');
+          //   location.href = "#/MidwifeFeesDash"
           // }
-          if(this.languageid==1)
-          {
-            Swal.fire('Success', 'Details Saved Successfully');
-            location.href = "#/MidwifeFeesDash"
-          }
-          else if(this.languageid==6)
-          {
-            Swal.fire('', 'Mis à jour avec succès !');
-            location.href = "#/MidwifeFeesDash"
-          }
-     
+          // else if (this.languageid == 6) {
+          //   Swal.fire('', 'Mis à jour avec succès !');
+          //   location.href = "#/MidwifeFeesDash"
+          // }
         }
-        else {
-          if(this.languageid==1)
-          {
-            location.href = "#/MidwifeFeesDash"
-            Swal.fire("This Service Already Exists");
-          }
-       else if(this.languageid==6)
-          {
-            location.href = "#/MidwifeFeesDash"
-            Swal.fire("Ce service existe déjà");
-          }
-  
-
-        }
+        // else {
+        //   if (this.languageid == 1) {
+        //     location.href = "#/MidwifeFeesDash"
+        //     Swal.fire("This Service Already Exists");
+        //   }
+        //   else if (this.languageid == 6) {
+        //     location.href = "#/MidwifeFeesDash"
+        //     Swal.fire("Ce service existe déjà");
+        //   }
+        // }
       })
     }
+    this.tablecount = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Success', 'Details Saved Successfully');
+      // location.href = "#/MidwifeFeesDash"
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('', 'Mis à jour avec succès !');
+      // location.href = "#/MidwifeFeesDash"
+    }
+
+
   }
 
   midwifedetails: any;
@@ -201,7 +197,11 @@ export class MidwifeFeesComponent implements OnInit {
           this.midwifefee = list2[0].midWIfeFee,
           this.voiladoccommission = list2[0].voilaDocCommission,
           this.hospitalname = list2[0].hospital_ClinicName,
-          this.midwifename = list2[0].name
+          this.midwifename = list2[0].name,
+          this.starttime=list2[0].startTime,
+          this.endtime=list2[0].endTime
+
+
       }, error => {
       }
     )
@@ -254,35 +254,62 @@ export class MidwifeFeesComponent implements OnInit {
 
 
 
-  public monthlysubription: any;
-  public appointmentpercentage: any;
-  public subscriptiontype: any;
-  public contractstartdate: any;
-  public contractenddate: any;
+  public starttime: any;
+  public strttimeid: any;
+  public endtimelist: any;
+  public endtime: any;
+  public endtimeid: any;
 
 
-  public Getsubscriptontype() {
+  public GetStartTime(even) {
     debugger
-    this.appointmentpercentage = 0;
-    this.monthlysubription = 0;
+    let list = even.target.value.split(',')
+
+    this.starttime = list[0];
+    this.strttimeid = list[1];
+    this.endtimelist = this.Timeings.filter(x => x.id > this.strttimeid);
+  }
+
+  public GetEndTime(even) {
+    debugger
+    let list = even.target.value.split(',');
+    this.endtime = list[0];
+    this.endtimeid = list[1];
   }
 
 
 
-  
-  public InsertMidwifeRevenue() {
+  Timeings: any;
+  dummtimings: any;
+
+  public GetTimings() {
+    this.docservice.GetSlotMasterTimings().subscribe(
+      data => {
+
+        this.Timeings = data;
+        this.dummtimings = data;
+      }, error => {
+      }
+    )
+  }
+
+
+  public delete(Sno) {
     debugger
-    var entity1 = {
-      'SubscriptionTypeID': this.subscriptiontype,
-      'HospitalID': this.hospitalid,
-      'MidwifeID': this.midwifeid,
-      'MonthlySubscription': this.monthlysubription,
-      'AppointmentPercentage': this.appointmentpercentage,
-      'ContractStartdate': this.contractstartdate,
-      'ContractEnddate': this.contractenddate
+    for (let i = 0; i < this.qwerty.length; i++) {
+      if (Sno == this.qwerty[i].Sno) {
+      debugger
+        var mrngslots = this.dummtimings.findIndex(x => x.id ==  this.qwerty[i].StartTimeID);
+        this.Timeings = this.dummtimings.slice(mrngslots, this.dummtimings.length);
+        debugger
+        this.qwerty.splice(i, 1);
+      }
     }
-    this.docservice.InsertIndependentMidwife_Revenue(entity1).subscribe(data => {
+    if (this.qwerty.length == 0) {
+      this.tablecount = 0;
+    }
 
-    })
   }
+
+
 }

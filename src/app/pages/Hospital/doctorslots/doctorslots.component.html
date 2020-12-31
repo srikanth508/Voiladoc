@@ -31,7 +31,7 @@
     <div class="row" style="margin-left: 5px;">
       <br>
       <div class="col-lg-2" style="margin-left: 15px; " *ngFor="let slot of doctorslots">
-        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]" 
+        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName,slot.doctorFees]" 
         style="text-align: center; border: 3px solid gray;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
         <br>
       </div>
@@ -52,7 +52,7 @@
     <br>
     <div class="row" style="margin-left: 5px;">
       <div class="col-lg-2" style="margin-left: 15px;" *ngFor="let slot of afternoonslots">
-        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
+        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName,slot.doctorFees]"
         style="text-align: center; border: 3px solid gray;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
       </div>
       <br>
@@ -72,7 +72,7 @@
     <br>
     <div class="row" style="margin-left: 5px;">
       <div class="col-lg-2" style="margin-left: 15px; " *ngFor="let slot of eveningslosts">
-        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
+        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName,slot.doctorFees]"
         style="text-align: center; border: 3px solid gray;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
       </div>
       <br>
@@ -92,7 +92,7 @@
     <br>
     <div class="row" style="margin-left: 5px;">
       <div class="col-lg-2" style="margin-left: 15px; " *ngFor="let slot of nightslots">
-        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName]"
+        <label [routerLink]="['/Bookappments',slot.doctorSlotID,slot.slotName,slot.doctorFees]"
         style="text-align: center; border: 3px solid gray;color:#1dbfd2; height: 28px;width: 62%;">{{slot.slotName}}</label>
       </div>
       <br>

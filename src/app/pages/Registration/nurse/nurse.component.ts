@@ -55,6 +55,7 @@ export class NurseComponent implements OnInit {
   public spokenlanguages: any;
   dropzonelable: any;
   public search: any;
+  public dummapecilizationlist: any;
 
   ngOnInit() {
 
@@ -67,7 +68,7 @@ export class NurseComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        this.search=this.labels[0].search
+        this.search = this.labels[0].search
       }, error => {
       }
     )
@@ -81,11 +82,14 @@ export class NurseComponent implements OnInit {
       }
     )
 
+
     this.docservice.GetSpecilaizationMasterByLanguageID(this.languageid).subscribe(
       data => {
 
-        this.specilisationlist = data;
 
+        this.dummapecilizationlist = data;
+        this.specilisationlist = this.dummapecilizationlist.filter(x => x.departmentID == 30)
+       
         this.specilisatiodd = {
           singleSelection: false,
           idField: 'id',
@@ -167,7 +171,7 @@ export class NurseComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        this.search=this.labels[0].search
+        this.search = this.labels[0].search
       }, error => {
       }
     )
@@ -255,18 +259,16 @@ export class NurseComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire('Mis à jour avec succés');
       abcd.length = 0;
     }
 
-  
+
   }
 
   public uploadattachments() {
@@ -293,13 +295,11 @@ export class NurseComponent implements OnInit {
     this.idproof.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire('Mis à jour avec succés');
       abcd.length = 0;
     }
@@ -402,19 +402,17 @@ export class NurseComponent implements OnInit {
           this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
           })
         }
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire('Registration Completed', 'Details saved successfully', 'success');
           this.spinner.hide();
           location.href = '#/NurseDashboard';
         }
-        else if(this.languageid==6)
-        {
+        else if (this.languageid == 6) {
           Swal.fire('', 'Inscription terminée avec succès !', 'success');
           this.spinner.hide();
           location.href = '#/NurseDashboard';
         }
-     
+
       }
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');

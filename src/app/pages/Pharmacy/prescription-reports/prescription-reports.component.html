@@ -5,7 +5,8 @@
     </div>
 
     <div class="col-lg-2" style="margin-top: -12px; text-align: end">
-      <button class="btn btncolor" (click)="getglmasterexcel()">Export Excel</button>
+      <button class="btn btncolor" *ngIf="languageid=='1'" (click)="getglmasterexcel()">Export Excel</button>
+      <button class="btn btncolor" *ngIf="languageid=='6'" (click)="getglmasterexcel()">Exporter vers Excel</button>
     </div>
   </div>
 </div>
@@ -15,10 +16,10 @@
     <div class="col-lg-3">
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
@@ -26,7 +27,7 @@
     <div class="col-lg-3" *ngIf="showdrop=='1'">
       <select class="form-control" (change)="GetPharmacyID($event)">
         <option selected value="0">Select Pharmacy</option>
-     <option *ngFor="let pha of pharmacylist" value="{{pha.id}}">{{pha.pharmacyName}}</option>
+        <option *ngFor="let pha of pharmacylist" value="{{pha.id}}">{{pha.pharmacyName}}</option>
       </select>
     </div>
     <div class="col-lg-3">
@@ -45,12 +46,16 @@
     <div class="col-lg-8">
     </div>
     <div class="col-lg-2">
-      {{labels[0].totalRevenue}} :
-      <b>{{totalamount}}</b>
+      <label style="margin-left:69px;">
+        {{labels[0].totalRevenue}} :
+        <b>{{totalamount}}</b>
+      </label>
     </div>
     <div class="col-lg-2">
-      {{labels[0].count}} :
-      <b>{{count}}</b>
+      <label style="margin-left: 88px;">
+        {{labels[0].count}} :
+        <b>{{count}}</b>
+      </label>
     </div>
   </div>
   <br>
@@ -63,7 +68,7 @@
             <th>{{labels[0].orderNumber}}</th>
             <th *ngIf="showdrop=='1'">{{labels[0].pharmcyname}}</th>
             <th *ngIf="languageid=='1'">Prescription Type</th>
-            <th *ngIf="languageid=='6'">Format de l’ordonnance</th>
+            <th *ngIf="languageid=='6'">Format d'ordonnance</th>
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].mailId}}</th>
@@ -75,7 +80,7 @@
           <tr *ngFor="let details of reportlist|filter:term">
             <td>{{details.date}}</td>
             <td>{{details.id}}</td>
-            <td  *ngIf="showdrop=='1'">{{details.pharmacyName}}</td>
+            <td *ngIf="showdrop=='1'">{{details.pharmacyName}}</td>
             <td>
               <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
               <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>
@@ -88,13 +93,14 @@
             <td>
               <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
               <a [ngbTooltip]="tipcontent12">
-                <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='1'" style="height:30px;" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetMedicines(details.id)" />
+                <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='1'" style="height:30px;"
+                  data-toggle="modal" data-target="#exampleModal" (click)="GetMedicines(details.id)" />
               </a>
 
               <ng-template #tipcontent890>Photo</ng-template>
               <a [ngbTooltip]="tipcontent890">
-                <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='2'" style="height:30px;" data-toggle="modal" data-target="#exampleModal2"
+                <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='2'" style="height:30px;"
+                  data-toggle="modal" data-target="#exampleModal2"
                   (click)="GetPrescriptionUrl(details.prescriptionUrl)" />
               </a>
             </td>
@@ -103,17 +109,25 @@
                 style="color:red">{{labels[0].cancelled}}</label>
               <label *ngIf="details.delivered=='1'" style="color:green">{{labels[0].delivered}}</label> -->
 
-              <label style="color:green" *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">{{labels[0].accepted}}</label>
-              <label style="color:red" *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
-              <label style="color:green" *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">{{labels[0].accepted}}</label>
+              <label style="color:red"
+                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
 
-              <label style="color:green" *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">Fully Available
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">Fully
+                Available
               </label>
 
-              <label style="color:green" *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='1'&&details.readyfordelivery=='0'">Partially Available
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='1'&&details.readyfordelivery=='0'">Partially
+                Available
               </label>
 
-              <label style="color:green" *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'">
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'">
                 Ready For Delivery</label>
             </td>
           </tr>
@@ -264,7 +278,8 @@
 
 
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="width: 800px;
     height: auto;">
@@ -282,7 +297,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

@@ -173,7 +173,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.referencenumber = this.list[0].referenceNumber,
       this.showedit = this.list[0].showUpdate,
 
-      this.docservice.GetPatientOrderedMedicines(this.listid).subscribe(
+      this.docservice.GetPatientOrderedMedicines(this.listid,this.languageid).subscribe(
         data => {
 
           this.orderedmedicinelist = data;
@@ -839,7 +839,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes!',
+        confirmButtonText: 'Oui!',
         cancelButtonText: 'Annuler'
       }).then((result) => {
         if (result.value) {
@@ -956,23 +956,22 @@ export class DoctorPrescriptionComponent implements OnInit {
   showwindow: any;
 
 
-  public GetPharmacyPatientID(patientid, patientemail) {
+  public GetPharmacyPatientID(patientid, patientemail,id) {
     this.patientid = patientid;
     this.patientemail = patientemail
+    this.orderid=id;
     document.getElementById("myForm").style.display = "block";
     this.showwindow = 1;
 
     this.image = 0;
     this.getserverdateandtime()
     this.oberserableTimer();
-    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
+    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid,this.orderid).subscribe(res => {
 
       this.chatID = res[0].chatID;
       this.getPreviousChat();
     })
   }
-
-
 
   public getserverdateandtime() {
 
@@ -987,13 +986,12 @@ export class DoctorPrescriptionComponent implements OnInit {
     )
   }
 
-
   public dosendmsg() {
     this.getChat();
   }
 
   public getChat() {
-    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid).subscribe(res => {
+    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid,this.orderid).subscribe(res => {
 
 
       if (res.length > 0) {
@@ -1004,7 +1002,8 @@ export class DoctorPrescriptionComponent implements OnInit {
       else {
         var entity = {
           'PharmacyID': this.pharmacyid,
-          'PatientID': this.patientid
+          'PatientID': this.patientid,
+          'AppointmentID':this.orderid
         }
         this.docservice.InserPharmacy_ChatMaster(entity).subscribe(data => {
 

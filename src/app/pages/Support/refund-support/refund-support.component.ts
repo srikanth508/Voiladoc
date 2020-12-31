@@ -42,7 +42,7 @@ export class RefundSupportComponent implements OnInit {
   showexportbutton: any;
   refundlist: any;
   comments: any;
-  dummrefundlist:any;
+  dummrefundlist: any;
   ngOnInit() {
 
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
@@ -94,10 +94,11 @@ export class RefundSupportComponent implements OnInit {
 
 
   public GetRefunfSupport() {
+    debugger
     this.docservice.GetPatientRefundStatusWeb(this.languageid, this.startdate, this.enddate).subscribe(res => {
 
       this.dummrefundlist = res;
-      this.refundlist=this.dummrefundlist.filter(x=>x.completed==0)
+      this.refundlist = this.dummrefundlist.filter(x => x.completed == 0)
       this.count = this.refundlist.length;
     })
   }
@@ -109,7 +110,7 @@ export class RefundSupportComponent implements OnInit {
     })
   }
 
-
+public email:any;
 
 
   selectedDate(data) {
@@ -118,6 +119,7 @@ export class RefundSupportComponent implements OnInit {
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
 
+    debugger
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
 
@@ -129,6 +131,7 @@ export class RefundSupportComponent implements OnInit {
 
   public GetCallbackStatus(details) {
     this.id = details.id
+    this.email=details.emailID
   }
 
 
@@ -141,10 +144,12 @@ export class RefundSupportComponent implements OnInit {
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
         this.GetRefunfSupport();
+        this.InsertNotification()
       }
       else {
         Swal.fire('Mis à jour avec succés');
         this.GetRefunfSupport();
+        this.InsertNotification()
       }
 
     })
@@ -152,7 +157,8 @@ export class RefundSupportComponent implements OnInit {
 
 
   public GetTransctionPhotodetails(details) {
-    this.id = details.id
+    this.id = details.id,
+    this.email=details.emailID
   }
 
   public UpdatePatientRefundStatusByBankDetails() {
@@ -165,10 +171,12 @@ export class RefundSupportComponent implements OnInit {
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
         this.GetRefunfSupport();
+        this.InsertNotification()
       }
       else {
         Swal.fire('Mis à jour avec succés');
         this.GetRefunfSupport();
+        this.InsertNotification()
       }
     })
   }
@@ -193,7 +201,6 @@ export class RefundSupportComponent implements OnInit {
       Swal.fire('Ajouté avec succès');
       abcd.length = 0;
     }
-
   }
 
   public uploadid() {
@@ -217,7 +224,7 @@ export class RefundSupportComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -235,7 +242,7 @@ export class RefundSupportComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -248,4 +255,20 @@ export class RefundSupportComponent implements OnInit {
   }
 
 
+
+
+  public InsertNotification() {
+
+    var entity = {
+      'Description':this.comments,
+      'ToUser': this.email,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+    })
+
+  }
 }

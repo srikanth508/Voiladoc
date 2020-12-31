@@ -34,33 +34,14 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
         this.labels = data;
         this.Select = this.labels[0].selectPhysiotherapist;
-        this.search=this.labels[0].search;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
-
+    this.getphysio();
     // this.getlanguage()
 
-    this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
-      data => {
 
-        this.dummlistphysiolist = data;
-        this.physioist = this.dummlistphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
-        this.count = this.physioist.length
-
-        this.phsyodd = {
-          singleSelection: true,
-          idField: 'id',
-          textField: 'name',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          //  itemsShowLimit: 3,
-          allowSearchFilter: true,
-          searchPlaceholderText: this.search,
-        };
-      }, error => {
-      }
-    )
     this.timeSheetTablearray = [];
     this.TodatDate = new Date();
     var date = new Date();
@@ -80,8 +61,61 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
-  
+
   }
+
+
+
+
+  public getphysio() {
+    if (this.hospitalclinicid != undefined) {
+      this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
+        data => {
+
+          this.dummlistphysiolist = data;
+          this.physioist = this.dummlistphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+          this.count = this.physioist.length
+
+          this.phsyodd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'name',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
+          };
+        }, error => {
+        }
+      )
+    }
+    else if (this.hospitalclinicid == undefined) {
+      this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
+        data => {
+
+          this.dummlistphysiolist = data;
+          this.physioist = data;
+          this.count = this.physioist.length
+
+          this.phsyodd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'name',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
+          };
+        }, error => {
+        }
+      )
+    }
+
+  }
+
+
 
   Select: any;
 
@@ -91,7 +125,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
         this.labels = data;
         this.Select = this.labels[0].selectPhysiotherapist;
-        this.search=this.labels[0].search;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -260,7 +294,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
 
 
-  public GetPhysiotherapistID(item:any) {
+  public GetPhysiotherapistID(item: any) {
     this.physioid = item.id;
 
 
