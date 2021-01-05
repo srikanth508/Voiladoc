@@ -1,4 +1,4 @@
-<br>
+
 <div class="container-fluid card card-hover headerrspace">
   <div class="row headerspace">
     <div class="col-lg-5">
@@ -46,6 +46,7 @@
       <table  id="Appointment" >
         <thead>
           <tr>
+            <th>Ticket No</th>
             <th>{{labels[0].raisedDate}}</th>
             <th>{{labels[0].issue}}</th>
             <th>{{labels[0].description}}</th>
@@ -53,6 +54,7 @@
             <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let issue of issuelist|filter:term">
+            <td>{{issue.id}}</td>
             <td>{{issue.raiseddate}}</td>
             <td>{{issue.issue}}</td>
             <td>
@@ -66,7 +68,7 @@
 
               <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">{{labels[0].pending}}</label>
               <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">{{labels[0].accepted}}</label>
-              <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
+              <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label>
             </td>
           </tr>
         </thead>

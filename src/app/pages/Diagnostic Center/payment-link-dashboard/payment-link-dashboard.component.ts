@@ -46,7 +46,7 @@ public Delete(id) {
                 Swal.fire("Deleted Successfully");
             }
             else {
-                Swal.fire("Supprimé avec succès")
+                Swal.fire("Supprimé avec Succès")
             }
         }
     })

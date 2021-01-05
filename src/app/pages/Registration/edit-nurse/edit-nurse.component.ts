@@ -198,9 +198,13 @@ export class EditNurseComponent implements OnInit {
       if (data != undefined) {
         if (this.languageid == 1) {
           Swal.fire("Updated Successfully");
+
+          location.href = "#/NurseDashboard"
         }
         else if (this.languageid == 6) {
           Swal.fire("Mis à jour avec succés");
+
+          location.href = "#/NurseDashboard"
         }
       }
     })
@@ -259,15 +263,15 @@ export class EditNurseComponent implements OnInit {
       if (this.languageid == 1) {
         Swal.fire("Updated Successfully");
         this.editbit = 0;
-        this.dummnursephoto.length=0;
-        this.attachmentsurl.length=0;
+        this.dummnursephoto.length = 0;
+        this.attachmentsurl.length = 0;
         this.ngOnInit();
       }
       else if (this.languageid == 6) {
         Swal.fire("Mis à jour avec succés");
         this.editbit = 0;
-        this.dummnursephoto.length=0;
-        this.attachmentsurl.length=0;
+        this.dummnursephoto.length = 0;
+        this.attachmentsurl.length = 0;
         this.ngOnInit();
       }
     })

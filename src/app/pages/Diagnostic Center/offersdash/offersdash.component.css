@@ -24,6 +24,13 @@
         margin-top:20px;
     }
 
+
+    .headerspace{
+        margin-top: 10px;
+        text-transform:uppercase;
+      }
+    
+
     h5{
         text-transform: uppercase;
     }

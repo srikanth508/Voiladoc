@@ -85,7 +85,7 @@ export class DiagnosticSupportComponent implements OnInit {
             location.href = "#/DiagnosticSupportDash"
           }
           else {
-            Swal.fire('Problème soulevé avec succès')
+            Swal.fire('Problème soulevé avec Succès')
             location.href = "#/DiagnosticSupportDash"
           }
 
@@ -105,7 +105,7 @@ export class DiagnosticSupportComponent implements OnInit {
       abcd.length = 0;
     }
     else {
-      Swal.fire('Ajouté avec succès');
+      Swal.fire('Ajouté avec Succès');
       abcd.length = 0;
     }
 

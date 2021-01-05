@@ -302,6 +302,15 @@ export class DiagnosticReportsComponent implements OnInit {
       var rowData = {};
       for (var j = 0; j < tableRow.cells.length - 1; j++) {
         rowData[headers[j]] = tableRow.cells[j].innerHTML;
+
+        document.getElementById('table_rowhtml').innerHTML=rowData['REPORTS'] ? rowData['REPORTS'] :"";
+        rowData['REPORTS']=document.getElementById('table_rowhtml').innerText;
+        document.getElementById('table_rowhtml').innerHTML=rowData['HOMESAMPLEPICKUP'] ? rowData['HOMESAMPLEPICKUP'] :"";
+        rowData['HOMESAMPLEPICKUP']=document.getElementById('table_rowhtml').innerText;
+
+        document.getElementById('table_rowhtml').innerHTML=rowData['DETAILS'] ? rowData['DETAILS'] :"";
+        rowData['DETAILS']=document.getElementById('table_rowhtml').innerText;   
+
       } data.push(rowData);
     }
     return data;

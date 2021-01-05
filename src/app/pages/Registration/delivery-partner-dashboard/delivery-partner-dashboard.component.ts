@@ -32,6 +32,7 @@ export class DeliveryPartnerDashboardComponent implements OnInit {
   public showexportbutton: any;
   public salesrepresntiveid: any;
   public showeditbutton:any;
+  public term:any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');

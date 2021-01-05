@@ -77,8 +77,9 @@ export class DiagnosticSupportDashComponent implements OnInit {
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.diagnosticid, 8, this.startdate, this.enddate).subscribe(res => {
      
-      this.dummissuelist = res
-      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
+      this.dummissuelist = res;
+      this.issuelist = res;
+      // this.dummissuelist.filter(x => x.resolved == 0)
       this.count = this.issuelist.length;
      
     })

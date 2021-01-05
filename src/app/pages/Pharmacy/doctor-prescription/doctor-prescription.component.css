@@ -97,19 +97,7 @@
   
   
   
-  
-  /* *
-  {
-      -webkit-border-radius: 10px  !important;
-      -moz-border-radius: px  !important;
-      border-radius: 10px !important;
-  } */
-  /* htlm, body
-  {
-      padding: 0;
-      margin: 0;
-      position: relative;
-  } */
+
   .clearFix
   {
       clear:both;
@@ -165,28 +153,7 @@
   .panel.panel-chat .panel-body::-webkit-scrollbar {
        display: none;
    }
-  /* .panel.panel-chat .panel-body .messageMe
-  {
-      border-bottom:1px dotted #b2b2b2;
-  } */
-  /* .panel.panel-chat .panel-body .messageMe img
-   {
-       float:left;
-       max-width: 50px;
-       max-height: 50px;
-   } */
-  /* .panel.panel-chat .panel-body .messageMe span
-  {
-      display: block;
-      float:left;
-      padding: 5px;
-      background: #FFF;
-      min-height: 50px;
-      max-width: 280px;
-      height: 50px;
-      width: 280px;
-      word-break: break-all;
-  } */
+
   .panel.panel-chat .panel-body .messageHer
   {
       border-bottom:1px dotted #b2b2b2;

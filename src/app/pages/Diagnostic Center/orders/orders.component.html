@@ -141,6 +141,15 @@
                         style="height:19px;" (click)="GetAssaignOrderdetails(details)">
                     </a>
                   </td>
+                  <td style="border:none">
+                    <ng-template #tipcontent9867>{{labels1[0].chat}}</ng-template>
+                    <span style="color: green;position: absolute;margin-left: 22px;">{{details.chatcount}}</span>
+                    <a [ngbTooltip]="tipcontent9867"
+                      *ngIf="details.acceptedBit=='1'">
+                      <img src="assets/Images/chat.jpg" 
+                        style="height:19px;" (click)="GetChatShowID(details)">
+                    </a>
+                  </td>
                 </tr>
               </table>
             </td>
@@ -392,4 +401,106 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- chat -->
+
+<div class="chat-popup" id="myForm">
+  <form class="form-container" #chatfrom="ngForm">
+    <div class="container-fluid card card-hover" style="height: 550px;width:530px;">
+      <br>
+      <div class="row">
+        <div class="col-lg-5">
+          <h5>{{labels4[0].chat}}</h5>
+        </div>
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-2">
+          <img src="assets/Images/can.png" (click)="GetShowOff()">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
+          <!-- <span *ngIf="istyping==true">typing .... </span> -->
+        </div>
+      </div>
+      <!-- id="chatboxdiv" -->
+      <div style="height: 500px;overflow-y: scroll;" id="chatboxdiv">
+        <div *ngFor='let convo of coversationarray'>
+          <div class="container" *ngIf='convo.user=="doc"'>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-1"></div>
+              <div class="col-lg-7" style="background-color:#dbdbdb;border-radius: 5px;color:black;">
+                <div *ngIf="convo.msgtype=='1'">
+                  <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
+                    float: left;">
+                  <p style="margin-top: 5px;">{{convo.chatmsg}}
+                    <span style="float: right;;margin-top: 5px;">
+                      {{convo.time}}
+                    </span>
+                  </p>
+                </div>
+                <div *ngIf="convo.msgtype=='2'">
+                  <img src="{{convo.chatmsg}}" style="width: 100%;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container" *ngIf='convo.user=="pat"'>
+            <div class="row">
+              <div class="col-lg-7" style="background-color:#1dbfd2;border-radius: 5px;color:white;margin-top: 1px;">
+                <div *ngIf="convo.msgtype=='1'">
+                  <p style="margin-top: 5px;">
+                    <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;"> &nbsp;
+                    {{convo.chatmsg}}
+                    <span style="float: right;;margin-top: 5px;">
+                      {{convo.time}}
+                    </span>
+                  </p>
+                </div>
+                <div *ngIf="convo.msgtype=='2'">
+                  <img src="{{convo.chatmsg}}" style="width: 100%;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <hr>
+      <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
+        <div class="row">
+          <div class="col-lg-9">
+            <!-- <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
+                  placeholder="{{labels[0].typemsg}}"></textarea> -->
+            <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
+              style=" border-style:none;" placeholder="{{labels4[0].typeamessage}}" />
+          </div>
+          <div class="col-lg-3">
+            <button type="submit" class="chat form-control" [disabled]="chatfrom.form.invalid"
+              (click)="InsertChatDetails()">{{labels4[0].send}}
+              <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
+            </button>
+          </div>
+          <!-- <div class="col-lg-1">
+                <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
+                  style="height: 50px;">
+                </ngx-dropzone>
+              </div> -->
+        </div>
+      </div>
+      <br>
+    </div>
+    <br>
+  </form>
 </div>

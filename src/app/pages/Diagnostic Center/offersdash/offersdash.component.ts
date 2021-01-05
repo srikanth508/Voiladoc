@@ -49,19 +49,85 @@ export class OffersdashComponent implements OnInit {
       }
     )
   }
-  public deletediagnosticoffers(id)
-  {
+  
+  // public deletediagnosticoffers(id)
+  // {
    
-    this.docservice.DeleteDiagnosticOffer(id).subscribe(
-      data => {
+  //   this.docservice.DeleteDiagnosticOffer(id).subscribe(
+  //     data => {
        
-        Swal.fire("Deleted Successfully");
-        this.getdiagnosticofferbydiagnosticid();
-      }, error => {
-      }
-    )
+  //       Swal.fire("Deleted Successfully");
+  //       this.getdiagnosticofferbydiagnosticid();
+  //     }, error => {
+  //     }
+  //   )
 
+  // }
+
+
+
+
+
+
+  public deletediagnosticoffers(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDiagnosticOffer(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticofferbydiagnosticid();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Deleted Successfully".',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticofferbydiagnosticid();
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDiagnosticOffer(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticofferbydiagnosticid();
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Supprimé avec Succès ',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticofferbydiagnosticid();
+        }
+      })
+    }
+  
   }
+
+
+
   public pageChanged(even) {
    
     let fgdgfgd = even;

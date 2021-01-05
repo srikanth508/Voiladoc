@@ -32,11 +32,11 @@ export class ItemsComponent implements OnInit {
       this.ID = params['id'];
       this.service.GetItems().subscribe(
         data => {
-         
+
           let temp: any = data;
           let temp1: any = temp.filter(x => x.id == this.ID);
           this.service.GetItemCategory().subscribe(data => {
-           
+
             this.Categorylist = data;
           })
           this.CategoryID = temp1[0].categoryID;
@@ -55,6 +55,9 @@ export class ItemsComponent implements OnInit {
       )
     });
 
+    this.CategoryID = 0;
+    this.SubcategoryID = 0;
+
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
     }
@@ -66,10 +69,10 @@ export class ItemsComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-   
+
     this.service.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -79,7 +82,7 @@ export class ItemsComponent implements OnInit {
   SubcategoryID;
   insertdetail() {
 
-   
+
     let entity = {
       productname: this.productname,
       CategoryID: this.CategoryID,
@@ -90,10 +93,10 @@ export class ItemsComponent implements OnInit {
       Quantity: 10,
       photourl: 'NULL'
     };
-   
+
     this.service.insertItems(entity).subscribe(data => {
       if (data >= 0) {
-       
+
         this.inserthspphotos(data);
         location.href = '#/ItemMaster';
         //this._router.navigate(['/ItemMaster']);
@@ -105,30 +108,32 @@ export class ItemsComponent implements OnInit {
   }
 
   getCategory() {
-   
+
     this.service.GetItemCategory().subscribe(data => {
-     
+
       this.Categorylist = data;
     })
   }
 
   getCategoryID(eve) {
     let cid = eve.target.value
-   
+
     this.service.GetsubcategoryByCategoryID(cid).subscribe(data => {
       this.Subcategorylist = data;
     })
   }
 
+  public duummattchmenturl = [];
 
 
 
   attachments = [];
   public onattachmentUpload(abcd) {
-   
+    debugger
+    this.duummattchmenturl = [];
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
-
+    debugger
     // }
     this.uploadattachments();
     Swal.fire('Added Successfully');
@@ -138,34 +143,35 @@ export class ItemsComponent implements OnInit {
   attachmentsurl = [];
   showphoto = [];
   public uploadattachments() {
-   
+    debugger
     this.service.ItemsPhotosUpload(this.attachments).subscribe(res => {
-     
+      debugger
+       for (let i = 0; i < res.length; i++) {
+      this.attachmentsurl.push(res[i]);
+      this.duummattchmenturl.push(res[i]);
 
-      for (let i = 0; i < res.length; i++) {
-        this.attachmentsurl.push(res[i]);
-        let a = this.attachmentsurl[0].slice(2);
-       
-        let b = 'http://14.192.17.225' + a;
-        this.showphoto.push(b)
-      }
-
+      let a = this.duummattchmenturl[0].slice(2);
+      // let a = this.duummattchmenturl[0].slice(2);
+      let b = 'http://14.192.17.225' + a;
+      this.showphoto.push(b)
+       }
+      debugger
       this.attachments.length = 0;
-     
+
     })
 
   }
 
 
   public inserthspphotos(ID) {
-   
+
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       let entity = {
         'ItemsID': ID,
         'PhotoUrl': this.attachmentsurl[i]
       }
       this.service.Insert_ItemPhotos(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -177,7 +183,7 @@ export class ItemsComponent implements OnInit {
     }
 
     this.service.UpdateProductImages(Entity).subscribe(data => {
-     
+
       if (data != 0) {
         Swal.fire('Saved Sucessfully')
       }
@@ -186,7 +192,7 @@ export class ItemsComponent implements OnInit {
 
 
   Updatedetail() {
-   
+
     let entity = {
       'ID': this.ID,
       'ProductName': this.productname,
@@ -196,7 +202,7 @@ export class ItemsComponent implements OnInit {
       'ProductCode': this.productCode,
       'ProductPrice': this.productprice
     };
-   
+
     this.service.UpdateProducts(entity).subscribe(data => {
       if (data != 0) {
         Swal.fire('Updated Successfully');

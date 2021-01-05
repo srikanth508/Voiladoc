@@ -50,11 +50,11 @@ export class NewPaymentLinkComponent implements OnInit {
     }
     this.docservice.InsertDiagnosticPaymentLinkMaster(entity).subscribe(res => {
         if (this.languageid == 1) {
-            Swal.fire('Success', 'Added successfully')
+            Swal.fire('Success', 'Added Successfully')
             location.href = "#/PaymentLinkDash"
         }
         else if (this.languageid == 6) {
-            Swal.fire('Mis à jour avec succés');
+            Swal.fire('Mis à jour avec Succés');
             location.href = "#/PaymentLinkDash"
         }
     })
@@ -67,11 +67,11 @@ public UpdateDetailes() {
     }
     this.docservice.UpdateDiagnosticPaymentLinkMaster(entity).subscribe(res => {
         if (this.languageid == 1) {
-            Swal.fire('Success', 'Updated successfully')
+            Swal.fire('Success', 'Updated Successfully')
             location.href = "#/PaymentLinkDash"
         }
         else if (this.languageid == 6) {
-            Swal.fire('Mis à jour avec succés')
+            Swal.fire('Mis à jour avec Succés')
             location.href = "#/PaymentLinkDash"
         }
     })

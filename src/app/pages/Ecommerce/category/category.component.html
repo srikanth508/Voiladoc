@@ -16,7 +16,7 @@
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5">
-                <input type="text" required [(ngModel)]="categoryname" name="categoryname" class="form-control">
+                <input type="text" required placeholder="{{labels[0].categoryName}}" [(ngModel)]="categoryname" name="categoryname" class="form-control">
             </div>
         </div>
         <br>
@@ -26,26 +26,26 @@
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5 ">
-                <textarea class="form-control" rows="4 " required [(ngModel)]="description" name="description"></textarea>
+                <textarea class="form-control" rows="4 "  placeholder="{{labels[0].descriptions}}" required [(ngModel)]="description" name="description"></textarea>
             </div>
         </div>
         <br>
-
         <div class="row" style="margin-top:20px;" *ngIf="this.paramID==null">
             <div class="col-lg-3">
                 <label>{{labels[0].photos}} :</label>
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5">
-                <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                    <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
+                <span *ngFor="let docphoto of showphoto">
+                    <img src="{{docphoto}}" style="height:50px;width:70px">&nbsp;
+                  </span>
             </div>
         </div>
         <br>
-
-        <br>
-        <br>
-        <div class="row ">
+        <div class="row " >
             <div class="col-lg-5 ">
             </div>
 
@@ -57,7 +57,6 @@
             </div>
             <div class="col-lg-3 ">
             </div>
-
         </div>
         <div class="row ">
             <div class="col-lg-5 ">

@@ -420,7 +420,7 @@ export class DoctorregistrationComponent implements OnInit {
       'RegistrationCouncil': this.registrationcouncil,
       'RegistrationYear': this.registrationyear,
       'LanguageID': '1',
-      'ValidTill': this.validtill.toLocaleString()
+      'ValidTill': new Date()
     }
     this.docservice.InsertDoctorMedicalRegistration(entity).subscribe(data => {
 

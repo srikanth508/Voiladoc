@@ -232,7 +232,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'CountryID': this.countryid,
         'MonthlySubscription': this.monthlysubription,
         'HospitalClinicID': this.hospitalclinicid,
-        'Hospitalfulltimebit': this.hospitalfulltimebit,
+        'Hospitalfulltimebit': 0,
         'ContractStartDate': this.contractstartdate,
         'ContractEndDate': this.contractenddate,
         'DiagnosticAppointmentPerSlot':this.diagnosticappointmentperslot,

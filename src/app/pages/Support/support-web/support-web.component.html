@@ -79,7 +79,7 @@
             </td>
             <td>
 
-              <ng-template #tipcontent2>{{labels[0].accepted}}</ng-template>
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="height: 20px;"
                   (click)="UpdateSupportForWebAcceptedbit(issue.id)" />

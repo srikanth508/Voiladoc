@@ -1,4 +1,4 @@
-<div class="container-fluid card card:hover headerspace">
+<div class="container-fluid card card:hover headerrspace">
   <div class="row headerspace">
       <div class="col-lg-8">
           <h5>{{labels[0].myTeam}}</h5>
@@ -74,7 +74,7 @@
                   </div>
                   <div class="col-lg-2">
                       <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='0'" (click)="InsertDetailes()" [disabled]="myteam.form.invalid">{{labels[0].save}}</button>
-                      <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='1'" (click)="UpdateDetailes()" [disabled]="myteam.form.invalid">{{labels[0].update}}</button>
+                      <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='1'" (click)="UpdateDetailes()" [disabled]="myteam.form.invalid">{{labels[0].save}}</button>
                   </div>
                   <div class="col-lg-3">
                   </div>

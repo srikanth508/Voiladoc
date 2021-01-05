@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from 'src/app/hello-doctor.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-item-master',
   templateUrl: './item-master.component.html',
@@ -24,7 +24,7 @@ export class ItemMasterComponent implements OnInit {
 
     this.service.GetItemCategory().subscribe(
       data => {
-       
+
         let temp: any = data;
         this.CategoryList = temp;
       }, error => {
@@ -36,10 +36,10 @@ export class ItemMasterComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-   
+
     this.service.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -51,7 +51,7 @@ export class ItemMasterComponent implements OnInit {
   Filtereditemlist: any;
   getitem() {
     this.service.GetItems().subscribe(data => {
-     
+
       let temp: any = data;
       this.itemlist = temp;
       this.Filtereditemlist = this.itemlist;
@@ -67,7 +67,7 @@ export class ItemMasterComponent implements OnInit {
     if (this.catid == 0) {
       this.service.GetItems().subscribe(
         data => {
-         
+
           let temp: any = data;
           this.Filtereditemlist = this.itemlist;
         }, error => {
@@ -77,7 +77,7 @@ export class ItemMasterComponent implements OnInit {
     else {
       this.service.GetItems().subscribe(
         data => {
-         
+
           let temp: any = data;
           this.Filtereditemlist = this.itemlist.filter(x => x.categoryID == this.catid);
         }, error => {
@@ -87,7 +87,7 @@ export class ItemMasterComponent implements OnInit {
 
     this.service.GetSubcategory().subscribe(
       data => {
-       
+
         let temp: any = data;
         this.SubCategoryList = temp.filter(x => x.categoryID == this.catid);
       }, error => {
@@ -102,7 +102,7 @@ export class ItemMasterComponent implements OnInit {
     if (this.scatid == 0) {
       this.service.GetItems().subscribe(
         data => {
-         
+
           let temp: any = data;
           this.Filtereditemlist = this.itemlist.filter(x => x.categoryID == this.catid);
         }, error => {
@@ -112,7 +112,7 @@ export class ItemMasterComponent implements OnInit {
     else {
       this.service.GetItems().subscribe(
         data => {
-         
+
           let temp: any = data;
           this.Filtereditemlist = this.itemlist.filter(x => x.categoryID == this.catid && x.subcategoryID == this.scatid);
         }, error => {
@@ -133,7 +133,7 @@ export class ItemMasterComponent implements OnInit {
 
     this.service.GetProductsImagesByID(this.AppointmentID).subscribe(
       data => {
-       
+
         this.showimages = data;
         if (this.showimages.length == 0) {
           this.nophoto = 1
@@ -150,22 +150,25 @@ export class ItemMasterComponent implements OnInit {
 
 
   public Edit(evn) {
-   
+
     let ID = evn;
     this._router.navigate(['/items', evn]);
   }
 
   Deleteitem(id) {
-   
+
     this.service.deleteItems(id).subscribe(data => {
-     
+
       if (data >= 0) {
-       
-        this._router.navigate(['/ItemMaster']);
-        location.reload();
+
+        // this._router.navigate(['/ItemMaster']);
+        // location.reload();
+        Swal.fire('Deleted Successfully');
+        this.getitem();
       }
       else {
         alert("something went wrong");
+        this.getitem();
       }
     })
   }

@@ -1,5 +1,5 @@
-<br>
-<div class="container-fluid card card-hover ">
+
+<div class="container-fluid card card-hover headerrspace ">
   <div class="row headerspace">
     <div class="col-lg-5">
       <h5>{{labels[0].supportDash}}</h5>
@@ -66,7 +66,7 @@
 
               <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">{{labels[0].pending}}</label>
               <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:red">{{labels[0].accepted}}</label>
-              <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
+              <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label>
             </td>
           </tr>
         </thead>

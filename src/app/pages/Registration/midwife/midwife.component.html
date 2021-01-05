@@ -28,7 +28,7 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
+        <input type="text" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
           class="form-control">
       </div>
     </div>
@@ -108,7 +108,7 @@
     <br>
     <div class="row" *ngIf="dummid==null">
       <div class="col-lg-3">
-        <label>HOSPITAL/ClINIC : </label>
+        <label>Hospital/Clinic : </label>
       </div>
       <div class="col-lg-4">
         <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist" [settings]="hospitadd"

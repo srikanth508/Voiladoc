@@ -104,7 +104,6 @@ export class OffersComponent implements OnInit {
       'EDate': this.edate,
       'Offer': this.offer
     }
-
     this.docservice.InsertDiagnosticCenterOffers(entity).subscribe(data => {
 
       if (data != 0) {
@@ -113,7 +112,7 @@ export class OffersComponent implements OnInit {
           var entity = {
             'DiagnosticCenterID': this.diagnosticid,
             'DiagnosticOfferID': this.diagnosticofferid,
-            'PhotoURL': this.attachmentsurl[i]
+            'PhotoURL': this.attachmentsurl[0]
           }
           this.docservice.InsertDiagnosticCenterOfferPhotos(entity).subscribe(data => {
 
@@ -123,10 +122,11 @@ export class OffersComponent implements OnInit {
                 Swal.fire('Added Successfully');
 
                 this.clear();
+                this.attachmentsurl.length = 0;
               }
               else if (this.languageid == 6) {
-                Swal.fire('Mis à jour avec succés');
-
+                Swal.fire('Mis à jour avec Succés');
+                this.attachmentsurl.length = 0;
                 this.clear();
               }
             }
@@ -138,7 +138,7 @@ export class OffersComponent implements OnInit {
           this.clear();
         }
         else if (this.languageid == 6) {
-          Swal.fire('Mis à jour avec succés');
+          Swal.fire('Mis à jour avec Succés');
 
           this.clear();
         }
@@ -158,7 +158,7 @@ export class OffersComponent implements OnInit {
       abcd.length = 0;
     }
     else if (this.languageid == 6) {
-      Swal.fire('Mis à jour avec succés');
+      Swal.fire('Mis à jour avec Succés');
       abcd.length = 0;
     }
 

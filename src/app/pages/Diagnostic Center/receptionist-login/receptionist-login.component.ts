@@ -74,11 +74,11 @@ export class ReceptionistLoginComponent implements OnInit {
     this.docservice.InsertDiagnosticReceptionistLogin(entity).subscribe(res => {
         debugger
         if (this.languageid == 1) {
-            Swal.fire('Success', 'Added successfully')
+            Swal.fire('Success', 'Added Successfully')
             location.href = "#/ReceptionistLoginDashboard"
         }
         else if (this.languageid == 6) {
-            Swal.fire('Mis à jour avec succés');
+            Swal.fire('Mis à jour avec Succés');
             location.href = "#/ReceptionistLoginDashboard"
         }
     })
@@ -102,7 +102,7 @@ public UpdateDetailes() {
             location.href = "#/ReceptionistLoginDashboard"
         }
         else if (this.languageid == 6) {
-            Swal.fire('Mis à jour avec succés')
+            Swal.fire('Mis à jour avec Succés')
             location.href = "#/ReceptionistLoginDashboard"
         }
     })

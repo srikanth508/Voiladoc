@@ -45,7 +45,7 @@
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5">
-                <input type="text" required [(ngModel)]="productname" name="productname" class="form-control">
+                <input type="text" required placeholder="{{labels[0].product}}" [(ngModel)]="productname" name="productname" class="form-control">
             </div>
         </div>
         <br>
@@ -55,7 +55,7 @@
                 <span class="required ">*</span>
             </div>
             <div class="col-lg-5 ">
-                <textarea class="form-control " rows="4 " required [(ngModel)]="productDescription" name="productDescription"></textarea>
+                <textarea class="form-control " rows="4 " placeholder="{{labels[0].productDescription}}" required [(ngModel)]="productDescription" name="productDescription"></textarea>
             </div>
         </div>
         <br>
@@ -65,7 +65,7 @@
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5">
-                <input type="text" required [(ngModel)]="productCode" name="productCode" class="form-control">
+                <input type="text" required [(ngModel)]="productCode" placeholder="{{labels[0].productCode}}" name="productCode" class="form-control">
             </div>
         </div>
         <br>
@@ -75,7 +75,7 @@
                 <span class="required">*</span>
             </div>
             <div class="col-lg-5">
-                <input type="text" required [(ngModel)]="productprice" name="productprice" class="form-control">
+                <input type="text" required [(ngModel)]="productprice" placeholder="{{labels[0].productPrice}}" name="productprice" class="form-control">
             </div>
         </div>
         <br>
@@ -98,6 +98,9 @@
                 <ngx-dropzone [multiple]="true" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
                     <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
+                <span *ngFor="let docphoto of showphoto">
+                    <img src="{{docphoto}}" style="height:50px;width:70px">&nbsp;
+                  </span>
             </div>
         </div>
 

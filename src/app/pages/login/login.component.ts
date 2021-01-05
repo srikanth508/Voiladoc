@@ -280,7 +280,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('roleid', '5');
             localStorage.setItem('pharmacyid', this.result[0].pharmacyID);
             sessionStorage.setItem('temp', '1');
-            location.href = '#/Pharmacyprofile';
+            location.href = '#/DoctorPrescription';
             location.reload();
           }
           else {

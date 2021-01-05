@@ -14,7 +14,7 @@
     </div>
     <div class="col-lg-4">
       <input type="text" placeholder="{{labels[0].name}}" required class="form-control" [(ngModel)]="name" name="name"
-        onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+     disabled   onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
     </div>
   </div>
   <br>
@@ -24,7 +24,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
+      <input type="number" disabled maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
         class="form-control">
     </div>
   </div>
@@ -35,7 +35,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
+      <input type="text" disabled class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
         name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailID}}">
       <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
         <div [hidden]="!emailref.errors?.pattern">
@@ -51,8 +51,8 @@
       <span class="requird">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="radio" [value]="1" name="genderid" [(ngModel)]="genderid"> {{labels[0].male}} &nbsp;&nbsp;
-      <input type="radio" [value]="2" name="genderid" [(ngModel)]="genderid"> {{labels[0].female}}
+      <input type="radio" disabled [value]="1" name="genderid" [(ngModel)]="genderid"> {{labels[0].male}} &nbsp;&nbsp;
+      <input type="radio" disabled [value]="2" name="genderid" [(ngModel)]="genderid"> {{labels[0].female}}
     </div>
   </div>
   <br>
@@ -62,7 +62,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <textarea class="form-control" rows="4" name="address" [(ngModel)]="address" required
+      <textarea class="form-control" rows="4" name="address" disabled [(ngModel)]="address" required
         placeholder="{{labels[0].address}}"></textarea>
     </div>
   </div>
@@ -73,7 +73,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+      <select class="form-control" disabled [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
         <option value="" selected>{{labels[0].select}}</option>
         <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
       </select>
@@ -85,7 +85,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+      <select class=" form-control" disabled [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
         <option value="" selected="selected">{{labels[0].select}}</option>
         <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
       </select>
@@ -98,7 +98,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+      <select class="form-control" disabled [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
         <option value="" selected="selected">{{labels[0].select}}</option>
         <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
       </select>
@@ -110,7 +110,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <select class="form-control" [(ngModel)]="deptid" name="deptid" (change)="GetDepartmentID($event)">
+      <select class="form-control" disabled [(ngModel)]="deptid" name="deptid" (change)="GetDepartmentID($event)">
         <option valu="" selected>Select</option>
         <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
         </option>
@@ -124,8 +124,8 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-3">
-      <input type="radio" name="homevisit" required [value]="true" [(ngModel)]="homevisit">{{labels[0].yes}} &nbsp;
-      <input type="radio" name="homevisit" required [value]="false" [(ngModel)]="homevisit">{{labels[0].no}}
+      <input type="radio" name="homevisit" disabled required [value]="true" [(ngModel)]="homevisit">{{labels[0].yes}} &nbsp;
+      <input type="radio" name="homevisit" disabled required [value]="false" [(ngModel)]="homevisit">{{labels[0].no}}
     </div>
   </div>
   <br>
@@ -135,7 +135,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="number" placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required
+      <input type="number" disabled placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required
         class="form-control">
     </div>
   </div>
@@ -146,7 +146,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <textarea class="form-control" rows="4" name="description" [(ngModel)]="description" required
+      <textarea class="form-control" disabled rows="4" name="description" [(ngModel)]="description" required
         placeholder="{{labels[0].description}}"></textarea>
     </div>
   </div>

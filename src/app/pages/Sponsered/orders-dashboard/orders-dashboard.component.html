@@ -61,7 +61,7 @@
             <th>{{labels[0].tax}} </th>
             <th>{{labels[0].totalAmount}}</th>
             <th>{{labels[0].deliveryStatus}}</th>
-            <th>Action </th>
+            <!-- <th>Action </th> -->
           </tr>
           <tr *ngFor="let details of Orderslist|filter:term">
             <td>{{details.modifiedDate|date}}</td>
@@ -77,9 +77,9 @@
             <td>{{details.productTotalPrice}}</td>
             <td *ngIf="details.ordered==0">Pending</td>
             <td *ngIf="details.ordered==1">Delivered</td>
-            <td>
-              <button type="button" class="acceptbtn"
-                (click)="acceptdelete(details.ordertypeid,details.medicalOrderID,1,details.id)">Delivered</button>
+            <!-- <td> -->
+              <!-- <button type="button" class="acceptbtn"
+                (click)="acceptdelete(details.ordertypeid,details.medicalOrderID,1,details.id)">Delivered</button> -->
               <!-- <ng-template #tipcontent3>Not Delivered</ng-template>
               <a *ngIf="details.ordered==1" [ngbTooltip]="tipcontent3">
                 <img src="assets/Images/notd.jfif" style="width: 40px;margin-left: 10px;">
@@ -88,7 +88,7 @@
               <a *ngIf="details.ordered==0 " [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/Delivered.png" style="width: 40px;margin-left: 10px;">
               </a> -->
-            </td>
+            <!-- </td> -->
           </tr>
         </thead>
       </table>

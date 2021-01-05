@@ -1996,7 +1996,7 @@ debugger
 
         }
         else if (this.languageid == 6) {
-          Swal.fire('Le rendez-vous n a pas encore commencé ' + slots);
+          Swal.fire('Votre rendez-vous est à ' + slots);
         }
       }
     }
@@ -2006,7 +2006,7 @@ debugger
 
       }
       else if (this.languageid == 6) {
-        Swal.fire('Alert', 'Le rendez-vous n a pas encore commencé ' + slots + ' on ' + appdate);
+        Swal.fire('Alert', 'Votre rendez-vous est à ' + slots + ' on ' + appdate);
       }
     }
   }
@@ -2505,10 +2505,10 @@ debugger
 
 
   public UpdateBookAppointmentNoShow(appointmentID, appdate, slots) {
-
+    debugger
     if (this.languageid == 1) {
       if (this.serverdate >= appdate) {
-
+debugger
         if (this.servertime >= slots) {
           ;
           Swal.fire({
@@ -2545,7 +2545,7 @@ debugger
           } else {
             Swal.fire('Alert', 'Le patient sera présent à' + slots)
           }
-
+          debugger
         }
 
 
@@ -3083,7 +3083,14 @@ debugger
 
         if (this.referaltypeid == 1 || this.referaltypeid == 2) {
 
-          this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
+          if(this.languageid==1)
+          {
+            this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
+          }
+        else
+        {
+          this.mobilereferalnotes = "Le Dr " + this.user + " vous a référe vers le " + this.doctorname + "pour une enquête plus approfondie, veuillez contacter le médecin"
+        }
         }
         if (this.referaltypeid == 3) {
           document.getElementById("qwerty").innerHTML = this.referalnotes;
@@ -3237,13 +3244,7 @@ debugger
 
   public senmailToPatient() {
 
-    // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
 
-    // var mailentity = {
-    //   'emailto': 'srikanthreddy0905@gmail.com',
-    //   'emailsubject': 'Patient Referred By' + this.doctorname,
-    //   'emailbody': 'Dear' + this.doctorname + ' I Am Referring My Patient' + this.patientname + 'For Further Investigation. My Notes About The Patient Given Below',
-    //   'attachmenturl': this.attachmentsurl
     var mailentity = {
       ToEmail: this.email,
       Subject: 'Patient Referred By ' + this.user,
@@ -3757,17 +3758,7 @@ debugger
 
       }
     })
-    // this.docservice.GetChatID(this.doctorid, this.patientiddd).subscribe(res => {
-    //   ;
 
-    //   if (res.length > 1) {
-    //     this.chatID = res;
-    //     this.InsertChatDetails();
-    //   }
-    //   else {
-
-    //   }
-    // })
   }
 
   public InsertChatDetails() {

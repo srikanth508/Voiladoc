@@ -72,7 +72,7 @@ export class MyTeamComponent implements OnInit {
             location.href = "#/MyTeamDashboard"
         }
         else if (this.languageid == 6) {
-            Swal.fire('Mis à jour avec succés');
+            Swal.fire('Mis à jour avec Succés');
             location.href = "#/MyTeamDashboard"
         }
     })
@@ -90,11 +90,11 @@ public UpdateDetailes() {
     }
     this.docservice.UpdateMyTeam(entity).subscribe(res => {
         if (this.languageid == 1) {
-            Swal.fire('Success', 'Updated successfully')
+            Swal.fire('Success', 'Updated Successfully')
             location.href = "#/MyTeamDashboard"
         }
         else if (this.languageid == 6) {
-            Swal.fire('Mis à jour avec succés')
+            Swal.fire('Mis à jour avec Succés')
             location.href = "#/MyTeamDashboard"
         }
     })

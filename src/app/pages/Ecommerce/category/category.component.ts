@@ -15,6 +15,7 @@ export class CategoryComponent implements OnInit {
   public name: any;
   public paramID: any;
   public category: any;
+  public dropzonelable: any;
 
 
   constructor(public docservice: HelloDoctorService, private _router: Router, private ActivatedRoute: ActivatedRoute) { }
@@ -23,19 +24,27 @@ export class CategoryComponent implements OnInit {
 
     this.paramID = this.ActivatedRoute.snapshot.params['id'];
     this.GetCategoryById(this.paramID);
-   
+
 
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage1(this.languageid);
+
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
 
   labels
   public getlanguage1(LanguageID) {
-   
+
     this.docservice.GetCategorydashboard_Labels(LanguageID).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -45,11 +54,11 @@ export class CategoryComponent implements OnInit {
 
   attachments = [];
   public onattachmentUpload(abcd) {
-   
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
 
-    }
+    // for (let i = 0; i < abcd.length; i++) {
+      this.attachments.push(abcd.addedFiles[0]);
+
+    // }
     this.uploadattachments();
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -59,20 +68,25 @@ export class CategoryComponent implements OnInit {
   attachmentsurl = [];
   showphoto = [];
   public uploadattachments() {
-   
+
     this.docservice.ItemsPhotosUpload(this.attachments).subscribe(res => {
-     
 
       for (let i = 0; i < res.length; i++) {
         this.attachmentsurl.push(res[i]);
         let a = this.attachmentsurl[0].slice(2);
-       
+
         let b = 'http://14.192.17.225' + a;
         this.showphoto.push(b)
       }
 
-      this.attachments.length = 0;
-     
+      if (this.languageid == 1) {
+        this.attachments.length = 0;
+        Swal.fire('Added Successfully');
+      }
+      else {
+        this.attachments.length = 0;
+        Swal.fire('Ajouté avec succès');
+      }
     })
 
   }
@@ -80,7 +94,7 @@ export class CategoryComponent implements OnInit {
 
 
   public insertdetail() {
-   
+
     let entity = {
       CategoryName: this.categoryname,
       Description: this.description,
@@ -89,7 +103,7 @@ export class CategoryComponent implements OnInit {
     }
     this.docservice.InsertCategoryItem(entity).subscribe(x => {
       if (x >= 0) {
-       
+
         Swal.fire("Saved Successfully");
         this._router.navigate(['/Categorydashboard']);
       }
@@ -99,9 +113,9 @@ export class CategoryComponent implements OnInit {
     });
   }
   public GetCategoryById(paramID) {
-   
+
     this.docservice.GetCategoryById(paramID).subscribe((data) => {
-     
+
       this.category = data;
       this.categoryname = data[0].categoryName;
       this.description = data[0].description;
@@ -109,7 +123,6 @@ export class CategoryComponent implements OnInit {
     });
   }
   public update() {
-   
     let entity = {
       Id: this.paramID,
       CategoryName: this.categoryname,
@@ -117,8 +130,9 @@ export class CategoryComponent implements OnInit {
     }
     this.docservice.UpdateCategory(entity).subscribe(data => {
       if (data != undefined) {
-       
+
         this._router.navigate(['/Categorydashboard']);
+        Swal.fire('Updated Successfully');
       }
       else {
         alert("something went wrong");

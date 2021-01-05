@@ -75,7 +75,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
     else {
      
       var entity = {
-        'ID': this.dcid,
+        'DeliveryCompanyID': this.dcid,
         'UserName': this.username,
         'Password': this.password
       }

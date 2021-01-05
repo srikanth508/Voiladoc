@@ -51,7 +51,7 @@
                               <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="Delete(list.id)">
                           </a>&nbsp;
 
-                          <ng-template #tipcontent95585>Edit</ng-template>
+                          <ng-template #tipcontent95585>{{labels[0].edit}}</ng-template>
                           <a [ngbTooltip]="tipcontent95585" style="color:black">
                               <img src="assets/Images/edit.png" style="width: 18px" [routerLink]="['/ReceptionistLogin',list.id]"></a>
                       </td>

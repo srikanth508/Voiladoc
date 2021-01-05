@@ -54,6 +54,8 @@ export class OrdersComponent implements OnInit {
   public visslotName: any;
   public visiemail: any;
   dropzonelable: any;
+  labels4:any;
+
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -83,6 +85,8 @@ export class OrdersComponent implements OnInit {
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
 
+    
+    this.user = localStorage.getItem('user');
     this.diagnosticid = localStorage.getItem('diagnosticid');
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
@@ -98,6 +102,19 @@ export class OrdersComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    document.getElementById("myForm").style.display = "none";
+
+    this.getserverdateandtime();
+
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels4 = data;
+      
+      }, error => {
+      }
+    )
   }
 
 
@@ -420,7 +437,7 @@ export class OrdersComponent implements OnInit {
         Swal.fire('', 'Order Cancelled Successfully');
       }
       else if (this.languageid == 6) {
-        Swal.fire('', 'Commande annulée avec succès.');
+        Swal.fire('', 'Commande annulée avec Succès.');
       }
     })
 
@@ -440,7 +457,7 @@ export class OrdersComponent implements OnInit {
       abcd.length = 0;
     }
     else if (this.languageid == 6) {
-      Swal.fire('Mis à jour avec succés');
+      Swal.fire('Mis à jour avec Succés');
       abcd.length = 0;
     }
 
@@ -554,7 +571,7 @@ export class OrdersComponent implements OnInit {
             this.showphoto.length = 0;
             this.VisitOrder(this.appointmentsid);
           }
-          else if(this.languageid == 6) {
+          else if (this.languageid == 6) {
             Swal.fire('Rapport envoyé');
             this.notes = "";
             this.attachmentsurl.length = 0;
@@ -870,11 +887,179 @@ export class OrdersComponent implements OnInit {
           Swal.fire('Updated Successfully');
         }
         else if (this.languageid == 6) {
-          Swal.fire('Mis à jour avec succés');
+          Swal.fire('Mis à jour avec Succés');
         }
       })
     }
 
+  }
+
+
+
+  // chat
+
+
+  public GetShowOff() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
+
+  public GetShowID() {
+    this.showwindow = 0
+    document.getElementById("myForm").style.display = "none";
+
+
+  }
+
+  public showwindow: any;
+  public chatappointmentid: any;
+  public chatpatientemail: any;
+ 
+
+
+  public GetChatShowID(details) {
+debugger
+    this.patientid = details.patientID;
+    this.chatpatientemail = details.emailID;
+    this.chatappointmentid = details.id;
+
+    document.getElementById("myForm").style.display = "block";
+
+    this.showwindow = 1
+
+    this.dosendmsg();
+
+
+  }
+
+  chatID: any;
+
+
+
+  public dosendmsg() {
+    var entity = {
+      // 'ChatID': this.chatID,
+      'DiagnosticID': this.diagnosticid,
+      'PatientID': this.patientid,
+      'AppointmentID': this.chatappointmentid
+      // 'Read_Me': 0
+    }
+    this.docservice.InserDiagnostic_ChatMaster(entity).subscribe(data => {
+      if (data != 0) {
+        this.chatID = data;
+
+        this.getPreviousChat();
+        this.oberserableTimer();
+      }
+    })
+
+  }
+
+
+  public serverdateandtime:any;
+  public servertime:any;
+  public serverdate:any;
+
+  public getserverdateandtime() {
+
+    this.docservice.GetServerDateAndTime().subscribe(
+      data => {
+
+        this.serverdateandtime = data;
+        this.servertime = this.serverdateandtime.presentTime,
+          this.serverdate = this.serverdateandtime.todaydate
+      }, error => {
+      }
+    )
+  }
+
+
+
+public chatconversation:any;
+
+
+  public InsertChatDetails() {
+    let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
+    ;
+
+    var entity = {
+      'ChatID': this.chatID,
+      'Message': conversation,
+      'SenderID': this.diagnosticid,
+      'Sender': 'Diagnostic',
+      'MessageType': 1,
+      'MobileMessage': this.chatconversation,
+      'MobileTime': this.servertime
+    }
+    this.docservice.InsertDiagnostic_ChatDetails(entity).subscribe(data => {
+
+      if (data != 0) {
+
+      }
+      this.chatconversation = "";
+     
+      this.getPreviousChat();
+     this.InsertChatnotificationazure()
+
+
+    })
+
+  }
+
+
+
+  oberserableTimer() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+      this.getPreviousChat();
+
+      var objDiv = document.getElementById("chatboxdiv");
+      objDiv.scrollTop = objDiv.scrollHeight;
+
+
+    });
+  }
+
+
+  public coversationarray=[];
+
+
+
+
+  
+  public getPreviousChat() {
+    this.docservice.GetDiagnosticChatDetailsWeb(this.chatID).subscribe(res => {
+      let Chatconversation = res;
+
+      this.coversationarray.length = 0;
+
+      for (let i = 0; i < Chatconversation.length; i++) {
+
+        if (Chatconversation[i].sender == 'Patient') {
+          this.coversationarray.push({
+            chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
+          })
+        }
+        if (Chatconversation[i].sender == 'Diagnostic') {
+          this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
+        }
+      }
+    })
+  }
+
+public user:any;
+
+  
+  public InsertChatnotificationazure() {
+    var entity = {
+      'Description': this.user + ' Trying to reach you. Please open your voiladoc app : ' + this.chatconversation,
+      'ToUser': this.chatpatientemail,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+      }
+    })
   }
 }
 

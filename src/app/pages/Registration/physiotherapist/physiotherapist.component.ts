@@ -390,7 +390,7 @@ export class PhysiotherapistComponent implements OnInit {
           })
         }
         if (this.languageid == 1) {
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+          Swal.fire('Registration Completed', 'Physiotherapist saved successfully', 'success');
           this.spinner.hide();
           location.href = '#/PhysiotherapistDashboard';
         }

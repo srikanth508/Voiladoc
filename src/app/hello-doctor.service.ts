@@ -9,10 +9,10 @@ import { pipeDef } from '@angular/core/src/view';
 
 export class HelloDoctorService {
 
-   //  public host = "http://localhost:4199/";
+  //  public host5 = "http://localhost:4199/";
   //latestsoln date 29-07-2020
 
- public host = localStorage.getItem('WebUrl');
+  public host = localStorage.getItem('WebUrl');
 
   private host1 = "https://14.192.17.225/VoilaDocWebAPI";
 
@@ -63,7 +63,6 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDoctorLoginForDash?LanguageID=' + lid);
   }
-
 
   public ProductsPage_Labels(lid) {
 
@@ -2077,9 +2076,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Admin/InserPharmacy_ChatMaster';
     return this.http.post(this.url, data)
   }
-  public GetPharmacyChatID(nid, pid,appid) {
+  public GetPharmacyChatID(nid, pid, appid) {
 
-    return this.http.get<any[]>(this.host + '/Admin/GetPharmacyChatID?PharmacyID=' + nid + '&PatientID=' + pid+'&AppointmentID='+appid);
+    return this.http.get<any[]>(this.host + '/Admin/GetPharmacyChatID?PharmacyID=' + nid + '&PatientID=' + pid + '&AppointmentID=' + appid);
   }
   public GetPharmacy_ChatDetails(cid) {
 
@@ -3398,10 +3397,11 @@ export class HelloDoctorService {
     );
   }
 
-  public GetDoctorSlotsForWeb(docid, dayid, hospitalid, timeid, appdatetime, dhid) {
+
+  public GetDoctorSlotsForWeb(docid, dayid, hospitalid, timeid, appdatetime, dhid, slottypeid) {
 
     return this.http.get<any[]>(
-      this.host + "/Doctor/GetDoctorSlotsForWeb?DoctorID=" + docid + '&DayID=' + dayid + '&Hospital_ClinicID=' + hospitalid + '&TimeID=' + timeid + '&ApptDatetime=' + appdatetime + '&DoctorHospitalDetailsID=' + dhid
+      this.host + "/Doctor/GetDoctorSlotsForWebLatestt?DoctorID=" + docid + '&DayID=' + dayid + '&Hospital_ClinicID=' + hospitalid + '&TimeID=' + timeid + '&ApptDatetime=' + appdatetime + '&DoctorHospitalDetailsID=' + dhid + '&SlotTypeID=' + slottypeid
     );
   }
 
@@ -4795,6 +4795,13 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
+
+    public DeleteDoctorSlots_DateWiseAvailable(data) {
+    this.url = this.host + '/Doctor/DeleteDoctorSlots_DateWiseAvailable';
+    return this.http.post(this.url, data)
+  }
+
+
   public GetDoctorCancelledAppointmentByDateWise(doctorid, slotid, appdate) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDoctorCancelledAppointmentByDateWise?DoctorID=' + doctorid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
@@ -4812,9 +4819,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Pharmacy/GetNotification_Pharmacy?PharmacyID=' + pharmacyid);
   }
 
-  public GetPatientOrderedMedicines(orderid,lid) {
+  public GetPatientOrderedMedicines(orderid, lid) {
 
-    return this.http.get<any[]>(this.host + '/Pharmacy/GetPatientOrderedMedicines?OrderID=' + orderid+'&LanguageID='+lid);
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetPatientOrderedMedicines?OrderID=' + orderid + '&LanguageID=' + lid);
   }
 
   public UpdateNotification_PharmacyAccepted(pharmacyid, orderid) {
@@ -5070,8 +5077,8 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByDateWiseAppointmentCount?AppointmentDate=' + appdate + '&DoctorID=' + doctorid);
   }
 
-  public GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(appdate, doctorid,slotid) {
-    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount?AppointmentDate=' + appdate + '&DoctorID=' + doctorid+'&SlotID='+slotid);
+  public GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(appdate, doctorid, slotid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount?AppointmentDate=' + appdate + '&DoctorID=' + doctorid + '&SlotID=' + slotid);
   }
 
 
@@ -5089,4 +5096,23 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetMidwifePriceDetails?MidwifeID=' + MidwifeID);
   }
+
+
+  
+  public InserDiagnostic_ChatMaster(data) {
+    this.url = this.host + '/Diagnostic/InserDiagnostic_ChatMaster';
+    return this.http.post(this.url, data)
+  }
+
+
+  public InsertDiagnostic_ChatDetails(data) {
+    this.url = this.host + '/Diagnostic/InsertDiagnostic_ChatDetails';
+    return this.http.post(this.url, data)
+  }
+
+  public GetDiagnosticChatDetailsWeb(chatid) {
+
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticChatDetailsWeb?ChatID=' + chatid);
+  }
+
 }

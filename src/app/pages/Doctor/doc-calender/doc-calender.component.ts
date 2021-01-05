@@ -210,47 +210,45 @@ export class DocCalenderComponent implements OnInit {
   }
 
 
-
-
-
   public insertdetails() {
-    var entity = {
-      'SlotID': this.slotID,
-      'DoctorID': this.doctorid,
-      'DayID': this.dayid,
-      'Hospital_ClinicID': this.hospitalid,
-      'DoctorHospitalDetailsID': this.dochospitalid,
-      'AppointmentTypeID': this.appointmentypeid,
-      'AppointmentDate': this.appointmentdate,
-      'DoctorFees': this.fees
-    }
-    this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
-      if (this.languageid == 1) {
-        Swal.fire('Updated Successfully');
-      }
-      else {
-        Swal.fire('Mis à jour avec succès !');
+    this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
+      debugger
+      if (data1.length != 0) {
+        debugger
+        var list = data1[0];
+        this.patientid = list.relationPatientID,
+          this.email = list.pEmail,
+          this.mobileno = list.pMobileNo,
+          this.doctorname = list.doctorName,
+          this.notificationdate = list.notificationdate,
+          this.appointmentid = list.id,
+          this.patientname = list.pName
+        this.Insertnotificatiacceptforcansel();
+        this.insercancelnotoification();
+        this.SendCancelPatientmail();
       }
       this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotID, this.appointmentdate).subscribe(data => {
-        this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
-          debugger
-          if (data1.length != 0) {
-            debugger
-            var list = data1[0];
-            this.patientid = list.relationPatientID,
-              this.email = list.pEmail,
-              this.mobileno = list.pMobileNo,
-              this.doctorname = list.doctorName,
-              this.notificationdate = list.notificationdate,
-              this.appointmentid = list.id,
-              this.patientname = list.pName
-            this.Insertnotificatiacceptforcansel();
-            this.insercancelnotoification();
-            this.SendCancelPatientmail();
-          }
-        })
+      })
+      var entity = {
+        'SlotID': this.slotID,
+        'DoctorID': this.doctorid,
+        'DayID': this.dayid,
+        'Hospital_ClinicID': this.hospitalid,
+        'DoctorHospitalDetailsID': this.dochospitalid,
+        'AppointmentTypeID': this.appointmentypeid,
+        'AppointmentDate': this.appointmentdate,
+        'DoctorFees': this.fees
+      }
+      this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
+
         this.insertbookappointmenttype();
         this.GetMyDoctorWorkingDetails();
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+        }
+        else {
+          Swal.fire('Mis à jour avec succès !');
+        }
         this.spinner.show();
       })
 
@@ -383,7 +381,7 @@ export class DocCalenderComponent implements OnInit {
 
   public GetTypeID(even) {
     this.typeID = even.target.value;
-    this.fees=""
+    this.fees = ""
   }
 
 
@@ -531,6 +529,30 @@ export class DocCalenderComponent implements OnInit {
     else {
       debugger
       for (let j = 0; j < this.slotslist.length; j++) {
+        debugger
+        this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data1 => {
+          debugger
+          if (data1.length != 0) {
+            debugger
+            var list = data1[0];
+            this.patientid = list.relationPatientID,
+              this.email = list.pEmail,
+              this.mobileno = list.pMobileNo,
+              this.doctorname = list.doctorName,
+              this.notificationdate = list.notificationdate,
+              this.appointmentid = list.id,
+              this.patientname = list.pName
+            this.Insertnotificatiacceptforcansel();
+            this.insercancelnotoification();
+            this.SendCancelPatientmail();
+            this.GetMyDoctorWorkingDetails();
+          }
+        
+        })
+        debugger
+        this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data => {
+        })
+       
         var entity = {
           'SlotID': this.slotslist[j].id,
           'DoctorID': this.doctorid,
@@ -543,27 +565,7 @@ export class DocCalenderComponent implements OnInit {
         }
         this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
 
-          this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data => {
-            this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data1 => {
-              debugger
-              if (data1.length != 0) {
-                debugger
-                var list = data1[0];
-                this.patientid = list.relationPatientID,
-                  this.email = list.pEmail,
-                  this.mobileno = list.pMobileNo,
-                  this.doctorname = list.doctorName,
-                  this.notificationdate = list.notificationdate,
-                  this.appointmentid = list.id,
-                  this.patientname = list.pName
-                this.Insertnotificatiacceptforcansel();
-                this.insercancelnotoification();
-                this.SendCancelPatientmail();
-                this.GetMyDoctorWorkingDetails();
 
-              }
-            })
-          })
         })
       }
       this.insertbookappointmenttype();
@@ -577,7 +579,7 @@ export class DocCalenderComponent implements OnInit {
       }
       this.Daywiseappointmentid = "";
       this.daychangedate = ""
-      this.fees=""
+      this.fees = ""
     }
   }
 
@@ -644,6 +646,7 @@ export class DocCalenderComponent implements OnInit {
   public timewisechangeslotlist: any;
   public totalappcount: any;
   public slotappcount: any;
+  public slotsid:any;
 
   public GetGetSlotsByIDPlanning() {
     this.docservice.GetSlotsByIDPlanning(this.mrngfromid, this.mrngtoid).subscribe(data => {
@@ -652,11 +655,15 @@ export class DocCalenderComponent implements OnInit {
       this.timewisechangeslotlist = data;
       this.totalappcount = 0;
       for (let K = 0; K < this.timewisechangeslotlist.length; K++) {
+        this.slotsid=this.timewisechangeslotlist[K].id;
         debugger
-        this.docservice.GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(this.timechangedate, this.doctorid, this.timewisechangeslotlist[K].id).subscribe(data => {
+        this.docservice.GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(this.timechangedate, this.doctorid, this.slotsid).subscribe(data => {
+          debugger
           this.applist = data[0];
+          this.applist = data[1];
           this.slotappcount = this.applist.appcount
           this.totalappcount = Number(this.totalappcount) + Number(this.slotappcount);
+          debugger
         })
       }
     }, error => {
@@ -695,6 +702,7 @@ export class DocCalenderComponent implements OnInit {
     else {
       debugger
       if (this.languageid == 1) {
+        // this.GetGetSlotsByIDPlanning();
         Swal.fire({
           title: 'Are you sure?',
           text: "You have " + this.totalappcount + " bookings. The patient(s) will be notified of the cancellation and offered the choice to reschedule or get a refund.",
@@ -738,8 +746,7 @@ export class DocCalenderComponent implements OnInit {
   public InsertTimeWiseSlots() {
     debugger
     if (this.timechangedate == undefined || this.timechangedate == null) {
-      if(this.languageid==1)
-      {}
+      if (this.languageid == 1) { }
       Swal.fire('Please Select Date')
     }
     else if (this.timewiseappointmentid == undefined || this.timewiseappointmentid == null) {
@@ -751,6 +758,29 @@ export class DocCalenderComponent implements OnInit {
     else {
       debugger
       for (let j = 0; j < this.timewisechangeslotlist.length; j++) {
+        this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data1 => {
+          debugger
+          if (data1.length != 0) {
+            debugger
+            var list = data1[0];
+            this.patientid = list.relationPatientID,
+              this.email = list.pEmail,
+              this.mobileno = list.pMobileNo,
+              this.doctorname = list.doctorName,
+              this.notificationdate = list.notificationdate,
+              this.appointmentid = list.id,
+              this.patientname = list.pName
+            this.Insertnotificatiacceptforcansel();
+            this.insercancelnotoification();
+            this.SendCancelPatientmail();
+            this.GetMyDoctorWorkingDetails();
+
+          }
+        })
+        this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data => {
+
+        })
+
         var entity = {
           'SlotID': this.timewisechangeslotlist[j].id,
           'DoctorID': this.doctorid,
@@ -763,27 +793,7 @@ export class DocCalenderComponent implements OnInit {
         }
         this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
 
-          this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data => {
-            this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data1 => {
-              debugger
-              if (data1.length != 0) {
-                debugger
-                var list = data1[0];
-                this.patientid = list.relationPatientID,
-                  this.email = list.pEmail,
-                  this.mobileno = list.pMobileNo,
-                  this.doctorname = list.doctorName,
-                  this.notificationdate = list.notificationdate,
-                  this.appointmentid = list.id,
-                  this.patientname = list.pName
-                this.Insertnotificatiacceptforcansel();
-                this.insercancelnotoification();
-                this.SendCancelPatientmail();
-                this.GetMyDoctorWorkingDetails();
 
-              }
-            })
-          })
         })
       }
 
@@ -800,7 +810,7 @@ export class DocCalenderComponent implements OnInit {
       this.timechangedate = "";
       this.mrngtoid = "";
       this.mrngfromid = "";
-      this.fees=""
+      this.fees = ""
     }
   }
 

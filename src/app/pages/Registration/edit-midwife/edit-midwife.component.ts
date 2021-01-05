@@ -197,10 +197,12 @@ export class EditMidwifeComponent implements OnInit {
         if (this.languageid == 1) {
           Swal.fire("Updated Successfully");
           this.Getmidwifedetails()
+          location.href = "#/MidwifeDashboard"
         }
         else if (this.languageid == 6) {
           Swal.fire("Mis à jour avec succés");
           this.Getmidwifedetails()
+          location.href = "#/MidwifeDashboard"
         }
 
 
@@ -266,7 +268,7 @@ export class EditMidwifeComponent implements OnInit {
         this.editbit = 0;
         this.dummnursephoto.length = 0;
         this.attachmentsurl.length = 0;
-        this.showphoto.length=0;
+        this.showphoto.length = 0;
         this.ngOnInit();
       }
       else if (this.languageid == 6) {
@@ -274,7 +276,7 @@ export class EditMidwifeComponent implements OnInit {
         this.editbit = 0;
         this.dummnursephoto.length = 0;
         this.attachmentsurl.length = 0;
-        this.showphoto.length=0;
+        this.showphoto.length = 0;
         this.ngOnInit();
       }
     })

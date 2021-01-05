@@ -40,9 +40,9 @@ export class ProfilesComponent implements OnInit {
   public pincode: any;
   public countrylist: any;
   public countryid: any;
-  public languageid:any;
-  public labels:any;
-  dropzonelable:any;
+  public languageid: any;
+  public labels: any;
+  dropzonelable: any;
 
 
   ngOnInit() {
@@ -54,26 +54,24 @@ export class ProfilesComponent implements OnInit {
     this.GetCountryMaster()
     this.diabit = 0;
     this.getlanguage()
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
 
-  public diagnosticappointmentperslot:any;
-  public homesampleordersperslot:any;
+  public diagnosticappointmentperslot: any;
+  public homesampleordersperslot: any;
 
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
   public getdiagnosticdetailsforadmin() {
-    this.docservice.GetDiagnosticDetailsForAdminByLanguageID(this.id,this.languageid).subscribe(
+    this.docservice.GetDiagnosticDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
-       
+
         this.details = data[0];
-       
+
         this.diagnosticcentername = this.details.diagnosticCenterName,
           this.phno = this.details.phoneNo,
           this.contactperson = this.details.contactPerson,
@@ -91,33 +89,32 @@ export class ProfilesComponent implements OnInit {
         this.areaid = this.details.areaID,
           this.countryid = this.details.countryID,
           this.pincode = this.details.pincode,
-          this.diagnosticappointmentperslot=this.details.diagnosticAppointmentPerSlot,
-          this.homesampleordersperslot=this.details.homeSampleOrdersPerSlot,
+          this.diagnosticappointmentperslot = this.details.diagnosticAppointmentPerSlot,
+          this.homesampleordersperslot = this.details.homeSampleOrdersPerSlot,
           this.GetCountryMaster();
-          this.getcitymaster();
-          this.getareamasterbyid();
-     
+        this.getcitymaster();
+        this.getareamasterbyid();
+
       }, error => {
       }
     )
   }
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_DiagnosticRegistration_LabelBYLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
-    )  
+    )
   }
-  
+
 
 
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
 
@@ -127,29 +124,29 @@ export class ProfilesComponent implements OnInit {
   }
 
   public GetCountryID(even) {
-   
+
     this.countryid = even.target.value;
     this.getcitymaster()
   }
 
   public getcitymaster() {
-    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid,this.languageid).subscribe(
+    this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
     )
   }
   public GetcityID(even) {
-   
+
     this.cityid = even.target.value;
     this.getareamasterbyid();
   }
   public updatedetails() {
-   
+
     var entity = {
-      'LanguageID':this.languageid,
+      'LanguageID': this.languageid,
       'DiagnosticCenterID': this.id,
       'PhoneNo': this.phno,
       'ContactPerson': this.contactperson,
@@ -166,64 +163,83 @@ export class ProfilesComponent implements OnInit {
       'AreaID': this.areaid,
       'Pincode': this.pincode,
       'CountryID': this.countryid,
-      'DiagnosticAppointmentPerSlot':this.diagnosticappointmentperslot,
-      'HomeSampleOrdersPerSlot':this.homesampleordersperslot
+      'DiagnosticAppointmentPerSlot': this.diagnosticappointmentperslot,
+      'HomeSampleOrdersPerSlot': this.homesampleordersperslot
     }
     this.docservice.UpdateDiagnosticCenterProfile(entity).subscribe(res => {
       let test = res;
+      if(this.languageid==1)
+      {
+        this.getdiagnosticdetailsforadmin();
+        Swal.fire(' Updated Successfully');
+      }
+    else
+    {
       this.getdiagnosticdetailsforadmin();
-      Swal.fire(' Updated Successfully');
+      Swal.fire('Mis à jour avec Succés');
+    }
     })
 
   }
 
   public GetDiagnosticPhotos() {
-   
+
     this.docservice.GetDiagnosticCenterPhotosByID(this.id).subscribe(
       data => {
-       
+
         this.photoslist = data;
       }, error => {
       }
     )
   }
   public GetDiagphotoId(diaid) {
-   
+
     this.diaphotoid = diaid;
     this.diabit = 1;
   }
+  public dummattchmenturl = [];
   public onattachmentUpload(abcd) {
-   
+    this.showphoto = [];
+    this.dummattchmenturl = [];
+    this.attachmentsurl = [];
+    this.attachments = [];
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
     // }
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
     else if (this.languageid == 6) {
-      Swal.fire('Mis à jour avec succés');
+      Swal.fire('Mis à jour avec Succés');
       abcd.length = 0;
     }
   }
 
+
+  public delete() {
+    this.dummattchmenturl = [];
+    this.attachmentsurl = [];
+  }
+
   public uploadattachments() {
     this.docservice.DiagnosticPhotos(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
+      this.dummattchmenturl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-     
+
       let b = 'http://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
   public UpdateDiaPhotos() {
-   
+
     var entity = {
       'ID': this.diaphotoid,
       'PhotoURL': this.attachmentsurl[0],
@@ -234,39 +250,39 @@ export class ProfilesComponent implements OnInit {
 
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
-      
+
         this.diabit = 0;
-      this.showphoto.length = 0
+        this.showphoto.length = 0
       }
       else if (this.languageid == 6) {
-        Swal.fire('Mis à jour avec succés');
-      
+        Swal.fire('Mis à jour avec Succés');
+
         this.diabit = 0;
-      this.showphoto.length = 0
+        this.showphoto.length = 0
       }
-     
-    
+
+
     })
 
   }
 
   public getareamasterbyid() {
-   
-    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid,this.languageid).subscribe(
+
+    this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
       }, error => {
       }
     )
   }
   public GetAreaID(even) {
-   
+
     this.areaid = even.target.value;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }

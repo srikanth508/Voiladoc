@@ -37,9 +37,9 @@
             <th id="imp">{{labels[0].slot}}</th>
             <th id="imp">{{labels[0].orderNumber}}</th>
             <th>{{labels[0].assignedname}}</th>
-            <th>{{labels[0].agentphoneno}}</th>
+            <th>{{labels[0].labStaffphoneno}}</th>
             <th>{{labels[0].patientname}}</th>
-            <!-- <th>{{labels[0].phoneNo}}</th> -->
+             <th>{{labels[0].patientPhoneno}}</th> 
             <!-- <th>{{labels[0].emailId}}</th> -->
             <th>{{labels[0].address}}</th>
             <!-- <th>{{labels[0].homeSample}}</th> -->
@@ -60,8 +60,8 @@
               {{details.agentphoneno}}
             </td>
             <td>{{details.patientName}}</td>
-            <!-- <td>{{details.mobileNumber}}</td>
-            <td>{{details.emailID}}</td> -->
+            <td>{{details.mobileNumber}}</td>
+            <!-- <td>{{details.emailID}}</td> -->
             <td>{{details.address}}</td>
             <!-- <td>
               <label *ngIf="details.homeSampleBit=='1'">{{labels[0].yes}}</label>
@@ -80,7 +80,6 @@
                   (click)="GetPackageID(details.id)">
               </a>
             </td>
-
             <td>
               <label style="color:red">{{details.status}}</label>
             </td>

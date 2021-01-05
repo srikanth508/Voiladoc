@@ -40,15 +40,79 @@ public GetReceptionistlogin() {
       this.count=this.receptionistloginlist.length;
   })
 }
-public Delete(id) {
-  debugger
-  this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(data => {
-    debugger
-      if (data != undefined) {
-          this.GetReceptionistlogin();
-          Swal.fire("Deleted Successfully");
-      }
-  })
-}
+// public Delete(id) {
+//   debugger
+//   this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(data => {
+//     debugger
+//       if (data != undefined) {
+//           this.GetReceptionistlogin();
+//           Swal.fire("Deleted Successfully");
+//       }
+//   })
+// }
 
+
+
+
+
+
+
+
+
+public Delete(id) {
+  if (this.languageid == 1) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to Delete This!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+          let test = res;
+          this.GetReceptionistlogin();
+        })
+        Swal.fire(
+          'Deleted!',
+          'Deleted Successfully".',
+          'success'
+        )
+      }
+      else {
+        this.GetReceptionistlogin();
+      }
+    })
+  }
+  else if (this.languageid == 6) {
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      // text: "You Want to Delete This Doctor!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Non'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+          let test = res;
+          this.GetReceptionistlogin();
+        })
+        Swal.fire(
+          'Supprimé!',
+          'Supprimé avec Succès ',
+          'success'
+        )
+      }
+      else {
+        this.GetReceptionistlogin();
+      }
+    })
+  }
+
+}
 }

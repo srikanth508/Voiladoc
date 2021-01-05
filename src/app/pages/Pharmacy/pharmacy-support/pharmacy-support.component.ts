@@ -20,7 +20,7 @@ export class PharmacySupportComponent implements OnInit {
   public midwifeid: any;
   public labels: any;
   dropzonelable: any;
-  public pharmacyid:any;
+  public pharmacyid: any;
   ngOnInit() {
     this.description = ""
     this.languageid = localStorage.getItem('LanguageID');
@@ -37,9 +37,9 @@ export class PharmacySupportComponent implements OnInit {
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-     
+
       this.labels = res;
-     
+
     })
   }
 
@@ -50,9 +50,9 @@ export class PharmacySupportComponent implements OnInit {
   removetgdescription: any;
 
   public insertdetails() {
-   
+
     if (this.issuephotourl == null && this.issuephotourl.length == 0 && this.issuephotourl == undefined) {
-     
+
       Swal.fire('Please upload image')
     }
     else {
@@ -71,60 +71,64 @@ export class PharmacySupportComponent implements OnInit {
         'ReceptionID': 0,
         'UserName': this.user,
         'LanguageID': this.languageid,
-        'PharmacyID':this.pharmacyid,
-        'DiagnosticcenterID':0
+        'PharmacyID': this.pharmacyid,
+        'DiagnosticcenterID': 0
       }
       this.docservice.InsertSupportForWeb1(entity).subscribe(data => {
         if (data != 0) {
           // this.insertnotification();
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Issue Raised Successflly')
             location.href = "#/PharmacySupportDash"
           }
-          else
-          {
-            Swal.fire('Problème soulevé avec succès')
+          else {
+            Swal.fire("Enregistré avec succès !")
             location.href = "#/PharmacySupportDash"
           }
-         
+
         }
       })
     }
   }
 
+  public dummisuuphotourl = []
+
   public onattachmentUpload(abcd) {
-   
+    debugger
+    this.showphoto = [];
+    this.issuephoto = [];
+    this.dummisuuphotourl = []
+    this.issuephotourl = [];
     // for (let i = 0; i < abcd.length; i++) {
-      this.issuephoto.push(abcd.addedFiles[0]);
-      this.uploadid();
+    this.issuephoto.push(abcd.addedFiles[0]);
+    this.uploadid();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else{
+    else {
       Swal.fire('Ajouté avec succès');
       abcd.length = 0;
+    
     }
-
   }
-  public showphoto=[];
+  public showphoto = [];
 
   public uploadid() {
+    debugger
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-     
+      debugger
       this.issuephotourl.push(res);
-      let a = this.issuephotourl[0].slice(2);
-     
+      this.dummisuuphotourl.push(res);
+      let a = this.dummisuuphotourl[0].slice(2);
+      debugger
       let b = 'http://14.192.17.225' + a;
       this.showphoto.push(b);
     })
     // this.sendattachment();
   }
   public insertnotification() {
-
     var entity = {
       'NotificationName': 'Pharmacy Raised A issue',
       'NotificationTypeID': 1,

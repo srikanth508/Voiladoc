@@ -106,12 +106,12 @@ export class EditDiagnosticTestComponent implements OnInit {
       let res = data;
       if(this.languageid==1)
       {
-        Swal.fire('Success', 'Updated successfully')
+        Swal.fire('Success', 'Updated Successfully')
         location.href = "#/DiagnosticTestDash"
       }
       else if(this.languageid==6)
       {
-        Swal.fire('Mis à jour avec succés')
+        Swal.fire('Mis à jour avec Succés')
         location.href = "#/DiagnosticTestDash"
       }
   

@@ -2643,7 +2643,6 @@
           </div>
         </div>
         <div class="row">
-
           <div class="col-lg-4">
             {{labels[0].vediocallreciept}}
           </div>
@@ -2652,22 +2651,21 @@
           <div class="col-lg-4">
             <!-- {{videoAmount}} -->
           </div>
-
         </div>
         <br>
         <div style="text-align: end;
               margin-top: 81px;
-              margin-right: 46px;"> {{labels[0].totalCharges}} : {{videoAmount}}</div>
-
+              margin-right: 46px;"> 
+              <!-- <label>{{labels[0].totalCharges}} : {{videoAmount}}</label> -->
+            </div>
 
         <div style="margin-top: -83px;">
           {{labels[0].doctorr}} : {{doctorName}}
+
+          <label style="text-align: end;float: right;">{{labels[0].totalCharges}} : {{videoAmount}}</label>
         </div>
-        <img src="{{signatureURL}}" style="height: 69px;">
-
+        <!-- <img src="{{signatureURL}}" style="height: 69px;"> -->
       </div>
-
-
       <div class="modal-footer">
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
         <button type="button" class="btn btn-md allbtns btncolor" (click)="SendReciept()"

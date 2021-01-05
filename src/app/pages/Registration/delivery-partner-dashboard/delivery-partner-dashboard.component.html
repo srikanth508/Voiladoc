@@ -18,7 +18,7 @@
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
-      <input type="text" class="form-control" placeholder="{{labels[0].serach}}">
+      <input type="text" class="form-control" placeholder="{{labels[0].serach}}" [(ngModel)]="term" name="term">
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetCountryID($event)">
@@ -55,7 +55,7 @@
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
-          <tr *ngFor="let del of deliverycompanylist">
+          <tr *ngFor="let del of deliverycompanylist|filter:term">
             <td>{{del.companyName}}</td>
             <td>{{del.contactPerson}}</td>
             <td>{{del.country}}</td>

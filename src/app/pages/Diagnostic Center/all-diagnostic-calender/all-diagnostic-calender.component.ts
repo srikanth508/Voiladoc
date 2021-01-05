@@ -232,7 +232,7 @@ export class AllDiagnosticCalenderComponent implements OnInit {
         this.getWorkingdetils()
       }
       else {
-        Swal.fire('Mis à jour avec succés');
+        Swal.fire('Mis à jour avec Succés');
         this.getWorkingdetils()
       }
     })
@@ -396,7 +396,7 @@ export class AllDiagnosticCalenderComponent implements OnInit {
         this.totalappointments = ""
       }
       else {
-        Swal.fire('Mis à jour avec succés');
+        Swal.fire('Mis à jour avec Succés');
         this.getWorkingdetils()
         this.totalappointments = ""
       }
@@ -533,7 +533,7 @@ export class AllDiagnosticCalenderComponent implements OnInit {
         this.totalappointments = ""
       }
       else {
-        Swal.fire('Mis à jour avec succés');
+        Swal.fire('Mis à jour avec Succés');
         this.getWorkingdetils();
         this.timewiseappointmentid = "";
         this.timechangedate = "";

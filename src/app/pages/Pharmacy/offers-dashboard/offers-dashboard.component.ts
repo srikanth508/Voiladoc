@@ -43,29 +43,93 @@ export class OffersDashboardComponent implements OnInit {
       }
     ) 
   }
-  public deletepharmacyoffer(id)
-  {
+  // public deletepharmacyoffer(id)
+  // {
    
-    this.docservice.DeletePharmacyOffer(id).subscribe(
-      data => {
-        if(this.languageid==1)
-        {
+  //   this.docservice.DeletePharmacyOffer(id).subscribe(
+  //     data => {
+  //       if(this.languageid==1)
+  //       {
   
-          Swal.fire("Deleted Successfully");
-          this.getpharmacyoffersbypharmacyid();
-        }
-        else{
-          Swal.fire("Supprimé avec succès");
-          this.getpharmacyoffersbypharmacyid();
-        }
+  //         Swal.fire("Deleted Successfully");
+  //         this.getpharmacyoffersbypharmacyid();
+  //       }
+  //       else{
+  //         Swal.fire("Supprimé avec succès");
+  //         this.getpharmacyoffersbypharmacyid();
+  //       }
      
-      }, error => {
-      }
-    )
-  }
+  //     }, error => {
+  //     }
+  //   )
+  // }
   public pageChanged(even) {
    
     let fgdgfgd = even;
     this.p = even;
+  }
+
+
+
+
+
+
+
+
+  public deletepharmacyoffer(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Offer!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeletePharmacyOffer(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Deleted Successfully.',
+            'success'
+          )
+        }
+        else {
+          this.ngOnInit()
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Non!',
+        cancelButtonText: 'Oui'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeletePharmacyOffer(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Supprimé avec succès.',
+            'success'
+          )
+        }
+        else {
+          this.ngOnInit()
+        }
+      })
+    }
+
   }
 }

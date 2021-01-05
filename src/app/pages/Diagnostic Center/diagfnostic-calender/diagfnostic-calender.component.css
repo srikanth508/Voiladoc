@@ -25,6 +25,11 @@
         text-transform:uppercase;
       }
     
+      .headerrspace{
+        color: #251156;
+        height:70px;
+        margin-top:20px;
+    }
     
             label::first-letter{
           text-transform: uppercase;

@@ -64,11 +64,14 @@ export class SubCategoryDashComponent implements OnInit {
   CategoryID: any;
   public GetCategoryID(evn) {
    
-    this.CategoryID = evn.target.value;
-    this.FilteredSubcategoryLists = this.SubcategoryLists.filter(x => x.categoryID == this.CategoryID);
-
-
-
+    if(evn.target.value!=0)
+    {
+      this.CategoryID = evn.target.value;
+      this.FilteredSubcategoryLists = this.SubcategoryLists.filter(x => x.categoryID == this.CategoryID);
+    }
+    else{
+      this.GetSubcategory();
+    }
   }
 
 
@@ -82,7 +85,7 @@ export class SubCategoryDashComponent implements OnInit {
    
     Swal.fire({
       title: 'Are you sure?',
-      text: "You Want to Delete This Announcement!",
+      text: "You Want to Delete This Sub Category!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

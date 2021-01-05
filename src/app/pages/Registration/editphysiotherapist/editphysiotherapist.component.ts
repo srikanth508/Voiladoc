@@ -222,10 +222,12 @@ export class EditphysiotherapistComponent implements OnInit {
       if (data != undefined) {
         if (this.languageid == 1) {
           Swal.fire("Updated Successfully");
+          location.href="#/PhysiotherapistDashboard"
           this.getpsytherapydetails();
         }
         else if (this.languageid == 6) {
           Swal.fire("Mis à jour avec succés");
+          location.href="#/PhysiotherapistDashboard"
           this.getpsytherapydetails();
         }
 

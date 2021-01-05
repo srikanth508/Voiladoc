@@ -3,9 +3,9 @@
     <div class="col-lg-9">
       <h5>{{labels[0].offers}}</h5>
     </div>
-    <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
+    <!-- <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button type="button" routerLink="/Offersdash" class="btn btncolor">{{labels[0].dashboard}}</button>
-    </div>
+    </div> -->
   </div>
 </div>
 <div class="container-fluid card card-hover divspacee">
@@ -43,22 +43,19 @@
       </div>
     </div>
     <br>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].tests}} : </label>
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <!-- <select class="form-control" (change)="GetTestID($event)">
-          <option value="" selected>{{labels[0].select}}</option>
-          <option *ngFor="let details of diagnosticlist" value="{{details.id}}">{{details.short}}</option>
-        </select> -->
+  
         <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="diagnosticlist"
         [settings]="diadd" (onSelect)="GetTestID($event)">
       </ng-multiselect-dropdown>
       </div>
     </div>
-    <br>
+    <br> -->
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].startDate}} : </label>
@@ -97,7 +94,7 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" [(ngModel)]="offer" name="offer" required placeholder="Offer" class="form-control">
+        <input type="text" [(ngModel)]="offer" name="offer" required placeholder="{{labels[0].offer}}" class="form-control">
       </div>
     </div>
     <br>
