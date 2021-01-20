@@ -303,13 +303,27 @@ export class DiagnosticReportsComponent implements OnInit {
       for (var j = 0; j < tableRow.cells.length - 1; j++) {
         rowData[headers[j]] = tableRow.cells[j].innerHTML;
 
-        document.getElementById('table_rowhtml').innerHTML=rowData['REPORTS'] ? rowData['REPORTS'] :"";
-        rowData['REPORTS']=document.getElementById('table_rowhtml').innerText;
-        document.getElementById('table_rowhtml').innerHTML=rowData['HOMESAMPLEPICKUP'] ? rowData['HOMESAMPLEPICKUP'] :"";
-        rowData['HOMESAMPLEPICKUP']=document.getElementById('table_rowhtml').innerText;
+        if(this.languageid==1)
+        {
+          document.getElementById('table_rowhtml').innerHTML=rowData['REPORTS'] ? rowData['REPORTS'] :"";
+          rowData['REPORTS']=document.getElementById('table_rowhtml').innerText;
+          document.getElementById('table_rowhtml').innerHTML=rowData['HOMESAMPLEPICKUP'] ? rowData['HOMESAMPLEPICKUP'] :"";
+          rowData['HOMESAMPLEPICKUP']=document.getElementById('table_rowhtml').innerText;
+  
+          document.getElementById('table_rowhtml').innerHTML=rowData['DETAILS'] ? rowData['DETAILS'] :"";
+          rowData['DETAILS']=document.getElementById('table_rowhtml').innerText;   
+        }
+        else if(this.languageid==6)
+        {
+          document.getElementById('table_rowhtml').innerHTML=rowData['RAPPORTS'] ? rowData['RAPPORTS'] :"";
+          rowData['RAPPORTS']=document.getElementById('table_rowhtml').innerText;
+          document.getElementById('table_rowhtml').innerHTML=rowData['COLLECTEPRÉLÈVEMENTSÀDOMICILE'] ? rowData['COLLECTEPRÉLÈVEMENTSÀDOMICILE'] :"";
+          rowData['COLLECTEPRÉLÈVEMENTSÀDOMICILE']=document.getElementById('table_rowhtml').innerText;
 
-        document.getElementById('table_rowhtml').innerHTML=rowData['DETAILS'] ? rowData['DETAILS'] :"";
-        rowData['DETAILS']=document.getElementById('table_rowhtml').innerText;   
+          document.getElementById('table_rowhtml').innerHTML=rowData['EXAMENS'] ? rowData['EXAMENS'] :"";
+          rowData['EXAMENS']=document.getElementById('table_rowhtml').innerText;   
+        }
+       
 
       } data.push(rowData);
     }
@@ -389,4 +403,15 @@ export class DiagnosticReportsComponent implements OnInit {
       }
     )
   }
+
+  public attachments:any;
+
+  
+  public GetAttachments(id) {
+    this.docservice.GetDiagnosticAppointmentPhotos(id).subscribe(data => {
+      debugger
+      this.attachments = data;
+    })
+  }
+
 }

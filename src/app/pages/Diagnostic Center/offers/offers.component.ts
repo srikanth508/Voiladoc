@@ -175,7 +175,7 @@ export class OffersComponent implements OnInit {
       this.dummattchmenturl.push(res);
       let a = this.dummattchmenturl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
       this.attachments.length = 0;

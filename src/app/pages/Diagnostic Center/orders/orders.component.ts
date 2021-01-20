@@ -54,8 +54,8 @@ export class OrdersComponent implements OnInit {
   public visslotName: any;
   public visiemail: any;
   dropzonelable: any;
-  labels4:any;
-
+  labels4: any;
+  amount: any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -85,7 +85,7 @@ export class OrdersComponent implements OnInit {
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
 
-    
+
     this.user = localStorage.getItem('user');
     this.diagnosticid = localStorage.getItem('diagnosticid');
     this.startdate = formatDate(kkk, format, locale);
@@ -111,7 +111,7 @@ export class OrdersComponent implements OnInit {
       data => {
 
         this.labels4 = data;
-      
+
       }, error => {
       }
     )
@@ -470,7 +470,7 @@ export class OrdersComponent implements OnInit {
       this.dummattchmenturl.push(res);
       let a = this.dummattchmenturl[0].slice(2);
 
-      // let b = 'http://14.192.17.225' + a;
+      // let b = 'https://14.192.17.225' + a;
       this.showphoto.push('assets/Images/pdf.png')
       this.attachments.length = 0;
 
@@ -914,11 +914,11 @@ export class OrdersComponent implements OnInit {
   public showwindow: any;
   public chatappointmentid: any;
   public chatpatientemail: any;
- 
+
 
 
   public GetChatShowID(details) {
-debugger
+    debugger
     this.patientid = details.patientID;
     this.chatpatientemail = details.emailID;
     this.chatappointmentid = details.id;
@@ -956,9 +956,9 @@ debugger
   }
 
 
-  public serverdateandtime:any;
-  public servertime:any;
-  public serverdate:any;
+  public serverdateandtime: any;
+  public servertime: any;
+  public serverdate: any;
 
   public getserverdateandtime() {
 
@@ -975,7 +975,7 @@ debugger
 
 
 
-public chatconversation:any;
+  public chatconversation: any;
 
 
   public InsertChatDetails() {
@@ -997,9 +997,9 @@ public chatconversation:any;
 
       }
       this.chatconversation = "";
-     
+
       this.getPreviousChat();
-     this.InsertChatnotificationazure()
+      this.InsertChatnotificationazure()
 
 
     })
@@ -1021,12 +1021,12 @@ public chatconversation:any;
   }
 
 
-  public coversationarray=[];
+  public coversationarray = [];
 
 
 
 
-  
+
   public getPreviousChat() {
     this.docservice.GetDiagnosticChatDetailsWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
@@ -1047,9 +1047,9 @@ public chatconversation:any;
     })
   }
 
-public user:any;
+  public user: any;
 
-  
+
   public InsertChatnotificationazure() {
     var entity = {
       'Description': this.user + ' Trying to reach you. Please open your voiladoc app : ' + this.chatconversation,
@@ -1061,6 +1061,47 @@ public user:any;
       }
     })
   }
+
+
+
+
+  public GetAttachments(id) {
+    this.docservice.GetDiagnosticAppointmentPhotos(id).subscribe(data => {
+      debugger
+      this.attachments = data;
+    })
+  }
+
+
+
+  public GetAppointmentAcceptBit(appointmentID, patientID, diagnosticCenterName, slotName, emailID) {
+    this.appointmentsid=appointmentID;
+    this.accpatientid = patientID;
+    this.acceptcenter = diagnosticCenterName;
+    this.accslot = slotName;
+    this.acpaemail = emailID;
+  }
+
+
+
+  public GetAppointmentAccept() {
+    debugger
+    this.docservice.UpdateDiagnosticAppointmentsByType(this.appointmentsid, this.amount).subscribe(data => {
+      debugger
+      this.getdiagnosticAppointmentsbyid();
+      this.getdiagnosticAppointment();
+      this.InsertAccptNotification()
+      this.InsertNotiFicationAccpt()
+      if (this.languageid == 1) {
+        Swal.fire('Accepted', 'Order has been Accepted.');
+      }
+      else {
+        Swal.fire('Enregistré !.','Commande acceptée')
+      }
+    })
+  }
+
+
 }
 
 

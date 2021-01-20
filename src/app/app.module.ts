@@ -5,7 +5,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
@@ -375,17 +375,19 @@ import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-comp
 import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
 import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
 import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
+import { MeridionalSupportComponent } from './pages/Support/meridional-support/meridional-support.component';
+import { DiagnosticPatientsComponent } from './pages/Diagnostic Center/diagnostic-patients/diagnostic-patients.component';
 
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
-  url: 'http://14.192.17.225/RMSAPI/Master/UploadZIP/',
+  url: 'https://14.192.17.225/RMSAPI/Master/UploadZIP/',
   maxFilesize: 50,
 };
 
 const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  url: 'http://14.192.17.225/RMSAPI/Master/UploadZIP/',
+  url: 'https://14.192.17.225/RMSAPI/Master/UploadZIP/',
   maxFilesize: 50,
 };
 
@@ -742,7 +744,9 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DiaCompletedTicketsComponent,
     RefundSupportComponent,
     RefundCompletedTicketsComponent,
-    AllDiagnosticCalenderComponent
+    AllDiagnosticCalenderComponent,
+    MeridionalSupportComponent,
+    DiagnosticPatientsComponent
    
   ],
   imports: [

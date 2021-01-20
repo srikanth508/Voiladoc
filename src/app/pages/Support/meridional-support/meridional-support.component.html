@@ -1,0 +1,252 @@
+<br>
+<div class="container-fluid card card-hover">
+  <div class="row headerspace">
+    <div class="col-lg-5">
+      <h5>Escalated Tickets</h5>
+    </div>
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-2">
+      <button  class="btn btncolor" 
+        (click)="getglmasterexcel()" *ngIf="showexportbutton=='1'">{{labels[0].exportExcel}}</button>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <!-- <select class="form-control" (change)="GetTypeID($event)">
+        <option value="0">{{labels[0].selectType}}</option>
+        <option value="1">{{labels[0].doctor}}</option>
+        <option value="2">{{labels[0].nurse}}</option>
+        <option value="3">{{labels[0].physiotherapist}}</option>
+        <option value="4">{{labels[0].midwife}}</option>
+        <option value="5">{{labels[0].hospital}}</option>
+        <option value="6">{{labels[0].receptioist}}</option>
+        <option value="7">Pharmacy</option>
+        <option value="8">Diagnostic Center</option>
+      </select> -->
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+      <label><b style="margin-left: 50px;">{{labels[0].count}} : {{count}}</b></label>
+    </div>
+  </div><br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table 
+      id="Appointment" >
+        <thead>
+          <tr>
+            <th>Ticket No</th>
+            <th>{{labels[0].raisedDate}}</th>
+            <th>{{labels[0].type}}</th>
+            <th>{{labels[0].name}}</th>
+            <th>Phone No</th>
+            <th>Email</th>
+            <th>{{labels[0].issue}}</th>
+            <th>{{labels[0].description}}</th>
+            <th>{{labels[0].photo}}</th>
+            <th>Support team comments</th>
+            <th>Support team Photo</th>
+            <th>{{labels[0].status}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let issue of issuelist|filter:term">
+            <td>{{issue.id}}</td>
+            <td>{{issue.raiseddate}}</td>
+            <td>{{issue.typename}}</td>
+            <td>{{issue.userName}}</td>
+            <td>{{issue.usermobile}}</td>
+            <td>{{issue.useremail}}</td>
+            <td>{{issue.issue}}</td>      
+            <td>
+              <span [innerHTML]="issue.description"></span>
+            </td>
+            <td>
+              <img src="assets/Images/imgicon.png" title="images" (click)="GetImageUrl(issue.photoURL)"
+                data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
+            </td>
+            <td>{{issue.merdionalComments}}</td>
+            <td>
+              <img src="assets/Images/imgicon.png" title="images" (click)="GetSupportImage(issue.meridionalPhotoUrl)"
+                data-toggle="modal" data-target="#exampleModalLong6" style="margin: 2%;width: 20px;" />&nbsp;
+            </td>
+            <td>
+              <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'" style="color:red">{{labels[0].pending}}</label>
+              <!-- <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:green">{{labels[0].accepted}}</label> -->
+              <!-- <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'" style="color:green">Assigned Meridional</label> -->
+              <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label>
+            </td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="height: 20px;"
+                  (click)="UpdateSupportForWebAcceptedbit(issue.id)" />
+              </a>&nbsp;
+
+              <ng-template #tipcontent45>Assign Meridional</ng-template>
+              <a [ngbTooltip]="tipcontent45">
+                <img src="assets/Images/staff.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="height: 20px;"
+                  (click)="assignMeridiobal(issue.id)" />
+              </a>&nbsp;
+              <ng-template #tipcontent4>{{labels[0].resolved}}</ng-template>
+              <a [ngbTooltip]="tipcontent4">
+                <img src="assets/Images/edit.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='1'" data-toggle="modal"
+                  data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(issue.id,issue.useremail)" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+</div><br>
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].issuePhoto}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <br>
+              <img src="{{photourl}}" style="height: auto;width:100%" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalLong6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].issuePhoto}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <br>
+              <img src="{{meridionalPhotoUrl}}" style="height: auto;width:100%" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].uploadcomments}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #supportForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].photo}} :</label>
+              </div>
+              <div class="col-lg-4">
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
+                  class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+              </div>
+              <div class="col-lg-2">
+                <span *ngFor="let showsigphoto of showidentityproof">
+                  <img src="{{showsigphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+              </div>
+              <br>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].description}} :</label>
+                <span style="color:red">*</span>
+              </div>
+              <div class="col-lg-6">
+                <ckeditor [editor]="Editor" [(ngModel)]="description" required name="description" data=""></ckeditor>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" text_align="center" (click)="insertdetails()"
+                  class="btn btn-block btn-md allbtns btncolor" [disabled]="supportForm.form.invalid"
+                  data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <br>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="qwerty" style="display: none;">
+</div>	

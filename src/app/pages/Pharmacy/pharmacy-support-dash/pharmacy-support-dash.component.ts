@@ -73,8 +73,9 @@ export class PharmacySupportDashComponent implements OnInit {
     this.docservice.GetSupportForWeb(this.languageid, this.pharmacyid, 7, this.startdate, this.enddate).subscribe(res => {
      
       this.dummissuelist = res;
-      this.issuelist = res ;
-      // this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
+      // this.issuelist = res ;
+       this.issuelist =res;
+        // this.dummissuelist.filter(x => x.resolved == 0)
       this.count = this.issuelist.length;
      
     })
@@ -137,5 +138,12 @@ private saveAsExcelFile(buffer: any, fileName: string): void {
   const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
   FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
 }
+
+public resolvephotourl:any;
+
+public GetResolvePhotoUrl(resolveDescription) {
+  this.resolvephotourl = resolveDescription
+}
+
 
 }

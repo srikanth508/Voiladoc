@@ -35,18 +35,18 @@ export class SupportWebComponent implements OnInit {
   public dummissuelist: any;
   public issuephoto = [];
   public issuephotourl = [];
-  dropzonelable:any;
-  countrymanaerid:any;
-  supportid:any;
-  showexportbutton:any;
+  dropzonelable: any;
+  countrymanaerid: any;
+  supportid: any;
+  showexportbutton: any;
   ngOnInit() {
 
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
-    this.supportid= localStorage.getItem('supportid');
+    this.supportid = localStorage.getItem('supportid');
     if (this.countrymanaerid != undefined || this.supportid != undefined) {
       this.showexportbutton = 1;
     }
-  
+
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -65,7 +65,7 @@ export class SupportWebComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -80,33 +80,32 @@ export class SupportWebComponent implements OnInit {
     this.GetSupportIssues()
     this.GetLanguageMaster()
 
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
+
 
 
   public GetSupportIssues() {
     this.docservice.GetSupportForWebForSupportLogin(this.languageid, this.startdate, this.enddate).subscribe(res => {
-     
+
       this.issuelist = res;
       this.dummissuelist = res;
 
-      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0 && x.assignMeridional == 0)
       this.count = this.issuelist.length;
-     
+
     })
   }
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-     
+
       this.labels = res;
-     
+
     })
   }
 
@@ -114,13 +113,13 @@ export class SupportWebComponent implements OnInit {
   photourl: any;
 
   public GetImageUrl(photoURL) {
-   
+
     this.photourl = photoURL
   }
 
 
   selectedDate(data) {
-   
+
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -173,7 +172,7 @@ export class SupportWebComponent implements OnInit {
 
 
   public UpdateSupportForWebAcceptedbit(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want To Accept This Issue!",
@@ -203,10 +202,10 @@ export class SupportWebComponent implements OnInit {
   useremail: any;
 
   public GetSupportResolveID(id, useremail) {
-   
+
     this.resolveid = id
     this.useremail = useremail
-   
+
   }
   description: any;
   removetgdescription: any;
@@ -215,7 +214,7 @@ export class SupportWebComponent implements OnInit {
 
     document.getElementById("qwerty").innerHTML = this.description;
     this.removetgdescription = document.getElementById("qwerty").innerText;
-   
+
     var entity = {
       'ID': this.resolveid,
       'ResolvePhotoUrl': this.issuephotourl[0],
@@ -224,9 +223,11 @@ export class SupportWebComponent implements OnInit {
     this.docservice.UpdateSupportForWebResolvedbit(entity).subscribe(data => {
       let res = data;
       this.insertazurenotification()
-      Swal.fire('Issue Resolved Successflly')
+      Swal.fire('Issue Resolved Successfully')
       this.description = ""
-      this.issuephotourl = []
+      this.issuephotourl = [];
+      this.identityattachmentsurlssss = [];
+      this.showidentityproof = [];
       this.GetSupportIssues();
     })
   }
@@ -234,7 +235,7 @@ export class SupportWebComponent implements OnInit {
 
 
   public insertazurenotification() {
-   
+
     var entity = {
       'Descriptions': "Your issue has Resolved. Please Check",
       'Email': this.useremail,
@@ -249,15 +250,15 @@ export class SupportWebComponent implements OnInit {
 
 
 
-  identityattachmentsurlssss=[]
-  showidentityproof=[];
+  identityattachmentsurlssss = []
+  showidentityproof = [];
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
-      this.identityattachmentsurlssss = []
-      this.issuephoto.push(abcd.addedFiles[0]);
-      this.uploadid();
+    this.identityattachmentsurlssss = []
+    this.issuephoto.push(abcd.addedFiles[0]);
+    this.uploadid();
     // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -265,14 +266,14 @@ export class SupportWebComponent implements OnInit {
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-     
+
       this.issuephotourl.push(res);
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
-     
-      let b = 'http://14.192.17.225' + a;
+
+      let b = 'https://14.192.17.225' + a;
       this.showidentityproof.push(b)
-     
+
     })
     // this.sendattachment();
   }
@@ -284,7 +285,7 @@ export class SupportWebComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -302,7 +303,7 @@ export class SupportWebComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -314,4 +315,61 @@ export class SupportWebComponent implements OnInit {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
+
+  public id:any;
+
+  public assignMeridiobal(id) {
+    this.id=id;
+  }
+
+
+
+
+
+  public updateassignmerigional() {
+    document.getElementById("qwerty").innerHTML = this.description;
+    this.removetgdescription = document.getElementById("qwerty").innerText;
+
+    var entity = {
+      'ID': this.id,
+      'MeridionalPhotoUrl': this.issuephotourl[0],
+      'MerdionalComments': this.removetgdescription
+    }
+    this.docservice.UpdateSupportForWebMeridionalCommetnts(entity).subscribe(data => {
+      let res = data;
+      this.insertazurenotification()
+      Swal.fire('Issue Assigned Meridional Successfully')
+      this.description = ""
+      this.issuephotourl = [];
+      this.identityattachmentsurlssss = [];
+      this.showidentityproof = [];
+      this.GetSupportIssues();
+    })
+  }
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You Want to Assign Meridional!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, Assign!'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this.docservice.UpdateSupportForWebForAssignMeridional(id).subscribe(res => {
+  //         let test = res;
+  //         this.GetSupportIssues();
+  //       })
+  //       Swal.fire(
+  //         'Assigned!',
+  //         'Issue  has been Assigned Successfully',
+  //         'success'
+  //       )
+  //     }
+  //     else {
+  //       this.GetSupportIssues();
+  //     }
+  //   })
+
+  // }
 }

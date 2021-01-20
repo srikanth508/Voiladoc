@@ -9,8 +9,7 @@ import { pipeDef } from '@angular/core/src/view';
 
 export class HelloDoctorService {
 
-  //  public host5 = "http://localhost:4199/";
-  //latestsoln date 29-07-2020
+
 
   public host = localStorage.getItem('WebUrl');
 
@@ -26,14 +25,12 @@ export class HelloDoctorService {
 
   // public SendMail(data) {
   //   this.
-  //   this.url = 'https://14.192.17.225/QMSUATAPI/Master/sendemail/';
+  //   this.url = 'http://14.192.17.225/QMSUATAPI/Master/sendemail/';
   //   // this.url = this.host + '/Doctor/sendemail/';
   //   return this.http.post(this.url, data)
   // }
 
   public SendMail(data) {
-
-
     let url = "https://14.192.17.225/AmazeIncAPI/Website/SendMail";
     return this.http.post(url, data)
   }
@@ -750,16 +747,16 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/PatientRegistration/GetPatientDetails?ID=' + id + '&LanguageID=' + lid);
   }
   public OpenTok() {
-    return this.http.get<any[]>("https://amazintchtokbox.herokuapp.com/session");
+    return this.http.get<any[]>("http://amazintchtokbox.herokuapp.com/session");
   }
 
   public startArchive(sessionId) {
     let data = JSON.stringify({ 'sessionId': sessionId })
-    return this.http.post('https://amazintchtokbox.herokuapp.com/archive/start', data)
+    return this.http.post('http://amazintchtokbox.herokuapp.com/archive/start', data)
   }
   public stopArchive(archiveID) {
     let data = JSON.stringify({})
-    return this.http.post('https://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/stop', data)
+    return this.http.post('http://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/stop', data)
   }
   public GetBookAppointmentByPatientID(patientid, appid, lid) {
     return this.http.get<any[]>(this.host + '/PatientRegistration/GetBookAppointmentByPatientID?PatientID=' + patientid + '&AppointmentID=' + appid + '&LanguageID=' + lid);
@@ -2311,19 +2308,19 @@ export class HelloDoctorService {
   //chat
   public GetChatID(did, pid, appid) {
 
-    // return this.http.get<any[]>('https://14.192.17.225/MongoAPI/Api/Employee/GetChatId?DoctorID=' + did + '&PatientID=' + pid);
-    // return this.http.get<any[]>('https://localhost:44317/Api/Employee/GetChatId?DoctorID=' + did + '&PatientID=' + pid);
+    // return this.http.get<any[]>('http://14.192.17.225/MongoAPI/Api/Employee/GetChatId?DoctorID=' + did + '&PatientID=' + pid);
+    // return this.http.get<any[]>('http://localhost:44317/Api/Employee/GetChatId?DoctorID=' + did + '&PatientID=' + pid);
     return this.http.get<any[]>(this.host + '/Admin/GetChatID?DoctorID=' + did + '&PatientID=' + pid + '&AppointmentID=' + appid);
   }
   public InsertChatMaster(data) {
-    // this.url = 'https://14.192.17.225/MongoAPI/Api/Employee/InsertChatMaster';
-    // this.url = 'https://localhost:44317/Api/Employee/InsertChatMaster';
+    // this.url = 'http://14.192.17.225/MongoAPI/Api/Employee/InsertChatMaster';
+    // this.url = 'http://localhost:44317/Api/Employee/InsertChatMaster';
     this.url = this.host + '/Admin/InsertChatMaster';
     return this.http.post(this.url, data)
   }
   public InsertChatDetails(data) {
-    // this.url = 'https://14.192.17.225/MongoAPI/Api/Employee/InsertChatDetails';
-    // this.url = 'https://localhost:44317/Api/Employee/InsertChatMaster';
+    // this.url = 'http://14.192.17.225/MongoAPI/Api/Employee/InsertChatDetails';
+    // this.url = 'http://localhost:44317/Api/Employee/InsertChatMaster';
     this.url = this.host + '/Admin/InsertChatDetails';
 
     return this.http.post(this.url, data)
@@ -2331,8 +2328,8 @@ export class HelloDoctorService {
 
   public GetChatDetails(did) {
 
-    // return this.http.get<any[]>('https://14.192.17.225/MongoAPI/Api/Employee/GetChatDetailsById?ChatID=' + did);
-    // return this.http.get<any[]>('https://localhost:44317/Api/Employee/GetChatDetailsById?ChatID=' + did);
+    // return this.http.get<any[]>('http://14.192.17.225/MongoAPI/Api/Employee/GetChatDetailsById?ChatID=' + did);
+    // return this.http.get<any[]>('http://localhost:44317/Api/Employee/GetChatDetailsById?ChatID=' + did);
     // return this.http.get<any[]>(this.host + '/Admin/GetChatDetails?ChatID=' + did);
 
     return this.http.get<any[]>(this.host + '/Admin/GetChatDetails?ChatID=' + did);
@@ -3992,10 +3989,10 @@ export class HelloDoctorService {
   }
 
 
-  public GetDoctorDetails_ForVideoConferenceForWeb1(did, doctype, daid, aidd, lid, hospitalid, dayid) {
+  public GetDoctorDetails_ForVideoConferenceForWeb1(did, doctype, daid, aidd, lid, hospitalid, dayid,appdate) {
 
     return this.http.get<any[]>(
-      this.host + "/Doctor/GetDoctorDetails_ForVideoConferenceForWeb1?DepartmentID=" + did + '&DoctorType=' + doctype + '&AppointmentTypeID=' + daid + '&BookingTypeID=' + aidd + '&LanguageID=' + lid + '&HospitalID=' + hospitalid + '&DayID=' + dayid
+      this.host + "/Doctor/GetDoctorDetails_ForVideoConferenceForWeb1?DepartmentID=" + did + '&DoctorType=' + doctype + '&AppointmentTypeID=' + daid + '&BookingTypeID=' + aidd + '&LanguageID=' + lid + '&HospitalID=' + hospitalid + '&DayID=' + dayid+'&AppointmentDate='+appdate
     );
   }
 
@@ -5097,7 +5094,6 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetMidwifePriceDetails?MidwifeID=' + MidwifeID);
   }
 
-
   
   public InserDiagnostic_ChatMaster(data) {
     this.url = this.host + '/Diagnostic/InserDiagnostic_ChatMaster';
@@ -5115,4 +5111,47 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticChatDetailsWeb?ChatID=' + chatid);
   }
 
+
+  public UpdateChatDetailsSeen(chatid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateChatDetailsSeen?ChatID=' + chatid);
+  }
+
+  public GetDiagnosticAppointmentPhotos(diappid) {
+
+    return this.http.get<any[]>(this.host + '/Diagnostic/GetDiagnosticAppointmentPhotos?DiagAppID=' + diappid);
+  }
+
+
+  public UpdateDiagnosticAppointmentsByType(diappid,amount) {
+
+    return this.http.get<any[]>(this.host + '/Diagnostic/UpdateDiagnosticAppointmentsByType?AppointmentID=' + diappid+'&Amount='+amount);
+  }
+
+
+  public InsertSupportForWebNotificationsDiaPha(data) {
+    this.url = this.host + '/Doctor/InsertSupportForWebNotificationsDiaPha';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdateSupport(data) {
+    this.url = this.host + '/Doctor/UpdateSupport';
+    return this.http.post(this.url, data)
+  }
+  
+  public UpdateSupportForWebForAssignMeridional(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateSupportForWebForAssignMeridional?ID=' + id);
+  }
+
+  public UpdateSupportForWebMeridionalCommetnts(data) {
+    this.url = this.host + '/Doctor/UpdateSupportForWebMeridionalCommetnts';
+    return this.http.post(this.url, data)
+  }
+  
+  
+  public GetDiagnosticpatients(diacenterid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticpatients?DiagnosticCenterID=' + diacenterid);
+  }
 }

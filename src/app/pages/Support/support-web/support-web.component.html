@@ -32,6 +32,8 @@
         <option value="4">{{labels[0].midwife}}</option>
         <option value="5">{{labels[0].hospital}}</option>
         <option value="6">{{labels[0].receptioist}}</option>
+        <option value="7">Pharmacy</option>
+        <option value="8">Diagnostic Center</option>
       </select>
     </div>
     <div class="col-lg-1">
@@ -47,6 +49,7 @@
       id="Appointment" >
         <thead>
           <tr>
+            <th>Ticket No</th>
             <th>{{labels[0].raisedDate}}</th>
             <th>{{labels[0].type}}</th>
             <th>{{labels[0].name}}</th>
@@ -59,6 +62,7 @@
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let issue of issuelist|filter:term">
+            <td>{{issue.id}}</td>
             <td>{{issue.raiseddate}}</td>
             <td>{{issue.typename}}</td>
             <td>{{issue.userName}}</td>
@@ -73,21 +77,27 @@
                 data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
             </td>
             <td>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="color:red">{{labels[0].pending}}</label>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'" style="color:green">{{labels[0].accepted}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'&&issue.assignMeridional=='0'" style="color:red">{{labels[0].pending}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="color:green">{{labels[0].accepted}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'" style="color:green">Assigned Meridional</label>
               <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
             </td>
-            <td>
-
+            <td>  
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="height: 20px;"
                   (click)="UpdateSupportForWebAcceptedbit(issue.id)" />
-              </a>
+              </a>&nbsp;
+
+              <ng-template #tipcontent65>Assign Meridional</ng-template>
+              <a [ngbTooltip]="tipcontent65">
+                <img src="assets/Images/staff.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="height: 20px;"
+                data-toggle="modal"    data-target="#exampleModalLong4"    (click)="assignMeridiobal(issue.id)" />
+              </a>&nbsp;
 
               <ng-template #tipcontent4>{{labels[0].resolved}}</ng-template>
               <a [ngbTooltip]="tipcontent4">
-                <img src="assets/Images/edit.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'" data-toggle="modal"
+                <img src="assets/Images/edit.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" data-toggle="modal"
                   data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(issue.id,issue.useremail)" />
               </a>
             </td>
@@ -197,5 +207,76 @@
     </div>
   </div>
 </div>
-<div id="qwerty">
+<div id="qwerty" style="display: none;">
+</div>	
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].uploadcomments}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #supportForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].photo}} :</label>
+              </div>
+              <div class="col-lg-4">
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
+                  class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+              </div>
+              <div class="col-lg-2">
+                <span *ngFor="let showsigphoto of showidentityproof">
+                  <img src="{{showsigphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+              </div>
+              <br>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].description}} :</label>
+                <span style="color:red">*</span>
+              </div>
+              <div class="col-lg-6">
+                <ckeditor [editor]="Editor" [(ngModel)]="description" required name="description" data=""></ckeditor>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" text_align="center" (click)="updateassignmerigional()"
+                  class="btn btn-block btn-md allbtns btncolor" [disabled]="supportForm.form.invalid"
+                  data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <br>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="qwerty" style="display: none;">
 </div>	

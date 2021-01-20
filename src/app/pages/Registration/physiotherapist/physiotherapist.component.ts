@@ -253,7 +253,7 @@ export class PhysiotherapistComponent implements OnInit {
       this.dummphotourl.push(res);
       let a = this.dummphotourl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
@@ -300,7 +300,7 @@ export class PhysiotherapistComponent implements OnInit {
       this.dummidentiurl.push(res);
       let a = this.dummidentiurl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showidproof.push(b)
       this.idproof.length = 0;
 

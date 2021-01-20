@@ -39,15 +39,9 @@ export class BookappointmentComponent implements OnInit {
   Selecteddate2: any;
   todaydatesssssss: any;
   public mindate = new Date();
+  public slottodaydatesssssss: any;
   ngOnInit() {
-    //
-    // const format = 'yyyy-MM-dd';
-    // const myDate = new Date();
-    // const locale = 'en-US';
-    // this.todaydate = formatDate(myDate, format, locale);
-    // this.selecteddate = formatDate(myDate, format, locale);
-    // this.filterdate = this.selecteddate
-    // localStorage.setItem('SelectedDate', this.selecteddate)
+
 
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
@@ -62,6 +56,8 @@ export class BookappointmentComponent implements OnInit {
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
 
+          this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss
+
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
 
         }
@@ -71,28 +67,13 @@ export class BookappointmentComponent implements OnInit {
           this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
+          this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
         }
       }, error => {
       }
     )
 
-    // var gsDayNames = [
-    //   'Sunday',
-    //   'Monday',
-    //   'Tuesday',
-    //   'Wednesday',
-    //   'Thursday',
-    //   'Friday',
-    //   'Saturday'
-    // ];
-    // var d = new Date(this.selecteddate);
-    // var dayName = gsDayNames[d.getDay()];
-    // this.docservice.GetDayID(dayName).subscribe(data => {
-    //  
-    //   this.dayidslist = data;
-    //   this.dayid = this.dayidslist[0].dayID;
-    // })
 
     this.doctortype = 1;
     this.bookingtype = 2;
@@ -101,24 +82,25 @@ export class BookappointmentComponent implements OnInit {
     this.hospitalid = localStorage.getItem('hospitalid');
     localStorage.setItem('SelectedDate', this.selecteddate)
 
+    localStorage.setItem('slottimeselecteddates1', undefined)
 
     this.getdepartmentmaster();
     this.GetAreaMaster();
-  
+
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
 
         this.labels = data;
-        this.search=  this.labels[0].search
-        this.select=this.labels[0].selectdoctor
+        this.search = this.labels[0].search
+        this.select = this.labels[0].selectdoctor
       }, error => {
       }
     )
     this.getDoctorss()
     this.getdoctorslots()
   }
-  public search:any;
-  public select:any;
+  public search: any;
+  public select: any;
   public getdepartmentmaster() {
 
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
@@ -168,7 +150,7 @@ export class BookappointmentComponent implements OnInit {
     this.getDoctorss();
   }
 
-public docdd={};
+  public docdd = {};
 
 
   public getDoctorss() {
@@ -201,18 +183,16 @@ public docdd={};
   getday: any;
 
   selecteddates1: any;
+  slottimeselecteddates1: any;
+
   public GetDate(even) {
-
+    debugger
     if (this.languageid == 1) {
-
-      //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
-      // this.selecteddate = even.target.value;
-      // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
-
+      debugger
       this.selecteddates1 = even.toLocaleString().split(',')[0];
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-      // this.selecteddate = even.target.value;
-      // localStorage.setItem('SelectedDate', this.selecteddate)
+      debugger
+      localStorage.setItem('slottimeselecteddates1', this.selecteddates1)
 
       localStorage.setItem('SelectedDate', this.selecteddates1)
       var gsDayNames = [
@@ -232,19 +212,23 @@ public docdd={};
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
 
-        this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
-          data => {
+        debugger
 
+        this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.selecteddate).subscribe(
+          data => {
+            debugger
             this.doctorslist = data;
             this.dummdoctorslist = data;
             this.selecteddates1 = even.toLocaleString().split(',')[0];
             this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-
-            if (this.selecteddates1 == this.todaydatesssssss) {
+            debugger
+            if (this.selecteddates1 == this.slottodaydatesssssss) {
               this.getdoctorslots()
+              debugger
             }
             else {
               this.getdoctotsbyid()
+              debugger
             }
           }, error => {
           }
@@ -255,15 +239,13 @@ public docdd={};
     }
     else if (this.languageid == 6) {
 
-      //  this.selecteddate =new Date(even.setDate(even.getDate() + 1)).toJSON().slice(0,10).split('-').reverse().join('/');
-      // this.selecteddate = even.target.value;
-      // this.getday = new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('-');
 
       this.selecteddates1 = even.toLocaleString().split(',')[0];
 
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-      // this.selecteddate = even.target.value;
-      // localStorage.setItem('SelectedDate', this.selecteddate)
+
+      localStorage.setItem('slottimeselecteddates1', this.selecteddates1)
+
 
       localStorage.setItem('SelectedDate', this.selecteddates1)
       var gsDayNames = [
@@ -283,16 +265,18 @@ public docdd={};
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
 
-        this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid).subscribe(
+        this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.selecteddate).subscribe(
           data => {
 
             this.doctorslist = data;
             this.dummdoctorslist = data;
 
-            if (this.selecteddates1 == this.todaydatesssssss) {
+            if (this.selecteddates1 == this.slottodaydatesssssss) {
+              debugger
               this.getdoctorslots()
             }
             else {
+              debugger
               this.getdoctotsbyid()
             }
           }, error => {
@@ -315,7 +299,7 @@ public docdd={};
     let h = (d.getHours() < 10 ? '0' : '') + this.hours;
     let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
     let cts = h + ':' + m;
-
+    debugger
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
 
@@ -340,6 +324,7 @@ public docdd={};
 
   public GetSlotID(even) {
     this.slotid = even.target.value;
+    debugger
     this.docservice.GetDoctorDetails_ForVideoConferenceForWeb2(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.slotid, this.selecteddates1).subscribe(
       data => {
 
@@ -353,12 +338,12 @@ public docdd={};
 
   public doctorid: any;
 
-  public GetDoctorID(item2:any) {
+  public GetDoctorID(item2: any) {
     debugger
     // if (even.target.value != 0) {
-      this.doctorid = item2.doctorID;
-      this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
-    
+    this.doctorid = item2.doctorID;
+    this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
+
     // else {
     //   this.getDoctorss();
     //   // this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)

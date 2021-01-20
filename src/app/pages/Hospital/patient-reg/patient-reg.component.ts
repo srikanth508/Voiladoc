@@ -217,7 +217,7 @@ export class PatientRegComponent implements OnInit {
       }
       else {
         Swal.fire("Mobile Number Already Registered With US ");
-        location.href = "#/Ptientregdash"
+        // location.href = "#/Ptientregdash"
       }
     })
   }

@@ -30,8 +30,9 @@
         [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="todaydatess" name="todaydatess"
         (ngModelChange)="GetDoctorDates($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
+    
     <div class="col-lg-2" *ngIf="showcalender=='1'">
-      <span style="margin-left: 56px;">{{labels[0].changeSchedule}} </span>
+      <span >{{labels[0].changeSchedule}} </span>
     </div>
     <div class="col-lg-3" *ngIf="showcalender=='1'">
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"

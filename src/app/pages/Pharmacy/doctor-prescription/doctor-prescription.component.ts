@@ -48,9 +48,6 @@ export class DoctorPrescriptionComponent implements OnInit {
   dropzonelable: any;
 
   ngOnInit() {
-
-
-
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
@@ -103,9 +100,21 @@ export class DoctorPrescriptionComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+
+    this.oberserableTimerpresription();
+  }
+
+
+  oberserableTimerpresription() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+
+      this.GetPharmacyOrders();
+
+    });
   }
   public GetPharmacyOrders() {
-
+    
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
 
@@ -173,7 +182,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.referencenumber = this.list[0].referenceNumber,
       this.showedit = this.list[0].showUpdate,
 
-      this.docservice.GetPatientOrderedMedicines(this.listid,this.languageid).subscribe(
+      this.docservice.GetPatientOrderedMedicines(this.listid, this.languageid).subscribe(
         data => {
 
           this.orderedmedicinelist = data;
@@ -752,7 +761,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
       let a = this.dummattachmenturl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.photodetail.push(b)
 
@@ -956,17 +965,17 @@ export class DoctorPrescriptionComponent implements OnInit {
   showwindow: any;
 
 
-  public GetPharmacyPatientID(patientid, patientemail,id) {
+  public GetPharmacyPatientID(patientid, patientemail, id) {
     this.patientid = patientid;
     this.patientemail = patientemail
-    this.orderid=id;
+    this.orderid = id;
     document.getElementById("myForm").style.display = "block";
     this.showwindow = 1;
 
     this.image = 0;
     this.getserverdateandtime()
     this.oberserableTimer();
-    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid,this.orderid).subscribe(res => {
+    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid, this.orderid).subscribe(res => {
 
       this.chatID = res[0].chatID;
       this.getPreviousChat();
@@ -991,7 +1000,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
   public getChat() {
-    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid,this.orderid).subscribe(res => {
+    this.docservice.GetPharmacyChatID(this.pharmacyid, this.patientid, this.orderid).subscribe(res => {
 
 
       if (res.length > 0) {
@@ -1003,7 +1012,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         var entity = {
           'PharmacyID': this.pharmacyid,
           'PatientID': this.patientid,
-          'AppointmentID':this.orderid
+          'AppointmentID': this.orderid
         }
         this.docservice.InserPharmacy_ChatMaster(entity).subscribe(data => {
 
@@ -1034,8 +1043,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
 
-
-
+  
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
@@ -1092,6 +1100,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       let Chatconversation = res;
 
       this.coversationarray.length = 0;
+      this.coversationarray=[];
 
       for (let i = 0; i < Chatconversation.length; i++) {
 

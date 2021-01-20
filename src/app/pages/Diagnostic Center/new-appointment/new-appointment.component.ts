@@ -49,7 +49,7 @@ export class NewAppointmentComponent implements OnInit {
     ngOnInit() {
         debugger
         this.type = 1;
-        
+
         this.idcount = 1;
         this.options = {
             theme: 'default',
@@ -84,10 +84,13 @@ export class NewAppointmentComponent implements OnInit {
         this.enddate = formatDate(lll, format, locale);
         this.languageid = localStorage.getItem('LanguageID');
         this.diagnosticid = localStorage.getItem('diagnosticid');
+
+        // document.getElementById("defaultOpen").style.display = "block";
+
         this.docservice.GetDiagnosticCenterTestsByID(this.diagnosticid, this.languageid).subscribe(data => {
             this.testlist = data;
         })
-        // document.getElementById("def_open").click();
+        //  document.getElementById("def_open").click();
         this.GetPatients();
         this.Getlanagage();
         var gsDayNames = [
@@ -306,6 +309,9 @@ export class NewAppointmentComponent implements OnInit {
         }
         debugger
     }
+
+    public slottime: any;
+
     public BookAppointment() {
         debugger
         var entity = {
@@ -315,7 +321,8 @@ export class NewAppointmentComponent implements OnInit {
             Date: this.todaydate,
             TotalPrice: this.totalamount,
             HomeSampleBit: this.homesample,
-            DiagnopatientNmae: this.patientname
+            DiagnopatientNmae: this.patientname,
+            SlotTime: this.slotname
         }
         this.docservice.InsertDiagnosticAppointments(entity).subscribe(data => {
             this.appointmentid = data;

@@ -17,8 +17,6 @@ export class OpentokService {
 
   initSession() {
    
-
-
     if (config.API_KEY && config.TOKEN && config.SESSION_ID) {
       
       this.session = this.getOT().initSession(config.API_KEY, config.SESSION_ID);
@@ -66,9 +64,8 @@ export class OpentokService {
     //   this.archiveID = event.id;
     // })
    
-    
+   
   }
-
 
   stoparchive(archiveID){
     let url = config.SAMPLE_SERVER_BASE_URL+'/archive/'+archiveID+'/stop';

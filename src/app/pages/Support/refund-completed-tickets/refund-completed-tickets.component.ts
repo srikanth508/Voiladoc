@@ -230,7 +230,7 @@ export class RefundCompletedTicketsComponent implements OnInit {
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showidentityproof.push(b)
 
     })

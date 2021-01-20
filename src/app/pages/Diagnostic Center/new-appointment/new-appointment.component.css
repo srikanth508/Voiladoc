@@ -34,6 +34,7 @@
 
 .tab button.active {
     background-color: #f18235;
+    color:white;
 }
 
 
@@ -42,6 +43,14 @@
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #f18235;
     border-top: none;
 }
+
+/* .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #f18235;
+    border-top: none;
+  } */
+  

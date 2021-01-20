@@ -17,14 +17,7 @@
       </select>
     </div>
     <div class="col-lg-3">
-      <!-- <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)"> -->
-      <!-- <input *ngIf="languageid==1"  type="text" placeholder="MM/dd/yyyy" class="form-control"
-      [bsConfig]="{ showWeekNumbers:false }"  name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-      [(ngModel)]="selecteddate" bsDatepicker>
-
-    <input *ngIf="languageid==6" type="text" placeholder="jj/mm/aa" class="form-control"
-      [bsConfig]="{ showWeekNumbers:false }"  [(ngModel)]="selecteddate" name="selecteddate" (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'MM/dd/yyyy' }"
-       bsDatepicker> -->
+   
 
       <input *ngIf="languageid==1" type="text" [minDate]="mindate" class="form-control" placeholder="MM/DD/YYYY"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate2" name="Selecteddate2"
@@ -39,7 +32,7 @@
     <div class="col-lg-3">
       <select class="form-control" (change)="GetSlotID($event)">
         <option value="0">{{labels[0].selectSlot}}</option>
-        <option *ngFor="let slot of doctorslots" value="{{slot.id}}">{{slot.slots}}</option>
+        <option *ngFor="let slot of doctorslots" value="{{slot.slots}}">{{slot.slots}}</option>
       </select>
     </div>
   </div><br>
@@ -91,7 +84,7 @@
         <br>
         <br>
         <button class="btn btncolor" style="height: 33px;
-        width: 124px;"
+        width: 124px;" *ngIf="appointmentypeid=='1'"
           [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID,doc.slotDurationID]">{{labels[0].book}}</button>
       </div>
     </div>

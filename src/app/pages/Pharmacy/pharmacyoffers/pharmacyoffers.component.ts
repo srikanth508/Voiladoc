@@ -116,7 +116,7 @@ export class PharmacyoffersComponent implements OnInit {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else  (this.languageid == 6)
+    else if (this.languageid == 6)
     {
       Swal.fire('Mis à jour avec succés');
       abcd.length = 0;
@@ -132,7 +132,7 @@ export class PharmacyoffersComponent implements OnInit {
       
       let a = this.dummattachmenturl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.photodetail.push(b)
       this.attachments.length = 0;

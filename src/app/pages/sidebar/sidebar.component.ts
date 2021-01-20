@@ -121,6 +121,9 @@ export class SidebarComponent implements OnInit {
   public nurseagenda: any;
   public physiotherapistagenda: any;
   diagnosticagenda:any;
+  completedtickets:any;
+  refundtickets:any;
+  refundticketsmenu:any;
   ngOnInit() {
 
     this.display = "none";
@@ -161,6 +164,10 @@ export class SidebarComponent implements OnInit {
 
             if (this.menulist[s].menus == 'Registrations') {
               this.Registeredusers = 1;
+            }
+
+            if (this.menulist[s].menus == 'Refund Tickets') {
+              this.refundticketsmenu = 1;
             }
 
 
@@ -428,6 +435,12 @@ export class SidebarComponent implements OnInit {
             }
             if (this.menulist[s].subMenuName == 'Midwife Agenda') {
               this.midwifeagenda = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Refund Tickets') {
+              this.refundtickets = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Completed Tickets') {
+              this.completedtickets = 1;
             }
             if (this.menulist[s].subMenuName == 'Diagnostic Agenda') {
               this.diagnosticagenda = 1;

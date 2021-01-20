@@ -349,6 +349,8 @@ import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-comp
 import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
 import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
 import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
+import { MeridionalSupportComponent } from './pages/Support/meridional-support/meridional-support.component';
+import { DiagnosticPatientsComponent } from './pages/Diagnostic Center/diagnostic-patients/diagnostic-patients.component';
 
 
 
@@ -780,6 +782,8 @@ const routes: Routes = [
   { path: 'RefundSupport', component: RefundSupportComponent },
   { path: 'RefundCompletedTickets', component: RefundCompletedTicketsComponent },
   { path: 'AllDiagnosticCalender', component: AllDiagnosticCalenderComponent },
+  { path: 'MeridionalSupport', component: MeridionalSupportComponent },
+  { path: 'DiagnosticPatients', component: DiagnosticPatientsComponent },
 ];
 
 @NgModule({

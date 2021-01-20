@@ -160,6 +160,20 @@
       <br>
 
       <div class="row">
+        <div class="col-lg-4">
+          <label class="Address_label">{{labels[0].photo}}:</label>
+        </div>
+        <div class="col-lg-6">
+          <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+          </ngx-dropzone>
+          <span *ngFor="let hspphoto of showphoto">
+            <img src="{{hspphoto}}" style="height: 35px; width: auto;">
+          </span>
+        </div><br>
+      </div><br>
+
+      <div class="row">
         <div class="col-lg-5">
         </div>
         <div class="col-lg-2">
@@ -173,15 +187,15 @@
     </div>
     <div class="col-lg-4">
       <img src={{photourl}} style="width: 100%;height: 400px;" /><br><br>
-      <button class="btn  btncolor" (click)="GetEditPhoto()">{{labels[0].edit}}</button><br><br>
-      <div class="col-lg-8" *ngIf="editbit=='1'">
+      <!-- <button class="btn  btncolor" (click)="GetEditPhoto()">{{labels[0].edit}}</button><br><br> -->
+      <!-- <div class="col-lg-8" *ngIf="editbit=='1'">
         <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
         <span *ngFor="let hspphoto of showphoto">
           <img src="{{hspphoto}}" style="height: 35px; width: auto;">
         </span>
-      </div><br>
+      </div><br> -->
       <div class="col-lg-4" *ngIf="editbit=='1'">
         <button class="btn  btncolor" (click)="updatephoto()"> {{labels[0].update}}</button>
       </div><br>

@@ -1380,7 +1380,7 @@ export class TestvideocallPageComponent implements OnInit {
   }
 
   public viewArchive() {
-    window.location.href = 'https://amazintchtokbox.herokuapp.com/archive/' + this.archiveID + '/view';
+    window.location.href = 'http://amazintchtokbox.herokuapp.com/archive/' + this.archiveID + '/view';
   }
 
   //schedule

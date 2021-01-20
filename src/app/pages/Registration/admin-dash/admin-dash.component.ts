@@ -40,8 +40,8 @@ export class AdminDashComponent implements OnInit {
     };
 
     this.languageid = localStorage.getItem('LanguageID');
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 30);
+    var kkk = this.SDate.setDate(this.SDate.getDate() -500);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 500);
    
 
     this.startdate = formatDate(kkk, format, locale);

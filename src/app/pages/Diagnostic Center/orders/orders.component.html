@@ -26,6 +26,7 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].ordedate}}</th>
+            <th id="imp">{{labels[0].diaAppointmentType}}</th>
             <th id="imp">{{labels[0].slot}}</th>
             <th id="imp">{{labels[0].orderNumber}}</th>
             <th>{{labels[0].patientname}}</th>
@@ -41,6 +42,7 @@
           <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}
           ">
             <td>{{details.appdate}}</td>
+            <td>{{details.appointmentTypeText}}</td>
             <td>{{details.slotTime}}</td>
             <td>{{details.id}}</td>
             <td>{{details.patientName}}</td>
@@ -56,15 +58,20 @@
             </td>
             <td>
               <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
-              <a [ngbTooltip]="tipcontent18" *ngIf="details.testsCount!=0">
-                <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:20px;"
-                  (click)="GetTestsID(details.id)">
+              <a [ngbTooltip]="tipcontent18">
+                <img src="assets/Images/test1.png" *ngIf="details.testsCount!=0" data-toggle="modal"
+                  data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(details.id)">
               </a>&nbsp;
               <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
               <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
                 <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:20px;"
-                  (click)="GetPackageID(details.id)">
+                  (click)="GetPackageID(details.id)">&nbsp;
               </a>
+
+              <ng-template #tipcontent2045>Photo</ng-template>
+              <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'">
+                <img src="assets/Images/phaprescripton.png" data-toggle="modal" data-target="#exampleModal6"
+                  style="height:20px;" (click)="GetAttachments(details.id)"></a>
             </td>
 
             <td>
@@ -74,8 +81,10 @@
               <label
                 *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
                 style="color: red;">{{labels[0].cancelled}}</label>
-              <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'" style="color: yellowgreen;">{{labels[0].visited}}</label>
-              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'" style="color: yellowgreen;">Report Delivered</label>
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'"
+                style="color: yellowgreen;">{{labels[0].visited}}</label>
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'" style="color: yellowgreen;">Report
+                Delivered</label>
 
               <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
               <label
@@ -97,9 +106,18 @@
                   <td style="border:none">
                     <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
                     <a [ngbTooltip]="tipcontent2"
-                      *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
+                      *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.appointmentType=='1'">
                       <img src="assets/Images/acc.png"
                         (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                        style="height:19px;">
+                    </a>
+
+
+                    <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+                    <a [ngbTooltip]="tipcontent2"
+                      *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.appointmentType=='2'">
+                      <img src="assets/Images/acc.png" data-toggle="modal" data-target="#AcceptModal"
+                        (click)="GetAppointmentAcceptBit(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
                         style="height:19px;">
                     </a>
                   </td>
@@ -142,12 +160,10 @@
                     </a>
                   </td>
                   <td style="border:none">
-                    <ng-template #tipcontent9867>{{labels1[0].chat}}</ng-template>
+                    <ng-template #tipcontent9867>Chat</ng-template>
                     <span style="color: green;position: absolute;margin-left: 22px;">{{details.chatcount}}</span>
-                    <a [ngbTooltip]="tipcontent9867"
-                      *ngIf="details.acceptedBit=='1'">
-                      <img src="assets/Images/chat.jpg" 
-                        style="height:19px;" (click)="GetChatShowID(details)">
+                    <a [ngbTooltip]="tipcontent9867" >
+                      <img src="assets/Images/chat.jpg" style="height:19px;" (click)="GetChatShowID(details)">
                     </a>
                   </td>
                 </tr>
@@ -292,7 +308,7 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button  style="background-color: #f18235;color: white;border:none" (click)="InsertAvailabletest()"
+              <button style="background-color: #f18235;color: white;border:none" (click)="InsertAvailabletest()"
                 data-dismiss="modal">{{labels[0].update}}</button>
             </div>
           </div>
@@ -360,7 +376,7 @@
         <h5 class="modal-title" id="exampleModalLabel">{{labels[0].assign}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button> 
+        </button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -406,6 +422,80 @@
 
 
 
+
+<div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 868px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6" *ngFor="let attachme of attachments">
+            <img src="{{attachme.attachment}}" style="height: 100%;width: 100%;"><br>
+          </div><br>
+        </div><br>
+      </div><br>
+      <div class="modal-footer">
+        <!-- <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal"> {{labels[0].download}}</button> -->
+
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="AcceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 800px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Amount :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" [(ngModel)]="amount" placeholder="Amount" name="amount">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button style="background-color: #f18235;color: white;border:none" (click)="GetAppointmentAccept()"
+            class="btn btn-block btn-md allbtns btncolor"     data-dismiss="modal">{{labels[0].update}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal"> {{labels[0].download}}</button> -->
+
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

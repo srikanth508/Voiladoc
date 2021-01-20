@@ -234,7 +234,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
       }
       this.spinner.show();
       this.timings = this.tone + ' ' + ' TO ' + this.ttwo + ' ';
-      this.hspwebsite = 'https://' + '' + this.website
+      this.hspwebsite = 'http://' + '' + this.website
       var entity = {
         'Hospital_ClinicID': this.hospitaclinic,
         'Hospital_ClinicName': this.hospitalclinicname,
@@ -364,7 +364,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   //     this.videosurl.push(res);
   //     let a = this.videosurl[0].slice(2);
   //    
-  //     let b = 'http://14.192.17.225' + a;
+  //     let b = 'https://14.192.17.225' + a;
 
   //     // this.showphoto.push(b)
 
@@ -391,7 +391,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
       this.attachmentsurl.push(res);
       this.dummshowsignatureurl.push(res);
       let a = this.dummshowsignatureurl[0].slice(2);
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
 

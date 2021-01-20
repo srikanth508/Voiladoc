@@ -162,7 +162,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
       this.timings = this.tone + ' TO ' + this.toampm;
 
-      this.hspwebsite = 'https://' + '' + this.website
+      this.hspwebsite = 'http://' + '' + this.website
 
       var entity = {
         'PharmacyName': this.pharmacyname,
@@ -251,7 +251,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
       let a = this.dummshowsignatureurl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;

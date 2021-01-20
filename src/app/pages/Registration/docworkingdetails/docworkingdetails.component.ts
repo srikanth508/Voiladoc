@@ -443,6 +443,18 @@ export class DocworkingdetailsComponent implements OnInit {
     this.morningslots = this.morningslots.slice(item.id)
   }
 
+public itemid:any;
+
+  onItemDeslectDay(item: any) {
+debugger
+     this.itemid=item.id;
+    debugger
+    this.dayid.splice(this.itemid, 1);
+    // this.dayid = this.dayid.slice(this.itemid)
+  }
+
+
+
   public GetAfternoonSlotsID(item1: any) {
 
     this.aftrenoonslots.push(item1);
@@ -533,7 +545,7 @@ export class DocworkingdetailsComponent implements OnInit {
 
 
   public mrngfromlist: any;
-  public dummslotslist:any;
+  public dummslotslist: any;
 
   public GetMorningSlotsMasterbyid() {
 
@@ -814,7 +826,7 @@ export class DocworkingdetailsComponent implements OnInit {
         'Nightcolorcode': this.nightcolorcode,
         'StartTime': this.mrngfromslot,
         'EndTime': this.mrngtoslot,
-        'MrngFromID':this.mrngfromid
+        'MrngFromID': this.mrngfromid
       }
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
@@ -938,7 +950,7 @@ export class DocworkingdetailsComponent implements OnInit {
 
       if (Sno == this.qwerty[i].Sno) {
 
-        var mrngslots = this.dummslotslist.findIndex(x => x.id ==this.qwerty[i].MrngFromID);
+        var mrngslots = this.dummslotslist.findIndex(x => x.id == this.qwerty[i].MrngFromID);
         this.mrngfromlist = this.dummslotslist.slice(mrngslots, this.dummslotslist.length);
         this.qwerty.splice(i, 1);
       }

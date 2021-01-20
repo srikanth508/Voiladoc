@@ -208,7 +208,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
      
       this.spinner.show();
       this.timings = this.tone + ' ' + ' TO ' + this.ttwo + ' ';
-      this.hspwebsite = 'https://' + '' + this.website
+      this.hspwebsite = 'http://' + '' + this.website
       var entity = {
         'DiagnosticCenterName': this.diagnosticcentername,
         'Description': this.description,
@@ -332,7 +332,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
       this.dummshowsignatureurl.push(res);
       let a = this.dummshowsignatureurl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;

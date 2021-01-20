@@ -33,6 +33,7 @@ export class RecpsupportDashComponent implements OnInit {
   value: any;
   SDate = new Date();
   EDate = new Date();
+  resolvephotourl:any;
   ngOnInit() {
     this.receptionid = localStorage.getItem('Receptionstid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -74,8 +75,9 @@ export class RecpsupportDashComponent implements OnInit {
     this.docservice.GetSupportForWeb(this.languageid, this.receptionid, 6,this.startdate,this.enddate).subscribe(res => {
      
 
-      this.dummissuelist = res
-      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
+      this.dummissuelist = res;
+      this.issuelist =  res;
+      // this.dummissuelist.filter(x => x.resolved == 0)
       this.count=this.issuelist.length;
      
     })
@@ -142,5 +144,10 @@ private saveAsExcelFile(buffer: any, fileName: string): void {
   const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
   FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
 }
+
+public GetResolvePhotoUrl(resolveDescription) {
+  this.resolvephotourl = resolveDescription
+}
+
 
 }

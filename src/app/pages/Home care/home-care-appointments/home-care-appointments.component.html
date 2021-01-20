@@ -163,9 +163,9 @@
     <div class="col-lg-4">
       <select class="form-control"  (change)="GetPaymentTypeID($event)">
         <option value="0" >{{labels[0].paymenttype}}</option>
-        <option *ngIf="languageid=='1'" value="4">Cash</option>
+        <!-- <option *ngIf="languageid=='1'" value="4">Cash</option> -->
         <option  *ngIf="languageid=='1'" value="2">Credit Card / Debit Card Using Swipe Machine</option>
-        <option  *ngIf="languageid=='6'" value="4">Espèces</option>
+        <!-- <option  *ngIf="languageid=='6'" value="4">Espèces</option> -->
         <option  *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>

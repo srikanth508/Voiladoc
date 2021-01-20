@@ -20,7 +20,7 @@ export class LinkForregComponent implements OnInit {
   public password: any;
 
   ngOnInit() {
-    this.address = "https://voiladoc.org/registration/#/Login";
+    this.address = "http://voiladoc.org/registration/#/Login";
     this.notes = "Please Click Above Link And Fill The Details";
   }
   public GetTypeName(even) {

@@ -24,9 +24,9 @@
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
     <div class="col-lg-3">
-      <select  class="form-control" selected [(ngModel)]="departmentname" name="departmentname">
-        <option value="">{{labels[0].selectDepartment}}</option>
-        <option *ngFor="let dept of departmentlist" value="{{dept.departmentname}}">{{dept.departmentname}}</option>
+      <select  class="form-control" (change)="GetDepartmentID($event)" >
+        <option value="0">{{labels[0].selectDepartment}}</option>
+        <option *ngFor="let dept of departmentlist" value="{{dept.id}}">{{dept.departmentname}}</option>
       </select>
     </div>
     <div class="col-lg-3">

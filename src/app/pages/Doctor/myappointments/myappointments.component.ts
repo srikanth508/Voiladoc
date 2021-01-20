@@ -3572,7 +3572,7 @@ debugger
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.shoprescphoto.push(b)
 
@@ -4072,7 +4072,7 @@ debugger
 
 
   public GetDocWhatsaPP(pMobileNo) {
-    window.open("https://api.whatsapp.com/send/?phone=" + pMobileNo);
+    window.open("http://api.whatsapp.com/send/?phone=" + pMobileNo);
   }
 
 
@@ -4155,7 +4155,7 @@ else
       
       let a = this.attachmentsurl5[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
        this.showattachdoc.push(b)
 

@@ -43,10 +43,13 @@
       <div class="optionsboxdown" [routerLink]="['/InclinicRevenue']" style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
-         <b>Revenus</b> <br>
-          <b style="font-size: 15px;">
-
+         <b> {{labels[0].revenues}}</b> <br>
+          <b style="font-size: 15px;" *ngIf="hospitaltype=='2'">
             {{labels[0].incinicrevenue}} </b>
+
+            <b style="font-size: 15px;" *ngIf="hospitaltype=='1'">
+
+              {{labels[0].hospitalRevenue}} </b>
 
         </label>
         <br />
@@ -64,7 +67,7 @@
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
       <div class="optionsboxdown" [routerLink]="['/Videocallrevenue']" style="cursor: pointer;border-radius: 16px;">
         <br>
-        <b>Revenus</b> <br>
+        <b> {{labels[0].revenues}}</b> <br>
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
             {{labels[0].videorevenue}} </b>
@@ -84,7 +87,7 @@
       <div class="optionsboxdown" [routerLink]="['/HomecareRevenue']" style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
-          <b>Revenus</b> <br>
+          <b> {{labels[0].revenues}}</b> <br>
           <b style="font-size: 15px;">
             {{labels[0].homecarerevenue}}</b>
         </label>
@@ -124,15 +127,18 @@
       <br />
       <br />
     </div>
-
     <div class="col-lg-3" *ngFor="let clinic of detailslist">
       <div class="optionsboxdown" [routerLink]="['/InclinicAppointements']"
         style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;">
           <b>{{labels[0].hosappointments}}</b> <br>
-          <b style="font-size: 15px;">
+          
+          <b style="font-size: 15px;"  *ngIf="hospitaltype=='2'">
             {{labels[0].incinicrevenue}} </b>
+
+            <b style="font-size: 15px;" *ngIf="hospitaltype=='1'">
+              {{labels[0].hospitalRevenue}} </b>
         </label>
         <br />
         <br />

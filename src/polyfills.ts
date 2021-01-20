@@ -11,7 +11,7 @@
  * automatically update themselves. This includes Safari >= 10, Chrome >= 55 (including Opera),
  * Edge >= 13 on the desktop, and iOS 10 and Chrome on mobile.
  *
- * Learn more in https://angular.io/guide/browser-support
+ * Learn more in http://angular.io/guide/browser-support
  */
 
 /***************************************************************************************************
@@ -37,7 +37,7 @@
 /**
  * If the application will be indexed by Google Search, the following is required.
  * Googlebot uses a renderer based on Chrome 41.
- * https://developers.google.com/search/docs/guides/rendering
+ * http://developers.google.com/search/docs/guides/rendering
  **/
 // import 'core-js/es6/array';
 

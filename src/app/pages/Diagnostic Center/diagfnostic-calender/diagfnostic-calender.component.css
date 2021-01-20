@@ -101,4 +101,7 @@
     width: 100%;
   }
 
-  tr:hover {background-color:#F5F5DC;}
+  tr:hover 
+  {background-color:#c2c235;
+color:white;
+}

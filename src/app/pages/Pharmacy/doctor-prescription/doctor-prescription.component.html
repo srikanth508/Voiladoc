@@ -26,6 +26,7 @@
         <thead>
           <tr>
             <th>{{labels[0].orderDate}}</th>
+            <th>{{labels[0].referenceno}}</th>
             <th>{{labels[0].orderNumber}}</th>
             <th *ngIf="languageid=='1'">Prescription Type</th>
             <th *ngIf="languageid=='6'">Format d'ordonnance</th>
@@ -42,6 +43,7 @@
           </tr>
           <tr *ngFor="let details of orderlist|filter:term">
             <td>{{details.date}}</td>
+            <td>{{details.referenceNumber}}</td>
             <td>{{details.id}}</td>
             <td>
               <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
@@ -77,7 +79,10 @@
               <label style="color:red"
                 *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='0'">{{labels[0].delivered}}</label>
+
+                <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='1'">{{labels[0].selfpickupcollected}}</label>
 
               <!-- <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">
@@ -151,7 +156,7 @@
                     <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
                     <a [ngbTooltip]="tipcontent36">
                       <span style="color: green;position: absolute;margin-left: 25px;">{{details.chatcount}}</span>
-                      <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'" data-toggle="modal"
+                      <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'" data-toggle="modal"
                         data-target="#asssignss" style="margin: 2%;width: 30px;"
                         (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id)" />
 
@@ -317,7 +322,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" style="background-color: #322b6b; color: white;margin-right: 546px;"
+          <button type="button" style="background-color: #322b6b; color: white;margin-right: 721px;"
             class="btn btn-default" data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
             data-dismiss="modal">{{labels[0].close}}</button>

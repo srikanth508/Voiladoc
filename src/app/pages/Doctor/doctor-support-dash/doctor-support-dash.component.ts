@@ -50,7 +50,7 @@ export class DoctorSupportDashComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -71,33 +71,35 @@ export class DoctorSupportDashComponent implements OnInit {
 
   public GetSupportIssues() {
     this.docservice.GetSupportForWeb(this.languageid, this.doctorid, 1, this.startdate, this.enddate).subscribe(res => {
-     
+
       this.dummissuelist = res
-      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
+      this.issuelist = res;
+      //  this.dummissuelist.filter(x => x.resolved == 0)
       this.count = this.issuelist.length;
-     
+
     })
   }
 
   public GetLanguageMaster() {
     this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
-     
+
       this.labels = res;
-     
+
     })
   }
 
   photourl: any;
 
   public GetImageUrl(photoURL) {
-   
+
     this.photourl = photoURL
   }
 
 
+  public resolvephotourl: any;
 
   selectedDate(data) {
-   
+
     //   var sdate = data.split('-')
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
@@ -114,7 +116,7 @@ export class DoctorSupportDashComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -132,7 +134,7 @@ export class DoctorSupportDashComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -142,6 +144,10 @@ export class DoctorSupportDashComponent implements OnInit {
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  public GetResolvePhotoUrl(resolveDescription) {
+    this.resolvephotourl = resolveDescription
   }
 
 

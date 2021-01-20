@@ -33,9 +33,9 @@ export class HspClidashComponent implements OnInit {
   public countrylist: any;
   public labels1: any;
   public countrymanaerid: any;
-  public showexportbutton:any;
-  public showeditbutton:any;
-  public salesrepresntiveid:any
+  public showexportbutton: any;
+  public showeditbutton: any;
+  public salesrepresntiveid: any
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -48,16 +48,15 @@ export class HspClidashComponent implements OnInit {
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
 
-    if(this.salesrepresntiveid!=undefined)
-    {
-      this.showeditbutton=1
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
     }
-    else{
-      this.showeditbutton=0;
+    else {
+      this.showeditbutton = 0;
     }
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
 
-    if ( this.countrymanaerid != undefined) {
+    if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
     debugger
@@ -85,10 +84,10 @@ export class HspClidashComponent implements OnInit {
       this.gethosptilclinicforadmin();
     }
     else if (this.id == 1) {
-
+      debugger
       this.docservice.GetHospital_ClinicDetailsMaster(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-
+          debugger
           this.hospitalcliniclist = data;
           this.dummlist = this.hospitalcliniclist
           this.hospitalcount = this.hospitalcliniclist.length;
@@ -278,7 +277,7 @@ export class HspClidashComponent implements OnInit {
     for (var i = 1; i < table.rows.length; i++) {
       var tableRow = table.rows[i];
       var rowData = {};
-      for (var j = 0; j < tableRow.cells.length - 1; j++) {
+      for (var j = 1; j < tableRow.cells.length - 1; j++) {
         rowData[headers[j]] = tableRow.cells[j].innerHTML;
       } data.push(rowData);
     }

@@ -399,7 +399,7 @@ export class DocdashComponent implements OnInit {
     for (var i = 1; i < table.rows.length; i++) {
       var tableRow = table.rows[i];
       var rowData = {};
-      for (var j = 0; j < tableRow.cells.length - 1; j++) {
+      for (var j = 1; j < tableRow.cells.length - 1; j++) {
         rowData[headers[j]] = tableRow.cells[j].innerHTML;
       } data.push(rowData);
     }
@@ -430,4 +430,63 @@ export class DocdashComponent implements OnInit {
   //     this.getdoctorforadmin()
   //   }
   // }
+
+
+  public dummdoctorlist: any;
+
+
+  public GetDepartmentID(even) {
+    debugger
+    this.departmentid = even.target.value;
+    if (even.target.value != 0) {
+      this.departmentid = even.target.value;
+      debugger
+      if (this.hospitalclinicid == undefined) {
+        debugger
+        this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+          data => {
+            debugger
+            this.dummlist = data;
+            this.doctorlist = this.dummlist.filter(x => x.departmentID == this.departmentid)
+            this.count = this.doctorlist.length
+          }, error => {
+          }
+        )
+      }
+      else if (this.hospitalclinicid != undefined) {
+        this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+          data => {
+            debugger
+            this.dummlist = data;
+            this.dummdoctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+            this.doctorlist = this.dummdoctorlist.filter(x => x.departmentID == this.departmentid)
+            this.count = this.doctorlist.length
+          }, error => {
+          }
+        )
+      }
+    }
+    else {
+      if (this.hospitalclinicid == undefined) {
+        debugger
+        this.getdoctorforadmin();
+        debugger
+      }
+      else if (this.hospitalclinicid != undefined) {
+        this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+          data => {
+            debugger
+            this.dummlist = data;
+            this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+            this.count = this.doctorlist.length
+          }, error => {
+          }
+        )
+      }
+    }
+
+
+  }
+
+
 }

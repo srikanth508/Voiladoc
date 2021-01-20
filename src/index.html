@@ -6,40 +6,40 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/Images/windowlogo.png">
-  <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+  <!-- <script src='http://kit.fontawesome.com/a076d05399.js'></script> -->
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="assets/scripts/loadscripts.js"></script>
   <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+  <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <!-- <link rel="stylesheet" href="style.css"> -->
 
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="http://www.w3schools.com/w3css/4/w3.css">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="http://use.fontawesome.com/releases/v5.0.13/js/solid.js"
     integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
     crossorigin="anonymous"></script>
 
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+  <link rel="stylesheet" href="http://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
   <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-  <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+  <script src="http://static.opentok.com/v2/js/opentok.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js" charset="utf-8"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js" charset="utf-8"></script>
+  <script src="http://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js" charset="utf-8"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js" charset="utf-8"></script>
   <script src="bower_components/angular-bootstrap-multiselect/dist/angular-bootstrap-multiselect.min.js"></script>
 
 
@@ -65,16 +65,16 @@
     });
 
 
-    var HttpClient = function () {
+    var httpClient = function () {
       this.get = function (aUrl, aCallback) {
-        var anHttpRequest = new XMLHttpRequest();
-        anHttpRequest.onreadystatechange = function () {
-          if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-            aCallback(anHttpRequest.responseText);
+        var anhttpRequest = new XMLhttpRequest();
+        anhttpRequest.onreadystatechange = function () {
+          if (anhttpRequest.readyState == 4 && anhttpRequest.status == 200)
+            aCallback(anhttpRequest.responseText);
         }
         
-        anHttpRequest.open("GET", aUrl, true);
-        anHttpRequest.send(null);
+        anhttpRequest.open("GET", aUrl, true);
+        anhttpRequest.send(null);
       }
     }
 
@@ -116,7 +116,7 @@
       }
       if (getCookie("doc_id") != "") {
 
-        var client = new HttpClient();
+        var client = new httpClient();
         client.get(localStorage.getItem('WebUrl') + '/Doctor/GetNotifications_DoctorByDoctorIDWebSide?DoctorID=' + getCookie("doc_id"), function (response) {
           ;
           var res = JSON.parse(response);

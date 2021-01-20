@@ -113,7 +113,7 @@ export class MidwifsupportComponent implements OnInit {
       this.issuephotourl.push(res);
       let a = this.issuephotourl[0].slice(2);
      
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showphoto.push(b);
     })
     // this.sendattachment();

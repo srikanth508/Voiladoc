@@ -76,7 +76,7 @@ export class PharmacySupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb1(entity).subscribe(data => {
         if (data != 0) {
-          // this.insertnotification();
+           this.insertnotification();
           if (this.languageid == 1) {
             Swal.fire('Issue Raised Successflly')
             location.href = "#/PharmacySupportDash"
@@ -85,7 +85,6 @@ export class PharmacySupportComponent implements OnInit {
             Swal.fire("Enregistré avec succès !")
             location.href = "#/PharmacySupportDash"
           }
-
         }
       })
     }
@@ -123,7 +122,7 @@ export class PharmacySupportComponent implements OnInit {
       this.dummisuuphotourl.push(res);
       let a = this.dummisuuphotourl[0].slice(2);
       debugger
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showphoto.push(b);
     })
     // this.sendattachment();
@@ -136,13 +135,15 @@ export class PharmacySupportComponent implements OnInit {
       'DoctorID': 0,
       'NurseID': 0,
       'PhysioID': 0,
-      'MidwifeID': this.midwifeid,
+      'MidwifeID': 0,
       'RcepID': 0,
       'HospitalID': 0,
       'TypeID': 7,
-      'LanguageID': this.languageid
+      'LanguageID': this.languageid,
+      'DiagnosticID':0,
+      'PharmacyID':this.pharmacyid
     }
-    this.docservice.InsertSupportForWebNotifications(entity).subscribe(data => {
+    this.docservice.InsertSupportForWebNotificationsDiaPha(entity).subscribe(data => {
       if (data != 0) {
 
       }

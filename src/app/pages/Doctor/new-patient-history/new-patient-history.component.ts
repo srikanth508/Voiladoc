@@ -265,8 +265,8 @@ export class NewPatientHistoryComponent implements OnInit {
   }
   public GetArchiveID(archiveID) {
    
-    // window.location.href = 'https://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view';
-    window.open('https://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view', '_blank');
+    // window.location.href = 'http://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view';
+    window.open('http://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view', '_blank');
    
   }
 }

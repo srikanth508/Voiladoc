@@ -179,7 +179,6 @@ export class VediocallComponent implements OnInit {
 
 
 
-
   //chat 
 
 
@@ -238,7 +237,7 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-
+debugger
     // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
@@ -408,11 +407,12 @@ export class VediocallComponent implements OnInit {
     //   }, error => {
     //   }
     // )
+    debugger
 
     this.opentokService.getsessionandtoken().subscribe(res => {
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-
+      debugger
       this.insertvedioeconferencedetails();
     })
 
@@ -441,7 +441,7 @@ export class VediocallComponent implements OnInit {
     )
   }
 
-
+  debugger
   public GetSoapNotesByPatientID() {
     this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
@@ -1390,7 +1390,7 @@ export class VediocallComponent implements OnInit {
   }
 
   public viewArchive() {
-    window.location.href = 'https://amazintchtokbox.herokuapp.com/archive/' + this.archiveID + '/view';
+    window.location.href = 'http://amazintchtokbox.herokuapp.com/archive/' + this.archiveID + '/view';
   }
 
   //schedule
@@ -2500,7 +2500,7 @@ export class VediocallComponent implements OnInit {
 
 
   public GetDocWhatsaPP() {
-    window.open("https://api.whatsapp.com/send/?phone=" + this.mobileno);
+    window.open("http://api.whatsapp.com/send/?phone=" + this.mobileno);
   }
 
 

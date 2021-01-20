@@ -29,7 +29,7 @@ export class PreviousVideosComponent implements OnInit {
       this.archiveid = params['archiveID'];    
       this.patientid = params['patientID']; 
    
-     this.videiourl.push('https://amazintchtokbox.herokuapp.com/archive/' + this.archiveid + '/view')
+     this.videiourl.push('http://amazintchtokbox.herokuapp.com/archive/' + this.archiveid + '/view')
     }
     )
     this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(

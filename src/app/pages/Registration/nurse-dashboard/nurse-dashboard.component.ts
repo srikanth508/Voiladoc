@@ -266,7 +266,7 @@ export class NurseDashboardComponent implements OnInit {
     for (var i = 1; i < table.rows.length; i++) {
       var tableRow = table.rows[i];
       var rowData = {};
-      for (var j = 0; j < tableRow.cells.length - 1; j++) {
+      for (var j = 1; j < tableRow.cells.length - 1; j++) {
         rowData[headers[j]] = tableRow.cells[j].innerHTML;
       } data.push(rowData);
     }

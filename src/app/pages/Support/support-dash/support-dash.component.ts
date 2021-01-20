@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { NgxSpinnerService } from "ngx-spinner";
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as XLSX from 'xlsx';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -14,7 +15,7 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./support-dash.component.css']
 })
 export class SupportDashComponent implements OnInit {
-
+  public Editor = ClassicEditor;
   constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
   options: NgDateRangePickerOptions;
   public languageid: any;
@@ -34,6 +35,7 @@ export class SupportDashComponent implements OnInit {
   public supportid:any;
   public countrymanaerid:any;
   public showexportbutton:any;
+  public dropzonelable:any;
 
   ngOnInit() {
     this.spinner.show();
@@ -80,8 +82,19 @@ export class SupportDashComponent implements OnInit {
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
     this.CurrentTime = hours + ':' + minutes + ' ' + newformat;
+    
+    if(this.languageid==1)
+    {
+      this.dropzonelable="Upload file"
+    }
+    else if(this.languageid==6)
+    {
+      this.dropzonelable="Télécharger des fichiers"
+    }
     this.getlanguage();
     this.getsupport();
+
+
   }
 
   public getlanguage() {
@@ -111,12 +124,12 @@ export class SupportDashComponent implements OnInit {
    
     Swal.fire({
       title: 'Are you sure?',
-      text: "This Issue Has Resolved!",
+      text: "This Issue Has Accept!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Resolved!'
+      confirmButtonText: 'Yes, Accept!'
     }).then((result) => {
       if (result.value) {
         this.docservice.GetSupportResolvedBit(id).subscribe(res => {
@@ -125,7 +138,7 @@ export class SupportDashComponent implements OnInit {
         })
         Swal.fire(
           'Resolved!',
-          'Issue has been Resolved.',
+          'Issue has been Accepted.',
           'success'
         )
       }
@@ -203,6 +216,76 @@ export class SupportDashComponent implements OnInit {
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+
+
+
+
+  
+  identityattachmentsurlssss=[]
+  showidentityproof=[];
+  issuephoto=[];
+  issuephotourl=[];
+
+  public onattachmentUpload(abcd) {
+   
+    // for (let i = 0; i < abcd.length; i++) {
+      this.identityattachmentsurlssss = []
+      this.issuephoto.push(abcd.addedFiles[0]);
+      this.uploadid();
+    // }
+    Swal.fire('Added Successfully');
+    abcd.length = 0;
+  }
+
+  public uploadid() {
+    this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
+     
+      this.issuephotourl.push(res);
+      this.identityattachmentsurlssss.push(res);
+      let a = this.identityattachmentsurlssss[0].slice(2);
+     
+      let b = 'https://14.192.17.225' + a;
+      this.showidentityproof.push(b)
+     
+    })
+    // this.sendattachment();
+  }
+
+
+
+public removetgdescription:any;
+public description:any;
+public resolveid:any;
+
+
+public GetSupportResolveID(id)
+{
+  this.resolveid=id;
+}
+
+  public insertdetails() {
+
+    document.getElementById("qwerty").innerHTML = this.description;
+    this.removetgdescription = document.getElementById("qwerty").innerText;
+   
+    var entity = {
+      'ID': this.resolveid,
+      'Comments': this.removetgdescription,
+      'IssuePhotoUrl':  this.issuephotourl[0],
+    }
+    this.docservice.UpdateSupport(entity).subscribe(data => {
+      let res = data;
+     
+      Swal.fire('Issue Resolved Successfully')
+      this.description = ""
+      this.issuephotourl = [];
+      this.identityattachmentsurlssss=[];
+      this.showidentityproof=[];
+      this.getsupport();
+     
+    })
   }
 
 }

@@ -193,7 +193,15 @@ export class EditHospitalClinicComponent implements OnInit {
       let test = res;
       this.gethospitalclinicdetailsbyid();
       this.GetMultiplePhotos()
-      Swal.fire(' Updated Successfully');
+      if(this.languageid==1)
+      {
+        Swal.fire(' Updated Successfully');
+      }
+     else
+     {
+      Swal.fire(' Mis à jour avec Succés');
+     }
+     location.href="#/HspClidash"
     })
 
   }
@@ -247,7 +255,7 @@ export class EditHospitalClinicComponent implements OnInit {
       this.attachmentsurl.push(res);
       // let a = this.attachmentsurl[0].slice(2);
       //
-      // let b = 'http://14.192.17.225' + a;
+      // let b = 'https://14.192.17.225' + a;
       // this.showphoto.push(b);
 
       this.attachments.length = 0;
@@ -263,7 +271,15 @@ export class EditHospitalClinicComponent implements OnInit {
     }
     this.docservice.UpdateHospital_ClinicDetailsMasterPhoto(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Updated Successfully');
+      if(this.languageid==1)
+      {
+        Swal.fire(' Updated Successfully');
+      }
+     else
+     {
+      Swal.fire(' Mis à jour avec Succés');
+     }
+      // Swal.fire(' Updated Successfully');
       this.gethospitalclinicdetailsbyid();
       this.showdrop = 0;
     })
@@ -315,7 +331,15 @@ export class EditHospitalClinicComponent implements OnInit {
     }
     this.docservice.UpdateHospital_ClinicPhotos(entity).subscribe(res => {
       let test = res;
-      Swal.fire('Updated Successfully');
+      if(this.languageid==1)
+      {
+        Swal.fire(' Updated Successfully');
+      }
+     else
+     {
+      Swal.fire(' Mis à jour avec Succés');
+     }
+    
 
       this.GetMultiplePhotos();
       this.mulbit = 0;

@@ -101,6 +101,7 @@ export class AppComponent {
 
     this.GetChatnotificationslist();
     this.getlanguageprescription();
+    this.obseravablepharmacyno();
   }
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
@@ -197,10 +198,40 @@ export class AppComponent {
     });
   }
 
+
+  obseravablepharmacyno() {
+
+    const source = timer(1000, 20000);
+    const abc = source.subscribe(val => {
+      
+      this.GetPharmacyNotifications()
+    });
+  }
+
+
+  public GetPharmacyNotifications() {
+    if (this.pharmacyid != null && this.pharmacyid != undefined) {
+      
+      this.docservice.GetNotification_Pharmacy(this.pharmacyid).subscribe
+        (datas => {
+          
+          this.notificationcount = 0;
+          this.pharmcunoti = datas;
+          this.notificationcount = Number(this.pharmcunoti[0].notifycount);
+          if (this.pharmcunoti.length > 0) {
+            Swal.fire('You have a new medicine order from patient ');
+          }
+
+        })
+    }
+
+  }
+
+
+
+
+
   public pharmcunoti: any;
-
-
-
 
   public GetDoctorNotifications() {
     this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
@@ -218,9 +249,21 @@ export class AppComponent {
   // public chatid: any;
   // testdisplay: any;
 
+
+public GetChatIDForseen(chatid)
+{
+  this.docservice.UpdateChatDetailsSeen(chatid).subscribe(data=>{
+
+  })
+}
+
+
+
   public GetChatnotificationslist() {
     this.docservice.GetDoctor_ChatDetailsByDoctor(this.doctorid).subscribe(datassss => {
+      
       this.chatlist = datassss;
+      
       if (this.chatlist.length > 0) {
         document.getElementById("Myformsss").style.display = "block";
       }
@@ -484,7 +527,7 @@ export class AppComponent {
 
 
   public GetChatShowID(patientid, appointmentID) {
-    debugger
+
     this.patientiddd = patientid;
     this.chatappointmentid = appointmentID;
     document.getElementById("myFormsssss").style.display = "block";
@@ -493,7 +536,6 @@ export class AppComponent {
 
 
   public dosendmsg() {
-    debugger
     var entity = {
       // 'ChatID': this.chatID,
       'DoctorID': this.doctorid,
@@ -504,10 +546,9 @@ export class AppComponent {
     this.docservice.InsertChatMaster(entity).subscribe(data => {
       if (data != 0) {
         this.chatID = data;
-        debugger
-        debugger
         this.getPreviousChat();
         this.oberserableTimerchat();
+        this.GetChatIDForseen(this.chatID)
       }
     })
   }
@@ -615,12 +656,12 @@ export class AppComponent {
 
 
   public getPreviousChat() {
-    debugger
+
     this.docservice.GetDoctor_ChatDetailsMobileWeb(this.chatID).subscribe(res => {
       let Chatconversation = res;
-      debugger
+
       this.coversationarray.length = 0;
-      debugger
+
       for (let i = 0; i < Chatconversation.length; i++) {
 
         if (Chatconversation[i].sender == 'Patient') {
@@ -628,7 +669,7 @@ export class AppComponent {
             chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'pat', msgtype: Chatconversation[i].messageType
           })
         }
-        debugger
+
         if (Chatconversation[i].sender == 'Doctor') {
           this.coversationarray.push({ chatmsg: Chatconversation[i].mobileMessage, time: Chatconversation[i].mobileTime, user: 'doc', msgtype: Chatconversation[i].messageType })
         }
@@ -648,11 +689,11 @@ export class AppComponent {
   public RejectPhrmacyOrder() {
     this.docservice.UpdateNotification_PharmacyRejected(this.pharmacyid, this.details.orderID).subscribe(
       data => {
-        debugger
+
         this.InsertRejectNotification();
         this.InsertPharmcyRejectedNotification();
         if (this.details.sendnotification == 2) {
-          debugger
+
           this.InsertAllPhrmacyrejectedOrder();
           this.InsertRejectAllpharmacy();
           this.UpdateReorderBit();
@@ -677,7 +718,7 @@ export class AppComponent {
 
 
   public InsertRejectAllpharmacy() {
-    debugger
+
     var entity = {
       'Description': "All Pharmacies Rejected Your Order. Please Reorder Again.",
       'ToUser': this.details.emailID,
@@ -808,7 +849,7 @@ export class AppComponent {
     }
   }
 
-  
+
   public show1: any;
   public acceptrejectid: any;
   public details: any;
@@ -817,7 +858,7 @@ export class AppComponent {
   public ViewMedicines(docnoti) {
     this.acceptrejectid = docnoti.id
     this.details = docnoti
-    this.docservice.GetPatientOrderedMedicines(docnoti.orderID,this.languageid).subscribe(
+    this.docservice.GetPatientOrderedMedicines(docnoti.orderID, this.languageid).subscribe(
       data => {
         this.orderedmedicinelist = data;
       }, error => {
@@ -828,11 +869,11 @@ export class AppComponent {
   public prescriptionid: any;
   public UpdateReorderBit() {
     for (let i = 0; i < this.orderedmedicinelist.length; i++) {
-      debugger
+
       this.prescriptionid = this.orderedmedicinelist[i].docPrID
       this.docservice.UpdateDoctor_PatientPrescriptionreorderBit(this.prescriptionid).subscribe(
         data => {
-          debugger
+
         }, error => {
         }
       )

@@ -197,12 +197,14 @@ export class EditMidwifeComponent implements OnInit {
         if (this.languageid == 1) {
           Swal.fire("Updated Successfully");
           this.Getmidwifedetails()
+          this.updatephoto();
           location.href = "#/MidwifeDashboard"
         }
         else if (this.languageid == 6) {
           Swal.fire("Mis à jour avec succés");
           this.Getmidwifedetails()
-          location.href = "#/MidwifeDashboard"
+          location.href = "#/MidwifeDashboard";
+          this.updatephoto();
         }
 
 
@@ -241,7 +243,7 @@ export class EditMidwifeComponent implements OnInit {
       this.dummnursephoto.push(res);
       let a = this.dummnursephoto[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
@@ -264,7 +266,7 @@ export class EditMidwifeComponent implements OnInit {
     }
     this.docservice.UpdateMidWivesRegistrationPhoto(entity).subscribe(data => {
       if (this.languageid == 1) {
-        Swal.fire("Updated Successfully");
+        // Swal.fire("Updated Successfully");
         this.editbit = 0;
         this.dummnursephoto.length = 0;
         this.attachmentsurl.length = 0;
@@ -272,7 +274,7 @@ export class EditMidwifeComponent implements OnInit {
         this.ngOnInit();
       }
       else if (this.languageid == 6) {
-        Swal.fire("Mis à jour avec succés");
+        // Swal.fire("Mis à jour avec succés");
         this.editbit = 0;
         this.dummnursephoto.length = 0;
         this.attachmentsurl.length = 0;

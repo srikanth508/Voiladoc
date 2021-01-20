@@ -27,6 +27,7 @@ export class HospitalRevenueComponent implements OnInit {
   labels: any
   totalreveue: any;
   public totalappointments: any;
+  public hospitaltype:any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -62,6 +63,9 @@ export class HospitalRevenueComponent implements OnInit {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
+
+    this.hospitaltype=localStorage.getItem('hospitaltype');
+
     localStorage.setItem('StartDate', this.startdate)
     localStorage.setItem('EndDate', this.enddate);
     this.NurseAppointmentsCount = 0;

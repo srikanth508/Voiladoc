@@ -102,12 +102,19 @@
               <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;"
                 (click)="GetPackageID(details.id)">
             </a>
+
+
+            <ng-template #tipcontent2045>Photo</ng-template>
+            <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'">
+              <img src="assets/Images/phaprescripton.png" data-toggle="modal" data-target="#exampleModal6"
+                style="height:20px;" (click)="GetAttachments(details.id)"></a>
+
           </td>
-          <td>{{details.slotName}}</td>
+          <td>{{details.slotTime}}</td>
           <td>
             <ng-template #tipcontent35>{{labels[0].reports}}</ng-template>
             <a [ngbTooltip]="tipcontent35">
-              <img src="assets/Images/imgicon.png" style="height:17px;" (click)="GetReportID(details.id)">
+              <img src="assets/Images/imgicon.png" *ngIf="details.uploadedBit=='1'" style="height:17px;" (click)="GetReportID(details.id)">
             </a>
           </td>
           <td>
@@ -232,6 +239,37 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 868px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6" *ngFor="let attachme of attachments">
+            <img src="{{attachme.attachment}}" style="height: 100%;width: 100%;"><br>
+          </div><br>
+        </div><br>
+      </div><br>
+      <div class="modal-footer">
+        <!-- <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal"> {{labels[0].download}}</button> -->
+
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>

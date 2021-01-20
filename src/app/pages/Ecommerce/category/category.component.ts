@@ -75,7 +75,7 @@ export class CategoryComponent implements OnInit {
         this.attachmentsurl.push(res[i]);
         let a = this.attachmentsurl[0].slice(2);
 
-        let b = 'http://14.192.17.225' + a;
+        let b = 'https://14.192.17.225' + a;
         this.showphoto.push(b)
       }
 

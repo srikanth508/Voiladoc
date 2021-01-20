@@ -79,7 +79,7 @@ export class DiagnosticSupportComponent implements OnInit {
       }
       this.docservice.InsertSupportForWeb1(entity).subscribe(data => {
         if (data != 0) {
-          // this.insertnotification();
+           this.insertnotification();
           if (this.languageid == 1) {
             Swal.fire('Issue Raised Successflly')
             location.href = "#/DiagnosticSupportDash"
@@ -118,7 +118,7 @@ export class DiagnosticSupportComponent implements OnInit {
       this.issuephotourl.push(res);
       let a = this.issuephotourl[0].slice(2);
 
-      let b = 'http://14.192.17.225' + a;
+      let b = 'https://14.192.17.225' + a;
       this.showphoto.push(b);
     })
     // this.sendattachment();
@@ -126,19 +126,21 @@ export class DiagnosticSupportComponent implements OnInit {
   public insertnotification() {
 
     var entity = {
-      'NotificationName': 'Pharmacy Raised A issue',
+      'NotificationName': 'Diagnostic Center Raised A issue',
       'NotificationTypeID': 1,
       'Notification': this.user + ' Raised a issue. Please Check',
       'DoctorID': 0,
       'NurseID': 0,
       'PhysioID': 0,
-      'MidwifeID': this.midwifeid,
+      'MidwifeID':0,
       'RcepID': 0,
       'HospitalID': 0,
-      'TypeID': 7,
-      'LanguageID': this.languageid
+      'TypeID': 8,
+      'LanguageID': this.languageid,
+      'DiagnosticID':this.diagnosticid,
+      'PharmacyID':0
     }
-    this.docservice.InsertSupportForWebNotifications(entity).subscribe(data => {
+    this.docservice.InsertSupportForWebNotificationsDiaPha(entity).subscribe(data => {
       if (data != 0) {
 
       }

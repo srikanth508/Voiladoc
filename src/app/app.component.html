@@ -28,7 +28,7 @@
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-lg-10" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;" id="vidiv">
-            <router-outlet (activate)="onActivate($event)"></router-outlet>
+            <router-outlet (activate)="onActivate($event)"></router-outlet>    
         </div>
 
     </div>
@@ -927,116 +927,21 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-<!-- 
-<div class="row" style="top:50%;position:fixed">
-    <div class="col-lg-9">
-    </div>
-    <div class="col-lg-3">
-        <div  *ngFor="let chat of chatlist">
-        {{chat.patientName}} : {{chat.mobileMessage}}
-    </div>
-    </div>
-</div> -->
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-lg-9">
-        </div>
-        <div class="col-lg-3" *ngFor="let chat of chatlist">
-            {{chat.patientName}} : {{chat.mobileMessage}}
-        </div>
-    </div>
-</div> -->
-<!-- 
-
-<div class="backdrop" [ngStyle]="{ display: testdisplay }"></div>
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: testdisplay }">
-    <div class="modal-dialog" style="float: right;top:50%" role="document">
-        <div class="modal-content">
-            <p class="modal-title" style="line-height: 28px;
-          margin-left: 9px;">
-            </p>
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Chat</h5>
-                <button type="button" class="close" aria-label="Close" (click)="onclosetest()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="height:200pxpx;width:300px;overflow-y: auto;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12" *ngFor="let chat of chatlist">
-                            {{chat.patientName}} : {{chat.mobileMessage}}<br>
-
-                            <button type="submit" class="chat form-control" [disabled]="chatfrom.form.invalid"
-                            (click)="GetChatShowID(chat.patientID)">chat
-                          
-                          </button>
-                          <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-                    (click)="onclosetest()">
-                    close
-                </button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
-<!-- <div class="container-fluid card card-hover">
-    <div class="rectangle" style="margin-left: 1110px;"></div>
-    <div class="text"> </div>
-    <div class="col-lg-3" >
-
-        <span style="color: black;">
-            {{chat.patientName}} : {{chat.mobileMessage}}
-        </span>
-    </div>
-</div> -->
-
-
-
-
-<!-- <div  class="smalchat" id="Myformsss" style="overflow-y: auto;">
-<div class="w3-card-4" *ngFor="let chat of chatlist">
-
-    <div class="w3-container">
+ <div  class="smalchat" id="Myformsss" style="overflow: auto;">
+<div class="w3-card-4 " *ngFor="let chat of chatlist" style="overflow: auto;">
+    <div class="w3-container cardss card-hover" (click)="GetChatIDForseen(chat.chatID)">
       <p>1 new message from : <b>{{chat.patientName}}</b></p>
       <hr>
       <p>{{chat.mobileMessage}}</p>
-    
     </div>
-    
-    <button class="w3-button w3-block w3-dark-grey" (click)="GetChatShowID(chat.patientID,chat.appointmentID)">Chat</button>
-    
+    <button class="w3-button w3-block" style="background-color: #1dbfd2;color:white" (click)="GetChatShowID(chat.patientID,chat.appointmentID)">Chat</button>
     </div>
-</div> -->
-
-
-
-
-
-
-
-
+</div> 
 
 
 <div class="chat-popup" id="myFormsssss">
     <form class="form-container" #chatfrom="ngForm">
         <div class="container-fluid card card-hover" style="height: 550px;width:530px;">
-            <br>
             <div class="row">
                 <div class="col-lg-5">
                     <h5>{{labels2[0].chat}}</h5>

@@ -40,6 +40,7 @@
       <table  id="Appointment" >
         <thead>
           <tr>
+            <th>Ticket No</th>
             <th>{{labels[0].raisedDate}}</th>
             <th>{{labels[0].issue}}</th>
             <!-- <th>{{labels[0].description}}</th>
@@ -50,6 +51,7 @@
             <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let issue of issuelist|filter:term">
+            <td>{{issue.id}}</td>
             <td>{{issue.raiseddate}}</td>
             <td>{{issue.issue}}</td>
             <!-- <td>
