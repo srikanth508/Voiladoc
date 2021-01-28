@@ -243,7 +243,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'EmailID': this.email,
         'ZipCode': this.zipcode,
         'LanguageID': '1',
-        'Timings': this.timings,
+        'Timings': '06:00 TO 20:00',
         'Description': this.description,
         'AvailabilityID': '1',
         'ContactPersonName': this.contactpersonname,
@@ -364,7 +364,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   //     this.videosurl.push(res);
   //     let a = this.videosurl[0].slice(2);
   //    
-  //     let b = 'https://14.192.17.225' + a;
+  //     let b = 'https://maroc.voiladoc.org' + a;
 
   //     // this.showphoto.push(b)
 
@@ -391,7 +391,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
       this.attachmentsurl.push(res);
       this.dummshowsignatureurl.push(res);
       let a = this.dummshowsignatureurl[0].slice(2);
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto.push(b)
       this.attachments.length = 0;
 

@@ -51,7 +51,7 @@ export class HomecareAppdashComponent implements OnInit {
     };
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 0);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 10);
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';

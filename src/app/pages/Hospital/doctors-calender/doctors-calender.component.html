@@ -5,7 +5,8 @@
   <div class="row headerspace">
     <div class="col-lg-9">
       <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
-      <h5>Agenda Mensuel</h5>
+      <h5 *ngIf="languageid=='1'">Doctors Agenda</h5>
+      <h5 *ngIf="languageid=='6'">Agenda Mensuel</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;">
     </div>
@@ -42,7 +43,7 @@
     </div>
   </div><br>
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-5">
     </div>
     <div class="col-lg-1" style="margin-right: -1px;">
       <div class="rectangle"><span style="margin-left: 21px;">{{labels[0].inclinic}}</span></div>
@@ -61,6 +62,11 @@
     <div class="col-lg-1 ">
       <div class="meeting" style="margin-left: 42px;width: 127%;">
         <p style="margin-left:12px"> {{labels[0].meeting}}</p>
+      </div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="booked" style="margin-left: 34px;width: 140%;">
+        <p style="margin-left:12px"> Booked</p>
       </div>
     </div>
   </div>

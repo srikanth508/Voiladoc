@@ -173,11 +173,11 @@ export class MidwifeFeesComponent implements OnInit {
     this.tablecount = 0;
     if (this.languageid == 1) {
       Swal.fire('Success', 'Details Saved Successfully');
-      // location.href = "#/MidwifeFeesDash"
+       location.href = "#/MidwifeFeesDash"
     }
     else if (this.languageid == 6) {
       Swal.fire('', 'Mis à jour avec succès !');
-      // location.href = "#/MidwifeFeesDash"
+       location.href = "#/MidwifeFeesDash"
     }
 
 

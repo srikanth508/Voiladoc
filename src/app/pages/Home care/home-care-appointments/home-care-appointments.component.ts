@@ -268,6 +268,8 @@ export class HomeCareAppointmentsComponent implements OnInit {
     debugger
     this.nurseid = even.target.value;
     debugger
+  var list =this.dummnurselist.filter(x=>x.nurseID==this.nurseid)
+   this.nursehospitalid=list[0].nurseHospitalDetailsID
     this.GetnurseFess();
   }
 
@@ -315,9 +317,10 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public GetPhysiotheerapist(even) {
     this.physioid = even.target.value;
 
-    // var list = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
-    // this.physiohospitalid = list[0].physioHospitalDetailsID
+    var list = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
+    this.physiohospitalid = list[0].physioHospitalDetailsID
     // this.amount = list[0].fees
+    this.GetPhysioFees();
   }
 
 
@@ -367,7 +370,8 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
     var list = this.dummmidwifelist.filter(x => x.midWifeID == this.midwifeid)
     this.midwifehospitalid = list[0].midWifeHospitalDetailsID
-    this.amount = list[0].fees
+    // this.amount = list[0].fees
+    this.GetMidWifeFess();
   }
 
 

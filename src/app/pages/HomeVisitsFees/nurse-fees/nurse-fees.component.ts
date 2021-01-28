@@ -230,6 +230,7 @@ export class NurseFeesComponent implements OnInit {
       this.docservice.InsertNurseCommissionDeatails(entity).subscribe(data => {
         if (data != 0) {
           Swal.fire('Success', 'Details Saved Successfully');
+          location.href = "#/NurseFeeDash"
         }
         else {
           Swal.fire('Error', 'Home Visit Charges Exist For This Time band Please Edit Same Fees');

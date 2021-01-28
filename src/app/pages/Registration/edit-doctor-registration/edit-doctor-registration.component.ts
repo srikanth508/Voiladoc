@@ -339,7 +339,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.showdocphoto.push(b)
       this.attachments1.length = 0;
@@ -421,7 +421,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
       let a = this.attachmentsurl2[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.photodetail.push(b)
 
@@ -508,7 +508,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.showidentityproof.push(b)
       this.attachments.length = 0;
@@ -634,7 +634,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
       if (data != 0) {
         if (this.languageid == 1) {
-          Swal.fire('Completed', 'Deatils Added Successfully');
+          Swal.fire('Completed', 'Details Added Successfully');
           this.colleagename = "";
           this.yearofpassing = "";
           this.getdoctoreducationweb();

@@ -234,7 +234,7 @@ export class PhaPatientChatComponent implements OnInit {
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
      
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;

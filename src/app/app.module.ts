@@ -382,12 +382,12 @@ import { DiagnosticPatientsComponent } from './pages/Diagnostic Center/diagnosti
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
-  url: 'https://14.192.17.225/RMSAPI/Master/UploadZIP/',
+  url: 'https://maroc.voiladoc.org/RMSAPI/Master/UploadZIP/',
   maxFilesize: 50,
 };
 
 const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  url: 'https://14.192.17.225/RMSAPI/Master/UploadZIP/',
+  url: 'https://maroc.voiladoc.org/RMSAPI/Master/UploadZIP/',
   maxFilesize: 50,
 };
 

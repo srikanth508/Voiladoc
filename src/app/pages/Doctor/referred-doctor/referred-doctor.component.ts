@@ -542,7 +542,7 @@ export class ReferredDoctorComponent implements OnInit {
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
      
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       // this.showdocphoto.push(b)
      
@@ -564,7 +564,7 @@ export class ReferredDoctorComponent implements OnInit {
   //   emailsubject: "REGISTRATION FORM FOR EVENT",
   //   emailbody:
   //     "Please click on the below URL to regiter for the event " +
-  //     "https://14.192.17.225/DigiEvents/#/RSVP/" +
+  //     "https://maroc.voiladoc.org/DigiEvents/#/RSVP/" +
   //     eventid,
   //   attachmenturl: this.attachmentsurl
   // };

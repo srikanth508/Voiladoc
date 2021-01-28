@@ -38,7 +38,7 @@ export class DoctorComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: false 
+            allowSearchFilter: true
           };
         }, error => {
         }
@@ -58,7 +58,7 @@ export class DoctorComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: false
+            allowSearchFilter: true
           };
         }, error => {
         }

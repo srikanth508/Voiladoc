@@ -149,7 +149,7 @@ export class SupportRegComponent implements OnInit {
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
      
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.showdocphoto.push(b)
      

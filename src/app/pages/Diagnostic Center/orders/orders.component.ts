@@ -470,7 +470,7 @@ export class OrdersComponent implements OnInit {
       this.dummattchmenturl.push(res);
       let a = this.dummattchmenturl[0].slice(2);
 
-      // let b = 'https://14.192.17.225' + a;
+      // let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto.push('assets/Images/pdf.png')
       this.attachments.length = 0;
 
@@ -1102,6 +1102,11 @@ export class OrdersComponent implements OnInit {
   }
 
 
+
+  public GetPdf(pdf)
+  {
+    window.open(pdf, "_blank");
+  }
 }
 
 

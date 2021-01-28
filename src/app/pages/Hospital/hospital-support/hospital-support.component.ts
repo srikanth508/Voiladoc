@@ -118,7 +118,7 @@ export class HospitalSupportComponent implements OnInit {
       this.issuephotourl.push(res);
       this.dummissuephoto.push(res);
       let a = this.dummissuephoto[0].slice(2);
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto.push(b)
      
     })

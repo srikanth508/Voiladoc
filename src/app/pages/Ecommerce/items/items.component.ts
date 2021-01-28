@@ -152,7 +152,7 @@ export class ItemsComponent implements OnInit {
 
       let a = this.duummattchmenturl[0].slice(2);
       // let a = this.duummattchmenturl[0].slice(2);
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto.push(b)
        }
       debugger

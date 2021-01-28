@@ -53,6 +53,8 @@ export class DoctorslotsComponent implements OnInit {
   public slottypeID: any;
   public slottodaydates: any;
   public slotdatediff: any;
+  public presenttime:any;
+  combinationvalue:any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -64,6 +66,7 @@ export class DoctorslotsComponent implements OnInit {
       this.docservice.GetServerDateAndTime().subscribe(
         data => {
           this.serverdateandtime = data;
+          this.presenttime=this.serverdateandtime.presentTime
           debugger
           if( this.slotdatediff=='undefined'||null)
           {
@@ -111,7 +114,7 @@ export class DoctorslotsComponent implements OnInit {
         this.bookingTypeID = params['bookingTypeID'];
         this.slottypeID = params['slotDurationID'];
         // this.doctorfees = params['feesNumber'];
-        
+        this.GetDoctorForAdminByLanguageID();
 
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
           data => {
@@ -121,6 +124,26 @@ export class DoctorslotsComponent implements OnInit {
           }
         )
         
+        if (this.appointmenttypeid == 1) {
+          if(this.languageid==1)
+          {
+            this.combinationvalue = 'In Clinic';
+          }
+          else
+          {
+            this.combinationvalue = 'Présentiel';
+          }
+        }
+        if (this.appointmenttypeid == 2) {
+          if(this.languageid==1)
+          {
+            this.combinationvalue = 'Video call';
+          }
+          else{
+            this.combinationvalue = 'Téléconsultation';
+          }
+         
+        }
 
 
 
@@ -214,6 +237,28 @@ export class DoctorslotsComponent implements OnInit {
         // this.doctorfees = params['feesNumber'];
 
         this.languageid = localStorage.getItem('LanguageID');
+
+        this.GetDoctorForAdminByLanguageID();
+        if (this.appointmenttypeid == 1) {
+          if(this.languageid==1)
+          {
+            this.combinationvalue = 'In Clinic';
+          }
+          else
+          {
+            this.combinationvalue = 'Présentiel';
+          }
+        }
+        if (this.appointmenttypeid == 2) {
+          if(this.languageid==1)
+          {
+            this.combinationvalue = 'Video call';
+          }
+          else{
+            this.combinationvalue = 'Téléconsultation';
+          }
+         
+        }
 
 
 
@@ -394,7 +439,7 @@ export class DoctorslotsComponent implements OnInit {
       data => {
 
         this.dummdoctorslots = data;
-        this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > cts && x.appointmentTypeID == this.appointmenttypeid);
+        this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
       }, error => {
       }
     )
@@ -414,7 +459,7 @@ export class DoctorslotsComponent implements OnInit {
       data => {
 
         this.dummafternoonslots = data;
-        this.afternoonslots = this.dummafternoonslots.filter(x => x.slotcompare > cts && x.appointmentTypeID == this.appointmenttypeid);
+        this.afternoonslots = this.dummafternoonslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
       }, error => {
       }
     )
@@ -433,7 +478,7 @@ export class DoctorslotsComponent implements OnInit {
       data => {
 
         this.dummeveningslots = data;
-        this.eveningslosts = this.dummeveningslots.filter(x => x.slotcompare > cts && x.appointmentTypeID == this.appointmenttypeid)
+        this.eveningslosts = this.dummeveningslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid)
       }, error => {
       }
     )
@@ -452,11 +497,30 @@ export class DoctorslotsComponent implements OnInit {
       data => {
 
         this.dummnightslots = data;
-        this.nightslots = this.dummnightslots.filter(x => x.slotcompare > cts && x.appointmentTypeID == this.appointmenttypeid);
+        this.nightslots = this.dummnightslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
       }, error => {
       }
     )
   }
 
 
+
+  dummlist:any;
+  doctorlist:any;
+  doctorname:any;
+
+  public GetDoctorForAdminByLanguageID()
+  {
+    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.dummlist = data;
+       var list = this.dummlist.filter(x => x.id == this.doctorid)
+       this.doctorname=list[0].doctorName
+
+        // this.count = this.doctorlist.length
+      }, error => {
+      }
+    )
+  }
 }

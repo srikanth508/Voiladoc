@@ -436,8 +436,8 @@ export class DoctorregistrationComponent implements OnInit {
     debugger
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
-       if (this.idproof[0].type == 'application/pdf' || this.idproof[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-       {
+      //  if (this.idproof[0].type == 'application/pdf' || this.idproof[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+      //  {
         this.idproof.push(abcd.addedFiles[0]);
         this.uploadid();
         // }
@@ -450,11 +450,11 @@ export class DoctorregistrationComponent implements OnInit {
           abcd.length = 0;
         }
        
-       }
-       else
-       {
-         Swal.fire('Please Upload Pdf/Document Format');
-       }
+      //  }
+      //  else
+      //  {
+      //    Swal.fire('Please Upload Pdf/Document Format');
+      //  }
       // application/pdf
   
 
@@ -466,7 +466,7 @@ export class DoctorregistrationComponent implements OnInit {
       this.idproofurl.push(res);
       let a = this.idproofurl[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.showidproof.push(b)
       this.idproof.length = 0;
 
@@ -613,7 +613,7 @@ export class DoctorregistrationComponent implements OnInit {
 
       let a = this.dummshowsignatureurl[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.showsignaturephoto.push(b)
       this.signatureattachmentssss.length = 0;
@@ -654,7 +654,7 @@ export class DoctorregistrationComponent implements OnInit {
 
       let a = this.identityattachmentsurlssss[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.showidentityproof.push(b)
       this.attachments.length = 0;
 
@@ -691,7 +691,7 @@ export class DoctorregistrationComponent implements OnInit {
       this.dummsttchmentursl.push(res);
       let a = this.dummsttchmentursl[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.showdocphoto.push(b)
 
@@ -732,7 +732,7 @@ export class DoctorregistrationComponent implements OnInit {
 
       let a = this.identityshowphoto[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.photodetail.push(b)
 

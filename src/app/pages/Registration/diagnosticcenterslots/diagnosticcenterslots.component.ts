@@ -303,9 +303,26 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     if (this.diagnosticid == undefined || this.diagnosticid == null) {
       Swal.fire("Please Select Diagnostic Center");
     }
-    else if (this.appointmenttype == undefined || this.appointmenttype == "") {
-      Swal.fire("Please Select Type");
+    else if (this.appointmenttype == undefined || this.appointmenttype == "" ) {
+      Swal.fire("Please Select Mandatory Fields");
     }
+    // else if(this.appointmenttype==1)
+    // {
+    //   debugger
+    //   if(this.mrngfromid == undefined ||this.mrngfromid == "" || this.mrngtoid == undefined||this.mrngtoid == "")
+    //   {
+    //     Swal.fire("Please Select Mandatory Fields");
+    //   }
+    // }
+    // else if(this.appointmenttype==2)
+    // {
+    //   debugger
+    //   if(this.diafromid == undefined || this.diatoid == undefined)
+    //   {
+    //     debugger
+    //     Swal.fire("Please Select Mandatory Fields");
+    //   }
+    // }
     else {
       debugger
       this.tablecount = 1
@@ -418,22 +435,23 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         this.diagnsticfromlist = this.diagnsticfromlist.slice(diaslots + 1, this.diagnsticfromlist.length);
       }
       debugger
+      this.mrngfromid = "";
+      this.mrngtoid = "";
+      this.diafromid = "";
+      this.diatoid = "";
+      this.appointmenttype = "";
+      this.morningslots = [];
+      this.morningslots.length = 0;
+      this.cleardropwn.length = 0;
+      this.homenoofappointments = ""
+      this.dianoofappointments = ""
+      this.mrngslotarray = [];
+      this.mrngslotarray.length = 0;
+      this.mrngslots = [];
+      this.mrngslotarrayid = [];
+      this.slotnameid = "";
     }
-    this.mrngfromid = "";
-    this.mrngtoid = "";
-    this.diafromid = "";
-    this.diatoid = "";
-    this.appointmenttype = "";
-    this.morningslots = [];
-    this.morningslots.length = 0;
-    this.cleardropwn.length = 0;
-    this.homenoofappointments = ""
-    this.dianoofappointments = ""
-    this.mrngslotarray = [];
-    this.mrngslotarray.length = 0;
-    this.mrngslots = [];
-    this.mrngslotarrayid = [];
-    this.slotnameid = "";
+
   }
 
 

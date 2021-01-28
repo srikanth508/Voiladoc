@@ -11,12 +11,14 @@ export class HelloDoctorService {
 
 
 
-  public host = localStorage.getItem('WebUrl');
+  // public host = localStorage.getItem('WebUrl');
 
-  private host1 = "https://14.192.17.225/VoilaDocWebAPI";
+  public host="https://maroc.voiladoc.org/MarocAPI";
+
+  private host1 = "https://maroc.voiladoc.org/MarocAPI";
 
 
-  private host2 = "https://14.192.17.225/VoiladocRegistrationsWebApi";
+  private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";
 
   private url: string = '';
   public showvid = 0;
@@ -31,7 +33,7 @@ export class HelloDoctorService {
   // }
 
   public SendMail(data) {
-    let url = "https://14.192.17.225/AmazeIncAPI/Website/SendMail";
+    let url = "https://maroc.voiladoc.org/AmazeIncAPI/Website/SendMail";
     return this.http.post(url, data)
   }
   public GetCountrySwitchByCountryID(cid) {
@@ -1745,9 +1747,9 @@ export class HelloDoctorService {
 
   //language
 
-  public GetLanguageMaster(url) {
+  public GetLanguageMaster() {
 
-    return this.http.get<any[]>(url + '/LanguageMaster/GetLanguageMaster');
+    return this.http.get<any[]>(this.host + '/LanguageMaster/GetLanguageMaster');
   }
   public GetRoleTypesMasterBYID(lid, url) {
 
@@ -5153,5 +5155,11 @@ export class HelloDoctorService {
   public GetDiagnosticpatients(diacenterid) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticpatients?DiagnosticCenterID=' + diacenterid);
+  }
+  
+
+  public GetBookAppointmentByHospitalPatients(hospitalid,startdtae,endate) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByHospitalPatients?HospitalID=' + hospitalid+'&Startdate='+startdtae+'&Enddate='+endate);
   }
 }

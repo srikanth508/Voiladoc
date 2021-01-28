@@ -61,7 +61,7 @@ export class AppointmentsComponent implements OnInit {
     minutes = minutes < 10 ? 0 + minutes : minutes;
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 0);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 20);
 
     const format = 'yyyy-MM-dd';
     const myDate = new Date();

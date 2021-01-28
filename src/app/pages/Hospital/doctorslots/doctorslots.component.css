@@ -1,4 +1,10 @@
 .headerspace{
     margin-top: 10px;
-    text-transform:uppercase;
+    /* text-transform:uppercase; */
+  }
+
+  .btncolorssssdssd
+  {
+      background-color: rgb(28, 142, 180);
+      color:white;
   }

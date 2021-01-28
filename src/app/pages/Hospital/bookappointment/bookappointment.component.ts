@@ -40,12 +40,14 @@ export class BookappointmentComponent implements OnInit {
   todaydatesssssss: any;
   public mindate = new Date();
   public slottodaydatesssssss: any;
+  public presenttime:any;
   ngOnInit() {
 
 
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
         this.serverdateandtime = data;
+
         if (this.languageid == 1) {
 
           this.todaydate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
@@ -56,7 +58,8 @@ export class BookappointmentComponent implements OnInit {
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
 
-          this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss
+          this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss,
+          this.presenttime=this.serverdateandtime.presentTime
 
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
 
@@ -67,7 +70,8 @@ export class BookappointmentComponent implements OnInit {
           this.selecteddate = this.serverdateandtime.datePickerTodaydate.toLocaleString()
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
-          this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss
+          this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss,
+          this.presenttime=this.serverdateandtime.presentTime
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
         }
       }, error => {
@@ -292,19 +296,19 @@ export class BookappointmentComponent implements OnInit {
   minutes: any;
 
   public getdoctorslots() {
-
-    let d = new Date();
-    this.hours = d.getHours() + 2
-    this.minutes = d.getMinutes() + 30
-    let h = (d.getHours() < 10 ? '0' : '') + this.hours;
-    let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
-    let cts = h + ':' + m;
-    debugger
+    // debugger
+    // let d = new Date();
+    // this.hours = d.getHours() - 4
+    // this.minutes = d.getMinutes() + 30
+    // let h = (d.getHours() < 10 ? '0' : '') + this.hours;
+    // let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
+    // let cts = h + ':' + m;
+    // debugger
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
-
+        debugger
         this.dummdoctorslots = data;
-        this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > cts)
+        this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > this.presenttime)
 
       }, error => {
       }
@@ -349,4 +353,8 @@ export class BookappointmentComponent implements OnInit {
     //   // this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
     // }
   }
+
+
+
+  
 }

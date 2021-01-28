@@ -25,6 +25,7 @@ export class PtientregdashComponent implements OnInit {
   public countrylist: any;
   public dummlist: any;
   public count: any;
+  public hospitalid:any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -41,7 +42,7 @@ export class PtientregdashComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-
+    this.hospitalid = localStorage.getItem('hospitalid');
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
     var lll = this.EDate.setDate(this.EDate.getDate() + 30);
@@ -75,9 +76,9 @@ export class PtientregdashComponent implements OnInit {
   }
   roleid
   public Getregisterdpatients() {
-    this.docservice.GetPatientRegistration(this.startdate, this.enddate).subscribe(
+    this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid,this.startdate, this.enddate).subscribe(
       data => {
-       
+
         this.patientslist = data;
         this.dummlist = this.patientslist
         this.count = this.patientslist.length

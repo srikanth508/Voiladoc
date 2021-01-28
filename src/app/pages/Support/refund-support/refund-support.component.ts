@@ -210,7 +210,7 @@ public email:any;
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.showidentityproof.push(b)
 
     })

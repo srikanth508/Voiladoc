@@ -3572,7 +3572,7 @@ debugger
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.shoprescphoto.push(b)
 
@@ -3862,7 +3862,7 @@ debugger
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
@@ -4155,7 +4155,7 @@ else
       
       let a = this.attachmentsurl5[0].slice(2);
 
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
        this.showattachdoc.push(b)
 

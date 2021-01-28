@@ -85,3 +85,11 @@ th::first-letter{
         color:white;
         margin-left: 22px;
       }
+      .booked
+      {
+        height: 30px;
+        width: 100px;
+        background-color: #000000;
+        color:white;
+        margin-left: 22px;
+      }

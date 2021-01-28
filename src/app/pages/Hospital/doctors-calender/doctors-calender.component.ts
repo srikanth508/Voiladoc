@@ -303,7 +303,7 @@ export class DoctorsCalenderComponent implements OnInit {
   public GetDay5List(details) {
     this.appointmentypeid = '';
     debugger
-    this.dayid = details.day5DayID
+    this.dayid = details.dayID
     this.slotID = details.day5SlotID
     this.appointmentypeid = details.day5AppointmentTypeID,
       this.appointmentdate = details.day5AppointmentDate,

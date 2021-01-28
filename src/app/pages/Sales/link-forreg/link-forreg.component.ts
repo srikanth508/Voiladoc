@@ -20,7 +20,7 @@ export class LinkForregComponent implements OnInit {
   public password: any;
 
   ngOnInit() {
-    this.address = "http://voiladoc.org/registration/#/Login";
+    this.address = "https://voiladoc.org/registration/#/Login";
     this.notes = "Please Click Above Link And Fill The Details";
   }
   public GetTypeName(even) {
@@ -38,12 +38,19 @@ export class LinkForregComponent implements OnInit {
       debugger
     })
   }
+  public pp:any;
 
   public Insertdetails() {
     if (this.typename == "" || this.typename == undefined) {
       debugger
       Swal.fire("Please Select Type")
     }
+    else if (this.password != undefined) {
+      var valpassword = this.docservice.strongpassword(this.password);
+      if (valpassword == false) {
+        this.pp = 1;
+      }
+      
     else {
       this.spinner.show();
       var entity = {
@@ -70,6 +77,7 @@ export class LinkForregComponent implements OnInit {
       })
     }
   }
+}
 
 
 

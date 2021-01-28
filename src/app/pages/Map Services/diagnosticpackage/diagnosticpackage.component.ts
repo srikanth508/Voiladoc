@@ -131,15 +131,11 @@ export class DiagnosticpackageComponent implements OnInit {
   }
 
   public adddetails() {
-    if (this.diagnosticid == undefined) {
-      Swal.fire("please Select Diagnostic Center");
+    if (this.diagnosticid == undefined||this.testid.length==0) {
+      Swal.fire("please fill all manadatory fields");
     }
     else {
-
-
-
       this.tablecount = 1;
-
 
       for (let i = 0; i < this.testid.length; i++) {
         this.testnamearray.push(this.testid[i].short);
@@ -183,8 +179,11 @@ export class DiagnosticpackageComponent implements OnInit {
       this.testnamearray.length = 0
       this.testnamearrayid.length = 0
       this.testid.length = 0
+      this.cleardop=[];
     }
   }
+public cleardop:any;
+
   public insertdetails() {
     this.spinner.show();
 

@@ -81,7 +81,7 @@ export class DepartmentmasterComponent implements OnInit {
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
      
-      let b = 'https://14.192.17.225' + a;
+      let b = 'https://maroc.voiladoc.org' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;

@@ -55,6 +55,7 @@
       <table class="tablecss" id="Doc">
         <thead>
           <tr>
+            <th>Photo</th>
             <th>{{labels[0].pharmacyname}}</th>
             <th>{{labels[0].contactPersonName}}</th>
             <th>{{labels[0].phoneNo}}</th>
@@ -71,6 +72,8 @@
           </tr>
           <tr
             *ngFor="let details of pharmacylist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td><img src="{{details.photoURL}}" style=" height: 50px;width: 50px;"/>
+            </td>
             <td>{{details.pharmacyName}}</td>
             <td>{{details.contactName}}</td>
             <td>{{details.mobileNumber}}</td>

@@ -144,7 +144,6 @@
     </div>
   </div>
   <br>
-
   <div class="row">
     <div class="col-lg-3">
       <label class="DEPARTMENT_label"> {{labels[0].amount}} :</label>
@@ -154,14 +153,12 @@
     </div>
   </div>
   <br>
-
-
   <div class="row">
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="bookappointment()">{{labels[0].book}}</button>
+      *ngIf="appoentmenTypeid=='1'"  (click)="bookappointment()">{{labels[0].book}}</button>
     </div>
     <div class="col-lg-5">
     </div>

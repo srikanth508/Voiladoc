@@ -5,12 +5,12 @@
 <br>
 <div class="container-fluid card card:hover">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-6">
       <br>
-      <h5>Link For Registration</h5>
+      <h5>LINK FOR REGISTRATION</h5>
       <br>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-6">
     </div>
     <!-- <div class="col-lg-2">
       <br>
@@ -68,6 +68,8 @@
       </div>
       <div class="col-lg-4">
         <input type="email" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+        <span *ngIf="pp=='1'" style="color:red">Week Password!! Please Enter Password Which Contains One Capital, One Number,One Special Character & Eight Characters
+        </span>
       </div>
     </div>
     <br>

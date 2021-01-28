@@ -202,11 +202,11 @@ export class PhysioFeesComponent implements OnInit {
     this.tablecount = 0;
     if (this.languageid == 1) {
       Swal.fire('Success', 'Details Saved Successfully');
-      // location.href = "#/PhysiFeedash"
+       location.href = "#/PhysiFeedash"
     }
     if (this.languageid == 6) {
       Swal.fire('', 'Mis à jour avec succès !');
-      // location.href = "#/PhysiFeedash"
+     location.href = "#/PhysiFeedash"
     }
     // else {
     //   if (this.languageid == 1) {

@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       }
     )
    
+    localStorage.setItem('WebUrl','https://maroc.voiladoc.org/MarocAPI');
 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
@@ -59,12 +60,13 @@ export class LoginComponent implements OnInit {
     //   }, error => {
     //   }
     // )
+    this.getlang()
 
   }
 
 
-  public getlang(url) {
-    this.docservice.GetLanguageMaster(url).subscribe(
+  public getlang() {
+    this.docservice.GetLanguageMaster().subscribe(
       data => {
 
         this.languagelist = data;
@@ -85,7 +87,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('WebUrl', this.countrydetails[0].webBaseURL);
           // this.host = this.docservice.host;
 
-          this.getlang(this.countrydetails[0].webBaseURL)
+          // this.getlang(this.countrydetails[0].webBaseURL)
         }, error => {
         }
       )
@@ -101,8 +103,6 @@ export class LoginComponent implements OnInit {
     this.LanguageID = even.target.value;
     this.getlanguage();
     localStorage.setItem('LanguageID', this.LanguageID);
-
-
 
     this.getroletypemaster();
 

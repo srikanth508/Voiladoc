@@ -72,6 +72,12 @@
               <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'">
                 <img src="assets/Images/phaprescripton.png" data-toggle="modal" data-target="#exampleModal6"
                   style="height:20px;" (click)="GetAttachments(details.id)"></a>
+
+                  <ng-template #tipcontent2094>Pdf</ng-template>
+                  <a [ngbTooltip]="tipcontent2094" *ngIf="details.appointmentType=='2'&&details.fileAvailableBit=='1'">
+                    <img src="assets/Images/pdf.png" 
+                      style="height:20px;" (click)="GetPdf(details.fileUrl)"></a>
+
             </td>
 
             <td>

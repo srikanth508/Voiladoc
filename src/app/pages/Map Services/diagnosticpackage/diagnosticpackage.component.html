@@ -57,7 +57,7 @@
         <label >Test : </label>
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="selectedItemsRoot" [data]="testlist"
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [(ngModel)]="selectedItemsRoot" name="selectedItemsRoot" [data]="testlist"
           [settings]="testdd" (onSelect)="GetTestID($event)">
         </ng-multiselect-dropdown>
       </div>
@@ -79,7 +79,7 @@
       <div class="col-lg-4">
         <textarea rows="4" class="form-control" [disabled]="tablecount=='1'" name="description" required
           [(ngModel)]="description" placeholder="{{labels[0].packageDescription}}"
-          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'></textarea>
+         ></textarea>
       </div>
     </div><br><br>
     <div class="row">

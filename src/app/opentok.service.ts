@@ -75,6 +75,7 @@ export class OpentokService {
   }
 
   getsessionandtoken(){
+    debugger
     return this.http.get( config.Sessionurl+'?API_KEY='+config.API_KEY+'&API_SECRET='+config.SECRET)
   }
 

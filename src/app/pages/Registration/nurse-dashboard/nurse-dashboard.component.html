@@ -1,10 +1,10 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-8" style="margin-top: -2px;">
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels2[0].nursereg}}</h5>
     </div>
-    <div class="col-lg-2" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()">
+    <div class="col-lg-1" style="text-align: end;margin-top: -12px;">
+      <button class="btn btncolor" *ngIf="showexportbutton=='1'" style="margin-left: 41px;" (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
     </div>
     <div class="col-lg-2" style="text-align: end;margin-top: -12px;">

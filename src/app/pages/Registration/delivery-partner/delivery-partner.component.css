@@ -46,4 +46,23 @@
         background-color: #f18235;
         color:white;
     }
-    
+    label::first-letter{
+      text-transform: uppercase;
+    }
+
+    input::first-letter{
+      text-transform: uppercase;
+  }
+  label{
+    text-transform: lowercase;
+  } 
+  /* input{
+      text-transform: lowercase;
+    } */
+    textarea::first-letter{
+      text-transform: lowercase;
+    }
+    textarea{
+      text-transform: lowercase;
+    }
+

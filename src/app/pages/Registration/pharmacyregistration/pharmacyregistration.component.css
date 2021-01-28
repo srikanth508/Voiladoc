@@ -22,12 +22,12 @@
           text-transform: lowercase;
         }
         
-        input::first-letter{
+        /* input::first-letter{
             text-transform: uppercase;
-          }
-          input{
+          } */
+          /* input{
             text-transform: lowercase;
-          }
+          } */
           textarea::first-letter{
             text-transform: uppercase;
           }
