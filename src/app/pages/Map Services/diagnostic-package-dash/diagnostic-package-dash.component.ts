@@ -213,7 +213,7 @@ export class DiagnosticPackageDashComponent implements OnInit {
   public id: any;
 
   public GetPackages(details) {
-    debugger
+    
     this.id=details.id
     this.packagename = details.packageName
     this.packageDescription = details.description

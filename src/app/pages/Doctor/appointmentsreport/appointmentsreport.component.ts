@@ -121,9 +121,9 @@ export class AppointmentsreportComponent implements OnInit {
   hospitalid: any;
 
   public GetHospitalID(even) {
-    debugger
+    
     if (this.diffid == 1) {
-      debugger
+      
       this.hospitalid = even.target.value;
       this.cancelledlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
     }
@@ -183,11 +183,11 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+        
         this.dummlist = data;
         this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1||x.cancelled==1);
         this.count = this.cancelledlist.length;
-        debugger
+        
       }, error => {
       }
     )
@@ -350,7 +350,7 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
   public Upload_file() {
-    debugger
+    
     this.docservice.InsertDrugNameMaster(this.contactdata).subscribe(data => {
 
       if (data != undefined || data != null) {

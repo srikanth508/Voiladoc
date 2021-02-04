@@ -291,7 +291,7 @@ public bcclist:any;
 
 
   public SendCancelPatientmail() {
-    debugger
+    
     var entity = {
       'emailto': this.canemail,
       'emailsubject': "The Physiotherapist " + this.canphysioname + " Has Cancelled Your Appointment ",
@@ -327,13 +327,13 @@ public bcclist:any;
 
   
   public sendsms() {
-    debugger
+    
     let Entity = {
       'Contacts': this.canmobileno,
       'TextMessage': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      debugger
+      
 
 
     })
@@ -507,10 +507,10 @@ public bcclist:any;
     this.visiemail=emailID;
     this.visitid=id
    
-    if(this.serverdate>=this.slottime)
-    {
-      if(this.servertime>=this.servertime)
-      {
+    // if(this.serverdate>=this.slottime)
+    // {
+    //   if(this.servertime>=this.servertime)
+    //   {
         Swal.fire({
           title: 'Are you sure?',
           text: "The Patient has Visited!",
@@ -537,11 +537,11 @@ public bcclist:any;
             this.physionappointments()
           }
         })
-      }
-      }
-      else{
-        Swal.fire("The Appointment Time is"+this.slottime)
-      }
+      // }
+      // }
+      // else{
+      //   Swal.fire("The Appointment Time is"+this.slottime)
+      // }
 
       
     }

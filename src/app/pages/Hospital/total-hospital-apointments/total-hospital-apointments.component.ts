@@ -119,7 +119,7 @@ export class TotalHospitalApointmentsComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+    
 
     var sdate = data.split('-')
     this.startdate = sdate[0];

@@ -34,26 +34,26 @@ export class DoctorsCalenderComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
-    debugger
+    
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+    
 
     this.getlanguage()
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.labels = data;
         this.Select = this.labels[0].selectDoctor;
         this.search = this.labels[0].search;
       }, error => {
       }
     )
-    debugger
+    
 
-    debugger
+    
     this.gethospitaldoctors();
 
     this.mrngfromid = "";
@@ -132,11 +132,11 @@ export class DoctorsCalenderComponent implements OnInit {
   public day7: any;
 
   public GetMyDoctorWorkingDetails() {
-    debugger
+    
     this.docservice.GetDoctorcalenderSlotsByDoctorID(this.doctorid, this.slottypeid, this.todaydate, this.languageid).subscribe(
       data => {
         this.spinner.hide();
-        debugger
+        
         //this.workingdetails = data;
         this.DayDatelist = data[0];
 
@@ -163,7 +163,7 @@ export class DoctorsCalenderComponent implements OnInit {
         // let sfdsfd=this.DayDatelist.map("date");
         // this.head1=sfdsfd[0];
         this.workingdetails = data[1];
-        debugger
+        
 
       }, error => {
       }
@@ -176,7 +176,7 @@ export class DoctorsCalenderComponent implements OnInit {
   public GetDoctorID(item: any) {
     this.doctorid = ""
     this.showtable = 1;
-    debugger
+    
     this.doctorid = item.doctorID
     this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
       data => {
@@ -213,9 +213,9 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetDoctorDates(even) {
     this.spinner.show();
-    debugger
+    
     this.todaydate = even.toLocaleString().split(',')[0];
-    debugger
+    
     this.GetMyDoctorWorkingDetails();
   }
 
@@ -250,13 +250,13 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetDay1List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.day1DayID
     this.slotID = details.day1SlotID
     this.appointmentypeid = details.day1AppointmentTypeID,
       this.appointmentdate = details.day1AppointmentDate,
       this.fees = details.mondayFees;
-    debugger
+    
 
   }
 
@@ -264,74 +264,74 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetDay2List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.day2DayID
     this.slotID = details.day2SlotID
     this.appointmentypeid = details.day2AppointmentTypeID,
       this.appointmentdate = details.day2AppointmentDate,
       this.fees = details.tuesdayFees;
 
-    debugger
+    
 
   }
 
 
   public GetDay3List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.day3DayID
     this.slotID = details.day3SlotID
     this.appointmentypeid = details.day3AppointmentTypeID,
       this.appointmentdate = details.day3AppointmentDate,
       this.fees = details.wednessdayFees;
-    debugger
+    
 
   }
 
 
   public GetDay4List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.day4DayID
     this.slotID = details.day4SlotID
     this.appointmentypeid = details.day4AppointmentTypeID,
       this.appointmentdate = details.day4AppointmentDate
     this.fees = details.thursdayFees;
-    debugger
+    
   }
 
   public GetDay5List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.dayID
     this.slotID = details.day5SlotID
     this.appointmentypeid = details.day5AppointmentTypeID,
       this.appointmentdate = details.day5AppointmentDate,
       this.fees = details.fridayFees;
-    debugger
+    
   }
 
   public GetDay6List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.day6DayID
     this.slotID = details.day6SlotID
     this.appointmentypeid = details.day6AppointmentTypeID,
       this.appointmentdate = details.day6AppointmentDate,
       this.fees = details.satdayFees;
-    debugger
+    
   }
 
 
   public GetDay7List(details) {
     this.appointmentypeid = '';
-    debugger
+    
     this.dayid = details.day7DayID
     this.slotID = details.day7SlotID
     this.appointmentypeid = details.day7AppointmentTypeID,
       this.appointmentdate = details.day7AppointmentDate,
       this.fees = details.sundayFees;
-    debugger
+    
 
   }
 
@@ -339,9 +339,9 @@ export class DoctorsCalenderComponent implements OnInit {
   public insertdetails() {
 
     this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
-      debugger
+      
       if (data1.length != 0) {
-        debugger
+        
         var list = data1[0];
         this.patientid = list.relationPatientID,
           this.email = list.pEmail,
@@ -447,7 +447,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public SendCancelPatientmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Your Doctor " + this.doctorname + " Has Cancelled Your Appointment At Time " + this.notificationdate,
@@ -524,7 +524,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public GetdaychangeDate(even) {
-    debugger
+    
     this.daychangedate = even.toLocaleString().split(',')[0];
     this.Getdays()
   }
@@ -532,12 +532,12 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public Getdays() {
-    debugger
+    
     this.docservice.GetDaysHomecare(this.daychangedate).subscribe(data => {
-      debugger
+      
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      debugger
+      
       this.Getdayssid();
     }, error => {
     })
@@ -545,7 +545,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public Getdayssid() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      debugger
+      
       this.dayidslist = data;
       this.datechangedayid = this.dayidslist[0].dayID;
 
@@ -560,7 +560,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
     this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
       data => {
-        debugger
+        
         this.slotslist = data;
         this.mrngfromlist = data;
       }, error => {
@@ -596,12 +596,12 @@ export class DoctorsCalenderComponent implements OnInit {
      }
     }
     else{
-    debugger
+    
     if (this.languageid == 1) {
       this.docservice.GetBookAppointmentByDateWiseAppointmentCount(this.daychangedate, this.doctorid).subscribe(data => {
         this.applist = data[0];
         this.appcount = this.applist.appcount
-        debugger
+        
         Swal.fire({
           title: 'Are you sure?',
           text: "You have " + this.appcount + " bookings. The patient(s) will be notified of the cancellation and offered the choice to reschedule or get a refund.",
@@ -624,7 +624,7 @@ export class DoctorsCalenderComponent implements OnInit {
       this.docservice.GetBookAppointmentByDateWiseAppointmentCount(this.daychangedate, this.doctorid).subscribe(data => {
         this.applist = data[0];
         this.appcount = this.applist.appcount
-        debugger
+        
         Swal.fire({
           title: 'Êtes-vous sûr?',
           text: "Vous avez " + this.appcount + " rendez-vous. Le(s) patient(s) sera/seront notifié(s) de l'annulation et pourra/pourront choisir entre replanifier ou un remboursement.",
@@ -653,7 +653,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public InsertDayWiseSlots() {
-    debugger
+    
     if (this.daychangedate == undefined || this.daychangedate == null) {
       Swal.fire('Please Select Date')
     }
@@ -661,13 +661,13 @@ export class DoctorsCalenderComponent implements OnInit {
       Swal.fire('Please Select Type')
     }
     else {
-      debugger
+      
       for (let j = 0; j < this.slotslist.length; j++) {
 
         this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data1 => {
-          debugger
+          
           if (data1.length != 0) {
-            debugger
+            
             var list = data1[0];
             this.patientid = list.relationPatientID,
               this.email = list.pEmail,
@@ -700,7 +700,7 @@ export class DoctorsCalenderComponent implements OnInit {
         }
         this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
 
-         
+          this.insertbookappointmenttype();
         })
       }
       this.insertbookappointmenttype();
@@ -733,12 +733,12 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public Getdaystime() {
-    debugger
+    
     this.docservice.GetDaysHomecare(this.timechangedate).subscribe(data => {
-      debugger
+      
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      debugger
+      
       this.Getdayssidbytime();
     }, error => {
     })
@@ -746,7 +746,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public Getdayssidbytime() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      debugger
+      
       this.dayidslist = data;
       this.timechangedayid = this.dayidslist[0].dayID;
 
@@ -782,11 +782,11 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetGetSlotsByIDPlanning() {
     this.docservice.GetSlotsByIDPlanning(this.mrngfromid, this.mrngtoid).subscribe(data => {
-      debugger
+      
       this.timewisechangeslotlist = data;
       this.totalappcount = 0;
       for (let K = 0; K < this.timewisechangeslotlist.length; K++) {
-        debugger
+        
         this.docservice.GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(this.timechangedate, this.doctorid, this.timewisechangeslotlist[K].id).subscribe(data => {
           this.applist = data[0];
           this.applist = data[1];
@@ -831,7 +831,7 @@ export class DoctorsCalenderComponent implements OnInit {
     else{
 
 
-    debugger
+    
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -873,7 +873,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public InsertTimeWiseSlots() {
-    debugger
+    
     if (this.timechangedate == undefined || this.timechangedate == null) {
       Swal.fire('Please Select Date')
     }
@@ -884,13 +884,13 @@ export class DoctorsCalenderComponent implements OnInit {
       Swal.fire('Please Select Time')
     }
     else {
-      debugger
+      
       for (let j = 0; j < this.timewisechangeslotlist.length; j++) {
 
         this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data1 => {
-          debugger
+          
           if (data1.length != 0) {
-            debugger
+            
             var list = data1[0];
             this.patientid = list.relationPatientID,
               this.email = list.pEmail,

@@ -114,7 +114,7 @@ export class PrescriptionReportsComponent implements OnInit {
     else {
       this.docservice.GetPatient_TextMedicineDetailsForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+          
           this.reportlist = data;
           this.dummlist = this.reportlist;
           this.count = this.reportlist.length
@@ -183,7 +183,7 @@ export class PrescriptionReportsComponent implements OnInit {
 
     this.docservice.GetPatient_TextMedicineDetailsReportsWeb(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-debugger
+
         this.reportlist = data;
         this.totalamount = this.reportlist.map(a => a.amountToPay).reduce(function (a, b) {
           return a + b;

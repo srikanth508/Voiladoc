@@ -194,7 +194,7 @@ export class ReferredPatientsComponent implements OnInit {
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
-        text: "You Completed This One!",
+        text: "You Completed This Referral!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -207,8 +207,8 @@ export class ReferredPatientsComponent implements OnInit {
             this.GetDoctorRefererals();
           })
           Swal.fire(
-            'Deleted!',
-            'Item has been Completed.',
+            'Completed!',
+            'Referral Succesfully Completed',
             'success'
           )
         }

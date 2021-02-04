@@ -217,7 +217,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
 
   public InsertNurseHospitalDetailsAdmin() {
-    debugger
+    
     var entity = {
       'NurseID': this.detailsarray[0].NurseID,
       'Fees': this.detailsarray[0].Fees,

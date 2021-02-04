@@ -30,7 +30,7 @@ export class DiagnosticAppointmentDashboardComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
-    debugger
+    
     this.options = {
         theme: 'default',
         range: 'tm',
@@ -69,17 +69,17 @@ export class DiagnosticAppointmentDashboardComponent implements OnInit {
 
 
   selectedDate(data) {
-    debugger
+    
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
     this.GetDiagnosticAppointmentsByDiagnosticID(this.diagnosticid, this.startdate, this.enddate, this.languageid);
 }
 
 public getlanguage() {
-    debugger
+    
     this.docservice.GetAdmin_DiagnosticLoginOrdersAndOrderReport_Label(this.languageid).subscribe(
         data => {
-            debugger
+            
             this.labels = data;
         }, error => {
         }
@@ -87,25 +87,25 @@ public getlanguage() {
 }
 
 public GetDiagnosticAppointmentsByDiagnosticID(DID, SDATE, EDATE, LID) {
-    debugger
+    
     this.docservice.GetDiagnosticAppointmentsByDiagnosticID(DID, SDATE, EDATE, LID).subscribe(data => {
-        debugger
+        
         this.diagnosticappointmentlist = data;
     })
 }
 
 
 public GetTestsID(id) {
-    debugger
+    
     this.diatestid = id;
     this.GetDiaTests()
 }
 
 public GetDiaTests() {
-    debugger
+    
     this.docservice.GetDiagnosticTestsByAppointmentIDWeb(this.languageid, this.diatestid).subscribe(
         data => {
-            debugger
+            
             this.testslist = data;
         }, error => {
         }
@@ -114,16 +114,16 @@ public GetDiaTests() {
 
 
 public GetPackageID(id) {
-    debugger
+    
     this.packageid = id;
     this.GetPackageTests();
 }
 
 public GetPackageTests() {
-    debugger
+    
     this.docservice.GetDiagnosticPackagesByAppointmentIDWeb(this.languageid, this.packageid).subscribe(
         data => {
-            debugger
+            
             this.packagelist = data;
         }, error => {
         }

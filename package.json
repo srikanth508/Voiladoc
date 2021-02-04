@@ -37,6 +37,7 @@
     "bootstrap-fileinput": "^5.0.2",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
     "datepicker-bootstrap": "^1.9.13",
     "file": "^0.2.2",

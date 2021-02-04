@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-inventory-dash',
   templateUrl: './inventory-dash.component.html',
@@ -154,4 +154,38 @@ export class InventoryDashComponent implements OnInit {
     }
 
   }
+
+
+
+
+  public DeleteInventory(id)
+  {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to This Inventory!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.DeleteInventory(id).subscribe(res => {
+          let test = res;
+          this.ngOnInit()
+        })
+        Swal.fire(
+          'Deleted!',
+          'Inventory has been deleted.',
+          'success'
+        )
+      }
+      else {
+        this.ngOnInit()
+      }
+    })
+  }
+
+
+
 }

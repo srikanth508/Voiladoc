@@ -88,14 +88,14 @@ export class DocdashComponent implements OnInit {
     this.activatedroute.params.subscribe(params => {
       this.id = params['id']
       if (this.hospitalclinicid == undefined) {
-        debugger
+        
         this.getdoctorforadmin();
-        debugger
+        
       }
       else if (this.id != undefined) {
         this.docservice.GetDoctorForAdminByLanguageIDWeb(this.startdate, this.enddate, this.languageid).subscribe(
           data => {
-            debugger
+            
             this.doctorlist = data;
             this.dummlist = this.doctorlist
             this.count = this.doctorlist.length
@@ -106,7 +106,7 @@ export class DocdashComponent implements OnInit {
       else if (this.hospitalclinicid != undefined) {
         this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
           data => {
-            debugger
+            
             this.dummlist = data;
             this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
             this.count = this.doctorlist.length
@@ -436,16 +436,16 @@ export class DocdashComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-    debugger
+    
     this.departmentid = even.target.value;
     if (even.target.value != 0) {
       this.departmentid = even.target.value;
-      debugger
+      
       if (this.hospitalclinicid == undefined) {
-        debugger
+        
         this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
           data => {
-            debugger
+            
             this.dummlist = data;
             this.doctorlist = this.dummlist.filter(x => x.departmentID == this.departmentid)
             this.count = this.doctorlist.length
@@ -456,7 +456,7 @@ export class DocdashComponent implements OnInit {
       else if (this.hospitalclinicid != undefined) {
         this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
           data => {
-            debugger
+            
             this.dummlist = data;
             this.dummdoctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
             this.doctorlist = this.dummdoctorlist.filter(x => x.departmentID == this.departmentid)
@@ -468,14 +468,14 @@ export class DocdashComponent implements OnInit {
     }
     else {
       if (this.hospitalclinicid == undefined) {
-        debugger
+        
         this.getdoctorforadmin();
-        debugger
+        
       }
       else if (this.hospitalclinicid != undefined) {
         this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
           data => {
-            debugger
+            
             this.dummlist = data;
             this.doctorlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
             this.count = this.doctorlist.length

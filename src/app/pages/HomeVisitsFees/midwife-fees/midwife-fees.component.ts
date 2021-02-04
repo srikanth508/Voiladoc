@@ -136,7 +136,7 @@ export class MidwifeFeesComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+    
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'MidwifeID': this.midwifeid,
@@ -147,7 +147,7 @@ export class MidwifeFeesComponent implements OnInit {
         'EndTime': this.qwerty[i].EndTime
       }
       this.docservice.InsertMidWifeCommissionDeatails(entity).subscribe(data => {
-        debugger
+        
         if (data != 0) {
           // if (this.languageid == 1) {
           //   Swal.fire('Success', 'Details Saved Successfully');
@@ -262,7 +262,7 @@ export class MidwifeFeesComponent implements OnInit {
 
 
   public GetStartTime(even) {
-    debugger
+    
     let list = even.target.value.split(',')
 
     this.starttime = list[0];
@@ -271,7 +271,7 @@ export class MidwifeFeesComponent implements OnInit {
   }
 
   public GetEndTime(even) {
-    debugger
+    
     let list = even.target.value.split(',');
     this.endtime = list[0];
     this.endtimeid = list[1];
@@ -295,13 +295,13 @@ export class MidwifeFeesComponent implements OnInit {
 
 
   public delete(Sno) {
-    debugger
+    
     for (let i = 0; i < this.qwerty.length; i++) {
       if (Sno == this.qwerty[i].Sno) {
-      debugger
+      
         var mrngslots = this.dummtimings.findIndex(x => x.id ==  this.qwerty[i].StartTimeID);
         this.Timeings = this.dummtimings.slice(mrngslots, this.dummtimings.length);
-        debugger
+        
         this.qwerty.splice(i, 1);
       }
     }

@@ -20,7 +20,7 @@ export class OpentokService {
     if (config.API_KEY && config.TOKEN && config.SESSION_ID) {
       
       this.session = this.getOT().initSession(config.API_KEY, config.SESSION_ID);
-      
+      debugger
       this.token = config.TOKEN;
       return Promise.resolve(this.session);
     } else {
@@ -38,7 +38,7 @@ export class OpentokService {
     return new Promise((resolve, reject) => {
       this.session.connect(this.token, (err) => {
         if (err) {
-          
+          debugger
           reject(err);
         } else {
           
@@ -75,7 +75,6 @@ export class OpentokService {
   }
 
   getsessionandtoken(){
-    debugger
     return this.http.get( config.Sessionurl+'?API_KEY='+config.API_KEY+'&API_SECRET='+config.SECRET)
   }
 

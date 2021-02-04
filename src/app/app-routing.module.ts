@@ -8,11 +8,8 @@ import { DocworkingdetailsComponent } from '../app/pages/Registration/docworking
 import { DiagnosticsregistrationComponent } from '../app/pages/Registration/diagnosticsregistration/diagnosticsregistration.component';
 import { DiagnosticcenterslotsComponent } from '../app/pages/Registration/diagnosticcenterslots/diagnosticcenterslots.component';
 import { PharmacyregistrationComponent } from '../app/pages/Registration/pharmacyregistration/pharmacyregistration.component';
-import { HospitalservicesComponent } from '../app/pages/Map Services/hospitalservices/hospitalservices.component';
-import { DoctorservicesComponent } from '../app/pages/Map Services/doctorservices/doctorservices.component';
 import { DiagnostictestComponent } from '../app/pages/Map Services/diagnostictest/diagnostictest.component';
 import { DiagnosticpackageComponent } from '../app/pages/Map Services/diagnosticpackage/diagnosticpackage.component';
-import { AddcampComponent } from '../app/pages/Camp/addcamp/addcamp.component';
 import { DoctorComponent } from '../app/pages/Register logins/doctor/doctor.component';
 import { DiagnosticComponent } from '../app/pages/Register logins/diagnostic/diagnostic.component';
 import { PharmacyComponent } from '../app/pages/Register logins/pharmacy/pharmacy.component';
@@ -39,30 +36,22 @@ import { MyprofileComponent } from '../app/pages/Doctor/myprofile/myprofile.comp
 import { MyappointmentsComponent } from '../app/pages/Doctor/myappointments/myappointments.component';
 import { AppointmentsreportComponent } from '../app/pages/Doctor/appointmentsreport/appointmentsreport.component';
 import { MyarticlesComponent } from '../app/pages/Doctor/myarticles/myarticles.component';
-import { MychatsComponent } from '../app/pages/Doctor/mychats/mychats.component';
 import { MyfeedbacksComponent } from '../app/pages/Doctor/myfeedbacks/myfeedbacks.component';
 import { ProfilesComponent } from '../app/pages/Diagnostic Center/profiles/profiles.component';
 import { OrdersComponent } from '../app/pages/Diagnostic Center/orders/orders.component';
 import { OffersComponent } from '../app/pages/Diagnostic Center/offers/offers.component';
 import { PharmacyprofileComponent } from '../app/pages/Pharmacy/pharmacyprofile/pharmacyprofile.component';
-import { PharmacyordersComponent } from '../app/pages/Pharmacy/pharmacyorders/pharmacyorders.component';
 import { PharmacyoffersComponent } from '../app/pages/Pharmacy/pharmacyoffers/pharmacyoffers.component';
 import { WritearticleComponent } from '../app/pages/Doctor/writearticle/writearticle.component';
 import { OffersdashComponent } from '../app/pages/Diagnostic Center/offersdash/offersdash.component';
 import { OffersDashboardComponent } from '../app/pages/Pharmacy/offers-dashboard/offers-dashboard.component';
-import { CampDashComponent } from '../app/pages/Camp/camp-dash/camp-dash.component';
 import { EditHospitalClinicComponent } from '../app/pages/Registration/edit-hospital-clinic/edit-hospital-clinic.component';
 import { EditDoctorRegistrationComponent } from '../app/pages/Registration/edit-doctor-registration/edit-doctor-registration.component';
 import { EditDiagnosticRegistrationComponent } from '../app/pages/Registration/edit-diagnostic-registration/edit-diagnostic-registration.component';
 import { EditPharmacyRegComponent } from '../app/pages/Registration/edit-pharmacy-reg/edit-pharmacy-reg.component';
-import { HospitalServicesDashComponent } from '../app/pages/Map Services/hospital-services-dash/hospital-services-dash.component';
-import { DoctorServicesDashComponent } from '../app/pages/Map Services/doctor-services-dash/doctor-services-dash.component';
 import { DiagnosticTestDashComponent } from '../app/pages/Map Services/diagnostic-test-dash/diagnostic-test-dash.component';
 import { DiagnosticPackageDashComponent } from '../app/pages/Map Services/diagnostic-package-dash/diagnostic-package-dash.component';
-import { EditCampComponent } from '../app/pages/Camp/edit-camp/edit-camp.component';
 import { VediocallComponent } from './pages/Doctor/vediocall/vediocall.component';
-import { PatientChatComponent } from './pages/Doctor/patient-chat/patient-chat.component';
-import { SoapdashComponent } from './pages/Doctor/soapdash/soapdash.component';
 import { NurseComponent } from './pages/Registration/nurse/nurse.component';
 import { NurseDashboardComponent } from './pages/Registration/nurse-dashboard/nurse-dashboard.component';
 import { PhysiotherapistComponent } from './pages/Registration/physiotherapist/physiotherapist.component';
@@ -98,10 +87,7 @@ import { EditMidwifeComponent } from './pages/Registration/edit-midwife/edit-mid
 import { EditDeliveryCompanyComponent } from './pages/Registration/edit-delivery-company/edit-delivery-company.component';
 import { MedicalHistoryComponent } from './pages/Doctor/medical-history/medical-history.component';
 import { PatientHistoryComponent } from './pages/Doctor/patient-history/patient-history.component';
-import { MedicalPatientHistoryComponent } from './pages/Doctor/medical-patient-history/medical-patient-history.component';
 import { NewPatientHistoryComponent } from './pages/Doctor/new-patient-history/new-patient-history.component';
-import { OnDemandVideoComponent } from './pages/Doctor/on-demand-video/on-demand-video.component';
-import { PharmacyReportsComponent } from './pages/Pharmacy/pharmacy-reports/pharmacy-reports.component';
 import { DiagnosticReportsComponent } from './pages/Diagnostic Center/diagnostic-reports/diagnostic-reports.component';
 import { NurseReportsComponent } from './pages/Nurse/nurse-reports/nurse-reports.component';
 import { PhysiotherapistReportsComponent } from './pages/physiotherapist/physiotherapist-reports/physiotherapist-reports.component';
@@ -110,16 +96,9 @@ import { NurseTimingsComponent } from './pages/Nurse/nurse-timings/nurse-timings
 import { PhysiotherapistTimingsComponent } from './pages/physiotherapist/physiotherapist-timings/physiotherapist-timings.component';
 import { MidWifeTimingsComponent } from './pages/Midewife/mid-wife-timings/mid-wife-timings.component';
 
-import { MyWorkingDetailsComponent } from './pages/Doctor/my-working-details/my-working-details.component';
-import { SickSlipGeneratorComponent } from './pages/Doctor/sick-slip-generator/sick-slip-generator.component';
-import { SickSlipDashboardComponent } from './pages/Doctor/sick-slip-dashboard/sick-slip-dashboard.component';
 import { DoctorPrescriptionComponent } from './pages/Pharmacy/doctor-prescription/doctor-prescription.component';
 import { PrescriptionReportsComponent } from './pages/Pharmacy/prescription-reports/prescription-reports.component';
 import { PreviousVideosComponent } from './pages/Doctor/previous-videos/previous-videos.component';
-import { LanguageCheckComponent } from './pages/Hospital/language-check/language-check.component';
-import { PharmacyChatComponent } from './pages/Pharmacy/pharmacy-chat/pharmacy-chat.component';
-import { PhaPatientChatComponent } from './pages/Pharmacy/pha-patient-chat/pha-patient-chat.component';
-import { NurseChatComponent } from './pages/Nurse/nurse-chat/nurse-chat.component';
 import { HospitalDashboardComponent } from './pages/Hospital/hospital-dashboard/hospital-dashboard.component';
 import { DocREportsComponent } from './pages/Hospital/doc-reports/doc-reports.component';
 import { CountrtMasterComponent } from './pages/Masters/countrt-master/countrt-master.component';
@@ -166,16 +145,13 @@ import { PhysioAdminDashComponent } from './pages/physiotherapist/physio-admin-d
 import { PhysioDashboardDetailsComponent } from './pages/physiotherapist/physio-dashboard-details/physio-dashboard-details.component';
 import { AdminMidWifeDashComponent } from './pages/Midewife/admin-mid-wife-dash/admin-mid-wife-dash.component';
 import { MidWifeAdminDashDetailsComponent } from './pages/Midewife/mid-wife-admin-dash-details/mid-wife-admin-dash-details.component';
-import { DoctorFeesComponent } from './pages/DoctorFees/doctor-fees/doctor-fees.component';
-import { DoctorFeeDashComponent } from './pages/DoctorFees/doctor-fee-dash/doctor-fee-dash.component';
+
 import { LocalDoctorRegistrationComponent } from './pages/Registration/local-doctor-registration/local-doctor-registration.component';
 import { LocalDocDashComponent } from './pages/Registration/local-doc-dash/local-doc-dash.component';
 import { MyPatientPrescriptionsComponent } from './pages/LocalDoctor/my-patient-prescriptions/my-patient-prescriptions.component';
 import { MyProfilesComponent } from './pages/LocalDoctor/my-profiles/my-profiles.component';
 import { AnnounsementsComponent } from './pages/Announsements/announsements/announsements.component';
 import { AnnounseDashComponent } from './pages/Announsements/announse-dash/announse-dash.component';
-import { TreatmentMasterComponent } from './pages/Masters/treatment-master/treatment-master.component';
-import { TreatmentDashComponent } from './pages/Masters/treatment-dash/treatment-dash.component';
 import { NurseFeesComponent } from './pages/HomeVisitsFees/nurse-fees/nurse-fees.component';
 import { NurseFeeDashComponent } from './pages/HomeVisitsFees/nurse-fee-dash/nurse-fee-dash.component';
 import { PhysioFeesComponent } from './pages/HomeVisitsFees/physio-fees/physio-fees.component';
@@ -191,30 +167,14 @@ import { PhysioRevenueComponent } from './pages/Midewife/physio-revenue/physio-r
 import { SupportRegComponent } from './pages/Support/support-reg/support-reg.component';
 import { SupportRegDashComponent } from './pages/Support/support-reg-dash/support-reg-dash.component';
 import { SupportProfileComponent } from './pages/Support/support-profile/support-profile.component';
-import { SalesDashComponent } from './pages/Sales/sales-dash/sales-dash.component';
-import { AddUserComponent } from './pages/Sales/add-user/add-user.component';
-import { EnableLocalDoctorComponent } from './pages/Masters/enable-local-doctor/enable-local-doctor.component';
-import { FaqComponent } from './pages/FAQ/faq/faq.component';
 import { DocAppReportsComponent } from './pages/AdminDashboard/doc-app-reports/doc-app-reports.component';
 import { NurseAdminReportsComponent } from './pages/AdminDashboard/nurse-admin-reports/nurse-admin-reports.component';
 import { MidWifeAdminReportsComponent } from './pages/AdminDashboard/mid-wife-admin-reports/mid-wife-admin-reports.component';
 import { PhysioreportsComponent } from './pages/AdminDashboard/physioreports/physioreports.component';
-import { HowToUseComponent } from './pages/FAQ/how-to-use/how-to-use.component';
-import { HowtousedashComponent } from './pages/FAQ/howtousedash/howtousedash.component';
-import { FrequentlyaskedComponent } from './pages/FAQ/frequentlyasked/frequentlyasked.component';
-import { FrequentlyDashComponent } from './pages/FAQ/frequently-dash/frequently-dash.component';
-import { DoctorTipsComponent } from './pages/FAQ/doctor-tips/doctor-tips.component';
-import { DocTipsDashComponent } from './pages/FAQ/doc-tips-dash/doc-tips-dash.component';
+
 import { ClinicDashComponent } from './pages/Registration/clinic-dash/clinic-dash.component';
-import { HowToUseVoilaDOcComponent } from './pages/FAQ/how-to-use-voila-doc/how-to-use-voila-doc.component';
-import { DoctorTipsAndTricksComponent } from './pages/FAQ/doctor-tips-and-tricks/doctor-tips-and-tricks.component';
-import { PatientChartsComponent } from './pages/patient-charts/patient-charts.component';
+
 import { DiagnosticSlotsDashComponent } from './pages/Registration/diagnostic-slots-dash/diagnostic-slots-dash.component';
-import { HowToUseDocComponent } from './pages/FAQ/how-to-use-doc/how-to-use-doc.component';
-import { HowToUseDocDashComponent } from './pages/FAQ/how-to-use-doc-dash/how-to-use-doc-dash.component';
-import { HowToUseDoctorsComponent } from './pages/FAQ/how-to-use-doctors/how-to-use-doctors.component';
-import { FrequentlyAskedQuestionsComponent } from './pages/FAQ/frequently-asked-questions/frequently-asked-questions.component';
-import { ReferredDoctorComponent } from './pages/Doctor/referred-doctor/referred-doctor.component';
 import { ReferredPatientsComponent } from './pages/Doctor/referred-patients/referred-patients.component';
 import { PatientRegComponent } from './pages/Hospital/patient-reg/patient-reg.component';
 import { PtientregdashComponent } from './pages/Hospital/ptientregdash/ptientregdash.component';
@@ -257,14 +217,10 @@ import { VideocallappointementsComponent } from './pages/Hospital/videocallappoi
 import { HomecareAppointementsComponent } from './pages/Hospital/homecare-appointements/homecare-appointements.component';
 import { HomecareRevenueComponent } from './pages/Hospital/homecare-revenue/homecare-revenue.component';
 import { SentrefferalsComponent } from './pages/Doctor/sentrefferals/sentrefferals.component';
-import { MyFeesComponent } from './pages/Doctor/my-fees/my-fees.component';
-import { EditMyfeesComponent } from './pages/Doctor/edit-myfees/edit-myfees.component';
-import { AddMyFeesComponent } from './pages/Doctor/add-my-fees/add-my-fees.component';
 import { DocCalenderComponent } from './pages/Doctor/doc-calender/doc-calender.component';
 import { DoctorsCalenderComponent } from './pages/Hospital/doctors-calender/doctors-calender.component';
 import { ReturnOrdersComponent } from './pages/DeliveryPartner/return-orders/return-orders.component';
 import { ReturnOrdersReportComponent } from './pages/DeliveryPartner/return-orders-report/return-orders-report.component';
-import { AddMyWorkingDetailsComponent } from './pages/Doctor/add-my-working-details/add-my-working-details.component';
 import { NurseMonthWiseScheduleComponent } from './pages/Nurse/nurse-month-wise-schedule/nurse-month-wise-schedule.component';
 import { PhysiomonthWiseScheduleComponent } from './pages/physiotherapist/physiomonth-wise-schedule/physiomonth-wise-schedule.component';
 import { MidwifeMonthWiseComponent } from './pages/Midewife/midwife-month-wise/midwife-month-wise.component';
@@ -289,12 +245,6 @@ import { HospitalSupportDashComponent } from './pages/Hospital/hospital-support-
 import { RecpsupportComponent } from './pages/Hospital/recpsupport/recpsupport.component';
 import { RecpsupportDashComponent } from './pages/Hospital/recpsupport-dash/recpsupport-dash.component';
 import { SupportWebComponent } from './pages/Support/support-web/support-web.component';
-import { DocResolvedTicketsComponent } from './pages/Doctor/doc-resolved-tickets/doc-resolved-tickets.component';
-import { NurseResolvedTicketsComponent } from './pages/Nurse/nurse-resolved-tickets/nurse-resolved-tickets.component';
-import { PhysioCompletedTicketsComponent } from './pages/physiotherapist/physio-completed-tickets/physio-completed-tickets.component';
-import { MidwifeCompletedTicketsComponent } from './pages/Midewife/midwife-completed-tickets/midwife-completed-tickets.component';
-import { HospitalCompletedTicketsComponent } from './pages/Hospital/hospital-completed-tickets/hospital-completed-tickets.component';
-import { RecpSupportCompletedComponent } from './pages/Hospital/recp-support-completed/recp-support-completed.component';
 import { SupportCometedTicketsComponent } from './pages/Support/support-cometed-tickets/support-cometed-tickets.component';
 import { DoctorNotificationsComponent } from './pages/Doctor/doctor-notifications/doctor-notifications.component';
 import { NurseNotificationsComponent } from './pages/Nurse/nurse-notifications/nurse-notifications.component';
@@ -304,7 +254,6 @@ import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge
 import { EditDiagnosticTestComponent } from './pages/Diagnostic Center/edit-diagnostic-test/edit-diagnostic-test.component';
 import { SendemailsComponent } from './pages/Sales/sendemails/sendemails.component';
 import { EmailDashComponent } from './pages/Sales/email-dash/email-dash.component';
-import { TestvideocallPageComponent } from './pages/Doctor/testvideocall-page/testvideocall-page.component';
 import { SendSmsComponent } from './pages/Sales/send-sms/send-sms.component';
 import { SmsDashComponent } from './pages/Sales/sms-dash/sms-dash.component';
 import { RoleMenuMappingComponent } from './pages/MenuMapping/role-menu-mapping/role-menu-mapping.component';
@@ -342,10 +291,8 @@ import { PaymentLinkDashboardComponent } from './pages/Diagnostic Center/payment
 import { UserPlanningComponent } from './pages/Diagnostic Center/user-planning/user-planning.component';
 import { PharmacySupportComponent } from './pages/Pharmacy/pharmacy-support/pharmacy-support.component';
 import { PharmacySupportDashComponent } from './pages/Pharmacy/pharmacy-support-dash/pharmacy-support-dash.component';
-import { PharmacyCompletedTicketsComponent } from './pages/Pharmacy/pharmacy-completed-tickets/pharmacy-completed-tickets.component';
 import { DiagnosticSupportComponent } from './pages/Diagnostic Center/diagnostic-support/diagnostic-support.component';
 import { DiagnosticSupportDashComponent } from './pages/Diagnostic Center/diagnostic-support-dash/diagnostic-support-dash.component';
-import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-completed-tickets/dia-completed-tickets.component';
 import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
 import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
 import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
@@ -364,12 +311,9 @@ const routes: Routes = [
   { path: 'Docworkingdetails/:id', component: DocworkingdetailsComponent },
   { path: 'Diagnosticcenterslots', component: DiagnosticcenterslotsComponent },
   { path: 'Pharmacyregistration', component: PharmacyregistrationComponent },
-  { path: 'Hospitalservices', component: HospitalservicesComponent },
-  { path: 'Doctorservices', component: DoctorservicesComponent },
   { path: 'Diagnostictest', component: DiagnostictestComponent },
   { path: 'Diagnosticpackage', component: DiagnosticpackageComponent },
   { path: 'Diagnosticsregistration', component: DiagnosticsregistrationComponent },
-  { path: 'Addcamp', component: AddcampComponent },
   { path: 'Doctor', component: DoctorComponent },
   { path: 'Diagnostic', component: DiagnosticComponent },
   { path: 'Pharmacy', component: PharmacyComponent },
@@ -409,26 +353,17 @@ const routes: Routes = [
   { path: 'Orders', component: OrdersComponent },
   { path: 'Offers', component: OffersComponent },
   { path: 'Pharmacyprofile', component: PharmacyprofileComponent },
-  { path: 'Pharmacyorders', component: PharmacyordersComponent },
   { path: 'Pharmacyoffers', component: PharmacyoffersComponent },
   { path: 'Writearticle', component: WritearticleComponent },
   { path: 'Offersdash', component: OffersdashComponent },
   { path: 'OffersDashboard', component: OffersDashboardComponent },
-  { path: 'CampDash', component: CampDashComponent },
   { path: 'EditHospitalClinic/:id', component: EditHospitalClinicComponent },
   { path: 'EditDoctorRegistration/:id', component: EditDoctorRegistrationComponent },
   { path: 'EditDiagnosticRegistration/:id', component: EditDiagnosticRegistrationComponent },
   { path: 'EditPharmacyReg/:id', component: EditPharmacyRegComponent },
-  { path: 'HospitalServicesDash', component: HospitalServicesDashComponent },
-  { path: 'DoctorServicesDash', component: DoctorServicesDashComponent },
   { path: 'DiagnosticTestDash', component: DiagnosticTestDashComponent },
   { path: 'DiagnosticPackageDash', component: DiagnosticPackageDashComponent },
-  { path: 'EditCamp/:id', component: EditCampComponent },
   { path: 'Vediocall', component: VediocallComponent },
-  { path: 'Mychats/:docid/:patid', component: MychatsComponent },
-  { path: 'PatientChat/:docid/:patid', component: PatientChatComponent },
-  // { path: 'PatientChat', component: PatientChatComponent },
-  { path: 'Soapdash/:patientID', component: SoapdashComponent },
   { path: 'Nurse', component: NurseComponent },
   { path: 'NurseDashboard', component: NurseDashboardComponent },
   { path: 'NurseDashboard/:id', component: NurseDashboardComponent },
@@ -467,10 +402,7 @@ const routes: Routes = [
   { path: 'EditDeliveryCompany/:id', component: EditDeliveryCompanyComponent },
   { path: 'MedicalHistory', component: MedicalHistoryComponent },
   { path: 'PatientHistory/:patientID', component: PatientHistoryComponent },
-  { path: 'MedicalPatientHistory', component: MedicalPatientHistoryComponent },
   { path: 'NewPatientHistory/:patientID', component: NewPatientHistoryComponent },
-  { path: 'OnDemandVideo', component: OnDemandVideoComponent },
-  { path: 'PharmacyReports', component: PharmacyReportsComponent },
   { path: 'DiagnosticReports', component: DiagnosticReportsComponent },
   { path: 'DiagnosticReports/:id', component: DiagnosticReportsComponent },
   { path: 'NurseReports', component: NurseReportsComponent },
@@ -482,23 +414,11 @@ const routes: Routes = [
   { path: 'NurseTimings', component: NurseTimingsComponent },
   { path: 'PhysiotherapistTimings', component: PhysiotherapistTimingsComponent },
   { path: 'MidWifeTimings', component: MidWifeTimingsComponent },
-  { path: 'MyWorkingDetails', component: MyWorkingDetailsComponent },
-  { path: 'SickSlipGenerator', component: SickSlipGeneratorComponent },
-  { path: 'SickSlipGenerator/:patientid', component: SickSlipGeneratorComponent },
-  { path: 'SickSlipDashboard', component: SickSlipDashboardComponent },
+
   { path: 'DoctorPrescription', component: DoctorPrescriptionComponent },
   { path: 'PrescriptionReports', component: PrescriptionReportsComponent },
   { path: 'PrescriptionReports/:id', component: PrescriptionReportsComponent },
   { path: 'PreviousVideos/:archiveID/:patientID', component: PreviousVideosComponent },
-  { path: 'LanguageCheck', component: LanguageCheckComponent },
-  { path: 'PharmacyChat/:pharmacyID/:patientID', component: PharmacyChatComponent },
-  { path: 'PhaPatientChat/:pharmacyID/:patientID', component: PhaPatientChatComponent },
-
-
-  { path: 'PhaPatientChat', component: PhaPatientChatComponent },
-
-
-  { path: 'NurseChat/:pharmacyID/:patientID', component: NurseChatComponent },
   { path: 'HospitalDashboard', component: HospitalDashboardComponent },
   { path: 'DocREports', component: DocREportsComponent },
   { path: 'DocREports/:id', component: DocREportsComponent },
@@ -561,17 +481,12 @@ const routes: Routes = [
   { path: 'PhysioDashboardDetails/:id', component: PhysioDashboardDetailsComponent },
   { path: 'AdminMidWifeDash', component: AdminMidWifeDashComponent },
   { path: 'MidWifeAdminDashDetails/:id', component: MidWifeAdminDashDetailsComponent },
-  { path: 'DoctorFees', component: DoctorFeesComponent },
-  { path: 'DoctorFeeDash', component: DoctorFeeDashComponent },
   { path: 'LocalDoctorRegistration', component: LocalDoctorRegistrationComponent },
   { path: 'LocalDocDash', component: LocalDocDashComponent },
   { path: 'MyPatientPrescriptions', component: MyPatientPrescriptionsComponent },
   { path: 'MyProfiles', component: MyProfilesComponent },
   { path: 'Announsements', component: AnnounsementsComponent },
   { path: 'AnnounseDash', component: AnnounseDashComponent },
-  { path: 'TreatmentMaster', component: TreatmentMasterComponent },
-  { path: 'TreatmentMaster/:id', component: TreatmentMasterComponent },
-  { path: 'TreatmentDash', component: TreatmentDashComponent },
   { path: 'NurseFees', component: NurseFeesComponent },
   { path: 'NurseFees/:id', component: NurseFeesComponent },
   { path: 'NurseFeeDash', component: NurseFeeDashComponent },
@@ -590,39 +505,13 @@ const routes: Routes = [
   { path: 'SupportReg', component: SupportRegComponent },
   { path: 'SupportRegDash', component: SupportRegDashComponent },
   { path: 'SupportProfile', component: SupportProfileComponent },
-  { path: 'SalesDash', component: SalesDashComponent },
-  { path: 'AddUser', component: AddUserComponent },
-  { path: 'EnableLocalDoctor', component: EnableLocalDoctorComponent },
-  { path: 'Faq', component: FaqComponent },
-  { path: 'Faq/:id', component: FaqComponent },
   { path: 'DocAppReports', component: DocAppReportsComponent },
   { path: 'NurseAdminReports', component: NurseAdminReportsComponent },
   { path: 'MidWifeAdminReports', component: MidWifeAdminReportsComponent },
   { path: 'Physioreports', component: PhysioreportsComponent },
-  { path: 'HowToUse', component: HowToUseComponent },
-  { path: 'HowToUse/:id', component: HowToUseComponent },
-  { path: 'Howtousedash', component: HowtousedashComponent },
-  { path: 'Frequentlyasked', component: FrequentlyaskedComponent },
-  { path: 'Frequentlyasked/:id', component: FrequentlyaskedComponent },
-  { path: 'FrequentlyDash', component: FrequentlyDashComponent },
-  { path: 'DoctorTips', component: DoctorTipsComponent },
-  { path: 'DocTipsDash', component: DocTipsDashComponent },
-  { path: 'DoctorTips/:id', component: DoctorTipsComponent },
   { path: 'ClinicDash', component: ClinicDashComponent },
   { path: 'ClinicDash/:id/:cliniccount', component: ClinicDashComponent },
-  { path: 'HowToUseVoilaDOc', component: HowToUseVoilaDOcComponent },
-  { path: 'HowToUseVoilaDOc/:id', component: HowToUseVoilaDOcComponent },
-  { path: 'DoctorTipsAndTricks', component: DoctorTipsAndTricksComponent },
-  { path: 'DoctorTipsAndTricks/:id', component: DoctorTipsAndTricksComponent },
-  { path: 'PatientCharts', component: PatientChartsComponent },
   { path: 'DiagnosticSlotsDash', component: DiagnosticSlotsDashComponent },
-  { path: 'HowToUseDoc', component: HowToUseDocComponent },
-  { path: 'HowToUseDoc/:id', component: HowToUseDocComponent },
-  { path: 'HowToUseDocDash', component: HowToUseDocDashComponent },
-  { path: 'HowToUseDoctors', component: HowToUseDoctorsComponent },
-  { path: 'FrequentlyAskedQus', component: FrequentlyAskedQuestionsComponent },
-  { path: 'HowToUseDoctors/:id', component: HowToUseDoctorsComponent },
-  { path: 'ReferredDoctor/:patientID/:appointmentID', component: ReferredDoctorComponent },
   { path: 'ReferredPatients', component: ReferredPatientsComponent },
   { path: 'PatientReg', component: PatientRegComponent },
   { path: 'Ptientregdash', component: PtientregdashComponent },
@@ -636,12 +525,9 @@ const routes: Routes = [
   { path: 'Receptionstlogin', component: ReceptionstloginComponent },
   { path: 'ReceptionstloginDash', component: ReceptionstloginDashComponent },
   { path: 'BookDoctors', component: BookDoctorsComponent },
-
   { path: 'Bookappointment', component: BookappointmentComponent },
   { path: 'Doctorslots/:doctorID/:id/:hospital_ClinicID/:appointmentTypeID/:bookingTypeID/:slotDurationID', component: DoctorslotsComponent },
   { path: 'Bookappments/:doctorSlotID/:slotName/:doctorFees', component: BookappmentsComponent },
-
-
   { path: 'MidwifeWorkingDetails/:id', component: MidwifeWorkingDetailsComponent },
   { path: 'Docworkingdetails/:id/:hospitalid', component: DocworkingdetailsComponent },
   { path: 'NurseWorkingDetails/:id', component: NurseWorkingDetailsComponent },
@@ -655,12 +541,9 @@ const routes: Routes = [
   { path: 'InventoryDash', component: InventoryDashComponent },
   { path: 'Products', component: ProductsComponent },
   { path: 'ProductsDash', component: ProductsDashComponent },
-
   { path: 'Categorydashboard', component: CategorydashboardComponent },
   { path: 'Category', component: CategoryComponent },
-
   { path: 'items', component: ItemsComponent },
-
   { path: 'ItemMaster', component: ItemMasterComponent },
   { path: 'HomePageSponsrship', component: HomePageSponsrshipComponent },
   { path: 'HomePageSponsrship/:id', component: HomePageSponsrshipComponent },
@@ -669,12 +552,10 @@ const routes: Routes = [
   { path: 'SubCategory/:id', component: SubCategoryComponent },
   { path: 'Category/:id', component: CategoryComponent },
   { path: 'items/:id', component: ItemsComponent },
-
   { path: 'AppPageSponsorship', component: AppPageSponsorshipComponent },
   { path: 'AppPageSponsorship/:id', component: AppPageSponsorshipComponent },
   { path: 'AppPageSponsorshipDashBoard', component: AppPageSponsorshipDashboardComponent },
   { path: 'Inventory/:id', component: InventoryComponent },
-
   { path: 'CompletedOrders', component: CompletedOrdersComponent },
   { path: 'InclinicRevenue', component: InclinicRevenuComponent },
   { path: 'InclinicAppointements', component: InclinicAppointementsComponent },
@@ -683,14 +564,10 @@ const routes: Routes = [
   { path: 'HomecareAppointements', component: HomecareAppointementsComponent },
   { path: 'HomecareRevenue', component: HomecareRevenueComponent },
   { path: 'Sentrefferals', component: SentrefferalsComponent },
-  { path: 'MyFees', component: MyFeesComponent },
-  { path: 'EditMyfees/:id', component: EditMyfeesComponent },
-  { path: 'AddMyFees', component: AddMyFeesComponent },
   { path: 'DocCalender', component: DocCalenderComponent },
   { path: 'DoctorsCalender', component: DoctorsCalenderComponent },
   { path: 'ReturnOrders', component: ReturnOrdersComponent },
   { path: 'ReturnOrdersReport', component: ReturnOrdersReportComponent },
-  { path: 'AddMyWorkingDetails/:id/:hospitalid', component: AddMyWorkingDetailsComponent },
   { path: 'NurseMonthWiseSchedule', component: NurseMonthWiseScheduleComponent },
   { path: 'PhysiomonthWiseSchedule', component: PhysiomonthWiseScheduleComponent },
   { path: 'MidwifeMonthWise', component: MidwifeMonthWiseComponent },
@@ -716,12 +593,7 @@ const routes: Routes = [
   { path: 'Recpsupport', component: RecpsupportComponent },
   { path: 'RecpsupportDash', component: RecpsupportDashComponent },
   { path: 'SupportWeb', component: SupportWebComponent },
-  { path: 'DocResolvedTickets', component: DocResolvedTicketsComponent },
-  { path: 'NurseResolvedTickets', component: NurseResolvedTicketsComponent },
-  { path: 'PhysioCompletedTickets', component: PhysioCompletedTicketsComponent },
-  { path: 'MidwifeCompletedTickets', component: MidwifeCompletedTicketsComponent },
-  { path: 'HospitalCompletedTickets', component: HospitalCompletedTicketsComponent },
-  { path: 'RecpSupportCompleted', component: RecpSupportCompletedComponent },
+
   { path: 'SupportCometedTickets', component: SupportCometedTicketsComponent },
   { path: 'DoctorNotifications', component: DoctorNotificationsComponent },
   { path: 'NurseNotifications', component: NurseNotificationsComponent },
@@ -731,7 +603,6 @@ const routes: Routes = [
   { path: 'EditDiagnosticTest/:id', component: EditDiagnosticTestComponent },
   { path: 'Sendemails', component: SendemailsComponent },
   { path: 'EmailDash', component: EmailDashComponent },
-  { path: 'TestvideocallPage', component: TestvideocallPageComponent },
   { path: 'SendSms', component: SendSmsComponent },
   { path: 'SmsDash', component: SmsDashComponent },
   { path: 'RoleMenuMapping', component: RoleMenuMappingComponent },
@@ -775,10 +646,8 @@ const routes: Routes = [
   { path: 'UserPlanning', component: UserPlanningComponent },
   { path: 'PharmacySupport', component: PharmacySupportComponent },
   { path: 'PharmacySupportDash', component: PharmacySupportDashComponent },
-  { path: 'PharmacyCompletedTickets', component: PharmacyCompletedTicketsComponent },
   { path: 'DiagnosticSupport', component: DiagnosticSupportComponent },
   { path: 'DiagnosticSupportDash', component: DiagnosticSupportDashComponent },
-  { path: 'DiaCompletedTickets', component: DiaCompletedTicketsComponent },
   { path: 'RefundSupport', component: RefundSupportComponent },
   { path: 'RefundCompletedTickets', component: RefundCompletedTicketsComponent },
   { path: 'AllDiagnosticCalender', component: AllDiagnosticCalenderComponent },

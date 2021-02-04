@@ -87,7 +87,7 @@
       </div>
       <div class="col-lg-2">
         <button type="button" text_align="center" [disabled]="diagnosticForm.form.invalid"
-          class="btn btn-block btn-md allbtns btncolor" (click)="adddetails()">{{labels[0].add}}</button>
+          class="btn btn-block btn-md allbtns btncolor" *ngIf="tablecount=='0'" (click)="adddetails()">{{labels[0].add}}</button>
       </div>
       <div class="col-lg-5">
       </div>

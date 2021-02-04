@@ -71,7 +71,7 @@ export class EditMidwifeComponent implements OnInit {
   public Getmidwifedetails() {
     this.docservice.GetMidWivesRegistrationByIDAndLanguageID(this.id, this.languageid).subscribe(data => {
       this.details = data[0];
-      debugger
+      
       this.name = this.details.name,
         this.phno = this.details.phoneNo,
         this.email = this.details.email,
@@ -87,7 +87,7 @@ export class EditMidwifeComponent implements OnInit {
         this.pincode = this.details.pincode
       this.photourl = this.details.photoURL;
       this.attachmentsurl[0] = this.details.photoUrlPath;
-      debugger
+      
       this.GetDepartmentmaster();
       this.GetCountryMaster();
       this.getcitymaster();
@@ -259,7 +259,7 @@ export class EditMidwifeComponent implements OnInit {
   }
 
   public updatephoto() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'PhotoUrl': this.attachmentsurl[0]

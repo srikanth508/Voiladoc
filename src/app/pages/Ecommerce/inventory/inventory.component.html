@@ -7,7 +7,6 @@
     </div>
   </div>
 </div>
-
 <div class="container-fluid card card:hover divspacee" style="margin-top:20px;">
   <form #testForm="ngForm">
     <div class="row" style="margin-top:20px;">
@@ -15,38 +14,34 @@
         <label>{{labels[0].category}} : </label>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" [(ngModel)]="categoryID" id="ddl_Category" name="Category"
+        <select class="form-control" [(ngModel)]="CategoryID"  id="ddl_Category" name="CategoryID"
           (change)="GetCategoryID($event)">
-          <option valu="" selected>{{labels[0].selectCategory}}</option>
+          <option value="0" selected>{{labels[0].selectCategory}}</option>
           <option *ngFor="let Category of CategoryList" value={{Category.id}}>{{Category.categoryName}}</option>
         </select>
       </div>
     </div>
     <br>
-
-
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
         <label>Sub Category : </label>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" [(ngModel)]="SubCatID" id="ddl_subCategoryID" name="SubCatID"
+        <select class="form-control" [(ngModel)]="SubCategoryID" id="ddl_subCategoryID" name="SubCategoryID"
           (change)="GetSubCategoryID($event)">
-          <option valu="" selected>{{labels[0].selectSubCategory}}</option>
+          <option value="0" selected>{{labels[0].selectSubCategory}}</option>
           <option *ngFor="let sub of SubcategoryLists" value={{sub.subCatID}}>{{sub.subacategoryName}}</option>
         </select>
       </div>
     </div>
-
     <br>
-
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
         <label>Products : </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" [(ngModel)]="item" id="ddl_item" name="item" (change)="GetItemID($event)">
-          <option valu="" selected>{{labels[0].products}}</option>
+          <option value="0" selected>{{labels[0].products}}</option>
           <option *ngFor="let inv of InventoryLists" value={{inv.id}}>{{inv.productName}}</option>
         </select>
       </div>

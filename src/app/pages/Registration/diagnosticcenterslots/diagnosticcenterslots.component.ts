@@ -120,7 +120,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
   public GetDaysID(item10: any) {
     // this.dayid = item10.id;
-    debugger
+    
     this.dayid.push(item10)
   }
 
@@ -299,7 +299,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   public AppointmentName: any;
 
   public adddetails() {
-    debugger
+    
     if (this.diagnosticid == undefined || this.diagnosticid == null) {
       Swal.fire("Please Select Diagnostic Center");
     }
@@ -308,7 +308,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     }
     // else if(this.appointmenttype==1)
     // {
-    //   debugger
+    //   
     //   if(this.mrngfromid == undefined ||this.mrngfromid == "" || this.mrngtoid == undefined||this.mrngtoid == "")
     //   {
     //     Swal.fire("Please Select Mandatory Fields");
@@ -316,15 +316,15 @@ export class DiagnosticcenterslotsComponent implements OnInit {
     // }
     // else if(this.appointmenttype==2)
     // {
-    //   debugger
+    //   
     //   if(this.diafromid == undefined || this.diatoid == undefined)
     //   {
-    //     debugger
+    //     
     //     Swal.fire("Please Select Mandatory Fields");
     //   }
     // }
     else {
-      debugger
+      
       this.tablecount = 1
 
       if (this.appointmenttype == 1) {
@@ -333,13 +333,13 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           id: this.mrngfromid
         };
         this.mrngslots.push(mrgfrm);
-        debugger
+        
         var mrgto = {
           slotName: this.mrngtoslot,
           id: this.mrngtoid
         };
         this.mrngslots.push(mrgto);
-        debugger
+        
         for (let i = 0; i < this.mrngslots.length; i++) {
           this.mrngslotarray.push(this.mrngslots[i].slotName)
           this.mrngslotarrayid.push(this.mrngslots[i].id)
@@ -381,13 +381,13 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           id: this.diafromid
         };
         this.mrngslots.push(mrgfrm);
-        debugger
+        
         var mrgto = {
           slotName: this.diagnostictoslot,
           id: this.diatoid
         };
         this.mrngslots.push(mrgto);
-        debugger
+        
         for (let i = 0; i < this.mrngslots.length; i++) {
           this.mrngslotarray.push(this.mrngslots[i].slotName)
 
@@ -423,7 +423,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
           'MrngfromID': this.diafromid
         }
       }
-      debugger
+      
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
       if (this.appointmenttype == 1) {
@@ -434,7 +434,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
         var diaslots = this.diagnsticfromlist.findIndex(x => x.id == this.diatoid);
         this.diagnsticfromlist = this.diagnsticfromlist.slice(diaslots + 1, this.diagnsticfromlist.length);
       }
-      debugger
+      
       this.mrngfromid = "";
       this.mrngtoid = "";
       this.diafromid = "";
@@ -458,13 +458,13 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
 
   public insertdetails1() {
-    debugger
+    
     var entity = {
       'dayList': this.dayid,
       'slotsList': this.qwerty,
     }
     this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-      debugger
+      
       if (data == 0) {
         if (this.languageid == 1) {
           Swal.fire('', 'Added Successfully');
@@ -486,9 +486,9 @@ export class DiagnosticcenterslotsComponent implements OnInit {
 
 
   // public insertdetails1() {
-  //   debugger
+  //   
   //   for (let j = 0; j < this.dayid.length; j++) {
-  //     debugger
+  //     
   //     for (let i = 0; i < this.qwerty.length; i++) {
   //       var entity = {
   //         'DiagnosticCenterID': this.diagnosticid,
@@ -500,7 +500,7 @@ export class DiagnosticcenterslotsComponent implements OnInit {
   //         'Night': this.nightid,
   //       }
   //       this.docservice.InsertDiagnosticRelatedSlots(entity).subscribe(data => {
-  //         debugger
+  //         
   //       })
   //     }
   //   }

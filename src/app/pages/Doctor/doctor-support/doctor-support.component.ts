@@ -152,7 +152,7 @@ export class DoctorSupportComponent implements OnInit {
 
 
   public gettime(even) {
-    debugger
+    
     this.starttime = even.target.value;
   }
 

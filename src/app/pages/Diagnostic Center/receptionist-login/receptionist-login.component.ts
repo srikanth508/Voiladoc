@@ -61,7 +61,7 @@ export class ReceptionistLoginComponent implements OnInit {
   }
 
   public InsertDetailes() {
-    debugger
+    
     var entity = {
         DiagnosticID: localStorage.getItem('diagnosticid'),
         Name: this.name,
@@ -72,7 +72,7 @@ export class ReceptionistLoginComponent implements OnInit {
         Password: this.password
     }
     this.docservice.InsertDiagnosticReceptionistLogin(entity).subscribe(res => {
-        debugger
+        
         if (this.languageid == 1) {
             Swal.fire('Success', 'Added Successfully')
             location.href = "#/ReceptionistLoginDashboard"
@@ -84,7 +84,7 @@ export class ReceptionistLoginComponent implements OnInit {
     })
 }
 public UpdateDetailes() {
-    debugger
+    
     var entity = {
         ID: this.id,
         DiagnosticID: localStorage.getItem('diagnosticid'),
@@ -96,7 +96,7 @@ public UpdateDetailes() {
         Password: this.password
     }
     this.docservice.UpdateDiagnosticReceptionistLogin(entity).subscribe(res => {
-        debugger
+        
         if (this.languageid == 1) {
             Swal.fire('Success', 'Updated successfully')
             location.href = "#/ReceptionistLoginDashboard"

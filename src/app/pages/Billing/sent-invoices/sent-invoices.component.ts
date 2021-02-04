@@ -45,9 +45,9 @@ export class SentInvoicesComponent implements OnInit {
 
     }
     public Makestatuspaid(id) {
-        debugger
+        
         this.docservice.MakePaymentPaid(id,this.paiddate).subscribe(data => {
-            debugger
+            
             if (data != undefined) {
                 Swal.fire("Paid Successfully");
                 this.Getsentinvoices(this.type);
@@ -55,7 +55,7 @@ export class SentInvoicesComponent implements OnInit {
         })
     }
     selectedDate(even) {
-        debugger
+        
         this.paiddate = even.toLocaleString().split(',')[0];    
 
     }

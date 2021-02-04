@@ -28,21 +28,21 @@ export class LinkForregComponent implements OnInit {
   }
 
   public sendmails() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': 'Voiladoc Registrations',
       'emailbody': 'Dear ' + this.username +','+ "<br><br>" + this.address + "<br><br>" + 'Username :' + this.username + "<br>" + 'Password :' + this.password + "<br><br>" + this.notes + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team'
     }
     this.docservice.sendemailsForLinkRegistrations(entity).subscribe(data => {
-      debugger
+      
     })
   }
   public pp:any;
 
   public Insertdetails() {
     if (this.typename == "" || this.typename == undefined) {
-      debugger
+      
       Swal.fire("Please Select Type")
     }
     else if (this.password != undefined) {
@@ -63,14 +63,14 @@ export class LinkForregComponent implements OnInit {
       }
       this.docservice.InsertLinkForRegistrations(entity).subscribe(data => {
         if (data != 0) {
-          debugger
+          
           this.sendmails();
           this.spinner.hide();
           location.href = "#/Linkforregdash"
           Swal.fire('Mail Sent Successfully');
         }
         else {
-          debugger
+          
           this.spinner.hide();
           Swal.fire('Username Already Exists. Please Give different Username');
         }

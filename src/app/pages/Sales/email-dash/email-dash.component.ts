@@ -94,7 +94,7 @@ export class EmailDashComponent implements OnInit {
 
   public GetAttachmentID(id)
   {
-    debugger
+    
     this.docservice.GetEmail_Attachments(id).subscribe(
       data => {
         this.attchmentlist = data;
@@ -119,7 +119,7 @@ export class EmailDashComponent implements OnInit {
 
   public GetMessage(message)
   {
-    debugger
+    
     this.message=message;
   }
 }

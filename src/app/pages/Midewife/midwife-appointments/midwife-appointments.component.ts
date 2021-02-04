@@ -510,7 +510,7 @@ public bcclist:any;
 
 
   public SendCancelPatientmail() {
-    debugger
+    
     var entity = {
       'emailto': this.canemailid,
       'emailsubject': "The Midwife " + this.canname + " Has Cancelled Your Appointment ",
@@ -526,13 +526,13 @@ public bcclist:any;
 
   
   public sendsms() {
-    debugger
+    
     let Entity = {
       'Contacts': this.canpatientmobileno,
       'TextMessage': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      debugger
+      
 
 
     })

@@ -133,12 +133,12 @@ export class SidebarComponent implements OnInit {
     this.getlanguage()
 
     if (this.roleid == 15 || this.roleid == 18 || this.roleid == 19 || this.roleid == 20 || this.roleid == 21 || this.roleid == 17) {
-      debugger
+      
       this.docservice.GetMenuRoleMappingTableByRoleID(this.languageid, this.roleid).subscribe(
         data => {
-          debugger
+          
           this.menulist = data;
-          debugger
+          
           for (let s = 0; s < this.menulist.length; s++) {
             if (this.menulist[s].menus == 'Masters') {
               this.masters = 1;

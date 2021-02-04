@@ -450,7 +450,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
 
   public Getsubscriptontype() {
-    debugger
+    
     this.appointmentpercentage =0;
     this.monthlysubription = 0;
   }

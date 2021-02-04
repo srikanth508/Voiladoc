@@ -198,15 +198,15 @@ export class ProfileComponent implements OnInit {
   public onattachmentUpload(abcd) {
 
     // for (let i = 0; i < abcd.length; i++) {
-    debugger
+    
     this.dummshowphotossss = []
     this.attachments.push(abcd.addedFiles[0]);
-    debugger
-    debugger
+    
+    
     if (this.attachments[0].type == 'image/jpg' || this.attachments[0].type == 'image/png') {
-      debugger
+      
       if (this.languageid == 1) {
-        debugger
+        
         this.uploadattachments();
         Swal.fire('Added Successfully');
         abcd.length = 0;
@@ -218,7 +218,7 @@ export class ProfileComponent implements OnInit {
       }
     }
     else {
-      debugger
+      
       if(this.languageid==1)
       {
         Swal.fire('Please Add Jpg/Png Format');
@@ -233,21 +233,21 @@ export class ProfileComponent implements OnInit {
       }
   
     }
-    debugger
+    
     // }
 
   }
   public uploadattachments() {
-    debugger
+    
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      debugger
+      
       this.attachmentsurl.push(res);
       this.dummshowphotossss.push(res);
       let a = this.dummshowphotossss[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphotosss.push(b);
-      debugger
+      
       this.attachments.length = 0;
 
     })
@@ -349,7 +349,7 @@ export class ProfileComponent implements OnInit {
     this.attachments5.push(abcd.addedFiles[0]);
     this.uploadmoreimages();
     // }
-    debugger
+    
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -361,9 +361,9 @@ export class ProfileComponent implements OnInit {
 
   }
   public uploadmoreimages() {
-    debugger
+    
     this.docservice.HospitalClinicPhotos(this.attachments5).subscribe(res => {
-      debugger
+      
       this.attachmentsurl5.push(res);
       this.dummshowsignatureurl.push(res);
       let a = this.dummshowsignatureurl[0].slice(2);

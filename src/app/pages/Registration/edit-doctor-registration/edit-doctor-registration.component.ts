@@ -165,7 +165,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
     this.docservice.GetDoctorDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
-        debugger
+        
         this.details = data[0];
 
         this.doctorname = this.details.doctorName,
@@ -191,7 +191,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.docmedicalid = this.details.docmedicalid,
           this.speaklanguages = this.details.spokenLanguages,
           this.slotid = this.details.slotDurationID
-        debugger
+        
         this.GetCountryMaster()
         this.getcitymaster();
         this.getareamasterbyid();

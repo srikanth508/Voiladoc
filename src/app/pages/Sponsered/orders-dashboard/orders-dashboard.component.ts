@@ -84,37 +84,52 @@ export class OrdersDashboardComponent implements OnInit {
   catid
   SubCategoryList
   public GetCategoryID(event) {
-    this.catid = event.target.value;
+    if(event.target.value!=0)
+    {
+      this.catid = event.target.value;
 
-    this.docservice.GetProducts_cart().subscribe(
-      data => {
-       
-        let temp: any = data;
-        this.Orderslist = temp.filter(x => x.categoryID == this.catid);
-      }, error => {
-      }
-    )
-    this.docservice.GetSubcategory().subscribe(
-      data => {
-       
-        let temp: any = data;
-        this.SubCategoryList = temp.filter(x => x.categoryID == this.catid);
-      }, error => {
-      }
-    )
+      this.docservice.GetProducts_cart().subscribe(
+        data => {
+         
+          let temp: any = data;
+          this.Orderslist = temp.filter(x => x.categoryID == this.catid);
+        }, error => {
+        }
+      )
+      this.docservice.GetSubcategory().subscribe(
+        data => {
+         
+          let temp: any = data;
+          this.SubCategoryList = temp.filter(x => x.categoryID == this.catid);
+        }, error => {
+        }
+      )
+    }
+   else
+   {
+    this.GetOrders()
+   }
   }
   scatid
   public GetSubCategoryID(event) {
-    this.scatid = event.target.value;
+    if(event.target.value!=0)
+    {
+      this.scatid = event.target.value;
 
-    this.docservice.GetProducts_cart().subscribe(
-      data => {
-       
-        let temp: any = data;
-        this.Orderslist = temp.filter(x => x.categoryID == this.catid && x.subCategoryID == this.scatid);
-      }, error => {
-      }
-    )
+      this.docservice.GetProducts_cart().subscribe(
+        data => {
+         
+          let temp: any = data;
+          this.Orderslist = temp.filter(x => x.categoryID == this.catid && x.subCategoryID == this.scatid);
+        }, error => {
+        }
+      )
+    }
+    else
+    {
+      this.GetOrders();
+    }
+  
 
   }
 

@@ -39,20 +39,22 @@ export class DiagnosticpackageComponent implements OnInit {
   public dummdiagnosticid: any;
   public searchlable: any;
   public showdropdown: any;
+
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
-    debugger
+
     this.diagnosticid = localStorage.getItem('diagnosticid')
     this.dummdiagnosticid = localStorage.getItem('diagnosticid')
     this.diagnosticname = localStorage.getItem('user')
     if (this.dummdiagnosticid == undefined || this.dummdiagnosticid == null) {
       this.showdropdown = 1;
     }
-    debugger
+
     this.getlanguage();
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();
     this.tablecount = 0;
+    this.idcount = 1
 
   }
   public getlanguage() {
@@ -62,7 +64,7 @@ export class DiagnosticpackageComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        debugger
+
         this.searchlable = this.labels[0].search;
       }, error => {
       }
@@ -131,7 +133,7 @@ export class DiagnosticpackageComponent implements OnInit {
   }
 
   public adddetails() {
-    if (this.diagnosticid == undefined||this.testid.length==0) {
+    if (this.diagnosticid == undefined || this.testid.length == 0) {
       Swal.fire("please fill all manadatory fields");
     }
     else {
@@ -148,8 +150,8 @@ export class DiagnosticpackageComponent implements OnInit {
       this.testsidd = this.testnamearrayid;
       this.testesids = this.testsidd.join(',')
 
-
       var entity1 = {
+        'Sno': this.idcount,
         'DiagnosticCenterID': this.diagnosticid,
         'DiagnosticName': this.diagnosticname,
         'diagnostictestname': this.tests,
@@ -165,43 +167,51 @@ export class DiagnosticpackageComponent implements OnInit {
           'DiagnosticName': this.diagnosticname,
           'diagnostictestname': this.tests,
           'PackageName': this.packagename,
-          'TestID': this.testid[v].id,
+           'TestID': this.testid[v].id,
+          // 'TestID': this.testesids,
           'Price': this.packageprice,
           'Description': this.description
         }
         this.qwerty1.push(entity2);
-
+        
       }
       this.qwerty.push(entity1);
-
+      this.idcount = this.idcount + 1;
 
       this.selectedItemsRoot = [];
       this.testnamearray.length = 0
       this.testnamearrayid.length = 0
-      this.testid.length = 0
-      this.cleardop=[];
+      this.testnamearrayid=[];
+      this.testid.length = 0;
+      this.testid=[];
+      this.cleardop = [];
+      this.packagename="";
+      this.packageprice="";
+      this.description="";
     }
   }
-public cleardop:any;
+  public cleardop: any;
+
 
   public insertdetails() {
     this.spinner.show();
-
-    var abcd = {
-      'DiagnosticCenterID': this.diagnosticid,
-      'PackageName': this.packagename,
-      'Price': this.packageprice,
-      'Description': this.description
-    }
-    this.docservice.InsertDiagnosticCenterPackages(abcd).subscribe(data => {
-
-      if (data != 0) {
-        this.packageid = data;
-        this.inserttestdetails();
+    for (let j = 0; j < this.qwerty.length; j++) {
+      var abcd = {
+        'DiagnosticCenterID': this.diagnosticid,
+        'PackageName':this.qwerty[j].PackageName,
+        'Price': this.qwerty[j].Price,
+        'Description': this.qwerty[j].Description,
       }
-    })
-
+      this.docservice.InsertDiagnosticCenterPackages(abcd).subscribe(data => {
+        if (data != 0) {
+          this.packageid = data;
+          this.inserttestdetails();
+        }
+      })
+    }
   }
+
+  
   public inserttestdetails() {
 
     for (let i = 0; i < this.qwerty1.length; i++) {
@@ -237,6 +247,9 @@ public cleardop:any;
       if (sno == this.qwerty[i].sno) {
 
         this.qwerty.splice(i, 1);
+        this.qwerty.length=0;
+        this.qwerty1.length=0;
+        this.tablecount=0;
       }
     }
 

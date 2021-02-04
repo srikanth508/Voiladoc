@@ -80,7 +80,7 @@ export class DiagnosticPatientsComponent implements OnInit {
   public Getregisterdpatients() {
     this.docservice.GetDiagnosticpatients(this.diagnosticid).subscribe(
       data => {
-        debugger
+        
         this.patientslist = data;
         this.dummlist = this.patientslist
         this.count = this.patientslist.length

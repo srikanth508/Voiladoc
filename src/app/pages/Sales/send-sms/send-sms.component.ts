@@ -53,12 +53,12 @@ export class SendSmsComponent implements OnInit {
   }
 
   public GetPatientSendemailslist(even, list) {
-    debugger
+    
     if (even.target.checked == true) {
       this.sendemailpatients.push(list)
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.sendemailpatients.splice(this.sendemailpatients.indexOf(list), 1)
     }
 
@@ -69,13 +69,13 @@ export class SendSmsComponent implements OnInit {
   public sendsms() {
     for (let i = 0; i < this.sendemailpatients.length; i++) {
       this.spinner.show();
-      debugger
+      
       let Entity = {
         'Contacts': this.sendemailpatients[i].mobileNumber,
         'TextMessage': this.message
       }
       this.docservice.SendSMS(Entity).subscribe(data => {
-        debugger
+        
         var entity = {
           'PatientID': this.sendemailpatients[i].id,
           'Message': this.message,

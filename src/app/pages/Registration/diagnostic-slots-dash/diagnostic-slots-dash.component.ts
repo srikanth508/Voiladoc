@@ -99,7 +99,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.labels1 = data;
         this.SelectLabel = this.labels1[0].select;
       },
@@ -137,7 +137,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public GetDiagnosticcenterID(even) {
-    debugger
+    
     this.diagnosticid = even.target.value;
     this.spinner.show();
     this.getWorkingdetils();
@@ -198,7 +198,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   public alltypeid: any;
 
   public GetMondayID(details) {
-    debugger
+    
     this.id = details.mondayID;
     this.dayid = details.mondayDayID;
     this.typeid = details.monDayTypeID;
@@ -209,7 +209,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public GetTuesDayID(details) {
-    debugger
+    
     this.id = details.tuesdayID;
     this.dayid = details.tuesDayDayID;
     this.typeid = details.tueasDayTypeID;
@@ -220,7 +220,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public GetWednessDayID(details) {
-    debugger
+    
     this.id = details.wednessdayID;
     this.dayid = details.wednessDayDayID;
     this.typeid = details.wednessDayTypeID;
@@ -231,7 +231,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public GetThursadyID(details) {
-    debugger
+    
     this.id = details.thursdayID;
     this.dayid = details.thursDayDayID;
     this.typeid = details.thurDayTypeID;
@@ -241,7 +241,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   }
 
   public GetFridayID(details) {
-    debugger
+    
     this.id = details.fridayID;
     this.dayid = details.fridayDayDayID;
     this.typeid = details.friDayTypeID;
@@ -251,7 +251,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   }
 
   public GetSaturdatID(details) {
-    debugger
+    
     this.id = details.saturdayID;
     this.dayid = details.satDayDayID;
     this.typeid = details.satDayTypeID;
@@ -261,7 +261,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   }
 
   public GetSundayID(details) {
-    debugger
+    
     this.id = details.sundayID;
     this.dayid = details.sunDayDayID;
     this.typeid = details.sunDayTypeID;
@@ -273,7 +273,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
   public totalappoiments: any;
 
   public updatedetails() {
-    debugger
+    
     if (this.alltypeid == 4 && this.typeid == 1) {
       this.spinner.show();
       this.getWorkingdetils()
@@ -296,7 +296,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
       })
     }
     else if (this.alltypeid == 4 && this.typeid == 2) {
-      debugger
+      
       this.spinner.show();
       var entity = {
         'DiagnosticCenterID': this.diagnosticid,
@@ -370,7 +370,7 @@ export class DiagnosticSlotsDashComponent implements OnInit {
 
 
   public openCity(evt, cityName) {
-    debugger
+    
     var i, tabcontent, tablinks;
 
     if (cityName == "Diagnosticcenter") {

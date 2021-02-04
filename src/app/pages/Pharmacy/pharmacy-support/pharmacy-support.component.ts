@@ -93,7 +93,7 @@ export class PharmacySupportComponent implements OnInit {
   public dummisuuphotourl = []
 
   public onattachmentUpload(abcd) {
-    debugger
+    
     this.showphoto = [];
     this.issuephoto = [];
     this.dummisuuphotourl = []
@@ -115,13 +115,13 @@ export class PharmacySupportComponent implements OnInit {
   public showphoto = [];
 
   public uploadid() {
-    debugger
+    
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-      debugger
+      
       this.issuephotourl.push(res);
       this.dummisuuphotourl.push(res);
       let a = this.dummisuuphotourl[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto.push(b);
     })

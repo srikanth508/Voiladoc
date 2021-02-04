@@ -60,7 +60,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
     )
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.labels1 = data;
         this.SelectLabel = this.labels1[0].select;
 
@@ -93,7 +93,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public DayDatelist: any;
 
   public getWorkingdetils() {
-    debugger
+    
     this.docservice.GetDiaGnosticSlotsByCalender(this.diagnosticid, this.languageid, this.todaydate, this.typeidss).subscribe(
       data => {
         this.DayDatelist = data[0];
@@ -107,9 +107,9 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
   public GetDoctorDates(even) {
     this.spinner.show();
-    debugger
+    
     this.todaydate = even.toLocaleString().split(',')[0];
-    debugger
+    
     this.getWorkingdetils();
   }
 
@@ -121,7 +121,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public GetDay1Details(details) {
-    debugger
+    
     this.dayid = details.day1DayID
     this.appointmentdate = details.day1AppointmentDate
     this.slotid = details.day1SlotID
@@ -130,7 +130,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
   }
 
   public GetDay2Details(details) {
-    debugger
+    
     this.dayid = details.day2DayID
     this.appointmentdate = details.day2AppointmentDate
     this.slotid = details.day2SlotID
@@ -139,7 +139,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
   }
 
   public GetDay3Details(details) {
-    debugger
+    
     this.dayid = details.day3DayID
     this.appointmentdate = details.day3AppointmentDate
     this.slotid = details.day3SlotID
@@ -149,7 +149,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public GetDay4Details(details) {
-    debugger
+    
     this.dayid = details.day4DayID
     this.appointmentdate = details.day4AppointmentDate
     this.slotid = details.day4SlotID
@@ -159,7 +159,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public GetDay5Details(details) {
-    debugger
+    
     this.dayid = details.day5DayID
     this.appointmentdate = details.day5AppointmentDate
     this.slotid = details.day5SlotID
@@ -169,7 +169,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public GetDay6Details(details) {
-    debugger
+    
     this.dayid = details.day6DayID
     this.appointmentdate = details.day6AppointmentDate
     this.slotid = details.day6SlotID
@@ -179,7 +179,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public GetDay7Details(details) {
-    debugger
+    
     this.dayid = details.day7DayID
     this.appointmentdate = details.day7AppointmentDate
     this.slotid = details.day7SlotID
@@ -189,7 +189,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+    
     this.spinner.show();
     var entity = {
       'DiagnosticCenterID': this.diagnosticid,
@@ -202,7 +202,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
       this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotid, this.appointmentdate).subscribe(data => {
       })
-      debugger
+      
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
         this.getWorkingdetils()
@@ -224,7 +224,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public openCity(evt, cityName) {
-    debugger
+    
     var i, tabcontent, tablinks;
 
     if (cityName == "Diagnosticcenter") {
@@ -295,25 +295,25 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public datechangedayid: any;
 
   public GetdaychangeDate(even) {
-    debugger
+    
     this.daychangedate = even.toLocaleString().split(',')[0];
     this.Getdays()
   }
 
   public Getdays() {
-    debugger
+    
     this.docservice.GetDaysHomecare(this.daychangedate).subscribe(data => {
-      debugger
+      
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      debugger
+      
       this.Getdayssid();
     }, error => {
     })
   }
   public Getdayssid() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      debugger
+      
       this.dayidslist = data;
       this.datechangedayid = this.dayidslist[0].dayID;
 
@@ -329,7 +329,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public InsertDayWiseSlots() {
-    debugger
+    
     if (this.daychangedate == undefined || this.daychangedate == null) {
       if (this.languageid == 1) {
         Swal.fire('Please Select Date');
@@ -347,7 +347,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
       }
     }
     else {
-      debugger
+      
       for (let i = 0; i < this.slotslist.length; i++) {
         this.spinner.show();
         var entity = {
@@ -361,7 +361,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotslist[i].id, this.daychangedate).subscribe(data => {
           })
-          debugger
+          
 
         })
 
@@ -396,12 +396,12 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public Getdaystime() {
-    debugger
+    
     this.docservice.GetDaysHomecare(this.timechangedate).subscribe(data => {
-      debugger
+      
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      debugger
+      
       this.Getdayssidbytime();
     }, error => {
     })
@@ -409,7 +409,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
   public Getdayssidbytime() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      debugger
+      
       this.dayidslist = data;
       this.timechangedayid = this.dayidslist[0].dayID;
 
@@ -444,7 +444,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
   public GetGetSlotsByIDPlanning() {
     this.docservice.GetDiagnosticSlotsByIDPlanning(this.mrngfromid, this.mrngtoid).subscribe(data => {
-      debugger
+      
 
       this.timewisechangeslotlist = data;
 
@@ -456,7 +456,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
 
 
   public InsertTimeWiseSlots() {
-    debugger
+    
     if (this.timechangedate == undefined || this.timechangedate == null) {
       if (this.languageid == 1) {
         Swal.fire('Please Select Date');
@@ -482,7 +482,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
       }
     }
     else {
-      debugger
+      
       for (let i = 0; i < this.timewisechangeslotlist.length; i++) {
         this.spinner.show();
         var entity = {
@@ -496,7 +496,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.timewisechangeslotlist[i].id, this.timechangedate).subscribe(data => {
           })
-          debugger
+          
         })
       }
       if (this.languageid == 1) {

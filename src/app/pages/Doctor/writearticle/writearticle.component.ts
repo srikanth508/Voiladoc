@@ -75,11 +75,20 @@ export class WritearticleComponent implements OnInit {
     abcd.length = 0;
   }
 
+  public showphotourl=[];
+  public showphoto=[];
+  public 
+
   public uploadattachments() {
    
     this.docservice.ArticlePhoto(this.attachments).subscribe(res => {
      
       this.attachmentsurl.push(res);
+
+      let a = this.attachmentsurl[0].slice(2);
+
+      let b = 'https://maroc.voiladoc.org' + a;
+      this.showphoto.push(b)
       this.attachments.length = 0;
      
     })
@@ -103,7 +112,7 @@ export class WritearticleComponent implements OnInit {
      
       if (data != 0) {
         Swal.fire("Details Added Succesfully");
-        location.href="#/Myarticles"
+        location.href="#/ArticleDash"
 
       }
     })

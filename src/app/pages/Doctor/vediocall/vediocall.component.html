@@ -1733,16 +1733,8 @@
         </div>
         <div class="col-lg-5">
         </div>
-
       </div>
 
-          <!-- <div class="row">
-            <div class="col-lg-3">
-            </div>
-            <div class="col-lg-8">
-              <p>{{labels[0].alergesmessage}}</p>
-            </div>
-          </div> -->
         </div>
       </div>
       <div class="modal-footer">
@@ -1804,104 +1796,6 @@
 
 
 
-
-
-
-
-
-<!-- 
-<div class="modal fade" id="chat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:700px;margin-left: 70px;">
-      <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].chat}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="width:715px">
-        <div class="container-fluid ">
-          <br>
-          <div class="row">
-            <div class="col-lg-3">
-       
-            </div>
-          </div>
-          <div style="height: 500px;overflow-y: scroll;width: 660px;" id="chatboxdiv">
-            <div *ngFor='let convo of coversationarray'>
-              <div class="container" *ngIf='convo.user=="doc"'>
-                <div class="row">
-                  <div class="col-lg-4"></div>
-                  <div class="col-lg-3"></div>
-                  <div class="col-lg-5" style="background-color:#dbdbdb;border-radius: 5px;color:black">
-                    <div *ngIf="convo.msgtype=='1'">
-                      <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
-                      float: left;">
-                      <p style="margin-top: 5px;">{{convo.chatmsg}}
-                        <span style="float: right;;margin-top: 5px;">
-                          {{convo.time}}
-                        </span>
-                      </p>
-                    </div>
-                    <div *ngIf="convo.msgtype=='2'">
-                      <img src="{{convo.chatmsg}}" style="width: 100%;">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="container" *ngIf='convo.user=="pat"'>
-                <div class="row">
-                  <div class="col-lg-5"
-                    style="background-color:#1dbfd2;border-radius: 5px;color:black;margin-top: 1px;">
-                    <div *ngIf="convo.msgtype=='1'">
-                      <p style="margin-top: 5px;">
-                        <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
-                        &nbsp;
-                        {{convo.chatmsg}}
-                        <span style="float: right;;margin-top: 5px;">
-                          {{convo.time}}
-                        </span>
-                      </p>
-                    </div>
-                    <div *ngIf="convo.msgtype=='2'">
-                      <img src="{{convo.chatmsg}}" style="width: 100%;">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-            </div>
-          </div>
-          <hr>
-          <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
-            <form #chatfrom="ngForm">
-              <div class="row">
-                <div class="col-lg-9">
-                  <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
-                    class="form-control" style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
-                </div>
-                <div class="col-lg-2">
-                  <button type="submit" class="chat" [disabled]="chatfrom.form.invalid"
-                    (click)="dosendmsg()">{{labels[0].send}}
-                
-                  </button>
-                </div>
-                <div class="col-lg-1">
-                  
-                </div>
-              </div>
-            </form>
-          </div><br>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 
 <!-- chat -->

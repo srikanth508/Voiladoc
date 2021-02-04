@@ -65,6 +65,7 @@
             </td>
             <td>
               <label *ngIf="doc.completed=='1'">{{ labels1[0].completed }}</label>
+              <label *ngIf="doc.completed=='0'" style="color: coral;">{{ labels1[0].pending }}</label>
               <!-- <ng-template #tipcontent2>{{ labels1[0].completed }}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="doc.completed=='0'" style="height:20px;"

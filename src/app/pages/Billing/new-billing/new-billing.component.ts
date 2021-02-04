@@ -43,7 +43,7 @@ export class NewBillingComponent implements OnInit {
     options: NgDateRangePickerOptions;
 
     ngOnInit() {
-        debugger;
+        ;
 
         this.roleid = localStorage.getItem('roleid');
         const format = 'yyyy-MM-dd';
@@ -81,22 +81,22 @@ export class NewBillingComponent implements OnInit {
 
     }
     selectedDate(data) {
-        debugger
+        
         this.startdate = data[0].toLocaleString().split(',')[0];
         this.enddate = data[1].toLocaleString().split(',')[0];
         this.GetBillingdetails(this.type, this.startdate, this.enddate);
     }
 
     public GetBillingdetails(TypeID, SDATE, EDATE) {
-        debugger
+        
         this.docservice.GetHospitalClinicBillingDetails(TypeID, SDATE, EDATE).subscribe(data => {
-            debugger
+            
             this.billinglist = data;
         })
     }
 
     public GetList(invlist) {
-        debugger;
+        ;
         this.hospitalname = invlist.hospital_ClinicName;
         this.userid = invlist.id;
         this.contractsdate = invlist.contractStartdate;
@@ -110,26 +110,26 @@ export class NewBillingComponent implements OnInit {
 
     }
     public SavePDF() {
-        debugger;
+        ;
         let pdfContent = window.document.getElementById("content");
         var doc = new jsPDF('p', 'mm', "a4");
 
         html2canvas(pdfContent).then(canvas => {
-            debugger;
+            ;
             var imgData = canvas.toDataURL('image/jpeg', 1.0);
 
             doc.setFontSize(3);
 
             doc.addImage(imgData, 'JPEG', 10, 10, 180, 150);
             var pdf = doc.output('blob');
-            debugger
+            
             var file = new File([pdf], "Invoice" + ".pdf");
-            debugger
+            
             let body = new FormData();
-            debugger
+            
             body.append('Dan', file);
             this.docservice.UploadInvoicePDF(file).subscribe(res => {
-                debugger;
+                ;
                 this.invoiceurl = res;
                 this.InsertDetailes();
             });
@@ -141,13 +141,13 @@ export class NewBillingComponent implements OnInit {
 
     public UploadPdf(data) {
         this.docservice.UploadInvoicePDF(data).subscribe(res => {
-            debugger;
+            ;
             Swal.fire("Added Successfully");
         });
     }
 
     public InsertDetailes() {
-        debugger
+        
         let fjkjhafd = this.invoiceurl.split('.');
         let one = fjkjhafd[fjkjhafd.length - 2].split('/');
         var re = /\\/gi;
@@ -166,7 +166,7 @@ export class NewBillingComponent implements OnInit {
             EmailID: this.emailid
         }
         this.docservice.InsertSentInvoice(entity).subscribe(data => {
-            debugger;
+            ;
             if (data != undefined) {
                 Swal.fire("Invoice Send Successfully");
                 this.GetBillingdetails(this.type, this.startdate, this.enddate);

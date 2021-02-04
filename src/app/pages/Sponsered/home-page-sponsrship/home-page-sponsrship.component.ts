@@ -48,7 +48,7 @@ export class HomePageSponsrshipComponent implements OnInit {
   public getsponsradd(id) {
       this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
         data => {
-          debugger
+          
           let temp: any = data;
           let temp1: any = temp.filter(x => x.id == id)
           this.ClientName = temp1[0].clientName;
@@ -68,6 +68,7 @@ export class HomePageSponsrshipComponent implements OnInit {
 
   public attachments1 = [];
   public attachmentsurl = [];
+  public showPhotoURL=[];
   public onattachmentUpload1(abcd) {
 
     // for (let i = 0; i < abcd.length; i++) {
@@ -83,6 +84,13 @@ export class HomePageSponsrshipComponent implements OnInit {
     this.docservice.ArticlePhoto(this.attachments1).subscribe(res => {
 
       this.PhotoURL = res;
+
+      let a = this.PhotoURL.slice(2);
+
+      let b = 'https://maroc.voiladoc.org' + a;
+      this.showPhotoURL.push(b)
+    
+
 
     })
   }

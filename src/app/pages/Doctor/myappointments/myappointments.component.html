@@ -1378,19 +1378,22 @@
               <table>
                 <thead>
                   <tr>
+                    <th id="imp">{{labels[0].appointmentNumber}}</th>
+                    <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].department}}</th>
                     <th>{{labels[0].doctorName}}</th>
-                    <th>{{labels[0].appointmentDate}}</th>
+                 
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].test}}</th>
                     <th>Actions</th>
                   </tr>
                   <tr *ngFor="let dia of dialist">
+                    <td id="imp">{{dia.appointmentID}}</td>
+                    <td>{{dia.appdate}}</td>
                     <td>{{dia.departmentname}}</td>
                     <td>{{dia.doctorName}}</td>
-                    <td>{{dia.appdate}}</td>
                     <td>{{dia.name}}</td>
-                    <td>{{dia.testName}}</td>
+                    <td>{{dia.diagnosticTestName}}</td>
                     <td>
                       <ng-template #tipcontent9503>Edit</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
@@ -3061,7 +3064,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content" style="width:898px;margin-left: 186px;">
       <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle">Previous medical certificate</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].previousmediclcertificate}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -3072,15 +3075,17 @@
             <div class="col-lg-12">
               <table>
                 <tr>
-                  <th>Doctor name</th>
-                  <th>Patient name</th>
-                  <th>Patient number</th>
+                  <th>Date</th>
+                  <th>{{labels[0].docname}}</th>
+                  <th>{{labels[0].patientName}}</th>
+                  <th>{{labels[0].patientno}}</th>
                   <th>{{labels[0].email}}</th>
-                  <th>Medical certificate</th>
+                  <th>{{labels[0].medicalcertficate}}</th>
                   <!-- <th>{{labels[0].email}}</th> -->
                   <th>Actions</th>
                 </tr>
                 <tr *ngFor="let ss of previousmedicallist|filter:term">
+                  <td>{{ss.sickslipdatesss}}</td>
                   <td>{{ss.doctorName}}</td>
                   <td>{{ss.patientName}}</td>
                   <td>{{ss.mobileNumber}}</td>
@@ -3110,7 +3115,6 @@
   </div>
 </div>
 
-
 <div id="mymedicalcertficate" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -3120,11 +3124,11 @@
             <p [innerHTML]="desc"></p>
           </div>
           <div class="col-lg-3">
-            <p>{{doctorname}}</p>
-            <p>{{hospital_ClinicName}}</p>
-            <p>{{address}}</p>
-            <p>{{registrationNo}}</p>
-            <p>{{docmobileno}}</p>
+            <label>{{doctorname}}</label><br>
+            <label>{{hospital_ClinicName}}</label><br>
+            <label>{{address}}</label><br>
+            <label>{{labels[0].registratinno}} : {{registrationNo}}</label><br>
+            <label>{{labels[0].phoneNo}} : {{docmobileno}}</label>
           </div>
         </div>
       </div>
@@ -3137,8 +3141,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 
@@ -3316,8 +3318,11 @@
                   <th>{{labels1[0].description}} </th>
                 <tr *ngFor="let insurence of insurancedetails">
                   <td>
-                    <img src="{{insurence.photoURL}}" style="width: 50px;height: 50px;" data-toggle="modal"
+                    <img src="{{insurence.photoURL}}" *ngIf="insurence.pdfstatus=='0'" style="width: 50px;height: 50px;" data-toggle="modal"
                       data-target="#insurancephoto" (click)="GetInsurencephoto(insurence.photoURL)">
+                      
+                    <img src="assets/Images/pdf.png" *ngIf="insurence.pdfstatus=='1'" style="width: 50px;height: 50px;" 
+                    (click)="GetPdf(insurence.photoURL)">
                   </td>
                   <td>{{insurence.insuranceName}}</td>
                   <td>{{insurence.insuranceNumber}}</td>

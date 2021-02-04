@@ -1211,13 +1211,13 @@ export class DoctorPrescriptionComponent implements OnInit {
   public ChangeAvailableMedicines(medicinelist, even) {
     if (even.target.checked == true) {
       this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(medicinelist.id).subscribe(res => {
-        debugger
+        
         this.GetPharmacyOrders();
       })
     }
     if (even.target.checked == false) {
       this.docservice.UpdatePatientOrderedMedicinesUnAvailableMedicines(medicinelist.id).subscribe(res => {
-        debugger
+        
         this.GetPharmacyOrders();
       })
     }
@@ -1226,7 +1226,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public Updateavailablemedicines() {
     for (let i = 0; i < this.orderedmedicinelist.length; i++) {
-      debugger
+      
       var entity = {
         'ID': this.orderedmedicinelist[i].id,
         'Amount': this.orderedmedicinelist[i].amount,
@@ -1234,7 +1234,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'Quantity': this.orderedmedicinelist[i].quantity,
       }
       this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(entity).subscribe(data => {
-        debugger
+        
       })
     }
     if (this.languageid == 1) {

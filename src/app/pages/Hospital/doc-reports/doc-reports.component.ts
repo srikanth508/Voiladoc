@@ -85,7 +85,7 @@ public hospitalid:any;
 
     if (this.id == 1) {
       this.hospitalid = even.target.value;
-      debugger
+      
       this.cancelledlist=this.dummlist.filter(x=>x.hospitalClinicID==this.hospitalid)
       // this.docservice.GetAllAppointmentsForHosp(this.sdate, this.edate).subscribe(
       //   data => {
@@ -99,7 +99,7 @@ public hospitalid:any;
       if(this.id==2)
       {
         this.clinicid = even.target.value;
-        debugger
+        
         this.cancelledlist=this.dummlist.filter(x=>x.hospitalClinicID==this.clinicid)
       }
     }

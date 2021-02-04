@@ -203,7 +203,7 @@ export class AppComponent {
 
     const source = timer(1000, 20000);
     const abc = source.subscribe(val => {
-      
+
       this.GetPharmacyNotifications()
     });
   }
@@ -211,10 +211,10 @@ export class AppComponent {
 
   public GetPharmacyNotifications() {
     if (this.pharmacyid != null && this.pharmacyid != undefined) {
-      
+
       this.docservice.GetNotification_Pharmacy(this.pharmacyid).subscribe
         (datas => {
-          
+
           this.notificationcount = 0;
           this.pharmcunoti = datas;
           this.notificationcount = Number(this.pharmcunoti[0].notifycount);
@@ -250,20 +250,19 @@ export class AppComponent {
   // testdisplay: any;
 
 
-public GetChatIDForseen(chatid)
-{
-  this.docservice.UpdateChatDetailsSeen(chatid).subscribe(data=>{
+  public GetChatIDForseen(chatid) {
+    this.docservice.UpdateChatDetailsSeen(chatid).subscribe(data => {
 
-  })
-}
+    })
+  }
 
 
 
   public GetChatnotificationslist() {
     this.docservice.GetDoctor_ChatDetailsByDoctor(this.doctorid).subscribe(datassss => {
-      
+
       this.chatlist = datassss;
-      
+
       if (this.chatlist.length > 0) {
         document.getElementById("Myformsss").style.display = "block";
       }
@@ -366,13 +365,13 @@ public GetChatIDForseen(chatid)
   }
 
   public Update_appointmentFordemand(doctorHospitalDetailsID, doctorID, appointmentID, notificationID, emailID, doctorName, date) {
-
+    debugger
     this.doctorname = doctorName,
       this.email = emailID,
       this.date = date
 
     this.docservice.Update_AppointmentForOnDemandVideoConferenceForDoctor(doctorHospitalDetailsID, doctorID, appointmentID, notificationID).subscribe(data => {
-
+      debugger
       if (data != undefined) {
         this.GetDoctorNotifications();
         this.Insertvisitnotificatiaccept()

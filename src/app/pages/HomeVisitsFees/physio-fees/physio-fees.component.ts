@@ -76,7 +76,7 @@ export class PhysioFeesComponent implements OnInit {
 
 
   public GetStartTime(even) {
-    debugger
+    
     let list = even.target.value.split(',')
 
     this.starttime = list[0];
@@ -85,7 +85,7 @@ export class PhysioFeesComponent implements OnInit {
   }
 
   public GetEndTime(even) {
-    debugger
+    
     let list = even.target.value.split(',');
     this.endtime = list[0];
     this.endtimeid = list[1];
@@ -141,13 +141,13 @@ export class PhysioFeesComponent implements OnInit {
   public GetphysioID(even) {
 
     this.physioid = even.target.value;
-    debugger
+    
     var list1 = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
     this.physihospitalid = list1[0].id,
       this.hospitalid = list1[0].hospitalClinicID,
       this.hospitalname = list1[0].hospital_ClinicName
     this.physioname = list1[0].name
-    debugger
+    
 
   }
 
@@ -270,7 +270,7 @@ export class PhysioFeesComponent implements OnInit {
 
   public GetIndependentPhysiotherapist(even) {
     if (even.target.value == 1) {
-      debugger
+      
       this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
         data => {
           this.dummphysiolist = data;
@@ -294,13 +294,13 @@ export class PhysioFeesComponent implements OnInit {
 
   
   public delete(Sno) {
-    debugger
+    
     for (let i = 0; i < this.qwerty.length; i++) {
       if (Sno == this.qwerty[i].Sno) {
-      debugger
+      
         var mrngslots = this.dummtimings.findIndex(x => x.id ==  this.qwerty[i].StartTimeID);
         this.Timeings = this.dummtimings.slice(mrngslots, this.dummtimings.length);
-        debugger
+        
         this.qwerty.splice(i, 1);
       }
     }

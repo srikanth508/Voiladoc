@@ -261,7 +261,7 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
 
   public GetDiagnosticRevenue() {
     this.docservice.GetDiagnosticCentersSubscriptions_Revenue(this.id).subscribe(data => {
-      debugger
+      
       this.Diagnosticrevenuelist = data;
     })
   }
@@ -317,7 +317,7 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
 
 
   public InsertDiagnosticRevenue() {
-    debugger
+    
     var entity = {
       'DiagnosticID': this.id,
       'MonthlySubscription': this.addmonthlysubscription,

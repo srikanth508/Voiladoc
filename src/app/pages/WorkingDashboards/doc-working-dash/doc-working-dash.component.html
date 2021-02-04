@@ -64,7 +64,7 @@
             <th>{{labels[0].saturday}}</th>
             <th>{{labels[0].sunday}}</th>
           </tr>
-          <tr *ngFor="let details of Timings">
+          <tr *ngFor="let details of Timings|filter:term">
             <td>{{details.slotname}}</td>
             <td [style.background-color]="details.mondayColor" style="color:white">{{details.monday}}<br>
               <span *ngIf="details.mondayappointmentID!=6&&details.mondayappointmentID!=4">{{details.mondayFees}}</span>

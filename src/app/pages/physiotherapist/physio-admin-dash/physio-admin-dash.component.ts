@@ -78,6 +78,9 @@ export class PhysioAdminDashComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.physioid = localStorage.getItem('physioid');
 
+    localStorage.setItem("startdate", this.startdate);
+    localStorage.setItem("enddate", this.enddate);
+
     this.getlanguage();
     this.getphysiolist();
   }

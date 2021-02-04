@@ -14,6 +14,7 @@ export class SubCategoryComponent implements OnInit {
   public ID: any;
   public SubcategoryList: any;
   public languageid: any;
+  public dropzonelable:any;
   ngOnInit() {
    
     this.languageid = localStorage.getItem('LanguageID');
@@ -43,6 +44,13 @@ export class SubCategoryComponent implements OnInit {
         }
       )
     });
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
 
@@ -62,10 +70,10 @@ export class SubCategoryComponent implements OnInit {
   attachments = [];
   public onattachmentUpload(abcd) {
    
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
-
-    }
+    // for (let i = 0; i < abcd.length; i++) {
+      // this.attachments.push(abcd[i]);
+      this.attachments.push(abcd.addedFiles[0]);
+    // }
     this.uploadattachments();
     Swal.fire('Added Successfully');
     abcd.length = 0;

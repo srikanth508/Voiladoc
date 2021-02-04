@@ -26,12 +26,10 @@ export class DocWorkingDashComponent implements OnInit {
 
 
   public doctorid: any;
-  // public workingdetails: any;
   public timeid: any;
   public availabilityid: any;
-  // public dayslist: any;
   public hospitallist: any;
-  // public hospitalid: any;
+
   public availabilitylist: any;
   public slotslist: any;
   public slotsdd: any;
@@ -49,12 +47,10 @@ export class DocWorkingDashComponent implements OnInit {
   public tablecount: any;
   public dayid: any;
   public fees: any;
-  public session1: any;
-  public session2: any;
+
   public hosipitalidd: any;
   public qwerty = [];
-  public morningslotarray = [];
-  public morningslotidarray = [];
+
   public slotid: any;
   public morningslots = [];
   public slotname: any;
@@ -63,15 +59,13 @@ export class DocWorkingDashComponent implements OnInit {
   public mrngid: any;
   public afternoonslotarray = [];
   public slotname1: any;
-  public afternoon: any;
-  public afternoonid: any;
+
   public slotnameid1: any;
   public eveningarray = [];
   public slotname2: any;
   public evening: any;
   public eveningid: any;
   public slotnameid2: any;
-  public nightslotsarray = [];
   public slotname3: any;
   public night: any;
   public slotnameid3: any;
@@ -79,18 +73,13 @@ export class DocWorkingDashComponent implements OnInit {
   public short: any;
   public hospital_ClinicName: any;
   public dayOfTheWeek: any;
-  public afternoonslotidarray = [];
-  public eveningarrayid = [];
-  public nightslotsarrayid = [];
+
   public details: any;
   public day: any;
   public name: any;
   public docid: any;
   public qwertyy = [];
   public idcount: any;
-  public cleardropdown1 = [];
-  public cleardropdown2 = [];
-  public cleardropdown3 = [];
   public cleardropdown4 = [];
   public abcd: any;
   public dis1: any;
@@ -229,19 +218,16 @@ export class DocWorkingDashComponent implements OnInit {
 
     this.spinner.show();
     // this.GetDoctorsworkinglist()
-    debugger
+    
     this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
       data => {
-        debugger
+        
         this.workingdetails = data;
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
         this.slottypeid = list[0].slotDurationID;
         this.dochspid = list[0].id;
         this.hospitalid=list[0].hospital_ClinicID;
-        // this.GetMorningSlotsMasterbyid();
-        // this.GetAfternoonSlotsMasterbyID();
-        // this.GetEveningSlotsMasterByID();
-        // this.GetNightSlotsMasterByID();
+
         this.GetDoctorTimings();
 
       }, error => {
@@ -253,10 +239,10 @@ export class DocWorkingDashComponent implements OnInit {
   public Timings: any;
 
   public GetDoctorTimings() {
-    debugger
+    
     this.docservice.GetDoctorSlotsByDoctorID(this.doctorid, this.slottypeid, this.languageid).subscribe(
       data => {
-        debugger
+        
         this.Timings = data;
         this.spinner.hide();
       }, error => {
@@ -269,13 +255,13 @@ export class DocWorkingDashComponent implements OnInit {
   public GetDoctorsworkinglist() {
     this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.dummworkingdetails = data;
         this.workingdetails = this.dummworkingdetails.filter(x => x.doctorID == this.doctorid)
       }, error => {
       }
     )
-    debugger
+    
   }
 
 
@@ -284,7 +270,7 @@ export class DocWorkingDashComponent implements OnInit {
 
 
   public gettimeid(tid, dochspid, hspcliid, dayid, appointmentypeid, doctorID) {
-    debugger
+    
     this.timeid = tid;
     this.dochspid = dochspid;
     this.hspcliid = hspcliid;
@@ -292,18 +278,7 @@ export class DocWorkingDashComponent implements OnInit {
     this.appointmentypeid = appointmentypeid;
     this.doctorid = doctorID;
 
-    // this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
-    //   data => {
-    //     this.workingdetails = data;
-    //     var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
-    //     this.slottypeid = list[0].slotDurationID
-    //     this.GetMorningSlotsMasterbyid();
-    //     this.GetAfternoonSlotsMasterbyID();
-    //     this.GetEveningSlotsMasterByID();
-    //     this.GetNightSlotsMasterByID();
-    //   }, error => {
-    //   }
-    // )
+   
 
   }
 
@@ -318,8 +293,7 @@ export class DocWorkingDashComponent implements OnInit {
           singleSelection: false,
           idField: 'id',
           textField: 'slots',
-          // selectAllText: 'Select All',
-          // unSelectAllText: 'UnSelect All',
+        
           itemsShowLimit: 3,
           allowSearchFilter: false,
           enableCheckAll: false
@@ -471,7 +445,7 @@ public docslotid:any;
   public allappointmentid: any;
 
   public GetDay1List(details) {
-    debugger
+    
     this.appointmentypeid = details.mondayappointmentID;
     this.slotid = details.mondaySlotID;
     this.allappointmentid = details.mondayappointmentID;
@@ -483,7 +457,7 @@ public docslotid:any;
 
 
   public GetDay2List(details) {
-    debugger
+    
     this.appointmentypeid = details.tuesdayAppointmentID;
     this.slotid = details.tuesdaySlotID;
     this.allappointmentid = details.tuesdayAppointmentID;
@@ -493,7 +467,7 @@ public docslotid:any;
   }
 
   public GetDay3List(details) {
-    debugger
+    
     this.appointmentypeid = details.wednesdayAppointmentID;
     this.slotid = details.wednessdaySlotID;
     this.allappointmentid = details.wednesdayAppointmentID;
@@ -503,7 +477,7 @@ public docslotid:any;
   }
 
   public GetDay4List(details) {
-    debugger
+    
     this.appointmentypeid = details.thursdayAppointmentID;
     this.slotid = details.tursdaySlotID;
     this.allappointmentid = details.thursdayAppointmentID;
@@ -513,7 +487,7 @@ public docslotid:any;
   }
 
   public GetDay5List(details) {
-    debugger
+    
     this.appointmentypeid = details.fridayAppointmentID;
     this.slotid = details.fridaySlotID;
     this.allappointmentid = details.fridayAppointmentID;
@@ -523,7 +497,7 @@ public docslotid:any;
   }
 
   public GetDay6List(details) {
-    debugger
+    
     this.appointmentypeid = details.saturdayAppintmentID;
     this.slotid = details.saturdaySlotID;
     this.allappointmentid = details.saturdayAppintmentID;
@@ -533,7 +507,7 @@ public docslotid:any;
   }
 
   public GetDay7List(details) {
-    debugger
+    
     this.appointmentypeid = details.sundayAppointmentID;
     this.slotid = details.sundaySlotID;
     this.allappointmentid = details.sundayAppointmentID;
@@ -549,7 +523,7 @@ public docslotid:any;
   }
 
   public Updateslots() {
-    debugger
+    
     this.spinner.show();
     if (this.allappointmentid == 4 && this.appointmentypeid == 1) {
       var entity1 = {
@@ -613,7 +587,7 @@ public docslotid:any;
     }
 else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
-      debugger
+      
       var entity1 = {
         'SlotID': this.docslotid,
         'DoctorID': this.doctorid,
@@ -636,7 +610,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          debugger
+          
           Swal.fire('Updated Successfully');
           this.spinner.show();
           this.insertbookappointmenttype()
@@ -649,7 +623,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          debugger
+          
           Swal.fire('Updated Successfully');
          
           this.GetDoctorTimings()
@@ -661,7 +635,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          debugger
+          
           Swal.fire('Updated Successfully');
         
           this.GetDoctorTimings()
@@ -673,7 +647,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          debugger
+          
           Swal.fire('Updated Successfully');
         
           this.GetDoctorTimings()
@@ -682,7 +656,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       )
     }
     else if (this.appointmentypeid == 1 || this.appointmentypeid == 2 || this.appointmentypeid == 5 || this.appointmentypeid == 6 && this.allappointmentid == 1||this.allappointmentid == 2||this.allappointmentid == 5||this.allappointmentid == 6) {
-      debugger
+      
       this.spinner.show();
       var entity = {
         'ID': this.slotid,
@@ -698,38 +672,7 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
     else{
       Swal.fire('Updated Successfully');
     }
-    // else if (this.appointmentypeid == 2 && this.allappointmentid == 2) {
-    //   debugger
-    //   var entity = {
-    //     'ID': this.slotid,
-    //     'AppointmentTypeID': this.appointmentypeid
-    //   }
-    //   this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
-    //     Swal.fire('Updated Successfully');
-    //     this.GetDoctorTimings()
-    //   })
-    // }
-    // else if (this.appointmentypeid == 5 && this.allappointmentid == 5) {
-    //   debugger
-    //   var entity = {
-    //     'ID': this.slotid,
-    //     'AppointmentTypeID': this.appointmentypeid
-    //   }
-    //   this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
-    //     Swal.fire('Updated Successfully');
-    //     this.GetDoctorTimings()
-    //   })
-    // }
-    // else if (this.appointmentypeid == 4) {
-    //   this.docservice.DeleteDoctSlots(this.slotid).subscribe(
-    //     data => {
-    //       debugger
-    //       Swal.fire('Updated Successfully');
-
-    //     }, error => {
-    //     }
-    //   )
-    // }
+    
   }
 
 

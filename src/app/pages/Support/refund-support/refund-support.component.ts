@@ -94,7 +94,7 @@ export class RefundSupportComponent implements OnInit {
 
 
   public GetRefunfSupport() {
-    debugger
+    
     this.docservice.GetPatientRefundStatusWeb(this.languageid, this.startdate, this.enddate).subscribe(res => {
 
       this.dummrefundlist = res;
@@ -119,7 +119,7 @@ public email:any;
     //   this.startdate= sdate[0]
     //  this.enddate= sdate[1]
 
-    debugger
+    
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
 

@@ -51,6 +51,9 @@ export class NurserevenueComponent implements OnInit {
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
    
+
+    localStorage.setItem('StartDate',this.startdate);
+    localStorage.setItem('EndDate',this.enddate);
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -108,6 +111,10 @@ export class NurserevenueComponent implements OnInit {
 
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
+
+
+    localStorage.setItem('StartDate',this.startdate);
+    localStorage.setItem('EndDate',this.enddate);
 
     this.GetAllNurseAmount();
     this.GetTotalCommissions()

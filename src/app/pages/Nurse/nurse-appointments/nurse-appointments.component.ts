@@ -185,7 +185,7 @@ export class NurseAppointmentsComponent implements OnInit {
   public canpatientmobileno: any;
 
   public GetCancelAppointmentID(id, bookedTime, appdate, nurseName, hospital_ClinicName, patientID, emailID, paidAmount, walletAmount, mobileNumber) {
-    debugger
+    
     this.canappointmentid = id
     this.canslots = bookedTime;
     this.cannursename = nurseName;
@@ -395,12 +395,12 @@ export class NurseAppointmentsComponent implements OnInit {
     this.visitappid = id;
     this.visitemail = emailID,
       this.getserverdateandtime()
-    if (this.serverdate >= this.appdate) {
-      if (this.servertime >= this.slottime) {
+    // if (this.serverdate >= this.appdate) {
+    //   if (this.servertime >= this.slottime) {
 
         Swal.fire({
           title: 'Are you sure?',
-          text: "The Patient has Visited!",
+          text: "The Patient has  Visited!",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -428,11 +428,11 @@ export class NurseAppointmentsComponent implements OnInit {
             this.getnurseappointments();
           }
         })
-      }
-      else {
-        Swal.fire("The Appointment Time Is +" + this.slottime)
-      }
-    }
+    //   }
+    //   else {
+    //     Swal.fire("The Appointment Time Is +" + this.slottime)
+    //   }
+    // }
   }
 
   public emailattchementurl = []
@@ -441,7 +441,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public SendCancelPatientmail() {
-    debugger
+    
     var entity = {
       'emailto': this.canemail,
       'emailsubject': "The Nurse " + this.cannursename + " Has Cancelled Your Appointment ",
@@ -497,13 +497,13 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public sendsms() {
-    debugger
+    
     let Entity = {
       'Contacts': this.canemail,
       'TextMessage': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled."
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      debugger
+      
 
 
     })

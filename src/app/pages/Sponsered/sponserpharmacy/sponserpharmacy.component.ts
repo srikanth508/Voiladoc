@@ -147,7 +147,7 @@ public GetSponsoredPharmacyForAdmin() {
   if (this.languageid == 1) {
     this.docservice.GetSponsoredPharmacyForAdmin().subscribe(
       data => {
-        debugger
+        
         this.sponserpharmacylist = data;
 
         var list = this.sponserpharmacylist.filter(x => x.id == this.id)
@@ -162,9 +162,9 @@ public GetSponsoredPharmacyForAdmin() {
   else if (this.languageid == 6) {
     this.docservice.GetSponsoredPharmacyForAdmin().subscribe(
       data => {
-        debugger
+        
         this.sponserpharmacylist = data;
-        debugger
+        
         var list = this.sponserpharmacylist.filter(x => x.id == this.id)
         this.startdate = list[0].startdate.toLocaleString();
         this.enddate = list[0].enddate.toLocaleString();
@@ -179,14 +179,14 @@ public GetSponsoredPharmacyForAdmin() {
 
 
 public updatedetails() {
-  debugger
+  
   // const qwer = 'dd-MMM-yyyy';
   // const pljdjf = 'en-US';
   // const frdat = this.startdate;
   // this.startdate = formatDate(frdat, qwer, pljdjf);
   // const todat = this.enddate;
   // this.enddate = formatDate(todat, qwer, pljdjf);
-  debugger
+  
   var entity1 = {
     'ID': this.id,
     'SDate': this.startdate,

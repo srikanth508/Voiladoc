@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from "../../../hello-doctor.service";
 import { ActivatedRoute } from "@angular/router";
-
+import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { formatDate } from "@angular/common";
 @Component({
   selector: 'app-doc-dashboard-details',
   templateUrl: './doc-dashboard-details.component.html',
   styleUrls: ['./doc-dashboard-details.component.css']
 })
 export class DocDashboardDetailsComponent implements OnInit {
-
+  options: NgDateRangePickerOptions;
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   public doctorid: any;
@@ -21,6 +22,15 @@ export class DocDashboardDetailsComponent implements OnInit {
   public languageid: any;
   public term: any;
 
+
+
+  public todaydate: any;
+  public CurrentTime: any;
+  value: any;
+  SDate = new Date();
+  EDate = new Date();
+  public sdate: any;
+  public edate: any;
 
   ngOnInit() {
    
@@ -126,5 +136,18 @@ export class DocDashboardDetailsComponent implements OnInit {
         },
         error => { }
       );
+  }
+
+
+  
+  selectedDate(data) {
+   
+    //   var sdate = data.split('-')
+    //   this.startdate= sdate[0]
+    //  this.enddate= sdate[1]
+
+    this.startdate = data[0].toLocaleString().split(',')[0];
+    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.GetAppointmetbyDociD()
   }
 }

@@ -354,7 +354,7 @@ export class MeridionalSupportComponent implements OnInit {
 
   public GetSupportImage(meridionalPhotoUrl)
   {
-    debugger
+    
     this.meridionalPhotoUrl=meridionalPhotoUrl;
   }
   

@@ -143,7 +143,7 @@ export class DiagnosticReportsComponent implements OnInit {
   diagnosticcenterid: any;
 
   public GetDiagnosticcenterID(even) {
-    debugger
+    
     this.diagnosticcenterid = even.target.value;
 
     this.Approvelist=this.dummlist.filter(x=>x.diagnosticCenterID==this.diagnosticcenterid)
@@ -409,7 +409,7 @@ export class DiagnosticReportsComponent implements OnInit {
   
   public GetAttachments(id) {
     this.docservice.GetDiagnosticAppointmentPhotos(id).subscribe(data => {
-      debugger
+      
       this.attachments = data;
     })
   }

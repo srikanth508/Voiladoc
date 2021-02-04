@@ -33,7 +33,7 @@ export class RoleMenuMappingComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
 
     this.activatedroute.params.subscribe(params => {
-      debugger
+      
       this.id = params['id'];
       if (this.id == undefined) {
         this.showbutton = 0
@@ -51,18 +51,18 @@ export class RoleMenuMappingComponent implements OnInit {
             this.roleid = list[0].roleID,
             this.submenuid = list[0].submenuid,
             this.menuname = list[0].menus
-          debugger
+          
 
           this.menusarray.push(list)
           this.docservice.GetSubMenuMaster(this.languageid, this.menuid).subscribe(
             data => {
-              debugger
+              
               this.submenulist = data;
               for (let i = 0; i < this.submenulist.length; i++) {
                 let ggff = this.RoleMappinglist.filter(x => x.submenuID == this.submenulist[i].id);
-                debugger
+                
                 if (ggff.length > 0) {
-                  debugger
+                  
                   this.submenulist[i]["isChecked"] = true;
                   var entity1 = {
                     'RoleID': this.roleid,
@@ -80,7 +80,7 @@ export class RoleMenuMappingComponent implements OnInit {
           )
           this.showdash = 1
 
-          debugger
+          
         }, error => {
         }
       )
@@ -134,8 +134,8 @@ export class RoleMenuMappingComponent implements OnInit {
   }
 
   public GetSubmenuMater() {
-    debugger
-    debugger
+    
+    
     this.docservice.GetSubMenuMaster(this.languageid, this.menuid).subscribe(
       data => {
 
@@ -149,12 +149,12 @@ export class RoleMenuMappingComponent implements OnInit {
   menusarray = []
 
   public GetMenuslist(even, list) {
-    debugger
+    
     if (even.target.checked == true) {
       this.menusarray.push(list)
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.menusarray.splice(this.menusarray.indexOf(list), 1);
       // list.selected=0;
     }
@@ -170,7 +170,7 @@ export class RoleMenuMappingComponent implements OnInit {
 
 
   public InsertSaveMenus() {
-    debugger
+    
     for (let i = 0; i < this.menusarray.length; i++) {
       var entity = {
         'RoleID': this.roleid,
@@ -178,7 +178,7 @@ export class RoleMenuMappingComponent implements OnInit {
         'SubmenuID': this.menusarray[i].id
       }
       this.dummarray.push(entity)
-      debugger
+      
     }
     this.docservice.InsertMenuRoleMappingTable(this.dummarray).subscribe(data => {
       if (data != 0) {
@@ -190,12 +190,12 @@ export class RoleMenuMappingComponent implements OnInit {
 
 
   public GetSavedList(even, list) {
-    debugger
+    
     if (even.target.checked == true) {
       this.savedlist.push(list)
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.savedlist.splice(this.savedlist.indexOf(list), 1);
       // list.selected=0;
     }
@@ -205,9 +205,9 @@ export class RoleMenuMappingComponent implements OnInit {
   updatedummarray=[]
 
   public UpdateMenunus() {
-    debugger
+    
     this.docservice.DeleteMenuRoleMappingTable(this.roleid,this.menuid).subscribe(data=>{
-      debugger
+      
       for (let i = 0; i < this.savedlist.length; i++) {
         var entity = {
           'RoleID': this.roleid,
@@ -215,7 +215,7 @@ export class RoleMenuMappingComponent implements OnInit {
           'SubmenuID': this.savedlist[i].submenuID
         }
         this.updatedummarray.push(entity)
-        debugger
+        
       }
       this.docservice.InsertMenuRoleMappingTable(this.updatedummarray).subscribe(data => {
         if (data != 0) {

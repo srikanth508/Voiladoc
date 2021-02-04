@@ -144,7 +144,7 @@ export class AppointmentsComponent implements OnInit {
   public GetDoctorName(item: any) {
 
     // if (item.target.value != 0) {
-    //  debugger
+    //  
     this.doctorname = item.doctorName
     this.appointmentlist = this.dummlist.filter(x => x.doctorName == this.doctorname)
     this.count = this.appointmentlist.length;
@@ -312,7 +312,7 @@ export class AppointmentsComponent implements OnInit {
 
     this.docservice.GetDoctorCommissionFeesByDoctorID(this.doctorslotid,this.appointmenttypeid).subscribe(data=>
       {
-        debugger
+        
         this.feeslist=data;
         this.PaidAmount=this.feeslist[0].doctorFees
       })

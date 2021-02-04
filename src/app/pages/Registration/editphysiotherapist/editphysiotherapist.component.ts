@@ -287,7 +287,7 @@ export class EditphysiotherapistComponent implements OnInit {
   }
 
   public updatephoto() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'PhotoUrl': this.attachmentsurl[0]

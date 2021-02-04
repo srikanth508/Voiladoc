@@ -29,7 +29,7 @@ export class UserrolemappingComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
 
     this.activatedroute.params.subscribe(params => {
-      debugger
+      
       this.id = params['id'];
       if (this.id == undefined) {
         this.showbutton = 0
@@ -93,7 +93,7 @@ export class UserrolemappingComponent implements OnInit {
     this.docservice.GetUsers_RoleMapping(this.languageid).subscribe(
       data => {
         this.userlist = data;
-        debugger
+        
         var list = this.userlist.filter(x => x.id == this.id)
         this.firstname = list[0].firstName,
           this.lastname = list[0].lastName,
@@ -104,7 +104,7 @@ export class UserrolemappingComponent implements OnInit {
           this.username = list[0].userName,
           this.password = list[0].password,
           this.roleid = list[0].roleID
-          debugger
+          
       }, error => {
       }
     )

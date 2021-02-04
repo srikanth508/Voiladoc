@@ -111,7 +111,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public gendername: any;
 
   public GetPatientID(item: any) {
-    debugger
+
     this.patientid = item.id;
     var list = this.patientslist.filter(x => x.id == this.patientid)
     this.patientname = list[0].patientName
@@ -123,7 +123,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
     this.height = list[0].height
     this.bmi = list[0].bmi
     this.gender = list[0].genderID
-    debugger
+
     if (this.gender == 1) {
       this.gendername = 'Male'
     }
@@ -142,19 +142,19 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
   public GetTypeID(even) {
     this.typeid = even.target.value;
-    debugger
+
     this.Getdays();
 
-    debugger
+
   }
 
   public Getdays() {
-    debugger
+
     this.docservice.GetDaysHomecare(this.selecteddate).subscribe(data => {
-      debugger
+
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      debugger
+
       this.Getdayssid();
     }, error => {
     })
@@ -162,7 +162,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
   public Getdayssid() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      debugger
+
       this.dayidslist = data;
       this.dayid = this.dayidslist[0].dayID;
       this.GetAllUsers();
@@ -178,7 +178,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public dummmidwifelist: any;
 
   public GetDate(even) {
-    debugger
+
     this.selecteddate = even.toLocaleString().split(',')[0];
     this.Getdays();
     this.Getdayssid();
@@ -187,7 +187,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
 
   public GetAppointmentTimeChange(even) {
-    debugger
+
 
     this.appointmenttime = even.target.value;
     this.Getdays();
@@ -204,44 +204,44 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
   public GetAllUsers() {
     if (this.typeid == 1) {
-      debugger
+
       this.docservice.GetDoctorForHomeSampleWeb(1, this.dayid, this.languageid, 1, this.hospitalid).subscribe(data => {
-        debugger
+
         this.Doctorlist = data;
         this.dummdoctorslist = data;
-        debugger
+
       }, error => {
       })
     }
     if (this.typeid == 2) {
-      debugger
+
       this.docservice.GetAllNurseDetailsWeb(this.dayid, 0, this.languageid, this.appointmenttime, this.hospitalid).subscribe(data => {
-        debugger
+
         this.Nurselist = data;
         this.dummnurselist = data;
-        debugger
+
       }, error => {
       })
       this.GetnurseFess();
     }
     if (this.typeid == 3) {
-      debugger
+
       this.docservice.GetAllPhysioDetailsWeb(this.dayid, 0, this.languageid, this.appointmenttime, this.hospitalid).subscribe(data => {
-        debugger
+
         this.physiolist = data;
         this.dummphysiolist = data;
-        debugger
+
       }, error => {
       })
       this.GetPhysioFees();
     }
     if (this.typeid == 4) {
-      debugger
+
       this.docservice.GetAllMidWivesDetailsWeb(this.dayid, 0, this.languageid, this.appointmenttime, this.hospitalid).subscribe(data => {
-        debugger
+
         this.midwifelist = data;
         this.dummmidwifelist = data;
-        debugger
+
       }, error => {
       })
       this.GetMidWifeFess();
@@ -265,12 +265,18 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public randomid: any;
 
   public GetNurseID(even) {
-    debugger
-    this.nurseid = even.target.value;
-    debugger
-  var list =this.dummnurselist.filter(x=>x.nurseID==this.nurseid)
-   this.nursehospitalid=list[0].nurseHospitalDetailsID
-    this.GetnurseFess();
+    this.docservice.GetNurse_AvailabilitySlotsByTimeWeb(even.target.value, this.appointmenttime, this.selecteddate).subscribe(data => {
+      if (data.length == 0) {
+        this.nurseid = even.target.value;
+        var list = this.dummnurselist.filter(x => x.nurseID == this.nurseid)
+        this.nursehospitalid = list[0].nurseHospitalDetailsID
+        this.GetnurseFess();
+      }
+      else {
+        Swal.fire('Nurse is busy');
+        this.nurseid = 0;
+      }
+    })
   }
 
   public testid: any;
@@ -278,12 +284,11 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public GetnurseFess() {
     // this.amount = 0;
     this.docservice.GetNursePriceDetails(this.nurseid).subscribe(data => {
-      debugger
 
       this.nursefees = data;
 
       for (let i = 0; i < this.nursefees.length; i++) {
-        debugger
+
         if (this.nursefees[i].startTimeNew <= this.appointmenttime && this.appointmenttime <= this.nursefees[i].endTimeNew) {
 
           if (this.amount = "" && this.testid === 0) {
@@ -315,12 +320,18 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public physiohospitalid: any;
 
   public GetPhysiotheerapist(even) {
-    this.physioid = even.target.value;
-
-    var list = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
-    this.physiohospitalid = list[0].physioHospitalDetailsID
-    // this.amount = list[0].fees
-    this.GetPhysioFees();
+    this.docservice.GetPhysiotherapist_AvailabilitySlotsWeb(even.target.value, this.appointmenttime, this.selecteddate).subscribe(data => {
+      if (data.length == 0) {
+        this.physioid = even.target.value;
+        var list = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
+        this.physiohospitalid = list[0].physioHospitalDetailsID
+        this.GetPhysioFees();
+      }
+      else {
+        Swal.fire('Physiotherapist is busy');
+        this.physioid = 0;
+      }
+    })
   }
 
 
@@ -329,13 +340,13 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
   public GetPhysioFees() {
     this.docservice.GetPhysioPriceDetailsWeb(this.physioid).subscribe(data => {
-      debugger
+
 
       this.physiofees = data;
 
       for (let i = 0; i < this.physiofees.length; i++) {
 
-        debugger
+
         if (this.physiofees[i].startTimeNew <= this.appointmenttime && this.appointmenttime <= this.physiofees[i].endTimeNew) {
 
           if (this.amount = "" && this.phytestiddd === 0) {
@@ -366,25 +377,32 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
 
   public GetmidwifeID(even) {
-    this.midwifeid = even.target.value;
-
-    var list = this.dummmidwifelist.filter(x => x.midWifeID == this.midwifeid)
-    this.midwifehospitalid = list[0].midWifeHospitalDetailsID
-    // this.amount = list[0].fees
-    this.GetMidWifeFess();
+    this.docservice.GetBook_MidWifeAvailabilitySlotsasweb(even.target.value, this.appointmenttime, this.selecteddate).subscribe(data => {
+      if (data.length == 0) {
+        this.midwifeid = even.target.value;
+        var list = this.dummmidwifelist.filter(x => x.midWifeID == this.midwifeid)
+        this.midwifehospitalid = list[0].midWifeHospitalDetailsID
+        // this.amount = list[0].fees
+        this.GetMidWifeFess();
+      }
+      else {
+        Swal.fire('Midwife is busy');
+        this.midwifeid = 0;
+      }
+    })
   }
 
 
   public midwifefees: any;
-  public midtestid:any;
+  public midtestid: any;
 
   public GetMidWifeFess() {
     this.docservice.GetMidwifePriceDetails(this.midwifeid).subscribe(data => {
-      debugger
+
 
       this.midwifefees = data;
       for (let i = 0; i < this.midwifefees.length; i++) {
-        debugger
+
         if (this.midwifefees[i].startTimeNew <= this.appointmenttime && this.appointmenttime <= this.midwifefees[i].endTimeNew) {
 
           if (this.amount = "" && this.midtestid === 0) {
@@ -448,8 +466,8 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public nurseappointid: any;
 
   public InsertBookNurseAppointment() {
-    debugger
-    if (this.nurseid == undefined) {
+
+    if (this.nurseid == undefined || this.nurseid == 0) {
       Swal.fire('Please Select nurse')
     }
     if (this.patientid == undefined) {
@@ -457,7 +475,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
     }
     else {
 
-      debugger
+
       var entity = {
         'NurseID': this.nurseid,
         'PatientID': this.patientid,
@@ -485,10 +503,9 @@ export class HomeCareAppointmentsComponent implements OnInit {
       }
       this.docservice.InsertBook_Nurse_AppointmentWeb(entity).subscribe(data => {
         if (data != 0) {
-          debugger
           this.nurseappointid = data;
-          debugger
           this.NursePatientPaymentdetails();
+          this.InsertNurseAvailabilityTime();
           if (this.languageid == 1) {
             Swal.fire('Appointment Booked Successfully');
             location.href = "#/HomecareAppdash"
@@ -502,8 +519,22 @@ export class HomeCareAppointmentsComponent implements OnInit {
     }
   }
 
+
+  public InsertNurseAvailabilityTime() {
+    var entity1 = {
+      'NurseID': this.nurseid,
+      'AppointmentID': this.nurseappointid,
+      'AvailabilityDate': this.selecteddate,
+      'StartTime': this.appointmenttime
+    }
+    this.docservice.InsertNurse_AvailabilitySlotsWeb(entity1).subscribe(data => {
+
+    })
+  }
+
+
   public NursePatientPaymentdetails() {
-    debugger
+
     var entity = {
       'PatientID': this.patientid,
       'AppointmentID': this.nurseappointid,
@@ -529,8 +560,8 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public physioappointmentid: any;
 
   public InsertbookPhysiotherapist() {
-    debugger
-    if (this.physioid == undefined) {
+
+    if (this.physioid == undefined||this.physioid==0) {
       Swal.fire('Please Select nurse')
     }
     if (this.patientid == undefined) {
@@ -538,7 +569,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
     }
     else {
 
-      debugger
+
       var entity = {
         'PhysioID': this.physioid,
         'PatientID': this.patientid,
@@ -566,10 +597,10 @@ export class HomeCareAppointmentsComponent implements OnInit {
       }
       this.docservice.InsertBook_Physio_AppointmentWeb(entity).subscribe(data => {
         if (data != 0) {
-          debugger
+
           this.physioappointmentid = data;
-          debugger
           this.PhysioPatientpaymentDetails();
+          this.InsertPhysioAvailabilitime();
           if (this.languageid == 1) {
             Swal.fire('Appointment Booked Successfully');
             location.href = "#/HomecareAppdash"
@@ -584,8 +615,20 @@ export class HomeCareAppointmentsComponent implements OnInit {
     }
   }
 
+  public InsertPhysioAvailabilitime() {
+    var entity1 = {
+      'PhysiotherapyID': this.physioid,
+      'AppointmentID': this.physioappointmentid,
+      'AvailabilityDate': this.selecteddate,
+      'StartTime': this.appointmenttime
+    }
+    this.docservice.InsertPhysiotherapist_AvailabilitySlotsWeb(entity1).subscribe(data => {
+
+    })
+  }
+
   public PhysioPatientpaymentDetails() {
-    debugger
+
     var entity = {
       'PatientID': this.patientid,
       'AppointmentID': this.physioappointmentid,
@@ -611,7 +654,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
   public midwifeappointmentid: any;
 
   public InsertBookMidwife() {
-    debugger
+
     if (this.midwifeid == undefined) {
       Swal.fire('Please Select nurse')
     }
@@ -620,7 +663,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
     }
     else {
 
-      debugger
+
       var entity = {
         'MidWivesID': this.midwifeid,
         'PatientID': this.patientid,
@@ -648,10 +691,10 @@ export class HomeCareAppointmentsComponent implements OnInit {
       }
       this.docservice.InsertBook_Midwives_AppointmentWeb(entity).subscribe(data => {
         if (data != 0) {
-          debugger
+
           this.midwifeappointmentid = data;
-          debugger
           this.BookMidwifepaymentdetails();
+          this.InsertMidwifeAvailabilityTime();
           if (this.languageid == 1) {
             Swal.fire('Appointment Booked Successfully');
             location.href = "#/HomecareAppdash"
@@ -666,8 +709,21 @@ export class HomeCareAppointmentsComponent implements OnInit {
     }
   }
 
+  public InsertMidwifeAvailabilityTime() {
+    var entity1 = {
+      'MidWifeID': this.midwifeid,
+      'AppointmentID': this.midwifeappointmentid,
+      'AvailabilityDate': this.selecteddate,
+      'StartTime': this.appointmenttime
+    }
+    this.docservice.InsertBook_MidWifeAvailabilitySlotsWeb(entity1).subscribe(data => {
+
+    })
+  }
+
+
   public BookMidwifepaymentdetails() {
-    debugger
+
     var entity = {
       'PatientID': this.patientid,
       'AppointmentID': this.midwifeappointmentid,

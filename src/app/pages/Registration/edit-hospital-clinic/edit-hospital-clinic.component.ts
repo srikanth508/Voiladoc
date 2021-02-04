@@ -215,7 +215,7 @@ export class EditHospitalClinicComponent implements OnInit {
 
 
   public GetHospitalRevenuesubscriptions() {
-    debugger
+    
     this.docservice.GetHospitalClinic_RevenueSubscriptions(this.id).subscribe(data => {
       this.subscriptionslist = data;
       this.subscriptiontype = this.subscriptionslist[0].subscriptionTypeID,
@@ -347,7 +347,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public InsertSubscriptionRevenue() {
-    debugger
+    
     var entity5 = {
       'SubscriptionTypeID': this.subscriptiontype,
       'MonthlySubscription': this.monthlysubription,
@@ -379,7 +379,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public Getsubscriptontype() {
-    debugger
+    
     this.appointmentpercentage = 0
     this.monthlysubription = 0
   }

@@ -111,14 +111,16 @@
       </div>
     </div>
     <br>
-    <div class="row" *ngIf="dummid==null">
-      <div class="col-lg-3">
-        <label>Hospital/Clinic: </label>
-      </div>
-      <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist" [settings]="hospitadd"
-          (onSelect)="GetHospitalID($event)">
-        </ng-multiselect-dropdown>
+    <div *ngIf="dummid==null">
+      <div class="row" >
+        <div class="col-lg-3">
+          <label>Hospital/Clinic: </label>
+        </div>
+        <div class="col-lg-4">
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist" [settings]="hospitadd"
+            (onSelect)="GetHospitalID($event)">
+          </ng-multiselect-dropdown>
+        </div><br>
       </div><br>
     </div>
     <!-- <div class="row">

@@ -56,12 +56,12 @@ export class AdminSiderevenueComponent implements OnInit {
 
 
   ngOnInit() {
-    debugger
+    
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    debugger
+    
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -71,7 +71,7 @@ export class AdminSiderevenueComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-    debugger
+    
     this.languageid = localStorage.getItem('LanguageID');
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
@@ -80,7 +80,7 @@ export class AdminSiderevenueComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    debugger
+    
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -94,15 +94,15 @@ export class AdminSiderevenueComponent implements OnInit {
     this.doctorid = 0;
     this.cityid = 0
     this.subHospitalID = 0;
-    debugger
+    
 
     this.docservice.GetMonthStartDateAndEndDate().subscribe(
       data => {
-        debugger
+        
         this.serverdateandtime = data[0];
         this.monthstartdate = this.serverdateandtime.startMonth,
           this.monthenddate = this.serverdateandtime.endMonth
-          debugger
+          
           this.GetAllHospitalSubscriptions();
           this.GetAllIndepenentPeopleRevenue();
       }, error => {
@@ -454,7 +454,7 @@ public serverdateandtime:any;
 
   public GetAllIndepenentPeopleRevenue() {
 
-    debugger
+    
     this.docservice.GetAllIndepenedentSubscriptionRevenue(this.monthstartdate, this.monthenddate, 0).subscribe(
       data => {
 

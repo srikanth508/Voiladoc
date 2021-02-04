@@ -43,7 +43,7 @@ export class HomecareRevenueComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-
+debugger
     this.sdate = localStorage.getItem('StartDate');
     this.edate = localStorage.getItem('EndDate');
     this.hospitalid = localStorage.getItem('hospitalid');
@@ -53,13 +53,14 @@ export class HomecareRevenueComponent implements OnInit {
     this.getdepartmentmaster();
     this.docservice.GetHomecareRevenueByHospitalID(this.hospitalid, this.sdate, this.edate).subscribe(
       data => {
-
+        debugger
         this.dummlist = data;
         this.cancelledlist = this.dummlist.filter(x => x.isVisited == 1);
         let total1 = 0;
         this.cancelledlist.forEach(element => {
           total1 += element.paidAmount;
         });
+        debugger
         this.TotalAmount = total1
         this.count = this.cancelledlist.length;
       }, error => {

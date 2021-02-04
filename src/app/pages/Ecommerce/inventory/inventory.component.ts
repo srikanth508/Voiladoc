@@ -26,10 +26,10 @@ export class InventoryComponent implements OnInit {
 
   labels
   public getlanguage1(LanguageID) {
-   
+
     this.docservice.ProductsPage_Labels(LanguageID).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -44,22 +44,21 @@ export class InventoryComponent implements OnInit {
   public item: any;
   SubCatID: any;
   public GetInvByID(paramID) {
-   
     this.docservice.GetInvByID(paramID).subscribe((data) => {
-     
+
       this.category = data;
-      this.categoryID = data[0].categoryID;
-      this.SubCatID = data[0].subCategoryID;
+      this.CategoryID = data[0].categoryID;
+      this.SubCategoryID = data[0].subCategoryID;
       this.docservice.GetSubcategory().subscribe(
         data => {
-         
+
           this.SubcategoryLists = data.filter(x => x.categoryID == data[0].categoryID);
         }, error => {
         }
       )
       this.docservice.GetInventoryByID(data[0].categoryID, data[0].subCategoryID).subscribe(
         data => {
-         
+
           this.InventoryLists = data;
         }, error => {
         }
@@ -75,7 +74,7 @@ export class InventoryComponent implements OnInit {
   public GetItemCategory() {
     this.docservice.GetItemCategory().subscribe(
       data => {
-       
+
         this.CategoryList = data;
       }, error => {
       }
@@ -86,32 +85,32 @@ export class InventoryComponent implements OnInit {
   CategoryID;
   SubcategoryLists;
   public GetCategoryID(evn) {
-   
+
     this.CategoryID = evn.target.value;
     this.docservice.GetSubcategory().subscribe(
       data => {
-       
+
         this.SubcategoryLists = data.filter(x => x.categoryID == this.CategoryID);
       }, error => {
       }
     )
   }
 
+  
   SubCategoryID;
   InventoryLists;
   public GetSubCategoryID(evn) {
-   
+    debugger
     this.SubCategoryID = evn.target.value;
-
+debugger
     this.docservice.GetInventoryByID(this.CategoryID, this.SubCategoryID).subscribe(
       data => {
-       
+        debugger
         this.InventoryLists = data;
       }, error => {
       }
     )
   }
-
 
   ItemsID
   public GetItemID(evn) {
@@ -121,32 +120,34 @@ export class InventoryComponent implements OnInit {
 
   Quantity
   public insertdetails() {
+    debugger
     let Entity = {
       'CategoryID': this.CategoryID,
       'SubCategoryID': this.SubCategoryID,
       'Item': this.ItemsID,
       'Quantity': this.Quantity
     }
+    debugger
     this.docservice.InsertInventory(Entity).subscribe(data => {
       if (data != 0) {
         Swal.fire('Saved Successfully');
         location.href = '#/InventoryDash';
       }
     })
-
   }
 
 
 
   public Update() {
-   
+    debugger
     let Entity = {
       'ID': this.paramID,
-      'CategoryID': this.categoryID,
-      'SubCategoryID': this.subCategoryID,
+      'CategoryID': this.CategoryID,
+      'SubCategoryID': this.SubCategoryID,
       'Item': this.item,
       'Quantity': this.Quantity
     }
+    debugger
     this.docservice.UpdateInventory(Entity).subscribe(data => {
       if (data != 0) {
         Swal.fire('Updated Successfully');

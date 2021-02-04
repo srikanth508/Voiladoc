@@ -16,7 +16,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
-    debugger
+    
     this.languageid = localStorage.getItem('LanguageID');
     this.GetLables();
     this.GetReceptionistlogin();
@@ -33,17 +33,17 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
 }
 
 public GetReceptionistlogin() {
-  debugger
+  
   this.docservice.GetDiagnosticReceptionistLogin(localStorage.getItem('diagnosticid')).subscribe(data => {
-    debugger
+    
       this.receptionistloginlist = data;
       this.count=this.receptionistloginlist.length;
   })
 }
 // public Delete(id) {
-//   debugger
+//   
 //   this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(data => {
-//     debugger
+//     
 //       if (data != undefined) {
 //           this.GetReceptionistlogin();
 //           Swal.fire("Deleted Successfully");

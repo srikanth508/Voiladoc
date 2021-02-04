@@ -93,7 +93,7 @@ export class MidWifeTimingsComponent implements OnInit {
 
 
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, id) {
-   debugger
+   
     this.midwifehospitalid = nurseHospitalDetailsID;
     this.dayid = dayID,
       this.startdatetime = startime,

@@ -83,6 +83,9 @@
       <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
         <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
       </ngx-dropzone>
+      <span *ngFor="let pho of showPhotoURL">
+        <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
+      </span>
       <!-- <div>
         <span *ngFor="let docphoto of showdocphoto">
           <img src="{{docphoto}}" style="height:50px;width:70px">&nbsp;

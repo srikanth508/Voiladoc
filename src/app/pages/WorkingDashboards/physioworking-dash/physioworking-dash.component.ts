@@ -145,7 +145,7 @@ export class PhysioworkingDashComponent implements OnInit {
   physioid: any;
 
   public GetPhysioID(item: any) {
-    debugger
+    
     this.physioid = item.id
     this.GetPhysioWorkingDetails()
   }
@@ -221,7 +221,6 @@ export class PhysioworkingDashComponent implements OnInit {
     })
 
   }
-
 
 
   public DeletePhysiotherapistWorkingDetails(nsid, dayid) {

@@ -124,7 +124,7 @@ export class AnnounseDashComponent implements OnInit {
    
     Swal.fire({
       title: 'Are you sure?',
-      text: "You Want to Announcement This Item!",
+      text: "You Want to disable this Announcement !",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

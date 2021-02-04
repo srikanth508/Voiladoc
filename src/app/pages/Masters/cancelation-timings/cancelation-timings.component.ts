@@ -54,7 +54,7 @@ export class CancelationTimingsComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'PatientInclinicCancelledTime': this.patientinclinictimings,

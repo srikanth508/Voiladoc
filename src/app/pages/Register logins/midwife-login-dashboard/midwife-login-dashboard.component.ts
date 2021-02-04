@@ -99,8 +99,8 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public GetDeatsils(details)
   {
 
-    debugger
-    debugger
+    
+    
     this.id=details.id,
     this.username=details.userName,
     this.password=details.password

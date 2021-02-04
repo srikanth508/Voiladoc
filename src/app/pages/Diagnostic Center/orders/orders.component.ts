@@ -839,7 +839,7 @@ export class OrdersComponent implements OnInit {
   public orderid: any;
 
   public GetAssaignOrderdetails(details) {
-    debugger
+    
     this.orderid = details.id;
     this.patientid = details.patientID
     this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
@@ -850,7 +850,7 @@ export class OrdersComponent implements OnInit {
 
 
   public Insertdetails(list) {
-    debugger
+    
     var entity = {
       'OrderID': this.orderid,
       'PatientID': this.patientid,
@@ -918,7 +918,7 @@ export class OrdersComponent implements OnInit {
 
 
   public GetChatShowID(details) {
-    debugger
+    
     this.patientid = details.patientID;
     this.chatpatientemail = details.emailID;
     this.chatappointmentid = details.id;
@@ -1067,7 +1067,7 @@ export class OrdersComponent implements OnInit {
 
   public GetAttachments(id) {
     this.docservice.GetDiagnosticAppointmentPhotos(id).subscribe(data => {
-      debugger
+      
       this.attachments = data;
     })
   }
@@ -1085,9 +1085,9 @@ export class OrdersComponent implements OnInit {
 
 
   public GetAppointmentAccept() {
-    debugger
+    
     this.docservice.UpdateDiagnosticAppointmentsByType(this.appointmentsid, this.amount).subscribe(data => {
-      debugger
+      
       this.getdiagnosticAppointmentsbyid();
       this.getdiagnosticAppointment();
       this.InsertAccptNotification()

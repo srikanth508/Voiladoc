@@ -118,11 +118,11 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
   public getmidwifeid(even) {
     this.widwifeid = even.target.value;
-    debugger
+    
     var list1 =this.dummlist.filter(x=>x.id==this.widwifeid)
     this.hsp_clinicID=list1[0].hospitalClinicID,
     this.hospital_ClinicName=list1[0].hospital_ClinicName
-    debugger
+    
   }
 
   public Getworktypeid(even) {

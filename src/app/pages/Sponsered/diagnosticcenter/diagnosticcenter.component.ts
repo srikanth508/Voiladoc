@@ -141,7 +141,7 @@ export class DiagnosticcenterComponent implements OnInit {
     if (this.languageid == 1) {
       this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
         data => {
-          debugger
+          
           this.sponserdialist = data;
           var list = this.sponserdialist.filter(x => x.id == this.id)
           this.startdate = list[0].startdate,
@@ -155,9 +155,9 @@ export class DiagnosticcenterComponent implements OnInit {
     else if (this.languageid == 6) {
       this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
         data => {
-          debugger
+          
           this.sponserdialist = data;
-          debugger
+          
           var list = this.sponserdialist.filter(x => x.id == this.id)
           this.startdate = list[0].startdate.toLocaleString();
           this.enddate = list[0].enddate.toLocaleString();
@@ -172,14 +172,14 @@ export class DiagnosticcenterComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+    
     // const qwer = 'dd-MMM-yyyy';
     // const pljdjf = 'en-US';
     // const frdat = this.startdate;
     // this.startdate = formatDate(frdat, qwer, pljdjf);
     // const todat = this.enddate;
     // this.enddate = formatDate(todat, qwer, pljdjf);
-    debugger
+    
     var entity1 = {
       'ID': this.id,
       'SDate': this.startdate,

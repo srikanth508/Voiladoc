@@ -110,11 +110,11 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
 
   public getphysioid(even) {
     this.physioid = even.target.value;
-debugger
+
     var list=this.dummlist.filter(x=>x.id==this.physioid)
     this.hsp_clinicID=list[0].hospitalClinicID,
     this.hospital_ClinicName=list[0].hospital_ClinicName
-    debugger
+    
   }
 
   public Getworktypeid(even) {
@@ -219,7 +219,7 @@ debugger
 
 
   public InsertPhysiotherapyHospitalDetailsAdmin() {
-   debugger
+   
     var entity = {
       'physiotherapyID': this.detailsarray[0].PhyioID,
       'Fees': this.detailsarray[0].Fees,
@@ -227,7 +227,7 @@ debugger
       'LanguageID': 1
     }
     this.docservice.InsertPhysiotherapyHospitalDetailsAdmin(entity).subscribe(data => {
-      debugger
+      
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
        
@@ -275,7 +275,7 @@ debugger
 
 
   public InsertPhysiotherapyHospitalDetails() {
-    debugger
+    
     var entity = {
       'physiotherapyID': this.detailsarray[0].PhyioID,
       'Fees': this.detailsarray[0].Fees,
@@ -283,7 +283,7 @@ debugger
       'LanguageID': 1
     }
     this.docservice.InsertPhysiotherapyHospitalDetailsAdmin(entity).subscribe(data => {
-      debugger
+      
       let qqq = data;
       for (let i = 0; i < this.detailsarray.length; i++) {
        

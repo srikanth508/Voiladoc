@@ -159,7 +159,7 @@ export class UserPlanningComponent implements OnInit {
   public userid: any;
 
   public GetUserID(even) {
-    debugger
+    
     if (even.target.value != 0) {
       this.userid = even.target.value;
       this.userreportlist = this.dummuserreportlist.filter(x => x.assignedID == this.userid)

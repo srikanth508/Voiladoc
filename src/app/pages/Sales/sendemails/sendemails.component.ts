@@ -76,13 +76,13 @@ export class SendemailsComponent implements OnInit {
 
 
   public GetPatientSendemailslist(even, list) {
-    debugger
+    
     if (even.target.checked == true) {
       this.sendemailpatients.push(list);
       // list.selected=1;
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.sendemailpatients.splice(this.sendemailpatients.indexOf(list), 1);
       // list.selected=0;
     }
@@ -90,10 +90,10 @@ export class SendemailsComponent implements OnInit {
   }
 
   public GetPatientSelectAll(even) {
-    debugger
+    
     var chkboxes = document.getElementsByClassName('chk_sendmailcheck')
     if (even.target.checked == true) {
-      debugger
+      
       this.sendemailpatients = this.Patientlist;
       this.Patientlist.checked = true;
 
@@ -103,7 +103,7 @@ export class SendemailsComponent implements OnInit {
 
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.sendemailpatients = []
       for (let i = 0; i < chkboxes.length; i++) {
         document.getElementsByClassName('chk_sendmailcheck')[i]['checked'] = false;
@@ -115,7 +115,7 @@ export class SendemailsComponent implements OnInit {
   showidentityproof = [];
 
   public onattachmentUpload(abcd) {
-    debugger
+    
     this.identityattachmentsurlssss = []
     // for (let i = 0; i < abcd.length; i++) {
     this.attchement.push(abcd.addedFiles[0]);
@@ -128,7 +128,7 @@ export class SendemailsComponent implements OnInit {
 
   public uploadid() {
     this.docservice.EmailAttachments(this.attchement).subscribe(res => {
-      debugger
+      
       this.attchementurl.push(res);
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
@@ -142,7 +142,7 @@ export class SendemailsComponent implements OnInit {
 
 
   public SendEmail() {
-    debugger
+    
 
     document.getElementById("qwerty").innerHTML = this.message;
     this.removetagsmessage = document.getElementById("qwerty").innerText;
@@ -159,7 +159,7 @@ export class SendemailsComponent implements OnInit {
         'bcclist': this.bcclist
       }
       this.docservice.sendemail(entity).subscribe(data => {
-        debugger
+        
         var entity1 = {
           'PatientID': this.sendemailpatients[i].id,
           'Subject': this.Subject,
@@ -170,7 +170,7 @@ export class SendemailsComponent implements OnInit {
           'TypeID':this.typeid
         }
         this.docservice.InsertPatientEmails(entity1).subscribe(data => {
-          debugger
+          
           this.emailidd = data;
           for (let j = 0; j < this.attchementurl.length; j++) {
             var entity2 = {
@@ -178,7 +178,7 @@ export class SendemailsComponent implements OnInit {
               'AttachmentUrl': this.attchementurl[j]
             }
             this.docservice.InsertEmail_Attachments(entity2).subscribe(data => {
-              debugger
+              
               this.spinner.hide();
               Swal.fire('Success', 'Mail sent successfully');
 
@@ -190,10 +190,10 @@ export class SendemailsComponent implements OnInit {
               // this.removetagsmessage=""
               // this.message=""
               if ((this.sendemailpatients.length + 1) == i) {
-                debugger
+                
                 Swal.fire('Success', 'Mail send successfully');
 
-                debugger
+                
                 // this.spinner.hide();
                 location.href = "#/EmailDash"
               }
@@ -205,10 +205,10 @@ export class SendemailsComponent implements OnInit {
       // this.spinner.hide();
       // Swal.fire('Success', 'Mail send successfully');
       if ((this.sendemailpatients.length) == i) {
-        debugger
+        
         Swal.fire('Success', 'Mail send successfully');
 
-        debugger
+        
         // this.spinner.hide();
         location.href = "#/EmailDash"
       }
@@ -249,10 +249,10 @@ export class SendemailsComponent implements OnInit {
 
     this.showtoemails = this.sendemailpatients.map(x => x.emailID);
     this.showpatientemails = this.showtoemails.join(';');
-    debugger
+    
     this.ccemails = this.cclistarray.map(x => x.emailID);
     this.cclist = this.ccemails.join(';');
-    debugger
+    
     this.showbccmails = this.bcclistarray.map(x => x.emailID);
     this.bcclist = this.showbccmails.join(';');
 
@@ -264,28 +264,28 @@ export class SendemailsComponent implements OnInit {
   cclistarray = []
 
   public GetPatientcclist(even, list) {
-    debugger
+    
     if (even.target.checked == true) {
       this.cclistarray.push(list);
       // list.selected=1;
-      debugger
+      
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.cclistarray.splice(this.cclistarray.indexOf(list), 1);
       // list.selected=0;
     }
   }
 
   public GetPatientbcclist(even, list) {
-    debugger
+    
     if (even.target.checked == true) {
       this.bcclistarray.push(list);
       // list.selected=1;
-      debugger
+      
     }
     else if (even.target.checked == false) {
-      debugger
+      
       this.bcclistarray.splice(this.bcclistarray.indexOf(list), 1);
       // list.selected=0;
     }

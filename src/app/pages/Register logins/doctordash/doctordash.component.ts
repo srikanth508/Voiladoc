@@ -101,7 +101,7 @@ export class DoctordashComponent implements OnInit {
 
 public GetDeatsils(details)
 {
-  debugger
+  
   this.id=details.id,
   this.username=details.userName,
   this.password=details.password
@@ -111,7 +111,7 @@ public GetDeatsils(details)
 
 
   public insertdetails() {
-    debugger
+    
     if (this.password != undefined) {
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
@@ -123,7 +123,7 @@ public GetDeatsils(details)
           'UserName': this.username,
           'Password': this.password
         }
-        debugger
+        
         this.username = '';
         this.password = '';
         this.docservice.UpdateDoctorLogins(entity).subscribe(data => {

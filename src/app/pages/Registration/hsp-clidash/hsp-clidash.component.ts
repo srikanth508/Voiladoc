@@ -43,7 +43,7 @@ export class HspClidashComponent implements OnInit {
       this.hospitalcount = params['hospitalcount']
     }
     )
-    debugger
+    
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
@@ -59,7 +59,7 @@ export class HspClidashComponent implements OnInit {
     if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
-    debugger
+    
     this.countryid = 0;
     this.cityid = 0
 
@@ -84,10 +84,10 @@ export class HspClidashComponent implements OnInit {
       this.gethosptilclinicforadmin();
     }
     else if (this.id == 1) {
-      debugger
+      
       this.docservice.GetHospital_ClinicDetailsMaster(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-          debugger
+          
           this.hospitalcliniclist = data;
           this.dummlist = this.hospitalcliniclist
           this.hospitalcount = this.hospitalcliniclist.length;

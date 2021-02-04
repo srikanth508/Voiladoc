@@ -143,7 +143,7 @@ export class NurseworkingdashComponent implements OnInit {
 
 
   public GetNurseID(item: any) {
-    debugger
+    
     this.nurseid = item.id;
     this.getnurseesworkingdetails()
   }
@@ -151,7 +151,7 @@ export class NurseworkingdashComponent implements OnInit {
   public getnurseesworkingdetails() {
     this.docservice.GetNurseWorkingDetils(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.dummworkinglist = data;
         this.workinglist = this.dummworkinglist.filter(x => x.nurseID == this.nurseid)
 
@@ -174,13 +174,13 @@ export class NurseworkingdashComponent implements OnInit {
 
 
   public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, nsid) {
-    debugger
+    
     this.nursehospitaldetilsid = nurseHospitalDetailsID;
     this.dayid = dayID,
       this.startdatetime = startime,
       this.enddatetime = endtime
     this.id = nsid;
-    debugger
+    
   }
 
 

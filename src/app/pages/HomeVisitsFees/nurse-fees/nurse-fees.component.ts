@@ -118,7 +118,7 @@ export class NurseFeesComponent implements OnInit {
   public GetNurseID(even) {
 
     this.nurseid = even.target.value;
-    debugger
+    
     var list = this.nurselist.filter(x => x.nurseID == this.nurseid)
     this.nursename = list[0].nurseName,
       this.hospitalid = list[0].hospitalClinicID,
@@ -154,7 +154,7 @@ export class NurseFeesComponent implements OnInit {
   public GetNurseCommisiionDetails() {
     this.docservice.GetNurseCommissionDeatails(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.nursefeelist = data;
         var list = this.nursefeelist.filter(x => x.id == this.id)
         this.homevisitfee = list[0].homeVisitFees,
@@ -177,7 +177,7 @@ export class NurseFeesComponent implements OnInit {
 
 
   public GetStartTime(even) {
-    debugger
+    
     let list = even.target.value.split(',')
 
     this.starttime = list[0];
@@ -186,7 +186,7 @@ export class NurseFeesComponent implements OnInit {
   }
 
   public GetEndTime(even) {
-    debugger
+    
     let list = even.target.value.split(',');
     this.endtime = list[0];
     this.endtimeid = list[1];
@@ -217,7 +217,7 @@ export class NurseFeesComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+    
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity = {
         'NurseID': this.nurseid,
@@ -310,7 +310,7 @@ export class NurseFeesComponent implements OnInit {
 
 
   public Getsubscriptontype() {
-    debugger
+    
     this.appointmentpercentage = 0;
     this.monthlysubription = 0;
   }
@@ -318,13 +318,13 @@ export class NurseFeesComponent implements OnInit {
 
 
   public delete(Sno) {
-    debugger
+    
     for (let i = 0; i < this.qwerty.length; i++) {
       if (Sno == this.qwerty[i].Sno) {
-        debugger
+        
         var mrngslots = this.dummtimings.findIndex(x => x.id == this.qwerty[i].StartTimeID);
         this.Timeings = this.dummtimings.slice(mrngslots, this.dummtimings.length);
-        debugger
+        
         this.qwerty.splice(i, 1);
       }
     }

@@ -190,12 +190,12 @@ export class BookappointmentComponent implements OnInit {
   slottimeselecteddates1: any;
 
   public GetDate(even) {
-    debugger
+    
     if (this.languageid == 1) {
-      debugger
+      
       this.selecteddates1 = even.toLocaleString().split(',')[0];
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-      debugger
+      
       localStorage.setItem('slottimeselecteddates1', this.selecteddates1)
 
       localStorage.setItem('SelectedDate', this.selecteddates1)
@@ -216,23 +216,23 @@ export class BookappointmentComponent implements OnInit {
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
 
-        debugger
+        
 
         this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.selecteddate).subscribe(
           data => {
-            debugger
+            
             this.doctorslist = data;
             this.dummdoctorslist = data;
             this.selecteddates1 = even.toLocaleString().split(',')[0];
             this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-            debugger
+            
             if (this.selecteddates1 == this.slottodaydatesssssss) {
               this.getdoctorslots()
-              debugger
+              
             }
             else {
               this.getdoctotsbyid()
-              debugger
+              
             }
           }, error => {
           }
@@ -276,11 +276,11 @@ export class BookappointmentComponent implements OnInit {
             this.dummdoctorslist = data;
 
             if (this.selecteddates1 == this.slottodaydatesssssss) {
-              debugger
+              
               this.getdoctorslots()
             }
             else {
-              debugger
+              
               this.getdoctotsbyid()
             }
           }, error => {
@@ -296,14 +296,14 @@ export class BookappointmentComponent implements OnInit {
   minutes: any;
 
   public getdoctorslots() {
-    // debugger
+    // 
     // let d = new Date();
     // this.hours = d.getHours() - 4
     // this.minutes = d.getMinutes() + 30
     // let h = (d.getHours() < 10 ? '0' : '') + this.hours;
     // let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
     // let cts = h + ':' + m;
-    // debugger
+    // 
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
         debugger
@@ -328,7 +328,7 @@ export class BookappointmentComponent implements OnInit {
 
   public GetSlotID(even) {
     this.slotid = even.target.value;
-    debugger
+    
     this.docservice.GetDoctorDetails_ForVideoConferenceForWeb2(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.slotid, this.selecteddates1).subscribe(
       data => {
 
@@ -343,7 +343,7 @@ export class BookappointmentComponent implements OnInit {
   public doctorid: any;
 
   public GetDoctorID(item2: any) {
-    debugger
+    
     // if (even.target.value != 0) {
     this.doctorid = item2.doctorID;
     this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)

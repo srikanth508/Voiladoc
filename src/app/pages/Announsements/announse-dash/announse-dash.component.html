@@ -61,11 +61,11 @@
                   <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteAnnouncements(details.id)">
                 </a>
                 <a>
-                  <img *ngIf="details.enableDisable =='0'" src="assets/Images/dactive.png" title="Disable" (click)="DisableAnnouncements(details.id)"
+                  <img *ngIf="details.enableDisable =='0'" src="assets/Images/active.png" title="Disable" (click)="DisableAnnouncements(details.id)"
                     style="width: 50px;" />
                 </a>
                 <a>
-                  <img *ngIf="details.enableDisable =='1'" (click)="EnableAnnouncements(details.id)" src="assets/Images/active.png" title="Enable"
+                  <img *ngIf="details.enableDisable =='1'" (click)="EnableAnnouncements(details.id)" src="assets/Images/dactive.png" title="Enable"
                     style="width: 50px;" />
                 </a>
               </td>

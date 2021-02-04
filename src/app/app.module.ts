@@ -5,7 +5,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
@@ -24,11 +24,8 @@ import { DocworkingdetailsComponent } from './pages/Registration/docworkingdetai
 import { DiagnosticsregistrationComponent } from './pages/Registration/diagnosticsregistration/diagnosticsregistration.component';
 import { DiagnosticcenterslotsComponent } from './pages/Registration/diagnosticcenterslots/diagnosticcenterslots.component';
 import { PharmacyregistrationComponent } from './pages/Registration/pharmacyregistration/pharmacyregistration.component';
-import { HospitalservicesComponent } from './pages/Map Services/hospitalservices/hospitalservices.component';
-import { DoctorservicesComponent } from './pages/Map Services/doctorservices/doctorservices.component';
 import { DiagnostictestComponent } from './pages/Map Services/diagnostictest/diagnostictest.component';
 import { DiagnosticpackageComponent } from './pages/Map Services/diagnosticpackage/diagnosticpackage.component';
-import { AddcampComponent } from './pages/Camp/addcamp/addcamp.component';
 import { DiagnosticComponent } from '../app/pages/Register logins/diagnostic/diagnostic.component';
 import { DoctorComponent } from './pages/Register logins/doctor/doctor.component';
 import { PharmacyComponent } from '../app/pages/Register logins/pharmacy/pharmacy.component';
@@ -55,33 +52,25 @@ import { MyprofileComponent } from './pages/Doctor/myprofile/myprofile.component
 import { MyappointmentsComponent } from './pages/Doctor/myappointments/myappointments.component';
 import { AppointmentsreportComponent } from './pages/Doctor/appointmentsreport/appointmentsreport.component';
 import { MyarticlesComponent } from './pages/Doctor/myarticles/myarticles.component';
-import { MychatsComponent } from './pages/Doctor/mychats/mychats.component';
 import { MyfeedbacksComponent } from './pages/Doctor/myfeedbacks/myfeedbacks.component';
 import { ProfilesComponent } from './pages/Diagnostic Center/profiles/profiles.component';
 import { OrdersComponent } from './pages/Diagnostic Center/orders/orders.component';
 import { OffersComponent } from './pages/Diagnostic Center/offers/offers.component';
 import { PharmacyprofileComponent } from './pages/Pharmacy/pharmacyprofile/pharmacyprofile.component';
-import { PharmacyordersComponent } from './pages/Pharmacy/pharmacyorders/pharmacyorders.component';
 import { PharmacyoffersComponent } from './pages/Pharmacy/pharmacyoffers/pharmacyoffers.component';
 import { WritearticleComponent } from './pages/Doctor/writearticle/writearticle.component';
 import { OffersdashComponent } from './pages/Diagnostic Center/offersdash/offersdash.component';
 import { OffersDashboardComponent } from './pages/Pharmacy/offers-dashboard/offers-dashboard.component';
-import { CampDashComponent } from './pages/Camp/camp-dash/camp-dash.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EditHospitalClinicComponent } from './pages/Registration/edit-hospital-clinic/edit-hospital-clinic.component';
 import { EditDoctorRegistrationComponent } from './pages/Registration/edit-doctor-registration/edit-doctor-registration.component';
 import { EditDiagnosticRegistrationComponent } from './pages/Registration/edit-diagnostic-registration/edit-diagnostic-registration.component';
 import { EditPharmacyRegComponent } from './pages/Registration/edit-pharmacy-reg/edit-pharmacy-reg.component';
-import { HospitalServicesDashComponent } from './pages/Map Services/hospital-services-dash/hospital-services-dash.component';
-import { DoctorServicesDashComponent } from './pages/Map Services/doctor-services-dash/doctor-services-dash.component';
 import { DiagnosticTestDashComponent } from './pages/Map Services/diagnostic-test-dash/diagnostic-test-dash.component';
 import { DiagnosticPackageDashComponent } from './pages/Map Services/diagnostic-package-dash/diagnostic-package-dash.component';
-import { EditCampComponent } from './pages/Camp/edit-camp/edit-camp.component';
 import { VediocallComponent } from './pages/Doctor/vediocall/vediocall.component';
 import { PublisherComponent } from './pages/Doctor/publisher/publisher.component';
 import { SubscriberComponent } from './pages/Doctor/subscriber/subscriber.component';
-import { PatientChatComponent } from './pages/Doctor/patient-chat/patient-chat.component';
-import { SoapdashComponent } from './pages/Doctor/soapdash/soapdash.component';
 import { NurseComponent } from './pages/Registration/nurse/nurse.component';
 import { NurseDashboardComponent } from './pages/Registration/nurse-dashboard/nurse-dashboard.component';
 import { PhysiotherapistComponent } from './pages/Registration/physiotherapist/physiotherapist.component';
@@ -117,11 +106,8 @@ import { EditMidwifeComponent } from './pages/Registration/edit-midwife/edit-mid
 import { EditDeliveryCompanyComponent } from './pages/Registration/edit-delivery-company/edit-delivery-company.component';
 import { MedicalHistoryComponent } from './pages/Doctor/medical-history/medical-history.component';
 import { PatientHistoryComponent } from './pages/Doctor/patient-history/patient-history.component';
-import { MedicalPatientHistoryComponent } from './pages/Doctor/medical-patient-history/medical-patient-history.component';
 import { NewPatientHistoryComponent } from './pages/Doctor/new-patient-history/new-patient-history.component';
-import { OnDemandVideoComponent } from './pages/Doctor/on-demand-video/on-demand-video.component';
 import { NgDateRangePickerModule } from 'ng-daterangepicker';
-import { PharmacyReportsComponent } from './pages/Pharmacy/pharmacy-reports/pharmacy-reports.component';
 import { DiagnosticReportsComponent } from './pages/Diagnostic Center/diagnostic-reports/diagnostic-reports.component';
 import { NurseReportsComponent } from './pages/Nurse/nurse-reports/nurse-reports.component';
 import { PhysiotherapistReportsComponent } from './pages/physiotherapist/physiotherapist-reports/physiotherapist-reports.component';
@@ -129,19 +115,12 @@ import { MideWifeReportsComponent } from './pages/Midewife/mide-wife-reports/mid
 import { NurseTimingsComponent } from './pages/Nurse/nurse-timings/nurse-timings.component';
 import { PhysiotherapistTimingsComponent } from './pages/physiotherapist/physiotherapist-timings/physiotherapist-timings.component';
 import { MidWifeTimingsComponent } from './pages/Midewife/mid-wife-timings/mid-wife-timings.component';
-import { MyWorkingDetailsComponent } from './pages/Doctor/my-working-details/my-working-details.component';
-import { SickSlipGeneratorComponent } from './pages/Doctor/sick-slip-generator/sick-slip-generator.component';
-import { SickSlipDashboardComponent } from './pages/Doctor/sick-slip-dashboard/sick-slip-dashboard.component';
 import { DoctorPrescriptionComponent } from './pages/Pharmacy/doctor-prescription/doctor-prescription.component';
 import { PrescriptionReportsComponent } from './pages/Pharmacy/prescription-reports/prescription-reports.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PreviousVideosComponent } from './pages/Doctor/previous-videos/previous-videos.component';
 import { DatePipe } from '@angular/common';
-import { LanguageCheckComponent } from './pages/Hospital/language-check/language-check.component';
 import { TranslatorModule } from 'angular-translator';
-import { PharmacyChatComponent } from './pages/Pharmacy/pharmacy-chat/pharmacy-chat.component';
-import { PhaPatientChatComponent } from './pages/Pharmacy/pha-patient-chat/pha-patient-chat.component';
-import { NurseChatComponent } from './pages/Nurse/nurse-chat/nurse-chat.component';
 import { HospitalDashboardComponent } from './pages/Hospital/hospital-dashboard/hospital-dashboard.component';
 import { DocREportsComponent } from './pages/Hospital/doc-reports/doc-reports.component';
 import { CountrtMasterComponent } from './pages/Masters/countrt-master/countrt-master.component';
@@ -188,16 +167,12 @@ import { PhysioAdminDashComponent } from './pages/physiotherapist/physio-admin-d
 import { PhysioDashboardDetailsComponent } from './pages/physiotherapist/physio-dashboard-details/physio-dashboard-details.component';
 import { AdminMidWifeDashComponent } from './pages/Midewife/admin-mid-wife-dash/admin-mid-wife-dash.component';
 import { MidWifeAdminDashDetailsComponent } from './pages/Midewife/mid-wife-admin-dash-details/mid-wife-admin-dash-details.component';
-import { DoctorFeesComponent } from './pages/DoctorFees/doctor-fees/doctor-fees.component';
-import { DoctorFeeDashComponent } from './pages/DoctorFees/doctor-fee-dash/doctor-fee-dash.component';
 import { LocalDoctorRegistrationComponent } from './pages/Registration/local-doctor-registration/local-doctor-registration.component';
 import { LocalDocDashComponent } from './pages/Registration/local-doc-dash/local-doc-dash.component';
 import { MyPatientPrescriptionsComponent } from './pages/LocalDoctor/my-patient-prescriptions/my-patient-prescriptions.component';
 import { MyProfilesComponent } from './pages/LocalDoctor/my-profiles/my-profiles.component';
 import { AnnounsementsComponent } from './pages/Announsements/announsements/announsements.component';
 import { AnnounseDashComponent } from './pages/Announsements/announse-dash/announse-dash.component';
-import { TreatmentMasterComponent } from './pages/Masters/treatment-master/treatment-master.component';
-import { TreatmentDashComponent } from './pages/Masters/treatment-dash/treatment-dash.component';
 import { NurseFeesComponent } from './pages/HomeVisitsFees/nurse-fees/nurse-fees.component';
 import { NurseFeeDashComponent } from './pages/HomeVisitsFees/nurse-fee-dash/nurse-fee-dash.component';
 import { PhysioFeesComponent } from './pages/HomeVisitsFees/physio-fees/physio-fees.component';
@@ -213,30 +188,12 @@ import { PhysioRevenueComponent } from './pages/Midewife/physio-revenue/physio-r
 import { SupportRegComponent } from './pages/Support/support-reg/support-reg.component';
 import { SupportRegDashComponent } from './pages/Support/support-reg-dash/support-reg-dash.component';
 import { SupportProfileComponent } from './pages/Support/support-profile/support-profile.component';
-import { SalesDashComponent } from './pages/Sales/sales-dash/sales-dash.component';
-import { AddUserComponent } from './pages/Sales/add-user/add-user.component';
-import { EnableLocalDoctorComponent } from './pages/Masters/enable-local-doctor/enable-local-doctor.component';
-import { FaqComponent } from './pages/FAQ/faq/faq.component';
 import { DocAppReportsComponent } from './pages/AdminDashboard/doc-app-reports/doc-app-reports.component';
 import { NurseAdminReportsComponent } from './pages/AdminDashboard/nurse-admin-reports/nurse-admin-reports.component';
 import { MidWifeAdminReportsComponent } from './pages/AdminDashboard/mid-wife-admin-reports/mid-wife-admin-reports.component';
 import { PhysioreportsComponent } from './pages/AdminDashboard/physioreports/physioreports.component';
-import { HowToUseComponent } from './pages/FAQ/how-to-use/how-to-use.component';
-import { HowtousedashComponent } from './pages/FAQ/howtousedash/howtousedash.component';
-import { FrequentlyaskedComponent } from './pages/FAQ/frequentlyasked/frequentlyasked.component';
-import { FrequentlyDashComponent } from './pages/FAQ/frequently-dash/frequently-dash.component';
-import { DoctorTipsComponent } from './pages/FAQ/doctor-tips/doctor-tips.component';
-import { DocTipsDashComponent } from './pages/FAQ/doc-tips-dash/doc-tips-dash.component';
 import { ClinicDashComponent } from './pages/Registration/clinic-dash/clinic-dash.component';
-import { HowToUseVoilaDOcComponent } from './pages/FAQ/how-to-use-voila-doc/how-to-use-voila-doc.component';
-import { DoctorTipsAndTricksComponent } from './pages/FAQ/doctor-tips-and-tricks/doctor-tips-and-tricks.component';
-import { PatientChartsComponent } from './pages/patient-charts/patient-charts.component';
 import { DiagnosticSlotsDashComponent } from './pages/Registration/diagnostic-slots-dash/diagnostic-slots-dash.component';
-import { HowToUseDocDashComponent } from './pages/FAQ/how-to-use-doc-dash/how-to-use-doc-dash.component';
-import { HowToUseDocComponent } from './pages/FAQ/how-to-use-doc/how-to-use-doc.component';
-import { HowToUseDoctorsComponent } from './pages/FAQ/how-to-use-doctors/how-to-use-doctors.component';
-import { FrequentlyAskedQuestionsComponent } from './pages/FAQ/frequently-asked-questions/frequently-asked-questions.component';
-import { ReferredDoctorComponent } from './pages/Doctor/referred-doctor/referred-doctor.component';
 import { ReferredPatientsComponent } from './pages/Doctor/referred-patients/referred-patients.component';
 import { PatientRegComponent } from './pages/Hospital/patient-reg/patient-reg.component';
 import { PtientregdashComponent } from './pages/Hospital/ptientregdash/ptientregdash.component';
@@ -280,14 +237,10 @@ import { VideocallappointementsComponent } from './pages/Hospital/videocallappoi
 import { HomecareRevenueComponent } from './pages/Hospital/homecare-revenue/homecare-revenue.component';
 import { HomecareAppointementsComponent } from './pages/Hospital/homecare-appointements/homecare-appointements.component';
 import { SentrefferalsComponent } from './pages/Doctor/sentrefferals/sentrefferals.component';
-import { MyFeesComponent } from './pages/Doctor/my-fees/my-fees.component';
-import { EditMyfeesComponent } from './pages/Doctor/edit-myfees/edit-myfees.component';
-import { AddMyFeesComponent } from './pages/Doctor/add-my-fees/add-my-fees.component';
 import { DocCalenderComponent } from './pages/Doctor/doc-calender/doc-calender.component';
 import { DoctorsCalenderComponent } from './pages/Hospital/doctors-calender/doctors-calender.component';
 import { ReturnOrdersComponent } from './pages/DeliveryPartner/return-orders/return-orders.component';
 import { ReturnOrdersReportComponent } from './pages/DeliveryPartner/return-orders-report/return-orders-report.component';
-import { AddMyWorkingDetailsComponent } from './pages/Doctor/add-my-working-details/add-my-working-details.component';
 import { NurseMonthWiseScheduleComponent } from './pages/Nurse/nurse-month-wise-schedule/nurse-month-wise-schedule.component';
 import { PhysiomonthWiseScheduleComponent } from './pages/physiotherapist/physiomonth-wise-schedule/physiomonth-wise-schedule.component';
 import { MidwifeMonthWiseComponent } from './pages/Midewife/midwife-month-wise/midwife-month-wise.component';
@@ -312,12 +265,7 @@ import { HospitalSupportDashComponent } from './pages/Hospital/hospital-support-
 import { RecpsupportComponent } from './pages/Hospital/recpsupport/recpsupport.component';
 import { RecpsupportDashComponent } from './pages/Hospital/recpsupport-dash/recpsupport-dash.component';
 import { SupportWebComponent } from './pages/Support/support-web/support-web.component';
-import { DocResolvedTicketsComponent } from './pages/Doctor/doc-resolved-tickets/doc-resolved-tickets.component';
-import { NurseResolvedTicketsComponent } from './pages/Nurse/nurse-resolved-tickets/nurse-resolved-tickets.component';
-import { PhysioCompletedTicketsComponent } from './pages/physiotherapist/physio-completed-tickets/physio-completed-tickets.component';
-import { MidwifeCompletedTicketsComponent } from './pages/Midewife/midwife-completed-tickets/midwife-completed-tickets.component';
-import { HospitalCompletedTicketsComponent } from './pages/Hospital/hospital-completed-tickets/hospital-completed-tickets.component';
-import { RecpSupportCompletedComponent } from './pages/Hospital/recp-support-completed/recp-support-completed.component';
+
 import { SupportCometedTicketsComponent } from './pages/Support/support-cometed-tickets/support-cometed-tickets.component';
 import { DoctorNotificationsComponent } from './pages/Doctor/doctor-notifications/doctor-notifications.component';
 import { NurseNotificationsComponent } from './pages/Nurse/nurse-notifications/nurse-notifications.component';
@@ -329,7 +277,6 @@ import { MergePatientdataComponent } from './pages/Sales/merge-patientdata/merge
 import { EditDiagnosticTestComponent } from './pages/Diagnostic Center/edit-diagnostic-test/edit-diagnostic-test.component';
 import { SendemailsComponent } from './pages/Sales/sendemails/sendemails.component';
 import { EmailDashComponent } from './pages/Sales/email-dash/email-dash.component';
-import { TestvideocallPageComponent } from './pages/Doctor/testvideocall-page/testvideocall-page.component';
 import { SendSmsComponent } from './pages/Sales/send-sms/send-sms.component';
 import { SmsDashComponent } from './pages/Sales/sms-dash/sms-dash.component';
 import { RoleMenuMappingComponent } from './pages/MenuMapping/role-menu-mapping/role-menu-mapping.component';
@@ -368,17 +315,14 @@ import { PaymentLinkDashboardComponent } from './pages/Diagnostic Center/payment
 import { UserPlanningComponent } from './pages/Diagnostic Center/user-planning/user-planning.component';
 import { PharmacySupportComponent } from './pages/Pharmacy/pharmacy-support/pharmacy-support.component';
 import { PharmacySupportDashComponent } from './pages/Pharmacy/pharmacy-support-dash/pharmacy-support-dash.component';
-import { PharmacyCompletedTicketsComponent } from './pages/Pharmacy/pharmacy-completed-tickets/pharmacy-completed-tickets.component';
 import { DiagnosticSupportComponent } from './pages/Diagnostic Center/diagnostic-support/diagnostic-support.component';
 import { DiagnosticSupportDashComponent } from './pages/Diagnostic Center/diagnostic-support-dash/diagnostic-support-dash.component';
-import { DiaCompletedTicketsComponent } from './pages/Diagnostic Center/dia-completed-tickets/dia-completed-tickets.component';
 import { RefundSupportComponent } from './pages/Support/refund-support/refund-support.component';
 import { RefundCompletedTicketsComponent } from './pages/Support/refund-completed-tickets/refund-completed-tickets.component';
 import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
 import { MeridionalSupportComponent } from './pages/Support/meridional-support/meridional-support.component';
 import { DiagnosticPatientsComponent } from './pages/Diagnostic Center/diagnostic-patients/diagnostic-patients.component';
-
-
+ import { AppHttpInterceptor } from './app-http-interceptor';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -402,12 +346,10 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DiagnosticsregistrationComponent,
     DiagnosticcenterslotsComponent,
     PharmacyregistrationComponent,
-    HospitalservicesComponent,
-    DoctorservicesComponent,
+
     DiagnostictestComponent,
     DiagnosticpackageComponent,
     DiagnosticComponent,
-    AddcampComponent,
     DoctorComponent,
     PharmacyComponent,
     HospitalClinicComponent,
@@ -433,32 +375,24 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MyappointmentsComponent,
     AppointmentsreportComponent,
     MyarticlesComponent,
-    MychatsComponent,
     MyfeedbacksComponent,
     ProfilesComponent,
     OrdersComponent,
     OffersComponent,
     PharmacyprofileComponent,
-    PharmacyordersComponent,
     PharmacyoffersComponent,
     WritearticleComponent,
     OffersdashComponent,
     OffersDashboardComponent,
-    CampDashComponent,
     EditHospitalClinicComponent,
     EditDoctorRegistrationComponent,
     EditDiagnosticRegistrationComponent,
     EditPharmacyRegComponent,
-    HospitalServicesDashComponent,
-    DoctorServicesDashComponent,
     DiagnosticTestDashComponent,
     DiagnosticPackageDashComponent,
-    EditCampComponent,
     VediocallComponent,
     PublisherComponent,
     SubscriberComponent,
-    PatientChatComponent,
-    SoapdashComponent,
     NurseComponent,
     NurseDashboardComponent,
     PhysiotherapistComponent,
@@ -494,10 +428,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     EditDeliveryCompanyComponent,
     MedicalHistoryComponent,
     PatientHistoryComponent,
-    MedicalPatientHistoryComponent,
     NewPatientHistoryComponent,
-    OnDemandVideoComponent,
-    PharmacyReportsComponent,
     DiagnosticReportsComponent,
     NurseReportsComponent,
     PhysiotherapistReportsComponent,
@@ -505,16 +436,9 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NurseTimingsComponent,
     PhysiotherapistTimingsComponent,
     MidWifeTimingsComponent,
-    MyWorkingDetailsComponent,
-    SickSlipGeneratorComponent,
-    SickSlipDashboardComponent,
     DoctorPrescriptionComponent,
     PrescriptionReportsComponent,
     PreviousVideosComponent,
-    LanguageCheckComponent,
-    PharmacyChatComponent,
-    PhaPatientChatComponent,
-    NurseChatComponent,
     HospitalDashboardComponent,
     DocREportsComponent,
     CountrtMasterComponent,
@@ -561,16 +485,12 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PhysioDashboardDetailsComponent,
     AdminMidWifeDashComponent,
     MidWifeAdminDashDetailsComponent,
-    DoctorFeesComponent,
-    DoctorFeeDashComponent,
     LocalDoctorRegistrationComponent,
     LocalDocDashComponent,
     MyPatientPrescriptionsComponent,
     MyProfilesComponent,
     AnnounsementsComponent,
     AnnounseDashComponent,
-    TreatmentMasterComponent,
-    TreatmentDashComponent,
     NurseFeesComponent,
     NurseFeeDashComponent,
     PhysioFeesComponent,
@@ -586,30 +506,12 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     SupportRegComponent,
     SupportRegDashComponent,
     SupportProfileComponent,
-    SalesDashComponent,
-    AddUserComponent,
-    EnableLocalDoctorComponent,
-    FaqComponent,
     DocAppReportsComponent,
     NurseAdminReportsComponent,
     MidWifeAdminReportsComponent,
     PhysioreportsComponent,
-    HowToUseComponent,
-    HowtousedashComponent,
-    FrequentlyaskedComponent,
-    FrequentlyDashComponent,
-    DoctorTipsComponent,
-    DocTipsDashComponent,
     ClinicDashComponent,
-    HowToUseVoilaDOcComponent,
-    DoctorTipsAndTricksComponent,
-    PatientChartsComponent,
     DiagnosticSlotsDashComponent,
-    HowToUseDocDashComponent,
-    HowToUseDocComponent,
-    HowToUseDoctorsComponent,
-    FrequentlyAskedQuestionsComponent,
-    ReferredDoctorComponent,
     ReferredPatientsComponent,
     PatientRegComponent,
     PtientregdashComponent,
@@ -653,14 +555,10 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     HomecareRevenueComponent,
     HomecareAppointementsComponent,
     SentrefferalsComponent,
-    MyFeesComponent,
-    EditMyfeesComponent,
-    AddMyFeesComponent,
     DocCalenderComponent,
     DoctorsCalenderComponent,
     ReturnOrdersComponent,
     ReturnOrdersReportComponent,
-    AddMyWorkingDetailsComponent,
     NurseMonthWiseScheduleComponent,
     PhysiomonthWiseScheduleComponent,
     MidwifeMonthWiseComponent,
@@ -685,12 +583,6 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     RecpsupportComponent,
     RecpsupportDashComponent,
     SupportWebComponent,
-    DocResolvedTicketsComponent,
-    NurseResolvedTicketsComponent,
-    PhysioCompletedTicketsComponent,
-    MidwifeCompletedTicketsComponent,
-    HospitalCompletedTicketsComponent,
-    RecpSupportCompletedComponent,
     SupportCometedTicketsComponent,
     DoctorNotificationsComponent,
     NurseNotificationsComponent,
@@ -700,7 +592,6 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     EditDiagnosticTestComponent,
     SendemailsComponent,
     EmailDashComponent,
-    TestvideocallPageComponent,
     SendSmsComponent,
     SmsDashComponent,
     RoleMenuMappingComponent,
@@ -738,10 +629,8 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     UserPlanningComponent,
     PharmacySupportComponent,
     PharmacySupportDashComponent,
-    PharmacyCompletedTicketsComponent,
     DiagnosticSupportComponent,
     DiagnosticSupportDashComponent,
-    DiaCompletedTicketsComponent,
     RefundSupportComponent,
     RefundCompletedTicketsComponent,
     AllDiagnosticCalenderComponent,
@@ -776,11 +665,15 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
       defaultLanguage: 'en'
     })
   ],
+//   providers: [{provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true}],
+//   bootstrap: [AppComponent]
+// })
+
   exports: [ChartsModule],
   providers: [DatePipe, {
     provide: DROPZONE_CONFIG,
     useValue: DEFAULT_DROPZONE_CONFIG,
-  }],
+  },{provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

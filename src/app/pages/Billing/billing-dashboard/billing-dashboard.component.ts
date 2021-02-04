@@ -24,9 +24,9 @@ export class BillingDashboardComponent implements OnInit {
     }
 
     public GetCounts(Type, Month, Year) {
-        debugger
+        
         this.docservice.GetCountsForDashboard(Type, Month, Year).subscribe(data => {
-            debugger
+            
             this.dummylist = data;
             this.pendinginvoice = this.dummylist.filter(x => x.paid == 0);
             this.paidinvoice = this.dummylist.filter(x => x.paid == 1);

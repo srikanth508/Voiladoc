@@ -342,7 +342,7 @@ export class PhysiotherapistComponent implements OnInit {
   }
 
   public insertphysiodetails() {
-    debugger
+    
     this.spinner.show();
     var entity = {
       'Name': this.name,
@@ -366,7 +366,7 @@ export class PhysiotherapistComponent implements OnInit {
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       let physioid = data;
-      debugger
+      
       if (data != 0) {
         for (let s = 0; s < this.serviceid.length; s++) {
           var serviceentity = {

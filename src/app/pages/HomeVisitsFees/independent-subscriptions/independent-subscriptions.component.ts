@@ -85,7 +85,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
 
 
   public GetTypeID(even) {
-    debugger
+    
     this.typeid = even.target.value;
   }
 
@@ -95,7 +95,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
   public GetNurseID(even) {
 
     this.nurseid = even.target.value;
-    debugger
+    
     var list = this.nurselist1.filter(x => x.nurseID == this.nurseid)
     // this.nursename = list[0].nurseName,
     //   this.hospitalid = list[0].hospitalClinicID,
@@ -126,12 +126,12 @@ export class IndependentSubscriptionsComponent implements OnInit {
   public GetphysioID(even) {
 
     this.physioid = even.target.value;
-    debugger
+    
     // var list1 = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
     // this.physihospitalid = list1[0].id,
     //   this.hospitalid = list1[0].hospitalClinicID,
     //   this.hospitalname = list1[0].hospital_ClinicName
-    debugger
+    
     // this.gethospitals();
   }
 
@@ -143,7 +143,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
   public contractenddate: any;
 
   public Getsubscriptontype() {
-    debugger
+    
     this.appointmentpercentage = 0;
     this.monthlysubription = 0;
   }
@@ -228,7 +228,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
         }
       })
     }
-    debugger
+    
   }
 
 
@@ -256,7 +256,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
         }
       })
     }
-    debugger
+    
   }
 
 

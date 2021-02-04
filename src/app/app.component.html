@@ -804,6 +804,7 @@
             <div class="modal-body">
                 <div class="row card card-hover newcard" *ngFor="let docnoti of doctorNotifications"
                     style="overflow: auto;">
+                    <br>
                     <div class="col-lg-12">
                         <p><b>{{docnoti.notification}}</b></p>
                         <p>{{docnoti.description}}</p>
@@ -814,8 +815,18 @@
                             <!-- <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button> -->
                             <button class="chatnow" data-dismiss="modal" style="float: right;"
-                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)">{{labels[0].seenAll}}</button><br>
+                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)" *ngIf="docnoti.notificationTypeID!=17">{{labels[0].seenAll}}</button><br>
+
+                                <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
+                                style="float: left;"
+                                (click)="RejectVedioAppointment(docnoti.doctorID)">{{labels[0].reject}}</button>
+                            <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
+                                style="float: right;"
+                                (click)="Update_appointmentFordemand(docnoti.doctorHospitalDetailsID,docnoti.doctorID,docnoti.appointmentID,docnoti.id,docnoti.emailID,docnoti.doctorName,docnoti.date)">{{labels[0].accept}}</button>
+                            <br>
+
                         </div>
+
                         <div *ngIf="nurseid!=undefined||midwifeid!=undefined||physioid!=undefined">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="UpdateNursePhysiomidwifeseenbit(docnoti.id)">{{labels[0].seen}}</button>
@@ -824,12 +835,7 @@
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updatesupportseenbit(docnoti.id)">{{labels[0].seen}}</button>
                         </div>
-                        <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
-                            style="float: left;"
-                            (click)="RejectVedioAppointment(docnoti.doctorID)">{{labels[0].reject}}</button>
-                        <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
-                            style="float: right;"
-                            (click)="Update_appointmentFordemand(docnoti.doctorHospitalDetailsID,docnoti.doctorID,docnoti.appointmentID,docnoti.id,docnoti.emailID,docnoti.doctorName,docnoti.date)">{{labels[0].accept}}</button>
+                     
                         <br>
                         <div *ngIf="pharmacyid!=undefined">
                             <button class="chatnow1" data-toggle="modal" data-target="#Medicines"
@@ -837,7 +843,7 @@
                             <br><br>
                         </div>
                     </div>
-                </div>
+                </div><br>
                 <div class="card card-hover newcard" *ngFor="let phanoti of pharmcunoti">
                     <br>
                     <div class="row ">
@@ -889,20 +895,13 @@
                                     <th>{{labels10[0].medicines}}</th>
                                     <th>{{labels10[0].sig}}</th>
                                     <th>{{labels10[0].quantity}}</th>
-                                    <!-- <th>How many refills</th>
-                                    <th>Note to pharmacist</th> -->
-                                    <!-- <th>Actions</th> -->
+                                   
                                 </tr>
                                 <tr *ngFor="let ss of orderedmedicinelist">
                                     <td>{{ss.medicineName}}</td>
                                     <td>{{ss.sig}}</td>
                                     <td>{{ss.quantity}}</td>
-                                    <!-- <td>{{ss.refills}}</td>
-                                    <td>{{ss.noteToPharmacist}}</td> -->
-                                    <!-- <td>
-                                        <input type="checkbox" (change)="ChangeAvailableMedicines(medicinelist,$event)"
-                                            [checked]="ss.availableBit=='0'">
-                                    </td> -->
+                                  
                                 </tr>
                             </table>
                         </div>
@@ -954,8 +953,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">
-                    <!-- <h4>{{labels[0].chatmessagee}}</h4> -->
-                    <!-- <span *ngIf="istyping==true">typing .... </span> -->
+                   
                 </div>
             </div>
             <!-- id="chatboxdiv" -->
@@ -1008,8 +1006,7 @@
             <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
                 <div class="row">
                     <div class="col-lg-9">
-                        <!-- <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
-                    placeholder="{{labels[0].typemsg}}"></textarea> -->
+                     
                         <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
                             class="form-control" style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
                     </div>
@@ -1019,11 +1016,7 @@
                             <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
                         </button>
                     </div>
-                    <!-- <div class="col-lg-1">
-                  <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice"
-                    style="height: 50px;">
-                  </ngx-dropzone>
-                </div> -->
+                
                 </div>
             </div>
             <br>

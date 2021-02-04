@@ -360,14 +360,14 @@ export class DocworkingdetailsComponent implements OnInit {
 
 
   public GetDaysID(item10: any) {
-    debugger
+    
     // this.dayid = item10.id;
     this.dayid.push(item10)
   }
 
 
   onItemDeSelect1(item1: any) {
-    debugger
+    
     this.dayid = this.dayid.slice(item1.id)
   }
 
@@ -400,13 +400,13 @@ export class DocworkingdetailsComponent implements OnInit {
 
   public GetDoctorID(item: any) {
     this.doctorid = item.id;
-    debugger
+    
     var list = this.dummlist.filter(x => x.id == this.doctorid)
     this.slottypeid = list[0].slotDurationID,
       this.hosipitalidd = list[0].hospitalClinicID,
       this.hospital_ClinicName = list[0].hospital_ClinicName
     this.departmentid = list[0].departmentID
-    debugger
+    
     if (this.slottypeid != null) {
       this.GetMorningSlotsMasterbyid();
       this.GetAfternoonSlotsMasterbyID();
@@ -446,9 +446,9 @@ export class DocworkingdetailsComponent implements OnInit {
 public itemid:any;
 
   onItemDeslectDay(item: any) {
-debugger
+
      this.itemid=item.id;
-    debugger
+    
     this.dayid.splice(this.itemid, 1);
     // this.dayid = this.dayid.slice(this.itemid)
   }
@@ -830,10 +830,10 @@ debugger
       }
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
-      debugger
+      
       var mrngslots = this.mrngfromlist.findIndex(x => x.id == this.mrngtoid);
       this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 1, this.mrngfromlist.length);
-      debugger
+      
     }
     this.session1 = "";
     this.session2 = "";
@@ -880,7 +880,7 @@ debugger
 
 
   public insertdetails() {
-    debugger
+    
     var entity = {
       'DoctorID': this.doctorid,
       'DoctorAvalibity': this.name,
@@ -893,12 +893,12 @@ debugger
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
 
       if (data != 0) {
-        debugger
+        
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
         this.insertdoctorslotsbyid();
-        debugger
+        
 
         this.tablecount = 0;
       }
@@ -913,9 +913,9 @@ debugger
   public insertdoctorslotsbyid() {
 
     for (let j = 0; j < this.dayid.length; j++) {
-      debugger
+      
       for (let i = 0; i < this.qwerty.length; i++) {
-        debugger
+        
         var entity = {
           'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
           'DoctorID': this.qwerty[i].DoctorID,
@@ -926,7 +926,7 @@ debugger
           'Fees': this.qwerty[i].Fees,
         }
         this.docservice.InsertDoctorSlotByID(entity).subscribe(data => {
-          debugger
+          
           if (data != 0) {
           }
         })

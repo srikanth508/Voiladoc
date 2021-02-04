@@ -59,7 +59,7 @@ export class MergePatientdataComponent implements OnInit {
 
 
   public updatemobilenmber() {
-debugger
+
     if (this.patientpinno == this.pinno) {
      
       var entity = {

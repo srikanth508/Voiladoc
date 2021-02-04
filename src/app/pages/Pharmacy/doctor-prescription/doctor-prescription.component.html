@@ -155,7 +155,7 @@
                     margin-left: 0%;">{{details.chatcount}}</span> -->
                     <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
                     <a [ngbTooltip]="tipcontent36">
-                      <span style="color: green;position: absolute;margin-left: 25px;">{{details.chatcount}}</span>
+                      <span style="color: green;position: absolute;margin-left: 25px;"  *ngIf="details.approved=='1'&&details.delivered=='0'">{{details.chatcount}}</span>
                       <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'" data-toggle="modal"
                         data-target="#asssignss" style="margin: 2%;width: 30px;"
                         (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id)" />

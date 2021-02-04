@@ -4,7 +4,6 @@
       <h5 *ngIf="languageid==1">Prescription Verifier</h5>
       <h5 *ngIf="languageid==6">Vérificateur de prescription</h5>
     </div>
-
     <div class="col-lg-3" style="text-align: end; margin-top: -12px;">
       <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()" style="margin-right: 10px;">
         {{labels1[0].exportExcel}}</button>

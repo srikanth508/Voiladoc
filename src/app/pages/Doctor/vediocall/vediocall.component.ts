@@ -60,8 +60,7 @@ export class VediocallComponent implements OnInit {
   public pddddd: any;
   public soapddddd: any;
   public sppp: any;
-  public gtsss: any;
-  public cheif: any;
+
   public historyofillness: any;
   public medcondition: any;
   public meditations: any;
@@ -237,7 +236,7 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-debugger
+
     // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
@@ -250,7 +249,7 @@ debugger
     document.getElementById("vidiv").classList.add("col-lg-12");
     document.getElementById("vidpagehead").style.display = "none";
 
-
+debugger
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -277,7 +276,6 @@ debugger
     }, 1000);
 
 
-    //document.getElementById("videocall_1234").style.display = "block";
     this.display = "block";
 
     this.Date = new Date();
@@ -322,15 +320,7 @@ debugger
     )
    this.showclosebutton = 0;
 
-    // this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
-    //   this.compltedlist = res;
-    //   if (this.compltedlist[0].completed == 2) {
-    //     if (this.count == 1) {
-    //       this.count = this.count + 1
-    //       Swal.fire('Patient Ended The Session');
-    //     }
-    //   }
-    // })
+
 
 
     //chat
@@ -387,33 +377,11 @@ debugger
     }
     // tok bok vamsi  start
 
-
-    // this.docservice.GetBooked_DoctorPatientBookedVideoConferencebyppointmentID(this.appointmentid).subscribe(
-    //   data => {
-    //     if (data.length > 0) {
-
-    //       config.SESSION_ID = data[0].sessionID,
-    //         config.TOKEN = data[0].token
-    //       this.insertvedioeconferencedetails();
-    //     }
-    //     else {
-    //       this.opentokService.getsessionandtoken().subscribe(res => {
-    //         config.SESSION_ID = res['sessionid'];
-    //         config.TOKEN = res['token'];
-
-    //         this.insertvedioeconferencedetails();
-    //       })
-    //     }
-    //   }, error => {
-    //   }
-    // )
-    debugger
-
     this.opentokService.getsessionandtoken().subscribe(res => {
-      debugger
+      
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-      debugger
+      
       this.insertvedioeconferencedetails();
     })
 
@@ -424,10 +392,6 @@ debugger
 
   }
 
-
-  newtab() {
-    window.open('www.facebook.com', '_blank');
-  }
 
 
   endsession
@@ -442,7 +406,7 @@ debugger
     )
   }
 
-  debugger
+  
   public GetSoapNotesByPatientID() {
     this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
       data => {
@@ -473,7 +437,7 @@ debugger
             ;
             this.streams.push(event.stream);
              this.showclosebutton = 1;
-            debugger
+            
             document.getElementById('stoprecoring').style.display = 'block';
 
             // document.getElementById('stoprecoring_forshow').style.display = 'none';
@@ -525,7 +489,7 @@ debugger
           this.session.on('streamDestroyed', (event) => {
             ;
             this.stoparchive();
-            debugger
+            
 
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
@@ -569,54 +533,6 @@ debugger
 
 
 
-  public getcityy(evn, cityname) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    document.getElementById(cityname).style.display = "block";
-    evn.currentTarget.className += " active";
-  }
-
-  public getcityrtret(evn, cityname) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    document.getElementById(cityname).style.display = "block";
-    evn.currentTarget.className += " active";
-  }
-
-
-
-  public getcityyyyyyyy(evn, cityname) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    document.getElementById(cityname).style.display = "block";
-    evn.currentTarget.className += " active";
-  }
-
-
 
 
   public deleteprscriptonforpatient(id) {
@@ -651,102 +567,9 @@ debugger
 
 
 
-  public pd() {
-    this.pddddd = 1;
-    this.soapddddd = 0;
-    this.showchat = 0;
-    this.getss = 0;
-    this.getoo = 0;
-    this.getaa = 0;
-    this.getpp = 0;
-    this.showid = 0;
-    this.showhistory = 0
-  }
 
-  public getcity(evn, cityname) {
+ 
 
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    document.getElementById(cityname).style.display = "block";
-    evn.currentTarget.className += " active";
-  }
-
-  public soap() {
-
-    this.pddddd = 0;
-    this.soapddddd = 1;
-    this.showchat = 0;
-    this.showhistoryid = 0
-    this.showid = 0;
-    this.showhistory = 0
-    document.getElementById("qwerty_1234").style.display = "block";
-
-  }
-  public chat() {
-    this.pddddd = 0;
-    this.soapddddd = 0;
-    this.showchat = 1;
-    this.showid = 0;
-    this.showhistoryid = 0
-    this.showhistory = 0
-  }
-
-  public history() {
-    this.pddddd = 0;
-    this.soapddddd = 0;
-    this.showchat = 0;
-    this.showid = 0;
-    this.showhistory = 1;
-  }
-
-  public soap1() {
-    this.pddddd = 1;
-    this.soapddddd = 0;
-  }
-  public gets() {
-    this.getss = 1;
-    this.getoo = 0;
-    this.getaa = 0;
-    this.getpp = 0;
-
-  }
-
-
-  public geto() {
-
-    this.getss = 0;
-    this.getoo = 1;
-    this.getaa = 0;
-    this.getpp = 0;
-
-
-  }
-  public geta() {
-
-    this.getss = 0;
-    this.getoo = 0;
-    this.getaa = 1;
-    this.getpp = 0;
-
-
-  }
-  public getp() {
-
-    this.getss = 0;
-    this.getoo = 0;
-    this.getaa = 0;
-    this.getpp = 1;
-
-  }
 
 
   ispatientpragnent: any;
@@ -1056,29 +879,9 @@ debugger
   icddesc: any;
 
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-
-      distinctUntilChanged(),
-      map(term => term.length < 1 ? []
-        : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
 
 
-  // public getid() {
-  //   
-  //   if (this.icddesc == '') {
-  //     this.icdcode = ''
-  //   }
-  //   else {
-  //     let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
-  //     this.icdcode = wqew[0].icdCode,
-  //       this.icrcodeid = wqew[0].id
-  //     
-  //   }
 
-  // }
   showsearchsoap: any;
 
   public SearchIcrCode() {
@@ -1349,19 +1152,19 @@ debugger
 
 
   public stoparchive() {
-    debugger
+    
     this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
       this.compltedlist = res;
       if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
         this.count = this.count + 1
-        debugger
+        
         Swal.fire('Patient Ended The Call');
         window.close();
       }
       else {
         this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
           data => {
-            debugger
+            
             window.close();
             
           }, error => {
@@ -1385,8 +1188,6 @@ debugger
 
     this.VisitDoctorAppointmentStatus()
 
-    // location.href = "#/Myappointments"
-    // location.reload()
 
   }
 
@@ -1519,29 +1320,6 @@ debugger
 
 
 
-  // SerachOn
-  // public SearchIcrCode(event) {
-  //   
-  //   if (event != "") {
-  //     this.SerachOn = 1;
-  //   }
-  //   else {
-  //     this.SerachOn = 0;
-  //   }
-
-  // }
-
-  // public GetIcrCodeID(id, desc, icdCode) {
-  //   
-  //   this.icrcodeid = id;
-  //   this.icrdescription = desc
-  //   this.icdcode = icdCode;
-  //   this.SerachOn = 0;
-  // }
-
-
-
-
 
   SerachOn
 
@@ -1570,25 +1348,14 @@ debugger
       data => {
         this.drugnamelist = data;
 
-        // this.drugnames = this.drugnamelist.map(x => x.medicament);
+     
 
       }, error => {
       }
     )
   }
 
-  // public GetDrugNameID() {
-
-  // if (this.medicinename == '') {
-  //   this.medicinename = ''
-  // }
-  // else {
-  //   let wqew = this.icdcodelist.filter(v => v.drugnames.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
-  //   // this.icdcode = wqew[0].icdCode,
-  //   //   this.icrcodeid = wqew[0].id
-
-  // }
-  // }
+ 
 
 
 
@@ -1601,7 +1368,7 @@ debugger
     else {
       this.SerachOn = 1;
 
-      //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+      
     }
   }
 
@@ -1851,11 +1618,7 @@ debugger
   }
   public GetDiagnosticTestssID(even) {
     this.testssid = even.target.value;
-    // for (let i = 0; i < this.tsetssslist.length; i++) {
-    //   if (this.tsetssslist[i].id == this.testssid) {
-    //     this.diagnostictestname = this.tsetssslist[i].short
-    //   }
-    // }
+
     if (this.testssid == 59 || this.testssid == 60) {
     }
     else {
@@ -1912,7 +1675,7 @@ debugger
             this.getpatient_diagnosticdetails()
           }
           else {
-            debugger
+            
             Swal.fire('Détails enregistrés', 'Test de laboratoire');
             this.getpatient_diagnosticdetails();
             this.tablecount = 0;
@@ -1927,7 +1690,7 @@ debugger
           this.qwerty.length = 0
           this.testid.length = 0;
           this.testssid = 0;
-          debugger
+          
           this.getpatient_diagnosticdetails()
           this.Insertnotificationtest()
         }
@@ -1998,23 +1761,6 @@ debugger
 
 
 
-
-
-
-  //chat
-
-
-
-  // oberserableTimer() {
-  //   const source = timer(1000, 2000);
-  //   const abc = source.subscribe(val => {
-  //     this.getPreviousChat();
-
-  //     var objDiv = document.getElementById("chatboxdiv");
-  //     objDiv.scrollTop = objDiv.scrollHeight;
-  //   });
-  // }
-
   public getserverdateandtime() {
 
     this.docservice.GetServerDateAndTime().subscribe(
@@ -2029,9 +1775,7 @@ debugger
   }
 
 
-  // public dosendmsg() {
-  //   this.getChat();
-  // }
+
 
 
   public dosendmsg() {
@@ -2051,17 +1795,7 @@ debugger
       }
     })
 
-    // 
-    // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(ressss => {
-    //   ;
-    //   if (ressss.length > 1) {
-    //     this.chatID = ressss;
-    //     this.InsertChatDetails();
-    //   }
-    //   else {
 
-    //   }
-    // })
   }
 
 
@@ -2282,15 +2016,6 @@ debugger
     evn.target.style.color = 'white';
   }
 
-  public highlight(evt) {
-    var i, tablinks;
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    evt.currentTarget.className += " active";
-  }
 
 
 
@@ -2370,7 +2095,7 @@ debugger
   public editprescid: any;
 
   public GetPriviouesPrescriptionlist(presciption) {
-    debugger
+    
     this.editprescid = presciption.id,
       this.medicinename = presciption.medicineName,
       this.sig = presciption.sig,
@@ -2413,7 +2138,7 @@ debugger
   clinicalinfo: any;
 
   public GetDiaEditList(dia) {
-    debugger
+    
     this.editdiaid = dia.id,
       this.testid = dia.diagnosticTestTypeID,
       this.testssid = dia.testsID,
@@ -2424,7 +2149,7 @@ debugger
 
 
   public updatedignostictest() {
-    debugger
+    
     var diatest = {
       'ID': this.editdiaid,
       'DiagnosticTestTypeID': this.testid,
@@ -2448,21 +2173,7 @@ debugger
 
   editsoapid: any;
 
-  // public GetEditPrevioussoap(soap) {
-  //   debugger
-  //   this.editsoapid = soap.id
-  //   this.subjective = soap.subjective,
-  //     this.objective = soap.objective,
-  //     this.plan = soap.plan,
-  //     this.assessment = soap.assessment,
-  //     this.diagnosiscode = soap.diagnosisCode,
-  //     this.notes = soap.notes,
-  //     this.signature = soap.signature,
-  //     this.subjective = soap.subjective,
-  //     this.icddesc = soap.icrDescription,
-  //     this.icdcode = soap.diagnosisCode,
-  //     this.followupplan = soap.followUpPlan
-  // }
+ 
 
 
   public updatesoapnotes() {
@@ -2509,11 +2220,11 @@ debugger
   public allergyidcount: any;
 
   public GetAllerges() {
-    debugger
+    
     // this.allergyidcount=0
     this.myarray = []
     let showalergres = this.details.knownAllergies.split(',');
-    debugger
+    
     for (let i = 0; i < showalergres.length; i++) {
       var medetty = {
         'Showallergies': showalergres[i],
@@ -2521,14 +2232,14 @@ debugger
       }
       this.myarray.push(medetty);
       this.allergyidcount = this.allergyidcount + 1;
-      debugger
+      
     }
   }
 
   public updateelergies: any;
 
   public deletealergeies(Sno) {
-    debugger
+    
     for (let i = 0; i < this.myarray.length; i++) {
       if (Sno == this.myarray[i].Snoo) {
         this.myarray.splice(i, 1);
@@ -2536,7 +2247,7 @@ debugger
     }
     this.updateelergies = '';
     for (let j = 0; j < this.myarray.length; j++) {
-      debugger
+      
       if (this.updateelergies == '') {
         this.updateelergies = this.myarray[j].Showallergies;
       }
@@ -2550,7 +2261,7 @@ debugger
 
 
   public Updatealriesss() {
-    debugger
+    
     var entity = {
       'AppointmentID': this.appointmentid,
       'KnownAllergies': this.updateelergies
@@ -2558,13 +2269,11 @@ debugger
     this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
       let res = data;
       if (this.languageid == 1) {
-        // Swal.fire('Deleted Successfully');
-        // this.allergieslist = [];
+        
         this.getpatientdetails()
       }
       else if (this.languageid == 6) {
-        // Swal.fire('Deleted Successfully');
-        // this.allergieslist = [];
+    
         this.getpatientdetails()
       }
     })
@@ -2574,17 +2283,16 @@ debugger
 
   public Updateallergies() {
     this.updateelergies = '';
-    // this.allergies = this.allergies.map(x => x.displayValue);
-    // this.allergieslist = this.allergies.join(',');
+
     for (let j = 0; j < this.myarray.length; j++) {
-      debugger
+      
       if (this.updateelergies == '') {
         this.updateelergies = this.myarray[j].Showallergies;
       }
       else {
         this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
       }
-      // this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
+  
     }
 
     var entity = {
@@ -2610,13 +2318,13 @@ debugger
   public addallergies: any;
 
   public updatedetsils() {
-    debugger
+    
     var medetty = {
       'Showallergies': this.addallergies,
       'Snoo': this.myarray.length + 1
     }
     this.myarray.push(medetty);
-    debugger
+    
     this.Updateallergies()
   }
 

@@ -126,7 +126,7 @@ export class EditPharmacyRegComponent implements OnInit {
 
   public GetPharmacyRevenue() {
     this.docservice.GetPharmacySubscriptions_Revenue(this.id).subscribe(data => {
-      debugger
+      
       this.pharmacyrevenuelist = data;
     })
   }

@@ -89,7 +89,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   public typeid: any;
 
   public GetTypeID(even) {
-    debugger
+    
     this.typeid = even.target.value;
     // this.RegisteredList = this.dummreglist.filter(x =>x.approved == 0 && x.rejected == 0)
     // this.count = this.RegisteredList.length;
@@ -112,37 +112,37 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
           this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
           })
           if (list.type == '1') {
-            debugger
+            
             this.InsertHospitalDetails(list)
           }
           if (list.type == '2') {
-            debugger
+            
             this.InsertHospitalDetails(list)
           }
           if (list.type == '3') {
             this.insertdoctorregistration(list)
           }
           if (list.type == '4') {
-            debugger
+            
             this.insertnursedetails(list)
           }
           if (list.type == '5') {
-            debugger
+            
             this.insertphysiodetails(list)
           }
           if (list.type == '6') {
-            debugger
+            
             this.InsertMidWives(list)
           }
           if (list.type == '7') {
-            debugger
+            
             this.InserPharmacyDetails(list)
           }
           if (list.type == '8') {
-            debugger
+            
             this.InserDiagnostoicDetails(list)
           }
-          debugger
+          
         })
         Swal.fire(
           'Approved!',
@@ -578,7 +578,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   //phsyio registaration
 
   public insertphysiodetails(list) {
-    debugger
+    
     // this.idproofurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DocMedicalProofProof\\medical.jpg'
     // this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
     this.spinner.show();
@@ -604,7 +604,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       this.physioid = data;
-      debugger
+      
       if (data != 0) {
         this.InsertPhysiologindetails(list);
         this.insertPhysioSpecilization(list);
@@ -918,7 +918,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   public GetRejectedregistrations(list) {
-    debugger
+    
     this.rejectelist = list;
     // Swal.fire({
     //   title: 'Are you sure?',
@@ -932,7 +932,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     //   if (result.value) {
     //     this.docservice.UpdateRejectedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
     //       let test = res;
-    //       debugger
+    //       
     //       this.sendmails(list)
     //     })
     //     Swal.fire(
@@ -950,10 +950,10 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   public Reject() {
-    debugger
+    
     this.docservice.UpdateRejectedVoiladocRegisteredUsers(this.rejectelist.id, this.rejectelist.type).subscribe(res => {
       let test = res;
-      debugger
+      
       this.docservice.UpdateVoiladocRegistrationEmailsStatus(this.rejectelist.regID).subscribe(data => {
       })
 
@@ -966,14 +966,14 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   public reasonforcancel: any;
 
   public sendmails(listt) {
-    debugger
+    
     var entity = {
       'emailto': listt.regemailid,
       'emailsubject': 'Voiladoc Registrations',
       'emailbody': 'Dear ' + listt.username + ',' + "<br><br>" + this.reasonforcancel + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team'
     }
     this.docservice.sendemailsForLinkRegistrations(entity).subscribe(data => {
-      debugger
+      
     })
   }
 

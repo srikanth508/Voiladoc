@@ -225,6 +225,7 @@ export class MyappointmentsComponent implements OnInit {
   public search2: any;
 
   public followupvisit: any;
+  public todaydatess: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -242,6 +243,12 @@ export class MyappointmentsComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
+
+
+    const format1 = 'dd-MM-yyyy';
+    const myDate1 = new Date();
+    const locale1 = 'en-US';
+    this.todaydatess = formatDate(myDate1, format1, locale1);
 
     const llll = 'dd-MMM-yyyy';
     const sigdate = new Date();
@@ -341,6 +348,13 @@ export class MyappointmentsComponent implements OnInit {
 
 
     this.image = 0;
+
+    if (this.languageid == 1) {
+      this.ailment = 'No data provided'
+    }
+    else {
+      this.ailment = 'Aucune donnée fournie'
+    }
 
   }
 
@@ -734,7 +748,7 @@ export class MyappointmentsComponent implements OnInit {
   public cancelledappointment() {
     this.docservice.UpdateBookAppointmentByDocCancel(this.appid).subscribe(
       data => {
-        
+
         this.updatereson();
         this.getbookappointmentbydoctorid();
         this.getbookappointmentbydocid();
@@ -751,13 +765,13 @@ export class MyappointmentsComponent implements OnInit {
   public cancelpatientmobileno: any;
 
   public sendsms() {
-    
+
     let Entity = {
       'Contacts': this.cancelpatientmobileno,
       'TextMessage': "Sorry ,The Doctor " + this.candoctorname + "Has Cancelled Your Appointment  " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled."
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      
+
 
 
     })
@@ -767,7 +781,7 @@ export class MyappointmentsComponent implements OnInit {
   public canparientname: any;
 
   public cancelappoinement(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, paidAmount, walletAmount, pmobileNo, details) {
-    
+
     this.appid = appointmentID;
     this.cancelpatientid = patientID,
       this.canslots = notificationdate,
@@ -778,7 +792,7 @@ export class MyappointmentsComponent implements OnInit {
     this.walletamount = walletAmount,
       this.cancelpatientmobileno = pmobileNo;
     this.canparientname = details.pName
-    
+
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
   }
 
@@ -831,7 +845,7 @@ export class MyappointmentsComponent implements OnInit {
   // "Sorry ,The Doctor " + this.candoctorname + " Has Cancelled Your Appointment " + this.canslots + " at this" + this.canhospital_ClinicName + " has been cancelled.",
 
   public SendCancelPatientmail() {
-    
+
     var entity = {
       'emailto': this.canemail,
       'emailsubject': "Your Doctor " + this.candoctorname + " Has Cancelled Your Appointment At Time " + this.canslots,
@@ -1048,7 +1062,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public GetPatientid(patientID, appointmentID, appointmentTypeID, countryID, cityID, areaID, slots, appdate, pemail) {
-debugger
+
     this.patientiddd = patientID,
       this.preappointmentid = appointmentID;
     this.apptypeid = appointmentTypeID;
@@ -1058,12 +1072,12 @@ debugger
     this.preslots = slots
     this.appdate = appdate
     this.prepatientemail = pemail;
-    debugger
+
     this.getserverdateandtime();
     if (this.serverdate == this.appdate) {
-      debugger
+
       if (this.servertime > this.preslots) {
-        debugger
+
         this.patientiddd = patientID,
           this.preappointmentid = appointmentID;
         this.apptypeid = appointmentTypeID;
@@ -1406,14 +1420,14 @@ debugger
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.preappointmentid).subscribe(data => {
               })
-              this.followupvisit=0;
+              this.followupvisit = 0;
             }
           }
           else if (this.languageid == 6) {
             Swal.fire('L’ordonnance a bien été sauvegardée');
             this.tablecuont1 = 0;
             this.VisitDoctorAppointmentStatus(this.preappointmentid);
-         
+
             this.GetDoctorPrescrptionTemplates()
             this.qwerty2 = []
             this.display = "none";
@@ -1421,7 +1435,7 @@ debugger
               this.docservice.UpdateBookAppointmentFollowupVisit(this.preappointmentid).subscribe(data => {
 
               })
-              this.followupvisit=0;
+              this.followupvisit = 0;
             }
           }
         }
@@ -1538,7 +1552,7 @@ debugger
 
 
   public GetPriviouesPrescriptionlist(presciption) {
-    
+
     this.editprescid = presciption.id,
       this.medicinename = presciption.medicineName,
       this.sig = presciption.sig,
@@ -1692,24 +1706,35 @@ debugger
 
 
   public adddetails() {
-    this.tablecount = 1;
-    var entity = {
-      'Sno': this.idcount,
-      'DiagnosticTestTypeID': this.testid,
-      'DiagnosticTestName': this.diatest,
-      'DiagnosticTestTypeName': this.diagnostictesttypename,
-      'TestName': this.diagnostictestname,
-      'TestID': this.testssid,
-      'ClinicalInfo': this.clinicalinfo
+    if (this.testid == undefined || this.testid == 0 || this.testssid == 0 || this.testssid == undefined) {
+      debugger
+      Swal.fire('Please Fill Manadatory Fields');
     }
-    this.qwerty.push(entity);
-    this.idcount = this.idcount + 1;
-    this.diatest = "";
-    this.testslist.length = 0;
-    this.tsetssslist.length = 0;
-    this.diagnostictestname = ""
-    this.getdiagnosticcentertests();
+    else {
+      debugger
+      this.tablecount = 1;
+      var entity = {
+        'Sno': this.idcount,
+        'DiagnosticTestTypeID': this.testid,
+        'DiagnosticTestName': this.diatest,
+        'DiagnosticTestTypeName': this.diagnostictesttypename,
+        'TestName': this.diagnostictestname,
+        'TestID': this.testssid,
+        'ClinicalInfo': this.clinicalinfo
+      }
+      this.qwerty.push(entity);
+      this.idcount = this.idcount + 1;
+      this.diatest = "";
+      this.testslist.length = 0;
+      this.tsetssslist.length = 0;
+      this.diagnostictestname = ""
+      this.testid=0;
+      this.testssid=0;
+      this.getdiagnosticcentertests();
+    }
   }
+
+
 
 
   public insertDiagnostictestdetails() {
@@ -1743,9 +1768,9 @@ debugger
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
-             
+
             }
-            this.followupvisit=0;
+            this.followupvisit = 0;
           }
           else if (this.languageid == 6) {
             Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
@@ -1764,7 +1789,7 @@ debugger
               })
 
             }
-            this.followupvisit=0;
+            this.followupvisit = 0;
           }
 
         }
@@ -1911,7 +1936,7 @@ debugger
   editdiaid: any;
 
   public GetDiaEditList(dia) {
-    
+
     this.editdiaid = dia.id,
       this.testid = dia.diagnosticTestTypeID,
       this.testssid = dia.testsID,
@@ -1921,7 +1946,7 @@ debugger
 
 
   public updatedignostictest() {
-    
+
     var diatest = {
       'ID': this.editdiaid,
       'DiagnosticTestTypeID': this.testid,
@@ -1971,13 +1996,13 @@ debugger
     //  window.open("#/Vediocall", "_blank");
     this.getserverdateandtime();
     if (this.serverdate == appdate) {
-      
+
       if (this.servertime >= slots) {
-        
+
         if (this.servertime <= endtime) {
-          
+
           this.docservice.showvid = 1;
-          
+
           window.open("#/Vediocall", "_blank");
         }
         else {
@@ -2044,24 +2069,45 @@ debugger
     localStorage.setItem('appointmentID', appointmentID);
     localStorage.setItem('appdate', appdate);
 
-
     if (this.serverdate == appdate) {
       if (this.servertime >= slots) {
         if (this.servertime <= endtime) {
-          location.href = '#/Vediocall';
+          // location.href = '#/Vediocall';
+          window.open("#/Vediocall", "_blank");
 
         }
         else {
-          Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
-        }
 
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
+          }
+          // Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+        }
       }
       else {
-        Swal.fire('Alert', 'You Can Start Video Conference At ' + slots)
+        if (this.languageid == 1) {
+          Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Votre rendez-vous est à ' + slots);
+        }
+        // Swal.fire('Alert', 'You Can Start Video Conference At ' + slots)
       }
     }
     else {
-      Swal.fire('Alert', 'You Can Start Video Conference At ' + slots + ' on ' + appdate)
+      if (this.languageid == 1) {
+        Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots + ' on ' + appdate);
+
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Alert', 'Votre rendez-vous est à ' + slots + ' on ' + appdate);
+      }
+      // Swal.fire('Alert', 'You Can Start Video Conference At ' + slots + ' on ' + appdate)
     }
   }
 
@@ -2389,7 +2435,7 @@ debugger
           this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
           })
         }
-        this.followupvisit=0;
+        this.followupvisit = 0;
       }
     })
 
@@ -2505,10 +2551,10 @@ debugger
 
 
   public UpdateBookAppointmentNoShow(appointmentID, appdate, slots) {
-    debugger
+
     if (this.languageid == 1) {
       if (this.serverdate >= appdate) {
-debugger
+
         if (this.servertime >= slots) {
           ;
           Swal.fire({
@@ -2545,7 +2591,7 @@ debugger
           } else {
             Swal.fire('Alert', 'Le patient sera présent à' + slots)
           }
-          debugger
+
         }
 
 
@@ -2771,18 +2817,27 @@ debugger
     if (this.languageid == 6) {
 
       if (this.leavefor == 'École') {
-        this.Scholldata = 'Arrêt maladie (Ecole)'
+        this.Scholldata = 'Arrêt maladie (Ecole).'
       }
       if (this.leavefor == 'Bureau') {
 
-        this.Scholldata = 'Arrêt maladie (Arrêt de travail)'
+        this.Scholldata = 'un arrêt de travail.'
+      }
+    }
+    else if (this.languageid == 1) {
+
+      if (this.leavefor == 'School') {
+        this.Scholldata = 'School'
+      }
+      if (this.leavefor == 'Office') {
+        this.Scholldata = 'Office'
       }
     }
   }
 
 
   public InsertSickSlipGenarator() {
-   
+
     const qwer = 'dd-MMM-yyyy';
     const pljdjf = 'en-US';
     const frdat = this.fromdate;
@@ -2791,21 +2846,23 @@ debugger
     this.todate = formatDate(todat, qwer, pljdjf);
 
     if (this.languageid == 1) {
-      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     else {
-      this.desc = '<p>DATE : ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + ' </b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement : ' + this.fromdate + ',<br><br>Date de fin : ' + this.todate + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+      this.desc = '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.docregno + "<br>"
+
+      // this.desc = '<p>DATE : ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + ' </b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail<br><br>' + 'Date de commencement : ' + this.fromdate + ',<br><br>Date de fin : ' + this.todate + ',<br><br>Notes complémentaires  : ' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
 
     if (this.languageid == 1) {
-      document.getElementById("qwerty").innerHTML = this.description
+      document.getElementById("qwerty").innerHTML = this.desc
       this.mobiledescription = document.getElementById("qwerty").innerText;
     }
     else if (this.languageid == 6) {
-      document.getElementById("qwerty").innerHTML = this.description1
+      document.getElementById("qwerty").innerHTML = this.desc
       this.mobiledescription = document.getElementById("qwerty").innerText;
     }
-    
+
     // const qwer = 'dd-MMM-yyyy';
     // const pljdjf = 'en-US';
     // const frdat = this.fromdate;
@@ -2820,8 +2877,8 @@ debugger
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT : ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.docregno + "<br>",
-        'AppointmentID': 0,
+        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>SUBJECT : ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.docregno + "<br>",
+        'AppointmentID': this.appointmentid,
         'DoctorID': this.doctorid,
         'LeaveFor': this.leavefor,
         'Mobiledescription': this.mobiledescription,
@@ -2834,9 +2891,9 @@ debugger
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '.<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.docregno + "<br>",
+        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.docregno + "<br>",
         // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>OBJET: ' + this.leavefor + ' Je vous référe le patient </b></p><p> ' + this.patientname + ' </p><p style="text-align: center !important;">Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.wwwwXrr</p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
-        'AppointmentID': 0,
+        'AppointmentID': this.appointmentid,
         'DoctorID': this.doctorid,
         'LeaveFor': this.leavefor,
         'Mobiledescription': this.mobiledescription,
@@ -2845,7 +2902,7 @@ debugger
     }
     this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
       if (res != 0) {
-        
+
         this.doctorid = localStorage.getItem('userid');
         this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
           data => {
@@ -2938,7 +2995,7 @@ debugger
 
   public GetPreviousRefereals() {
     this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientid, this.languageid, this.doctorid).subscribe(data => {
-      
+
       this.previousreferalist = data;
     })
   }
@@ -2982,7 +3039,7 @@ debugger
   dochospitalid: any;
   referdoctorid: any;
   public GetDoctorID(item: any) {
-    
+
     this.referdoctorid = item.id
     var list1 = this.referdoctorlist.filter(x => x.id == this.referdoctorid)
     this.doctorname = list1[0].doctorName,
@@ -2991,7 +3048,7 @@ debugger
       this.hospitalid = list1[0].hospital_ClinicID;
     this.dochospitalid = list1[0].dochospitalID;
 
-    
+
 
     if (this.languageid == 1) {
       this.referalnotes = " DATE: " + this.todaydate + "<br><p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>&nbsp;</p > <p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>" + this.MobileNumber + "</p><p>Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "<br>" + this.docphoneno + "<br>" + this.Hospital_ClinicName + "</p>"
@@ -3007,7 +3064,7 @@ debugger
 
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        
+
         this.doctorlist = data;
         // this.dummlist = this.doctorlist
 
@@ -3022,11 +3079,11 @@ debugger
   public docdd = {}
   public GetDepartmentID(even) {
     this.departmentid = even.target.value;
-    
+
 
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        
+
         this.doctorlist = data;
         // this.dummlist = this.doctorlist
         this.list = this.doctorlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
@@ -3083,14 +3140,12 @@ debugger
 
         if (this.referaltypeid == 1 || this.referaltypeid == 2) {
 
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             this.mobilereferalnotes = "Your Doctor " + this.user + " has referred you to " + this.doctorname + "for further investigation, kindly be touch in with doctor"
           }
-        else
-        {
-          this.mobilereferalnotes = "Le Dr " + this.user + " vous a référe vers le " + this.doctorname + "pour une enquête plus approfondie, veuillez contacter le médecin"
-        }
+          else {
+            this.mobilereferalnotes = "Le Dr " + this.user + " vous a référe vers le " + this.doctorname + "pour une enquête plus approfondie, veuillez contacter le médecin"
+          }
         }
         if (this.referaltypeid == 3) {
           document.getElementById("qwerty").innerHTML = this.referalnotes;
@@ -3663,7 +3718,7 @@ debugger
   chatpatientemail
 
   public GetChatShowID(patientid, appdate, slots, pEmail, appointmentID) {
-    
+
     this.patientiddd = patientid;
     this.chatpatientemail = pEmail;
     this.chatappointmentid = appointmentID;
@@ -3674,7 +3729,7 @@ debugger
     this.showwindow = 1
 
     this.dosendmsg();
-    
+
 
     // this.docservice.GetChatID(this.doctorid, this.patientiddd,this.chatappointmentid).subscribe(res => {
     //   ;
@@ -3752,7 +3807,7 @@ debugger
     this.docservice.InsertChatMaster(entity).subscribe(data => {
       if (data != 0) {
         this.chatID = data;
-        
+
         this.getPreviousChat();
         this.oberserableTimer();
 
@@ -3883,7 +3938,7 @@ debugger
 
   public GetSoapPatientID(patientid) {
     this.sopapatientid = patientid
-    
+
     this.GetSoapNotes();
   }
 
@@ -3892,7 +3947,7 @@ debugger
 
       this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid, this.doctorid).subscribe(
         data => {
-          
+
           this.dummsopailist = data;
           this.soaplist1 = this.dummsopailist.filter(x => x.departmentID! = 14)
 
@@ -3901,7 +3956,7 @@ debugger
       )
     }
     else if (this.departmentid == 14) {
-      
+
       this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid, this.doctorid).subscribe(
         data => {
           this.soaplist1 = data;
@@ -3919,7 +3974,7 @@ debugger
   editsoapid: any;
 
   public GetEditPrevioussoap(soap) {
-    
+
     this.editsoapid = soap.id
     this.subjective = soap.subjective,
       this.objective = soap.objective,
@@ -4054,7 +4109,7 @@ debugger
   insurancedetails: any;
 
   public Getinsurancedetails(patientID) {
-    
+
     this.docservice.GetPatientInsuranceDetailsWeb(patientID).subscribe(
       data => {
         this.insurancedetails = data;
@@ -4077,6 +4132,12 @@ debugger
 
 
 
+
+  public GetInsurancepdf(photoURL)
+  {
+    // window.open("http://api.whatsapp.com/send/?phone=" + photoURL);
+    window.open(photoURL, "_blank");
+  }
 
 
 
@@ -4106,7 +4167,7 @@ debugger
   showreferelnotes: any;
 
   public GetPatientCondition(doc) {
-    
+
     this.patientid = doc.patientID;
     this.appointmentid = doc.appointmentID;
     this.showreferelnotes = doc.referalNotes;
@@ -4131,33 +4192,31 @@ debugger
   public attachments5 = [];
   public attachmentsurl5 = [];
   public onattachmentUpload15(abcd) {
-    
+
     this.attachments5.push(abcd.addedFiles[0]);
     this.uploadattachments15();
 
-if(this.languageid==1)
-{
-  Swal.fire('Added Successfully');
-  abcd.length = 0;
-}
-else
-{
-  Swal.fire('Mis à jour avec succès !');
-  abcd.length = 0;
-}
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Mis à jour avec succès !');
+      abcd.length = 0;
+    }
 
   }
 
-  public showattachdoc=[];
+  public showattachdoc = [];
   public uploadattachments15() {
     this.docservice.DoctorPhotoUpload(this.attachments5).subscribe(res => {
       this.attachmentsurl5.push(res);
-      
+
       let a = this.attachmentsurl5[0].slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
 
-       this.showattachdoc.push(b)
+      this.showattachdoc.push(b)
 
       this.attachments5.length = 0;
 
@@ -4176,7 +4235,7 @@ else
 
   updaterefid: any;
   public GetReferalletter(ref) {
-    
+
     this.updaterefid = ref.id;
     this.patientidd = ref.patientID;
     this.patientname = ref.patientName;
@@ -4189,7 +4248,7 @@ else
   updatemobilereferalnotes: any;
 
   public UpdateRefferalLetter() {
-    
+
     document.getElementById("qwerty123").innerHTML = this.showreferelnotes
     this.updatemobilereferalnotes = document.getElementById("qwerty123").innerText;
     var entity = {
@@ -4202,7 +4261,7 @@ else
         Swal.fire('Updated Successfully');
 
         this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid, this.doctorid).subscribe(data => {
-          
+
           this.previousreferalist = data;
         })
       }
@@ -4210,7 +4269,7 @@ else
         Swal.fire('Mis à jour avec succés');
       }
       this.docservice.GetDoctorReferalsByPatientIDForWeb(this.patientidd, this.languageid, this.doctorid).subscribe(data => {
-        
+
         this.previousreferalist = data;
       })
     })
@@ -4279,7 +4338,7 @@ else
 
 
   public InsertDoctorRefererlasAttachemenys() {
-    
+
     for (let i = 0; i < this.attachmentsurl5.length; i++) {
       var entity = {
         'AppointmentID': this.appointmentID,
@@ -4287,20 +4346,18 @@ else
         'AttachmentUrl': this.attachmentsurl5[i],
       }
       this.docservice.InsertDoctorReferalAttachments(entity).subscribe(data => {
-        
+
         if (data != 0) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             document.getElementById('closeview').click();
             Swal.fire('Uploaded Successfully');
             this.GetPreviousRefereals()
           }
-         else
-         {
-          document.getElementById('closeview').click();
-          Swal.fire('Téléchargé avec succès');
-          this.GetPreviousRefereals()
-         }
+          else {
+            document.getElementById('closeview').click();
+            Swal.fire('Téléchargé avec succès');
+            this.GetPreviousRefereals()
+          }
         }
       })
     }
@@ -4329,7 +4386,7 @@ else
   public getpreviousmedicalcertificates() {
     this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid, this.languageid, this.doctorid).subscribe(data => {
       this.previousmedicallist = data;
-      
+
     })
   }
 
@@ -4339,7 +4396,7 @@ else
   registrationNo: any;
 
   public GetMysickslip(sickslip) {
-    
+
     this.clickedsickslipid = sickslip.patientID;
     this.sickslipid = sickslip.id;
     //let qwerty = this.sicksliplist.filter(x => x.patientID == this.clickedsickslipid);
@@ -4358,13 +4415,13 @@ else
     // this.registrationNo = qwertyq[0].registrationNo;
     // this.hospital_ClinicName = qwertyq[0].hospital_ClinicName;
     // this.address = qwertyq[0].address;
-    
+
   }
 
   sicksliplist1: any;
 
   public GetSickSlipIDForEdit(patientid, id) {
-    
+
     this.sickslippatientid = patientid;
     this.sickslipid = id;
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
@@ -4378,7 +4435,7 @@ else
 
 
   public getpatientdetailssss(pid) {
-    
+
     if (this.languageid == 6) {
       this.patientid = pid;
       let qwerty = this.patientlist.filter(x => x.patientID == this.patientid);
@@ -4442,7 +4499,7 @@ else
     this.fromdate = formatDate(frdat, qwer, pljdjf);
     const todat = this.todate;
     this.todate = formatDate(todat, qwer, pljdjf);
-    
+
     if (this.languageid == 1) {
       var entity = {
         'ID': this.sickslipid,
@@ -4454,7 +4511,7 @@ else
       }
 
       this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
-        
+
         if (this.languageid == 1) {
 
           Swal.fire('Updated successfully.');
@@ -4471,7 +4528,7 @@ else
       })
     }
     else {
-      
+
       var entity = {
         'ID': this.sickslipid,
         'Ailment': this.ailment,
@@ -4508,21 +4565,21 @@ else
   public getbookappointDoctorNotJoinedAppointments() {
     this.docservice.GetBookAppointmentByDoctorIDAutoCancelled(this.doctorid, this.todaydate).subscribe(data => {
       this.DoctotNotJoinedList = data;
-      
+
       if (this.DoctotNotJoinedList.length != 0) {
         var list = this.DoctotNotJoinedList[0]
 
         this.DoctorCancelledAppointment(list)
-        
+
       }
     })
   }
 
   public DoctorCancelledAppointment(list) {
-    
+
     this.docservice.UpdateBookAppointmentByDocCancel(list.id).subscribe(
       data => {
-        
+
         this.getbookappointmentbydoctorid();
         this.getbookappointmentbydocid();
         this.SendDoctorAutoCancelMail(list);
@@ -4537,7 +4594,7 @@ else
 
 
   public SendDoctorAutoCancelMail(list) {
-    
+
     var entity = {
       'emailto': list.pEmail,
       'emailsubject': "Your Doctor " + list.doctorName + " Has Cancelled Your Appointment At Time " + list.notificationdate,

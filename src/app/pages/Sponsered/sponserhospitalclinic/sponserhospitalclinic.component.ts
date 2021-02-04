@@ -156,7 +156,7 @@ export class SponserhospitalclinicComponent implements OnInit {
     if (this.languageid == 1) {
       this.docservice.GetSponsoredHospitalsForAdmin().subscribe(
         data => {
-          debugger
+          
           this.sponserhospitalist = data;
 
           var list = this.sponserhospitalist.filter(x => x.id == this.id)
@@ -171,9 +171,9 @@ export class SponserhospitalclinicComponent implements OnInit {
     else if (this.languageid == 6) {
       this.docservice.GetSponsoredHospitalsForAdmin().subscribe(
         data => {
-          debugger
+          
           this.sponserhospitalist = data;
-          debugger
+          
           var list = this.sponserhospitalist.filter(x => x.id == this.id)
           this.startdate = list[0].startdate.toLocaleString();
           this.enddate = list[0].enddate.toLocaleString();
@@ -187,14 +187,14 @@ export class SponserhospitalclinicComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+    
     // const qwer = 'yyyy-MMM-dd';
     // const pljdjf = 'en-US';
     // const frdat = this.startdate;
     // this.startdate = formatDate(frdat, qwer, pljdjf);
     // const todat = this.enddate;
     // this.enddate = formatDate(todat, qwer, pljdjf);
-    debugger
+    
     var entity1 = {
       'ID': this.id,
       'SDate': this.startdate,

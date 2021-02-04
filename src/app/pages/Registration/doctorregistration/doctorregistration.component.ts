@@ -433,7 +433,7 @@ export class DoctorregistrationComponent implements OnInit {
   
 
   public onidUpload(abcd) {
-    debugger
+    
     // for (let i = 0; i < abcd.length; i++) {
       this.idproof.push(abcd.addedFiles[0]);
       //  if (this.idproof[0].type == 'application/pdf' || this.idproof[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
@@ -457,7 +457,6 @@ export class DoctorregistrationComponent implements OnInit {
       //  }
       // application/pdf
   
-
   }
 
   public uploadid() {
@@ -467,7 +466,7 @@ export class DoctorregistrationComponent implements OnInit {
       let a = this.idproofurl[0].slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
-      this.showidproof.push(b)
+      this.showidproof.push('assets/Images/pdf.png');
       this.idproof.length = 0;
 
     })

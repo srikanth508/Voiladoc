@@ -20,14 +20,17 @@
   <br>
   <div class="row">
     <!-- <div class="col-lg-2"></div>     -->
-  
+<!--   
+    [routerLink]="['/HomecareRevenue']" -->
+    <!-- [routerLink]="['/HomecareRevenue']" -->
+
     <div class="col-lg-3" *ngFor="let cou of totalamount">
-      <div class="optionsboxdown" [routerLink]="['/HomecareRevenue']" style="cursor: pointer;border-radius: 16px;">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 16px;">
         <br>
         <label style="color: black;font-size: 30px;color: white;"><b style="font-size: 15px;">
             {{labels[0].totalRevenue}}</b></label>
         <br /> <br />
-        <label [routerLink]="['/HomecareRevenue']" style="color: black;font-size: 30px;color: #f17e2d;"><b><u
+        <label style="color: black;font-size: 30px;color: #f17e2d;"><b><u
               style="font-size: 20px;">{{cou.miwifecount}}</u></b></label>
       </div>
       <br />

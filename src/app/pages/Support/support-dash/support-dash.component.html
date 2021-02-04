@@ -68,7 +68,7 @@
             <td>{{details.message}}</td>
             <td>
               <label *ngIf="details.accepted=='1'&&details.resolve=='0'" style="color:red">Pending</label>
-              <label *ngIf="details.accepted=='1'&&details.resolve=='1'" style="color:red">{{labels[0].resolved}}</label>
+              <label *ngIf="details.accepted=='1'&&details.resolve=='1'" style="color:green">{{labels[0].resolved}}</label>
             </td>
             <td>
               <ng-template #tipcontent2>Accept</ng-template>

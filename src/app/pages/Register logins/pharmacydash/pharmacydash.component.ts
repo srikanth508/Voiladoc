@@ -77,7 +77,7 @@ public password:any;
 
   public GetDeatsils(details)
 {
-  debugger
+  
   this.id=details.id,
   this.username=details.userName,
   this.password=details.password

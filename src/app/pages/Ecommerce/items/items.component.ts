@@ -129,11 +129,11 @@ export class ItemsComponent implements OnInit {
 
   attachments = [];
   public onattachmentUpload(abcd) {
-    debugger
+    
     this.duummattchmenturl = [];
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
-    debugger
+    
     // }
     this.uploadattachments();
     Swal.fire('Added Successfully');
@@ -143,9 +143,9 @@ export class ItemsComponent implements OnInit {
   attachmentsurl = [];
   showphoto = [];
   public uploadattachments() {
-    debugger
+    
     this.service.ItemsPhotosUpload(this.attachments).subscribe(res => {
-      debugger
+      
        for (let i = 0; i < res.length; i++) {
       this.attachmentsurl.push(res[i]);
       this.duummattchmenturl.push(res[i]);
@@ -155,7 +155,7 @@ export class ItemsComponent implements OnInit {
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto.push(b)
        }
-      debugger
+      
       this.attachments.length = 0;
 
     })
@@ -192,22 +192,23 @@ export class ItemsComponent implements OnInit {
 
 
   Updatedetail() {
-
+  debugger
     let entity = {
       'ID': this.ID,
       'ProductName': this.productname,
-      'CategoryID': this.CategoryID,
-      'SubcategoryID': this.SubcategoryID,
       'ProductDescription': this.productDescription,
       'ProductCode': this.productCode,
-      'ProductPrice': this.productprice
+      'ProductPrice': this.productprice,
+      'CategoryID': this.CategoryID,
+      'SubcategoryID': this.SubcategoryID,
     };
-
     this.service.UpdateProducts(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Updated Successfully');
-        location.href = '#/ItemMaster';
-      }
+      debugger
+      Swal.fire('Updated Successfully');
+      location.href = '#/ItemMaster';
+      // if (data != 0) {
+      
+      // }
     })
   }
 
