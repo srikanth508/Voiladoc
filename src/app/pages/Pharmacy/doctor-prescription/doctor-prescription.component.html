@@ -81,7 +81,7 @@
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='0'">{{labels[0].delivered}}</label>
 
-                <label style="color:green"
+              <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='1'">{{labels[0].selfpickupcollected}}</label>
 
               <!-- <label style="color:green"
@@ -155,9 +155,10 @@
                     margin-left: 0%;">{{details.chatcount}}</span> -->
                     <ng-template #tipcontent36>{{labels[0].chat}}</ng-template>
                     <a [ngbTooltip]="tipcontent36">
-                      <span style="color: green;position: absolute;margin-left: 25px;"  *ngIf="details.approved=='1'&&details.delivered=='0'">{{details.chatcount}}</span>
-                      <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'" data-toggle="modal"
-                        data-target="#asssignss" style="margin: 2%;width: 30px;"
+                      <span style="color: green;position: absolute;margin-left: 25px;"
+                        *ngIf="details.approved=='1'&&details.delivered=='0'">{{details.chatcount}}</span>
+                      <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'"
+                        data-toggle="modal" data-target="#asssignss" style="margin: 2%;width: 30px;"
                         (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id)" />
 
                     </a>
@@ -198,21 +199,34 @@
             </div> -->
             <div class="col-lg-12">
               <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
-              <span>{{doctorname}}</span><br>
-              <div *ngIf="hospitalid!=590">
-                <span>{{hospitalname}}</span><br>
-              </div>
-              <div style="width: 150px;"> <span>{{docaddress}}</span><br> </div>
-
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-lg-12">
-              <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
-              <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
-              <label>{{labels[0].mailId}} : {{email}} </label><br>
-              <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title1">
+                    <label *ngIf="languageid=='1'">Doctor</label>
+                    <label *ngIf="languageid=='6'">Médecins</label>
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                  <label>{{doctorname}}</label><br>
+                  <div *ngIf="hospitalid!=590">
+                    <label>{{hospitalname}}</label><br>
+                  </div>
+                  <div style="width: 150px;"> <label>{{docaddress}}</label><br> </div>
+                  <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
+                  <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
+                  <label>{{labels[0].mailId}} : {{email}} </label><br>
+                  <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
+                </div>
+              </div>
+                </div>
+                </section>
+              </aside>
             </div>
           </div><br>
           <div class="row">
@@ -322,7 +336,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" style="background-color: #322b6b; color: white;margin-right: 721px;"
+          <button type="button" style="background-color: #322b6b; color: white;margin-right: 529px;"
             class="btn btn-default" data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
             data-dismiss="modal">{{labels[0].close}}</button>

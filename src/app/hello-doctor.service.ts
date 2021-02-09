@@ -370,6 +370,8 @@ export class HelloDoctorService {
     this.url = this.host + '/Pharmacy/InsertPharmacyPhotos';
     return this.http.post(this.url, data)
   }
+
+  
   public pharmacyphoto(files) {
     let formdata: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -5219,4 +5221,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/DeleteInventory?ID=' + diacenterid);
   }
   
+  
+  public UpdateBookVideoCallRejoinbit(appid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateBookVideoCallRejoinbit?ID=' + appid);
+  }
 }

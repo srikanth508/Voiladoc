@@ -1728,8 +1728,8 @@ export class MyappointmentsComponent implements OnInit {
       this.testslist.length = 0;
       this.tsetssslist.length = 0;
       this.diagnostictestname = ""
-      this.testid=0;
-      this.testssid=0;
+      this.testid = 0;
+      this.testssid = 0;
       this.getdiagnosticcentertests();
     }
   }
@@ -2884,7 +2884,23 @@ export class MyappointmentsComponent implements OnInit {
         'Mobiledescription': this.mobiledescription,
         'LanguageID': this.languageid
       }
-    } else {
+      this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
+        if (res != 0) {
+
+          this.doctorid = localStorage.getItem('userid');
+          this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
+            data => {
+
+              this.sicksliplist = data;
+              // this.getdesc(res);
+            }, error => {
+            }
+          )
+          this.ailment = "";
+        }
+      })
+    }
+    else {
       var entity = {
         'PatientID': this.patientid,
         'Ailment': this.ailment,
@@ -2899,21 +2915,22 @@ export class MyappointmentsComponent implements OnInit {
         'Mobiledescription': this.mobiledescription,
         'LanguageID': this.languageid
       }
+      this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
+        if (res != 0) {
+
+          this.doctorid = localStorage.getItem('userid');
+          this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
+            data => {
+
+              this.sicksliplist = data;
+              // this.getdesc(res);
+            }, error => {
+            }
+          )
+          this.ailment = "";
+        }
+      })
     }
-    this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
-      if (res != 0) {
-
-        this.doctorid = localStorage.getItem('userid');
-        this.docservice.GetSickSlipGenaratorByDoctorID(this.doctorid, this.startdate, this.enddate).subscribe(
-          data => {
-
-            this.sicksliplist = data;
-            // this.getdesc(res);
-          }, error => {
-          }
-        )
-      }
-    })
   }
   des
   public getdesc(id) {
@@ -3085,8 +3102,9 @@ export class MyappointmentsComponent implements OnInit {
       data => {
 
         this.doctorlist = data;
+        // && x.areaID == this.areaid
         // this.dummlist = this.doctorlist
-        this.list = this.doctorlist.filter(x => x.departmentID == this.departmentid && x.areaID == this.areaid)
+        this.list = this.doctorlist.filter(x => x.departmentID == this.departmentid)
         this.referdoctorlist = this.list.filter(x => x.referealBit == 1)
       }, error => {
       }
@@ -3600,13 +3618,17 @@ export class MyappointmentsComponent implements OnInit {
 
   public dummprescriptionphotourl = []
 
-  public onattachmentUpload1(abcd) {
-    this.dummprescriptionphotourl = []
 
+
+  public onattachmentUpload1(abcd) {
+    debugger
+    this.dummprescriptionphotourl = []
+    debugger
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadattachments1();
     // }
+    debugger
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -3615,7 +3637,6 @@ export class MyappointmentsComponent implements OnInit {
       Swal.fire('Mis à jour avec succés');
       abcd.length = 0;
     }
-
   }
 
   public shoprescphoto = [];
@@ -3626,10 +3647,18 @@ export class MyappointmentsComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-
+debugger
       let b = 'https://maroc.voiladoc.org' + a;
-
-      this.shoprescphoto.push(b)
+      if (this.attachments1[0].type == 'image/jpeg')
+      {
+        debugger
+        this.shoprescphoto.push(b)
+      }
+      else if(this.attachments1[0].type == 'application/pdf')
+      {
+        debugger
+        this.shoprescphoto.push('assets/Images/pdf.png')
+      }
 
       this.attachments1.length = 0;
 
@@ -4133,8 +4162,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-  public GetInsurancepdf(photoURL)
-  {
+  public GetInsurancepdf(photoURL) {
     // window.open("http://api.whatsapp.com/send/?phone=" + photoURL);
     window.open(photoURL, "_blank");
   }
@@ -4671,6 +4699,67 @@ export class MyappointmentsComponent implements OnInit {
 
         if (data != 0) {
 
+        }
+      })
+    }
+  }
+
+
+
+
+
+  // Re Join the call
+  public GetRejointhecall(appointmentID) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to ReJoin The Call?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Join!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateBookVideoCallRejoinbit(appointmentID).subscribe(res => {
+            let test = res;
+            this.getbookappointmentbydoctorid()
+          })
+          Swal.fire(
+            'Success!',
+            'ReJoin call confirmed',
+            'success'
+          )
+        }
+        else {
+          this.getbookappointmentbydoctorid()
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: "Vous souhaitez rejoindre l'appel",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateBookVideoCallRejoinbit(appointmentID).subscribe(res => {
+            let test = res;
+            this.getbookappointmentbydoctorid()
+          })
+          Swal.fire(
+            'Succès!',
+            'Rejoin call confirmé',
+            'success'
+          )
+        }
+        else {
+          this.getbookappointmentbydoctorid()
         }
       })
     }

@@ -36,8 +36,10 @@
             <th>{{ labels[0].reffredto }}</th>
             <th>{{ labels1[0].referedDoctorPhno }}</th>
             <th>{{ labels1[0].referredDoctorEmail }}</th>
-            <th>{{ labels1[0].notes }}</th>
-            <th>{{ labels1[0].attachments }}</th>
+            <!-- <th>{{ labels1[0].notes }}</th>
+            <th>{{ labels1[0].attachments }}</th> -->
+            <th *ngIf="languageid=='1'">Letters & Attachments</th>
+            <th *ngIf="languageid=='6'">Correspondance & pièces jointes</th>
             <th>{{ labels[0].actions }}</th>
           </tr>
           <tr *ngFor="let doc of docreferels|filter:search">
@@ -53,19 +55,18 @@
               <a [ngbTooltip]="tipcontent11">
                 <img src="assets/Images/sentreferral.png" data-toggle="modal" data-target="#exampleModal6"
                   style="height:25px;" (click)="GetPatientCondition(doc)" />
-              </a>
-              <!-- <p innerHTML="{{doc.referalNotes}}"></p> -->
-            </td>
-            <td>
+              </a>&nbsp;
               <ng-template #tipcontent10>{{ labels1[0].view }}</ng-template>
               <a [ngbTooltip]="tipcontent10">
                 <img src="assets/Images/viewfile.png" data-toggle="modal" data-target="#exampleModal5"
                   style="height:25px;" (click)="GetAppointmentID(doc)" />
               </a>
+              <!-- <p innerHTML="{{doc.referalNotes}}"></p> -->
             </td>
+         
             <td>
-              <label *ngIf="doc.completed=='1'">{{ labels1[0].completed }}</label>
-              <label *ngIf="doc.completed=='0'" style="color: coral;">{{ labels1[0].pending }}</label>
+              <!-- <label *ngIf="doc.completed=='1'">{{ labels1[0].completed }}</label>
+              <label *ngIf="doc.completed=='0'" style="color: coral;">{{ labels1[0].pending }}</label> -->
               <!-- <ng-template #tipcontent2>{{ labels1[0].completed }}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="doc.completed=='0'" style="height:20px;"
@@ -160,6 +161,11 @@
   </div>
 </div>
 
+
+
+
+
+
 <div class="modal fade" id="UploadFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -176,13 +182,13 @@
             <div class="col-lg-3">
               <label for="" class="reglabel">{{labels1[0].attachments}} :</label>
             </div>
-            <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (click)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+            <div class="col-lg-5">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
-                <span *ngFor="let pho of showdocphoto">
-                  <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
-                </span>
               </ngx-dropzone>
+              <span *ngFor="let pho of showdocphoto">
+                <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
+              </span>
             </div>
             <div>
             </div>
@@ -381,7 +387,6 @@
             </div>
           </div>
           <br>
-
           <div class="row">
             <div class="col-lg-3">
               <label class="dname_label">{{labels1[0].referalNotess}} :</label>
@@ -390,7 +395,6 @@
             <div class="col-lg-6">
               <ckeditor [editor]="Editor" [(ngModel)]="referalnotes" name="referalnotes" data=""></ckeditor>
             </div>
-
           </div>
           <br>
           <div class="row">
@@ -398,7 +402,7 @@
             </div>
             <div class="col-lg-2">
               <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="UpdateRefferalLetter()" data-dismiss="modal">{{labels1[0].save}}</button>
+                (click)="UpdateRefferalLetter()" style="width: 120%;" data-dismiss="modal">{{labels1[0].save}}</button>
             </div>
             <div class="col-lg-5">
             </div>

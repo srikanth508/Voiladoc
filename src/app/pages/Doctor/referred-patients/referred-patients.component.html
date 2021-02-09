@@ -41,8 +41,10 @@
             <th>{{ labels1[0].referedByDoctor }}</th>
             <th>{{ labels1[0].referedDoctorPhno }}</th>
             <th>{{ labels1[0].referredDoctorEmail }}</th>
-            <th>{{ labels1[0].notes }}</th>
-            <th>{{ labels1[0].attachments }}</th>
+            <!-- <th >{{ labels1[0].notes }}</th> -->
+            <th *ngIf="languageid=='1'">Letters & Attachments</th>
+            <th *ngIf="languageid=='6'">Correspondance & pièces jointes</th>
+            <!-- <th>{{ labels1[0].attachments }}</th> -->
             <th>{{ labels[0].actions }}</th>
           </tr>
           <tr *ngFor="let doc of docreferels|filter:search">
@@ -58,27 +60,28 @@
               <a [ngbTooltip]="tipcontent11">
                 <img src="assets/Images/sendrefereal.png" data-toggle="modal" data-target="#exampleModal6"
                   style="height:25px;" (click)="GetPatientCondition(doc.referalNotes)" />
-              </a>
-              <!-- <p innerHTML="{{doc.referalNotes}}"></p> -->
-            </td>
-            <td>
+              </a>&nbsp;
+
               <ng-template #tipcontent10>{{ labels1[0].view }}</ng-template>
               <a [ngbTooltip]="tipcontent10">
                 <img src="assets/Images/viewfile.png" data-toggle="modal" data-target="#exampleModal5"
                   style="height:25px;" (click)="GetAppointmentID(doc.appointmentID)" />
               </a>
+              <!-- <p innerHTML="{{doc.referalNotes}}"></p> -->
             </td>
+            <!-- <td>
+            </td> -->
             <td>
-              <label *ngIf="doc.completed=='1'">Completed</label>
+              <!-- <label *ngIf="doc.completed=='1'">Completed</label>
               <ng-template #tipcontent2>{{ labels1[0].completed }}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="doc.completed=='0'" style="height:20px;"
                   (click)="UpdateDoctorReferalsCompletedBit(doc.id)" />
-              </a>&nbsp;
+              </a>&nbsp; -->
               <ng-template #tipcontent4>Soap Notes</ng-template>
               <a [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/soap.png" *ngIf="doc.soapbit=='1'" style="height:20px;" data-toggle="modal"
-                  data-target="#exampleModal1" (click)="GetSopaNotesID(doc.appointmentID)" />
+                  data-target="#exampleModalCenter90" (click)="GetSopaNotesID(doc.appointmentID)" />
               </a>
             </td>
           </tr>
@@ -160,12 +163,73 @@
 
 
 
+<div class="modal fade" id="exampleModalCenter90" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" style="width:1200px;margin-left: 80px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels1[0].soap}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid ">
+          <div class="row" style="overflow: auto;height:400px;">
+            <div class="col-lg-12">
+              <table style="font-size: 16px;" >
+                <tr>
+                  <th>{{labels1[0].department}}</th>
+                  <th>{{labels1[0].doctorName}}</th>
+                  <th style="width: 113px;">{{labels1[0].subjective}}</th>
+                  <th>{{labels1[0].objective}}</th>
+                  <th >{{labels1[0].assessment}}</th>
+                  <th >{{labels1[0].plan}}</th>
+                  <th>{{labels1[0].diagnposticCode}}</th>
+                  <th>{{labels1[0].diagnosticDescription}}</th>
+                  <th>{{labels1[0].followUpPlan}}</th>
+                  <th>{{labels1[0].signature}}</th>
+                  <th>{{labels1[0].notes}} </th>
+                  <th>Actions</th>
+                </tr>
+                <tr *ngFor="let soap of soaplist" >
+                  <td>{{soap.departmentname}}</td>
+                  <td >{{soap.doctorName}}</td>
+                  <td >{{soap.subjective}}</td>
+                  <td >{{soap.objective}}</td>
+                  <td >{{soap.assessment}}</td>
+                  <td>{{soap.plan}}</td>
+                  <td >{{soap.icrDescription}}</td>
+                  <td>{{soap.diagnosisCode}}</td>
+                  <td>{{soap.followUpPlan}}</td>
+                  <td >{{soap.signature}}</td>
+                  <td >{{soap.notes}}</td>
+                  <td>
+                    <ng-template #tipcontent9504>Edit</ng-template>
+                    <a [ngbTooltip]="tipcontent9504" style="color:black">
+                      <img src="assets/Images/edit.png" *ngIf="soap.showmyediticon=='1'" data-toggle="modal"
+                        data-target="#EditSoapnotes" (click)="GetEditPrevioussoap(soap)" style="width: 18px">
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
 
 
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+<!-- <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" style="width: 700px;margin-left: -15%;">
@@ -222,27 +286,18 @@
             <div class="row">
               <div class="col-lg-3">
                 <label>{{labels4[0].diagnosisCode}} </label>
-                <!-- <span style="color: red;">*</span> -->
+             
               </div>
               <div class="col-lg-7">
                 <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
                   placeholder="{{labels4[0].diagnosisCode}}" />
               </div>
             </div><br>
-            <!-- <div class="row">
-        <div class="col-lg-3">
-          <label><b>Sick Slip Genarator</b> </label>
         
-        </div>
-        <div class="col-lg-7">
-          <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
-            placeholder="Sick Slip Genarator" />
-        </div>
-      </div><br> -->
             <div class="row">
               <div class="col-lg-3">
                 <label>{{labels4[0].followUpPlan}} </label>
-                <!-- <span style="color: red;">*</span> -->
+              
               </div>
               <div class="col-lg-7">
                 <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
@@ -250,21 +305,11 @@
               </div>
             </div>
             <br>
-            <!-- <div class="row">
-        <div class="col-lg-3">
-          <label><b>Signature</b> </label>
-        <span style="color: red;">*</span>
-        </div>
-        <div class="col-lg-7">
-          <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
-            placeholder="Signature" />
-        </div>
-      </div>
-      <br> -->
+        
             <div class="row">
               <div class="col-lg-3">
                 <label>{{labels4[0].notes}} </label>
-                <!-- <span style="color: red;">*</span> -->
+              
               </div>
               <div class="col-lg-7">
                 <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
@@ -282,4 +327,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

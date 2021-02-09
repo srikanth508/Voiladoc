@@ -660,10 +660,10 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NgxTagsInputModule,
    
 
-    TranslatorModule.forRoot({
-      providedLanguages: ['en', 'fr'],
-      defaultLanguage: 'en'
-    })
+    // TranslatorModule.forRoot({
+    //   providedLanguages: ['en', 'fr'],
+    //   defaultLanguage: 'en'
+    // })
   ],
 //   providers: [{provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true}],
 //   bootstrap: [AppComponent]

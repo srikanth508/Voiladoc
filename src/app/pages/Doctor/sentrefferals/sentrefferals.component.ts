@@ -463,11 +463,12 @@ export class SentrefferalsComponent implements OnInit {
   public attachments1 = [];
   public attachmentsurl1 = [];
   public onattachmentUpload1(abcd) {
-
+debugger
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadattachments1();
     // }
+    debugger
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -482,14 +483,13 @@ export class SentrefferalsComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-
+      debugger
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-
+      debugger
       let b = 'https://maroc.voiladoc.org' + a;
 
       this.showdocphoto.push(b)
-
 
       this.attachments1.length = 0;
 
@@ -508,6 +508,7 @@ export class SentrefferalsComponent implements OnInit {
         if (data != 0) {
 
           Swal.fire('Uploaded Successfully');
+          this.GetDoctorRefererals()
         }
       })
     }

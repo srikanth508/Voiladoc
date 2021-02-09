@@ -316,6 +316,22 @@ export class ReferredPatientsComponent implements OnInit {
 
 
 
+  // public GetSoapNotes() {
+
+  //     this.docservice.GetSoapNotesByApointmentID(this.sopapatientid, this.languageid, this.doctorid).subscribe(
+  //       data => {
+
+  //         this.dummsopailist = data;
+  //         this.soaplist1 = this.dummsopailist.filter(x => x.departmentID! = 14)
+
+  //       }, error => {
+  //       }
+  //     )
+  //   }
+   
+  // }
+
+
 
   selectedDate(data) {
    

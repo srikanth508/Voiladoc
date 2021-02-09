@@ -209,6 +209,8 @@ export class AppComponent {
   }
 
 
+
+
   public GetPharmacyNotifications() {
     if (this.pharmacyid != null && this.pharmacyid != undefined) {
 
@@ -219,7 +221,13 @@ export class AppComponent {
           this.pharmcunoti = datas;
           this.notificationcount = Number(this.pharmcunoti[0].notifycount);
           if (this.pharmcunoti.length > 0) {
-            Swal.fire('You have a new medicine order from patient ');
+            if (this.languageid == 1) {
+              Swal.fire('You have a new medicine order request.');
+            }
+            else if (this.languageid == 6) {
+              Swal.fire('Vous avez une nouvelle demande pour des médicaments ');
+            }
+
           }
 
         })

@@ -218,7 +218,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('userid', this.result[0].doctorID);
             localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
             localStorage.setItem('departmentid', this.result[0].departmentID)
-            location.href = '#/DoctorDashboard';
+            location.href = '#/Myappointments';
             location.reload();
           }
           else {

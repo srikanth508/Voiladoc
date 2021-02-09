@@ -682,6 +682,8 @@ public itemid:any;
     this.mrngtoid = even.target.value;
     var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
     this.mrngtoslot = qwerty[0].slots;
+
+ 
   }
 
 
@@ -875,6 +877,8 @@ public itemid:any;
     this.nightfromid = "";
     this.nighttoid = ""
     this.fees = "";
+    this.mrngtolist.length=0;
+
   }
   // }
 
