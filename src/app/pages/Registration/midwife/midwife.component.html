@@ -108,7 +108,8 @@
     <br>
     <div class="row" *ngIf="dummid==null">
       <div class="col-lg-3">
-        <label>Hospital/Clinic : </label>
+        <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
+        <label *ngIf="languageid=='6'">Hôpital / clinique : </label>
       </div>
       <div class="col-lg-4">
         <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist" [settings]="hospitadd"
@@ -147,18 +148,22 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="number" placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required
+        <input type="text" placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required
           class="form-control">
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label class="dname_label">Education :</label>
+        <label class="dname_label" *ngIf="languageid=='1'">Education :</label>
+        <label class="dname_label" *ngIf="languageid=='6'">Diplôme :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" placeholder="Education" name="education" [(ngModel)]="education" required
+        <input type="text" *ngIf="languageid=='1'" placeholder="Education" name="education" [(ngModel)]="education" required
+          class="form-control">
+
+          <input type="text" *ngIf="languageid=='6'" placeholder="Diplôme" name="education" [(ngModel)]="education" required
           class="form-control">
       </div>
     </div>

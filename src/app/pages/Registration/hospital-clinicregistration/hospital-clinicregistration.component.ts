@@ -32,7 +32,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public facilitylist: any;
   public insurancelist: any;
   public validEmail: any;
-  public today=new Date();
+  public today = new Date();
   public insuranceid = [];
   public facilitydd = {};
   public insurancedd = {};
@@ -62,27 +62,31 @@ export class HospitalClinicregistrationComponent implements OnInit {
   public dropzonelable: any;
   public subscriptiontype: any;
   public appointmentpercentage: any;
-  public contractstartdate:any;
-  public contractenddate:any;
+  public contractstartdate: any;
+  public contractenddate: any;
+  public search: any;
 
 
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
+    
+    this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
+      }, error => {
+      }
+    )
     this.getfacilititymaster();
     this.getinsurancemaster();
     this.GetCountryMaster();
 
-    this.hspwebsite =
+   
 
-      this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
-        data => {
-
-          this.labels = data;
-          this.SelectLabel = this.labels[0].select;
-        }, error => {
-        }
-      )
+   
 
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
@@ -109,7 +113,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -138,7 +143,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -162,7 +168,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -183,7 +190,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -277,9 +285,9 @@ export class HospitalClinicregistrationComponent implements OnInit {
         }
         else {
           Swal.fire('Hospital Clinic Name', 'Already Exists');
-          this.clear();
+          // this.clear();
           this.spinner.hide();
-          location.href = "#/HspClidash"
+          // location.href = "#/HspClidash"
         }
       })
     }
@@ -373,13 +381,13 @@ export class HospitalClinicregistrationComponent implements OnInit {
   //   // this.sendattachment();
   // }
 
-  public dummshowsignatureurl=[]
+  public dummshowsignatureurl = []
 
   public onattachmentUpload(abcd) {
     this.dummshowsignatureurl = []
-      this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
-    
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -430,7 +438,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -450,11 +459,11 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
 
   public Getsubscriptontype() {
-    
-    this.appointmentpercentage =0;
+
+    this.appointmentpercentage = 0;
     this.monthlysubription = 0;
   }
-  
+
 
   public InsertSubscriptionRevenue() {
     var entity5 = {
@@ -462,8 +471,8 @@ export class HospitalClinicregistrationComponent implements OnInit {
       'MonthlySubscription': this.monthlysubription,
       'AppointmentPercentage': this.appointmentpercentage,
       'HospitalClinicID': this.hospitalclinicid,
-      'ContractStartdate':this.contractstartdate,
-      'ContractEnddate':this.contractenddate
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
     }
     this.docservice.InsertHospitalClinic_RevenueSubscriptions(entity5).subscribe(data => {
       if (data != 0) {

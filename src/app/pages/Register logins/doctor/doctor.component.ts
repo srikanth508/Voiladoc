@@ -29,7 +29,7 @@ export class DoctorComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetDoctorRegistratingLogins(this.languageid).subscribe(
         data => {
-         
+
           this.doctorlist = data;
           this.docdd = {
             singleSelection: true,
@@ -47,7 +47,7 @@ export class DoctorComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetDoctorRegistratingLogins(this.languageid).subscribe(
         data => {
-         
+
           this.dummdoctorlist = data;
           this.doctorlist = this.dummdoctorlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
@@ -71,7 +71,7 @@ export class DoctorComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -80,19 +80,33 @@ export class DoctorComponent implements OnInit {
   }
   SelectLabel
   public GetDoctorID(item2: any) {
-   
+
     this.doctorid = item2.id;
+    debugger
 
   }
+
+
+
+
+
+
+
+
   public insertdetails() {
     if (this.doctorid == undefined) {
-      Swal.fire("please select Doctor");
+      if (this.languageid == 1) {
+        Swal.fire("please select Doctor");
+      }
+      else {
+        Swal.fire("Sélectionner un médecin");
+      }
     }
     else if (this.password != undefined) {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-       
+
         this.pp = 1;
       }
       else {
@@ -101,33 +115,84 @@ export class DoctorComponent implements OnInit {
           'UserName': this.username,
           'Password': this.password
         }
-        this.username = '';
-        this.password = '';
+        // this.username = '';
+        // this.password = '';
         this.docservice.InsertDoctorLogin(entity).subscribe(data => {
-         
+
           if (data != 0) {
             // Swal.fire('Added Successfully.');
-            if(this.languageid==1)
-            {
+            if (this.languageid == 1) {
+              this.getdoctorloginfordash()
               Swal.fire('Completed', 'Doctor saved successfully', 'success');
               location.href = "#/Doctordash"
               this.pp = 0;
+              // this.sendmail();
             }
-            else{
+            else {
+              this.getdoctorloginfordash()
               Swal.fire('', 'Mis à jour avec succés', 'success');
               location.href = "#/Doctordash"
               this.pp = 0;
+
             }
-          
+
           }
           else {
-            Swal.fire("Doctor Login Already Exists");
-            location.href = "#/Doctordash"
+            if (this.languageid == 1) {
+              Swal.fire("Doctor Login Already Exists");
+              location.href = "#/Doctordash"
+            }
+            else {
+              Swal.fire("La connexion au médecin existe déjà");
+              location.href = "#/Doctordash"
+            }
+
           }
         })
       }
     }
 
+  }
+
+  public doctorloginlist: any;
+
+  public getdoctorloginfordash() {
+
+    this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
+      data => {
+        debugger
+        this.doctorloginlist = data;
+        var list = this.doctorloginlist.filter(x => x.doctorID == this.doctorid)
+        this.pinno = list[0].pinno,
+          this.email = list[0].emailID,
+          this.doctorname = list[0].doctorName
+        this.sendmail();
+      }, error => {
+      }
+    )
+
+  }
+
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+  public email: any;
+  public doctorname: any;
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.doctorname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
   }
 
 

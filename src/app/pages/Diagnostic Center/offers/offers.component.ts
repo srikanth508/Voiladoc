@@ -120,12 +120,13 @@ export class OffersComponent implements OnInit {
 
               if (this.languageid == 1) {
                 Swal.fire('Added Successfully');
-
+              
                 this.clear();
                 this.attachmentsurl.length = 0;
               }
               else if (this.languageid == 6) {
                 Swal.fire('Mis à jour avec Succés');
+              
                 this.attachmentsurl.length = 0;
                 this.clear();
               }
@@ -134,12 +135,12 @@ export class OffersComponent implements OnInit {
         }
         if (this.languageid == 1) {
           Swal.fire('Added Successfully');
-
+          location.href = "#/Offersdash"
           this.clear();
         }
         else if (this.languageid == 6) {
           Swal.fire('Mis à jour avec Succés');
-
+          location.href = "#/Offersdash"
           this.clear();
         }
 

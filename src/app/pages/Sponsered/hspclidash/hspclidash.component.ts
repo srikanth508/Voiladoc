@@ -30,6 +30,7 @@ export class HspclidashComponent implements OnInit {
       startOfWeek: 1
     };
     this.languageid = localStorage.getItem('LanguageID');
+    
     this.getsponserhospitalforadmin();
   
     this.getlanguage();

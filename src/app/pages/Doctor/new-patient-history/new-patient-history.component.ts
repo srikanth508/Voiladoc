@@ -67,11 +67,12 @@ export class NewPatientHistoryComponent implements OnInit {
   dummdialist: any;
   dummsoaplist: any;
   dummvedioslist: any;
+  age: any;
   ngOnInit() {
 
-   
+
     this.activatedroute.params.subscribe(params => {
-     
+
       this.patientid = params['patientID'];
       this.doctorid = localStorage.getItem('userid');
       this.languageid = localStorage.getItem('LanguageID');
@@ -81,29 +82,29 @@ export class NewPatientHistoryComponent implements OnInit {
     )
 
     if (this.departmentid == 14) {
-     
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
+
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid, this.doctorid).subscribe(
         data => {
-         
+
           this.soaplist1 = data;
         }, error => {
         }
       )
     }
     else if (this.departmentid != 14) {
-      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid, this.doctorid).subscribe(
         data => {
-         
+
           this.dummsoaplist = data;
-          this.soaplist1 = this.dummsoaplist.filter(x => x.departmentID!= 14);
+          this.soaplist1 = this.dummsoaplist.filter(x => x.departmentID != 14);
         }, error => {
         }
       )
     }
 
-    this.docservice.GetPatientDetails(this.patientid,this.languageid).subscribe(
+    this.docservice.GetPatientDetails(this.patientid, this.languageid).subscribe(
       data => {
-       
+
         this.details = data;
         this.patientname = this.details.patientName,
           this.mobileno = this.details.mobileNumber,
@@ -116,17 +117,18 @@ export class NewPatientHistoryComponent implements OnInit {
           this.reasonforappointment = this.details.reasonForVisit,
           this.gender = this.details.gender,
           this.bloodgroup = this.details.bloodGroup,
-          this.address = this.details.address
+          this.address = this.details.address,
+          this.age = this.details.age
 
       }, error => {
       }
     )
 
     if (this.departmentid == 14) {
-     
+
       this.docservice.GetDoctor_PatientPrescriptionbyPatientDeatails(this.patientid, this.languageid).subscribe(
         data => {
-         
+
           this.prescriptionlist = data;
         }, error => {
         }
@@ -135,7 +137,7 @@ export class NewPatientHistoryComponent implements OnInit {
     else if (this.departmentid != 14) {
       this.docservice.GetDoctor_PatientPrescriptionbyPatientDeatails(this.patientid, this.languageid).subscribe(
         data => {
-         
+
           this.dummprescrptiolist = data;
           this.prescriptionlist = this.dummprescrptiolist.filter(x => x.departmentID != 14)
         }, error => {
@@ -144,18 +146,18 @@ export class NewPatientHistoryComponent implements OnInit {
     }
 
     if (this.departmentid == 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid, this.doctorid).subscribe(
         data => {
-         
+
           this.dialist = data;
         }, error => {
         }
       )
     }
     else if (this.departmentid! = 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
+      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid, this.doctorid).subscribe(
         data => {
-         
+
           this.dummdialist = data;
           this.dialist = this.dummdialist.filter(x => x.departmentID != 14);
         }, error => {
@@ -163,12 +165,12 @@ export class NewPatientHistoryComponent implements OnInit {
       )
     }
 
-   
+
 
     if (this.departmentid == 14) {
       this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(
         data => {
-         
+
           this.vedioslist = data;
         }, error => {
         }
@@ -178,7 +180,7 @@ export class NewPatientHistoryComponent implements OnInit {
 
       this.docservice.GetBook_DoctorPatientBookedVideoConferenceByPatientID(this.patientid).subscribe(
         data => {
-         
+
           this.dummvedioslist = data;
           this.vedioslist = this.dummvedioslist.filter(x => x.departmentID != 14)
         }, error => {
@@ -193,7 +195,7 @@ export class NewPatientHistoryComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -204,7 +206,7 @@ export class NewPatientHistoryComponent implements OnInit {
   public getlanguagesssss() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       }, error => {
       }
@@ -212,11 +214,11 @@ export class NewPatientHistoryComponent implements OnInit {
   }
 
   public GetprscriptionID(id) {
-   
+
     this.prescriptionid = id;
     this.docservice.GetDoctor_PatientPrescriptionByID(this.prescriptionid, this.languageid).subscribe(
       data => {
-       
+
         this.prelist = data;
       }, error => {
       }
@@ -226,11 +228,11 @@ export class NewPatientHistoryComponent implements OnInit {
 
   icrdescription
   public GetSoapID(soapid) {
-   
+
     this.soapid = soapid;
     this.docservice.GetSoapNotesByID(this.soapid, this.languageid).subscribe(
       data => {
-       
+
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist.length == 0 || this.soaplist == undefined) {
           this.subjective = "";
@@ -244,7 +246,7 @@ export class NewPatientHistoryComponent implements OnInit {
           this.signature = "";
           this.objective = "";
           this.signature = "";
-          this.icrdescription=""
+          this.icrdescription = ""
         }
         else {
           this.subjective = this.soaplist[0].subjective,
@@ -264,9 +266,9 @@ export class NewPatientHistoryComponent implements OnInit {
     )
   }
   public GetArchiveID(archiveID) {
-   
+
     // window.location.href = 'http://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view';
     window.open('http://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view', '_blank');
-   
+
   }
 }

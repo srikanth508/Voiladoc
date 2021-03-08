@@ -35,7 +35,9 @@ export class HspClidashComponent implements OnInit {
   public countrymanaerid: any;
   public showexportbutton: any;
   public showeditbutton: any;
-  public salesrepresntiveid: any
+  public salesrepresntiveid: any;
+  meridionalid: any;
+  showdelete:any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -43,11 +45,11 @@ export class HspClidashComponent implements OnInit {
       this.hospitalcount = params['hospitalcount']
     }
     )
-    
+
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
-
+    this.meridionalid = localStorage.getItem('meridionalid');
     if (this.salesrepresntiveid != undefined) {
       this.showeditbutton = 1
     }
@@ -59,7 +61,15 @@ export class HspClidashComponent implements OnInit {
     if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
-    
+    if(this.meridionalid==undefined)
+    {
+      this.showdelete=0;
+    }
+    else
+    {
+      this.showdelete=1;
+    }
+
     this.countryid = 0;
     this.cityid = 0
 
@@ -84,10 +94,10 @@ export class HspClidashComponent implements OnInit {
       this.gethosptilclinicforadmin();
     }
     else if (this.id == 1) {
-      
+
       this.docservice.GetHospital_ClinicDetailsMaster(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-          
+
           this.hospitalcliniclist = data;
           this.dummlist = this.hospitalcliniclist
           this.hospitalcount = this.hospitalcliniclist.length;
@@ -224,31 +234,61 @@ export class HspClidashComponent implements OnInit {
 
 
   public deletehospitalclinic(id) {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Hospital!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteHospital_Clinic(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Hospital!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteHospital_Clinic(id).subscribe(res => {
+            let test = res;
+            this.gethosptilclinicforadmin();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Hospital has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.gethosptilclinicforadmin();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Hospital has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.gethosptilclinicforadmin();
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteHospital_Clinic(id).subscribe(res => {
+            let test = res;
+            this.gethosptilclinicforadmin();
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.gethosptilclinicforadmin();
+        }
+      })
+    }
+
+
   }
 
 

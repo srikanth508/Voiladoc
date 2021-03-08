@@ -73,11 +73,11 @@ export class DoctorSupportComponent implements OnInit {
         if (data != 0) {
           this.insertnotification()
           if (this.languageid == 1) {
-            Swal.fire('Issue Raised Successflly')
+            Swal.fire('Your request has been received. We will get back to you within 12 hours.')
             location.href = "#/DoctorSupportDash"
           }
           else if (this.languageid == 6) {
-            Swal.fire('Enregistré')
+            Swal.fire('Votre demande a été reçue. Nous vous répondrons dans les 12 heures.')
             location.href = "#/DoctorSupportDash"
           }
         }

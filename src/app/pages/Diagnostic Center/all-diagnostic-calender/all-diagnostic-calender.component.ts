@@ -221,7 +221,8 @@ export class AllDiagnosticCalenderComponent implements OnInit {
       'DayID': this.dayid,
       'TypeID': this.typeid,
       'AppointmentDate': this.appointmentdate,
-      'TotalAppointments': this.totalappointments
+      'TotalAppointments': this.totalappointments,
+      'BookTypeID':this.typeidss
     }
     this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
       this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotid, this.appointmentdate).subscribe(data => {
@@ -380,7 +381,8 @@ export class AllDiagnosticCalenderComponent implements OnInit {
           'DayID': this.datechangedayid,
           'TypeID': this.Daywiseappointmentid,
           'AppointmentDate': this.daychangedate,
-          'TotalAppointments': this.totalappointments
+          'TotalAppointments': this.totalappointments,
+          'BookTypeID':this.typeidss
         }
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotslist[i].id, this.daychangedate).subscribe(data => {
@@ -515,7 +517,8 @@ export class AllDiagnosticCalenderComponent implements OnInit {
           'DayID': this.timechangedayid,
           'TypeID': this.timewiseappointmentid,
           'AppointmentDate': this.timechangedate,
-          'TotalAppointments': this.totalappointments
+          'TotalAppointments': this.totalappointments,
+          'BookTypeID':this.typeidss
         }
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.timewisechangeslotlist[i].id, this.timechangedate).subscribe(data => {

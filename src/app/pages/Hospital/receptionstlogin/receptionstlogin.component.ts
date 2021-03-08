@@ -49,17 +49,19 @@ export class ReceptionstloginComponent implements OnInit {
     this.docservice.InsertReceiptionistLogin(entity).subscribe(data => {
      
       if (data != 0) {
+        this.pinno=data;
         // Swal.fire('Added Successfully.');
         if(this.languageID==1)
         {
+          this.sendmail()
           Swal.fire('Completed', 'Receptionist saved successfully', 'success');
           location.href = "#/ReceptionstloginDash"
         }
         else{
+          this.sendmail()
           Swal.fire('', 'Mis à jour avec succés', 'success');
           location.href = "#/ReceptionstloginDash"
         }
-   
       }
       else
       {
@@ -67,6 +69,25 @@ export class ReceptionstloginComponent implements OnInit {
         location.href = "#/ReceptionstloginDash"
       }
 
+    })
+  }
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.name + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
     })
   }
 

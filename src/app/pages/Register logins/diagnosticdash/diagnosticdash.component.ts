@@ -15,8 +15,10 @@ export class DiagnosticdashComponent implements OnInit {
   p: number = 1;
   public labels: any;
   public languageid: any;
+  public pinno: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.pinno = localStorage.getItem('Pinno');
     this.getdiagnosticloginfordash();
 
     this.getlanguage();
@@ -44,9 +46,16 @@ export class DiagnosticdashComponent implements OnInit {
     this.docservice.DisableDiagnosticLogin(docid).subscribe(
       data => {
 
-        Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
-
-        this.getdiagnosticloginfordash();
+        if(this.languageid==1)
+        {
+          Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
+          this.getdiagnosticloginfordash();
+        }
+        else{
+          Swal.fire('Désactivée', 'Accès désactivé');
+          this.getdiagnosticloginfordash();
+        }
+       
 
       }, error => {
       }
@@ -56,7 +65,7 @@ export class DiagnosticdashComponent implements OnInit {
     this.docservice.EnableDiagnosticLogin(id).subscribe(
       data => {
 
-        Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
+        Swal.fire('Activé', 'Accès Activé');
 
         this.getdiagnosticloginfordash();
 
@@ -74,13 +83,17 @@ export class DiagnosticdashComponent implements OnInit {
   public id: any;
   public username: any;
   public password: any;
+  public mypinno: any;
 
 
   public GetDeatsils(details) {
-    
+
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password
+      this.password = details.password,
+      this.mypinno = details.pinno
+
+    this.Showpassword = 0;
   }
 
 
@@ -103,30 +116,66 @@ export class DiagnosticdashComponent implements OnInit {
         this.docservice.UpdateDiagnosticCenterAdminRegistrationWeb(entity).subscribe(data => {
 
           if (data != 0) {
-            if(this.languageid==1)
-            {
+            if (this.languageid == 1) {
               Swal.fire('Success', 'Password Updated Successfully', 'success');
               this.getdiagnosticloginfordash()
               this.pp = 0;
               document.getElementById('close').click();
             }
-            else{
+            else {
               Swal.fire('', 'Mis à jour avec succés', 'success');
               this.getdiagnosticloginfordash()
               this.pp = 0;
               document.getElementById('close').click();
             }
-       
+
           }
-          else{
-            Swal.fire('Success', 'username already exists', 'success');
-            this.getdiagnosticloginfordash()
-            this.pp = 0;
-            document.getElementById('close').click();
+          else {
+            if(this.languageid==1)
+            {
+              Swal.fire('Success', 'username already exists', 'success');
+              this.getdiagnosticloginfordash()
+              this.pp = 0;
+              document.getElementById('close').click();
+            }
+            else{
+              Swal.fire('Succès', "Ce nom d'utilisateur existe déjà");
+              this.getdiagnosticloginfordash()
+              this.pp = 0;
+              document.getElementById('close').click();
+            }
+          
           }
         })
 
       }
     }
   }
+
+  public Enteredpinno: any;
+  public Showpassword: any;
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      Swal.fire('Please Enter Your Pin No')
+
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
+      }
+    }
+  }
+
+
+
 }

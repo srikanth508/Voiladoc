@@ -185,9 +185,6 @@
                 </a>
               </td>
             </tr>
-
-
-          
           </thead>
         </table>
       </div>
@@ -209,8 +206,8 @@
             {{labels[0].inclinic}} &nbsp;
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp;
             {{labels[0].video}} &nbsp;
-            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
-            {{labels[0].homeVisit}} &nbsp;
+            <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
+            {{labels[0].homeVisit}} &nbsp; -->
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="4"> &nbsp;
             {{labels[0].notAvailable}}&nbsp;
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
@@ -227,7 +224,7 @@
           </div>
           <div class="col-lg-6">
             <input type="text" *ngIf="appointmentypeid!=4&&appointmentypeid!=6" class="form-control" [(ngModel)]="fees"
-              name="fees" placeholder="{{labels[0].fees}}">
+            onkeypress='return(event.charCode>=48&&event.charCode<=57)'  name="fees" placeholder="{{labels[0].fees}}">
           </div>
         </div><br>
         <div class="row">
@@ -307,7 +304,7 @@
             </div>
             <div class="col-lg-6">
               <input type="text" *ngIf="Daywiseappointmentid!=4&&Daywiseappointmentid!=6" class="form-control"
-                [(ngModel)]="fees" name="fees" placeholder="{{labels[0].fees}}">
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)' [(ngModel)]="fees" name="fees" placeholder="{{labels[0].fees}}">
             </div>
           </div><br>
           <div class="row">
@@ -402,7 +399,7 @@
             </div>
             <div class="col-lg-6">
               <input type="text" *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6" class="form-control"
-                [(ngModel)]="fees" name="fees" placeholder="{{labels[0].fees}}">
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'  [(ngModel)]="fees" name="fees" placeholder="{{labels[0].fees}}">
             </div>
           </div><br>
           <div class="row">

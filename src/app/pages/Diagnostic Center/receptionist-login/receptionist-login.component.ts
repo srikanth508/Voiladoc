@@ -74,10 +74,14 @@ export class ReceptionistLoginComponent implements OnInit {
     this.docservice.InsertDiagnosticReceptionistLogin(entity).subscribe(res => {
         
         if (this.languageid == 1) {
+            this.pinno=res;
+            this.sendmail()
             Swal.fire('Success', 'Added Successfully')
             location.href = "#/ReceptionistLoginDashboard"
         }
         else if (this.languageid == 6) {
+            this.pinno=res;
+            this.sendmail()
             Swal.fire('Mis à jour avec Succés');
             location.href = "#/ReceptionistLoginDashboard"
         }
@@ -96,15 +100,37 @@ public UpdateDetailes() {
         Password: this.password
     }
     this.docservice.UpdateDiagnosticReceptionistLogin(entity).subscribe(res => {
-        
         if (this.languageid == 1) {
+      
+            debugger
             Swal.fire('Success', 'Updated successfully')
             location.href = "#/ReceptionistLoginDashboard"
         }
         else if (this.languageid == 6) {
+       
             Swal.fire('Mis à jour avec Succés')
             location.href = "#/ReceptionistLoginDashboard"
         }
     })
   }
+
+
+  pinno: any;
+  emailattchementurl = [];
+  public doctorname: any;
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.name + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
 }

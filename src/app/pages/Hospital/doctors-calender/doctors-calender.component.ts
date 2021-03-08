@@ -687,7 +687,6 @@ export class DoctorsCalenderComponent implements OnInit {
           
         })
 
-
         var entity = {
           'SlotID': this.slotslist[j].id,
           'DoctorID': this.doctorid,
@@ -715,6 +714,8 @@ export class DoctorsCalenderComponent implements OnInit {
       this.Daywiseappointmentid = "";
       this.daychangedate = ""
       this.fees=""
+      this.daychangedate1=""
+      
     }
   }
 
@@ -937,6 +938,7 @@ export class DoctorsCalenderComponent implements OnInit {
       this.mrngtoid = "";
       this.mrngfromid = "";
       this.fees=""
+      this.timechangedate1="";
     }
   }
 

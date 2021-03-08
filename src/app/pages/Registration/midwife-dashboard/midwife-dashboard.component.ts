@@ -39,9 +39,10 @@ export class MidwifeDashboardComponent implements OnInit {
   public daysname: any;
   public countrymanaerid: any;
   public showexportbutton: any;
-  public salesrepresntiveid:any;
-  public showeditbutton:any;
-
+  public salesrepresntiveid: any;
+  public showeditbutton: any;
+  meridionalid: any;
+  showdelete:any;
 
   ngOnInit() {
 
@@ -49,17 +50,24 @@ export class MidwifeDashboardComponent implements OnInit {
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
 
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+    this.meridionalid = localStorage.getItem('meridionalid');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
 
-    if(this.salesrepresntiveid!=undefined)
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
+    if(this.meridionalid==undefined)
     {
-      this.showeditbutton=1
+      this.showdelete=0;
     }
-    else{
-      this.showeditbutton=0;
+    else
+    {
+      this.showdelete=1;
     }
-
     if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
@@ -85,7 +93,7 @@ export class MidwifeDashboardComponent implements OnInit {
         }
       )
     }
-    else if(this.id!=undefined){
+    else if (this.id != undefined) {
       this.docservice.GetMidWivesRegistrationForWeb(this.languageid, this.startdate, this.enddate).subscribe(
         data => {
 
@@ -221,31 +229,61 @@ export class MidwifeDashboardComponent implements OnInit {
 
 
   public DeleteMidWivesRegistration(id) {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This MidWife!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteMidWivesRegistration(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This MidWife!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteMidWivesRegistration(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit();
+          })
+          Swal.fire(
+            'Deleted!',
+            'MidWife has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.ngOnInit();
-        })
-        Swal.fire(
-          'Deleted!',
-          'MidWife has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.ngOnInit();
-      }
-    })
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr(e) ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteMidWivesRegistration(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit();
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.ngOnInit();
+        }
+      })
+    }
+
+
   }
   public getglmasterexcel() {
     let hhh = this.tableToJson(document.getElementById('Doc'));

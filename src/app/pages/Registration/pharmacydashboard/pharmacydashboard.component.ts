@@ -35,23 +35,32 @@ export class PharmacydashboardComponent implements OnInit {
   public countrylist: any;
   public hospitalclinicid: any;
   public countrymanaerid: any;
-  public showexportbutton:any;
-  public salesrepresntiveid:any;
-  public showeditbutton:any;
+  public showexportbutton: any;
+  public salesrepresntiveid: any;
+  public showeditbutton: any;
+  meridionalid: any;
+  showdelete:any;
 
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
-    
-  if(this.salesrepresntiveid!=undefined)
-  {
-    this.showeditbutton=1
-  }
-  else{
-    this.showeditbutton=0;
-  }
+    this.meridionalid = localStorage.getItem('meridionalid');
 
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
+    if(this.meridionalid==undefined)
+    {
+      this.showdelete=0;
+    }
+    else
+    {
+      this.showdelete=1;
+    }
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
 
@@ -79,7 +88,7 @@ export class PharmacydashboardComponent implements OnInit {
         }
       )
     }
-    else if(this.id!=undefined){
+    else if (this.id != undefined) {
       this.docservice.GetPhamacyDetailsForWeb(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
 
@@ -213,31 +222,59 @@ export class PharmacydashboardComponent implements OnInit {
   }
 
   public deletepharmacy(id) {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Pharmacy!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeletePharmacy(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Pharmacy!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeletePharmacy(id).subscribe(res => {
+            let test = res;
+            this.getpharmacyforadmin();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Pharmacy has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.getpharmacyforadmin();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Pharmacy has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getpharmacyforadmin();
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeletePharmacy(id).subscribe(res => {
+            let test = res;
+            this.getpharmacyforadmin();
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.getpharmacyforadmin();
+        }
+      })
+    }
   }
 
 

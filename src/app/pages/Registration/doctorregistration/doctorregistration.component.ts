@@ -91,9 +91,12 @@ export class DoctorregistrationComponent implements OnInit {
   public speaklanguages: any;
   dropzonelable: any;
   search: any;
+  meridionalid:any;
   ngOnInit() {
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+
+    
     this.tablecount = 0
     this.spinner.show();
     setTimeout(() => {
@@ -384,20 +387,69 @@ export class DoctorregistrationComponent implements OnInit {
           this.insertdoctoreducation();
           this.insertdoctorexperience();
           this.insertdoctormembership();
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-          this.clear();
-          this.spinner.hide();
-          location.href = "#/Docdash";
+          // this.getdoctorforadmin();
+debugger
+          // this.sendmail();
+          if(this.languageid==1)
+          {
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            // this.clear();
+            this.spinner.hide();
+            location.href = "#/Docdash";
+          }
+          else{
+            Swal.fire('Sauvegardé');
+            // this.clear();
+            this.spinner.hide();
+            location.href = "#/Docdash";
+          }
+
         }
         else {
           Swal.fire('Doctor Name', 'Already Exists');
           this.spinner.hide();
-          location.href = "#/Docdash";
+          // location.href = "#/Docdash";
         }
       })
-
     }
   }
+  doctorlist: any;
+
+  public getdoctorforadmin() {
+    debugger
+    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+        debugger
+        this.doctorlist = data;
+        debugger
+        var list = this.doctorlist.filter(x => x.id == this.doctorid)
+        this.pinno = list[0].pinno
+        this.sendmail()
+      }, error => {
+      }
+    )
+  }
+
+
+  pinno: any;
+  emailattchementurl = [];
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.doctorname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Your Pin is ' + this.pinno + '.  Dont Share Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
+
+
 
   public insertdoctorspecilisation() {
     for (let i = 0; i < this.specilisationid.length; i++) {
@@ -430,33 +482,33 @@ export class DoctorregistrationComponent implements OnInit {
   }
 
 
-  
+
 
   public onidUpload(abcd) {
-    
+
     // for (let i = 0; i < abcd.length; i++) {
-      this.idproof.push(abcd.addedFiles[0]);
-      //  if (this.idproof[0].type == 'application/pdf' || this.idproof[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-      //  {
-        this.idproof.push(abcd.addedFiles[0]);
-        this.uploadid();
-        // }
-        if (this.languageid == 1) {
-          Swal.fire('Added Successfully');
-          abcd.length = 0;
-        }
-        else if (this.languageid == 6) {
-          Swal.fire('Mis à jour avec succés');
-          abcd.length = 0;
-        }
-       
-      //  }
-      //  else
-      //  {
-      //    Swal.fire('Please Upload Pdf/Document Format');
-      //  }
-      // application/pdf
-  
+    this.idproof.push(abcd.addedFiles[0]);
+    //  if (this.idproof[0].type == 'application/pdf' || this.idproof[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    //  {
+    this.idproof.push(abcd.addedFiles[0]);
+    this.uploadid();
+    // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else if (this.languageid == 6) {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+
+    //  }
+    //  else
+    //  {
+    //    Swal.fire('Please Upload Pdf/Document Format');
+    //  }
+    // application/pdf
+
   }
 
   public uploadid() {

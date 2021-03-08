@@ -1,0 +1,123 @@
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-9">
+      <h5>{{labels[0].frequentlyAskedmasterDash}}</h5>
+    </div>
+    <div class="col-lg-3" style="text-align: end;">
+      <button type="button" routerLink="/Faq" class="btn btncolor">{{labels[0].add}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-7">
+
+    </div>
+    <div class="col-lg-2">
+     <span style="margin-left:50px"> Count : <b>{{count}}</b></span>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>{{labels[0].question}}</th>
+            <th>{{labels[0].answers}}</th>
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let details of faq|filter:term">
+            <td>{{details.typeName}}</td>
+            <td>{{details.faq}}</td>
+            <td>
+              <p innerHTML="{{details.answers}}"></p>
+            </td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteFrequentlyAskedQuestions(details.id)">
+              </a>&nbsp;
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/Faq',details.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a>
+
+
+              <img src="assets/Images/imgicon.png" title="Images" 
+              (click)="GetImagesID(details.id)" data-toggle="modal" data-target="#exampleModalLong2"
+                style="margin: 2%;width: 20px;" />&nbsp;
+              <!-- <a>
+                <img *ngIf="details.enableDisable =='0'" src="assets/Images/dactive.png" title="Disable" (click)="DisableFrequentlyAskedQuestions(details.id)"
+                  style="width: 50px;" />
+              </a>
+              <a>
+                <img *ngIf="details.enableDisable =='1'" (click)="EnableFrequentlyAskedQuestions(details.id)" src="assets/Images/active.png"
+                  title="Enable" style="width: 50px;" />
+              </a> -->
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
+      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br> -->
+</div>
+<br>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Photos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" >
+            <div class="col-lg-6" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoUrl}}" style="width: 100%;" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+        
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

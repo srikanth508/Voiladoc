@@ -79,6 +79,7 @@ export class SupportWebComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.GetSupportIssues()
     this.GetLanguageMaster()
+    this.getlanguage()
 
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
@@ -86,6 +87,19 @@ export class SupportWebComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+  }
+  labels1:any;
+
+
+
+  public getlanguage() {
+    this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+      },
+      error => { }
+    );
   }
 
 
@@ -173,30 +187,61 @@ export class SupportWebComponent implements OnInit {
 
   public UpdateSupportForWebAcceptedbit(id) {
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want To Accept This Issue!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Accept!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.UpdateSupportForWebAcceptedbit(id).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want To Accept This Issue!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Accept!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateSupportForWebAcceptedbit(id).subscribe(res => {
+            let test = res;
+            this.GetSupportIssues();
+          })
+          Swal.fire(
+            'Accepted!',
+            'Issue has been Accepted.',
+            'success'
+          )
+        }
+        else {
           this.GetSupportIssues();
-        })
-        Swal.fire(
-          'Accepted!',
-          'Issue has been Accepted.',
-          'success'
-        )
-      }
-      else {
-        this.GetSupportIssues();
-      }
-    })
+        }
+      })
+    }
+    else
+    {
+      Swal.fire({
+        // title: 'Êtes-vous sûr ?',
+        // text: "You Want To Accept This Issue!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Oui, J'accepte"
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateSupportForWebAcceptedbit(id).subscribe(res => {
+            let test = res;
+            this.GetSupportIssues();
+          })
+          // Swal.fire(
+          //   'Accepted!',
+          //   'Issue has been Accepted.',
+          //   'success'
+          // )
+        }
+        else {
+          this.GetSupportIssues();
+        }
+      })
+    }
+ 
   }
   resolveid: any;
   useremail: any;
@@ -222,13 +267,26 @@ export class SupportWebComponent implements OnInit {
     }
     this.docservice.UpdateSupportForWebResolvedbit(entity).subscribe(data => {
       let res = data;
-      this.insertazurenotification()
-      Swal.fire('Issue Resolved Successfully')
-      this.description = ""
-      this.issuephotourl = [];
-      this.identityattachmentsurlssss = [];
-      this.showidentityproof = [];
-      this.GetSupportIssues();
+
+      if(this.languageid==1)
+      {
+        this.insertazurenotification()
+        Swal.fire('Issue Resolved Successfully')
+        this.description = ""
+        this.issuephotourl = [];
+        this.identityattachmentsurlssss = [];
+        this.showidentityproof = [];
+        this.GetSupportIssues();
+      }
+      else{
+        this.insertazurenotification()
+        Swal.fire('Problème résolu et réponse au prestataire.')
+        this.description = ""
+        this.issuephotourl = [];
+        this.identityattachmentsurlssss = [];
+        this.showidentityproof = [];
+        this.GetSupportIssues();
+      }
     })
   }
 
@@ -260,8 +318,16 @@ export class SupportWebComponent implements OnInit {
     this.issuephoto.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    Swal.fire('Added Successfully');
+
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+   else{
+    Swal.fire('Photo ajoutée');
     abcd.length = 0;
+   }
   }
 
   public uploadid() {

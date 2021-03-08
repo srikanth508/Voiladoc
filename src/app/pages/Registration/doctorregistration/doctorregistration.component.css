@@ -90,3 +90,7 @@ label::first-letter{
 input:placeholder-shown {
   text-transform: lowercase; 
 }
+
+#imp{
+  text-transform: none;
+}

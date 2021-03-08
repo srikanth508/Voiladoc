@@ -117,7 +117,7 @@
       </div>
       <div class="col-lg-3">
         <input type="text" class="form-control" *ngIf="mrngAppointmenttype!=6" [(ngModel)]="fees" required name="fees"
-          placeholder="Fees">
+        onkeypress='return(event.charCode>=48&&event.charCode<=57)' placeholder="Fees">
       </div>
     </div><br>
     <div class="row">

@@ -63,9 +63,13 @@
         <thead>
           <tr>
             <th>{{labels1[0].clinicPhotos}}</th>
-            <th>{{labels1[0].clinicName}}</th>
+            <th *ngIf="languageid=='1'">Name</th>
+            <th *ngIf="languageid=='6'">Nom</th>
+            <!-- <th>{{labels1[0].clinicName}}</th> -->
             <th>{{labels[0].hospitalPhoneNo}}</th>
-            <th>{{labels[0].contactPersonName}}</th>
+            <th *ngIf="languageid=='1'">Contact person name</th>
+            <th *ngIf="languageid=='6'">Contact </th>
+            <!-- <th>{{labels[0].contactPersonName}}</th> -->
             <th>{{labels[0].country}}</th>
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>

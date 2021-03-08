@@ -39,7 +39,7 @@ export class AppointmentsreportComponent implements OnInit {
   public sdate: any;
   public edate: any;
   public diffid: any;
-  public showreason:any;
+  public showreason: any;
 
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
@@ -91,7 +91,7 @@ export class AppointmentsreportComponent implements OnInit {
     )
     if (this.diffid == undefined) {
       this.getcancelledappoinrtments();
-      this.showreason=1;
+      this.showreason = 1;
     }
     else if (this.diffid == '1') {
       this.docservice.GetCancelledAppointmentReportsForDoctorwEB(this.sdate, this.edate, this.languageid).subscribe(
@@ -121,9 +121,9 @@ export class AppointmentsreportComponent implements OnInit {
   hospitalid: any;
 
   public GetHospitalID(even) {
-    
+
     if (this.diffid == 1) {
-      
+
       this.hospitalid = even.target.value;
       this.cancelledlist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalid)
     }
@@ -171,7 +171,7 @@ export class AppointmentsreportComponent implements OnInit {
       data => {
         // this.cancelledlist = data;
         this.dummlist = data;
-        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1||x.cancelled==1);
+        this.cancelledlist = this.dummlist.filter(x => x.refundBit == 1);
         this.count = this.cancelledlist.length
       }, error => {
       }
@@ -183,11 +183,11 @@ export class AppointmentsreportComponent implements OnInit {
 
     this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        
+
         this.dummlist = data;
-        this.cancelledlist = this.dummlist.filter(x=>x.docCancelled==1||x.cancelled==1);
+        this.cancelledlist = this.dummlist.filter(x => x.refundBit == 1);
         this.count = this.cancelledlist.length;
-        
+
       }, error => {
       }
     )
@@ -350,7 +350,7 @@ export class AppointmentsreportComponent implements OnInit {
   }
 
   public Upload_file() {
-    
+
     this.docservice.InsertDrugNameMaster(this.contactdata).subscribe(data => {
 
       if (data != undefined || data != null) {

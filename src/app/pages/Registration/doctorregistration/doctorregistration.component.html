@@ -4,6 +4,9 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-3">
+
+
+      
       <h5>{{labels[0].doctorRegistration}}</h5>
     </div>
   </div>
@@ -268,7 +271,8 @@
           <br>
           <div class="row" *ngIf="dummid==null">
             <div class="col-lg-3">
-              <label>Hospital/Clinic : </label>
+              <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
+              <label id="imp" *ngIf="languageid=='6'">Hôpital / Clinique : </label>
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
@@ -352,8 +356,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-3">
-              <label class="Email_label">{{labels[0].isMedicalRegistrationVerified}} :</label>
-
+              <label class="Email_label">{{labels[0].isMedicalRegistrationVerified}} </label>
             </div>
 
             <div class="col-lg-3">
@@ -525,7 +528,7 @@
           <br>
           <div class="row">
             <div class="col-lg-3">
-              <label for="" class="reglabel">{{labels[0].resume}} :</label>
+              <label for="" class="reglabel" id="imp">{{labels[0].resume}} :</label>
             </div>
             <div class="col-lg-4">
               <ngx-dropzone [multiple]="false" (change)="onidUpload($event)" class="dropzone_vendorinvoice">

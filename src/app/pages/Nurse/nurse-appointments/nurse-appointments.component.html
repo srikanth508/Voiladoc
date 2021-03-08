@@ -101,7 +101,7 @@
               <a [ngbTooltip]="tipcontent4"
                 *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
                 <img src="assets/Images/Visit.png" style="height:19px;"
-                  (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID)" />
+                  (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)" />
               </a>&nbsp;
 
               <ng-template #tipcontent8>{{labels[0].notVisited}}</ng-template>
@@ -116,11 +116,16 @@
                   style="height:30px;" (click)="GetIllnessPhotos(app.id)" />
               </a>
               &nbsp; -->
+              <ng-template #tipcontent4>Receipts</ng-template>
+              <a [ngbTooltip]="tipcontent4" *ngIf="app.isVisited=='1'">
+                <img src="assets/Images/Receipts.png" style="height:19px;"   (click)="GetRecept(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)" data-toggle="modal" data-target="#Reciept" />
+              </a>&nbsp;
 
               <ng-template #tipcontent9>Patient Details</ng-template>
               <a [ngbTooltip]="tipcontent9">
-                <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal" data-target="#Patientdetails"
-                  style="height:30px;" (click)="GetPatientPragnentornot(app.isPatientPragnent,app.ispatientbrestfeeding)" />
+                <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal"
+                  data-target="#Patientdetails" style="height:30px;"
+                  (click)="GetPatientPragnentornot(app.isPatientPragnent,app.ispatientbrestfeeding)" />
               </a>
               &nbsp;
             </td>
@@ -162,13 +167,15 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button class="btn btn-primary"  style="background-color: #f18235;color: white;" (click)="CancelAppointment()" data-dismiss="modal">{{labels[0].save}}</button>
+              <button class="btn btn-primary" style="background-color: #f18235;color: white;"
+                (click)="CancelAppointment()" data-dismiss="modal">{{labels[0].save}}</button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -217,14 +224,15 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button class="btn btn-primary"  style="background-color: #f18235;color: white;" (click)="acceptappointment()"
-                data-dismiss="modal">{{labels[0].save}}</button>
+              <button class="btn btn-primary" style="background-color: #f18235;color: white;"
+                (click)="acceptappointment()" data-dismiss="modal">{{labels[0].save}}</button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  style="background-color: #f18235;color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -287,7 +295,7 @@
     <div class="modal-content ">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle"> Patient Details</h5>
-      
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -296,14 +304,16 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
-              <p>Is patient Pragnent  :  <span *ngIf="ispatientpragnent=='1'">Yes</span>
-                <span *ngIf="ispatientpragnent=='0'">No</span></p>
+              <p>Is patient Pragnent : <span *ngIf="ispatientpragnent=='1'">Yes</span>
+                <span *ngIf="ispatientpragnent=='0'">No</span>
+              </p>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-12">
-              <p>Is patient Breast Feed  :  <span *ngIf="ispatientbreastfeed=='1'">Yes</span>
-                <span *ngIf="ispatientbreastfeed=='0'">No</span></p>
+              <p>Is patient Breast Feed : <span *ngIf="ispatientbreastfeed=='1'">Yes</span>
+                <span *ngIf="ispatientbreastfeed=='0'">No</span>
+              </p>
             </div>
           </div>
           <br>
@@ -315,6 +325,96 @@
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
           data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="Reciept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 153%;
+      margin-left: -160px;
+  ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels1[0].receiptt}}</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <div class="container-fluid" id="pdfcontent">
+          <div class="row">
+            <div class="col-lg-6">
+              <div>Date : {{appdate}}</div>
+              <div>{{labels1[0].receiptNo}} : {{visitappid}} </div>
+              <div>{{labels1[0].patientName}} : {{patientname}}</div>
+              <!-- <div>{{labels1[0].nationalIDNo}} : {{nationaidno}}</div> -->
+              <div>{{labels1[0].address}} : {{address}}</div>
+            </div>
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-4">
+
+              <div>{{nursename}}</div>
+              <div>{{visithospital}}</div>
+              <div>{{nurseaddress}}</div>
+
+
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-lg-4">
+              Date
+            </div>
+            <div class="col-lg-4">
+              Description
+            </div>
+            <div class="col-lg-4">
+              {{labels1[0].charge}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              {{appdate}}
+            </div>
+            <div class="col-lg-4">
+              <!-- {{labels1[0].vediocallreciept}} -->
+              Home Visit Payment Receipt
+            </div>
+            <div class="col-lg-4">
+              {{paidAmount}}
+            </div>
+          </div>
+          <br>
+          <hr>
+          <br>
+          <div style="text-align: end;
+              margin-top: 81px;
+              margin-right: 46px;">
+          </div>
+
+          <div style="margin-top: -83px;">
+            Nurse : {{nursename}}
+
+            <label style="text-align: end;float: right;">{{labels1[0].totalCharges}} : {{paidAmount}}</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()"
+          data-dismiss="modal">Send to patient</button>
       </div>
     </div>
   </div>

@@ -20,7 +20,10 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public hospitalclinicid: any;
   public dummmidwifelist: any;
   public count: any;
+  public pinno: any;
+
   ngOnInit() {
+    this.pinno = localStorage.getItem('Pinno');
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.GetMidWivesLoginAdmin();
@@ -31,7 +34,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -42,7 +45,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
         data => {
-         
+
           this.midwifelist = data;
           this.count = this.midwifelist.length;
 
@@ -53,7 +56,7 @@ export class MidwifeLoginDashboardComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
         data => {
-         
+
           this.dummmidwifelist = data;
           this.midwifelist = this.dummmidwifelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.midwifelist.length;
@@ -66,9 +69,17 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public DisableMidWivesLogin(id) {
     this.docservice.DisableMidWivesLogin(id).subscribe(
       data => {
-       
-        Swal.fire('Disabled', 'MidWife has been Disabled');
-        this.GetMidWivesLoginAdmin();
+
+        if(this.languageid==1)
+        {
+          Swal.fire('Disabled', 'MidWife has been Disabled');
+          this.GetMidWivesLoginAdmin();
+        }
+        else{
+          Swal.fire('Désactivée', 'Accès désactivé');
+          this.GetMidWivesLoginAdmin();
+        }
+     
 
       }, error => {
       }
@@ -78,9 +89,18 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   public EnableMidWivesLogin(id) {
     this.docservice.EnableMidWivesLogin(id).subscribe(
       data => {
-       
-        Swal.fire('Enabled', 'MidWife has been Enabled');
-        this.GetMidWivesLoginAdmin();
+
+        if(this.languageid==1)
+        {
+          Swal.fire('Enabled', 'MidWife has been Enabled');
+          this.GetMidWivesLoginAdmin();
+        }
+        else{
+          Swal.fire('Activé', 'Accès Activé ');
+          this.GetMidWivesLoginAdmin();
+        }
+
+     
 
       }, error => {
       }
@@ -88,30 +108,32 @@ export class MidwifeLoginDashboardComponent implements OnInit {
   }
 
   public pageChanged(even) {
-   
+
     this.p = even;
   }
 
-  public username:any;
-  public password:any;
+  public username: any;
+  public password: any;
+  public mypinno: any;
 
 
-  public GetDeatsils(details)
-  {
+  public GetDeatsils(details) {
 
-    
-    
-    this.id=details.id,
-    this.username=details.userName,
-    this.password=details.password
+
+    this.id = details.id,
+      this.username = details.userName,
+      this.password = details.password,
+      this.mypinno = details.pinno
+
+    this.Showpassword = 0;
   }
-  
 
 
-public pp:any;
+
+  public pp: any;
 
   public insertdetails() {
-   if (this.password != undefined) {
+    if (this.password != undefined) {
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
         this.pp = 1;
@@ -126,21 +148,19 @@ public pp:any;
         this.password = '';
         this.docservice.UpdateMidWivesLogin(entity).subscribe(data => {
           if (data != 0) {
-            if(this.languageid==1)
-            {
+            if (this.languageid == 1) {
               Swal.fire('Success', 'Password Updated successfully', 'success');
               this.pp = 0;
               document.getElementById('close').click();
               this.GetMidWivesLoginAdmin();
             }
-            else
-            {
+            else {
               Swal.fire('', 'Mis à jour avec succés', 'success');
               this.pp = 0;
               document.getElementById('close').click();
               this.GetMidWivesLoginAdmin();
             }
-         
+
           }
           else {
             Swal.fire("User Name Already Exists");
@@ -148,6 +168,31 @@ public pp:any;
             this.GetMidWivesLoginAdmin();
           }
         })
+      }
+    }
+  }
+
+
+  public Enteredpinno: any;
+  public Showpassword: any;
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      Swal.fire('Please Enter Your Pin No')
+
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
       }
     }
   }

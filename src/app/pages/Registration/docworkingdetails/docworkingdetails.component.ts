@@ -279,12 +279,12 @@ export class DocworkingdetailsComponent implements OnInit {
 
     if (item7.id == 1) {
       this.booktypeid.push(item7);
-      if (this.languageid == 1) {
-        Swal.fire('On Demand Disabled as of Now')
-      }
-      else {
-        Swal.fire('Service à la demande désactivé.')
-      }
+      // if (this.languageid == 1) {
+      //   Swal.fire('On Demand Disabled as of Now')
+      // }
+      // else {
+      //   Swal.fire('Service à la demande désactivé.')
+      // }
     }
     else {
       this.booktypeid.push(item7);

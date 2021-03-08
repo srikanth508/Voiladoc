@@ -32,18 +32,18 @@ export class SupportRegComponent implements OnInit {
   public gender: any;
   public username: any;
   public password: any;
-  public supportname:any;
+  public supportname: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
-    
+
     this.GetCountryMaster();
   }
 
   public getlanguage() {
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -52,7 +52,7 @@ export class SupportRegComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -69,12 +69,12 @@ export class SupportRegComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -93,17 +93,17 @@ export class SupportRegComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -119,12 +119,12 @@ export class SupportRegComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-   
+
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -133,7 +133,7 @@ export class SupportRegComponent implements OnInit {
 
 
   public onattachmentUpload1(abcd) {
-   
+
     for (let i = 0; i < abcd.length; i++) {
       this.attachments1.push(abcd[i]);
       this.uploadattachments1();
@@ -145,17 +145,17 @@ export class SupportRegComponent implements OnInit {
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-     
+
       this.attachmentsurl1.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-     
+
       let b = 'https://maroc.voiladoc.org' + a;
 
       this.showdocphoto.push(b)
-     
+
 
       this.attachments1.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -163,7 +163,7 @@ export class SupportRegComponent implements OnInit {
 
   public insertdetails() {
     if (this.countryid == undefined || this.countryid.length == 0) {
-     
+
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -174,10 +174,9 @@ export class SupportRegComponent implements OnInit {
     }
     else {
       if (this.attachmentsurl1.length == 0) {
-        
+
         this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
       }
-     
       var entity = {
         'Name': this.supportname,
         'MobileNumber': this.phoneno,
@@ -195,14 +194,36 @@ export class SupportRegComponent implements OnInit {
       }
       this.docservice.InsertSupportRegistration(entity).subscribe(data => {
         if (data != 0) {
+
+          this.pinno = data;
+          this.sendmail()
           Swal.fire('success', 'Details Saved Successfully');
-          location.href = "#/LocalDocDash"
+          location.href = "#/SupportRegDash"
         }
-        else {
-          Swal.fire('Error', 'Doctor Already Exist In This City');
-          location.href = "#/LocalDocDash"
-        }
+        // else {
+        //   Swal.fire('Error', 'Doctor Already Exist In This City');
+        //   location.href = "#/SupportRegDash"
+        // }
       })
     }
   }
+
+
+  pinno: any;
+  emailattchementurl = [];
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.supportname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
 }

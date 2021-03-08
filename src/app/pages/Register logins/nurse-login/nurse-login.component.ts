@@ -29,7 +29,7 @@ export class NurseLoginComponent implements OnInit {
     if (this.hospitalclinicid == null) {
       this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
         data => {
-         
+
           this.nurselist = data;
           this.nursedd = {
             singleSelection: true,
@@ -47,9 +47,9 @@ export class NurseLoginComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
         data => {
-         
+
           this.dummnurselist = data;
-          this.nurselist=this.dummnurselist.filter(x=>x.hospitalClinicID==this.hospitalclinicid)
+          this.nurselist = this.dummnurselist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
           this.nursedd = {
             singleSelection: true,
@@ -67,65 +67,123 @@ export class NurseLoginComponent implements OnInit {
     }
 
 
-   
+
   }
   SelectLabel
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.SelectLabel=this.labels[0].select;
+        this.SelectLabel = this.labels[0].select;
       }, error => {
       }
     )
   }
 
   public GetnurseID(item1: any) {
-   
+
     this.nurseid = item1.id;
   }
 
   public insertdetails() {
     if (this.nurseid == undefined) {
-      Swal.fire("Please Select Hospital/Clinic");
+      if (this.languageid == 1) {
+        Swal.fire("Please Select Hospital/Clinic");
+      }
+      else {
+        Swal.fire("Sélectionner une infirmière");
+      }
+
     }
     else if (this.password != undefined) {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-       
+
         this.pp = 1;
       }
       else {
-       
+
         var entity = {
           'NurseID': this.nurseid,
           'UserName': this.username,
           'Password': this.password
         }
-        this.username = '';
-        this.password = '';
+        // this.username = '';
+        // this.password = '';
         this.docservice.InsertNurseLogin(entity).subscribe(data => {
-         
+
           if (data != 0) {
-            if(this.languageid==1)
-            {
+            if (this.languageid == 1) {
+              this.GetNurseLoginAdmin()
               Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              location.href="#/NurseLoginDashboard"
+              location.href = "#/NurseLoginDashboard"
             }
-            else{
+            else {
+              this.GetNurseLoginAdmin()
               Swal.fire('', 'Mis à jour avec succés', 'success');
-              location.href="#/NurseLoginDashboard"
+              location.href = "#/NurseLoginDashboard"
             }
-        
+
           }
           else {
-            Swal.fire("Nurse Login Already Exists");
-            location.href="#/NurseLoginDashboard"
+            if (this.languageid == 1) {
+              Swal.fire("Nurse Login Already Exists");
+              location.href = "#/NurseLoginDashboard"
+            }
+            else {
+              Swal.fire("La connexion infirmière existe déjà");
+              location.href = "#/NurseLoginDashboard"
+            }
+
           }
         })
       }
     }
   }
+
+  public nurseloginlist: any;
+  public nursename: any;
+
+
+
+  public GetNurseLoginAdmin() {
+
+    this.docservice.GetNurseLoginAdmin(this.languageid).subscribe(
+      data => {
+
+        this.nurseloginlist = data;
+        var list = this.nurseloginlist.filter(x => x.nurseID == this.nurseid)
+        this.nursename = list[0].nurseName,
+          this.email = list[0].email,
+          this.pinno = list[0].pinno
+        this.sendmail()
+      }, error => {
+      }
+    )
+
+  }
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+  public email: any;
+
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.nursename + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
 }

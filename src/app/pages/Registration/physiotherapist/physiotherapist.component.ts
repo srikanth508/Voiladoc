@@ -404,7 +404,7 @@ export class PhysiotherapistComponent implements OnInit {
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');
         this.spinner.hide();
-        location.href = '#/PhysiotherapistDashboard';
+        // location.href = '#/PhysiotherapistDashboard';
       }
     })
 

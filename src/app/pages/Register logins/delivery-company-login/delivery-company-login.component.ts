@@ -15,10 +15,10 @@ export class DeliveryCompanyLoginComponent implements OnInit {
   public dcid: any;
   public username: any;
   public password: any;
-  public diadd={}
-  public pp:any;
-  public labels:any;
-  public languageid:any;
+  public diadd = {}
+  public pp: any;
+  public labels: any;
+  public languageid: any;
 
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetDeliveryCompanyAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.dclist = data;
 
         this.diadd = {
@@ -41,61 +41,119 @@ export class DeliveryCompanyLoginComponent implements OnInit {
       }, error => {
       }
     )
-   
-   
+
+
   }
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.SelectLabel=this.labels[0].select;
+        this.SelectLabel = this.labels[0].select;
       }, error => {
       }
-    )  
+    )
   }
   SelectLabel
-  public GetdcID(item:any) {
-   
+  public GetdcID(item: any) {
+
     this.dcid = item.id;
   }
 
   public insertdetails() {
     if (this.dcid == undefined) {
-      Swal.fire("Please Select Delivery Company");
+      if (this.languageid == 1) {
+        Swal.fire("Please Select Delivery Company");
+      }
+      else {
+        Swal.fire("Sélectionner une société de livraison");
+      }
     }
-    else if(this.password!=undefined)  {
+    else if (this.password != undefined) {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-       
-        this.pp=1;
+
+        this.pp = 1;
       }
-    else {
-     
-      var entity = {
-        'DeliveryCompanyID': this.dcid,
-        'UserName': this.username,
-        'Password': this.password
+      else {
+        var entity = {
+          'DeliveryCompanyID': this.dcid,
+          'UserName': this.username,
+          'Password': this.password
+        }
+        // this.username = '';
+        // this.password = '';
+        this.docservice.InsertDeliveryCompanyLogin(entity).subscribe(data => {
+
+          if (data != 0) {
+            if (this.languageid == 1) {
+              this.GetDeliveryCompanyLoginAdmin()
+              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+              this.pp = 0;
+            }
+            else {
+              this.GetDeliveryCompanyLoginAdmin()
+              Swal.fire('Enregistré avec succès');
+              this.pp = 0;
+            }
+
+
+          }
+          else {
+            this.GetDeliveryCompanyLoginAdmin()
+            Swal.fire('Success', 'Delivery Company Login Already Exists', 'success');
+            this.pp = 0;
+
+          }
+        })
       }
-      this.username = '';
-      this.password = '';
-      this.docservice.InsertDeliveryCompanyLogin(entity).subscribe(data => {
-       
-        if (data != 0) {
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-          this.pp=0;
-        
-        }
-        else{
-          Swal.fire('Success', 'Delivery Company Login Already Exists', 'success');
-          this.pp=0;
-      
-        }
-      })
     }
   }
-}
+
+
+  public deliverylist: any;
+  public delivername: any;
+
+
+  public GetDeliveryCompanyLoginAdmin() {
+    this.docservice.GetDeliveryCompanyLoginAdmin(this.languageid).subscribe(
+      data => {
+
+        this.deliverylist = data;
+        var list = this.deliverylist.filter(x => x.deliveryCompanyID == this.dcid)
+        this.delivername = list[0].companyName,
+          this.pinno = list[0].pinno,
+          this.email = list[0].emailID
+
+        this.sendmail()
+      }, error => {
+      }
+    )
+  }
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+  public email: any;
+
+
+
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.delivername + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
 
 }

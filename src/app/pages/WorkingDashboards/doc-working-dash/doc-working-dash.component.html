@@ -137,7 +137,6 @@
 <br>
 
 
-
 <div id="edittest" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content modal-lg">
@@ -153,23 +152,29 @@
             {{labels[0].inclinic}} &nbsp;
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp;
             {{labels[0].video}} &nbsp;
-            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
-            {{labels[0].homeVisit}}&nbsp;
+            <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
+            {{labels[0].homeVisit}}&nbsp; -->
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="4"> &nbsp;
             {{labels[0].notAvailable}}&nbsp;
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
-            Meeting&nbsp;
+            {{labels[0].meeting}}&nbsp;
             <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
             {{labels[0].meeting}} -->
           </div>
         </div>
         <br>
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-1">
+          </div>
+          <div class="col-lg-2">
+            <label *ngIf="appointmentypeid!=4&&appointmentypeid!=6">{{labels[0].fees}} :</label>
           </div>
           <div class="col-lg-3">
             <input type="text" *ngIf="appointmentypeid!=4&&appointmentypeid!=6" class="form-control" [(ngModel)]="fees"
-              name="fees" placeholder="Fees">
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)' name="fees" placeholder="{{labels[0].fees}}">
+          </div>
+          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+            MAD
           </div>
         </div><br>
         <div class="row">

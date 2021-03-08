@@ -11,7 +11,8 @@
   <form #diagnosticForm="ngForm">
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
-        <label>{{labels[0].diagnosticCenter}} :</label>
+        <label *ngIf="languageid=='1'">{{labels[0].diagnosticCenter}} :</label>
+        <label *ngIf="languageid=='6'">Centre d’analyses / imagerie :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">

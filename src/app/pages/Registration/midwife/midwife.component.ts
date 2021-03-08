@@ -328,8 +328,8 @@ export class MidwifeComponent implements OnInit {
       }
       else {
         Swal.fire('Error', 'User details already exists', 'success');
-        this.spinner.hide();
-        location.href = '#/MidwifeDashboard';
+         this.spinner.hide();
+        // location.href = '#/MidwifeDashboard';
       }
     })
   }

@@ -89,7 +89,7 @@ export class NurseComponent implements OnInit {
 
         this.dummapecilizationlist = data;
         this.specilisationlist = this.dummapecilizationlist.filter(x => x.departmentID == 30)
-       
+
         this.specilisatiodd = {
           singleSelection: false,
           idField: 'id',
@@ -352,6 +352,7 @@ export class NurseComponent implements OnInit {
       }
     }
   }
+  public nurseid: any;
 
   public insertnursedetails() {
     this.spinner.show();
@@ -378,14 +379,14 @@ export class NurseComponent implements OnInit {
     this.docservice.InsertNurseRegistration(entity).subscribe(data => {
 
 
-      let nurseid = data;
-      if (nurseid != 0) {
+      this.nurseid = data;
+      if (this.nurseid != 0) {
 
 
 
         for (let s = 0; s < this.serviceid.length; s++) {
           var serviceentity = {
-            'NurseID': nurseid,
+            'NurseID': this.nurseid,
             'ServiceID': this.serviceid[s].id,
             'LanguageID': 1
           }
@@ -395,7 +396,7 @@ export class NurseComponent implements OnInit {
 
         for (let s = 0; s < this.specilisationid.length; s++) {
           var specentity = {
-            'NurseID': nurseid,
+            'NurseID': this.nurseid,
             'SpecializationID': this.specilisationid[s].id,
             'LanguageID': 1
           }
@@ -408,17 +409,62 @@ export class NurseComponent implements OnInit {
           location.href = '#/NurseDashboard';
         }
         else if (this.languageid == 6) {
-          Swal.fire('', 'Inscription terminée avec succès !', 'success');
+          Swal.fire('', "Mis à jour avec succès");
           this.spinner.hide();
           location.href = '#/NurseDashboard';
         }
 
       }
       else {
-        Swal.fire('Error', 'Details Already Exists', 'success');
-        this.spinner.hide();
-        location.href = '#/NurseDashboard';
+        if (this.languageid == 1) {
+          Swal.fire('Error', 'Details Already Exists', 'success');
+          this.spinner.hide();
+        }
+        else {
+          Swal.fire('Erreur', 'Les détails existent déjà');
+          this.spinner.hide();
+        }
+        // location.href = '#/NurseDashboard';
       }
     })
   }
+
+
+
+
+  nurselist: any;
+
+
+
+
+  public getnurselist() {
+    this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
+      data => {
+        this.nurselist = data;
+        var list = this.nurselist.filter(x => x.id == this.nurseid)
+        this.pinno = list[0].pinno
+      }, error => {
+      }
+    )
+  }
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.name + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Your Pin is ' + this.pinno + '.  Dont Share Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
 }

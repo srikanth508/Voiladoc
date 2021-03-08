@@ -5,6 +5,8 @@ import { formatDate } from "@angular/common";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import { timer } from 'rxjs';
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-midwife-appointments',
   templateUrl: './midwife-appointments.component.html',
@@ -57,6 +59,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   startdate: any;
   enddate: any;
   value: any;
+  labels1: any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -96,11 +99,23 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.Obseravabletimer();
 
     this.getlanguage()
+
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+
+      }, error => {
+      }
+    )
+
+
   }
 
 
   Obseravabletimer() {
-    
+
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
 
@@ -114,7 +129,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -125,7 +140,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public getmidwifeappointments() {
     this.docservice.GetBook_Book_Midwives_Appointment(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.appointmentist = data;
       }, error => {
       }
@@ -133,10 +148,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
   }
 
   public getserverdateandtime() {
-   
+
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
-       
+
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
@@ -145,7 +160,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     )
   }
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -158,17 +173,17 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public getphisyioappointments() {
     this.docservice.GetBook_Book_Midwives_Appointment(this.id, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.appointmentist = data;
       }, error => {
       }
     )
   }
 
-  public canpatientmobileno:any;
+  public canpatientmobileno: any;
 
-  public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount,mobileNumber) {
-   
+  public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount, mobileNumber) {
+
     this.canappointmentid = id
     this.canpatientid = patientID;
     this.canemailid = emailID;
@@ -176,12 +191,12 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.canbookedtime = bookedTime;
     this.paidamount = paidAmount;
     this.walletAmount = walletAmount;
-    this.canpatientmobileno=mobileNumber;
+    this.canpatientmobileno = mobileNumber;
 
 
-   
+
     this.totaladdmoney = Number(this.walletAmount) + (this.paidamount)
-   
+
   }
 
 
@@ -200,7 +215,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public CancelAppointment() {
     this.docservice.UpdateBook_Midwives_AppointmentCancelledBit(this.canappointmentid).subscribe(
       data => {
-       
+
         // Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
       }, error => {
       }
@@ -213,20 +228,33 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public updatereson() {
-   
+
     var entity = {
       'ID': this.canappointmentid,
       'ReasonForCancel': this.reason
     }
     this.docservice.UpdateBook_Midwives_AppointmentReasonForCancel(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
-      this.getmidwifeappointments();
-      this.getphisyioappointments();
-      this.SendCancelPatientmail()
-      this.sendsms();
-      this.InsertCancelNotification();
-      this.InsertNotiFicationcancel();
+      if (this.languageid == 1) {
+        Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+        this.getmidwifeappointments();
+        this.getphisyioappointments();
+        this.SendCancelPatientmail()
+        this.sendsms();
+        this.InsertCancelNotification();
+        this.InsertNotiFicationcancel();
+      }
+      else {
+        Swal.fire('Annuler avec succès');
+        this.getmidwifeappointments();
+        this.getphisyioappointments();
+        this.SendCancelPatientmail()
+        this.sendsms();
+        this.InsertCancelNotification();
+        this.InsertNotiFicationcancel();
+      }
+
+
 
     })
   }
@@ -244,7 +272,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public getfromampm(even) {
-   
+
     this.ampmtime = even.target.value;
   }
 
@@ -253,7 +281,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
   public acceptappointment() {
     this.docservice.UpdateBook_Midwives_AppointmentAcceptedBit(this.acceptappointmentid).subscribe(
       data => {
-       
+
 
       }, error => {
       }
@@ -262,25 +290,37 @@ export class MidwifeAppointmentsComponent implements OnInit {
   }
 
   public InsertNextAvailableSlots() {
-   
+
     var entity = {
       // 'MidWifeID': this.acceptmidwifeid,
       'AppointmentID': this.acceptappointmentid,
       // 'AvailabilityDate': this.availbledate,
-      'AvailabilityTime': this.time 
+      'AvailabilityTime': this.time
     }
     this.docservice.UpdateBook_MidWifeAvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
-      this.getmidwifeappointments();
-      this.getphisyioappointments()
-      Swal.fire('Accepted', 'Appointment Accepted Successfully');
-      this.InsertAcceptNotification();
-      this.InsertNotiFicationAccepted();
+      if (this.languageid == 1) {
+        this.getmidwifeappointments();
+        this.getphisyioappointments()
+        Swal.fire('Agenda updated and appointment accepted successfully.');
+        this.InsertAcceptNotification();
+        this.InsertNotiFicationAccepted();
+      }
+      else
+      {
+        this.getmidwifeappointments();
+        this.getphisyioappointments()
+        Swal.fire('Agenda mis à jour et rendez-vous accepté avec succès.');
+        this.InsertAcceptNotification();
+        this.InsertNotiFicationAccepted();
+      }
+
+    
 
     })
   }
   public GetTime(even) {
-   
+
     this.time = even.target.value;
   }
 
@@ -290,9 +330,9 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.visipatientid = patientID;
     this.visiemaild = emailID;
     this.visiname = name;
-    this.visitappointid=id;
+    this.visitappointid = id;
 
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "The Patient has Visited!",
@@ -323,11 +363,11 @@ export class MidwifeAppointmentsComponent implements OnInit {
     })
 
   }
- 
+
 
 
   public UpdatePatientNotVisitedBit(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "The Patient has Not Visited!",
@@ -364,7 +404,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public InsertAcceptNotification() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.accpatientid,
@@ -373,10 +413,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'NotificationTypeID': 27,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.acceptappointmentid
+        'AppointmentID': this.acceptappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
@@ -389,10 +429,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'NotificationTypeID': 27,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.acceptappointmentid
+        'AppointmentID': this.acceptappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -401,14 +441,14 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   }
   public InsertNotiFicationAccepted() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.acceptname + " scheduled for " + this.accbookedtime + " has been Accepted.",
         'ToUser': this.accemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -420,7 +460,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'ToUser': this.accemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -439,7 +479,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
   public InsertCancelNotification() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
@@ -448,10 +488,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'NotificationTypeID': 24,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.canappointmentid
+        'AppointmentID': this.canappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
@@ -464,10 +504,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'NotificationTypeID': 24,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.canappointmentid
+        'AppointmentID': this.canappointmentid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -476,14 +516,14 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   }
   public InsertNotiFicationcancel() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -495,7 +535,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -504,17 +544,17 @@ export class MidwifeAppointmentsComponent implements OnInit {
   }
 
 
-public emailattchementurl=[];
-public cclist:any;
-public bcclist:any;
+  public emailattchementurl = [];
+  public cclist: any;
+  public bcclist: any;
 
 
   public SendCancelPatientmail() {
-    
+
     var entity = {
       'emailto': this.canemailid,
       'emailsubject': "The Midwife " + this.canname + " Has Cancelled Your Appointment ",
-      'emailbody':  "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
+      'emailbody': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
       'attachmenturl': this.emailattchementurl,
       'cclist': this.cclist,
       'bcclist': this.bcclist
@@ -524,15 +564,15 @@ public bcclist:any;
   }
 
 
-  
+
   public sendsms() {
-    
+
     let Entity = {
       'Contacts': this.canpatientmobileno,
       'TextMessage': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      
+
 
 
     })
@@ -540,11 +580,11 @@ public bcclist:any;
 
 
 
-  visitappointid:any;
+  visitappointid: any;
   //visited notification
 
   public InsertVisitedNotification() {
-   
+
     if (this.languageid == '1') {
       ``
       var entity = {
@@ -554,10 +594,10 @@ public bcclist:any;
         'NotificationTypeID': 12,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.visitappointid
+        'AppointmentID': this.visitappointid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
@@ -570,11 +610,11 @@ public bcclist:any;
         'NotificationTypeID': 27,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.visitappointid,
-        
+        'AppointmentID': this.visitappointid,
+
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -583,14 +623,14 @@ public bcclist:any;
     }
   }
   public InsertNotiFicationVisited() {
-   
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime + " has been Visited.",
         'ToUser': this.visiemaild,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
@@ -602,14 +642,14 @@ public bcclist:any;
         'ToUser': this.visiemaild,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
 
         }
       })
     }
   }
-  
+
   ispatientpragnent: any;
   ispatientbreastfeed: any;
 
@@ -618,4 +658,89 @@ public bcclist:any;
     this.ispatientbreastfeed = ispatientbrestfeeding
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public pdfurl: any;
+
+  public SavePDF() {
+    ;
+    debugger
+    let pdfContent = window.document.getElementById("pdfcontent");
+    var doc = new jsPDF('p', 'mm', "a4");
+    debugger
+    html2canvas(pdfContent).then(canvas => {
+      ;
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+      doc.setFontSize(2);
+
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150);
+      var pdf = doc.output('blob');
+
+      var file = new File([pdf], "PhysioRecipts" + ".pdf");
+
+      let body = new FormData();
+      debugger
+      body.append('Dan', file);
+
+      this.docservice.ReceiptUpload(file).subscribe(res => {
+        ;
+        this.pdfurl = res;
+        this.UpdateReceipt();
+        debugger
+      });
+    });
+  }
+
+
+  public patientname: any;
+  public address: any;
+  public midwifename: any;
+  public hospital: any;
+  public midwifeaddress: any;
+
+
+  public GetRecept(id, bookedTime, appdate, patientID, emailID, name, details) {
+    this.slottime = bookedTime;
+    this.appdate = appdate;
+    this.visipatientid = patientID;
+    this.visiemaild = emailID;
+    this.visiname = name;
+    this.visitappointid = id;
+
+
+    this.patientname = details.patientName,
+      this.address = details.address,
+      this.midwifename = details.name,
+      this.hospital = details.hospital_ClinicName,
+      this.midwifeaddress = details.midwifeaddrees,
+      this.paidamount = details.paidAmount
+  }
+
+
+
+
+  public UpdateReceipt() {
+    debugger
+    var entity = {
+      'AppointmentID': this.visitappointid,
+      'ReceiptURL': this.pdfurl
+    }
+    this.docservice.UpdateBook_Midwives_Appointment(entity).subscribe(data => {
+      Swal.fire('Receipt Sent Successfully');
+    })
+  }
+
+
 }

@@ -11,6 +11,10 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { shallowEqualArrays } from '@angular/router/src/utils/collection';
 import { NgxSpinnerService } from "ngx-spinner";
+
+
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-myappointments',
   templateUrl: './myappointments.component.html',
@@ -274,7 +278,6 @@ export class MyappointmentsComponent implements OnInit {
     }
     else if (this.languageid == 6) {
       this.signature = 'Signature électronique du ' + this.docname + ' ' + this.sigdate;
-
     }
 
     this.options = {
@@ -567,7 +570,8 @@ export class MyappointmentsComponent implements OnInit {
 
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
-          this.serverdate = this.serverdateandtime.todaydate
+          this.serverdate = this.serverdateandtime.todaydate,
+          this.availabletime = this.serverdateandtime.presentTime
       }, error => {
       }
     )
@@ -646,13 +650,13 @@ export class MyappointmentsComponent implements OnInit {
         ;
       Swal.fire({
         title: 'Êtes-vous sûr(e) ?',
-        text: "Accepté ?",
+        // text: "Accepté ?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Qui',
-        cancelButtonText: 'Annuler'
+        confirmButtonText: 'CONFIRMER',
+        cancelButtonText: 'RETOUR'
       }).then((result) => {
         if (result.value) {
           this.docservice.UpdateAcceptedBitByDoctor(appointmentID).subscribe(res => {
@@ -1025,7 +1029,7 @@ export class MyappointmentsComponent implements OnInit {
     this.preslots = slots
     this.appdate = appdate
     this.prepatientemail = pemail;
-
+    debugger
     this.patientiddd = patientID,
       this.preappointmentid = appointmentID;
     this.apptypeid = appointmentTypeID;
@@ -1046,12 +1050,13 @@ export class MyappointmentsComponent implements OnInit {
     this.medicinetemplatename = "",
       this.medicinetemplate = 2;
     this.display = "block";
-    this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
+    this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
       data => {
-
+        debugger
         this.localdoclist = data;
-
+        debugger
         this.localdocid = this.localdoclist[0].id
+        debugger
       }, error => {
       }
     )
@@ -1098,7 +1103,7 @@ export class MyappointmentsComponent implements OnInit {
         this.medicinetemplatename = "",
           this.medicinetemplate = 2;
         this.display = "block";
-        this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
+        this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
           data => {
 
             this.localdoclist = data;
@@ -1371,6 +1376,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public insertdetails() {
+    debugger
     if (this.apptypeid == '1' || this.localdocid == '0') {
       this.endorse = 1;
     }
@@ -1381,7 +1387,7 @@ export class MyappointmentsComponent implements OnInit {
       this.endorse = 1;
     }
     for (let i = 0; this.qwerty2.length; i++) {
-
+      debugger
       var entity = {
         // 'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
         'DoctorID': this.qwerty2[i].DoctorID,
@@ -1405,6 +1411,7 @@ export class MyappointmentsComponent implements OnInit {
         // 'ICDID': this.qwerty2[i].ICDID,
         'SubstainablenotPermitted': this.qwerty2[i].SubstainablenotPermitted
       }
+      debugger
       this.docservice.InsertDoctor_PatientPrescription(entity).subscribe(data => {
 
         if (data != 0) {
@@ -2779,9 +2786,10 @@ export class MyappointmentsComponent implements OnInit {
   sickslippatientid
   patientlist: any
   docregno: any;
-  public GetSickSlipID(patientID) {
+  public GetSickSlipID(patientID, appid) {
 
     this.sickslippatientid = patientID;
+    this.appointmentid = patientID;
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
       data => {
 
@@ -2995,7 +3003,7 @@ export class MyappointmentsComponent implements OnInit {
           this.email = this.details.pEmail
 
         if (this.languageid == 1) {
-          this.referalnotes = " DATE: " + this.todaydate + " <p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p><br>" + this.MobileNumber + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp;  " + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+          this.referalnotes = " DATE: " + this.todaydate + " <p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "<br>" + this.MobileNumber + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp;  " + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
         }
         else {
           this.referalnotes = " DATE :" + this.todaydate + "<p>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "</p><p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<p>Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
@@ -3068,7 +3076,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
     if (this.languageid == 1) {
-      this.referalnotes = " DATE: " + this.todaydate + "<br><p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>&nbsp;</p > <p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>" + this.MobileNumber + "</p><p>Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "<br>" + this.docphoneno + "<br>" + this.Hospital_ClinicName + "</p>"
+      this.referalnotes = " DATE: " + this.todaydate + "<br><p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>&nbsp;</p > <p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "<br>" + this.MobileNumber + "</p><p>Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "<br>" + this.docphoneno + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     else {
       this.referalnotes = " DATE :" + this.todaydate + "<br>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "<p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<p>Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
@@ -3245,26 +3253,38 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
 
+
+
+
+
+
+
   public sendmail1() {
-
-    var mailentity = {
-      ToEmail: this.doctoremail,
-      Subject: 'Patient Referred By ' + this.user,
-      FromEmail: 'Doctor@Voiladoc.Net',
-      ContentType: "text/html",
-      Content: this.referalnotes,
-    };
-
-    this.docservice.SendMail(mailentity).subscribe(data => {
-
+    debugger
+    var entity = {
+      'emailto': this.doctoremail,
+      'emailsubject': 'Patient Referred By ' + this.user,
+      'emailbody': this.referalnotes,
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    debugger
+    this.docservice.sendemail(entity).subscribe(data => {
+      debugger
       if (this.languageid == 1) {
         Swal.fire('Mail sent successfully.');
       }
+
       else if (this.languageid == 6) {
         Swal.fire('Email envoyé avec succès');
       }
     })
   }
+
+
+
+
 
   // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user
   public SendNotification() {
@@ -3311,27 +3331,46 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-
-
-
-
   public senmailToPatient() {
-
-
-    var mailentity = {
-      ToEmail: this.email,
-      Subject: 'Patient Referred By ' + this.user,
-      FromEmail: 'Doctor@Voiladoc.Net',
-      ContentType: "text/html",
-      Content: "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
-      // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
-    };
-
-    this.docservice.SendMail(mailentity).subscribe(data => {
-
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': 'Patient Referred By ' + this.user,
+      'emailbody': "Your Have Been Referred To " + this.doctorname + " For Further Investigation. Please Contact Him on Mobile" + this.docphoneno,
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    debugger
+    this.docservice.sendemail(entity).subscribe(data => {
+      debugger
       if (this.languageid == 1) {
         Swal.fire('Mail sent successfully.');
       }
+
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
+    })
+  }
+
+  public SendReciept() {
+    debugger
+    var entity = {
+      'emailto': 'srikanthreddy0905@gmail.com',
+      'emailsubject': 'Reciept ' + this.patientName,
+      'emailbody': "Reciept has been recieved for video call with " + this.doctorName + " For Further Investigation. Please Contact Him on Mobile " + this.mobileNumber,
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    debugger
+    this.docservice.sendemail(entity).subscribe(data => {
+      debugger
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+
       else if (this.languageid == 6) {
         Swal.fire('Email envoyé avec succès');
       }
@@ -3339,36 +3378,26 @@ export class MyappointmentsComponent implements OnInit {
   }
 
   mobileNumber: any;
-  public SendReciept() {
+  // public SendReciept() {
+  //   var mailentity = {
+  //     ToEmail: 'srikanthreddy0905@gmail.com',
+  //     Subject: 'Reciept ' + this.patientName,
+  //     FromEmail: 'Doctor@Voiladoc.Net',
+  //     ContentType: "text/html",
+  //     Content: "Reciept has been recieved for video call with " + this.doctorName + " For Further Investigation. Please Contact Him on Mobile " + this.mobileNumber,
+  //     // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
+  //   };
 
-    // this.attachmentsurl[0] = 'C:/MeridionalWebTestAPI/Images/logo/logo.png'
+  //   this.docservice.SendMail(mailentity).subscribe(data => {
 
-    // var mailentity = {
-    //   'emailto': 'srikanthreddy0905@gmail.com',
-    //   'emailsubject': 'Patient Referred By' + this.doctorname,
-    //   'emailbody': 'Dear' + this.doctorname + ' I Am Referring My Patient' + this.patientname + 'For Further Investigation. My Notes About The Patient Given Below',
-    //   'attachmenturl': this.attachmentsurl
-
-
-    var mailentity = {
-      ToEmail: 'vamsivardhan01@gmail.com',
-      Subject: 'Reciept ' + this.patientName,
-      FromEmail: 'Doctor@Voiladoc.Net',
-      ContentType: "text/html",
-      Content: "Reciept has been recieved for video call with " + this.doctorName + " For Further Investigation. Please Contact Him on Mobile " + this.mobileNumber,
-      // 'Dear ' + this.doctorname + ' I am referring my Patient ' + this.patientname + ' for further investigation.<br> My Notes About The Patient Is Given Below. <br>' + this.referalnotes + ' Please Feel Free To Reach Out To Me. If You Have Any Queries.<br><br> Regards<br>' + this.user,
-    };
-
-    this.docservice.SendMail(mailentity).subscribe(data => {
-
-      if (this.languageid == 1) {
-        Swal.fire('Mail sent successfully.');
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Email envoyé avec succès');
-      }
-    })
-  }
+  //     if (this.languageid == 1) {
+  //       Swal.fire('Mail sent successfully.');
+  //     }
+  //     else if (this.languageid == 6) {
+  //       Swal.fire('Email envoyé avec succès');
+  //     }
+  //   })
+  // }
 
 
 
@@ -3512,7 +3541,7 @@ export class MyappointmentsComponent implements OnInit {
     this.patientName = data.patientName;
     this.slots = data.slots;
     this.pMobileNo = data.pMobileNo;
-    this.videoAmount = data.videoAmount;
+    this.videoAmount = data.paidAmount;
     this.appointmentType = data.appointmentType;
     this.mobileNumber = data.mobileNumber;
     this.hospital_ClinicName = data.hospital_ClinicName;
@@ -3577,13 +3606,13 @@ export class MyappointmentsComponent implements OnInit {
     }
     else if (this.languageid == 6) {
       Swal.fire({
-        title: 'Etes-vous sûr?',
+        title: 'Etes-vous sûr(e) ?',
         // text: "Vous voulez à nouveau suivre ce rendez-vous!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, visite de suivi!',
+        confirmButtonText: 'Valider',
         cancelButtonText: 'Annuler'
       }).then((result) => {
         if (result.value) {
@@ -3647,15 +3676,13 @@ export class MyappointmentsComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-debugger
+      debugger
       let b = 'https://maroc.voiladoc.org' + a;
-      if (this.attachments1[0].type == 'image/jpeg')
-      {
+      if (this.attachments1[0].type == 'image/jpeg') {
         debugger
         this.shoprescphoto.push(b)
       }
-      else if(this.attachments1[0].type == 'application/pdf')
-      {
+      else if (this.attachments1[0].type == 'application/pdf') {
         debugger
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
@@ -4709,11 +4736,11 @@ debugger
 
 
   // Re Join the call
-  public GetRejointhecall(appointmentID) {
+  public GetRejointhecall(appointmentID, pEmail) {
     if (this.languageid == 1) {
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You Want to ReJoin The Call?",
+        // title: 'Are you sure?',
+        text: "Would you like to grant a free consultation to this patient ?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -4724,10 +4751,11 @@ debugger
           this.docservice.UpdateBookVideoCallRejoinbit(appointmentID).subscribe(res => {
             let test = res;
             this.getbookappointmentbydoctorid()
+            this.InsertFreecallazureNotification(pEmail)
           })
           Swal.fire(
             'Success!',
-            'ReJoin call confirmed',
+            'Offer for a free call has been sent to patient. ',
             'success'
           )
         }
@@ -4738,23 +4766,24 @@ debugger
     }
     else if (this.languageid == 6) {
       Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: "Vous souhaitez rejoindre l'appel",
+        // title: 'Êtes-vous sûr ?',
+        text: "Souhaitez-vous accorder une consultation gratuite à ce patient ?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, supprimer !',
-        cancelButtonText: 'Annuler'
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'No'
       }).then((result) => {
         if (result.value) {
           this.docservice.UpdateBookVideoCallRejoinbit(appointmentID).subscribe(res => {
             let test = res;
             this.getbookappointmentbydoctorid()
+            this.InsertFreecallazureNotification(pEmail)
           })
           Swal.fire(
             'Succès!',
-            'Rejoin call confirmé',
+            "Une notification informant le patient a été envoyée",
             'success'
           )
         }
@@ -4764,4 +4793,227 @@ debugger
       })
     }
   }
+
+
+
+
+  public InsertFreecallazureNotification(pEmail) {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': "The consultation was unsuccessful due to technical reasons. The doctor has activated a free call. Please schedule as call on your homepage.",
+        'ToUser': pEmail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "La consultation n'a pu aboutir. Merci de prendre un nouveau RDV (non payant) pour poursuivre la téléconsultation.",
+        'ToUser': pEmail,
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+  }
+
+
+  public pdfurl: any;
+
+  public SavePDF() {
+    ;
+    debugger
+    let pdfContent = window.document.getElementById("content");
+    var doc = new jsPDF('p', 'mm', "a4");
+
+    html2canvas(pdfContent).then(canvas => {
+      ;
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+      doc.setFontSize(2);
+
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150);
+      var pdf = doc.output('blob');
+
+      var file = new File([pdf], "DocReceipt" + ".pdf");
+
+      let body = new FormData();
+      debugger
+      body.append('Dan', file);
+      this.docservice.ReceiptUpload(file).subscribe(res => {
+        ;
+        this.pdfurl = res;
+        this.UpdateReceipt();
+        debugger
+      });
+    });
+  }
+
+
+  public UpdateReceipt() {
+    debugger
+    var entity = {
+      'AppointmentID': this.appointmentID,
+      'ReceiptURL': this.pdfurl
+    }
+    this.docservice.UpdateBookAppoinmentReceiptUrl(entity).subscribe(data => {
+      if(this.languageid==1)
+      {
+        Swal.fire('Receipt Sent Successfully');
+      }
+     else{
+      Swal.fire('Le reçu a été envoyé avec succès');
+     }
+    })
+  }
+
+
+
+
+  public availabletime: any;
+
+
+
+
+  public GetNextAvailabilityTime(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID) {
+    this.doctorname = doctorName;
+    this.slotsname = notificationdate;
+    this.patientidddd = patientID;
+    this.hspitalclinicname = hospital_ClinicName;
+    this.paemailid = emailID,
+      this.accappointmentID = appointmentID
+  }
+
+
+  public updatenextavailabilttime() {
+    var entity = {
+      'AppointmentID': this.accappointmentID,
+      'NextAvailableTime': this.availabletime,
+    }
+    this.docservice.UpdateBookAppointment(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire('Completed', 'Appointment Accepted Successfully')
+        this.getbookappointmentbydoctorid();
+        this.getbookappointmentbydocid();
+        this.InsertNotifiaction();
+        this.Insertnotificatiaccept();
+        this.availabletime = ""
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Rendez-vous accepté !.')
+        this.getbookappointmentbydoctorid();
+        this.getbookappointmentbydocid();
+        this.InsertNotifiaction();
+        this.Insertnotificatiaccept();
+        this.availabletime = ""
+
+      }
+    })
+  }
+
+
+
+
+  //refund details
+
+
+
+  public GetRefundPatientDetailsID(details) {
+    debugger
+    this.appointmentid = details.appointmentID,
+      this.patientID = details.primarypatientid,
+      this.paidamount = details.paidAmount,
+      this.email = details.pEmail
+    debugger
+  }
+
+
+  public refundreason: any;
+
+
+  public updaterefund() {
+    debugger
+    var entity = {
+      'AppointmentID': this.appointmentid,
+      'RefundComments': this.refundreason
+    }
+    this.docservice.UpdateBookAppointmentRefund(entity).subscribe(data => {
+      debugger
+      this.updateWalletdetails()
+      debugger
+      if(this.languageid==1)
+      {
+        Swal.fire('Amount Refunded Successfully');
+        this.getbookappointmentbydoctorid();
+        this.refundreason = "";
+      }
+      else
+      {
+        Swal.fire('Montant remboursé avec succès.');
+        this.getbookappointmentbydoctorid();
+        this.refundreason = "";
+      }
+
+    })
+  }
+
+  public updateWalletdetails() {
+    debugger
+    var entity = {
+      'PatientID': this.patientID,
+      'WalletAmount': this.paidamount
+    }
+    this.docservice.UpdatePatientWalletAmountDetailsLoadWallet(entity).subscribe(data => {
+      debugger
+      this.InsertRefundAzureNotification()
+      debugger
+      // Swal.fire('Amount Added Successfully to Your Wallet');
+    })
+  }
+
+
+
+
+  public InsertRefundAzureNotification() {
+    debugger
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+        'ToUser': this.email
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+        'ToUser': this.email
+      }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+  }
+
+
+  public GetReportPdf(pdf) {
+    debugger
+    window.open(pdf, "_blank");
+  }
+
 }

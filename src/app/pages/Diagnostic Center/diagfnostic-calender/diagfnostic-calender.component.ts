@@ -197,7 +197,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
       'DayID': this.dayid,
       'TypeID': this.typeid,
       'AppointmentDate': this.appointmentdate,
-      'TotalAppointments': this.totalappointments
+      'TotalAppointments': this.totalappointments,
+      'BookTypeID':this.typeidss
     }
     this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
       this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotid, this.appointmentdate).subscribe(data => {
@@ -300,6 +301,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
     this.Getdays()
   }
 
+
+  
   public Getdays() {
     
     this.docservice.GetDaysHomecare(this.daychangedate).subscribe(data => {
@@ -325,8 +328,6 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public timewiseappointmentid: any;
   public Daywiseappointmentid: any;
   public daychangedate: any;
-
-
 
   public InsertDayWiseSlots() {
     
@@ -356,13 +357,13 @@ export class DiagfnosticCalenderComponent implements OnInit {
           'DayID': this.datechangedayid,
           'TypeID': this.Daywiseappointmentid,
           'AppointmentDate': this.daychangedate,
-          'TotalAppointments': this.totalappointments
+          'TotalAppointments': this.totalappointments,
+          'BookTypeID':this.typeidss
         }
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.slotslist[i].id, this.daychangedate).subscribe(data => {
           })
-          
-
+        
         })
 
       }
@@ -370,11 +371,15 @@ export class DiagfnosticCalenderComponent implements OnInit {
         Swal.fire('Updated Successfully');
         this.getWorkingdetils();
         this.totalappointments = ""
+        this.daychangedate=""
+        this.daychangedate1=""
       }
       else {
         Swal.fire('Mis à jour avec Succés');
         this.getWorkingdetils()
         this.totalappointments = ""
+        this.daychangedate=""
+        this.daychangedate1=""
       }
     }
   }
@@ -491,7 +496,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
           'DayID': this.timechangedayid,
           'TypeID': this.timewiseappointmentid,
           'AppointmentDate': this.timechangedate,
-          'TotalAppointments': this.totalappointments
+          'TotalAppointments': this.totalappointments,
+          'BookTypeID':this.typeidss
         }
         this.docservice.InsertDiagnosticRelatedSlotsByDateWise(entity).subscribe(data => {
           this.docservice.GetDiagnosticCancelledAppointmentByDateWise(this.diagnosticid, this.timewisechangeslotlist[i].id, this.timechangedate).subscribe(data => {
@@ -506,7 +512,8 @@ export class DiagfnosticCalenderComponent implements OnInit {
         this.timechangedate = "";
         this.mrngtoid = "";
         this.mrngtoid = "";
-        this.totalappointments = ""
+        this.totalappointments = "";
+        this.timechangedate1=";"
       }
       else {
         Swal.fire('Mis à jour avec Succés');
@@ -516,6 +523,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
         this.mrngtoid = "";
         this.mrngtoid = "";
         this.totalappointments = ""
+        this.timechangedate1=";"
       }
     }
   }

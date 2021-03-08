@@ -52,10 +52,13 @@
       <table id="Doc">
         <thead>
           <tr>
-            <th>HOSPITAL PHOTOS</th>
-            <th>HOSPITAL NAME</th>
+            <th> PHOTOS</th>
+            <th *ngIf="languageid=='1'">Name</th>
+            <th *ngIf="languageid=='6'">Nom</th>
             <th>{{labels[0].hospitalPhoneNo}}</th>
-            <th>{{labels[0].contactPersonName}}</th>
+            <th *ngIf="languageid=='1'">Contact person name</th>
+            <th *ngIf="languageid=='6'">Contact </th>
+            <!-- <th>{{labels[0].contactPersonName}}</th> -->
             <th>{{labels[0].country}}</th>
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
@@ -78,7 +81,7 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 18px;margin-left: 10px;" (click)="deletehospitalclinic(details.id)"> </a>&nbsp;
+                <img src="assets/Images/dell.png" *ngIf="showdelete=='1'" style="width: 18px;margin-left: 10px;" (click)="deletehospitalclinic(details.id)"> </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditHospitalClinic',details.id]" style="color:black">
                 <img src="assets/Images/edit.png" *ngIf="details.editiconShow=='0'&&showeditbutton=='1'" style="width: 18px">

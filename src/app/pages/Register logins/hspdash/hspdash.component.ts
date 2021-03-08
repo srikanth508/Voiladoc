@@ -14,29 +14,31 @@ export class HspdashComponent implements OnInit {
   public id: any;
   public term: any;
   p: number = 1;
-  public labels:any;
-  public languageid:any;
+  public labels: any;
+  public languageid: any;
+  public pinno: any;
+
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.pinno = localStorage.getItem('Pinno');
     this.gethospitalclinicfordash();
 
     this.getlanguage();
   }
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
-    )  
+    )
   }
 
   public gethospitalclinicfordash() {
     this.docservice.GetHospital_ClinicLoginForDash(this.languageid).subscribe(
       data => {
-       
+
         this.hsopitalloginlist = data;
       }, error => {
       }
@@ -46,10 +48,16 @@ export class HspdashComponent implements OnInit {
   public disablehospital(id) {
     this.docservice.DisableHospital_ClinicLogin(id).subscribe(
       data => {
-        
-       
-        Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
-        this.gethospitalclinicfordash();
+
+        if (this.languageid == 1) {
+          Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
+          this.gethospitalclinicfordash();
+        }
+        else {
+          Swal.fire('Accès désactivé');
+          this.gethospitalclinicfordash();
+        }
+
       }, error => {
       }
     )
@@ -57,67 +65,113 @@ export class HspdashComponent implements OnInit {
   public enablehospital(hosid) {
     this.docservice.EnableHospital_ClinicLogin(hosid).subscribe(
       data => {
-       
-        Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
-        this.gethospitalclinicfordash();
+        if (this.languageid == 1) {
+          Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
+          this.gethospitalclinicfordash();
+        }
+        else {
+          Swal.fire('Activé', 'Accès Activé');
+          this.gethospitalclinicfordash();
+        }
+
       }, error => {
       }
     )
   }
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }
 
 
-  public username:any;
-  public password:any;
+  public username: any;
+  public password: any;
+  public mypinno: any;
 
 
-  public GetDeatsils(details)
-{
-  
-  this.id=details.id,
-  this.username=details.userName,
-  this.password=details.password
-}
+  public GetDeatsils(details) {
 
+    this.id = details.id,
+      this.username = details.userName,
+      this.password = details.password,
+      this.mypinno = details.pinno
 
-public pp:any;
-
-public insertdetails() {
- if(this.password!=undefined)  {
-    var valpassword = this.docservice.strongpassword(this.password);
-    if (valpassword == false) {
-      this.pp=1;
-   
-    }
-  else {
-    var entity = {
-      'ID': this.id,
-      'UserName': this.username,
-      'Password': this.password
-    }
-    this.username = '';
-    this.password = '';
-    this.docservice.UpdateHospitalClinicAdminRegistration(entity).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Success', 'Password Updated successfully', 'success');
-        this.gethospitalclinicfordash()
-        document.getElementById('close').click();
-        this.pp=0;
-      
-      }
-      else{
-        Swal.fire('Error', 'User Name Already Exists', 'success');
-        this.gethospitalclinicfordash()
-        document.getElementById('close').click();
-      }
-    })
+    this.Showpassword = 0;
   }
-}
 
 
-}
+  public pp: any;
+
+  public insertdetails() {
+    if (this.password != undefined) {
+      var valpassword = this.docservice.strongpassword(this.password);
+      if (valpassword == false) {
+        this.pp = 1;
+
+      }
+      else {
+        var entity = {
+          'ID': this.id,
+          'UserName': this.username,
+          'Password': this.password
+        }
+        this.username = '';
+        this.password = '';
+        this.docservice.UpdateHospitalClinicAdminRegistration(entity).subscribe(data => {
+          if (data != 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Success', 'Password Updated successfully', 'success');
+              this.gethospitalclinicfordash()
+              document.getElementById('close').click();
+              this.pp = 0;
+            }
+            else {
+              Swal.fire('Succès', 'Mot de passe mis à jour avec succès');
+              this.gethospitalclinicfordash()
+              document.getElementById('close').click();
+              this.pp = 0;
+            }
+
+
+          }
+          else {
+            Swal.fire('Error', 'User Name Already Exists', 'success');
+            this.gethospitalclinicfordash()
+            document.getElementById('close').click();
+          }
+        })
+      }
+    }
+  }
+
+
+  public Showpassword: any;
+
+  public Enteredpinno: any;
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      if (this.languageid == 1) {
+        Swal.fire('Please Enter Your Pin No')
+      }
+      else {
+        Swal.fire('Veuillez entrer votre code PIN Non')
+      }
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
+      }
+    }
+  }
 }

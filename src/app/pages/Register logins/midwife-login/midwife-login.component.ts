@@ -30,7 +30,7 @@ export class MidwifeLoginComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetMidWivesRegistratingLogins(this.languageid).subscribe(
         data => {
-         
+
           this.midwifelist = data;
 
           this.middd = {
@@ -49,7 +49,7 @@ export class MidwifeLoginComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetMidWivesRegistratingLogins(this.languageid).subscribe(
         data => {
-         
+
           this.dummmidwifelist = data;
           this.midwifelist = this.dummmidwifelist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
@@ -73,7 +73,7 @@ export class MidwifeLoginComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -83,52 +83,106 @@ export class MidwifeLoginComponent implements OnInit {
 
 
   public Getmidewifeid(item: any) {
-   
+
     this.midewifeid = item.id;
   }
 
   public insertdetails() {
     if (this.midewifeid == undefined) {
-      Swal.fire("Please Select Mid Wife");
+      if (this.languageid == 1) {
+        Swal.fire("Please Select Mid Wife");
+      }
+      else {
+        Swal.fire("Sélectionner une sage-femme");
+      }
+
     }
     else if (this.password != undefined) {
 
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-       
+
         this.pp = 1;
       }
       else {
-       
+
         var entity = {
           'MidWiveID': this.midewifeid,
           'UserName': this.username,
           'Password': this.password
         }
-        this.username = '';
-        this.password = '';
+        // this.username = '';
+        // this.password = '';
         this.docservice.InsertMidWivesLogin(entity).subscribe(data => {
-         
+
           if (data != 0) {
-            if(this.languageid==1)
-            {
+            if (this.languageid == 1) {
+              this.GetMidWivesLoginAdmin();
               Swal.fire('Registration Completed', 'Details saved successfully', 'success');
               this.pp = 0;
               location.href = "#/MidwifeLoginDashboard"
             }
-            else{
+            else {
+              this.GetMidWivesLoginAdmin();
               Swal.fire('', 'Mis à jour avec succés', 'success');
               this.pp = 0;
               location.href = "#/MidwifeLoginDashboard"
             }
-        
           }
           else {
-            Swal.fire("Mid Wife Login Already Exists");
-            location.href = "#/MidwifeLoginDashboard"
+            if (this.languageid == 1) {
+              Swal.fire("Mid Wife Login Already Exists");
+              location.href = "#/MidwifeLoginDashboard"
+            }
+            else {
+              Swal.fire("Cet identifiant existe déjà");
+              location.href = "#/MidwifeLoginDashboard"
+            }
           }
         })
       }
     }
+  }
+
+  public midwiveslist: any;
+  public midwifename: any;
+
+
+  public GetMidWivesLoginAdmin() {
+    debugger
+    this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
+      data => {
+        debugger
+        this.midwiveslist = data;
+        var list = this.midwiveslist.filter(x => x.midWiveID == this.midewifeid)
+        this.midwifename = list[0].name,
+          this.email = list[0].email,
+          this.pinno = list[0].pinno
+        this.sendmail()
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+  public email: any;
+
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.midwifename + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
   }
 }

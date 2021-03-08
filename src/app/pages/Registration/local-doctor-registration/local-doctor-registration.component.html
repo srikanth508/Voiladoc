@@ -6,7 +6,7 @@
     <div class="col-lg-3">
     </div>
     <div class="col-lg-2">
-      <button type="button" routerLink="/LocalDocDash" class="btn btncolor">{{labels[0].dashboard}}</button>
+      <!-- <button type="button" routerLink="/LocalDocDash" class="btn btncolor">{{labels[0].dashboard}}</button> -->
     </div>
   </div>
 </div>
@@ -41,8 +41,7 @@
 
         </div>
         <div class="col-lg-4">
-          <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email" class="form-control"
-           >
+          <input type="email" placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email" class="form-control">
         </div>
       </div>
       <br>
@@ -52,12 +51,13 @@
 
         </div>
         <div class="col-lg-3">
-          <input type="radio" name="gender" [(ngModel)]="gender" value="1">
+          <input type="radio" name="gender" [(ngModel)]="gender" [value]="1">
           {{labels[0].male}} &nbsp;
-          <input type="radio" name="gender" [(ngModel)]="gender"  value="2">
+          <input type="radio" name="gender" [(ngModel)]="gender" [value]="2">
           {{labels[0].female}}
         </div>
       </div><br>
+
       <div class="row">
         <div class="col-lg-3">
           <label class="Address_label">{{labels[0].address}}:</label>
@@ -69,40 +69,92 @@
         </div>
       </div>
       <br>
-      <div class="row">
-        <div class="col-lg-3">
-          <label>{{labels[0].country}} : </label>
-          <span class="required">*</span>
+      <div *ngIf="showedit=='0'"> 
+        <div class="row">
+          <div class="col-lg-3">
+            <label>{{labels[0].country}} : </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
+              (onSelect)="GetCountryID($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="City_label">{{labels[0].province}}:</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
+              (onSelect)="GetCityID($event)">
+            </ng-multiselect-dropdown>
+          </div>
         </div>
-        <div class="col-lg-4">
-          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
-            (onSelect)="GetCountryID($event)">
-          </ng-multiselect-dropdown>
-        </div>
-      </div><br>
-      <div class="row">
-        <div class="col-lg-3">
-          <label class="City_label">{{labels[0].province}}:</label>
-          <span class="required">*</span>
-        </div>
-        <div class="col-lg-4">
-          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
-            (onSelect)="GetCityID($event)">
-          </ng-multiselect-dropdown>
-        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="City_label">{{labels[0].city}} :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
+              (onSelect)="GetAreaID($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div><br>
       </div>
-      <br>
-      <div class="row">
-        <div class="col-lg-3">
-          <label class="City_label">{{labels[0].city}} :</label>
-          <span class="required">*</span>
+      <div *ngIf="showedit=='1'">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>{{labels[0].country}} : </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <select class="form-control" disabled (change)="GetCountryID($event)" [(ngModel)]="countryid" name="countryid">
+              <option >Select</option>
+              <option *ngFor="let cou of countrylist" value="{{cou.id}}">{{cou.short}}</option>
+            </select>
+
+            <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
+              (onSelect)="GetCountryID($event)">
+            </ng-multiselect-dropdown> -->
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="City_label">{{labels[0].province}}:</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <select class="form-control" disabled (change)="GetCityID1($event)" [(ngModel)]="cityid" name="cityid">
+              <option >Select</option>
+              <option *ngFor="let cou of citylist" value="{{cou.id}}">{{cou.short}}</option>
+            </select>
+
+            <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
+              (onSelect)="GetCityID($event)">
+            </ng-multiselect-dropdown> -->
+          </div>
         </div>
-        <div class="col-lg-4">
-          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
-            (onSelect)="GetAreaID($event)">
-          </ng-multiselect-dropdown>
-        </div>
-      </div><br>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="City_label">{{labels[0].city}} :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <select class="form-control" disabled (change)="GetAreaID1($event)" [(ngModel)]="areaid" name="areaid">
+              <option >Select</option>
+              <option *ngFor="let cou of arealist" value="{{cou.id}}">{{cou.areaName}}</option>
+            </select>
+            <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
+              (onSelect)="GetAreaID($event)">
+            </ng-multiselect-dropdown> -->
+          </div>
+        </div><br>
+      </div>
       <div class="row">
         <div class="col-lg-3">
           <label class="Address_label">{{labels[0].description}}:</label>
@@ -133,6 +185,7 @@
             class="form-control">
         </div>
       </div><br>
+      <div *ngIf="showedit=='0'">
       <div class="row">
         <div class="col-lg-3">
           <label for="" class="reglabel">{{labels[0].photo}}:</label>
@@ -153,14 +206,17 @@
           </p>
         </div>
       </div>
+      </div>
       <div><br>
         <div class="row">
           <div class="col-lg-5">
           </div>
           <div class="col-lg-2">
-            <button type="button" text_align="center" [disabled]="doctorForm.form.invalid"
-              class="btn btn-block btn-md allbtns btncolor"
-              (click)="insertdetails()">{{labels[0].save}}</button>
+            <button type="button" text_align="center" *ngIf="showedit=='0'" [disabled]="doctorForm.form.invalid"
+              class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+
+              <button type="button" text_align="center" [disabled]="doctorForm.form.invalid"
+              class="btn btn-block btn-md allbtns btncolor" *ngIf="showedit=='1'" (click)="updatedetails()">{{labels[0].update}}</button>
           </div>
           <div class="col-lg-5">
           </div>

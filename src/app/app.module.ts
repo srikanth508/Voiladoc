@@ -323,6 +323,16 @@ import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-di
 import { MeridionalSupportComponent } from './pages/Support/meridional-support/meridional-support.component';
 import { DiagnosticPatientsComponent } from './pages/Diagnostic Center/diagnostic-patients/diagnostic-patients.component';
  import { AppHttpInterceptor } from './app-http-interceptor';
+import { FaqComponent } from './pages/Faq/faq/faq.component';
+import { FaqDashComponent } from './pages/Faq/faq-dash/faq-dash.component';
+import { FAQuestionsComponent } from './pages/Faq/faquestions/faquestions.component';
+import { AddQuickGuideComponent } from './pages/Quick Guide/add-quick-guide/add-quick-guide.component';
+import { QuickGuideDashComponent } from './pages/Quick Guide/quick-guide-dash/quick-guide-dash.component';
+import { EditQuickGuideComponent } from './pages/Quick Guide/edit-quick-guide/edit-quick-guide.component';
+import { TopicMasterComponent } from './pages/Masters/topic-master/topic-master.component';
+import { TopicMasterDashComponent } from './pages/Masters/topic-master-dash/topic-master-dash.component';
+import { EnableLocalDoctorComponent } from './pages/Masters/enable-local-doctor/enable-local-doctor.component';
+import { QuickguideComponent } from './pages/Quick Guide/quickguide/quickguide.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -635,7 +645,17 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     RefundCompletedTicketsComponent,
     AllDiagnosticCalenderComponent,
     MeridionalSupportComponent,
-    DiagnosticPatientsComponent
+    DiagnosticPatientsComponent,
+    FaqComponent,
+    FaqDashComponent,
+    FAQuestionsComponent,
+    AddQuickGuideComponent,
+    QuickGuideDashComponent,
+    EditQuickGuideComponent,
+    TopicMasterComponent,
+    TopicMasterDashComponent,
+    EnableLocalDoctorComponent,
+    QuickguideComponent
    
   ],
   imports: [

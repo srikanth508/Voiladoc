@@ -25,12 +25,14 @@ export class SupportRegDashComponent implements OnInit {
   public arealist: any;
   public areaid: any;
   public countrylist: any;
+  public pinno: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.pinno = localStorage.getItem('Pinno');
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
@@ -38,7 +40,7 @@ export class SupportRegDashComponent implements OnInit {
 
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -49,7 +51,7 @@ export class SupportRegDashComponent implements OnInit {
     this.cityid = 0
   }
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }
@@ -58,7 +60,7 @@ export class SupportRegDashComponent implements OnInit {
   public GetSupport() {
     this.docservice.GetSupportRegistration(this.languageid).subscribe(
       data => {
-       
+
         this.localdoclist = data;
         this.dummlist = this.localdoclist
         this.count = this.localdoclist.length
@@ -71,7 +73,7 @@ export class SupportRegDashComponent implements OnInit {
 
 
   public DeleteSupportRegistration(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This One!",
@@ -104,7 +106,7 @@ export class SupportRegDashComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -114,7 +116,7 @@ export class SupportRegDashComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.localdoclist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -128,10 +130,10 @@ export class SupportRegDashComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -141,7 +143,7 @@ export class SupportRegDashComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.localdoclist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -157,10 +159,10 @@ export class SupportRegDashComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -171,7 +173,7 @@ export class SupportRegDashComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.localdoclist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.localdoclist.length
@@ -180,5 +182,43 @@ export class SupportRegDashComponent implements OnInit {
       this.GetSupport()
     }
   }
+
+  public password: any;
+  public mypinno: any;
+
+
+  public getpassword(details) {
+    this.password = details.password,
+      this.mypinno = details.pinno
+
+    this.Showpassword = 0;
+  }
+
+
+
+  public Enteredpinno: any;
+  public Showpassword: any;
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      Swal.fire('Please Enter Your Pin No')
+
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
+      }
+    }
+  }
+
 
 }

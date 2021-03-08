@@ -218,15 +218,15 @@ export class DocWorkingDashComponent implements OnInit {
 
     this.spinner.show();
     // this.GetDoctorsworkinglist()
-    
+
     this.docservice.GetDoctorHospitalDetailsWebByDoctorID(this.doctorid, this.languageid).subscribe(
       data => {
-        
+
         this.workingdetails = data;
         var list = this.workingdetails.filter(x => x.doctorID == this.doctorid)
         this.slottypeid = list[0].slotDurationID;
         this.dochspid = list[0].id;
-        this.hospitalid=list[0].hospital_ClinicID;
+        this.hospitalid = list[0].hospital_ClinicID;
 
         this.GetDoctorTimings();
 
@@ -239,10 +239,10 @@ export class DocWorkingDashComponent implements OnInit {
   public Timings: any;
 
   public GetDoctorTimings() {
-    
+
     this.docservice.GetDoctorSlotsByDoctorID(this.doctorid, this.slottypeid, this.languageid).subscribe(
       data => {
-        
+
         this.Timings = data;
         this.spinner.hide();
       }, error => {
@@ -255,13 +255,13 @@ export class DocWorkingDashComponent implements OnInit {
   public GetDoctorsworkinglist() {
     this.docservice.GetDoctorWorkingDetails(this.languageid).subscribe(
       data => {
-        
+
         this.dummworkingdetails = data;
         this.workingdetails = this.dummworkingdetails.filter(x => x.doctorID == this.doctorid)
       }, error => {
       }
     )
-    
+
   }
 
 
@@ -270,7 +270,7 @@ export class DocWorkingDashComponent implements OnInit {
 
 
   public gettimeid(tid, dochspid, hspcliid, dayid, appointmentypeid, doctorID) {
-    
+
     this.timeid = tid;
     this.dochspid = dochspid;
     this.hspcliid = hspcliid;
@@ -278,7 +278,7 @@ export class DocWorkingDashComponent implements OnInit {
     this.appointmentypeid = appointmentypeid;
     this.doctorid = doctorID;
 
-   
+
 
   }
 
@@ -293,7 +293,7 @@ export class DocWorkingDashComponent implements OnInit {
           singleSelection: false,
           idField: 'id',
           textField: 'slots',
-        
+
           itemsShowLimit: 3,
           allowSearchFilter: false,
           enableCheckAll: false
@@ -428,7 +428,7 @@ export class DocWorkingDashComponent implements OnInit {
     this.eveningslots = this.eveningslots.slice(item3.id)
   }
 
-public docslotid:any;
+  public docslotid: any;
 
   public insertbookappointmenttype() {
     var entity = {
@@ -445,75 +445,75 @@ public docslotid:any;
   public allappointmentid: any;
 
   public GetDay1List(details) {
-    
+
     this.appointmentypeid = details.mondayappointmentID;
     this.slotid = details.mondaySlotID;
     this.allappointmentid = details.mondayappointmentID;
     this.dayid = details.mondayDayID;
-    this.docslotid= details.docMondaySlotID;
-    this.fees=details.mondayFees;
+    this.docslotid = details.docMondaySlotID;
+    this.fees = details.mondayFees;
   }
 
 
 
   public GetDay2List(details) {
-    
+
     this.appointmentypeid = details.tuesdayAppointmentID;
     this.slotid = details.tuesdaySlotID;
     this.allappointmentid = details.tuesdayAppointmentID;
     this.dayid = details.tuesDayID;
-    this.docslotid= details.docTuesDaySlotID;
-    this.fees=details.tuesdayFees;
+    this.docslotid = details.docTuesDaySlotID;
+    this.fees = details.tuesdayFees;
   }
 
   public GetDay3List(details) {
-    
+
     this.appointmentypeid = details.wednesdayAppointmentID;
     this.slotid = details.wednessdaySlotID;
     this.allappointmentid = details.wednesdayAppointmentID;
     this.dayid = details.wednessDayID;
-    this.docslotid= details.docWednessDaySlotID;
-    this.fees=details.wednessdayFees;
+    this.docslotid = details.docWednessDaySlotID;
+    this.fees = details.wednessdayFees;
   }
 
   public GetDay4List(details) {
-    
+
     this.appointmentypeid = details.thursdayAppointmentID;
     this.slotid = details.tursdaySlotID;
     this.allappointmentid = details.thursdayAppointmentID;
     this.dayid = details.thursDayID;
-    this.docslotid= details.docThursaDaySlotID;
-    this.fees=details.thursdayFees;
+    this.docslotid = details.docThursaDaySlotID;
+    this.fees = details.thursdayFees;
   }
 
   public GetDay5List(details) {
-    
+
     this.appointmentypeid = details.fridayAppointmentID;
     this.slotid = details.fridaySlotID;
     this.allappointmentid = details.fridayAppointmentID;
     this.dayid = details.friDayID;
-    this.docslotid= details.docFridayDaySlotID;
-    this.fees=details.fridayFees;
+    this.docslotid = details.docFridayDaySlotID;
+    this.fees = details.fridayFees;
   }
 
   public GetDay6List(details) {
-    
+
     this.appointmentypeid = details.saturdayAppintmentID;
     this.slotid = details.saturdaySlotID;
     this.allappointmentid = details.saturdayAppintmentID;
     this.dayid = details.saturDayID;
-    this.docslotid= details.docSatDaySlotID;
-    this.fees=details.satdayFees;
+    this.docslotid = details.docSatDaySlotID;
+    this.fees = details.satdayFees;
   }
 
   public GetDay7List(details) {
-    
+
     this.appointmentypeid = details.sundayAppointmentID;
     this.slotid = details.sundaySlotID;
     this.allappointmentid = details.sundayAppointmentID;
     this.dayid = details.sunDayID;
-    this.docslotid= details.doSunDaySlotID;
-    this.fees=details.sundayFees;
+    this.docslotid = details.doSunDaySlotID;
+    this.fees = details.sundayFees;
   }
 
 
@@ -523,7 +523,7 @@ public docslotid:any;
   }
 
   public Updateslots() {
-    
+
     this.spinner.show();
     if (this.allappointmentid == 4 && this.appointmentypeid == 1) {
       var entity1 = {
@@ -534,10 +534,17 @@ public docslotid:any;
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
         'DoctorHospitalDetailsID': this.dochspid,
-        'DoctorFees':this.fees
+        'DoctorFees': this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
-        Swal.fire('Updated Successfully');
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+
         this.spinner.show();
         this.GetDoctorTimings();
         this.insertbookappointmenttype()
@@ -555,14 +562,20 @@ public docslotid:any;
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
         'DoctorHospitalDetailsID': this.dochspid,
-        'DoctorFees':this.fees
+        'DoctorFees': this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
-        Swal.fire('Updated Successfully');
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
         this.insertbookappointmenttype()
         this.GetDoctorTimings()
-        
-        
+
+
       })
     }
     else if (this.allappointmentid == 4 && this.appointmentypeid == 5) {
@@ -575,19 +588,25 @@ public docslotid:any;
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
         'DoctorHospitalDetailsID': this.dochspid,
-        'DoctorFees':this.fees
+        'DoctorFees': this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
-        Swal.fire('Updated Successfully');
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
         this.spinner.show();
         this.insertbookappointmenttype()
         this.GetDoctorTimings()
       })
 
     }
-else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
+    else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
-      
+
       var entity1 = {
         'SlotID': this.docslotid,
         'DoctorID': this.doctorid,
@@ -596,10 +615,16 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
         'LanguageID': this.languageid,
         'AppointmentTypeID': this.appointmentypeid,
         'DoctorHospitalDetailsID': this.dochspid,
-        'DoctorFees':this.fees
+        'DoctorFees': this.fees
       }
       this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
-        Swal.fire('Updated Successfully');
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
         this.spinner.show();
         this.insertbookappointmenttype()
         this.GetDoctorTimings()
@@ -610,8 +635,14 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          
-          Swal.fire('Updated Successfully');
+
+          if (this.languageid == 1) {
+            Swal.fire('Updated Successfully');
+
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Mis à jour avec succès');
+          }
           this.spinner.show();
           this.insertbookappointmenttype()
           this.GetDoctorTimings()
@@ -623,9 +654,14 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          
-          Swal.fire('Updated Successfully');
-         
+
+          if (this.languageid == 1) {
+            Swal.fire('Updated Successfully');
+
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Mis à jour avec succès');
+          }
           this.GetDoctorTimings()
         }, error => {
         }
@@ -635,9 +671,15 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          
-          Swal.fire('Updated Successfully');
-        
+
+          if (this.languageid == 1) {
+            Swal.fire('Updated Successfully');
+
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Mis à jour avec succès');
+          }
+
           this.GetDoctorTimings()
         }, error => {
         }
@@ -647,32 +689,50 @@ else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
       this.spinner.show();
       this.docservice.DeleteDoctSlots(this.slotid).subscribe(
         data => {
-          
-          Swal.fire('Updated Successfully');
-        
+
+          if (this.languageid == 1) {
+            Swal.fire('Updated Successfully');
+
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Mis à jour avec succès');
+          }
+
           this.GetDoctorTimings()
         }, error => {
         }
       )
     }
-    else if (this.appointmentypeid == 1 || this.appointmentypeid == 2 || this.appointmentypeid == 5 || this.appointmentypeid == 6 && this.allappointmentid == 1||this.allappointmentid == 2||this.allappointmentid == 5||this.allappointmentid == 6) {
-      
+    else if (this.appointmentypeid == 1 || this.appointmentypeid == 2 || this.appointmentypeid == 5 || this.appointmentypeid == 6 && this.allappointmentid == 1 || this.allappointmentid == 2 || this.allappointmentid == 5 || this.allappointmentid == 6) {
+
       this.spinner.show();
       var entity = {
         'ID': this.slotid,
         'AppointmentTypeID': this.appointmentypeid,
-        'DoctorFees':this.fees
+        'DoctorFees': this.fees
       }
       this.docservice.UpdateDoctorSlotsWeb(entity).subscribe(data => {
-        Swal.fire('Updated Successfully');
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
         this.insertbookappointmenttype()
         this.GetDoctorTimings()
       })
     }
-    else{
-      Swal.fire('Updated Successfully');
+    else {
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succès');
+      }
     }
-    
+
   }
 
 

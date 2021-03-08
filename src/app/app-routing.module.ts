@@ -298,6 +298,16 @@ import { RefundCompletedTicketsComponent } from './pages/Support/refund-complete
 import { AllDiagnosticCalenderComponent } from './pages/Diagnostic Center/all-diagnostic-calender/all-diagnostic-calender.component';
 import { MeridionalSupportComponent } from './pages/Support/meridional-support/meridional-support.component';
 import { DiagnosticPatientsComponent } from './pages/Diagnostic Center/diagnostic-patients/diagnostic-patients.component';
+import { FaqComponent } from './pages/Faq/faq/faq.component';
+import { FaqDashComponent } from './pages/Faq/faq-dash/faq-dash.component';
+import { FAQuestionsComponent } from './pages/Faq/faquestions/faquestions.component';
+import { AddQuickGuideComponent } from './pages/Quick Guide/add-quick-guide/add-quick-guide.component';
+import { QuickGuideDashComponent } from './pages/Quick Guide/quick-guide-dash/quick-guide-dash.component';
+import { EditQuickGuideComponent } from './pages/Quick Guide/edit-quick-guide/edit-quick-guide.component';
+import { TopicMasterComponent } from './pages/Masters/topic-master/topic-master.component';
+import { TopicMasterDashComponent } from './pages/Masters/topic-master-dash/topic-master-dash.component';
+import { EnableLocalDoctorComponent } from './pages/Masters/enable-local-doctor/enable-local-doctor.component';
+import { QuickguideComponent } from './pages/Quick Guide/quickguide/quickguide.component';
 
 
 
@@ -482,6 +492,9 @@ const routes: Routes = [
   { path: 'AdminMidWifeDash', component: AdminMidWifeDashComponent },
   { path: 'MidWifeAdminDashDetails/:id', component: MidWifeAdminDashDetailsComponent },
   { path: 'LocalDoctorRegistration', component: LocalDoctorRegistrationComponent },
+
+  { path: 'LocalDoctorRegistration/:id', component: LocalDoctorRegistrationComponent },
+
   { path: 'LocalDocDash', component: LocalDocDashComponent },
   { path: 'MyPatientPrescriptions', component: MyPatientPrescriptionsComponent },
   { path: 'MyProfiles', component: MyProfilesComponent },
@@ -653,6 +666,18 @@ const routes: Routes = [
   { path: 'AllDiagnosticCalender', component: AllDiagnosticCalenderComponent },
   { path: 'MeridionalSupport', component: MeridionalSupportComponent },
   { path: 'DiagnosticPatients', component: DiagnosticPatientsComponent },
+  { path: 'Faq', component: FaqComponent },
+  { path: 'FaqDash', component: FaqDashComponent },
+  { path: 'Faq/:id', component: FaqComponent },
+  { path: 'FAQuestions', component: FAQuestionsComponent },
+  { path: 'AddQuickGuide', component: AddQuickGuideComponent },
+  { path: 'QuickGuideDash', component: QuickGuideDashComponent },
+  { path: 'EditQuickGuide/:id', component: EditQuickGuideComponent },
+  { path: 'TopicMaster', component: TopicMasterComponent },
+  { path: 'TopicMasterDash', component: TopicMasterDashComponent },
+  { path: 'TopicMaster/:id', component: TopicMasterComponent },
+  { path: 'EnableLocalDoctor', component: EnableLocalDoctorComponent },
+  { path: 'Quickguide', component: QuickguideComponent },
 ];
 
 @NgModule({

@@ -29,9 +29,13 @@
             <th id="imp">{{labels[0].diaAppointmentType}}</th>
             <th id="imp">{{labels[0].slot}}</th>
             <th id="imp">{{labels[0].orderNumber}}</th>
-            <th>{{labels[0].patientname}}</th>
-            <th>{{labels[0].phoneNo}}</th>
-            <th>{{labels[0].emailId}}</th>
+             <th>{{labels4[0].primarypatientname}}</th>
+            <th>{{labels4[0].phoneNoo}}</th>
+            <th>{{labels4[0].bookedPatientname}}</th>
+            <!-- <th>{{labels[0].patientname}}</th>
+            <th>{{labels[0].phoneNo}}</th> -->
+            <!-- <th>{{labels[0].emailId}}</th> -->
+            <th>{{labels4[0].bookedpatientphno}}</th>
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].homeSample}}</th>
             <th>{{labels[0].assignedname}}</th>
@@ -47,11 +51,13 @@
             <td>{{details.id}}</td>
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
-            <td>{{details.emailID}}</td>
-            <td>{{details.address}}</td>
+            <td>{{details.relatinpatientnme}}</td>
+            <td>{{details.relationmobileno}}</td>
+            <!-- <td>{{details.emailID}}</td> -->
+            <td>{{details.relationaddress}}</td>
             <td>
-              <label *ngIf="details.homeSampleBit=='1'">{{labels[0].yes}}</label>
-              <label *ngIf="details.homeSampleBit=='0'">{{labels[0].no}}</label>
+              <label  *ngIf="details.homeSampleBit=='1'&&details.diagnosticSlotID!='0'">{{labels[0].yes}}</label>
+              <label *ngIf="details.homeSampleBit=='0'&&details.diagnosticSlotID!='0'">{{labels[0].no}}</label>
             </td>
             <td>
               {{details.assinedname}}
@@ -60,16 +66,15 @@
               <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
               <a [ngbTooltip]="tipcontent18">
                 <img src="assets/Images/test1.png" *ngIf="details.testsCount!=0" data-toggle="modal"
-                  data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(details.id)">
+                  data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(details.id,details.hideupdate)">
               </a>&nbsp;
               <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
               <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
                 <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:20px;"
                   (click)="GetPackageID(details.id)">&nbsp;
               </a>
-
               <ng-template #tipcontent2045>Photo</ng-template>
-              <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'">
+              <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'&&photoexist=='1'">
                 <img src="assets/Images/phaprescripton.png" data-toggle="modal" data-target="#exampleModal6"
                   style="height:20px;" (click)="GetAttachments(details.id)"></a>
 
@@ -166,7 +171,7 @@
                     </a>
                   </td>
                   <td style="border:none">
-                    <ng-template #tipcontent9867>Chat</ng-template>
+                    <ng-template #tipcontent9867>{{labels[0].chat}}</ng-template>
                     <span style="color: green;position: absolute;margin-left: 22px;">{{details.chatcount}}</span>
                     <a [ngbTooltip]="tipcontent9867" >
                       <img src="assets/Images/chat.jpg" style="height:19px;" (click)="GetChatShowID(details)">
@@ -315,7 +320,7 @@
             </div>
             <div class="col-lg-2">
               <button style="background-color: #f18235;color: white;border:none" (click)="InsertAvailabletest()"
-                data-dismiss="modal">{{labels[0].update}}</button>
+                data-dismiss="modal" *ngIf="hideupdate=='0'">{{labels[0].update}}</button>
             </div>
           </div>
         </div>
@@ -469,7 +474,7 @@
     <div class="modal-content" style="width: 800px;
       height: auto;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -477,10 +482,13 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-3">
-            <label>Amount :</label>
+            <label>{{labels[0].amountsss}} :</label>
           </div>
           <div class="col-lg-4">
-            <input type="text" class="form-control" [(ngModel)]="amount" placeholder="Amount" name="amount">
+            <input type="text" class="form-control" [(ngModel)]="amount" placeholder="{{labels[0].amount}}" name="amount">
+          </div>
+          <div class="col-lg-1">
+            MAD
           </div>
         </div><br>
         <div class="row">

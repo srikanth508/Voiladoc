@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   public host: any;
   public labels: any;
   public Showpass: any;
-
+  public pinno: any;
 
   constructor(public docservice: HelloDoctorService, private router: Router, private spinner: NgxSpinnerService) { }
   ngOnInit() {
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     )
 
     localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocAPI');
-    
+
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
     //    
@@ -128,8 +128,10 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  public login() {
 
+
+
+  public login() {
     if (this.roleid == null || this.roleid == undefined) {
       if (this.LanguageID == 1) {
         Swal.fire('Error', 'Please select role!');
@@ -143,21 +145,21 @@ export class LoginComponent implements OnInit {
     }
     else {
       if (this.roleid == "1") {
-        
+        debugger
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+          debugger
           if (data['requestMessage'] != undefined || null) {
-            
+            debugger
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+            debugger
             this.docservice.GetSalesRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
               data => {
-                
+                debugger
                 this.result = data;
 
                 if (this.result != null) {
@@ -191,83 +193,77 @@ export class LoginComponent implements OnInit {
     }
     if (this.roleid == "2") {
 
-
-
       var entity = {
         'username': 'HelloDoc@gmail.com',
         'Password': 'HelloDoc',
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        
+        debugger
         if (data['requestMessage'] != undefined || null) {
-
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
 
-      this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
-        data => {
-          
-          this.result = data;
-          
-          if (this.result.length != '0') {
-            localStorage.setItem('user', this.result[0].doctorName)
-            localStorage.setItem('roleid', '2');
-            sessionStorage.setItem('temp', '1');
-            localStorage.setItem('MobileNumber', this.result[0].mobileNumber);
-            localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
-            localStorage.setItem('userid', this.result[0].doctorID);
-            localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
-            localStorage.setItem('departmentid', this.result[0].departmentID)
-            location.href = '#/Myappointments';
-            location.reload();
-          }
-          else {
-            if (this.LanguageID == 1) {
-              Swal.fire('Error', 'Username or Password is not valid!');
-              this.uname = "";
-              this.pwd = "";
+          this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+            data => {
+
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].doctorName)
+                localStorage.setItem('roleid', '2');
+                sessionStorage.setItem('temp', '1');
+                localStorage.setItem('MobileNumber', this.result[0].mobileNumber);
+                localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
+                localStorage.setItem('userid', this.result[0].doctorID);
+                localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
+                localStorage.setItem('departmentid', this.result[0].departmentID)
+                location.href = '#/DoctorDashboard';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
             }
-            else if (this.LanguageID == 6) {
-              Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-              this.uname = "";
-              this.pwd = "";
-            }
-          }
-        }, error => {
-        }
-      )
+          )
         }
       })
-  
     }
     if (this.roleid == "3") {
-
-      
-
-
       var entity = {
         'username': 'HelloDoc@gmail.com',
         'Password': 'HelloDoc',
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        
+        debugger
         if (data['requestMessage'] != undefined || null) {
-
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
+          debugger
+          this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
             data => {
-    
               this.result = data;
-    
               if (this.result.length != '0') {
+                debugger
                 localStorage.setItem('user', this.result[0].hospital_ClinicName)
                 localStorage.setItem('roleid', '3');
                 localStorage.setItem('hospitalid', this.result[0].hospital_ClinicID);
                 localStorage.setItem('hospitaltype', this.result[0].hospitalType);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 sessionStorage.setItem('temp', '1');
+
                 location.href = '#/HospitalRevenue';
                 location.reload();
+                debugger
               }
               else {
                 if (this.LanguageID == 1) {
@@ -294,19 +290,18 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        
+        debugger
         if (data['requestMessage'] != undefined || null) {
-
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-          this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
+          this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
             data => {
-    
+
               this.result = data;
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].diagnosticCenterName)
                 localStorage.setItem('roleid', '4');
                 localStorage.setItem('diagnosticid', this.result[0].diagnosticCenterID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/Orders';
                 location.reload();
@@ -322,7 +317,7 @@ export class LoginComponent implements OnInit {
                   this.uname = "";
                   this.pwd = "";
                 }
-    
+
               }
             }, error => {
             }
@@ -331,47 +326,47 @@ export class LoginComponent implements OnInit {
       })
     }
     if (this.roleid == "5") {
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-        this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].pharmacyName)
-              localStorage.setItem('roleid', '5');
-              localStorage.setItem('pharmacyid', this.result[0].pharmacyID);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/DoctorPrescription';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
-     
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+            data => {
+
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].pharmacyName)
+                localStorage.setItem('roleid', '5');
+                localStorage.setItem('pharmacyid', this.result[0].pharmacyID);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/DoctorPrescription';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
+
     }
     if (this.roleid == "7") {
 
@@ -383,14 +378,14 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        
+        debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
+          this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
             data => {
-    
+
               this.result = data;
-    
+
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].nurseName)
                 localStorage.setItem('roleid', '7');
@@ -419,190 +414,94 @@ export class LoginComponent implements OnInit {
       })
     }
     if (this.roleid == "8") {
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-        this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].name)
-              localStorage.setItem('roleid', '8');
-              localStorage.setItem('physioid', this.result[0].physiotherapistID);
-              localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/PhysiotherapistProfile';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+            data => {
 
-     
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].name)
+                localStorage.setItem('roleid', '8');
+                localStorage.setItem('physioid', this.result[0].physiotherapistID);
+                localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/PhysiotherapistProfile';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
+
+
     }
     if (this.roleid == "9") {
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      
-      if (data['requestMessage'] != undefined || null) {
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-        this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].name)
-              localStorage.setItem('roleid', '9');
-              localStorage.setItem('midwifeid', this.result[0].midWiveID);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/MidwifeProfile';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+            data => {
 
-    
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].name)
+                localStorage.setItem('roleid', '9');
+                localStorage.setItem('midwifeid', this.result[0].midWiveID);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/MidwifeProfile';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
+
+
     }
     if (this.roleid == "10") {
 
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetDeliveryCompanyLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].companyName)
-              localStorage.setItem('roleid', '10');
-              localStorage.setItem('deliveryid', this.result[0].deliveryCompanyID);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/DeliverPartnerProfile';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
-      }
-    })
-
-    }
-
-    if (this.roleid == "11") {
-
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetLocalDoctorRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].doctorName)
-              localStorage.setItem('roleid', '11');
-              localStorage.setItem('localdocid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/MyProfiles';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
-      }
-    })
-
-    }
-    if (this.roleid == "12") {
 
 
       var entity = {
@@ -611,19 +510,107 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        
+        debugger
         if (data['requestMessage'] != undefined || null) {
-
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetMeridionalAdmin_LoginUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
+          this.docservice.GetDeliveryCompanyLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
-    
+
               this.result = data;
-    
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].companyName)
+                localStorage.setItem('roleid', '10');
+                localStorage.setItem('deliveryid', this.result[0].deliveryCompanyID);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/DeliverPartnerProfile';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
+
+    }
+
+    if (this.roleid == "11") {
+
+
+
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
+      }
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetLocalDoctorRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
+            data => {
+
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].doctorName)
+                localStorage.setItem('roleid', '11');
+                localStorage.setItem('localdocid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/MyProfiles';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
+
+    }
+    if (this.roleid == "12") {
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
+      }
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetMeridionalAdmin_LoginUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
+            data => {
+
+              this.result = data;
+
               if (this.result.length != '0') {
                 localStorage.setItem('user', 'Manny')
                 localStorage.setItem('roleid', '12');
-                // localStorage.setItem('localdocid', this.result[0].id);
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -648,419 +635,415 @@ export class LoginComponent implements OnInit {
     }
     if (this.roleid == "13") {
 
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetSupportRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('supportid', this.result[0].id)
-              localStorage.setItem('user', this.result[0].name)
-              localStorage.setItem('roleid', '13');
-              // localStorage.setItem('localdocid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/SupportDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetSupportRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
+            data => {
+
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('supportid', this.result[0].id)
+                localStorage.setItem('user', this.result[0].name)
+                localStorage.setItem('roleid', '13');
+                // localStorage.setItem('localdocid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/SupportDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                  this.pinno = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                  this.pinno = "";
+                }
+              } 
+            }, error => {
+            }
+          )
+        }
+      })
     }
     if (this.roleid == "14") {
 
 
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
 
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-  
-            this.result = data;
-  
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].hospital_ClinicName)
-              localStorage.setItem('roleid', '14');
-              localStorage.setItem('hospitalid', this.result[0].hospitalID);
-              localStorage.setItem('Receptionstid', this.result[0].id);
-              localStorage.setItem('receptiostname', this.result[0].name);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/Appointments';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
+            data => {
+
+              this.result = data;
+
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].hospital_ClinicName)
+                localStorage.setItem('roleid', '14');
+                localStorage.setItem('hospitalid', this.result[0].hospitalID);
+                localStorage.setItem('Receptionstid', this.result[0].id);
+                localStorage.setItem('receptiostname', this.result[0].name);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/Appointments';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
     }
     // management logins
 
     if (this.roleid == "15") {
 
 
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
 
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
-          data => {
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].firstName)
-              localStorage.setItem('roleid', '15');
-              localStorage.setItem('countrymanagerid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/AdminDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })      
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].firstName)
+                localStorage.setItem('roleid', '15');
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('countrymanagerid', this.result[0].id);
+                localStorage.setItem('meridionalid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/AdminDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
     }
     if (this.roleid == "17") {
-
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
-          data => {
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].firstName)
-              localStorage.setItem('roleid', '17');
-              localStorage.setItem('implementationid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/AdminDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].firstName)
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('roleid', '17');
+                localStorage.setItem('implementationid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/AdminDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
     }
     if (this.roleid == "18") {
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
-          data => {
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].firstName)
-              localStorage.setItem('roleid', '18');
-              localStorage.setItem('clientserviceid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/AdminDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].firstName)
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('roleid', '18');
+                localStorage.setItem('clientserviceid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/AdminDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
     }
     if (this.roleid == "19") {
-
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
-          data => {
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].firstName)
-              localStorage.setItem('roleid', '19');
-              localStorage.setItem('salesmanagerid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/AdminDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].firstName)
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('roleid', '19');
+                localStorage.setItem('salesmanagerid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/AdminDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
 
 
-    
+
     }
     if (this.roleid == "20") {
 
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
 
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
-          data => {
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].firstName)
-              localStorage.setItem('roleid', '20');
-              localStorage.setItem('salesrepresntativeid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/AdminDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
-
-
-     
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].firstName)
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('roleid', '20');
+                localStorage.setItem('salesrepresntativeid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/AdminDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
     }
     if (this.roleid == "22") {
-
-      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-        this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid).subscribe(
-          data => {
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].firstName)
-              localStorage.setItem('roleid', '22');
-              localStorage.setItem('finanacemanagerid', this.result[0].id);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/BillingDashboard';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
-              }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
-              }
-            }
-          }, error => {
-          }
-        )
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
-
-
-     
-    }
-    if (this.roleid == "23") {      
-    var entity = {
-      'username': 'HelloDoc@gmail.com',
-      'Password': 'HelloDoc',
-      'RoleID': 1
-    }
-    this.docservice.Authenicate(entity).subscribe(data => {
-      
-      if (data['requestMessage'] != undefined || null) {
-
-        localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-        
-        this.docservice.GetDiagnosticReceptionistLoginByUserNameAndPassword(this.uname, this.pwd, localStorage.getItem('WebUrl')).subscribe(
-          data => {
-            ;
-            this.result = data;
-            if (this.result.length != '0') {
-              localStorage.setItem('user', this.result[0].userName);
-              localStorage.setItem('roleid', '23');
-              localStorage.setItem('diagnosticid', this.result[0].diagnosticID);
-              localStorage.setItem('Receptionstid', this.result[0].id);
-              localStorage.setItem('receptiostname', this.result[0].name);
-              sessionStorage.setItem('temp', '1');
-              location.href = '#/DiagnosticAppointmentDash';
-              location.reload();
-            }
-            else {
-              if (this.LanguageID == 1) {
-                Swal.fire('Error', 'Username or Password is not valid!');
-                this.uname = "";
-                this.pwd = "";
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].firstName)
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('roleid', '22');
+                localStorage.setItem('finanacemanagerid', this.result[0].id);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/BillingDashboard';
+                location.reload();
               }
-              else if (this.LanguageID == 6) {
-                Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
-                this.uname = "";
-                this.pwd = "";
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
               }
+            }, error => {
             }
-          }, error => {
-          }
-        )
+          )
+        }
+      })
+    }
+    if (this.roleid == "23") {
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
       }
-    })
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+          debugger
+          this.docservice.GetDiagnosticReceptionistLoginByUserNameAndPassword(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
+            data => {
+              debugger;
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].userName);
 
-    
+                localStorage.setItem('roleid', '23');
+                localStorage.setItem('diagnosticid', this.result[0].diagnosticID);
+                localStorage.setItem('Receptionstid', this.result[0].id);
+                localStorage.setItem('receptiostname', this.result[0].name);
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                sessionStorage.setItem('temp', '1');
+                location.href = '#/DiagnosticAppointmentDash';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
+
+
     }
 
- 
+    // if (this.roleid == "21") {
+    //   this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'),this.roleid).subscribe(
+    //     data => {
+    //       this.result = data;
+    //       if (this.result.length != '0') {
+    //         localStorage.setItem('user', this.result[0].firstName)
+    //         localStorage.setItem('roleid', '21');
+    //         localStorage.setItem('supportid', this.result[0].id);
+    //         sessionStorage.setItem('temp', '1');
+    //          location.href = '#/AdminDash';
+    //         location.reload();
+    //       }
+    //       else {
+    //         Swal.fire('Error', 'Username or Password is not valid!');
+    //         this.uname = "";
+    //         this.pwd = "";
+    //       }
+    //     }, error => {
+    //     }
+    //   )
+    // }
   }
 
 

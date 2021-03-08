@@ -1,0 +1,26 @@
+
+<div class="container-fluid card card:hover ">
+  <br><br>
+  <div class="row">
+    <div class="col-lg-6">
+      <h2>{{labels[0].enabledoctor}}</h2>
+    </div>
+    <div class="col-lg-6" >
+      <a>
+        <img *ngIf="enabledisable=='1'"
+          src="assets/Images/active.png"
+          title="Enable"
+          style="width: 50px;" (click)="enablelocaldoc()"
+        />
+      </a>
+      <a>
+        <img *ngIf="enabledisable=='0'"
+          src="assets/Images/dactive.png"
+          title="Disable"
+          style="width: 50px;" (click)="disablelocaldoc()"
+        />
+      </a>
+    </div>
+  </div><br><br>
+ 
+</div><br><br><br>

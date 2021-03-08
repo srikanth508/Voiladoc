@@ -29,7 +29,7 @@ export class UserrolemappingComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
 
     this.activatedroute.params.subscribe(params => {
-      
+
       this.id = params['id'];
       if (this.id == undefined) {
         this.showbutton = 0
@@ -40,7 +40,7 @@ export class UserrolemappingComponent implements OnInit {
       }
     })
 
-   
+
     this.GetRoleMaster()
   }
 
@@ -63,6 +63,9 @@ export class UserrolemappingComponent implements OnInit {
   }
 
 
+  public userid: any;
+
+
   public InsertDetails() {
     if (this.roleid == "" || this.roleid == undefined) {
       Swal.fire('Please select role')
@@ -79,6 +82,10 @@ export class UserrolemappingComponent implements OnInit {
       }
       this.docservice.InsertUsers_RoleMapping(entity).subscribe(data => {
         if (data != 0) {
+          debugger
+          this.pinno = data;
+          // this.GetuserRoles();
+          this.sendmail();
           Swal.fire('success', 'saved successfully');
           location.href = "#/UserRoleMappingdash"
 
@@ -88,12 +95,43 @@ export class UserrolemappingComponent implements OnInit {
   }
 
 
+  pinno: any;
+  emailattchementurl = [];
+  public doctorname: any;
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.firstname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
+
+
+  // public GetuserRoles() {
+  //   this.docservice.GetUsers_RoleMapping(this.languageid).subscribe(
+  //     data => {
+  //       this.userlist = data;
+  //       var list= this.userlist.filter(x=>x.)
+
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+
 
   public GetUserRoleList() {
     this.docservice.GetUsers_RoleMapping(this.languageid).subscribe(
       data => {
         this.userlist = data;
-        
+
         var list = this.userlist.filter(x => x.id == this.id)
         this.firstname = list[0].firstName,
           this.lastname = list[0].lastName,
@@ -104,11 +142,15 @@ export class UserrolemappingComponent implements OnInit {
           this.username = list[0].userName,
           this.password = list[0].password,
           this.roleid = list[0].roleID
-          
+
       }, error => {
       }
     )
   }
+
+
+
+
 
 
   public Updatedetails() {
@@ -127,13 +169,16 @@ export class UserrolemappingComponent implements OnInit {
         'RoleID': this.roleid
       }
       this.docservice.UpdateUsers_RoleMapping(entity).subscribe(data => {
-     
-          Swal.fire('success', 'Updated successfully');
-          location.href = "#/UserRoleMappingdash"
 
-       
+
+        Swal.fire('success', 'Updated successfully');
+        location.href = "#/UserRoleMappingdash"
+
+
       })
     }
   }
+
+
 
 }

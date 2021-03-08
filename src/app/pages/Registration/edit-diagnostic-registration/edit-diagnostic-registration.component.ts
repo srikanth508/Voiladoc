@@ -174,8 +174,16 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
     }
     this.docservice.UpdateDiagnosticCenterProfile(entity).subscribe(res => {
       let test = res;
-      this.getdiagnosticdetailsforadmin();
-      Swal.fire(' Updated Successfully');
+      if(this.languageid==1)
+      {
+        this.getdiagnosticdetailsforadmin();
+        Swal.fire(' Updated Successfully');
+      }
+      else{
+        this.getdiagnosticdetailsforadmin();
+        Swal.fire('Mis à jour avec succès');
+      }
+   
     })
 
   }
@@ -227,10 +235,21 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
     }
     this.docservice.UpdateDiagnosticCenterPhotos(entity).subscribe(res => {
       let test = res;
-      this.GetDiagnosticPhotos();
-      Swal.fire(' Updated Successfully');
-      this.diabit = 0;
-      this.showphoto.length = 0
+      if(this.languageid==1)
+      {
+        this.GetDiagnosticPhotos();
+        Swal.fire(' Updated Successfully');
+        this.diabit = 0;
+        this.showphoto.length = 0
+      }
+      else
+      {
+        this.GetDiagnosticPhotos();
+        Swal.fire('Mis à jour avec succès');
+        this.diabit = 0;
+        this.showphoto.length = 0
+      }
+
     })
 
   }
@@ -300,7 +319,7 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
         this.GetDiagnosticRevenue();
       }
       else if (this.languageid == 6) {
-        Swal.fire('Updated Successfully');
+        Swal.fire('Mis à jour avec succès');
         this.GetDiagnosticRevenue();
       }
 

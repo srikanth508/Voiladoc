@@ -57,7 +57,7 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width:18px" (click)="deletephysio(nurse.id)">
+                <img src="assets/Images/dell.png" *ngIf="showdelete=='1'" style="width:18px" (click)="deletephysio(nurse.id)">
               </a>
               &nbsp;
               <ng-template #tipcontent4>{{labels[0].edit}}</ng-template>

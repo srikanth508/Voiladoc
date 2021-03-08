@@ -46,7 +46,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public delipharmacyname: any;
   public partnerlist: any;
   dropzonelable: any;
-
+  labels4:any;
   ngOnInit() {
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -102,6 +102,16 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
 
     this.oberserableTimerpresription();
+
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels4 = data;
+    
+      }, error => {
+      }
+    )
   }
 
 
@@ -165,9 +175,9 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.listid = id;
     this.list = this.orderlist.filter(x => x.id == this.listid)
 
-    this.patientname = this.list[0].patientName,
-      this.mobilernumber = this.list[0].mobileNumber
-    this.address = this.list[0].address
+    this.patientname = this.list[0].relationpatentname,
+      this.mobilernumber = this.list[0].relationmobileno
+    this.address = this.list[0].relatinpaaddess
     this.doctorname = this.list[0].doctorName,
       this.docmobile = this.list[0].docmobile,
       this.email = this.list[0].emailID,

@@ -6,6 +6,10 @@ import { DatePipe } from '@angular/common';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import { timer } from 'rxjs';
+
+
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-nurse-appointments',
   templateUrl: './nurse-appointments.component.html',
@@ -63,6 +67,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
   public paidamount: any;
   public walletamount: any;
+  public labels1: any;
 
   ngOnInit() {
     this.options = {
@@ -104,11 +109,23 @@ export class NurseAppointmentsComponent implements OnInit {
 
     this.timingsss = this.datePipe.transform(this.availabletime, 'h:mm a');
     this.getlanguage()
+
+
+
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+
+      }, error => {
+      }
+    )
   }
 
 
   Obseravabletimer() {
-    
+
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
 
@@ -133,7 +150,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public getnurselist() {
-    
+
     this.docservice.GetBook_Nurse_Appointment(this.nurseid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
 
@@ -185,7 +202,7 @@ export class NurseAppointmentsComponent implements OnInit {
   public canpatientmobileno: any;
 
   public GetCancelAppointmentID(id, bookedTime, appdate, nurseName, hospital_ClinicName, patientID, emailID, paidAmount, walletAmount, mobileNumber) {
-    
+
     this.canappointmentid = id
     this.canslots = bookedTime;
     this.cannursename = nurseName;
@@ -229,20 +246,31 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public updatereson() {
-
     var entity = {
       'ID': this.canappointmentid,
       'ReasonForCancel': this.reason
     }
     this.docservice.UpdateBook_Nurse_AppointmentReasonForCancelBit(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
-      this.InsertCancellNotification();
-      this.InsertNotiFicationCancel();
-      this.SendCancelPatientmail();
-      this.sendsms();
-      this.getnurselist();
-      this.getnurseappointments();
+
+      if (this.languageid == 1) {
+        Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+        this.InsertCancellNotification();
+        this.InsertNotiFicationCancel();
+        this.SendCancelPatientmail();
+        this.sendsms();
+        this.getnurselist();
+        this.getnurseappointments();
+      }
+      else {
+        Swal.fire('Annuler avec succès');
+        this.InsertCancellNotification();
+        this.InsertNotiFicationCancel();
+        this.SendCancelPatientmail();
+        this.sendsms();
+        this.getnurselist();
+        this.getnurseappointments();
+      }
 
 
     })
@@ -356,10 +384,22 @@ export class NurseAppointmentsComponent implements OnInit {
     }
     this.docservice.UpdateNurse_AvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
-      this.getnurselist();
-      this.getnurseappointments();
-      Swal.fire('Accepted', 'Appointment Accepted Successfully');
 
+      if(this.languageid==1)
+      {
+        this.getnurselist();
+        this.getnurseappointments();
+        Swal.fire('Agenda updated and appointment accepted successfully.');
+  
+      }
+      else
+      {
+        this.getnurselist();
+        this.getnurseappointments();
+        Swal.fire('Agenda mis à jour et rendez-vous accepté avec succès.');
+  
+      }
+    
     })
   }
 
@@ -385,8 +425,13 @@ export class NurseAppointmentsComponent implements OnInit {
     this.time = even.target.value;
   }
   visitappid: any;
+  nursename: any;
+  nurseaddress: any;
+  public address: any;
+  public paidAmount: any;
+  public patientname: any;
 
-  public UpdateVisitedbit(id, bookedtime, apptDatetime, nurseName, hospital_ClinicName, patientID, emailID) {
+  public UpdateVisitedbit(id, bookedtime, apptDatetime, nurseName, hospital_ClinicName, patientID, emailID, details) {
     this.slottime = bookedtime;
     this.appdate = apptDatetime,
       this.visitnurse = nurseName;
@@ -394,40 +439,47 @@ export class NurseAppointmentsComponent implements OnInit {
       this.visitpatientid = patientID;
     this.visitappid = id;
     this.visitemail = emailID,
+      this.nursename = details.nurseName,
+      this.nurseaddress = details.nurseaddress,
+      this.address = details.address,
+      this.paidAmount = details.paidAmount,
+      this.patientname = details.patientName,
       this.getserverdateandtime()
     // if (this.serverdate >= this.appdate) {
     //   if (this.servertime >= this.slottime) {
 
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "The Patient has  Visited!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, Visited!'
-        }).then((result) => {
-          if (result.value) {
-            this.docservice.UpdateBook_Nurse_AppointmentVisitedBit(id).subscribe(res => {
-              let test = res;
-              this.getnurselist();
-              this.getnurseappointments();
-              this.InsertVisitNotification();
-              this.InsertNotiFicationVisited();
-            })
-            Swal.fire(
-              'Yes!',
-              'Patient has been Visited.',
-              'success'
-            )
-            this.InsertVisitNotification();
-            this.InsertNotiFicationVisited();
-          }
-          else {
-            this.getnurselist();
-            this.getnurseappointments();
-          }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "The Patient has  Visited!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Visited!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.UpdateBook_Nurse_AppointmentVisitedBit(id).subscribe(res => {
+          let test = res;
+
+          this.getnurselist();
+          this.getnurseappointments();
+          this.InsertVisitNotification();
+          this.InsertNotiFicationVisited();
+
         })
+        Swal.fire(
+          'Yes!',
+          'Patient has been Visited.',
+          'success'
+        )
+        this.InsertVisitNotification();
+        this.InsertNotiFicationVisited();
+      }
+      else {
+        this.getnurselist();
+        this.getnurseappointments();
+      }
+    })
     //   }
     //   else {
     //     Swal.fire("The Appointment Time Is +" + this.slottime)
@@ -441,7 +493,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public SendCancelPatientmail() {
-    
+
     var entity = {
       'emailto': this.canemail,
       'emailsubject': "The Nurse " + this.cannursename + " Has Cancelled Your Appointment ",
@@ -497,14 +549,12 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public sendsms() {
-    
+
     let Entity = {
       'Contacts': this.canemail,
       'TextMessage': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled."
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      
-
 
     })
   }
@@ -672,6 +722,73 @@ export class NurseAppointmentsComponent implements OnInit {
     this.ispatientbreastfeed = ispatientbrestfeeding
 
   }
+
+
+
+
+  public pdfurl: any;
+
+  public SavePDF() {
+    ;
+    debugger
+    let pdfContent = window.document.getElementById("pdfcontent");
+    var doc = new jsPDF('p', 'mm', "a4");
+    debugger
+    html2canvas(pdfContent).then(canvas => {
+      ;
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+      doc.setFontSize(2);
+
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150);
+      var pdf = doc.output('blob');
+
+      var file = new File([pdf], "NurseReceipts" + ".pdf");
+
+      let body = new FormData();
+      debugger
+      body.append('Dan', file);
+
+      this.docservice.ReceiptUpload(file).subscribe(res => {
+        ;
+        this.pdfurl = res;
+        this.UpdateReceipt();
+        debugger
+      });
+    });
+  }
+
+
+  public UpdateReceipt() {
+    debugger
+    var entity = {
+      'AppointmentID': this.visitappid,
+      'ReceiptURL': this.pdfurl
+    }
+    this.docservice.UpdateBook_Nurse_AppointmentPdfUrl(entity).subscribe(data => {
+      Swal.fire('Receipt Sent Successfully');
+    })
+  }
+
+
+  public GetRecept(id, bookedtime, apptDatetime, nurseName, hospital_ClinicName, patientID, emailID, details) {
+    this.slottime = bookedtime;
+    this.appdate = apptDatetime,
+      this.visitnurse = nurseName;
+    this.visithospital = hospital_ClinicName,
+      this.visitpatientid = patientID;
+    this.visitappid = id;
+    this.visitemail = emailID,
+      this.nursename = details.nurseName,
+      this.nurseaddress = details.nurseaddress,
+      this.address = details.address,
+      this.paidAmount = details.paidAmount,
+      this.patientname = details.patientName
+
+  }
+
+
+
 }
 
 

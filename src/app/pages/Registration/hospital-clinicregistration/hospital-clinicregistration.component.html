@@ -3,10 +3,10 @@
 </ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
+    <div class="col-lg-7">
       <h5> {{labels[0].hospitalOrClinic}}</h5>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-3">
     </div>
     <!-- <div class="col-lg-2">
       <button type="button" routerLink="/HspClidash" class="btn btncolor">{{labels[0].dashboard}}</button>
@@ -167,138 +167,7 @@
             </div>
           </div>
           <br />
-          <div class="row">
-            <div class="col-lg-3">
-              <label>Subscription Type :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-md-8">
-              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()" value="1">Monthly Subscription
-              &nbsp;
-              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"  (click)="Getsubscriptontype()" value="2"> Appointment
-              percentage &nbsp;
-              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"   (click)="Getsubscriptontype()" value="3"> Both
-            </div>
-          </div><br>
-          <div *ngIf="subscriptiontype=='1'">
-            <div class="row">
-              <div class="col-lg-3">
-                <label>MONTHLY SUBSCRIPTION :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" placeholder="Monthly Subscription"  name="monthlysubription"
-                  [(ngModel)]="monthlysubription" class="form-control"
-                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Contract start date :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract start date" [minDate]="today" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractstartdate" bsDatepicker>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Contract end date :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract end date" [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractenddate" bsDatepicker>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="subscriptiontype=='2'">
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Appointment Percentage :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
-                  [(ngModel)]="appointmentpercentage" class="form-control"
-                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Contract start date :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract start date"  [minDate]="today" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractstartdate" bsDatepicker>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Contract end date :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract end date"  [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractenddate" bsDatepicker>
-              </div>
-            </div> 
-          </div>
-          <div *ngIf="subscriptiontype=='3'">
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Appointment Percentage :</label>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
-                  [(ngModel)]="appointmentpercentage" class="form-control"
-                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-lg-3">
-                <label>MONTHLY SUBSCRIPTION :</label>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
-                  [(ngModel)]="monthlysubription" class="form-control"
-                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Contract start date :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [minDate]="today" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract start date" name="contractstartdate" [minDate]="today"  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractstartdate" bsDatepicker>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-lg-3">
-                <label>Contract end date :</label>
-                <span class="required">*</span>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="Contract end date" [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractenddate" bsDatepicker>
-              </div>
-            </div>
-          </div><br>
+      
           <!-- <div class="row">
             <div class="col-lg-3">
               <label>Open 24 hrs:</label>
@@ -411,7 +280,8 @@
         <button type="button" style="float: right;" class="btn btncolor nextbtncolor"
           awNextStep>{{labels[0].next}}</button>
       </aw-wizard-step>
-      <aw-wizard-step stepTitle="{{labels[0].facilities}}">
+      <aw-wizard-step stepTitle="">
+        <!-- {{labels[0].facilities}} -->
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-3">
@@ -473,6 +343,148 @@
             </div>
           </div>
           <br>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].subscriptiontype}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-md-8">
+              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()" value="1">{{labels[0].monthlySubscription}}
+              &nbsp;
+              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"  (click)="Getsubscriptontype()" value="2"> {{labels[0].appointmentpercentage}}
+               &nbsp;
+              <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"   (click)="Getsubscriptontype()" value="3"> {{labels[0].both}}
+            </div>
+          </div><br>
+          <div *ngIf="subscriptiontype=='1'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].monthlySubscription}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="{{labels[0].monthlySubscription}}"  name="monthlysubription"
+                  [(ngModel)]="monthlysubription" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Contract start date :</label>
+                <label *ngIf="languageid=='6'">Début de l’abonnement :</label>
+               
+
+                <!-- <label *ngIf="languageid=='1'">Contract start date :</label> -->
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="{{labels[0].contractstratdate}}" [minDate]="today" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractstartdate" bsDatepicker>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Contract end date :</label>
+                <label *ngIf="languageid=='6'">Fin de l’abonnement :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="{{labels[0].contractenddate}}" [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" bsDatepicker>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="subscriptiontype=='2'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].appointmentpercentage}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="{{labels[0].appointmentpercentage}}" name="appointmentpercentage"
+                  [(ngModel)]="appointmentpercentage" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Contract start date :</label>
+                <label *ngIf="languageid=='6'">Début de l’abonnement :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="{{labels[0].contractstratdate}}"  [minDate]="today" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractstartdate" bsDatepicker>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Contract end date :</label>
+                <label *ngIf="languageid=='6'">Fin de l’abonnement :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="{{labels[0].contractenddate}}"  [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" bsDatepicker>
+              </div>
+            </div> 
+          </div>
+          <div *ngIf="subscriptiontype=='3'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].appointmentpercentage}} :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
+                  [(ngModel)]="appointmentpercentage" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].monthlySubscription}} :</label>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" placeholder="{{labels[0].monthlySubscription}}" name="monthlysubription"
+                  [(ngModel)]="monthlysubription" class="form-control"
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Contract start date :</label>
+
+                <label *ngIf="languageid=='6'">Début de l’abonnement :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [minDate]="today" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="{{labels[0].contractstratdate}}" name="contractstartdate" [minDate]="today"  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractstartdate" bsDatepicker>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Contract end date :</label>
+                <label *ngIf="languageid=='6'">Fin de l’abonnement :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+                placeholder="{{labels[0].contractenddate}}" [minDate]="contractstartdate" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" bsDatepicker>
+              </div>
+            </div>
+          </div><br>
           <div class="row">
             <div class="col-lg-5">
             </div>

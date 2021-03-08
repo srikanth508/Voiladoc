@@ -1,6 +1,6 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-9" style="margin-top: -2px;"> 
+    <div class="col-lg-9" style="margin-top: -2px;">
       <h5>{{labels[0].physiotherapist}}</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
@@ -20,7 +20,7 @@
     </div>
     <div class="col-lg-2">
       <label *ngIf="languageid=='1'" style="margin-left: 60px;"><b>Count : {{count}}</b></label>
-      <label *ngIf="languageid=='6'"  style="margin-left: 60px;"><b>Nombre : {{count}}</b></label>
+      <label *ngIf="languageid=='6'" style="margin-left: 60px;"><b>Nombre : {{count}}</b></label>
     </div>
   </div><br>
   <div class="row">
@@ -39,25 +39,26 @@
             *ngFor="let details of physiologinlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.name}}</td>
             <td>{{details.userName}}</td>
-            <td>{{details.password}}</td>
+            <td>{{details.encryptPassword}}</td>
             <td>
               <ng-template #tipcontent3>{{labels[0].disable}}</ng-template>
               <button type="button" [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'"
                 (click)="DisablePhysiotherapistLogin(details.physiotherapistID)"
                 style="background-color: green;color: aliceblue;border: none;">{{labels[0].disable}}</button>
 
-                <ng-template #tipcontent2>{{labels[0].enable}}</ng-template>
-                <button type="button" [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'"
-                  (click)="EnablePhysiotherapistLogin(details.physiotherapistID)"
-                  style="background-color: red;color: aliceblue;border: none;">{{labels[0].enable}}</button> &nbsp;
+              <ng-template #tipcontent2>{{labels[0].enable}}</ng-template>
+              <button type="button" [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'"
+                (click)="EnablePhysiotherapistLogin(details.physiotherapistID)"
+                style="background-color: red;color: aliceblue;border: none;">{{labels[0].enable}}</button> &nbsp;
 
-                
-                  <ng-template #tipcontent1>Edit</ng-template>
-                  <a [ngbTooltip]="tipcontent1"  style="color:black">
-                    <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal" (click)="GetDeatsils(details)">
-                  </a>
+
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
+                  (click)="GetDeatsils(details)">
+              </a>
             </td>
-           
+
         </thead>
       </table><br><br>
     </div>
@@ -75,7 +76,8 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -86,44 +88,69 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #doctorForm="ngForm">
-          <div class="row">
-            <div class="col-lg-4">
-              <label>{{labels[0].userName}} :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-6"> 
-              <input type="text" class="form-control" name="username" disabled required [(ngModel)]="username" placeholder="{{labels[0].userName}}"
-                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
-            </div>
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>{{labels[0].enteryourpin}} </label>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-lg-4">
-              <label>{{labels[0].password}} :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-6">
-              <input type="text" class="form-control" name="password" required [(ngModel)]="password"
-                placeholder="{{labels[0].password}}">
-              <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span>
-            </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
+              placeholder="{{labels[0].enteryourpin}}">
           </div>
-          <br><br>
-          <div class="row">
-            <div class="col-lg-5">
+          <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels[0].validate}}</button>
+          </div>
+        </div>
+        <div *ngIf="Showpassword=='1'">
+          <form #doctorForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].pinno}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno">
+              </div>
             </div>
-            <div class="col-lg-2">
-              <button type="button"  class="btn allbtns btncolor"
-                (click)="insertdetails()"  [disabled]="doctorForm.form.invalid"  >{{labels[0].update}}</button>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].userName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="username" disabled required [(ngModel)]="username"
+                  placeholder="{{labels[0].userName}}"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+              </div>
             </div>
-            <div class="col-lg-5">
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].password}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="password" required [(ngModel)]="password"
+                  placeholder="{{labels[0].password}}">
+                <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span>
+              </div>
             </div>
-          </div><br><br>
-        </form>
+            <br><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn allbtns btncolor" (click)="insertdetails()"
+                  [disabled]="doctorForm.form.invalid">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div><br><br>
+          </form>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="close"   class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" id="close" class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

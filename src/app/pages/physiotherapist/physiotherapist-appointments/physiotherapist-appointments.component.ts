@@ -5,6 +5,9 @@ import { formatDate } from "@angular/common";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import { timer } from 'rxjs';
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-physiotherapist-appointments',
   templateUrl: './physiotherapist-appointments.component.html',
@@ -19,11 +22,11 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
   public appointmentist: any;
 
 
-  SDate=new Date();
-  EDate=new Date();
-  public todaydate:any;
-  public nurseid:any;
-  public appdate:any;
+  SDate = new Date();
+  EDate = new Date();
+  public todaydate: any;
+  public nurseid: any;
+  public appdate: any;
 
 
 
@@ -32,41 +35,42 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
   public acceptappointmentid: any;
   public availbledate: any;
   time: any;
-  public acceptnurseid:any;
+  public acceptnurseid: any;
 
-  public CurrentTime:any;
+  public CurrentTime: any;
 
-  startdate:any;
-  enddate:any;
-  value:any;
+  startdate: any;
+  enddate: any;
+  value: any;
   public serverdate: any;
   public servertime: any;
   public serverdateandtime: any;
-  public slottime:any;
+  public slottime: any;
 
   public acceptslots: any;
   public acceptphysioname: any;
   public acceptpatientid: any;
-  public acceptemail:any;
-  public accepthospital:any;
-  
-  
+  public acceptemail: any;
+  public accepthospital: any;
+
+
   public canslots: any;
   public canphysioname: any;
   public canpatientid: any;
-  public canemail:any;
-  public canhospital:any;
-  public ampmtime:any;
+  public canemail: any;
+  public canhospital: any;
+  public ampmtime: any;
 
 
   public languageid: any;
-  public labels:any;
-  public visiname:any;
-public vispatientid:any;
-public visiemail:any;
-public paidamount:any;
-public walletamount:any;
-public totaladdmoney:any;
+  public labels: any;
+  public visiname: any;
+  public vispatientid: any;
+  public visiemail: any;
+  public paidamount: any;
+  public walletamount: any;
+  public totaladdmoney: any;
+  public labels1: any;
 
   ngOnInit() {
 
@@ -81,7 +85,7 @@ public totaladdmoney:any;
     };
 
 
-    
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -91,30 +95,43 @@ public totaladdmoney:any;
     // To display "0" as "12" 
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
-  
-    var kkk=this.SDate.setDate(this.SDate.getDate() - 0);
-  var lll=this.EDate.setDate(this.EDate.getDate() + 7);
 
-  const format = 'yyyy-MM-dd';
-  const myDate = new Date();
-  const locale = 'en-US';
-  this.todaydate = formatDate(myDate, format, locale);
-  this.startdate=formatDate(kkk, format, locale);
-  this.enddate=formatDate(lll, format, locale);
-  this.languageid = localStorage.getItem('LanguageID');
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+
+    const format = 'yyyy-MM-dd';
+    const myDate = new Date();
+    const locale = 'en-US';
+    this.todaydate = formatDate(myDate, format, locale);
+    this.startdate = formatDate(kkk, format, locale);
+    this.enddate = formatDate(lll, format, locale);
+    this.languageid = localStorage.getItem('LanguageID');
     this.physioid = localStorage.getItem('physioid');
     this.getphysiolist();
     this.getserverdateandtime();
- 
+
     this.getlanguage();
     this.Obseravabletimer();
+
+
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+
+      }, error => {
+      }
+    )
+
+
   }
 
 
 
-  
+
   Obseravabletimer() {
-    
+
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
 
@@ -124,33 +141,32 @@ public totaladdmoney:any;
     });
   }
 
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
-    )  
+    )
   }
 
 
   public getphysiolist() {
-    this.docservice.GetBook_Physio_Appointment(this.physioid,this.startdate,this.enddate,this.languageid).subscribe(
+    this.docservice.GetBook_Physio_Appointment(this.physioid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.appointmentist = data;
       }, error => {
       }
-    )      
+    )
   }
 
   public getserverdateandtime() {
-   
+
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
-       
+
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
@@ -158,48 +174,47 @@ public totaladdmoney:any;
       }
     )
   }
-  selectedDate(data){
-   
-      // var sdate=data.split('-')
-      // this.startdate=sdate[0]
-      // this.enddate=sdate[1]
-      this.startdate = data[0].toLocaleString().split(',')[0];
-      this.enddate = data[1].toLocaleString().split(',')[0];
-      this.physionappointments()
+  selectedDate(data) {
+
+    // var sdate=data.split('-')
+    // this.startdate=sdate[0]
+    // this.enddate=sdate[1]
+    this.startdate = data[0].toLocaleString().split(',')[0];
+    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.physionappointments()
   }
 
-  public physionappointments()
-  {
-    this.docservice.GetBook_Physio_Appointment(this.physioid,this.startdate,this.enddate,this.languageid).subscribe(
+  public physionappointments() {
+    this.docservice.GetBook_Physio_Appointment(this.physioid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.appointmentist = data;
       }, error => {
       }
     )
   }
 
-  public canmobileno:any;
+  public canmobileno: any;
 
-  
-  public GetCancelAppointmentID(id,bookedTime,name,patientID,emailID,hospital_ClinicName,paidAmount,walletAmount,mobileNumber) {
-   
+
+  public GetCancelAppointmentID(id, bookedTime, name, patientID, emailID, hospital_ClinicName, paidAmount, walletAmount, mobileNumber) {
+
     this.canappointmentid = id,
-    this.canslots = bookedTime;
-    this.canphysioname=name;
+      this.canslots = bookedTime;
+    this.canphysioname = name;
     this.canpatientid = patientID;
-    this.canemail=emailID;
-    this.canhospital=hospital_ClinicName;
-    this.paidamount=paidAmount;
-    this.walletamount=walletAmount;
-    this.canmobileno=mobileNumber;
+    this.canemail = emailID;
+    this.canhospital = hospital_ClinicName;
+    this.paidamount = paidAmount;
+    this.walletamount = walletAmount;
+    this.canmobileno = mobileNumber;
 
-   
+
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
-   
+
   }
 
-  
+
   public updatedateails() {
     var entity = {
       'PatientID': this.canpatientid,
@@ -215,87 +230,83 @@ public totaladdmoney:any;
   //accept notificatiom
 
   public InsertCancelNotification() {
-   
-    if(this.languageid=='1')
-    {
-    var entity = {
-      'PatientID': this.canpatientid,
-      'Notification': "Appointment Cancelled By Physiotherapist.",
-      'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
-      'NotificationTypeID': 26,
-      'Date': this.todaydate,
-      'LanguageID': this.languageid,
-      'AppointmentID':this.canappointmentid
-    }
-    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-     
-      if (data != 0) {
 
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.canpatientid,
+        'Notification': "Appointment Cancelled By Physiotherapist.",
+        'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
+        'NotificationTypeID': 26,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.canappointmentid
       }
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
 
-    })
-  }
-  else if(this.languageid=='6')
-  {
-    var entity = {
-      'PatientID': this.canpatientid,
-      'Notification': "Rendez-vous annulé par un physiothérapeute.",
-      'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.",
-      'NotificationTypeID': 26,
-      'Date': this.todaydate,
-      'LanguageID': this.languageid,
-      'AppointmentID':this.canappointmentid
+        if (data != 0) {
+
+        }
+
+      })
     }
-    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-     
-      if (data != 0) {
-
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.canpatientid,
+        'Notification': "Rendez-vous annulé par un physiothérapeute.",
+        'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.",
+        'NotificationTypeID': 26,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.canappointmentid
       }
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
 
-    })
-  }
+        if (data != 0) {
+
+        }
+
+      })
+    }
   }
   public InsertNotiFicationCancel() {
-   
-    if(this.languageid=='1')
-    {
-    var entity = {
-      'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
-      'ToUser': this.canemail,
-    }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-     
-      if (data != 0) {
 
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
+        'ToUser': this.canemail,
       }
-    })
-  }
-  else if(this.languageid=='6')
-  {
-    var entity = {
-      'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots  + " a été annulé.",
-      'ToUser': this.canemail,
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
     }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-     
-      if (data != 0) {
-
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.",
+        'ToUser': this.canemail,
       }
-    })
-  }
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
   }
 
-public emailattchementurl=[]
-public cclist:any;
-public bcclist:any;
+  public emailattchementurl = []
+  public cclist: any;
+  public bcclist: any;
 
 
   public SendCancelPatientmail() {
-    
+
     var entity = {
       'emailto': this.canemail,
       'emailsubject': "The Physiotherapist " + this.canphysioname + " Has Cancelled Your Appointment ",
-      'emailbody': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
+      'emailbody': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
       'attachmenturl': this.emailattchementurl,
       'cclist': this.cclist,
       'bcclist': this.bcclist
@@ -309,8 +320,14 @@ public bcclist:any;
   public CancelAppointment() {
     this.docservice.UpdateBook_Physio_AppointmentcancelledBit(this.canappointmentid).subscribe(
       data => {
-       
-        Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+
+        if(this.languageid==1)
+        {
+          Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+        }
+       else{
+        Swal.fire('Annuler avec succès');
+       }
       }, error => {
       }
     )
@@ -325,15 +342,15 @@ public bcclist:any;
   }
 
 
-  
+
   public sendsms() {
-    
+
     let Entity = {
       'Contacts': this.canmobileno,
-      'TextMessage': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots +  " has been Cancelled.",
+      'TextMessage': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
     }
     this.docservice.SendSMS(Entity).subscribe(data => {
-      
+
 
 
     })
@@ -342,21 +359,27 @@ public bcclist:any;
 
 
 
-  
+
 
 
   public updatereson() {
-   
     var entity = {
       'ID': this.canappointmentid,
       'ReasonForCancel': this.reason
     }
     this.docservice.UpdateBook_Physio_AppointmentReasonForCancel(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
-      this.getphysiolist();
-      this.physionappointments()
-
+      if(this.languageid==1)
+      {
+        Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
+        this.getphysiolist();
+        this.physionappointments()
+      }
+      else{
+        Swal.fire('Annuler avec succès');
+        this.getphysiolist();
+        this.physionappointments()
+      }
     })
   }
 
@@ -368,22 +391,21 @@ public bcclist:any;
 
 
 
-  public GetAcceptAppointmentID(id,phsysioid,bookedTime,name,patientID,emailID,hospital_ClinicName) {
+  public GetAcceptAppointmentID(id, phsysioid, bookedTime, name, patientID, emailID, hospital_ClinicName) {
     this.acceptappointmentid = id;
-    this.acceptnurseid=phsysioid;
+    this.acceptnurseid = phsysioid;
     this.acceptslots = bookedTime;
-    this.acceptphysioname=name;
+    this.acceptphysioname = name;
     this.acceptpatientid = patientID;
-    this.acceptemail=emailID;
-    this.accepthospital=hospital_ClinicName;
+    this.acceptemail = emailID;
+    this.accepthospital = hospital_ClinicName;
 
   }
-  public acceptappointment()
-  {
+  public acceptappointment() {
     this.docservice.UpdateBook_Physio_AppointmentAcceptedBit(this.acceptappointmentid).subscribe(
       data => {
-       
-     
+
+
       }, error => {
       }
     )
@@ -394,271 +416,269 @@ public bcclist:any;
 
 
   public InsertAcceptNotification() {
-   
-    if(this.languageid=='1')
-    {
-    var entity = {
-      'PatientID': this.acceptpatientid,
-      'Notification': "Appointment Accepted By Physiotherapist.",
-      'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots +" has been Accepted.",
-      'NotificationTypeID': 26,
-      'Date': this.todaydate,
-      'LanguageID': this.languageid,
-      'AppointmentID':this.acceptappointmentid
-      
-    }
-    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-     
-      if (data != 0) {
-      }
-    })
-  }
-  else if(this.languageid=='6')
-  {
-    var entity = {
-      'PatientID': this.acceptpatientid,
-      'Notification': "Rendez-vous accepté par un physiothérapeute.",
-      'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots +" a été accepté.",
-      'NotificationTypeID': 26,
-      'Date': this.todaydate,
-      'LanguageID': this.languageid,
-      'AppointmentID':this.acceptappointmentid
-    }
-    this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-     
-      if (data != 0) {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.acceptpatientid,
+        'Notification': "Appointment Accepted By Physiotherapist.",
+        'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots + " has been Accepted.",
+        'NotificationTypeID': 26,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.acceptappointmentid
 
       }
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
 
-    })
-  }
+        if (data != 0) {
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.acceptpatientid,
+        'Notification': "Rendez-vous accepté par un physiothérapeute.",
+        'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots + " a été accepté.",
+        'NotificationTypeID': 26,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.acceptappointmentid
+      }
+      this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+
+      })
+    }
   }
   public InsertNotiFicationAccept() {
-   
-    if(this.languageid=='1')
-    {
-    var entity = {
-      'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots +" has been Accepted.",
-      'ToUser': this.acceptemail,
-    }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-     
-      if (data != 0) {
 
+    if (this.languageid == '1') {
+      var entity = {
+        'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots + " has been Accepted.",
+        'ToUser': this.acceptemail,
       }
-    })
-  }
-  else if(this.languageid=='6')
-  {
-    var entity = {
-      'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots + " a été accepté.",
-      'ToUser': this.acceptemail,
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
     }
-    this.docservice.PostGCMNotifications(entity).subscribe(data => {
-     
-      if (data != 0) {
-
+    else if (this.languageid == '6') {
+      var entity = {
+        'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots + " a été accepté.",
+        'ToUser': this.acceptemail,
       }
-    })
+      this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
   }
-  }
 
 
 
 
 
-  public getfromampm(even)
-  {
-   
-    this.ampmtime=even.target.value;
+  public getfromampm(even) {
+
+    this.ampmtime = even.target.value;
   }
 
 
 
 
   public InsertNextAvailableSlots() {
-   
+
     var entity = {
       'AppointmentID': this.acceptappointmentid,
-      'AvailabilityTime':  this.time
+      'AvailabilityTime': this.time
     }
     this.docservice.UpdatePhysiotherapist_AvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
-      this.getphysiolist();
-      this.physionappointments()
-      Swal.fire('Accepted','Appointment Accepted Successfully');
 
+      if(this.languageid==1)
+      {
+        this.getphysiolist();
+        this.physionappointments()
+        Swal.fire('Agenda updated and appointment accepted successfully.');
+      }
+      else{
+        this.getphysiolist();
+        this.physionappointments()
+        Swal.fire('Agenda mis à jour et rendez-vous accepté avec succès.');
+      }
     })
   }
 
 
   public GetTime(even) {
-   
+
     this.time = even.target.value;
   }
 
-  visitid:any;
+  visitid: any;
 
-  public UpdateVisitedbit(id,bookedTime,appdate,name,patientID,emailID) {
-    this.slottime=bookedTime;
-    this.appdate=appdate;
-    this.visiname=name;
-    this.vispatientid=patientID;
-    this.visiemail=emailID;
-    this.visitid=id
-   
+  public UpdateVisitedbit(id, bookedTime, appdate, name, patientID, emailID) {
+    this.slottime = bookedTime;
+    this.appdate = appdate;
+    this.visiname = name;
+    this.vispatientid = patientID;
+    this.visiemail = emailID;
+    this.visitid = id
+
     // if(this.serverdate>=this.slottime)
     // {
     //   if(this.servertime>=this.servertime)
     //   {
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "The Patient has Visited!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, Visited!'
-        }).then((result) => {
-          if (result.value) {
-            this.docservice.UpdateBook_Physio_AppointmentIsVisitedBit(id).subscribe(res => {
-              let test = res;
-         this.getphysiolist();
-         this.physionappointments()
-            })
-            Swal.fire(
-              'Yes!',
-              'Patient has been Visited.',
-              'success'
-            )
-          }
-          else {
-            this.getphysiolist();
-            this.physionappointments()
-          }
-        })
-      // }
-      // }
-      // else{
-      //   Swal.fire("The Appointment Time is"+this.slottime)
-      // }
-
-      
-    }
-
-
-    public UpdatepatientNotVisited(id)
-    {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "The Patient has Not Visited!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Not Visited!'
-      }).then((result) => {
-        if (result.value) {
-          this.docservice.UpdateBook_Physio_AppointmentNotVisitedBit(id).subscribe(res => {
-            let test = res;
-       this.getphysiolist();
-       this.physionappointments()
-          })
-          Swal.fire(
-            'Yes!',
-            'Patient has Not  Visited.',
-            'success'
-          )
-        }
-        else {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "The Patient has Visited!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Visited!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.UpdateBook_Physio_AppointmentIsVisitedBit(id).subscribe(res => {
+          let test = res;
           this.getphysiolist();
           this.physionappointments()
-        }
-      })
-    }
+        })
+        Swal.fire(
+          'Yes!',
+          'Patient has been Visited.',
+          'success'
+        )
+      }
+      else {
+        this.getphysiolist();
+        this.physionappointments()
+      }
+    })
+    // }
+    // }
+    // else{
+    //   Swal.fire("The Appointment Time is"+this.slottime)
+    // }
+
+
+  }
+
+
+  public UpdatepatientNotVisited(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "The Patient has Not Visited!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Not Visited!'
+    }).then((result) => {
+      if (result.value) {
+        this.docservice.UpdateBook_Physio_AppointmentNotVisitedBit(id).subscribe(res => {
+          let test = res;
+          this.getphysiolist();
+          this.physionappointments()
+        })
+        Swal.fire(
+          'Yes!',
+          'Patient has Not  Visited.',
+          'success'
+        )
+      }
+      else {
+        this.getphysiolist();
+        this.physionappointments()
+      }
+    })
+  }
 
 
 
 
 
-    //visited notification
+  //visited notification
 
 
 
 
 
 
-    public InsertVisitedNotification() {
-     
-      if(this.languageid=='1')
-      {
+  public InsertVisitedNotification() {
+
+    if (this.languageid == '1') {
       var entity = {
         'PatientID': this.vispatientid,
         'Notification': "Appointment Visited",
-        'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime +" has been Visited.",
+        'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime + " has been Visited.",
         'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.visitid
+        'AppointmentID': this.visitid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
     }
-    else if(this.languageid=='6')
-    {
+    else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.vispatientid,
         'Notification': "Rendez-vous accepté par un physiothérapeute.",
-        'Description': "Votre rendez-vous avec " + this.visiname + " prévu pour " + this.slottime +"a été visité.",
+        'Description': "Votre rendez-vous avec " + this.visiname + " prévu pour " + this.slottime + "a été visité.",
         'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
-        'AppointmentID':this.visitid
+        'AppointmentID': this.visitid
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
-       
+
         if (data != 0) {
-  
+
         }
-  
+
       })
     }
-    }
-    public InsertNotiFicationVisited() {
-     
-      if(this.languageid=='1')
-      {
+  }
+  public InsertNotiFicationVisited() {
+
+    if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime +" has been Visited.",
+        'Description': "Your Appointment with " + this.visiname + " scheduled for " + this.slottime + " has been Visited.",
         'ToUser': this.visiemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
-  
+
         }
       })
     }
-    else if(this.languageid=='6')
-    {
+    else if (this.languageid == '6') {
       var entity = {
         'Description': "Votre rendez-vous avec " + this.visiname + " prévu pour " + this.slottime + " a été visité.",
         'ToUser': this.visiemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
-       
+
         if (data != 0) {
-  
+
         }
       })
     }
-    }
+  }
 
 
-    
+
   ispatientpragnent: any;
   ispatientbreastfeed: any;
 
@@ -667,4 +687,75 @@ public bcclist:any;
     this.ispatientbreastfeed = ispatientbrestfeeding
 
   }
+
+
+
+
+
+
+  public pdfurl: any;
+
+  public SavePDF() {
+    ;
+    debugger
+    let pdfContent = window.document.getElementById("pdfcontent");
+    var doc = new jsPDF('p', 'mm', "a4");
+    debugger
+    html2canvas(pdfContent).then(canvas => {
+      ;
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+      doc.setFontSize(2);
+
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150);
+      var pdf = doc.output('blob');
+
+      var file = new File([pdf], "PhysioRecipts" + ".pdf");
+
+      let body = new FormData();
+      debugger
+      body.append('Dan', file);
+
+      this.docservice.ReceiptUpload(file).subscribe(res => {
+        ;
+        this.pdfurl = res;
+        this.UpdateReceipt();
+        debugger
+      });
+    });
+  }
+
+  public UpdateReceipt() {
+    debugger
+    var entity = {
+      'AppointmentID': this.visitid,
+      'ReceiptURL': this.pdfurl
+    }
+    this.docservice.UpdateBook_Physio_AppointmentPdfUrl(entity).subscribe(data => {
+      Swal.fire('Receipt Sent Successfully');
+    })
+  }
+
+  public patientname: any;
+  public address: any;
+  public physioname: any;
+  public hospital: any;
+  public physioaddrees: any;
+  public GetRecept(id, bookedTime, appdate, name, patientID, emailID, details) {
+    debugger
+    this.slottime = bookedTime;
+    this.appdate = appdate;
+    this.visiname = name;
+    this.vispatientid = patientID;
+    this.visiemail = emailID;
+    this.visitid = id;
+    this.patientname = details.patientName,
+      this.address = details.address,
+      this.physioname = details.name,
+      this.hospital = details.hospital_ClinicName,
+      this.physioaddrees = details.physioAddess,
+      this.paidamount = details.paidAmount
+      debugger
+  }
+
 }

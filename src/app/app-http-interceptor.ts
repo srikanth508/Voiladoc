@@ -17,7 +17,6 @@ export class AppHttpInterceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
 ;
-
         console.log('intercepted request ... ');
         const token =  localStorage.getItem('token');   ;
         // Clone the request to add the new header.

@@ -252,12 +252,12 @@ export class DiagnosticsregistrationComponent implements OnInit {
           location.href = "#/DiagnesticDashboard"
 
         }
-        // else {
-        //   Swal.fire('Diagnostic Center Name', 'Already Exists');
-        //   this.clear();
-        //   this.spinner.hide();
-        //   location.href="#/DiagnesticDashboard"
-        // }
+        else {
+          Swal.fire('Diagnostic Center Name', 'Already Exists');
+          // this.clear();
+          this.spinner.hide();
+          // location.href="#/DiagnesticDashboard"
+        }
       })
 
     }

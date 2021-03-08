@@ -214,30 +214,62 @@ export class DiagnesticDashboardComponent implements OnInit {
 
   public deletediagnosticcenter(id) {
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Diagnostic Center!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteDiagnosticCenter(id).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Diagnostic Center!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDiagnosticCenter(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticforadmin();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Diagnostic Center has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.getdiagnosticforadmin();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Diagnostic Center has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getdiagnosticforadmin();
-      }
-    })
+        }
+      })
+    }
+    else if(this.languageid==6)
+    {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDiagnosticCenter(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticforadmin();
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.getdiagnosticforadmin();
+        }
+      })
+    }
+  
   }
 
   public getglmasterexcel() {

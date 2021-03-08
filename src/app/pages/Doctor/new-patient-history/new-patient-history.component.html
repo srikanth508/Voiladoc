@@ -49,6 +49,12 @@
         <b>{{address}}</b>
       </label>
     </div>
+    <div class="col-lg-3">
+      <label>
+        Age :
+        <b>{{age}}</b>
+      </label>
+    </div>
   </div>
 </div>
 <br>
@@ -119,12 +125,16 @@
         <thead>
           <tr>
             <th id="imp">{{labels[0].appointmentDate}}</th>
+            <th>{{labels1[0].patientName}}</th>
+            <th>{{labels1[0].phoneNo}}</th>
             <th>{{labels1[0].department}}</th>
             <th>{{labels1[0].doctorName}}</th>
             <th>{{labels[0].prescription}}</th>
           </tr>
           <tr *ngFor="let pre of prescriptionlist">
             <td>{{pre.appdate}}</td>
+            <td>{{pre.pName}}</td>
+            <td>{{pre.pMobileNo}}</td>
             <td>{{pre.departmentname}}</td>
             <td>{{pre.doctorName}}</td>
             <td>
@@ -421,8 +431,7 @@
                 <!-- <span style="color: red;">*</span> -->
               </div>
               <div class="col-lg-7">
-                <input type="text" class="form-control" [(ngModel)]="icrdescription" disabled name="icrdescription"
-                  />
+                <input type="text" class="form-control" [(ngModel)]="icrdescription" disabled name="icrdescription" />
               </div>
             </div>
             <br>

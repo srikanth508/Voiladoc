@@ -115,6 +115,8 @@ export class OrdersComponent implements OnInit {
       }, error => {
       }
     )
+
+    
   }
 
 
@@ -230,7 +232,7 @@ export class OrdersComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Qui',
+        confirmButtonText: 'Oui',
         cancelButtonText: 'Annuler'
       }).then((result) => {
         if (result.value) {
@@ -295,8 +297,8 @@ export class OrdersComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Qui',
-        cancelButtonText: 'Annuler'
+        confirmButtonText: 'OUI',
+        cancelButtonText: 'RETOUR'
 
       }).then((result) => {
         if (result.value) {
@@ -365,8 +367,8 @@ export class OrdersComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Qui',
-        cancelButtonText: 'Annuler'
+        confirmButtonText: 'OUI',
+        cancelButtonText: 'RETOUR'
       }).then((result) => {
         if (result.value) {
           this.docservice.UpdateDiagnosticAppointmentsApproveBit(appointmentID).subscribe(res => {
@@ -504,18 +506,39 @@ export class OrdersComponent implements OnInit {
       this.docservice.InsertPatient_DiagnosticUploads(entity).subscribe(data => {
 
         if (data != 0) {
-          Swal.fire('Success', 'Report Added Successfully');
-          this.VisitOrder(this.appointmentsid);
-          this.attachmentsurl.length = 0;
-          this.showphoto.length = 0;
-          this.getdiagnosticAppointmentsbyid();
-          this.getdiagnosticAppointment();
+          if (this.languageid == 1) {
+            Swal.fire('Success', 'Report successfully sent to the patient');
+            this.VisitOrder(this.appointmentsid);
+            this.attachmentsurl.length = 0;
+            this.showphoto.length = 0;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+          }
+          else {
+            Swal.fire('Rapport envoyé avec succès au patient.');
+            this.VisitOrder(this.appointmentsid);
+            this.attachmentsurl.length = 0;
+            this.showphoto.length = 0;
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+          }
         }
         else {
-          this.VisitOrder(this.appointmentsid);
-          this.UpdateDiaReport();
-          this.getdiagnosticAppointmentsbyid();
-          this.getdiagnosticAppointment();
+          if (this.languageid == 1) {
+            this.VisitOrder(this.appointmentsid);
+            this.UpdateDiaReport();
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+            Swal.fire('Success', 'Report successfully sent to the patient');
+          }
+          else {
+            this.VisitOrder(this.appointmentsid);
+            this.UpdateDiaReport();
+            this.getdiagnosticAppointmentsbyid();
+            this.getdiagnosticAppointment();
+            Swal.fire('Rapport envoyé avec succès au patient.');
+          }
+
         }
       })
     }
@@ -583,12 +606,13 @@ export class OrdersComponent implements OnInit {
       })
     }
   }
+  hideupdate: any;
 
 
-
-  public GetTestsID(id) {
+  public GetTestsID(id, hideupdate) {
 
     this.diatestid = id;
+    this.hideupdate = hideupdate;
     this.GetDiaTests()
   }
 
@@ -839,7 +863,7 @@ export class OrdersComponent implements OnInit {
   public orderid: any;
 
   public GetAssaignOrderdetails(details) {
-    
+
     this.orderid = details.id;
     this.patientid = details.patientID
     this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
@@ -850,7 +874,7 @@ export class OrdersComponent implements OnInit {
 
 
   public Insertdetails(list) {
-    
+
     var entity = {
       'OrderID': this.orderid,
       'PatientID': this.patientid,
@@ -918,7 +942,7 @@ export class OrdersComponent implements OnInit {
 
 
   public GetChatShowID(details) {
-    
+
     this.patientid = details.patientID;
     this.chatpatientemail = details.emailID;
     this.chatappointmentid = details.id;
@@ -1067,7 +1091,7 @@ export class OrdersComponent implements OnInit {
 
   public GetAttachments(id) {
     this.docservice.GetDiagnosticAppointmentPhotos(id).subscribe(data => {
-      
+
       this.attachments = data;
     })
   }
@@ -1075,7 +1099,7 @@ export class OrdersComponent implements OnInit {
 
 
   public GetAppointmentAcceptBit(appointmentID, patientID, diagnosticCenterName, slotName, emailID) {
-    this.appointmentsid=appointmentID;
+    this.appointmentsid = appointmentID;
     this.accpatientid = patientID;
     this.acceptcenter = diagnosticCenterName;
     this.accslot = slotName;
@@ -1085,9 +1109,9 @@ export class OrdersComponent implements OnInit {
 
 
   public GetAppointmentAccept() {
-    
+
     this.docservice.UpdateDiagnosticAppointmentsByType(this.appointmentsid, this.amount).subscribe(data => {
-      
+
       this.getdiagnosticAppointmentsbyid();
       this.getdiagnosticAppointment();
       this.InsertAccptNotification()
@@ -1096,15 +1120,14 @@ export class OrdersComponent implements OnInit {
         Swal.fire('Accepted', 'Order has been Accepted.');
       }
       else {
-        Swal.fire('Enregistré !.','Commande acceptée')
+        Swal.fire('Enregistré !.', 'Commande acceptée')
       }
     })
   }
 
 
 
-  public GetPdf(pdf)
-  {
+  public GetPdf(pdf) {
     window.open(pdf, "_blank");
   }
 }

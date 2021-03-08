@@ -19,7 +19,7 @@ export class PharmacyregistrationComponent implements OnInit {
   public licensevalidtil: any;
   public phno: any;
   public email: any;
-  public address: any;
+  public address: any;q
   public zipcode: any;
   public timings: any;
   public website: any;

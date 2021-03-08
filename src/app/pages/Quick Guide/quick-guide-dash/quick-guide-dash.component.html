@@ -1,0 +1,98 @@
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row headerspace">
+    <div class="col-lg-9">
+      <h5>Quick Guide</h5>
+    </div>
+    <div class="col-lg-3" style="text-align: end;">
+      <button type="button" routerLink="/AddQuickGuide" class="btn btncolor">{{labels[0].add}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-7">
+
+    </div>
+    <div class="col-lg-2">
+      <span style="margin-left:50px"> Count : <b>{{count}}</b></span>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <!-- <th>Topic Name</th> -->
+            <th>Chapter Name</th>
+            <!-- <th>Sub Chapter Name</th> -->
+            <th>Description</th>
+            <th>Photo</th>
+            <th>Video</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let details of quicklist|filter:term">
+            <td>{{details.typeName}}</td>
+            <!-- <td>{{details.topicName}}</td> -->
+            <td>{{details.chapterName}}</td>
+            <!-- <td>{{details.subTopicName}}</td> -->
+            <td>
+              <p innerHTML="{{details.description}}"></p>
+            </td>
+            <td>
+              <img src="{{details.photoUrl}}" *ngIf="details.photo!='0'" style="width: 90px; height: 61px;">
+            </td>
+            <td>
+              <div class="video" *ngIf="details.video!='0'">
+                <video controls id="videoPlayer" autoplay style="height: 127px; width: auto;">
+                  <source src="{{details.videoUrl}}"  type="video/mp4" style="height: 20px;width: auto;" /> Browser not
+                  supported
+                </video>
+              </div>
+
+            </td>
+            <td>
+              <ng-template #tipcontent2>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteQuickGuide(details.id)">
+              </a>&nbsp;
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditQuickGuide',details.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a>
+
+
+              <img src="assets/Images/imgicon.png" title="Images" 
+              (click)="GetImagesID(details.id)" data-toggle="modal" data-target="#exampleModalLong2"
+                style="margin: 2%;width: 20px;" />&nbsp;
+          
+
+            </td>
+           
+            <!-- <td>
+             
+            </td> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
+      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div><br><br> -->
+</div>
+<br>

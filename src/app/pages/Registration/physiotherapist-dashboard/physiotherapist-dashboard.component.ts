@@ -35,10 +35,13 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   public countrylist: any;
   public hospitalclinicid: any;
   public dummlistphysiolist: any;
-  public countrymanaerid:any;
-  public showexportbutton:any;
-  public salesrepresntiveid:any;
-  public showeditbutton:any;
+  public countrymanaerid: any;
+  public showexportbutton: any;
+  public salesrepresntiveid: any;
+  public showeditbutton: any;
+
+  meridionalid: any;
+  showdelete:any;
 
   ngOnInit() {
 
@@ -46,23 +49,32 @@ export class PhysiotherapistDashboardComponent implements OnInit {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+    this.meridionalid = localStorage.getItem('meridionalid');
+
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
-    if(this.salesrepresntiveid!=undefined)
-    {
-      this.showeditbutton=1
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
     }
-    else{
-      this.showeditbutton=0;
+    else {
+      this.showeditbutton = 0;
     }
 
-    
-  if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
-    this.showexportbutton = 1;
-  }
-  
+
+    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
+
+    if(this.meridionalid==undefined)
+    {
+      this.showdelete=0;
+    }
+    else
+    {
+      this.showdelete=1;
+    }
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id']
     }
     )
@@ -74,7 +86,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
+
           this.dummlistphysiolist = data;
           this.physioist = this.dummlistphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.physioist.length
@@ -85,7 +97,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
     else if (this.id != undefined) {
       this.docservice.GetPhysiotherapyRegistrationForWeb(this.languageid, this.startdate, this.enddate).subscribe(
         data => {
-         
+
           this.physioist = data;
           this.dummlist = this.physioist
           this.count = this.physioist.length
@@ -96,14 +108,14 @@ export class PhysiotherapistDashboardComponent implements OnInit {
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
     );
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels2 = data;
       },
       error => { }
@@ -118,7 +130,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistRegistration_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -128,7 +140,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   public getphysiolist() {
     this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.physioist = data;
         this.dummlist = this.physioist
         this.count = this.physioist.length
@@ -140,7 +152,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -150,7 +162,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.physioist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -164,10 +176,10 @@ export class PhysiotherapistDashboardComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -177,7 +189,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.physioist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -193,10 +205,10 @@ export class PhysiotherapistDashboardComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -207,7 +219,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.physioist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.physioist.length
@@ -221,31 +233,61 @@ export class PhysiotherapistDashboardComponent implements OnInit {
 
 
   public deletephysio(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Physioterapist!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeletePhysiotherapyRegistrationAdmin(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Physioterapist!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeletePhysiotherapyRegistrationAdmin(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Physioterapist has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.ngOnInit();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Physioterapist has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.ngOnInit();
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeletePhysiotherapyRegistrationAdmin(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit();
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.ngOnInit();
+        }
+      })
+    }
+
+
   }
 
   public getglmasterexcel() {
@@ -254,7 +296,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -272,7 +314,7 @@ export class PhysiotherapistDashboardComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

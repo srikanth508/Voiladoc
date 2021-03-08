@@ -6,6 +6,7 @@ import * as XLSX from 'xlsx';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 import * as FileSaver from 'file-saver';
+
 @Component({
   selector: 'app-local-doc-dash',
   templateUrl: './local-doc-dash.component.html',
@@ -13,7 +14,7 @@ import * as FileSaver from 'file-saver';
 })
 export class LocalDocDashComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   public languageid: any;
   public labels: any;
@@ -32,9 +33,13 @@ export class LocalDocDashComponent implements OnInit {
   public countrylist: any;
   public countrymanaerid: any;
   public showexportbutton: any;
+  meridionalid: any;
+  showdelete:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.meridionalid = localStorage.getItem('meridionalid');
 
     if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
@@ -46,7 +51,14 @@ export class LocalDocDashComponent implements OnInit {
       }, error => {
       }
     )
-
+    if(this.meridionalid==undefined)
+    {
+      this.showdelete=0;
+    }
+    else
+    {
+      this.showdelete=1;
+    }
 
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
@@ -200,7 +212,7 @@ export class LocalDocDashComponent implements OnInit {
 
 
 
-  
+
   public getglmasterexcel() {
     let hhh = this.tableToJson(document.getElementById('Doc'));
     this.exportAsExcelFile(hhh, "Doctors List");

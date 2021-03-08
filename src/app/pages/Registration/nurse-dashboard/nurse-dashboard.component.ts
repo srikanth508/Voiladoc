@@ -36,10 +36,12 @@ export class NurseDashboardComponent implements OnInit {
   public areaid: any;
   public countrylist: any;
   public hospitalclinicid: any;
-  public countrymanaerid:any;
-  public showexportbutton:any;
-  public salesrepresntiveid:any;
-  public showeditbutton:any;
+  public countrymanaerid: any;
+  public showexportbutton: any;
+  public salesrepresntiveid: any;
+  public showeditbutton: any;
+  meridionalid: any;
+  showdelete:any;
 
 
   ngOnInit() {
@@ -49,24 +51,32 @@ export class NurseDashboardComponent implements OnInit {
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
 
-    if(this.salesrepresntiveid!=undefined)
-    {
-      this.showeditbutton=1
+    this.meridionalid = localStorage.getItem('meridionalid');
+
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
     }
-    else{
-      this.showeditbutton=0;
+    else {
+      this.showeditbutton = 0;
     }
 
-  if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
-    this.showexportbutton = 1;
-  }
+    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+      this.showexportbutton = 1;
+    }
 
     this.activatedroute.params.subscribe(params => {
-    
+
       this.id = params['id']
     }
     )
-
+    if(this.meridionalid==undefined)
+    {
+      this.showdelete=0;
+    }
+    else
+    {
+      this.showdelete=1;
+    }
     this.languageid = localStorage.getItem('LanguageID');
     if (this.hospitalclinicid == undefined) {
       this.getnurselist();
@@ -74,7 +84,7 @@ export class NurseDashboardComponent implements OnInit {
     if (this.hospitalclinicid != undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
         data => {
-         
+
           this.dummlist = data;
           this.nurselist = this.dummlist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
           this.count = this.nurselist.length
@@ -82,11 +92,11 @@ export class NurseDashboardComponent implements OnInit {
         }
       )
     }
-    else  if(this.id!=undefined){
+    else if (this.id != undefined) {
 
       this.docservice.GetNurseRegistrationForWeb(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-         
+
           this.nurselist = data;
           this.count = this.nurselist.length
         }, error => {
@@ -95,14 +105,14 @@ export class NurseDashboardComponent implements OnInit {
     }
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
       error => { }
     );
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels2 = data;
       },
       error => { }
@@ -121,7 +131,7 @@ export class NurseDashboardComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
 
       }, error => {
@@ -131,7 +141,7 @@ export class NurseDashboardComponent implements OnInit {
 
   public GetCountryID(even) {
     if (even.target.value != 0) {
-     
+
       this.countryid = even.target.value;
 
       this.nurselist = this.dummlist.filter(x => x.countryID == this.countryid)
@@ -145,10 +155,10 @@ export class NurseDashboardComponent implements OnInit {
     }
   }
   public getcity() {
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
       }, error => {
       }
@@ -158,7 +168,7 @@ export class NurseDashboardComponent implements OnInit {
 
   public GetCityID(even) {
     if (even.target.value != 0) {
-     
+
       this.cityid = even.target.value;
       this.getareamasterbyid()
       this.nurselist = this.dummlist.filter(x => x.cityID == this.cityid)
@@ -174,10 +184,10 @@ export class NurseDashboardComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
 
       }, error => {
@@ -188,7 +198,7 @@ export class NurseDashboardComponent implements OnInit {
 
   public GetAreaID(even) {
     if (even.target.value != 0) {
-     
+
       this.areaid = even.target.value;
       this.nurselist = this.dummlist.filter(x => x.areaID == this.areaid)
       this.count = this.nurselist.length
@@ -202,7 +212,7 @@ export class NurseDashboardComponent implements OnInit {
   public getnurselist() {
     this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.nurselist = data;
         this.dummlist = this.nurselist
         this.count = this.nurselist.length
@@ -214,7 +224,7 @@ export class NurseDashboardComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -222,31 +232,60 @@ export class NurseDashboardComponent implements OnInit {
   }
 
   public deletenurse(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Nurse!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteNurseRegistration(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Nurse!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteNurseRegistration(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Nurse has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.ngOnInit()
-        })
-        Swal.fire(
-          'Deleted!',
-          'Nurse has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.ngOnInit()
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteNurseRegistration(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.ngOnInit()
+        }
+      })
+    }
+
   }
 
 
@@ -256,7 +295,7 @@ export class NurseDashboardComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -274,7 +313,7 @@ export class NurseDashboardComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

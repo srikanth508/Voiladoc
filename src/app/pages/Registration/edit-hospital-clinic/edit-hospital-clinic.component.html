@@ -174,7 +174,7 @@
               </div>
               <div class="col-lg-2">
                 <button type="button" [disabled]="hospitalForm.form.invalid||validEmail==false" text_align="center"
-                  class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].update}}</button>
+                  class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].save}}</button>
               </div>
               <div class="col-lg-5">
               </div>
@@ -191,9 +191,12 @@
 
                   <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone><br>
+                <span *ngFor="let hspphoto of showphoto">
+                  <img src="{{hspphoto}}" style="height: 35px; width: auto;">
+                </span>
               </div><br><br><br>
               <div class="col-lg-9" *ngIf="mulbit=='1'">
-                <button class="btn btncolor" (click)="UpdateMultiplePhotos()">{{labels[0].update}}</button>
+                <button class="btn btncolor" (click)="UpdateMultiplePhotos()">{{labels[0].save}}</button>
               </div>
             </div>
           </form>
@@ -206,7 +209,7 @@
               <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
             </ngx-dropzone>
             <span *ngFor="let hspphoto of showphoto">
-              <img src="{{hspphoto}}">
+              <img src="{{hspphoto}}" style="height: 35px; width: auto;">
             </span>
           </div><br><br><br>
           <div class="col-lg-8" *ngIf="showdrop=='1'">
@@ -216,7 +219,10 @@
       </div><br>
       <div class="row">
         <div class="col-lg-12">
-          <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>Next</button><br>
+          <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>
+            <label *ngIf="languageid=='1'">Next</label>
+            <label *ngIf="languageid=='6'">Suivant </label>
+          </button><br>
         </div>
       </div>
     </div><br><br>
@@ -225,49 +231,49 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3">
-          <label>Subscription Type :</label>
+          <label>{{labels[0].subscriptiontype}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-md-8">
           <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()"
-            [value]="1">Monthly Subscription
+            [value]="1">{{labels[0].monthlySubscription}}
           &nbsp;
           <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()"
-            [value]="2"> Appointment
-          percentage &nbsp;
+            [value]="2"> {{labels[0].appointmentpercentage}}
+           &nbsp;
           <input type="radio" name="subscriptiontype" [(ngModel)]="subscriptiontype" (click)="Getsubscriptontype()"
-            [value]="3"> Both
+            [value]="3"> {{labels[0].both}}
         </div>
       </div><br>
       <div *ngIf="subscriptiontype=='1'">
         <div class="row">
           <div class="col-lg-3">
-            <label>Monthly Subscription :</label>
+            <label>{{labels[0].monthlySubscription}} :</label>
           </div>
           <div class="col-lg-4">
-            <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+            <input type="text" placeholder="{{labels[0].monthlySubscription}}" name="monthlysubription"
               [(ngModel)]="monthlysubription" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label>Contract start date :</label>
+            <label>{{labels[0].contractstratdate}} :</label>
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            placeholder="{{labels[0].contractstratdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractstartdate" bsDatepicker>
           </div>
         </div>
         <br />
         <div class="row">
           <div class="col-lg-3">
-            <label>Contract end date :</label>
+            <label>{{labels[0].contractenddate}} :</label>
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractenddate" bsDatepicker>
           </div>
         </div> 
@@ -275,22 +281,22 @@
       <div *ngIf="subscriptiontype=='2'">
         <div class="row">
           <div class="col-lg-3">
-            <label>Appointment Percentage :</label>
+            <label>{{labels[0].appointmentpercentage}} :</label>
           </div>
           <div class="col-lg-4">
-            <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
+            <input type="text" placeholder="{labels[0].appointmentpercentage}}" name="appointmentpercentage"
               [(ngModel)]="appointmentpercentage" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label>Contract start date :</label>
+            <label>{{labels[0].contractstratdate}} :</label>
     
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            placeholder="{{labels[0].contractstratdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractstartdate" bsDatepicker>
           </div>
         </div>
@@ -298,11 +304,11 @@
     
         <div class="row">
           <div class="col-lg-3">
-            <label>Contract end date :</label>
+            <label>{{labels[0].contractenddate}} :</label>
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractenddate" bsDatepicker>
           </div>
         </div> 
@@ -310,10 +316,10 @@
       <div *ngIf="subscriptiontype=='3'">
         <div class="row">
           <div class="col-lg-3">
-            <label>Appointment Percentage :</label>
+            <label>{{labels[0].appointmentpercentage}} :</label>
           </div>
           <div class="col-lg-4">
-            <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
+            <input type="text" placeholder="{{labels[0].appointmentpercentage}}" name="appointmentpercentage"
               [(ngModel)]="appointmentpercentage" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
@@ -321,22 +327,22 @@
         <br />
         <div class="row">
           <div class="col-lg-3">
-            <label>Monthly Subscription :</label>
+            <label>{{labels[0].monthlySubscription}} :</label>
           </div>
           <div class="col-lg-4">
-            <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+            <input type="text" placeholder="{{labels[0].monthlySubscription}}" name="monthlysubription"
               [(ngModel)]="monthlysubription" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label>Contract start date :</label>
+            <label>{{labels[0].contractstratdate}} :</label>
     
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="Contract start date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            placeholder="{{labels[0].contractstratdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractstartdate" bsDatepicker>
           </div>
         </div>
@@ -344,11 +350,11 @@
     
         <div class="row">
           <div class="col-lg-3">
-            <label>Contract end date :</label>
+            <label>{{labels[0].contractenddate}} :</label>
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="Contract end date" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractenddate" bsDatepicker>
           </div>
         </div> 
@@ -359,10 +365,10 @@
           <table>
             <thead>
               <tr>
-                <th>Contract start date</th>
-                <th>Contract end date</th>
-                <th>Monthly subscription</th>
-                <th>Appointment Percentage</th>
+                <th>{{labels[0].contractstratdate}}</th>
+                <th>{{labels[0].contractenddate}}</th>
+                <th>{{labels[0].monthlySubscription}}</th>
+                <th>{{labels[0].appointmentpercentage}}</th>
                 <!-- <th>Actions</th> -->
               </tr>
               <tr *ngFor="let subscriptions of subscrilist">
@@ -388,13 +394,16 @@
       </div>
       <div class="col-lg-2">
         <button type="button"  text_align="center"
-          class="btn btn-block btn-md allbtns btncolor" (click)="InsertSubscriptionRevenue()">{{labels[0].update}}</button>
+          class="btn btn-block btn-md allbtns btncolor" (click)="InsertSubscriptionRevenue()">{{labels[0].save}}</button>
       </div>
       <div class="col-lg-5">
       </div>
     </div><br><br>
     <button type="button" style="float: left" class="btn btncolor dashbtn nextbtncolor"
-    awPreviousStep>Previous</button>
+    awPreviousStep>
+    <label *ngIf="languageid=='1'">Previous</label>
+    <label *ngIf="languageid=='6'">Précédent</label>
+    </button>
     <br>
   </aw-wizard-step><br>
 

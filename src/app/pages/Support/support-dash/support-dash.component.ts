@@ -32,10 +32,10 @@ export class SupportDashComponent implements OnInit {
   public term: any;
   public dummlist: any;
   public count: any;
-  public supportid:any;
-  public countrymanaerid:any;
-  public showexportbutton:any;
-  public dropzonelable:any;
+  public supportid: any;
+  public countrymanaerid: any;
+  public showexportbutton: any;
+  public dropzonelable: any;
 
   ngOnInit() {
     this.spinner.show();
@@ -45,13 +45,13 @@ export class SupportDashComponent implements OnInit {
     }, 800);
 
     this.languageid = localStorage.getItem('LanguageID');
-   this.supportid= localStorage.getItem('supportid');
-   this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    this.supportid = localStorage.getItem('supportid');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
 
-   
-  if (this.countrymanaerid != undefined || this.supportid != undefined) {
-    this.showexportbutton = 1;
-  }
+
+    if (this.countrymanaerid != undefined || this.supportid != undefined) {
+      this.showexportbutton = 1;
+    }
 
     this.options = {
       theme: 'default',
@@ -71,7 +71,7 @@ export class SupportDashComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -82,14 +82,12 @@ export class SupportDashComponent implements OnInit {
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? 0 + minutes : minutes;
     this.CurrentTime = hours + ':' + minutes + ' ' + newformat;
-    
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
     this.getlanguage();
     this.getsupport();
@@ -100,7 +98,7 @@ export class SupportDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -110,7 +108,7 @@ export class SupportDashComponent implements OnInit {
   public getsupport() {
     this.docservice.GetSupport(this.startdate, this.enddate).subscribe(
       data => {
-       
+
         this.supportlist = data;
         this.dummlist = this.supportlist
         this.count = this.supportlist.length
@@ -121,35 +119,66 @@ export class SupportDashComponent implements OnInit {
 
 
   public GetSupportResolvedBit(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "This Issue Has Accept!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Accept!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.GetSupportResolvedBit(id).subscribe(res => {
-          let test = res;
+
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "This Issue Has Accept!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Accept!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetSupportResolvedBit(id).subscribe(res => {
+            let test = res;
+            this.getsupport();
+          })
+          Swal.fire(
+            'Resolved!',
+            'Issue has been Accepted.',
+            'success'
+          )
+        }
+        else {
           this.getsupport();
-        })
-        Swal.fire(
-          'Resolved!',
-          'Issue has been Accepted.',
-          'success'
-        )
-      }
-      else {
-        this.getsupport();
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "This Issue Has Accept!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Oui, J'accepte",
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetSupportResolvedBit(id).subscribe(res => {
+            let test = res;
+            this.getsupport();
+          })
+          // Swal.fire(
+          //   'Resolved!',
+          //   'Issue has been Accepted.',
+          //   'success'
+          // )
+        }
+        else {
+          this.getsupport();
+        }
+      })
+    }
+
+
   }
 
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -161,23 +190,23 @@ export class SupportDashComponent implements OnInit {
 
   public GetResolvedStatus(even) {
     if (even.target.value == '1') {
-     
+
       let dfsfd = this.dummlist.filter(x => x.resolve == 1);
-     
+
       this.supportlist = dfsfd;
       this.count = this.supportlist.length
 
     }
     if (even.target.value == '2') {
-     
+
       let dfsfd = this.dummlist.filter(x => x.resolve == 0);
-     
+
       this.supportlist = dfsfd;
       this.count = this.supportlist.length
 
     }
     if (even.target.value == '0') {
-     
+
       this.getsupport();
     }
   }
@@ -188,7 +217,7 @@ export class SupportDashComponent implements OnInit {
   }
 
   public tableToJson(table) {
-   
+
     var data = []; // first row needs to be headers
     var headers = [];
     for (var i = 0; i < table.rows[0].cells.length; i++) {
@@ -206,7 +235,7 @@ export class SupportDashComponent implements OnInit {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-   
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -222,69 +251,85 @@ export class SupportDashComponent implements OnInit {
 
 
 
-  
-  identityattachmentsurlssss=[]
-  showidentityproof=[];
-  issuephoto=[];
-  issuephotourl=[];
+
+  identityattachmentsurlssss = []
+  showidentityproof = [];
+  issuephoto = [];
+  issuephotourl = [];
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
-      this.identityattachmentsurlssss = []
-      this.issuephoto.push(abcd.addedFiles[0]);
-      this.uploadid();
+    this.identityattachmentsurlssss = []
+    this.issuephoto.push(abcd.addedFiles[0]);
+    this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Photo ajoutée');
+      abcd.length = 0;
+    }
   }
 
   public uploadid() {
     this.docservice.pharmacyphoto(this.issuephoto).subscribe(res => {
-     
+
       this.issuephotourl.push(res);
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
-     
+
       let b = 'https://maroc.voiladoc.org' + a;
       this.showidentityproof.push(b)
-     
+
     })
     // this.sendattachment();
   }
 
 
 
-public removetgdescription:any;
-public description:any;
-public resolveid:any;
+  public removetgdescription: any;
+  public description: any;
+  public resolveid: any;
 
 
-public GetSupportResolveID(id)
-{
-  this.resolveid=id;
-}
+  public GetSupportResolveID(id) {
+    this.resolveid = id;
+  }
 
   public insertdetails() {
 
     document.getElementById("qwerty").innerHTML = this.description;
     this.removetgdescription = document.getElementById("qwerty").innerText;
-   
+
     var entity = {
       'ID': this.resolveid,
       'Comments': this.removetgdescription,
-      'IssuePhotoUrl':  this.issuephotourl[0],
+      'IssuePhotoUrl': this.issuephotourl[0],
     }
     this.docservice.UpdateSupport(entity).subscribe(data => {
       let res = data;
-     
-      Swal.fire('Issue Resolved Successfully')
-      this.description = ""
-      this.issuephotourl = [];
-      this.identityattachmentsurlssss=[];
-      this.showidentityproof=[];
-      this.getsupport();
-     
+      if (this.languageid == 1) {
+        Swal.fire('Issue Resolved Successfully')
+        this.description = ""
+        this.issuephotourl = [];
+        this.identityattachmentsurlssss = [];
+        this.showidentityproof = [];
+        this.getsupport();
+      }
+      else
+      {
+        Swal.fire('Problème résolu et réponse au patient')
+        this.description = ""
+        this.issuephotourl = [];
+        this.identityattachmentsurlssss = [];
+        this.showidentityproof = [];
+        this.getsupport();
+      }
+    
+
     })
   }
 

@@ -49,7 +49,7 @@
       id="Appointment" >
         <thead>
           <tr>
-            <th>Ticket No</th>
+            <th>{{labels1[0].ticketno}}</th>
             <th>{{labels[0].raisedDate}}</th>
             <th>{{labels[0].type}}</th>
             <th>{{labels[0].name}}</th>
@@ -77,9 +77,9 @@
                 data-toggle="modal" data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
             </td>
             <td>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'&&issue.assignMeridional=='0'" style="color:red">{{labels[0].pending}}</label>
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="color:green">{{labels[0].accepted}}</label>
-              <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'" style="color:green">Assigned Meridional</label>
+              <!-- <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'&&issue.assignMeridional=='0'" style="color:red">{{labels1[0].pending}}</label> -->
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="color:green">{{labels1[0].pending}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'" style="color:green">{{labels1[0].assignmeridional}}</label>
               <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
             </td>
             <td>  
@@ -89,7 +89,7 @@
                   (click)="UpdateSupportForWebAcceptedbit(issue.id)" />
               </a>&nbsp;
 
-              <ng-template #tipcontent65>Assign Meridional</ng-template>
+              <ng-template #tipcontent65>{{labels1[0].assignmeridional}}</ng-template>
               <a [ngbTooltip]="tipcontent65">
                 <img src="assets/Images/staff.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="height: 20px;"
                 data-toggle="modal"    data-target="#exampleModalLong4"    (click)="assignMeridiobal(issue.id)" />

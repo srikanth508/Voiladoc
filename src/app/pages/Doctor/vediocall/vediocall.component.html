@@ -3,8 +3,10 @@
     <div class="col-lg-6">
       <!-- <p>Doctor Video</p> -->
       <!-- <br><br> -->
-      <h6 *ngIf="languageid=='1'" style="margin-top:6px">Patient Video <span style="margin-left: 550px;" id="demo"></span> </h6>
-      <h6 *ngIf="languageid=='6'"  style="margin-top:6px">Vidéo patient <span style="margin-left: 550px;" id="demo"></span> </h6>
+      <h6 *ngIf="languageid=='1'" style="margin-top:6px">Patient Video <span style="margin-left: 550px;"
+          id="demo"></span> </h6>
+      <h6 *ngIf="languageid=='6'" style="margin-top:6px">Vidéo patient <span style="margin-left: 550px;"
+          id="demo"></span> </h6>
       <!-- <h6   id="demo"></h6> -->
       <div class="row">
         <div *ngIf="session">
@@ -212,12 +214,14 @@
               Photos : <img src="assets/Images/imgicon.png" *ngIf="photoexist=='1'" title="{{labels[0].images}}"
                 (click)="GetImagesID()" data-toggle="modal" data-target="#exampleModalLong2"
                 style="margin: 2%;width: 20px;" />
-              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;" *ngIf="photoexist=='0'">No Photos</span>&nbsp; <br>
+              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
+                *ngIf="photoexist=='0'">{{labels[0].nophotos}}</span>&nbsp; <br>
 
-              Videos : <img src="assets/Images/showvedio.png" *ngIf="videoexist=='1'" data-toggle="modal"
+              {{labels[0].videoss}} : <img src="assets/Images/showvedio.png" *ngIf="videoexist=='1'" data-toggle="modal"
                 data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetVedioID()" />&nbsp;
-              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;" *ngIf="videoexist=='0'">No Videos</span>
+              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
+                *ngIf="videoexist=='0'">{{labels[0].novideoes}}</span>
 
             </td>
           </tr>
@@ -268,8 +272,8 @@
         <input type="button" class="buttonclass"
           style="background-color: #f18235;border-radius: 14px;color:white;height: 51px;width: 100%; margin: 4px 2px;"
           class="btn btn-default" id="stoprecoring" value="{{endsession}}" (click)="stoparchive()" />
-     
-          <input type="button" class="buttonclass"
+
+        <input type="button" class="buttonclass"
           style="background-color: #f18235;border-radius: 14px;color:white;height: 51px;width: 100%; margin: 4px 2px;"
           class="btn btn-default" *ngIf="showclosebutton=='0'" value="{{endsession}}" (click)="closewindow()" />
       </div>
@@ -287,7 +291,7 @@
 <div class="modal hide fade" id="Addprescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
   <div class="modal-dialog modal-xl" style="float: right;">
-    <div class="modal-content" style="width:700px;">
+    <div class="modal-content" style="width:756px;">
       <div class="modal-header modal-xl">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addPrescription}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -345,10 +349,9 @@
                 <input type="text" [(ngModel)]="medicinename" name="medicinename" class="form-control"
                   placeholder="{{labels[0].drugName}}" (ngModelChange)="SerchDrugName(medicinename)">
               </div><br>
-
             </div>
             <div class="row" *ngIf="SerachOn=='1'">
-              <div class="col-lg-12">
+              <div class="col-lg-7">
                 <table style="overflow-y:auto;">
                   <thead>
                     <tr>
@@ -446,8 +449,12 @@
             <br>
             <div class="row">
               <div class="col-lg-6">
-                <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
-                  placeholder="{{labels[0].noteToPharmasist}}">
+
+                <textarea class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}" rows="4"></textarea>
+
+                <!-- <input type="text" class="form-control" name="notetopharmacist" [(ngModel)]="notetopharmacist"
+                  placeholder="{{labels[0].noteToPharmasist}}"> -->
               </div>
             </div><br>
             <div class="row">
@@ -505,13 +512,12 @@
                 </table>
               </div>
             </div><br>
-          
             <div class="row" *ngIf="tablecuont1=='1'">
               <div class="col-lg-5">
               </div>
               <div class="col-lg-2">
                 <button type="button" style="color: white;" class="btn btn-default"
-                  (click)="InsertPrescription()">{{labels[0].save}}</button>
+                data-dismiss="modal"  (click)="InsertPrescription()">{{labels[0].save}}</button>
               </div>
               <div class="col-lg-5">
               </div>
@@ -598,7 +604,7 @@
                 </table>
                 <br>
                 <button type="button" *ngIf="tablecount=='1'" class="btn btn-default " style="background-color: #f18235;color: white
-                 ;" (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+                 ;"  data-dismiss="modal" (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
               </div>
 
             </div><br>
@@ -673,8 +679,11 @@
                   [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search" (ngModelChange)="getid()" /> -->
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
-                  placeholder="{{labels[0].followUpPlan}}" />
+                <textarea class="form-control" rows="4" name="followupplan" required [(ngModel)]="followupplan"
+                  placeholder="{{labels[0].followUpPlan}}"></textarea>
+
+                <!-- <input type="text" class="form-control" [(ngModel)]="followupplan" name="followupplan"
+                  placeholder="" /> -->
               </div>
             </div>
             <br>
@@ -751,7 +760,7 @@
               </div>
               <div class="col-lg-2">
                 <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
-                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
+                  data-dismiss="modal"  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
               </div>
               <div class="col-lg-5">
               </div>
@@ -799,7 +808,7 @@
                     <!-- <th>{{labels[0].diagnosis}}</th> -->
                     <th>{{labels[0].noteToPharmasist}}</th>
 
-                    <th>{{labels[0].actions}}</th>
+                    <!-- <th>{{labels[0].actions}}</th> -->
                   </tr>
                   <tr *ngFor="let presciption of prescrptionlist">
                     <td>{{presciption.date}}</td>
@@ -822,11 +831,11 @@
                       <!-- <button type="button" class="form-control"
                      style="background-color: #1dbfd2;"   (click)="renewprescription(presciption)">{{labels[0].renewal}}</button>
                     <br> -->
-                      <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
+                      <!-- <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
                         <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal" data-target="#edirprescription"
                           (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 24px">
-                      </a>
+                      </a> -->
                     </td>
                   </tr>
                 </thead>
@@ -1081,11 +1090,11 @@
                         <img src="assets/Images/pview.png" data-toggle="modal" data-target="#exampleModalLong1"
                           style="height:25px;" (click)="GetSoapID(soppp.soapID)" />
                       </a>&nbsp;
-                      <ng-template #tipcontent9504>Edit</ng-template>
+                      <!-- <ng-template #tipcontent9504>Edit</ng-template>
                       <a [ngbTooltip]="tipcontent9504" style="color:black">
                         <img src="assets/Images/edit.png" *ngIf="soppp.showmyediticon=='1'" data-toggle="modal" data-target="#EditSoapnotes"
                           (click)="GetSoapID(soppp.soapID)" style="width: 23px;"  data-toggle="modal" data-target="#exampleModalLong12345" style="width: 18px">
-                      </a>
+                      </a> -->
                     </td>
                   </tr>
                 </thead>
@@ -1125,20 +1134,20 @@
                     <th>{{labels[0].appointmentDate}}</th>
                     <th>{{labels[0].testType}}</th>
                     <th>{{labels[0].testName}}</th>
-                    <th>Actions</th>
+                    <!-- <th>Actions</th> -->
                     <!-- <th>{{labels[0].reports}}</th> -->
                   </tr>
                   <tr *ngFor="let details of diagnosticlist">
                     <td>{{details.appdate}}</td>
                     <td>{{details.name}}</td>
                     <td>{{details.testName}}</td>
-                    <td>
+                    <!-- <td>
                       <ng-template #tipcontent9503>Edit</ng-template>
                       <a [ngbTooltip]="tipcontent9503" style="color:black">
                         <img src="assets/Images/edit.png" *ngIf="details.showmyediticon=='1'" data-toggle="modal" data-target="#edittest"
                           (click)="GetDiaEditList(details)" style="width: 18px">
                       </a>
-                    </td>
+                    </td> -->
                   </tr>
                 </thead>
               </table>
@@ -1504,9 +1513,9 @@
 
 <div class="modal fade" id="exampleModalLong12345" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true" style="float: right;">
-  <div class="modal-dialog modal-lg" role="document"  style="float: right;width: 709px;">
+  <div class="modal-dialog modal-lg" role="document" style="float: right;width: 709px;">
     <div class="modal-content">
-      <div class="modal-header"  style="width: 709px;">
+      <div class="modal-header" style="width: 709px;">
         <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="details1!=null">
           {{labels[0].previousSoapNotes}}
         </h5>
@@ -1719,27 +1728,28 @@
               <label>{{labels[0].allergies}}</label>
             </div>
             <div class="col-lg-8">
-              <input type="text" class="form-control" placeholder="{{labels[0].allergies}}" [(ngModel)]="addallergies" name="addallergies">
+              <input type="text" class="form-control" placeholder="{{labels[0].allergies}}" [(ngModel)]="addallergies"
+                name="addallergies">
 
               <!-- <ngx-tags-input class="form-control input-xl" style="height: 100px;" [(ngModel)]="allergies"
                 name="allergies"></ngx-tags-input> -->
             </div>
           </div><br>
-      <div class="row">
-        <div class="col-lg-5">
-        </div>
-        <div class="col-lg-2">
-          <button type="button" class="btn btn-primary" (click)="updatedetsils()">{{labels[0].save}}</button>
-        </div>
-        <div class="col-lg-5">
-        </div>
-      </div>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn btn-primary" (click)="updatedetsils()">{{labels[0].save}}</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
 
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{labels[0].close}}</button>
-      
+
       </div>
     </div>
   </div>

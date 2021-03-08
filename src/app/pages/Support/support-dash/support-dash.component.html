@@ -46,8 +46,8 @@
       <table  id="Appointment">
         <thead>
           <tr>
-            <th>Ticket Number</th>
-            <th>{{labels[0].date}}</th>
+            <th>{{labels[0].ticketno}}</th>
+            <th>{{labels[0].supportdate}}</th>
             <th>{{labels[0].time}}</th>
             <th>{{labels[0].patientID}}</th>
             <th>{{labels[0].patientName}}</th>
@@ -67,17 +67,17 @@
             <td>{{details.emailID}}</td>
             <td>{{details.message}}</td>
             <td>
-              <label *ngIf="details.accepted=='1'&&details.resolve=='0'" style="color:red">Pending</label>
+              <label *ngIf="details.accepted=='1'&&details.resolve=='0'" style="color:red">{{labels[0].pending}}</label>
               <label *ngIf="details.accepted=='1'&&details.resolve=='1'" style="color:green">{{labels[0].resolved}}</label>
             </td>
             <td>
-              <ng-template #tipcontent2>Accept</ng-template>
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="details.accepted=='0'"
                   (click)="GetSupportResolvedBit(details.id)" style="height:30px;" />
               </a>&nbsp;
 
-              <ng-template #tipcontent4>Resolve</ng-template>
+              <ng-template #tipcontent4>{{labels[0].resolve}}</ng-template>
               <a [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/edit.png" *ngIf="details.accepted=='1'&&details.resolve=='0'" data-toggle="modal"
                   data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(details.id)" />
@@ -108,7 +108,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Upload Documents</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].uploaddocuments}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -118,7 +118,7 @@
           <form #supportForm="ngForm">
             <div class="row">
               <div class="col-lg-3">
-                <label>Photo :</label>
+                <label>{{labels[0].photo}} :</label>
               </div>
               <div class="col-lg-4">
                 <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"

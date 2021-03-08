@@ -19,17 +19,20 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummphysiolist: any;
-  public count:any;
+  public count: any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.pinno = localStorage.getItem('Pinno');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetPhysiotherapistLoginAdmin();
     this.getlanguage();
   }
+
+
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -38,12 +41,12 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
 
   public GetPhysiotherapistLoginAdmin() {
     if (this.hospitalclinicid == undefined) {
-     
+
       this.docservice.GetPhysiotherapistLoginAdmin(this.languageid).subscribe(
         data => {
-         
+
           this.physiologinlist = data;
-          this.count=this.physiologinlist.length;
+          this.count = this.physiologinlist.length;
         }, error => {
         }
       )
@@ -51,10 +54,10 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
     else if (this.hospitalclinicid != undefined) {
       this.docservice.GetPhysiotherapistLoginAdmin(this.languageid).subscribe(
         data => {
-         
+
           this.dummphysiolist = data;
           this.physiologinlist = this.dummphysiolist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
-          this.count=this.physiologinlist.length;
+          this.count = this.physiologinlist.length;
         }, error => {
         }
       )
@@ -65,9 +68,14 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public DisablePhysiotherapistLogin(id) {
     this.docservice.DisablePhysiotherapistLogin(id).subscribe(
       data => {
-       
-        Swal.fire('Disabled', 'Physiotherapist has been Disabled');
-        this.GetPhysiotherapistLoginAdmin();
+        if (this.languageid == 1) {
+          Swal.fire('Disabled', 'Physiotherapist has been Disabled');
+          this.GetPhysiotherapistLoginAdmin();
+        }
+        else {
+          Swal.fire('Désactivée', 'Accès désactivé');
+          this.GetPhysiotherapistLoginAdmin();
+        }
 
       }, error => {
       }
@@ -77,9 +85,15 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   public EnablePhysiotherapistLogin(id) {
     this.docservice.EnablePhysiotherapistLogin(id).subscribe(
       data => {
-       
-        Swal.fire('Enabled', 'Physiotherapist has been Enabled');
-        this.GetPhysiotherapistLoginAdmin();
+        if (this.languageid == 1) {
+          Swal.fire('Enabled', 'Physiotherapist has been Enabled');
+          this.GetPhysiotherapistLoginAdmin();
+        }
+        else {
+          Swal.fire('Activé', 'Accès Activé');
+          this.GetPhysiotherapistLoginAdmin();
+        }
+
 
       }, error => {
       }
@@ -87,69 +101,91 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
   }
 
   public pageChanged(even) {
-   
+
     this.p = even;
   }
 
-  public username:any;
-  public password:any;
+  public username: any;
+  public password: any;
+  public mypinno: any;
 
-  public GetDeatsils(details)
-  {
-  
-    
-    
-    this.id=details.id,
-    this.username=details.userName,
-    this.password=details.password
+  public GetDeatsils(details) {
+
+    this.id = details.id,
+      this.username = details.userName,
+      this.password = details.password,
+      this.mypinno = details.pinno
+    this.Showpassword = 0;
   }
-  
-
-public pp:any;
-
+  public pp: any;
 
 
   public insertdetails() {
-   if(this.password!=undefined)  {
+    if (this.password != undefined) {
       var valpassword = this.docservice.strongpassword(this.password);
       if (valpassword == false) {
-       
-        this.pp=1;
+
+        this.pp = 1;
       }
-    else {
-      var entity = {
-        'ID': this.id,
-        'UserName': this.username,
-        'Password': this.password
+      else {
+        var entity = {
+          'ID': this.id,
+          'UserName': this.username,
+          'Password': this.password
+        }
+        this.username = '';
+        this.password = '';
+        this.docservice.UpdatePhysiotherapistLogin(entity).subscribe(data => {
+          if (data != 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Success', 'Password Updated Successfully', 'success');
+              this.pp = 0;
+              document.getElementById('close').click();
+              this.GetPhysiotherapistLoginAdmin()
+            }
+            else {
+              Swal.fire('', 'Mis à jour avec succés', 'success');
+              this.pp = 0;
+              document.getElementById('close').click();
+              this.GetPhysiotherapistLoginAdmin()
+            }
+
+          }
+          else {
+            Swal.fire("User Name Already Exists");
+            this.pp = 0;
+            this.GetPhysiotherapistLoginAdmin()
+            document.getElementById('close').click();
+          }
+        })
       }
-      this.username = '';
-      this.password = '';
-      this.docservice.UpdatePhysiotherapistLogin(entity).subscribe(data => {
-        if (data != 0) {
-          if(this.languageid==1)
-          {
-            Swal.fire('Success', 'Password Updated Successfully', 'success');
-            this.pp=0;
-            document.getElementById('close').click();
-            this.GetPhysiotherapistLoginAdmin()
-          }
-          else
-          {
-            Swal.fire('', 'Mis à jour avec succés', 'success');
-            this.pp=0;
-            document.getElementById('close').click();
-            this.GetPhysiotherapistLoginAdmin()
-          }
-       
-        }
-        else{
-          Swal.fire("User Name Already Exists");
-          this.pp=0;
-          this.GetPhysiotherapistLoginAdmin()
-          document.getElementById('close').click();
-        }
-      })
     }
   }
-}
+
+
+  public Enteredpinno: any;
+  public Showpassword: any;
+  public pinno: any;
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      Swal.fire('Please Enter Your Pin No')
+
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
+      }
+    }
+  }
+
 }

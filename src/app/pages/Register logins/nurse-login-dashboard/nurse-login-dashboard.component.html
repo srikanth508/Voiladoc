@@ -38,7 +38,7 @@
             *ngFor="let details of nurseloginlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.nurseName}}</td>
             <td>{{details.userName}}</td>
-            <td>{{details.password}}</td>
+            <td>{{details.encryptpassword}}</td>
             <td>
               <!-- <ng-template #tipcontent3>{{labels[0].disable}}</ng-template> -->
               <button type="button" [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'"
@@ -83,8 +83,31 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>
+              {{labels[0].enteryourpin}}</label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)' [(ngModel)]="Enteredpinno" name="Enteredpinno"
+              placeholder="{{labels[0].enteryourpin}}">
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">Validate</button>
+          </div>
+        </div>
+       <div *ngIf="Showpassword=='1'">
         <form #doctorForm="ngForm">
-        
+          <div class="row">
+            <div class="col-lg-4">
+              <label>{{labels[0].pinno}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno">
+            </div>
+          </div>
+          <br>
           <div class="row">
             <div class="col-lg-4">
               <label>{{labels[0].userName}} :</label>
@@ -119,6 +142,7 @@
             </div>
           </div><br><br>
         </form>
+      </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="close"   class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>

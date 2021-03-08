@@ -3,10 +3,11 @@
 </ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace headercolor">
-    <div class="col-lg-5">
-      <h5>{{labels[0].nsr}}</h5>
+    <div class="col-lg-7">
+      <h5 *ngIf="languageid=='1'">{{labels[0].nsr}}</h5>
+      <h5 *ngIf="languageid=='6'">ENREGISTREMENT INFIRMIER(E)</h5>
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-3">
     </div>
     <!-- <div class="col-lg-2">
       <button type="button" routerLink="/NurseDashboard" class="btn btncolor">{{labels[0].dashboard}}</button>
@@ -112,13 +113,14 @@
     </div>
     <br>
     <div *ngIf="dummid==null">
-      <div class="row" >
+      <div class="row">
         <div class="col-lg-3">
-          <label>Hospital/Clinic: </label>
+          <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
+          <label *ngIf="languageid=='6'">Hôpital / clinique : </label>
         </div>
         <div class="col-lg-4">
-          <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist" [settings]="hospitadd"
-            (onSelect)="GetHospitalID($event)">
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist"
+            [settings]="hospitadd" (onSelect)="GetHospitalID($event)">
           </ng-multiselect-dropdown>
         </div><br>
       </div><br>
@@ -177,18 +179,23 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="number" placeholder="{{labels[0].experience}}" name="exp" [(ngModel)]="exp" required
+        <input type="text" placeholder="{{labels[0].experience}}"  onkeypress='return(event.charCode>=48&&event.charCode<=57)' name="exp" [(ngModel)]="exp" required
           class="form-control">
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label class="dname_label">Education :</label>
+        <label class="dname_label" *ngIf="languageid=='1'">Education :</label>
+        <label class="dname_label" *ngIf="languageid=='6'">Diplôme :</label>
+
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" placeholder="Education" name="education" [(ngModel)]="education" required
+        <input type="text" placeholder="Education"  *ngIf="languageid=='1'" name="education" [(ngModel)]="education" required
+          class="form-control">
+
+          <input type="text" placeholder="Diplôme"  *ngIf="languageid=='6'" name="education" [(ngModel)]="education" required
           class="form-control">
       </div>
     </div>
@@ -199,8 +206,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].spokenLanguages}}" name="spokenlanguages" [(ngModel)]="spokenlanguages" required
-          class="form-control">
+        <input type="text" placeholder="{{labels[0].spokenLanguages}}" name="spokenlanguages"
+          [(ngModel)]="spokenlanguages" required class="form-control">
       </div>
     </div>
     <br>
@@ -265,7 +272,7 @@
           REMARQUE: la taille de l'image doit être inférieure à 1 Mo
           et acceptée uniquement aux formats JPG, PNG et JPEG.
         </p>
-      </div> 
+      </div>
     </div>
     <br>
     <div class="row">

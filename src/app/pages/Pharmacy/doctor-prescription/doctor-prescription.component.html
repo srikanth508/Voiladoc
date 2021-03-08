@@ -33,8 +33,12 @@
             <th *ngIf="languageid=='1'">Pick Up Type</th>
             <th *ngIf="languageid=='6'">Retrait et Livraison </th>
             <!-- <th>{{labels[0].substitablenotpermitedd}} </th> -->
-            <th>{{labels[0].name}}</th>
-            <th>{{labels[0].phoneNo}} </th>
+            <th>{{labels4[0].primarypatientname}}</th>
+            <th>{{labels4[0].phoneNoo}}</th>
+            <th>{{labels4[0].bookedPatientname}}</th>
+            <th>{{labels4[0].bookedpatientphno}}</th>
+            <!-- <th>{{labels[0].name}}</th>
+            <th>{{labels[0].phoneNo}} </th> -->
             <th>{{labels[0].mailId}}</th>
             <th>{{labels[0].deliveryAddress}}</th>
             <th>{{labels[0].medicines}}</th>
@@ -59,7 +63,9 @@
             </td> -->
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
-            <td>{{details.patientemail}}</td>
+            <td>{{details.relationpatentname}}</td>
+            <td>{{details.relationmobileno}}</td>
+            <td>{{details.relationemailid}}</td>
             <td>{{details.address}}</td>
             <td>
               <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
@@ -293,7 +299,7 @@
                                 <!-- {{medicinelist.quantity}} -->
 
                                 <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
-                                  class="form-control" placeholder=" {{labels[0].quantity}}">
+                                 style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
                               </td>
                               <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>

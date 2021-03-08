@@ -12,11 +12,13 @@ export class UserRoleMappingdashComponent implements OnInit {
 
   public languageid: any;
   public search: any;
-  public userlist:any;
+  public userlist: any;
+  public pinno:any;
 
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.pinno = localStorage.getItem('Pinno');
     this.GetUserRoleList()
   }
 
@@ -30,10 +32,24 @@ export class UserRoleMappingdashComponent implements OnInit {
     )
   }
 
+  public password: any;
+  public mypinno: any;
+  public Showpassword: any;
+
+
+  public getpassword(details) {
+    this.password = details.password,
+      this.mypinno = details.pinno
+
+    this.Showpassword = 0;
+  }
+
+
+
 
 
   public DeleteUsers_RoleMapping(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to This user!",
@@ -61,4 +77,28 @@ export class UserRoleMappingdashComponent implements OnInit {
   }
 
 
+
+  public Enteredpinno: any;
+
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      Swal.fire('Please Enter Your Pin No')
+
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
+      }
+    }
+  }
 }

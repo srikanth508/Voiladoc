@@ -32,7 +32,7 @@ export class EditHospitalClinicComponent implements OnInit {
   public validEmail: any;
   public showdrop: any;
   public id: any;
-  public showphoto: any;
+  public showphoto=[];
   public multiplephotos: any;
   public mulphoto: any;
   public multipleid: any;
@@ -193,15 +193,13 @@ export class EditHospitalClinicComponent implements OnInit {
       let test = res;
       this.gethospitalclinicdetailsbyid();
       this.GetMultiplePhotos()
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire(' Updated Successfully');
       }
-     else
-     {
-      Swal.fire(' Mis à jour avec Succés');
-     }
-     location.href="#/HspClidash"
+      else {
+        Swal.fire(' Mis à jour avec Succés');
+      }
+      location.href = "#/HspClidash"
     })
 
   }
@@ -215,7 +213,7 @@ export class EditHospitalClinicComponent implements OnInit {
 
 
   public GetHospitalRevenuesubscriptions() {
-    
+
     this.docservice.GetHospitalClinic_RevenueSubscriptions(this.id).subscribe(data => {
       this.subscriptionslist = data;
       this.subscriptiontype = this.subscriptionslist[0].subscriptionTypeID,
@@ -245,18 +243,27 @@ export class EditHospitalClinicComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Mis à jour avec succès');
+      abcd.length = 0;
+    }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+
   }
+  
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-
+      debugger
       this.attachmentsurl.push(res);
-      // let a = this.attachmentsurl[0].slice(2);
-      //
-      // let b = 'https://maroc.voiladoc.org' + a;
-      // this.showphoto.push(b);
+      let a = this.attachmentsurl[0].slice(2);
+      
+      let b = 'https://maroc.voiladoc.org' + a;
+      debugger
+      this.showphoto.push(b);
 
       this.attachments.length = 0;
 
@@ -271,14 +278,12 @@ export class EditHospitalClinicComponent implements OnInit {
     }
     this.docservice.UpdateHospital_ClinicDetailsMasterPhoto(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire(' Updated Successfully');
       }
-     else
-     {
-      Swal.fire(' Mis à jour avec Succés');
-     }
+      else {
+        Swal.fire(' Mis à jour avec Succés');
+      }
       // Swal.fire(' Updated Successfully');
       this.gethospitalclinicdetailsbyid();
       this.showdrop = 0;
@@ -331,15 +336,13 @@ export class EditHospitalClinicComponent implements OnInit {
     }
     this.docservice.UpdateHospital_ClinicPhotos(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire(' Updated Successfully');
       }
-     else
-     {
-      Swal.fire(' Mis à jour avec Succés');
-     }
-    
+      else {
+        Swal.fire('Mis à jour avec Succés');
+      }
+
 
       this.GetMultiplePhotos();
       this.mulbit = 0;
@@ -347,7 +350,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public InsertSubscriptionRevenue() {
-    
+
     var entity5 = {
       'SubscriptionTypeID': this.subscriptiontype,
       'MonthlySubscription': this.monthlysubription,
@@ -362,13 +365,13 @@ export class EditHospitalClinicComponent implements OnInit {
           Swal.fire('Updated Successfully');
           this.GetHospitalRevenuesubscriptions();
           this.GetSubscriptionrevenue()
-          location.href="#/HspClidash"
+          location.href = "#/HspClidash"
         }
         else if (this.languageid == 6) {
           Swal.fire('Mis à jour avec succés');
           this.GetHospitalRevenuesubscriptions();
           this.GetSubscriptionrevenue();
-          location.href="#/HspClidash"
+          location.href = "#/HspClidash"
         }
       }
       else {
@@ -379,7 +382,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   public Getsubscriptontype() {
-    
+
     this.appointmentpercentage = 0
     this.monthlysubription = 0
   }

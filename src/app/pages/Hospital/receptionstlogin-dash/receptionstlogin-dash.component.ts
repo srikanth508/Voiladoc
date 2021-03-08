@@ -15,9 +15,11 @@ export class ReceptionstloginDashComponent implements OnInit {
   languageID
   labels: any;
   count: any;
-
+  pinno: any;
+  Showpassword: any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
+    this.pinno = localStorage.getItem('Pinno');
     this.languageID = localStorage.getItem('LanguageID');
     this.getreceptionlogin();
     this.getlanguage()
@@ -50,14 +52,15 @@ export class ReceptionstloginDashComponent implements OnInit {
   public id: any;
   public username: any;
   public password: any;
+  public mypinno: any;
 
   public GetDeatsils(details) {
-
-    
-    
+    debugger
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password
+      this.password = details.password,
+      this.mypinno = details.pinno
+    this.Showpassword = 0;
   }
 
 
@@ -69,28 +72,52 @@ export class ReceptionstloginDashComponent implements OnInit {
       'Password': this.password
     }
     this.docservice.UpdateReceiptionistLogin(entity).subscribe(data => {
-      if(data!=0)
-      {
-        if(this.languageID==1)
-        {
+      if (data != 0) {
+        if (this.languageID == 1) {
           Swal.fire('Updated Successfully');
           this.getreceptionlogin();
           document.getElementById('close').click();
         }
-        else
-        {
-          Swal.fire('','Mis à jour avec succés');
+        else {
+          Swal.fire('', 'Mis à jour avec succés');
           this.getreceptionlogin();
           document.getElementById('close').click();
         }
-   
+
       }
-      else{
+      else {
         Swal.fire('User Name Already Exists');
         this.getreceptionlogin();
         document.getElementById('close').click();
       }
-     
+
     })
   }
+
+
+
+
+  public Enteredpinno: any;
+
+  public CheckPasswordvalidate() {
+    debugger
+    if (this.Enteredpinno == "") {
+      debugger
+      Swal.fire('Please Enter Your Pin No')
+
+    }
+    else {
+      debugger
+      if (this.pinno == this.Enteredpinno) {
+        this.Showpassword = 1;
+        this.Enteredpinno = ""
+      }
+      else {
+        debugger
+        Swal.fire('You Entered Pin no is invalid')
+        this.Enteredpinno = ""
+      }
+    }
+  }
+
 }

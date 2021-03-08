@@ -517,6 +517,9 @@ export class DocCalenderComponent implements OnInit {
 
 
 
+
+
+  
   public InsertDayWiseSlots() {
     
     if (this.daychangedate == undefined || this.daychangedate == null) {
@@ -579,6 +582,7 @@ export class DocCalenderComponent implements OnInit {
       this.Daywiseappointmentid = "";
       this.daychangedate = ""
       this.fees = ""
+      this.daychangedate1=""
     }
   }
 
@@ -738,7 +742,6 @@ export class DocCalenderComponent implements OnInit {
       }
     }
 
-
   }
 
 
@@ -806,10 +809,12 @@ export class DocCalenderComponent implements OnInit {
         Swal.fire('Mis à jour avec succés');
       }
       this.timewiseappointmentid = "";
+      this.timechangedate1="";
       this.timechangedate = "";
       this.mrngtoid = "";
       this.mrngfromid = "";
       this.fees = ""
+    
     }
   }
 

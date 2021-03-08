@@ -46,11 +46,13 @@
       <table  id="Appointment" >
         <thead>
           <tr>
-            <th>Ticket No</th>
+            <th>{{labels1[0].ticketno}}</th>
             <th>{{labels[0].raisedDate}}</th>
+            <th>{{labels1[0].time}}</th>
             <th>{{labels[0].type}}</th>
             <th>{{labels[0].name}}</th>
-            <th>Phone No</th>
+            <th *ngIf="languageid=='1'">Phone No</th>
+            <th *ngIf="languageid=='6'">No de tel</th>
             <th>Email</th>
             <th>{{labels[0].issue}}</th>
             <th>{{labels[0].description}}</th>
@@ -63,6 +65,7 @@
           <tr *ngFor="let issue of issuelist|filter:term">
             <td>{{issue.id}}</td>
             <td>{{issue.raiseddate}}</td>
+            <td>{{issue.time}}</td>
             <td>{{issue.typename}}</td>
             <td>{{issue.userName}}</td>
             <td>{{issue.usermobile}}</td>

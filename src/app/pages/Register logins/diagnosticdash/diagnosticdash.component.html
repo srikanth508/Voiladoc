@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
-      <h5>{{labels[0].diagnostic}}</h5>
+      <h5 *ngIf="languageid=='1'">{{labels[0].diagnostic}}</h5>
+      <h5 *ngIf="languageid=='6'">ACCES CENTRES ANALYSES ET IMAGERIE </h5>
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button *ngIf="languageid==1" type="button" routerLink="/Diagnostic" class="btn btncolor">ADD</button>
@@ -31,7 +32,7 @@
             *ngFor="let details of diagnoticloginlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.diagnosticCenterName}}</td>
             <td>{{details.userName}}</td>
-            <td>{{details.password}}</td>
+            <td>{{details.encryptPassword}}</td>
             <ng-template #tipcontent3>{{labels[0].disable}}</ng-template>
             <td> <a [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'">
                 <button (click)="disablediagnostic(details.diagnosticCenterID)"
@@ -77,8 +78,33 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>{{labels[0].enteryourpin}}</label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
+              placeholder="{{labels[0].enteryourpin}}">
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels[0].validate}}</button>
+          </div>
+        </div>
+
+        <div *ngIf="Showpassword=='1'"> 
         <form #doctorForm="ngForm">
-        
+          <div class="row">
+            <div class="col-lg-4">
+              <label>{{labels[0].pinno}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno"
+             
+               >
+            </div>
+          </div>
+          <br>
           <div class="row">
             <div class="col-lg-4">
               <label>{{labels[0].userName}} :</label>
@@ -113,6 +139,7 @@
             </div>
           </div><br><br>
         </form>
+      </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="close"  class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>

@@ -78,6 +78,7 @@ export class SupportCometedTicketsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.GetSupportIssues()
     this.GetLanguageMaster()
+    this.getlanguage()
   }
 
   public GetSupportIssues() {
@@ -99,7 +100,17 @@ export class SupportCometedTicketsComponent implements OnInit {
 
     })
   }
+  labels1:any;
 
+  public getlanguage() {
+    this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+      },
+      error => { }
+    );
+  }
 
   photourl: any;
 

@@ -14,7 +14,7 @@
         text-transform:uppercase;
       }
     
-            label::first-letter{
+            /* label::first-letter{
           text-transform: uppercase;
         }
         input::first-letter{
@@ -23,16 +23,14 @@
         label{
           text-transform: lowercase;
         } 
-        /* input{
-            text-transform: lowercase;
-          } */
+     
           textarea::first-letter{
             text-transform: lowercase;
           }
           textarea{
             text-transform: lowercase;
           }
-    
+     */
     .divspacee{
         margin-top:10px;
       
@@ -46,11 +44,11 @@
         background: #444a48;
         color:white;
        }
-       .placeholder::first-letter
+       /* .placeholder::first-letter
        {
          text-transform: uppercase;
        }
      
        
 input::placeholder
-{ text-transform: lowercase; }
+{ text-transform: lowercase; } */

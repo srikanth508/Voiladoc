@@ -202,8 +202,7 @@ export class ProfileComponent implements OnInit {
     this.dummshowphotossss = []
     this.attachments.push(abcd.addedFiles[0]);
     
-    
-    if (this.attachments[0].type == 'image/jpg' || this.attachments[0].type == 'image/png') {
+    // if (this.attachments[0].type == 'image/jpg' || this.attachments[0].type == 'image/png') {
       
       if (this.languageid == 1) {
         
@@ -216,23 +215,23 @@ export class ProfileComponent implements OnInit {
         Swal.fire('Ajouté avec succès');
         abcd.length = 0;
       }
-    }
-    else {
+    // }
+    // else {
       
-      if(this.languageid==1)
-      {
-        Swal.fire('Please Add Jpg/Png Format');
-        abcd.length = 0;
-        this.attachments.length = 0;
-      }
-      else
-      {
-        Swal.fire('Ajouter uniquement le format JPEG / PNG');
-        abcd.length = 0;
-        this.attachments.length = 0;
-      }
+    //   if(this.languageid==1)
+    //   {
+    //     Swal.fire('Please Add Jpg/Png Format');
+    //     abcd.length = 0;
+    //     this.attachments.length = 0;
+    //   }
+    //   else
+    //   {
+    //     Swal.fire('Ajouter uniquement le format JPEG / PNG');
+    //     abcd.length = 0;
+    //     this.attachments.length = 0;
+    //   }
   
-    }
+    // }
     
     // }
 
@@ -272,6 +271,8 @@ export class ProfileComponent implements OnInit {
       this.showdrop = 0;
       this.dummshowphotossss.length = 0;
       this.showphotosss.length = 0;
+      this.showphotosss=[];
+      this.attachmentsurl=[];
     })
   }
 

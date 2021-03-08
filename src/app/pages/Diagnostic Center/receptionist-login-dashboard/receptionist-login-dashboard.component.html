@@ -34,7 +34,7 @@
                       <th>{{labels[0].email}}</th>
                       <th>{{labels[0].address}}</th>
                       <th>{{labels[0].userName}}</th>
-                      <th>{{labels[0].password}}</th>
+                      <!-- <th>{{labels[0].password}}</th> -->
                       <th>{{labels[0].actions}}</th>
                   </tr>
                   <tr *ngFor="let list of receptionistloginlist|filter:term">
@@ -44,7 +44,7 @@
                       <td>{{list.email}}</td>
                       <td>{{list.address}}</td>
                       <td>{{list.userName}}</td>
-                      <td>{{list.password}}</td>
+                      <!-- <td>{{list.password}}</td> -->
                       <td>
                           <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
                           <a [ngbTooltip]="tipcontent2">
@@ -53,7 +53,12 @@
 
                           <ng-template #tipcontent95585>{{labels[0].edit}}</ng-template>
                           <a [ngbTooltip]="tipcontent95585" style="color:black">
-                              <img src="assets/Images/edit.png" style="width: 18px" [routerLink]="['/ReceptionistLogin',list.id]"></a>
+                              <img src="assets/Images/edit.png" style="width: 18px" [routerLink]="['/ReceptionistLogin',list.id]"></a>&nbsp;
+
+                              <ng-template #tipcontent300>Password</ng-template>
+                              <img src="assets/Images/medicalquestion.png"  data-toggle="modal" data-target="#exampleModal" [ngbTooltip]="tipcontent300" style="margin: 2%;width: 24px;"
+                               
+                                (click)="getpassword(list)" />&nbsp;
                       </td>
                   </tr>
               </thead>
@@ -74,3 +79,88 @@
 <br>
 <br>
 <br>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Password</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row" *ngIf="Showpassword=='0'">
+        <div class="col-lg-3">
+          <label>Enter Your Pin</label>
+        </div>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
+            placeholder="Enter Your Pin No">
+        </div>
+        <div class="col-lg-2">
+          <button class="btn btncolor" (click)="CheckPasswordvalidate()">Validate</button>
+        </div>
+      </div>
+      <div *ngIf="Showpassword=='1'">
+        <form #doctorForm="ngForm">
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Pin No :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno">
+            </div>
+          </div>
+          <br>
+<!--         
+          <div class="row">
+            <div class="col-lg-4">
+              <label>UserName :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" disabled name="username" required [(ngModel)]="username"
+                placeholder="UserName"
+                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+            </div>
+          </div>
+          <br> -->
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Password :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" name="password" required [(ngModel)]="password"
+                placeholder="Password">
+            
+            </div>
+          </div>
+          <br><br>
+          <!-- <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn allbtns btncolor" (click)="insertdetails()"
+                [disabled]="doctorForm.form.invalid">
+                {{labels[0].update}}
+              </button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div><br><br> -->
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" id="close" class="btn btncolor" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>

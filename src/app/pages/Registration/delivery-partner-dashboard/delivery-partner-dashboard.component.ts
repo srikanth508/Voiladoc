@@ -31,22 +31,30 @@ export class DeliveryPartnerDashboardComponent implements OnInit {
   public countrymanaerid: any;
   public showexportbutton: any;
   public salesrepresntiveid: any;
-  public showeditbutton:any;
-  public term:any;
-
+  public showeditbutton: any;
+  public term: any;
+  meridionalid: any;
+  showdelete:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+    this.meridionalid = localStorage.getItem('meridionalid');
 
-    if(this.salesrepresntiveid!=undefined)
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
+    if(this.meridionalid==undefined)
     {
-      this.showeditbutton=1
+      this.showdelete=0;
     }
-    else{
-      this.showeditbutton=0;
+    else
+    {
+      this.showdelete=1;
     }
-
     if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
@@ -90,31 +98,61 @@ export class DeliveryPartnerDashboardComponent implements OnInit {
 
 
   public deletedeliverycopmany(id) {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Delivery Company!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteDeliveryCompany(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Delivery Company!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDeliveryCompany(id).subscribe(res => {
+            let test = res;
+            this.getdeliverylist();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Delivery Company has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.getdeliverylist();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Delivery Company has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getdeliverylist();
-      }
-    })
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDeliveryCompany(id).subscribe(res => {
+            let test = res;
+            this.getdeliverylist();
+          })
+          Swal.fire(
+            'Supprimé!'
+            // 'Le médecin a été supprimé.',
+            // 'success'
+          )
+        }
+        else {
+          this.getdeliverylist();
+        }
+      })
+    }
+
+
   }
 
 

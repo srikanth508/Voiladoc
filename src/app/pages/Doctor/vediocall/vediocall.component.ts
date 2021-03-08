@@ -231,7 +231,7 @@ export class VediocallComponent implements OnInit {
   manuallydrug: any;
   user: any;
 
-   public showclosebutton: any;
+  public showclosebutton: any;
   ngOnInit() {
 
     this.minutes = 0;
@@ -249,7 +249,7 @@ export class VediocallComponent implements OnInit {
     document.getElementById("vidiv").classList.add("col-lg-12");
     document.getElementById("vidpagehead").style.display = "none";
 
-debugger
+    debugger
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -318,7 +318,7 @@ debugger
       this.appointmentdatetime = localStorage.getItem('appdate');
     }
     )
-   this.showclosebutton = 0;
+    this.showclosebutton = 0;
 
 
 
@@ -378,10 +378,10 @@ debugger
     // tok bok vamsi  start
 
     this.opentokService.getsessionandtoken().subscribe(res => {
-      
+
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-      
+
       this.insertvedioeconferencedetails();
     })
 
@@ -406,9 +406,9 @@ debugger
     )
   }
 
-  
+
   public GetSoapNotesByPatientID() {
-    this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
+    this.docservice.GetSoapNotesByPatientID(this.patientid, this.languageid, this.doctorid).subscribe(
       data => {
 
         this.soaplist1 = data;
@@ -436,31 +436,32 @@ debugger
           this.session.on('streamCreated', (event) => {
             ;
             this.streams.push(event.stream);
-             this.showclosebutton = 1;
-            
+            this.showclosebutton = 1;
+
             document.getElementById('stoprecoring').style.display = 'block';
 
             // document.getElementById('stoprecoring_forshow').style.display = 'none';
-
+            debugger
             this.startarchive();
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
             const idx = this.streams.indexOf(event.stream);
-
+            debugger
             if (idx > -1) {
               this.streams.splice(idx, 1);
               this.changeDetectorRef.detectChanges();
             }
           });
           this.session.on('archiveStarted', (event) => {
-
+            debugger
             this.archiveID = event.id;
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
             ;
+            debugger
             this.archiveID = event.id;
 
           });
@@ -474,12 +475,12 @@ debugger
       }
       else {
         this.updatearchiveid('notyet')
-
+        debugger
         this.opentokService.initSession().then((session: OT.Session) => {
           this.session = session;
           this.session.on('streamCreated', (event) => {
             this.streams.push(event.stream);
-             this.showclosebutton = 1;
+            this.showclosebutton = 1;
             document.getElementById('stoprecoring').style.display = 'block';
             // document.getElementById('stoprecoring_forshow').style.display = 'none';
             this.startarchive();
@@ -489,8 +490,8 @@ debugger
           this.session.on('streamDestroyed', (event) => {
             ;
             this.stoparchive();
-            
 
+            debugger
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
               this.streams.splice(idx, 1);
@@ -503,11 +504,13 @@ debugger
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
+            debugger
             this.archiveID = event.id;
           });
         })
           .then(() => this.opentokService.connect())
           .catch((err) => {
+            debugger
             console.error(err);
             alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
           });
@@ -517,6 +520,7 @@ debugger
   }
 
   public updatearchiveid(archiveID) {
+    debugger
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -568,7 +572,7 @@ debugger
 
 
 
- 
+
 
 
 
@@ -652,9 +656,7 @@ debugger
 
           this.allergies.push(wtt);
         }
-
         this.SendNotification()
-
 
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
@@ -664,7 +666,7 @@ debugger
         )
         this.GetAllerges()
 
-        this.docservice.GetLocalDoctorRegistrationByCityID(this.countryid, this.cityid, this.areaid).subscribe(
+        this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
           data => {
 
             this.localdoclist = data;
@@ -673,7 +675,6 @@ debugger
           }, error => {
           }
         )
-
       }, error => {
       }
     )
@@ -734,7 +735,7 @@ debugger
 
   public getdoctorpatinetdetails() {
 
-    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientid, this.languageid,this.doctorid).subscribe(
+    this.docservice.GetDoctor_PatientPrescriptionByDoctorIDandPatientID(this.patientid, this.languageid, this.doctorid).subscribe(
       data => {
 
         this.prescrptionlist = data;
@@ -745,7 +746,7 @@ debugger
 
   public getpatient_diagnosticdetails() {
 
-    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid,this.doctorid).subscribe(
+    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid, this.doctorid).subscribe(
       data => {
         this.diagnosticlist = data;
       }, error => {
@@ -821,10 +822,12 @@ debugger
 
     this.docservice.InsertDoctorSoapNotesTemplates(entity).subscribe(data => {
       if (data != 0) {
-
-        Swal.fire('Completed', 'Details saved successfully', 'success');
-
-
+        if (this.languageid == 1) {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else {
+          Swal.fire('Enregistré avec succès');
+        }
       }
     })
   }
@@ -943,7 +946,7 @@ debugger
           Swal.fire('Completed', 'Details saved successfully', 'success');
         }
         else {
-          Swal.fire('Détails enregistrés', 'SOAP');
+          Swal.fire('Enregistré avec succès', 'SOAP');
         }
         this.GetSoapNotesByPatientID();
         this.InsertNotificationSoapnotes()
@@ -1013,12 +1016,12 @@ debugger
     this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
 
       if (data != 0) {
-        if (this.languageid == 1) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-        }
-        else {
-          Swal.fire('Détails enregistrés', 'SOAP');
-        }
+        // if (this.languageid == 1) {
+        //   Swal.fire('Completed', 'Details saved successfully', 'success');
+        // }
+        // else {
+        //   Swal.fire('Détails enregistrés', 'SOAP');
+        // }
       }
     })
   }
@@ -1032,12 +1035,12 @@ debugger
     }
     this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
       if (data != 0) {
-        if (this.languageid == 1) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-        }
-        else {
-          Swal.fire('Détails enregistrés', 'SOAP');
-        }
+        // if (this.languageid == 1) {
+        //   Swal.fire('Completed', 'Details saved successfully', 'success');
+        // }
+        // else {
+        //   Swal.fire('Détails enregistrés', 'SOAP');
+        // }
 
       }
     })
@@ -1058,12 +1061,12 @@ debugger
     }
     this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
       if (data != 0) {
-        if (this.languageid == 1) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-        }
-        else {
-          Swal.fire('Détails enregistrés', 'SOAP');
-        }
+        // if (this.languageid == 1) {
+        //   Swal.fire('Completed', 'Details saved successfully', 'success');
+        // }
+        // else {
+        //   Swal.fire('Détails enregistrés', 'SOAP');
+        // }
       }
     })
   }
@@ -1152,21 +1155,21 @@ debugger
 
 
   public stoparchive() {
-    
+
     this.docservice.GetVideoStatus(this.appointmentid).subscribe(res => {
       this.compltedlist = res;
       if (this.compltedlist[0].completed == 2 && this.compltedlist[0].endSessionStatus == 'Patient') {
         this.count = this.count + 1
-        
+
         Swal.fire('Patient Ended The Call');
         window.close();
       }
       else {
         this.docservice.GetBookAppointmentCompletedSession(this.appointmentid).subscribe(
           data => {
-            
+
             window.close();
-            
+
           }, error => {
           }
         )
@@ -1348,14 +1351,14 @@ debugger
       data => {
         this.drugnamelist = data;
 
-     
+
 
       }, error => {
       }
     )
   }
 
- 
+
 
 
 
@@ -1368,7 +1371,7 @@ debugger
     else {
       this.SerachOn = 1;
 
-      
+
     }
   }
 
@@ -1675,7 +1678,7 @@ debugger
             this.getpatient_diagnosticdetails()
           }
           else {
-            
+
             Swal.fire('Détails enregistrés', 'Test de laboratoire');
             this.getpatient_diagnosticdetails();
             this.tablecount = 0;
@@ -1683,14 +1686,14 @@ debugger
             this.qwerty.length = 0
             this.testid.length = 0;
             this.testssid = 0;
-          
+
           }
           this.tablecount = 0;
           this.qwerty = []
           this.qwerty.length = 0
           this.testid.length = 0;
           this.testssid = 0;
-          
+
           this.getpatient_diagnosticdetails()
           this.Insertnotificationtest()
         }
@@ -1783,7 +1786,7 @@ debugger
       // 'ChatID': this.chatID,
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
-      'AppointmentID':this.appointmentid
+      'AppointmentID': this.appointmentid
       // 'Read_Me': 0
     }
     this.docservice.InsertChatMaster(entity).subscribe(data => {
@@ -2067,7 +2070,7 @@ debugger
 
     document.getElementById("myForm").style.display = "block";
 
-    this.docservice.GetChatID(this.doctorid, this.patientid,this.appointmentid).subscribe(res => {
+    this.docservice.GetChatID(this.doctorid, this.patientid, this.appointmentid).subscribe(res => {
       ;
       this.chatIDlist = res;
       this.chatID = this.chatIDlist[0].chatID
@@ -2095,7 +2098,7 @@ debugger
   public editprescid: any;
 
   public GetPriviouesPrescriptionlist(presciption) {
-    
+
     this.editprescid = presciption.id,
       this.medicinename = presciption.medicineName,
       this.sig = presciption.sig,
@@ -2138,7 +2141,7 @@ debugger
   clinicalinfo: any;
 
   public GetDiaEditList(dia) {
-    
+
     this.editdiaid = dia.id,
       this.testid = dia.diagnosticTestTypeID,
       this.testssid = dia.testsID,
@@ -2149,7 +2152,7 @@ debugger
 
 
   public updatedignostictest() {
-    
+
     var diatest = {
       'ID': this.editdiaid,
       'DiagnosticTestTypeID': this.testid,
@@ -2173,7 +2176,7 @@ debugger
 
   editsoapid: any;
 
- 
+
 
 
   public updatesoapnotes() {
@@ -2220,11 +2223,11 @@ debugger
   public allergyidcount: any;
 
   public GetAllerges() {
-    
+
     // this.allergyidcount=0
     this.myarray = []
     let showalergres = this.details.knownAllergies.split(',');
-    
+
     for (let i = 0; i < showalergres.length; i++) {
       var medetty = {
         'Showallergies': showalergres[i],
@@ -2232,14 +2235,14 @@ debugger
       }
       this.myarray.push(medetty);
       this.allergyidcount = this.allergyidcount + 1;
-      
+
     }
   }
 
   public updateelergies: any;
 
   public deletealergeies(Sno) {
-    
+
     for (let i = 0; i < this.myarray.length; i++) {
       if (Sno == this.myarray[i].Snoo) {
         this.myarray.splice(i, 1);
@@ -2247,7 +2250,7 @@ debugger
     }
     this.updateelergies = '';
     for (let j = 0; j < this.myarray.length; j++) {
-      
+
       if (this.updateelergies == '') {
         this.updateelergies = this.myarray[j].Showallergies;
       }
@@ -2261,7 +2264,7 @@ debugger
 
 
   public Updatealriesss() {
-    
+
     var entity = {
       'AppointmentID': this.appointmentid,
       'KnownAllergies': this.updateelergies
@@ -2269,11 +2272,11 @@ debugger
     this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
       let res = data;
       if (this.languageid == 1) {
-        
+
         this.getpatientdetails()
       }
       else if (this.languageid == 6) {
-    
+
         this.getpatientdetails()
       }
     })
@@ -2285,14 +2288,14 @@ debugger
     this.updateelergies = '';
 
     for (let j = 0; j < this.myarray.length; j++) {
-      
+
       if (this.updateelergies == '') {
         this.updateelergies = this.myarray[j].Showallergies;
       }
       else {
         this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
       }
-  
+
     }
 
     var entity = {
@@ -2318,13 +2321,13 @@ debugger
   public addallergies: any;
 
   public updatedetsils() {
-    
+
     var medetty = {
       'Showallergies': this.addallergies,
       'Snoo': this.myarray.length + 1
     }
     this.myarray.push(medetty);
-    
+
     this.Updateallergies()
   }
 
