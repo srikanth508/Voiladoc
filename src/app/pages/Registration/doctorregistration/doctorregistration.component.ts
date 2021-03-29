@@ -91,12 +91,12 @@ export class DoctorregistrationComponent implements OnInit {
   public speaklanguages: any;
   dropzonelable: any;
   search: any;
-  meridionalid:any;
+  meridionalid: any;
   ngOnInit() {
     this.dummid = localStorage.getItem('hospitalid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
 
-    
+
     this.tablecount = 0
     this.spinner.show();
     setTimeout(() => {
@@ -318,6 +318,26 @@ export class DoctorregistrationComponent implements OnInit {
     this.slotid = even.target.value;
   }
 
+
+
+  typeofdoctor: any;
+
+  public GetTypeofdoctor(even) {
+    debugger
+
+    this.typeofdoctor = even.target.value;
+    if (this.typeofdoctor == '1') {
+      this.hospitalclinicid = 0;
+    }
+    else if (this.typeofdoctor == '2') {
+      this.hospitalclinicid = 590;
+
+    }
+  }
+
+
+
+
   public insertdoctorregistration() {
 
     // if (this.attachmentsurl1.length == 0 || this.attachmentsurl.length == 0 || this.attachmentsurl2.length == 0) {
@@ -342,9 +362,12 @@ export class DoctorregistrationComponent implements OnInit {
     else if (this.hospitalclinicid == undefined || this.hospitalclinicid == 0) {
       Swal.fire("Please Select Hospital/Clinic");
     }
+    else if (this.doctypeid == undefined || this.doctypeid == 0) {
+      Swal.fire("Please Select Doctor type");
+    }
     else {
       if (this.attachmentsurl1.length == 0) {
-        this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
+        this.attachmentsurl1[0] = 'C:\\MarocAPI\\Images\\DocPhoto\\Doctor.jpg'
       }
       this.spinner.show();
       var entity = {
@@ -388,16 +411,15 @@ export class DoctorregistrationComponent implements OnInit {
           this.insertdoctorexperience();
           this.insertdoctormembership();
           // this.getdoctorforadmin();
-debugger
+          debugger
           // this.sendmail();
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
             // this.clear();
             this.spinner.hide();
             location.href = "#/Docdash";
           }
-          else{
+          else {
             Swal.fire('Sauvegardé');
             // this.clear();
             this.spinner.hide();
@@ -589,7 +611,7 @@ debugger
 
   public InsertMedicalProof() {
     if (this.attachmentsurl2.length == 0) {
-      this.attachmentsurl2[0] = 'C:\\VoilaDocWebAPI\\Images\\DocMedicalProofProof\\medical.jpg'
+      this.attachmentsurl2[0] = 'C:\\MarocAPI\\Images\\DocMedicalProofProof\\medical.jpg'
     }
     else {
       for (let i = 0; i < this.attachmentsurl2.length; i++) {
@@ -610,7 +632,7 @@ debugger
 
   public insertidentityProof() {
     if (this.attachmentsurl.length == 0) {
-      this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DocIdentityProof\\identity.jpg'
+      this.attachmentsurl[0] = 'C:\\MarocAPI\\Images\\DocIdentityProof\\identity.jpg'
     }
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
@@ -811,11 +833,12 @@ debugger
     this.registrationcouncil = '';
   }
   public getareamasterbyid() {
-
+    debugger
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-
+        debugger
         this.arealist = data;
+        debugger
         this.areadd = {
           singleSelection: true,
           idField: 'id',

@@ -1,7 +1,7 @@
 <div class="container-fluid card card-hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-5">
-      <h5>Refund Dashboard</h5>
+      <h5>{{labels[0].refunddash}}</h5>
     </div>
     <div class="col-lg-5">
     </div>
@@ -33,20 +33,20 @@
       <table id="Appointment">
         <thead>
           <tr>
-            <th>Appointment Date</th>
-            <th>Appointment With</th>
-            <th>Provider Name</th>
-            <th>Patient Name</th>
-            <th>Mobile Number</th>
-            <th>Refund Type</th>
-            <th>Card holder Name</th>
-            <th>Bank Name</th>
-            <th>Swift Code</th>
-            <th>Account Number</th>
-            <th>Call Back Comments</th>
-            <th>Paid Amount</th>
-            <th>Cancelled By</th>
-            <th>Status</th>
+            <th>{{labels[0].appointmentDate}}</th>
+            <th>{{labels[0].appointmentwith}}</th>
+            <th>{{labels[0].providername}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileno}}</th>
+            <th>{{labels[0].refundtype}}</th>
+            <th>{{labels[0].cardholdername}}</th>
+            <th>{{labels[0].bankname}}</th>
+            <th>{{labels[0].swiftcode}}</th>
+            <th>{{labels[0].accountno}}</th>
+            <th>{{labels[0].callbackcomments}}</th>
+            <th>{{labels[0].paidamount}}</th>
+            <th>{{labels[0].cancelledby}}</th>
+            <th>{{labels[0].status}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let refund of refundlist|filter:term">

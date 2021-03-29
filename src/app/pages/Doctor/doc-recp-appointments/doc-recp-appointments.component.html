@@ -1,0 +1,223 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace1">
+    <div class="col-lg-9" style="margin-top: -2px;">
+      <h5 *ngIf="languageid==1">Book appointment</h5>
+      <h5 *ngIf="languageid==6">RENDEZ-VOUS MEDECINS</h5>
+    </div>
+    <div class="col-lg-3" style="margin-top: -5px;text-align: end;">
+      <button type="button" routerLink="/IndBookAppointment"
+        class="btn btncolor">{{labels[0].addapp}}</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="termsss" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-3 label">
+      <label>{{labels[0].count}} : {{count}}
+      </label>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-lg-6">
+    </div>
+
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th id="imp">{{labels[0].appointmentNumber}}</th>
+            <th id="imp">{{labels[0].appointmentDate}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th id="imp">{{labels[0].slot}}</th>
+            <th id="imp">{{labels[0].appointmentType}}</th>
+            <th>{{labels[0].doctorName}}</th>
+            <th>{{labels[0].department}}</th>
+            <th>{{labels[0].reasonForVisit}}</th>
+            <th>{{labels[0].status}}</th>
+            <!-- <th *ngIf="roleid==14&&languageid=='1'">Reason For Cancel</th>
+            <th *ngIf="roleid==14&&languageid=='6'">Motif annulation</th> -->
+            <th>Actions</th>
+          </tr>
+          <tr
+            *ngFor="let details of appointmentlist |filter:term|filter:termsss  | paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td>{{details.appointmentID}}</td>
+            <td>{{details.appointmentdatess}}</td>
+            <td>{{details.pName}}</td>
+            <td>{{details.pMobileNo}}</td>
+            <td>{{details.slots}}</td>
+            <td>{{details.appointmentTypeText}}</td>
+            <td>{{details.doctorName}}</td>
+            <td>{{details.departmentname}}</td>
+            <td>{{details.reasonForVisit}}</td>
+            <td>
+              <label
+                *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"
+                style="color: green;">{{labels[0].accepted}}</label>
+              <label *ngIf="details.cancelled=='1'" style="color: red;">{{labels[0].cancelled}}</label>
+              <label *ngIf="details.isVisited=='1'&&details.accepted=='1'"
+                style="color: orange;">{{labels[0].visited}}</label>
+              <label *ngIf="details.docCancelled=='1'" style="color: red;">{{labels[0].docCancelled}}</label>
+              <label
+                *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
+
+              <label *ngIf="details.accepted=='1'&&details.noShow=='1'"
+                style="color: red;">{{labels[0].notvisited}}</label>
+            </td>
+            <!-- <td *ngIf="roleid==14">
+             
+              <textarea rows="4" placeholder="{{labels[0].reasonForCancel}}" [(ngModel)]="details.ReasonForCancel"
+                *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'"></textarea>
+            </td> -->
+            <td >
+              <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+              <a [ngbTooltip]="tipcontent3"
+                *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'">
+                <img src="assets/Images/can.png" style="height:20px;"
+                  (click)="cancelappoinement(details.appointmentID,details.ReasonForCancel)" />
+              </a>&nbsp;&nbsp;
+              <!-- <label  >{{labels[0].paid}}</label> -->
+              <ng-template #tipcontent76>{{labels[0].paid}}</ng-template>
+              <a [ngbTooltip]="tipcontent76">
+                <img src="assets/Images/paidfees.png"
+                  *ngIf="details.payPayment=='1'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                  style="height:20px;" />
+              </a>
+
+              <ng-template #tipcontent78>{{labels[0].pay}}</ng-template>
+              <a [ngbTooltip]="tipcontent8">
+                <img src="assets/Images/paymentss1.png" data-toggle="modal" data-target="#exampleModal3"
+                  *ngIf="details.payPayment=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                  (click)="GetDetails(details)" style="height:20px;" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+  <!-- <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div> -->
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Pay</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Payer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4">
+              <label class="DEPARTMENT_label"> Amount :</label>
+            </div>
+            <div class="col-lg-6">
+              <input type="number" [(ngModel)]="PaidAmount" disabled id="Amount" name="PaidAmount" class="form-control">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-4">
+              <label class="DEPARTMENT_label"> {{labels1[0].paymenttype}} :</label>
+            </div>
+            <div class="col-lg-6">
+              <select class="form-control" [(ngModel)]="PaymentTypeID" (change)="GetPaymentTypeID($event)">
+                <option value="" selected>{{labels1[0].paymenttype}}</option>
+                <option *ngIf="languageid=='1'" value="4">Cash</option>
+                <option *ngIf="languageid=='1'" value="2">Credit Card / Debit Card</option>
+                <option *ngIf="languageid=='6'" value="4">Encaisser</option>
+                <option *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
+                <!-- <option value="3">Debit Card</option> -->
+              </select>
+            </div>
+          </div>
+          <br>
+          <div *ngIf="PaymentTypeID=='2'||PaymentTypeID=='3'">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Card No</label>
+              </div>
+              <div class="col-lg-6">
+                <input placeholder="Enter Card No" type="text" class="form-control" id="CardNo" name="CardNo"
+                  maxlength=12>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Expiry Date</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" placeholder="MM" id="month" maxlength=2 />
+                <input type="text" class="form-control" placeholder="YYYY" id="year" maxlength=4 />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>CVV</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" placeholder="CVV" id="CVV" name="CVV" maxlength=3 />
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+                data-dismiss="modal" (click)="insertpaymentDetails()">Pay</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

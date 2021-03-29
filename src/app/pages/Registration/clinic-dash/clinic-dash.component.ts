@@ -33,28 +33,34 @@ export class ClinicDashComponent implements OnInit {
   public countrylist: any;
   public countrymanaerid: any;
   public showexportbutton: any;
-  public salesrepresntiveid:any;
-  public showeditbutton:any;
-
+  public salesrepresntiveid: any;
+  public showeditbutton: any;
+  public meridionalid: any;
+  public showdelete: any;
   ngOnInit() {
 
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
     this.countrymanaerid = localStorage.getItem('countrymanagerid');
     this.salesrepresntiveid = localStorage.getItem('salesrepresntativeid');
+    this.meridionalid = localStorage.getItem('meridionalid');
 
     if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
-    
-  if(this.salesrepresntiveid!=undefined)
-  {
-    this.showeditbutton=1
-  }
-  else{
-    this.showeditbutton=0;
-  }
 
+    if (this.salesrepresntiveid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
+    if (this.meridionalid == undefined) {
+      this.showdelete = 0;
+    }
+    else {
+      this.showdelete = 1;
+    }
     this.activatedroute.params.subscribe(params => {
 
       this.id = params['id'];
@@ -227,8 +233,7 @@ export class ClinicDashComponent implements OnInit {
 
   public deletehospitalclinic(id) {
 
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You Want to Delete This Clinic!",
@@ -254,8 +259,7 @@ export class ClinicDashComponent implements OnInit {
         }
       })
     }
-    else if(this.languageid==6)
-    {
+    else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
         // text: "You Want to Delete This Doctor!",
@@ -282,7 +286,7 @@ export class ClinicDashComponent implements OnInit {
         }
       })
     }
- 
+
   }
 
 

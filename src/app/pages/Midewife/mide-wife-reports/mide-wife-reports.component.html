@@ -31,7 +31,7 @@
     </div>
     <div class="col-lg-3"  *ngIf="showdropdown=='1'">
       <select class="form-control" (change)="GetHospitalID($event)">
-        <option value="0">Select Hospital/ Clinic</option>
+        <option value="0">{{labels[0].selecthospital}}</option>
         <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
       </select>
     </div>
@@ -51,8 +51,8 @@
           <tr>
             <th id="imp">{{labels[0].appointmentdate}}</th>
             <th>{{labels[0].appointmentID}}</th>
-            <th  *ngIf="showdropdown=='1'">Midwife Name</th>
-            <th  *ngIf="showdropdown=='1'">Hospital / Clinic Name</th>
+            <th  *ngIf="showdropdown=='1'">{{labels[0].midWifeName}}</th>
+            <th  *ngIf="showdropdown=='1'">{{labels[0].hospitalOrClinic}}</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].phoneno}}</th>
             <th>{{labels[0].email}}</th>

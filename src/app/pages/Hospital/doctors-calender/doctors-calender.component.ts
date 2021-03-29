@@ -31,6 +31,7 @@ export class DoctorsCalenderComponent implements OnInit {
   public todaydate: any;
   public daychangedate1:any;
   public timechangedate1:any;
+  public term:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');

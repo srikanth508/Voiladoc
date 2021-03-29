@@ -35,7 +35,7 @@
     <div class="col-lg-2" *ngIf="showcalender=='1'">
       <span >{{labels[0].changeSchedule}} </span>
     </div>
-    <div class="col-lg-3" *ngIf="showcalender=='1'">
+    <div class="col-lg-4" *ngIf="showcalender=='1'">
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
         (click)="GetTypeID($event)" value="1"> {{labels[0].daywise}} &nbsp;
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"
@@ -43,7 +43,11 @@
     </div>
   </div><br>
   <div class="row">
-    <div class="col-lg-5">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-2">
+
     </div>
     <div class="col-lg-1" style="margin-right: -1px;">
       <div class="rectangle"><span style="margin-left: 21px;">{{labels[0].inclinic}}</span></div>
@@ -66,7 +70,7 @@
     </div>
     <div class="col-lg-1 ">
       <div class="booked" style="margin-left: 34px;width: 140%;">
-        <p style="margin-left:12px"> Booked</p>
+        <p style="margin-left:12px"> {{labels[0].booked}}</p>
       </div>
     </div>
   </div>
@@ -118,7 +122,7 @@
               {{DayDatelist[6].day}} -->
               </th>
             </tr>
-            <tr *ngFor="let details of workingdetails">
+            <tr *ngFor="let details of workingdetails|filter:term">
               <td>{{details.slotname}}</td>
               <td [style.background-color]="details.day1color" style="color:white">{{details.day1}}<br>
                 <span
@@ -232,6 +236,9 @@
             <input type="text" *ngIf="appointmentypeid!=4&&appointmentypeid!=6" class="form-control" [(ngModel)]="fees"
             onkeypress='return(event.charCode>=48&&event.charCode<=57)'    name="fees" placeholder="{{labels[0].fees}}">
           </div>
+          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+            MAD
+          </div>
           <div class="col-lg-3">
           </div><br>
         </div>
@@ -301,6 +308,9 @@
           <div class="col-lg-6">
             <input type="text" *ngIf="Daywiseappointmentid!=4&&Daywiseappointmentid!=6" class="form-control"
             onkeypress='return(event.charCode>=48&&event.charCode<=57)'   [(ngModel)]="fees" name="fees" placeholder="Fees">
+          </div>
+          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+            MAD
           </div>
         </div><br>
         <div class="row">
@@ -393,6 +403,9 @@
           <div class="col-lg-6">
             <input type="text" *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6" class="form-control"
             onkeypress='return(event.charCode>=48&&event.charCode<=57)'  [(ngModel)]="fees" name="fees" placeholder="Fees">
+          </div>
+          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+            MAD
           </div>
         </div><br>
         <div class="row">

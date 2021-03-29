@@ -1,8 +1,10 @@
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
+<br>
 <div class="container-fluid card card:hover">
-  <div class="row headerspace">
+  <br>
+  <div class="row ">
     <div class="col-lg-3">
       <h5>{{labels[0].myProfile}}</h5>
     </div>
@@ -28,10 +30,11 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].phoneNo}}:</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
                 <input type="text" maxlength="13" [(ngModel)]="phno" name="phno" class="form-control"
-                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                readonly  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
               <br>
             </div>
@@ -39,10 +42,10 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].email}}:</label>
-
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="email" [(ngModel)]="emailid" (ngModelChange)="onChange($event)" name="emailid"
+                <input type="email" [(ngModel)]="emailid" required (ngModelChange)="onChange($event)" name="emailid"
                   class="form-control">
               </div>
               <br>
@@ -61,10 +64,10 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].address}}:</label>
-
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <textarea id="textarea1" rows="4" cols="45" [(ngModel)]="address" name="address"
+                <textarea id="textarea1" required rows="4" cols="45" [(ngModel)]="address" name="address"
                   class="form-control"></textarea>
               </div>
             </div>
@@ -75,7 +78,7 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+                <select class="form-control" required [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
                   <option value="" selected>Select</option>
                   <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
                 </select>
@@ -87,8 +90,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
-                  <option value="" selected="selected">select</option>
+                <select class=" form-control" required [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+                  <option value="" >select</option>
                   <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
                 </select>
               </div>
@@ -100,8 +103,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
-                  <option value="" selected="selected">Select</option>
+                <select class="form-control" required [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+                  <option value="" >Select</option>
                   <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
                 </select>
               </div>
@@ -112,9 +115,9 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class="dropdown form-control" [(ngModel)]="departmentid" name="departmentid"
+                <select class="dropdown form-control" required [(ngModel)]="departmentid" name="departmentid"
                   (change)="GetdepartmentID($event)">
-                  <option value="" selected>select</option>
+                  <option value="">select</option>
                   <option *ngFor="let department of departmentlist" value={{department.id}}>
                     {{department.departmentname}}
                   </option>
@@ -125,7 +128,6 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].experience}}:</label>
-
               </div>
               <div class="col-lg-6">
                 <input type="text" maxlength="2" [(ngModel)]="experience" name="experience" class="form-control"
@@ -179,8 +181,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class="form-control" (change)="GetSlotDurationID($event)" [(ngModel)]="slotid" name="slotid">
-                  <option value="0" selected>{{labels[0].select}}</option>
+                <select class="form-control" required (change)="GetSlotDurationID($event)" [(ngModel)]="slotid" name="slotid">
+                  <option value="" >{{labels[0].select}}</option>
                   <option value="1">15 Minutes</option>
                   <option value="2">30 Minutes</option>
                   <option value="3">45 Minutes</option>

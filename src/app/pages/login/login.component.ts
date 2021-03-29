@@ -215,6 +215,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('MobileNumber', this.result[0].mobileNumber);
                 localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
                 localStorage.setItem('userid', this.result[0].doctorID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
                 localStorage.setItem('departmentid', this.result[0].departmentID)
                 location.href = '#/DoctorDashboard';
@@ -345,6 +346,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', this.result[0].pharmacyName)
                 localStorage.setItem('roleid', '5');
                 localStorage.setItem('pharmacyid', this.result[0].pharmacyID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/DoctorPrescription';
                 location.reload();
@@ -390,6 +392,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', this.result[0].nurseName)
                 localStorage.setItem('roleid', '7');
                 localStorage.setItem('nurseid', this.result[0].nurseID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/NurseProfile';
@@ -433,6 +436,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '8');
                 localStorage.setItem('physioid', this.result[0].physiotherapistID);
                 localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/PhysiotherapistProfile';
                 location.reload();
@@ -476,6 +480,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', this.result[0].name)
                 localStorage.setItem('roleid', '9');
                 localStorage.setItem('midwifeid', this.result[0].midWiveID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/MidwifeProfile';
                 location.reload();
@@ -501,9 +506,6 @@ export class LoginComponent implements OnInit {
 
     }
     if (this.roleid == "10") {
-
-
-
       var entity = {
         'username': 'HelloDoc@gmail.com',
         'Password': 'HelloDoc',
@@ -522,6 +524,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', this.result[0].companyName)
                 localStorage.setItem('roleid', '10');
                 localStorage.setItem('deliveryid', this.result[0].deliveryCompanyID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/DeliverPartnerProfile';
                 location.reload();
@@ -547,9 +550,6 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.roleid == "11") {
-
-
-
       var entity = {
         'username': 'HelloDoc@gmail.com',
         'Password': 'HelloDoc',
@@ -610,7 +610,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', 'Manny')
                 localStorage.setItem('roleid', '12');
                 localStorage.setItem('Pinno', this.result[0].pinno);
-                
+                localStorage.setItem('meridionalid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -701,6 +701,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '14');
                 localStorage.setItem('hospitalid', this.result[0].hospitalID);
                 localStorage.setItem('Receptionstid', this.result[0].id);
+                localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('receptiostname', this.result[0].name);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/Appointments';
@@ -747,7 +748,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '15');
                 localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('countrymanagerid', this.result[0].id);
-                localStorage.setItem('meridionalid', this.result[0].id);
+               
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -1021,6 +1022,55 @@ export class LoginComponent implements OnInit {
       })
 
 
+    }
+
+    if (this.roleid == "24") {
+      var entity = {
+        'username': 'HelloDoc@gmail.com',
+        'Password': 'HelloDoc',
+        'RoleID': 1
+      }
+      this.docservice.Authenicate(entity).subscribe(data => {
+        debugger
+        if (data['requestMessage'] != undefined || null) {
+          localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
+
+          this.docservice.GetIndependentDoctors_ReceptionistByUserNameAndPwd(this.pinno,this.uname, this.pwd).subscribe(
+            data => {
+              this.result = data;
+              if (this.result.length != '0') {
+                localStorage.setItem('user', this.result[0].name)
+                localStorage.setItem('roleid', '24');
+                sessionStorage.setItem('temp', '1');
+                localStorage.setItem('MobileNumber', this.result[0].mobileNumber);
+                debugger
+                localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
+                localStorage.setItem('userid', this.result[0].doctorID);
+                localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
+                localStorage.setItem('hospitalid', this.result[0].hospitalClinicID)
+                localStorage.setItem('departmentid', this.result[0].departmentID)
+                localStorage.setItem('recpid', this.result[0].id)
+                location.href = '#/DoctorDashboard';
+                location.reload();
+              }
+              else {
+                if (this.LanguageID == 1) {
+                  Swal.fire('Error', 'Username or Password is not valid!');
+                  this.uname = "";
+                  this.pwd = "";
+                }
+                else if (this.LanguageID == 6) {
+                  Swal.fire('Erreur', "Le nom d'utilisateur ou le mot de passe n'est pas correct !");
+                  this.uname = "";
+                  this.pwd = "";
+                }
+              }
+            }, error => {
+            }
+          )
+        }
+      })
     }
 
     // if (this.roleid == "21") {

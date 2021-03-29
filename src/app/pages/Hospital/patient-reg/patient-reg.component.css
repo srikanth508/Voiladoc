@@ -10,3 +10,7 @@
   label{
     text-transform: lowercase;
   }
+  .required
+  {
+    color: red;
+  }

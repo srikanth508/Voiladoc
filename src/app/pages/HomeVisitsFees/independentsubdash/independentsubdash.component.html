@@ -2,13 +2,14 @@
 <div class="container-fluid card card:hover">
   <br />
   <div class="row ">
-    <div class="col-lg-3">
-      <h5>Subscriptions Dashboard</h5>
+    <div class="col-lg-6">
+      <h5 *ngIf="languageid=='1'">Subscriptions Dashboard</h5>
+      <h5 *ngIf="languageid=='6'">TABLEAU DE BORD D'ABONNEMENT      </h5>
     </div>
-    <div class="col-lg-7"></div>
+    <div class="col-lg-4"></div>
     <div class="col-lg-2">
       <button style="margin-left: 10px;" type="button" routerLink="/IndependentSubscriptions"
-        class="btn btncolor">Add</button>
+        class="btn btncolor">{{labels[0].add}}</button>
     </div>
   </div>
   <br />
@@ -23,21 +24,21 @@
         [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div> -->
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{labels[0].search}}" />
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)">
-        <option>Select Type</option>
-        <option value="1">Doctor</option>
-        <option value="2">Nurse</option>
-        <option value="3">Physiotherapist</option>
-        <option value="4">Midwife</option>
+        <option>{{labels[0].selecttype}}</option>
+        <option value="1">{{labels[0].doctor}}</option>
+        <option value="2">{{labels[0].nurse}}</option>
+        <option value="3">{{labels[0].physiotherapist}}</option>
+        <option value="4">{{labels[0].midwife}}</option>
       </select>
     </div>
     <div class="col-lg-4">
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
   </div>
   <br />
@@ -46,12 +47,12 @@
       <table>
         <thead>
           <tr>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Contract Strart Date</th>
-            <th>Contract End Date</th>
-            <th>Appointment Percentage</th>
-            <th>Monthly Subscription</th>
+            <th>{{labels[0].type}}</th>
+            <th>{{labels[0].name}}</th>
+            <th>{{labels[0].contractstartdate}}</th>
+            <th>{{labels[0].contreactenddate}}</th>
+            <th>{{labels[0].appointmentpercentage}}</th>
+            <th>{{labels[0].monthlysubscription}}</th>
           </tr>
           <tr *ngFor="let details of independentSubscriptions|filter:search">
             <td>{{details.typeName}}</td>

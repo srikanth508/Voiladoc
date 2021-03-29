@@ -91,6 +91,12 @@ export class EditDoctorRegistrationComponent implements OnInit {
     this.editbit = 0;
     this.meditt = 0;
     this.identiyyyds = 0;
+    this.countryid = "";
+    this.cityid = "";
+    this.departmentid = "";
+    this.areaid = "";
+    this.slotid = "";
+
     this.getlanguage();
 
     if (this.languageid == 1) {
@@ -165,7 +171,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
 
     this.docservice.GetDoctorDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
-        
+
         this.details = data[0];
 
         this.doctorname = this.details.doctorName,
@@ -191,7 +197,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.docmedicalid = this.details.docmedicalid,
           this.speaklanguages = this.details.spokenLanguages,
           this.slotid = this.details.slotDurationID
-        
+
         this.GetCountryMaster()
         this.getcitymaster();
         this.getareamasterbyid();
@@ -716,7 +722,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
           Swal.fire(
             '',
             'Enregistré !'
-            
+
           )
         }
         else {

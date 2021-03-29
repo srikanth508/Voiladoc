@@ -308,6 +308,21 @@ import { TopicMasterComponent } from './pages/Masters/topic-master/topic-master.
 import { TopicMasterDashComponent } from './pages/Masters/topic-master-dash/topic-master-dash.component';
 import { EnableLocalDoctorComponent } from './pages/Masters/enable-local-doctor/enable-local-doctor.component';
 import { QuickguideComponent } from './pages/Quick Guide/quickguide/quickguide.component';
+import { DocChangePwdComponent } from './pages/Doctor/doc-change-pwd/doc-change-pwd.component';
+import { NurseChangePwdComponent } from './pages/Nurse/nurse-change-pwd/nurse-change-pwd.component';
+import { ChangeMidPwdComponent } from './pages/Midewife/change-mid-pwd/change-mid-pwd.component';
+import { ChangePhysiopwdComponent } from './pages/physiotherapist/change-physiopwd/change-physiopwd.component';
+import { ChangePhaPwdComponent } from './pages/Pharmacy/change-pha-pwd/change-pha-pwd.component';
+import { ChangediaPwdComponent } from './pages/Diagnostic Center/changedia-pwd/changedia-pwd.component';
+import { HosrecpChangepwdComponent } from './pages/Hospital/hosrecp-changepwd/hosrecp-changepwd.component';
+import { ChangeDiaRecpPwdComponent } from './pages/Diagnostic Center/change-dia-recp-pwd/change-dia-recp-pwd.component';
+import { ChangeDeliveryPwdComponent } from './pages/DeliveryPartner/change-delivery-pwd/change-delivery-pwd.component';
+import { IndRecpComponent } from './pages/Doctor/ind-recp/ind-recp.component';
+import { IndRecpdashComponent } from './pages/Doctor/ind-recpdash/ind-recpdash.component';
+import { DocRecpAppointmentsComponent } from './pages/Doctor/doc-recp-appointments/doc-recp-appointments.component';
+import { IndBookAppointmentComponent } from './pages/IndependentDocRecep/ind-book-appointment/ind-book-appointment.component';
+import { IndDocPaymentsComponent } from './pages/IndependentDocRecep/ind-doc-payments/ind-doc-payments.component';
+import { DatecheckComponent } from './pages/Doctor/datecheck/datecheck.component';
 
 
 
@@ -678,6 +693,21 @@ const routes: Routes = [
   { path: 'TopicMaster/:id', component: TopicMasterComponent },
   { path: 'EnableLocalDoctor', component: EnableLocalDoctorComponent },
   { path: 'Quickguide', component: QuickguideComponent },
+  { path: 'DocChangePwd', component:     DocChangePwdComponent},
+  { path: 'NurseChangePwd', component:  NurseChangePwdComponent},
+  { path: 'ChangeMidPwd', component:  ChangeMidPwdComponent},
+  { path: 'ChangePhysiopwd', component:  ChangePhysiopwdComponent},
+  { path: 'ChangePhaPwd', component:  ChangePhaPwdComponent},
+  { path: 'ChangediaPwd', component:  ChangediaPwdComponent},
+  { path: 'HosrecpChangepwd', component:  HosrecpChangepwdComponent},
+  { path: 'ChangeDeliveryPwd', component:  ChangeDeliveryPwdComponent},
+  { path: 'ChangeDiaRecpPwd', component:  ChangeDiaRecpPwdComponent},
+  { path: 'IndRecp', component:  IndRecpComponent},
+  { path: 'IndRecpdash', component:  IndRecpdashComponent},
+  { path: 'DocRecpAppointments', component:  DocRecpAppointmentsComponent},
+  { path: 'IndBookAppointment', component:  IndBookAppointmentComponent},
+  { path: 'IndDocPayments', component:  IndDocPaymentsComponent},
+  { path: 'Datecheck', component:  DatecheckComponent},
 ];
 
 @NgModule({

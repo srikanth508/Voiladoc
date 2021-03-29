@@ -56,12 +56,12 @@ export class AdminSiderevenueComponent implements OnInit {
 
 
   ngOnInit() {
-    
+
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    
+
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -71,7 +71,7 @@ export class AdminSiderevenueComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-    
+
     this.languageid = localStorage.getItem('LanguageID');
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
@@ -80,7 +80,7 @@ export class AdminSiderevenueComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -94,17 +94,20 @@ export class AdminSiderevenueComponent implements OnInit {
     this.doctorid = 0;
     this.cityid = 0
     this.subHospitalID = 0;
-    
+    this.nurseid = 0;
+    this.physioid = 0;
+    this.midifeid = 0;
+
 
     this.docservice.GetMonthStartDateAndEndDate().subscribe(
       data => {
-        
+
         this.serverdateandtime = data[0];
         this.monthstartdate = this.serverdateandtime.startMonth,
           this.monthenddate = this.serverdateandtime.endMonth
-          
-          this.GetAllHospitalSubscriptions();
-          this.GetAllIndepenentPeopleRevenue();
+
+        this.GetAllHospitalSubscriptions();
+        this.GetAllIndepenentPeopleRevenue();
       }, error => {
       }
     )
@@ -124,15 +127,16 @@ export class AdminSiderevenueComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
 
     this.GetAreaMaster()
-    
-  
+
+
 
 
     //all independent
@@ -141,13 +145,15 @@ export class AdminSiderevenueComponent implements OnInit {
     this.GetAllIndependentphysiotherapits();
     this.GetAllIndependentMidWife();
   }
-
+  search: any;
 
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
         this.labels = data;
-        this.SelectLabel = this.labels[0].select
+        this.SelectLabel = this.labels[0].select,
+          this.search = this.labels[0].search
+
       },
       error => { }
     );
@@ -167,7 +173,7 @@ export class AdminSiderevenueComponent implements OnInit {
         this.allcounts = data;
         this.docrevenue = this.allcounts[0].totalamount
 
-        this.docservice.GetNurseCommissionDeatailsAdminRevenue(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
+        this.docservice.GetNurseAllRevenueByAdmin(this.startdate, this.enddate, this.hospitalid, this.cityid).subscribe(
           data => {
 
             this.nursecount = data;
@@ -179,9 +185,6 @@ export class AdminSiderevenueComponent implements OnInit {
           data => {
 
             this.midwifecount = data;
-
-
-
           }, error => {
           }
         )
@@ -212,14 +215,48 @@ export class AdminSiderevenueComponent implements OnInit {
         )
 
 
+
+        this.docservice.GetIndependentMidWifeRevenueByMidwifeID(this.startdate, this.enddate, this.midifeid, this.cityid).subscribe(
+          data => {
+
+            this.indmidwifelist = data;
+
+
+          }, error => {
+          }
+        )
+
+
+        this.docservice.GeIndependentnurserevenueByNurseID(this.startdate, this.enddate, this.nurseid, this.cityid).subscribe(
+          data => {
+
+            this.indnurselist = data;
+
+
+          }, error => {
+          }
+        )
+
+
+        this.docservice.GetPhsyioTherapistindependentRevenueByphysioID(this.startdate, this.enddate, this.physioid, this.cityid).subscribe(
+          data => {
+
+            this.indphysiolist = data;
+
+
+          }, error => {
+          }
+        )
+
+
       }, error => {
       }
     )
   }
 
   inddoctorslist: any;
-
-
+  nurseid: any;
+  physioid: any;
   public getIndependentDoctors() {
     this.docservice.GetDoctorForAdminByLanguageIDIndependentDoctors(this.languageid).subscribe(
       data => {
@@ -247,6 +284,15 @@ export class AdminSiderevenueComponent implements OnInit {
     this.hospitalid = item.id
     this.GetCounts()
   }
+  indtypeid: any;
+
+  // Independent Doc/nurse/physio/midiwife
+
+  public GetIndetypeIDs(even) {
+    this.indtypeid = even.target.value;
+  }
+
+
 
   public GetDoctorID(item1: any) {
 
@@ -262,6 +308,63 @@ export class AdminSiderevenueComponent implements OnInit {
       }
     )
   }
+
+  midifeid: any;
+  indmidwifelist: any;
+
+  public GetMidwifeID1(item1: any) {
+
+    this.midifeid = item1.id;
+
+    this.docservice.GetIndependentMidWifeRevenueByMidwifeID(this.startdate, this.enddate, this.midifeid, this.cityid).subscribe(
+      data => {
+
+        this.indmidwifelist = data;
+
+
+      }, error => {
+      }
+    )
+  }
+
+  indnurselist: any;
+
+  public GetNurseIDD(item1: any) {
+
+    this.nurseid = item1.id;
+
+    this.docservice.GeIndependentnurserevenueByNurseID(this.startdate, this.enddate, this.nurseid, this.cityid).subscribe(
+      data => {
+
+        this.indnurselist = data;
+
+      }, error => {
+      }
+    )
+  }
+
+  indphysiolist: any;
+
+  public GetPhysioID(item1: any) {
+
+    this.physioid = item1.id;
+
+    this.docservice.GetPhsyioTherapistindependentRevenueByphysioID(this.startdate, this.enddate, this.physioid, this.cityid).subscribe(
+      data => {
+
+        this.indphysiolist = data;
+
+
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+
 
 
 
@@ -321,7 +424,7 @@ export class AdminSiderevenueComponent implements OnInit {
   public hospitalSubscriptionslist: any;
 
   public GetAllHospitalSubscriptions() {
-   
+
 
     this.docservice.GetAllHospitalSubscriptionRevenue(this.monthstartdate, this.monthenddate, this.subHospitalID).subscribe(
       data => {
@@ -354,9 +457,9 @@ export class AdminSiderevenueComponent implements OnInit {
 
   //independent subscriptions
 
-public serverdateandtime:any;
-  
- 
+  public serverdateandtime: any;
+
+
 
 
   public dummnurse: any;
@@ -454,7 +557,7 @@ public serverdateandtime:any;
 
   public GetAllIndepenentPeopleRevenue() {
 
-    
+
     this.docservice.GetAllIndepenedentSubscriptionRevenue(this.monthstartdate, this.monthenddate, 0).subscribe(
       data => {
 
@@ -483,20 +586,17 @@ public serverdateandtime:any;
   }
 
 
-  public GetNurseID(item2:any)
-  {
+  public GetNurseID(item2: any) {
     this.filterdid = item2.nurseID;
     this.GetAllIndependentPeopleRevenueByTypeID();
   }
 
-  public GetMidWifeID(item3:any)
-  {
+  public GetMidWifeID(item3: any) {
     this.filterdid = item3.midWifeID;
     this.GetAllIndependentPeopleRevenueByTypeID();
   }
 
-  public GetPhysiotherapistID(item4:any)
-  {
+  public GetPhysiotherapistID(item4: any) {
     this.filterdid = item4.physiotherapyID;
     this.GetAllIndependentPeopleRevenueByTypeID();
   }

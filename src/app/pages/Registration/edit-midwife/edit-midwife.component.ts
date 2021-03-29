@@ -55,6 +55,10 @@ export class EditMidwifeComponent implements OnInit {
     }
 
     this.getlanguage();
+    this.countryid = "";
+    this.cityid = "";
+    this.areaid = "";
+
   }
 
   public getlanguage() {
@@ -71,7 +75,7 @@ export class EditMidwifeComponent implements OnInit {
   public Getmidwifedetails() {
     this.docservice.GetMidWivesRegistrationByIDAndLanguageID(this.id, this.languageid).subscribe(data => {
       this.details = data[0];
-      
+
       this.name = this.details.name,
         this.phno = this.details.phoneNo,
         this.email = this.details.email,
@@ -87,7 +91,7 @@ export class EditMidwifeComponent implements OnInit {
         this.pincode = this.details.pincode
       this.photourl = this.details.photoURL;
       this.attachmentsurl[0] = this.details.photoUrlPath;
-      
+
       this.GetDepartmentmaster();
       this.GetCountryMaster();
       this.getcitymaster();
@@ -173,7 +177,6 @@ export class EditMidwifeComponent implements OnInit {
     }
   }
   public updatedetails() {
-
     var entity = {
       'LanguageID': this.languageid,
       'ID': this.id,
@@ -191,7 +194,6 @@ export class EditMidwifeComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID': this.countryid
     }
-
     this.docservice.UpdateMidWivesRegistration(entity).subscribe(data => {
       if (data != undefined) {
         if (this.languageid == 1) {
@@ -259,7 +261,7 @@ export class EditMidwifeComponent implements OnInit {
   }
 
   public updatephoto() {
-    
+
     var entity = {
       'ID': this.id,
       'PhotoUrl': this.attachmentsurl[0]

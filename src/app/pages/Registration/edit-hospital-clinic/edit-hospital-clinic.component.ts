@@ -89,6 +89,11 @@ export class EditHospitalClinicComponent implements OnInit {
 
     this.GetSubscriptionrevenue();
 
+
+    this.countryid=""
+    this.cityid=""
+    this.areaid=""
+
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
 

@@ -10,6 +10,7 @@
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <br>
+  <form #deliveryform="ngForm">
   <div class="row">
     <div class="col-lg-3">
       <label class="dname_label">{{labels[0].companyName}} :</label>
@@ -76,8 +77,8 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
-        <option value="" selected>{{labels[0].select}}</option>
+      <select class="form-control" required [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+        <option value="">{{labels[0].select}}</option>
         <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
       </select>
     </div>
@@ -88,8 +89,8 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
-        <option value="" selected="selected">{{labels[0].select}}</option>
+      <select class=" form-control" required [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+        <option value="" >{{labels[0].select}}</option>
         <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
       </select>
     </div>
@@ -101,8 +102,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
-          <option value="" selected="selected">{{labels[0].select}}</option>
+        <select class="form-control" required [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+          <option value="" >{{labels[0].select}}</option>
           <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
         </select>
       </div>
@@ -112,11 +113,14 @@
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" (click)="updatedetails()"
-        class="btn btn-block btn-md allbtns btncolor">{{labels[0].save}}</button>
+        class="btn btn-block btn-md allbtns btncolor" [disabled]="deliveryform.form.invalid">{{labels[0].update}}</button>
     </div>
     <div class="col-lg-5">
     </div>
   </div>
   <br>
+
+
+</form>
 </div>
 <br><br><br>

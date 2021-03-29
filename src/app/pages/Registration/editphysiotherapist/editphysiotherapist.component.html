@@ -10,11 +10,12 @@
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <br>
+  <form #PhysioForm="ngForm">
   <div class="row">
     <div class="col-lg-8">
       <div class="row">
         <div class="col-lg-4">
-          <label class="dname_label">{{labels[0].name}}:</label>
+          <label class="dname_label">{{labels[0].name}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
@@ -25,7 +26,7 @@
       <br>
       <div class="row">
         <div class="col-lg-4">
-          <label class="dname_label">{{labels[0].phoneNo}}:</label>
+          <label class="dname_label">{{labels[0].phoneNo}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
@@ -36,7 +37,7 @@
       <br>
       <div class="row">
         <div class="col-lg-4">
-          <label class="dname_label">{{labels[0].emailID}}:</label>
+          <label class="dname_label">{{labels[0].emailID}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
@@ -56,14 +57,14 @@
           <span class="requird">*</span>
         </div>
         <div class="col-lg-6">
-          <input type="radio" [value]="1" name="genderid" [(ngModel)]="genderid">{{labels[0].male}} &nbsp;&nbsp;
-          <input type="radio" [value]="2" name="genderid" [(ngModel)]="genderid">{{labels[0].female}}
+          <input type="radio" required [value]="1" name="genderid" [(ngModel)]="genderid">{{labels[0].male}} &nbsp;&nbsp;
+          <input type="radio" required [value]="2" name="genderid" [(ngModel)]="genderid">{{labels[0].female}}
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-lg-4">
-          <label class="Address_label">{{labels[0].address}}:</label>
+          <label class="Address_label">{{labels[0].address}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
@@ -78,8 +79,8 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
-            <option value="" selected>{{labels[0].select}}</option>
+          <select class="form-control" required [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+            <option value="">{{labels[0].select}}</option>
             <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
           </select>
         </div>
@@ -90,8 +91,8 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
-            <option value="" selected="selected">{{labels[0].select}}</option>
+          <select required class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+            <option value="" >{{labels[0].select}}</option>
             <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
           </select>
         </div>
@@ -103,8 +104,8 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
-            <option value="" selected="selected">{{labels[0].select}}</option>
+          <select class="form-control" required [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+            <option value="">{{labels[0].select}}</option>
             <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
           </select>
         </div>
@@ -135,7 +136,7 @@
       <br>
       <div class="row">
         <div class="col-lg-4">
-          <label class="dname_label">{{labels[0].experience}}:</label>
+          <label class="dname_label">{{labels[0].experience}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
@@ -146,7 +147,7 @@
       <br>
       <div class="row">
         <div class="col-lg-4">
-          <label class="Address_label">{{labels[0].description}}:</label>
+          <label class="Address_label">{{labels[0].description}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
@@ -161,7 +162,7 @@
         </div>
         <div class="col-lg-2">
           <button type="button" text_align="center" (click)="updatedetails()"
-            class="btn btn-block btn-md allbtns btncolor">{{labels[0].update}}</button>
+         [disabled]="PhysioForm.form.invalid"   class="btn btn-block btn-md allbtns btncolor">{{labels[0].update}}</button>
         </div>
         <div class="col-lg-5">
         </div>
@@ -185,5 +186,6 @@
     </div>
     <br><br><br>
     </div>
+  </form>
   </div>
   

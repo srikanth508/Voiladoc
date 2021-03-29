@@ -59,6 +59,9 @@ export class HospitalClinicComponent implements OnInit {
     this.hospitalid = item2.id;
   }
   public insertdetails() {
+    
+    this.password = Math.random().toString(36).slice(-8);
+
     if (this.hospitalid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please Select Hospital/Clinic");
@@ -70,13 +73,13 @@ export class HospitalClinicComponent implements OnInit {
     }
     else if (this.password != undefined) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
+      // var valpassword = this.docservice.strongpassword(this.password);
+      // if (valpassword == false) {
 
-        this.pp = 1;
+      //   this.pp = 1;
 
-      }
-      else {
+      // }
+      // else {
         var entity = {
           'Hospital_ClinicID': this.hospitalid,
           'UserName': this.username,
@@ -113,7 +116,7 @@ export class HospitalClinicComponent implements OnInit {
 
           }
         })
-      }
+      // }
     }
   }
 

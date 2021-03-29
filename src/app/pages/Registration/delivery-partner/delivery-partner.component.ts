@@ -51,6 +51,7 @@ export class DeliveryPartnerComponent implements OnInit {
       this.dropzonelable = "Télécharger des fichiers"
     }
 
+    this.deliverytypeid=""
   }
   public getlanguage() {
     this.docservice.GetAdmin_CompanyDetails_Label(this.languageid).subscribe(
@@ -177,27 +178,40 @@ export class DeliveryPartnerComponent implements OnInit {
   }
 
   public insertdeliverycompany() {
-    this.spinner.show();
-    var entity = {
-      'CompanyName': this.companyname,
-      'ContactPerson': this.contactname,
-      'PhoneNo': this.phno,
-      'EmailID': this.email,
-      'Address': this.address,
-      'CountryID': this.countryid,
-      'CityID': this.cityid,
-      'AreaID': this.areaid,
-      'PhotoURL': this.attachmentsurl[0],
-      'Pincode': this.pincode,
-      'DeliveryType': this.deliverytypeid,
+    if (this.countryid == undefined || this.countryid.length == 0) {
 
+      Swal.fire("Please Select Country");
     }
-    this.docservice.InsertDeliveryCompany(entity).subscribe(data => {
-     
-      Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-      this.spinner.hide();
-      location.href = '#/DeliveryPartnerDashboard';
-    })
+    else if (this.cityid == undefined || this.cityid.length == 0) {
+      Swal.fire("Please Select Province")
+    }
+    else if (this.areaid == undefined || this.areaid.length == 0) {
+      Swal.fire("Please Select City");
+    }
+    else
+    {
+      this.spinner.show();
+      var entity = {
+        'CompanyName': this.companyname,
+        'ContactPerson': this.contactname,
+        'PhoneNo': this.phno,
+        'EmailID': this.email,
+        'Address': this.address,
+        'CountryID': this.countryid,
+        'CityID': this.cityid,
+        'AreaID': this.areaid,
+        'PhotoURL': this.attachmentsurl[0],
+        'Pincode': this.pincode,
+        'DeliveryType': this.deliverytypeid,
+  
+      }
+      this.docservice.InsertDeliveryCompany(entity).subscribe(data => {
+       
+        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        this.spinner.hide();
+        location.href = '#/DeliveryPartnerDashboard';
+      })
+    }
   }
 
 }

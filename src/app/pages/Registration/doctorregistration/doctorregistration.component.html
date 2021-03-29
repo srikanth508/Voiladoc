@@ -4,15 +4,12 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-3">
-
-
-      
       <h5>{{labels[0].doctorRegistration}}</h5>
     </div>
   </div>
 </div>
 <br>
-<div class="container-fluid card card:hover" style="margin-top:20px;">
+<div class="container-fluid card card:hover" >
   <br>
   <form #doctorForm="ngForm">
     <aw-wizard navBarLocation="top" navBarLayout="small" navBarDirection="left-to-right" navigationMode="strict">
@@ -36,8 +33,8 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="{{labels[0].phoneNo}}" required maxlength="13" name="phoneno" [(ngModel)]="phoneno"
-                class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+              <input type="text" placeholder="{{labels[0].phoneNo}}" required maxlength="13" name="phoneno"
+                [(ngModel)]="phoneno" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
           <br>
@@ -92,7 +89,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="countrylist" [settings]="countrydd"
+              <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
                 (onSelect)="GetCountryID($event)">
               </ng-multiselect-dropdown>
             </div>
@@ -256,8 +253,6 @@
             </div>
           </div>
           <br> -->
-
-
           <div class="row">
             <div class="col-lg-3">
               <label class="Email_label">{{labels[0].referred}} :</label>
@@ -269,7 +264,24 @@
             </div>
           </div>
           <br>
-          <div class="row" *ngIf="dummid==null">
+          <div  *ngIf="dummid==null">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Type Of Doctor :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-5">
+              <input type="radio" value="1"  [(ngModel)]="typeofdoctor"
+             required   name="typeofdoctor" (click)="GetTypeofdoctor($event)">&nbsp;
+              Hospital/Clinic Doctor
+              <input type="radio" value="2"  [(ngModel)]="typeofdoctor"
+              required  name="typeofdoctor" (click)="GetTypeofdoctor($event)">&nbsp;
+              Independent Doctor
+            </div>
+          </div><br>
+        </div>
+        <div *ngIf="typeofdoctor=='1'">
+          <div class="row" >
             <div class="col-lg-3">
               <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
               <label id="imp" *ngIf="languageid=='6'">Hôpital / Clinique : </label>
@@ -282,9 +294,11 @@
             </div>
           </div>
           <br>
+        </div>
           <div class="row">
             <div class="col-lg-3">
               <label for="" class="reglabel">{{labels[0].identityProof}} :</label>
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
               <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
@@ -308,6 +322,7 @@
           <div class="row">
             <div class="col-lg-3">
               <label for="" class="reglabel">{{labels[0].signaturePhoto}} :</label>
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
               <ngx-dropzone [multiple]="false" (change)="onSignaturUpload($event)" class="dropzone_vendorinvoice">
@@ -326,15 +341,13 @@
             </div>
           </div>
           <br>
-
           <div class="row">
             <div class="col-lg-3">
               <label for="" class="reglabel">{{labels[0].photo}} :</label>
-
+              <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)"
-                class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let docphoto of showdocphoto">
@@ -425,8 +438,7 @@
 
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload2($event)"
-                class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let pho of photodetail">
@@ -468,8 +480,7 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].college}}" name="colleagename" [(ngModel)]="colleagename"
-                class="form-control"
-               >
+                class="form-control">
             </div>
           </div>
           <br>

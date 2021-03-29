@@ -236,7 +236,7 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-
+    debugger
     // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
@@ -292,7 +292,7 @@ export class VediocallComponent implements OnInit {
     this.sidate = formatDate(sigdate, llll, locales);
 
     this.docname = localStorage.getItem('user');
-
+    debugger
 
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
@@ -308,7 +308,7 @@ export class VediocallComponent implements OnInit {
 
     // document.getElementById('stoprecoring_forshow').style.display = 'block';
     this.activatedroute.params.subscribe(params => {
-
+      debugger
       // this.patientid = params['patientID'];
       // this.appointmentid = params['appointmentID'];
       // this.appointmentdatetime = params['appdate'];
@@ -337,21 +337,6 @@ export class VediocallComponent implements OnInit {
 
     this.getserverdateandtime();
 
-    // this.docservice.GetChatID(this.doctorid, this.patientid).subscribe(res => {
-    //   ;
-    //   this.chatIDlist = res;
-    //   this.chatID = this.chatIDlist[0].chatID
-    //   this.getPreviousChat();
-    //   this.oberserableTimer();
-    //   this.getserverdateandtime();
-    //   // this.appointmentiddd = 570;
-    //   this.appointmentdatetimee = localStorage.getItem('appdate');
-    //   this.getserverdateandtime();
-    //   this.getPreviousChat();
-    //   this.oberserableTimer();
-    // })
-    ;
-    // this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
     this.getpatientdetails();
     this.getdoctorpatinetdetails();
@@ -366,23 +351,25 @@ export class VediocallComponent implements OnInit {
     this.GetDoctorSoapNotesTemplates()
     this.GetDrugnamemaster()
 
-    this.pddddd = 1;
-    this.pdpd = 1;
-    ;
+
+    
 
 
-    let jjj = document.getElementById("Completed");
-    if (jjj != null) {
-      document.getElementById("Completed").style.display = "block";
-    }
     // tok bok vamsi  start
 
     this.opentokService.getsessionandtoken().subscribe(res => {
-
+      debugger
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-
+      debugger
       this.insertvedioeconferencedetails();
+      debugger
+      this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
+        data => {
+          debugger
+        }, error => {
+        }
+      )
     })
 
     // tok bok vamsi End
@@ -420,6 +407,7 @@ export class VediocallComponent implements OnInit {
 
 
   public insertvedioeconferencedetails() {
+    debugger
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -597,7 +585,7 @@ export class VediocallComponent implements OnInit {
   attendingdoctor: any;
   photoexist: any;
   public videoexist: any;
-
+  genderid: any;
   public getpatientdetails() {
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid, this.languageid).subscribe(
       data => {
@@ -624,7 +612,7 @@ export class VediocallComponent implements OnInit {
           this.appointmenttypeid = this.details.appointmentTypeID,
           this.ispatientpragnent = this.details.isPatientPragnent,
           this.breastFeeding = this.details.breastFeeding,
-
+          this.genderid = this.details.genderID,
           this.nationalidentityno = this.details.nationalidno,
           this.medicalhistory = this.details.medicalHistory,
           this.surgeryHistory = this.details.surgeryHistory,
@@ -646,6 +634,7 @@ export class VediocallComponent implements OnInit {
           this.showfrequency = this.details.frequency,
 
 
+
           this.allergieslist = this.details.knownAllergies.split(',')
 
         this.allergies = []
@@ -660,10 +649,11 @@ export class VediocallComponent implements OnInit {
 
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
-
+            debugger
           }, error => {
           }
         )
+      
         this.GetAllerges()
 
         this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
@@ -1052,7 +1042,7 @@ export class VediocallComponent implements OnInit {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
       'SoapID': this.soapid,
-      'DiagnosisCode': this.diagnosiscode,
+      'DiagnosisCode': this.icdcode,
       'Orders': 0,
       'SickSlip': 0,
       'FollowUpPlan': this.followupplan,
@@ -1650,7 +1640,8 @@ export class VediocallComponent implements OnInit {
     this.testslist.length = 0;
     this.tsetssslist.length = 0;
     this.getdiagnosticcentertests()
-    this.diagnostictestname = ""
+    this.diagnostictestname = "";
+    this.clinicinfo = "";
   }
 
   public insertDiagnostictestdetails() {

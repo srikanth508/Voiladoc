@@ -16,16 +16,34 @@ export class MergePatientdataComponent implements OnInit {
   patientdetails: any;
   pino: any;
   pinno: any;
+  labels: any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
-    this.GetPatientDetails()
+    this.GetPatientDetails();
+    this.getlanguage();
   }
+
+
+
+
+  public getlanguage() {
+    this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+
+      },
+      error => { }
+    );
+  }
+
+
 
   public GetPatientDetails() {
     this.docservice.GetPatientRegistrationDetails().subscribe(
       data => {
-       
+
         this.patientdetails = data;
       }, error => {
       }
@@ -61,7 +79,7 @@ export class MergePatientdataComponent implements OnInit {
   public updatemobilenmber() {
 
     if (this.patientpinno == this.pinno) {
-     
+
       var entity = {
         'ID': this.patientid,
         'MobileNumber': this.newmobilenumber,
@@ -69,7 +87,7 @@ export class MergePatientdataComponent implements OnInit {
         'OldmobileNumber': this.oldmobilenumber
       }
       this.docservice.UpdatePatientRegistrationMobileNumber(entity).subscribe(data => {
-       
+
         if (data == 0) {
           this.GetPatientDetails()
           Swal.fire('Mobile Number Already Exists');
@@ -85,9 +103,9 @@ export class MergePatientdataComponent implements OnInit {
       })
     }
     else {
-     
-      Swal.fire('','Pin is invalid')
-      this.pinno=""
+
+      Swal.fire('', 'Pin is invalid')
+      this.pinno = ""
     }
 
 

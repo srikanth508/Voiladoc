@@ -19,7 +19,7 @@
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <div class="col-lg-3" *ngIf="diffid==undefined">
+    <div class="col-lg-3" >
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
 
@@ -33,11 +33,11 @@
     </div>
     <div class="col-lg-3" *ngIf="diffid=='1'||diffid=='2'">
       <select class="form-control" (change)="GetHospitalID($event)">
-        <option value="0">Select Hospital/ Clinic</option>
+        <option value="0">{{labels[0].selecthospitalclinic}}</option>
         <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
       </select>
     </div>
-    <div class="col-lg-3" *ngIf="diffid=='undefined'">
+    <div class="col-lg-3" >
       <select class="form-control" (change)="getget($event)">
         <option selected value="0">{{labels[0].selectStatus}}</option>
         <option value="1">{{labels[0].visited}}</option>
@@ -71,14 +71,14 @@
             <th>{{labels[0].appointmentDate}}</th>
             <th>{{labels[0].appointmentNumber}}</th>
             <th>{{labels[0].appointmentTime}}</th>
-            <th *ngIf="diffid=='1'||diffid=='2'">Hospital / Clinic</th>
-            <th *ngIf="diffid=='1'||diffid=='2'">Doctor Name</th>
+            <th *ngIf="diffid=='1'||diffid=='2'">{{labels[0].hospitalName}}</th>
+            <th *ngIf="diffid=='1'||diffid=='2'">{{labels[0].doctorName}}</th>
             <th>{{labels[0].appointmentType}}</th>
             <th>{{labels[0].ailment}}</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].mobileNo}}</th>
             <th>{{labels[0].emailID}}</th>
-            <th>Refund amount</th>
+            <th  *ngIf="showreason=='1'">Refund amount</th>
             <th *ngIf="showreason=='1'">{{labels[0].reason}}</th>
             <th>{{labels[0].status}}</th>
           </tr>
@@ -93,8 +93,8 @@
             <td>{{details.pName}}</td>
             <td>{{details.pMobileNo}}</td>
             <td>{{details.pEmail}}</td>
-            <td>{{details.paidAmount}}</td>
-            <td *ngIf="showreason=='1'">{{details.refundComments}}</td>
+            <td  *ngIf="showreason=='1'">{{details.paidAmount}}</td>
+            <td  *ngIf="showreason=='1'">{{details.refundComments}}</td>
             <td *ngIf="showreason=='1'">Refunded</td>
             <td *ngIf="showreason!='1'">
               <label

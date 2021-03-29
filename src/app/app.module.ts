@@ -333,6 +333,21 @@ import { TopicMasterComponent } from './pages/Masters/topic-master/topic-master.
 import { TopicMasterDashComponent } from './pages/Masters/topic-master-dash/topic-master-dash.component';
 import { EnableLocalDoctorComponent } from './pages/Masters/enable-local-doctor/enable-local-doctor.component';
 import { QuickguideComponent } from './pages/Quick Guide/quickguide/quickguide.component';
+import { DocChangePwdComponent } from './pages/Doctor/doc-change-pwd/doc-change-pwd.component';
+import { NurseChangePwdComponent } from './pages/Nurse/nurse-change-pwd/nurse-change-pwd.component';
+import { ChangeMidPwdComponent } from './pages/Midewife/change-mid-pwd/change-mid-pwd.component';
+import { ChangePhysiopwdComponent } from './pages/physiotherapist/change-physiopwd/change-physiopwd.component';
+import { ChangePhaPwdComponent } from './pages/Pharmacy/change-pha-pwd/change-pha-pwd.component';
+import { ChangediaPwdComponent } from './pages/Diagnostic Center/changedia-pwd/changedia-pwd.component';
+import { HosrecpChangepwdComponent } from './pages/Hospital/hosrecp-changepwd/hosrecp-changepwd.component';
+import { ChangeDeliveryPwdComponent } from './pages/DeliveryPartner/change-delivery-pwd/change-delivery-pwd.component';
+import { ChangeDiaRecpPwdComponent } from './pages/Diagnostic Center/change-dia-recp-pwd/change-dia-recp-pwd.component';
+import { IndRecpComponent } from './pages/Doctor/ind-recp/ind-recp.component';
+import { IndRecpdashComponent } from './pages/Doctor/ind-recpdash/ind-recpdash.component';
+import { DocRecpAppointmentsComponent } from './pages/Doctor/doc-recp-appointments/doc-recp-appointments.component';
+import { IndBookAppointmentComponent } from './pages/IndependentDocRecep/ind-book-appointment/ind-book-appointment.component';
+import { IndDocPaymentsComponent } from './pages/IndependentDocRecep/ind-doc-payments/ind-doc-payments.component';
+import { DatecheckComponent } from './pages/Doctor/datecheck/datecheck.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -655,7 +670,22 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     TopicMasterComponent,
     TopicMasterDashComponent,
     EnableLocalDoctorComponent,
-    QuickguideComponent
+    QuickguideComponent,
+    DocChangePwdComponent,
+    NurseChangePwdComponent,
+    ChangeMidPwdComponent,
+    ChangePhysiopwdComponent,
+    ChangePhaPwdComponent,
+    ChangediaPwdComponent,
+    HosrecpChangepwdComponent,
+    ChangeDeliveryPwdComponent,
+    ChangeDiaRecpPwdComponent,
+    IndRecpComponent,
+    IndRecpdashComponent,
+    DocRecpAppointmentsComponent,
+    IndBookAppointmentComponent,
+    IndDocPaymentsComponent,
+    DatecheckComponent
    
   ],
   imports: [
@@ -680,10 +710,10 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NgxTagsInputModule,
    
 
-    // TranslatorModule.forRoot({
-    //   providedLanguages: ['en', 'fr'],
-    //   defaultLanguage: 'en'
-    // })
+    TranslatorModule.forRoot({
+      providedLanguages: ['en', 'fr'],
+      defaultLanguage: 'en'
+    })
   ],
 //   providers: [{provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true}],
 //   bootstrap: [AppComponent]

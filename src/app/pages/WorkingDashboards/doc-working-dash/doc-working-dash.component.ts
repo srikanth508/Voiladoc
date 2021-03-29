@@ -107,7 +107,7 @@ export class DocWorkingDashComponent implements OnInit {
       this.getdoctorforadmin();
     }
     if (this.hospitalid != undefined) {
-      this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+      this.docservice.GetDoctorForAdminByLanguageIDForWorking(this.languageid).subscribe(
         data => {
 
           this.dummlist = data;
@@ -137,7 +137,7 @@ export class DocWorkingDashComponent implements OnInit {
 
   public getdoctorforadmin() {
 
-    this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
+    this.docservice.GetDoctorForAdminByLanguageIDForWorking(this.languageid).subscribe(
       data => {
 
         this.doctorlist = data;

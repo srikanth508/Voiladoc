@@ -148,7 +148,7 @@ export class SupportDashComponent implements OnInit {
     }
     else if (this.languageid == 6) {
       Swal.fire({
-        title: 'Êtes-vous sûr ?',
+        title: 'Etes-vous sûr(e) ?',
         // text: "This Issue Has Accept!",
         type: 'warning',
         showCancelButton: true,

@@ -218,10 +218,10 @@ export class LocalDoctorRegistrationComponent implements OnInit {
     }
     else {
       if (this.attachmentsurl1.length == 0) {
-        ``
+      
         this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
       }
-
+      this.password = Math.random().toString(36).slice(-8);
       var entity = {
         'DoctorName': this.doctorname,
         'MobileNumber': this.phoneno,

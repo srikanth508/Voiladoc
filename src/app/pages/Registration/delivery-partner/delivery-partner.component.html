@@ -88,8 +88,8 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-    <select class="form-control" (change)="GetDeliveryTypeID($event)">
-      <option value="0">{{labels[0].select}}</option>
+    <select class="form-control" required (change)="GetDeliveryTypeID($event)" [(ngModel)]="deliverytypeid" name="deliverytypeid">
+      <option value="">{{labels[0].select}}</option>
       <option value="1">{{labels[0].medicine}}</option>
       <option  value="2">{{labels[0].shopping}}</option>
       <option  value="3"> {{labels[0].both}}</option>

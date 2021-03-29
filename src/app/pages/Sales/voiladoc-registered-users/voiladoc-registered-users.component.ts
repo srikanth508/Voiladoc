@@ -89,7 +89,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   public typeid: any;
 
   public GetTypeID(even) {
-    
+
     this.typeid = even.target.value;
     // this.RegisteredList = this.dummreglist.filter(x =>x.approved == 0 && x.rejected == 0)
     // this.count = this.RegisteredList.length;
@@ -112,37 +112,37 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
           this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
           })
           if (list.type == '1') {
-            
+
             this.InsertHospitalDetails(list)
           }
           if (list.type == '2') {
-            
+
             this.InsertHospitalDetails(list)
           }
           if (list.type == '3') {
             this.insertdoctorregistration(list)
           }
           if (list.type == '4') {
-            
+
             this.insertnursedetails(list)
           }
           if (list.type == '5') {
-            
+
             this.insertphysiodetails(list)
           }
           if (list.type == '6') {
-            
+
             this.InsertMidWives(list)
           }
           if (list.type == '7') {
-            
+
             this.InserPharmacyDetails(list)
           }
           if (list.type == '8') {
-            
+
             this.InserDiagnostoicDetails(list)
           }
-          
+
         })
         Swal.fire(
           'Approved!',
@@ -201,7 +201,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (data != 0) {
         this.hospitalclinicid = data;
         // this.inserthspphotos();
-        this.insertdetails(list)
+        // this.insertdetails(list)
         // this.inserthspvideos();
         // this.insertfacility();
         // this.insertinsurance();
@@ -237,25 +237,25 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     }
   }
 
-  public insertdetails(list) {
-    var entity = {
-      'Hospital_ClinicID': this.hospitalclinicid,
-      'UserName': list.regysername,
-      'Password': list.password
-    }
-    this.docservice.InsertHospitalClinicAdminRegistration(entity).subscribe(data => {
+  // public insertdetails(list) {
+  //   var entity = {
+  //     'Hospital_ClinicID': this.hospitalclinicid,
+  //     'UserName': list.regysername,
+  //     'Password': list.password
+  //   }
+  //   this.docservice.InsertHospitalClinicAdminRegistration(entity).subscribe(data => {
 
-      if (data != 0) {
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+  //     if (data != 0) {
+  //       Swal.fire('Registration Completed', 'Details saved successfully', 'success');
 
 
-      }
-      else {
-        Swal.fire('Error', 'Hospital Login Already Exists', 'success');
+  //     }
+  //     else {
+  //       Swal.fire('Error', 'Hospital Login Already Exists', 'success');
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
 
 
@@ -313,7 +313,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         // this.insertdoctoreducation();
         this.insertdoctorexperience(list);
         this.insertdoctormembership();
-        this.InsertDoctorLoginDetails(list)
+        // this.InsertDoctorLoginDetails(list)
         this.insertdoctoreducation(list);
         this.insertdoctorspecilisation(list);
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
@@ -332,36 +332,36 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   public insertdoctoreducation(list) {
-   
-      var entity = {
-        'DoctorID': this.doctorid,
-        'CollegeName': list.colleage,
-        'YearOfPassing': 0,
-        'DegreeID': list.degreeID,
-        'Experience': this.doctorid,
-        'Resume': list.resume
+
+    var entity = {
+      'DoctorID': this.doctorid,
+      'CollegeName': list.colleage,
+      'YearOfPassing': 0,
+      'DegreeID': list.degreeID,
+      'Experience': this.doctorid,
+      'Resume': list.resume
+    }
+    this.docservice.InsertDoctorEducation(entity).subscribe(data => {
+
+      if (data != 0) {
       }
-      this.docservice.InsertDoctorEducation(entity).subscribe(data => {
 
-        if (data != 0) {
-        }
+    })
 
-      })
-  
 
   }
 
   public insertdoctorspecilisation(list) {
-      var entity = {
-        'SpecializationID': list.specilizationID,
-        'DoctorID': this.doctorid
-      }
-      this.docservice.InsertDoctorSpecialization(entity).subscribe(data => {
+    var entity = {
+      'SpecializationID': list.specilizationID,
+      'DoctorID': this.doctorid
+    }
+    this.docservice.InsertDoctorSpecialization(entity).subscribe(data => {
 
-        if (data != 0) {
-        }
-      })
-    
+      if (data != 0) {
+      }
+    })
+
   }
 
 
@@ -387,16 +387,16 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     //   this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DocIdentityProof\\identity.jpg'
     // }
     // for (let i = 0; i < this.attachmentsurl.length; i++) {
-      var entity = {
-        'DoctorID': this.doctorid,
-        'PhotoURL': list.identityproof
+    var entity = {
+      'DoctorID': this.doctorid,
+      'PhotoURL': list.identityproof
+    }
+    this.docservice.InsertDoctorIdentityProofs(entity).subscribe(data => {
+
+      if (data != 0) {
+
       }
-      this.docservice.InsertDoctorIdentityProofs(entity).subscribe(data => {
-
-        if (data != 0) {
-
-        }
-      })
+    })
 
     // }
   }
@@ -406,16 +406,16 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     //   this.attachmentsurl2[0] = 'C:\\VoilaDocWebAPI\\Images\\DocMedicalProofProof\\medical.jpg'
     // }
     // else {
-      // for (let i = 0; i < this.attachmentsurl2.length; i++) {
-        var entity = {
-          'DoctorID': this.doctorid,
-          'PhotoURL': list.medicalRegProof
-        }
-        this.docservice.InsertDoctorMedicalProofs(entity).subscribe(data => {
+    // for (let i = 0; i < this.attachmentsurl2.length; i++) {
+    var entity = {
+      'DoctorID': this.doctorid,
+      'PhotoURL': list.medicalRegProof
+    }
+    this.docservice.InsertDoctorMedicalProofs(entity).subscribe(data => {
 
-          if (data != 0) {
-          }
-        })
+      if (data != 0) {
+      }
+    })
     //   }
     // }
 
@@ -467,25 +467,25 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   }
 
 
-  public InsertDoctorLoginDetails(list) {
-    var entity = {
-      'DoctorID': this.doctorid,
-      'UserName': list.regysername,
-      'Password': list.password
-    }
-    this.docservice.InsertDoctorLogin(entity).subscribe(data => {
+  // public InsertDoctorLoginDetails(list) {
+  //   var entity = {
+  //     'DoctorID': this.doctorid,
+  //     'UserName': list.regysername,
+  //     'Password': list.password
+  //   }
+  //   this.docservice.InsertDoctorLogin(entity).subscribe(data => {
 
-      if (data != 0) {
-        // Swal.fire('Added Successfully.');
-        Swal.fire('Completed', 'Doctor saved successfully', 'success');
-        this.GetRegistreedVoiladocusers()
-      }
-      else {
-        Swal.fire("Doctor Login Already Exists");
-        this.GetRegistreedVoiladocusers()
-      }
-    })
-  }
+  //     if (data != 0) {
+  //       // Swal.fire('Added Successfully.');
+  //       Swal.fire('Completed', 'Doctor saved successfully', 'success');
+  //       this.GetRegistreedVoiladocusers()
+  //     }
+  //     else {
+  //       Swal.fire("Doctor Login Already Exists");
+  //       this.GetRegistreedVoiladocusers()
+  //     }
+  //   })
+  // }
 
 
 
@@ -525,7 +525,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
       this.nurseid = data;
       if (this.nurseid != 0) {
-        this.InserNurseLoginDetails(list);
+        // this.InserNurseLoginDetails(list);
         this.InsertNurseSpecilization(list);
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.spinner.hide();
@@ -543,34 +543,33 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
   public nurseid: any;
 
-  public InserNurseLoginDetails(list) {
-    var entity = {
+  // public InserNurseLoginDetails(list) {
+  //   var entity = {
+  //     'NurseID': this.nurseid,
+  //     'UserName': list.regysername,
+  //     'Password': list.password
+  //   }
+  //   this.docservice.InsertNurseLogin(entity).subscribe(data => {
+
+  //     if (data != 0) {
+  //       Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+  //       this.GetRegistreedVoiladocusers()
+  //     }
+  //     else {
+  //       Swal.fire("Nurse Login Already Exists");
+  //       this.GetRegistreedVoiladocusers()
+  //     }
+  //   })
+
+  // }
+  public InsertNurseSpecilization(list) {
+    var specentity = {
       'NurseID': this.nurseid,
-      'UserName': list.regysername,
-      'Password': list.password
+      'SpecializationID': list.specializationID,
+      'LanguageID': 1
     }
-    this.docservice.InsertNurseLogin(entity).subscribe(data => {
-
-      if (data != 0) {
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-        this.GetRegistreedVoiladocusers()
-      }
-      else {
-        Swal.fire("Nurse Login Already Exists");
-        this.GetRegistreedVoiladocusers()
-      }
+    this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
     })
-
-  }
-  public InsertNurseSpecilization(list)
-  {
-      var specentity = {
-        'NurseID': this.nurseid,
-        'SpecializationID': list.specializationID,
-        'LanguageID': 1
-      }
-      this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
-      })
   }
 
 
@@ -578,7 +577,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   //phsyio registaration
 
   public insertphysiodetails(list) {
-    
+
     // this.idproofurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DocMedicalProofProof\\medical.jpg'
     // this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
     this.spinner.show();
@@ -594,7 +593,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'Experience': list.experience,
       'Description': 'none',
       'HomeVisit': list.homeCare,
-      'IDProof':list.identityProof,
+      'IDProof': list.identityProof,
       'PhotoUrl': list.photo,
       'Pincode': list.zipcode,
       'CountryID': list.countryID,
@@ -604,9 +603,9 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       this.physioid = data;
-      
+
       if (data != 0) {
-        this.InsertPhysiologindetails(list);
+        // this.InsertPhysiologindetails(list);
         this.insertPhysioSpecilization(list);
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.spinner.hide();
@@ -623,17 +622,16 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   }
 
 
-  public insertPhysioSpecilization(list)
-  {
-      var specentity = {
-        'PhysiotherapyID': this.physioid,
-        'SpecializationID': list.specializationID,
-        'LanguageID': 1
-      }
-      this.docservice.InsertPhysiotherapySpecialization(specentity).subscribe(datas => {
+  public insertPhysioSpecilization(list) {
+    var specentity = {
+      'PhysiotherapyID': this.physioid,
+      'SpecializationID': list.specializationID,
+      'LanguageID': 1
+    }
+    this.docservice.InsertPhysiotherapySpecialization(specentity).subscribe(datas => {
 
-      })
-    
+    })
+
   }
 
 
@@ -688,7 +686,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     this.docservice.InsertMidWivesRegistration(entity).subscribe(data => {
       this.midewifeid = data;
       if (data != 0) {
-        this.InsertMidwifeLoginDetails(list)
+        // this.InsertMidwifeLoginDetails(list)
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.spinner.hide();
         this.GetRegistreedVoiladocusers()
@@ -767,7 +765,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (data != 0) {
         this.pharmacyid = data;
         this.insertphoto(list);
-        this.InserPharmacyLogins(list)
+        // this.InserPharmacyLogins(list)
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.GetRegistreedVoiladocusers()
 
@@ -797,15 +795,15 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     // }
     // for (let i = 0; i < this.attachmentsurl.length; i++) {
 
-      var entity = {
-        'PharmacyID': this.pharmacyid,
-        'PhotoURL': list.photos
-      }
-      this.docservice.InsertPharmacyPhotos(entity).subscribe(data => {
+    var entity = {
+      'PharmacyID': this.pharmacyid,
+      'PhotoURL': list.photos
+    }
+    this.docservice.InsertPharmacyPhotos(entity).subscribe(data => {
 
-        if (data != 0) {
-        }
-      })
+      if (data != 0) {
+      }
+    })
     // }
 
   }
@@ -848,15 +846,15 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'Hospitalfulltimebit': 1,
       'ContractStartDate': new Date(),
       'ContractEndDate': new Date(),
-      'DiagnosticAppointmentPerSlot':0,
-      'HomeSampleOrdersPerSlot':0
+      'DiagnosticAppointmentPerSlot': 0,
+      'HomeSampleOrdersPerSlot': 0
     }
     this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
 
       if (data != 0) {
         this.diagnosticid = data;
         this.inserthspphotosDiagnosticPhotos(list);
-        this.InsertDiagnosticLogins(list)
+        // this.InsertDiagnosticLogins(list)
 
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.GetRegistreedVoiladocusers()
@@ -879,15 +877,15 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     // }
 
     // for (let i = 0; i < this.attachmentsurl.length; i++) {
-      var entity = {
-        'DiagnosticCenterID': this.diagnosticid,
-        'PhotoURL': list.photo
-      }
-      this.docservice.InsertInsertDiagnosticCenterPhotos(entity).subscribe(data => {
+    var entity = {
+      'DiagnosticCenterID': this.diagnosticid,
+      'PhotoURL': list.photo
+    }
+    this.docservice.InsertInsertDiagnosticCenterPhotos(entity).subscribe(data => {
 
-        if (data != 0) {
-        }
-      })
+      if (data != 0) {
+      }
+    })
     // }
   }
 
@@ -918,7 +916,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   public GetRejectedregistrations(list) {
-    
+
     this.rejectelist = list;
     // Swal.fire({
     //   title: 'Are you sure?',
@@ -950,10 +948,10 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   public Reject() {
-    
+
     this.docservice.UpdateRejectedVoiladocRegisteredUsers(this.rejectelist.id, this.rejectelist.type).subscribe(res => {
       let test = res;
-      
+
       this.docservice.UpdateVoiladocRegistrationEmailsStatus(this.rejectelist.regID).subscribe(data => {
       })
 
@@ -966,17 +964,231 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   public reasonforcancel: any;
 
   public sendmails(listt) {
-    
+
     var entity = {
       'emailto': listt.regemailid,
       'emailsubject': 'Voiladoc Registrations',
       'emailbody': 'Dear ' + listt.username + ',' + "<br><br>" + this.reasonforcancel + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team'
     }
     this.docservice.sendemailsForLinkRegistrations(entity).subscribe(data => {
-      
+
     })
   }
 
 
+
+
+
+
+
+
+
+
+  contactpersonname: any;
+  contactpersonphno: any;
+  experience: any;
+  speaklanguages: any;
+  website: any;
+  description: any;
+  yearEstablished: any;
+  // view details
+  public detailslist: any;
+  photo: any;
+  hospitalname: any;
+  phoneno: any;
+  address: any;
+  email: any;
+  typeids: any;
+  slotduration: any;
+  //doctor
+
+  doctorname: any;
+  regno: any;
+  regcouncil: any;
+  colleage: any;
+  slotdurationid: any;
+  otherexp: any;
+  mediclproof: any;
+  doctortype: any;
+  professionalprofile: any;
+  //nurse
+
+  nursename: any;
+  licenceno: any;
+  pharmacyname: any;
+  dianame: any;
+
+  public GetViewdetails(list) {
+    debugger
+    if (list.type == 1) {
+      debugger
+      this.typeids = list.type;
+      this.contactpersonname = list.contactpersonName;
+      this.contactpersonphno = list.contatcpersonPhoneNo;
+      this.experience = list.experience;
+      this.website = list.website;
+      this.yearEstablished = list.yearEstablished;
+      this.description = list.description;
+      this.photo = list.photo;
+      this.hospitalname = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+
+    }
+    else if (list.type == 2) {
+      debugger
+      this.typeids = list.type;
+      this.contactpersonname = list.contactpersonName;
+      this.contactpersonphno = list.contatcpersonPhoneNo;
+      this.experience = list.experience;
+      this.website = list.website;
+      this.yearEstablished = list.yearEstablished;
+      this.description = list.description;
+      this.photo = list.photo;
+      this.hospitalname = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+
+    }
+    else if (list.type == 3) {
+      debugger
+      this.typeids = list.type;
+      this.contactpersonname = list.contactpersonName;
+      this.contactpersonphno = list.contatcpersonPhoneNo;
+      this.experience = list.experience;
+
+      this.description = list.description;
+      this.photo = list.docphoto;
+      this.doctorname = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+      this.slotduration = list.slotDurationID,
+        this.regno = list.registrationNumber,
+        this.regcouncil = list.registrationCouncil,
+        this.speaklanguages = list.speakLanguages,
+        this.colleage = list.colleage,
+        this.slotdurationid = list.slotDurationID,
+        this.otherexp = list.otherExperiences,
+        this.mediclproof = list.medicalproof,
+        this.doctortype = list.doctorType
+
+
+    }
+    else if (list.type == 4) {
+      this.typeids = list.type;
+      this.nursename = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+      this.experience = list.experience;
+      this.speaklanguages = list.speakLanguages,
+        this.professionalprofile = list.professionalProfile;
+      this.email = list.email;
+      this.photo = list.nursephoto;
+      this.mediclproof = list.identityproof
+
+    }
+    else if (list.type == 5) {
+      this.typeids = list.type;
+      this.nursename = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+      this.experience = list.experience;
+      this.speaklanguages = list.speakLanguages,
+        this.professionalprofile = list.professionalProfile;
+      this.email = list.email;
+      this.photo = list.nursephoto;
+      this.mediclproof = list.identityproof
+
+    }
+    else if (list.type == 6) {
+      this.typeids = list.type;
+      this.nursename = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+      this.experience = list.experience;
+      this.speaklanguages = list.speakLanguages,
+        this.professionalprofile = list.professionalProfile;
+      this.email = list.email;
+      this.photo = list.nursephoto;
+      this.mediclproof = list.identityproof
+    }
+    else if (list.type == 7) {
+      this.typeids = list.type;
+      this.pharmacyname = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+      this.contactpersonname = list.contactpersonName;
+      this.contactpersonphno = list.contatcpersonPhoneNo;
+      this.experience = list.experience;
+      this.website = list.website;
+      this.licenceno = list.licenceNumber;
+      this.photo = list.pharmacyphoto;
+    }
+    else if (list.type == 8) {
+      this.typeids = list.type;
+      this.dianame = list.username;
+      this.phoneno = list.phoneNo;
+      this.address = list.address;
+      this.email = list.email;
+      this.contactpersonname = list.contactpersonName;
+      this.contactpersonphno = list.contatcpersonPhoneNo;
+      this.experience = list.experience;
+      this.website = list.website;
+      this.licenceno = list.businessLicenceNumber;
+      this.photo = list.diaphoto;
+      this.description = list.description;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+  // pinno: any;
+
+
+  // public hsopitalloginlist: any;
+  // public gethospitalclinicfordash() {
+  //   this.docservice.GetHospital_ClinicLoginForDash(this.languageid).subscribe(
+  //     data => {
+
+  //       this.hsopitalloginlist = data;
+  //       var list = this.hsopitalloginlist.filter(x => x.hospital_ClinicID == this.hospitalclinicid)
+  //       this.pinno = list[0].pinno,
+  //         this.email = list[0].emailID,
+  //         this.hospitalname = list[0].hospital_ClinicName
+  //       // this.sendmail();
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+  // emailattchementurl = [];
+  
+  // public sendmail() {
+  //   debugger
+  //   var entity = {
+  //     'emailto': this.email,
+  //     'emailsubject': "Voiladoc",
+  //     'emailbody': 'Dear ' + this.hospitalname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+  //     'attachmenturl': this.emailattchementurl,
+  //     'cclist': 0,
+  //     'bcclist': 0
+  //   }
+  //   this.docservice.sendemail(entity).subscribe(data => {
+  //   })
+  // }
 
 }

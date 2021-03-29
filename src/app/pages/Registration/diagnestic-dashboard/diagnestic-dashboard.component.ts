@@ -38,7 +38,8 @@ export class DiagnesticDashboardComponent implements OnInit {
   public showexportbutton: any;
   public salesrepresntiveid: any;
   public showeditbutton: any;
-
+  meridionalid:any;
+  showdelete:any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
 
@@ -47,7 +48,7 @@ export class DiagnesticDashboardComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.startdate = localStorage.getItem('StartDate');
     this.enddate = localStorage.getItem('EndDate');
-
+    this.meridionalid = localStorage.getItem('meridionalid');
     this.activatedroute.params.subscribe(params => {
       this.id = params['id'];
     }
@@ -59,7 +60,14 @@ export class DiagnesticDashboardComponent implements OnInit {
     else {
       this.showeditbutton = 0;
     }
-
+    if(this.meridionalid==undefined)
+    {
+      this.showdelete=0;
+    }
+    else
+    {
+      this.showdelete=1;
+    }
     if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }

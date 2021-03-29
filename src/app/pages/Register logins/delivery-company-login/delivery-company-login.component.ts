@@ -61,6 +61,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
   }
 
   public insertdetails() {
+    this.password = Math.random().toString(36).slice(-8);
     if (this.dcid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please Select Delivery Company");
@@ -71,12 +72,12 @@ export class DeliveryCompanyLoginComponent implements OnInit {
     }
     else if (this.password != undefined) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
+      // var valpassword = this.docservice.strongpassword(this.password);
+      // if (valpassword == false) {
 
-        this.pp = 1;
-      }
-      else {
+      //   this.pp = 1;
+      // }
+      // else {
         var entity = {
           'DeliveryCompanyID': this.dcid,
           'UserName': this.username,
@@ -108,7 +109,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
           }
         })
       }
-    }
+    // }
   }
 
 

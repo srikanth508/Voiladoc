@@ -41,13 +41,13 @@
     </div>
     <div class="col-lg-3" *ngIf="showdrop=='1'">
       <select class="form-control" (change)="GetDiagnosticcenterID($event)">
-        <option value="0">Select Diagnostic Center</option>
+        <option value="0">{{labels[0].selectdiagnosticenter}}</option>
         <option *ngFor="let dia of diagnosticlist" value="{{dia.id}}">{{dia.diagnosticCenterName}}</option>
       </select>
     </div>
     <div class="col-lg-3" >
       <select class="form-control" (change)="getget($event)">
-        <option value="1" selected>{{labels[0].select}}</option>
+        <option value="1" selected>{{labels[0].selectstatus}}</option>
         <option value="2">{{labels[0].visited}}</option>
         <option value="3">{{labels[0].notVisited}}</option>
         <option value="4">{{labels[0].cancelled}}</option>
@@ -68,7 +68,7 @@
         <tr>
           <th id="imp">{{labels[0].ordedate}}</th>
           <th id="imp">{{labels[0].orderNumber}}</th>
-          <th id="imp" *ngIf="showdrop=='1'">Diagnostic Center Name</th>
+          <th id="imp" *ngIf="showdrop=='1'">{{labels[0].diagnosticentername}}</th>
           <th>{{labels[0].patientname}}</th>
           <th>{{labels[0].phoneNo}}</th>
           <th>{{labels[0].emailId}}</th>

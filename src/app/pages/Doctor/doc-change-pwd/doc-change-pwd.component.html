@@ -1,0 +1,158 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-9" style="margin-top: -2px;">
+      <h5 *ngIf="languageid=='1'">{{labels[0].doctor}}</h5>
+      <h5 *ngIf="languageid=='6'">ACCES MEDECINS  </h5>
+    </div>
+    <!-- <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
+      <button type="button" routerLink="/Doctor" class="btn btncolor"
+        style="margin-top: 5px;">{{labels[0].add}}</button>
+    </div> -->
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <!-- <div class="col-lg-2">
+      <label *ngIf="languageid=='1'" style="margin-left: 60px;"><b>Count : {{count}}</b></label>
+      <label *ngIf="languageid=='6'" style="margin-left: 60px;"><b>Nombre : {{count}}</b></label>
+    </div> -->
+
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].doctor}}</th>
+            <th>{{labels[0].userName}}</th>
+            <th>{{labels[0].password}}</th>
+            <!-- <th>{{labels[0].disable}}</th>
+            <th>{{labels[0].enable}}</th> -->
+            <th>Actions</th>
+
+          </tr>
+          <tr
+            *ngFor="let details of doctorloginlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            <td>{{details.doctorName}}</td>
+            <td>{{details.userName}}</td>
+            <td>{{details.encryptPassword}}</td>
+            <ng-template #tipcontent3>{{labels[0].disable}}</ng-template>
+            <td>
+
+              <!-- <button (click)="disabledoctor(details.doctorID)"
+                style="background-color: green;color: aliceblue;border: none;"
+                *ngIf="details.hidden=='0'">{{labels[0].disable}}</button>
+
+
+              <button (click)="enabledoctor(details.doctorID)"
+                style="background-color: red;color: aliceblue;border: none;"
+                *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
+              &nbsp; -->
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
+                  (click)="GetDeatsils(details)">
+              </a>
+            </td>
+        </thead>
+      </table><br><br>
+    </div>
+  </div><br><br>
+  <div class="col-lg-12" style="text-align: center">
+    <br>
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div><br><br>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].editPassword}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>{{labels[0].enteryourpin}}</label>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)' [(ngModel)]="Enteredpinno" name="Enteredpinno"
+              placeholder="{{labels[0].enteryourpin}}">
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels[0].validate}}</button>
+          </div>
+        </div>
+        <div *ngIf="Showpassword=='1'">
+          <form #doctorForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].pinno}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno"
+               
+                 >
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].userName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="username" required [(ngModel)]="username"
+                  placeholder="{{labels[0].userName}}"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].password}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="password" required [(ngModel)]="password"
+                  placeholder="{{labels[0].password}}">
+                <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span>
+              </div>
+            </div>
+            <br><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn allbtns btncolor" (click)="insertdetails()"
+                  [disabled]="doctorForm.form.invalid">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div><br><br>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

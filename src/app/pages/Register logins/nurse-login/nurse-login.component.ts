@@ -87,6 +87,8 @@ export class NurseLoginComponent implements OnInit {
   }
 
   public insertdetails() {
+    this.password = Math.random().toString(36).slice(-8);
+
     if (this.nurseid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please Select Hospital/Clinic");
@@ -98,12 +100,12 @@ export class NurseLoginComponent implements OnInit {
     }
     else if (this.password != undefined) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
+      // var valpassword = this.docservice.strongpassword(this.password);
+      // if (valpassword == false) {
 
-        this.pp = 1;
-      }
-      else {
+      //   this.pp = 1;
+      // }
+      // else {
 
         var entity = {
           'NurseID': this.nurseid,
@@ -139,7 +141,7 @@ export class NurseLoginComponent implements OnInit {
 
           }
         })
-      }
+      // }
     }
   }
 

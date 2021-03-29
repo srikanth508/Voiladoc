@@ -54,8 +54,9 @@
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].registrationNo}}</th>
-            <th>{{labels[0].department}}</th>
+            <th>{{labels[0].department}}</th> 
             <th>{{labels[0].address}}</th>
+            <th>Hospital/Clinic</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr
@@ -71,6 +72,7 @@
             <td>{{details.registrationNo}}</td>
             <td>{{details.departmentname}}</td>
             <td>{{details.address}}</td>
+            <td>{{details.hospital_ClinicName}}</td>
             <td style="width: 100px;">
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
@@ -100,3 +102,5 @@
     </pagination-controls>
   </div><br><br>
 </div><br><br><br>
+
+

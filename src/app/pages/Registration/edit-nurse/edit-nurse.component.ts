@@ -90,6 +90,9 @@ export class EditNurseComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    this.countryid="";
+    this.areaid="";
+    this.cityid=""
   }
 
 

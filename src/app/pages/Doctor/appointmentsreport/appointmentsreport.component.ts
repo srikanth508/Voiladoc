@@ -167,15 +167,32 @@ export class AppointmentsreportComponent implements OnInit {
     this.startdate = data[0].toLocaleString().split(',')[0];
     this.enddate = data[1].toLocaleString().split(',')[0];
 
-    this.docservice.GetCancelledAppointmentReportsForDoctor(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
-      data => {
-        // this.cancelledlist = data;
-        this.dummlist = data;
-        this.cancelledlist = this.dummlist.filter(x => x.refundBit == 1);
-        this.count = this.cancelledlist.length
-      }, error => {
-      }
-    )
+    if (this.diffid == undefined) {
+      this.getcancelledappoinrtments();
+      this.showreason = 1;
+    }
+    else if (this.diffid == '1') {
+      this.docservice.GetCancelledAppointmentReportsForDoctorwEB(this.startdate, this.enddate, this.languageid).subscribe(
+        data => {
+
+          this.cancelledlist = data;
+          this.dummlist = this.cancelledlist;
+          this.count = this.cancelledlist.length
+        }, error => {
+        }
+      )
+    }
+    else if (this.diffid == '2') {
+      this.docservice.GetCancelledAppointmentReportsForVideoAppts(this.startdate, this.enddate, this.languageid).subscribe(
+        data => {
+
+          this.cancelledlist = data;
+          this.dummlist = this.cancelledlist;
+          this.count = this.cancelledlist.length
+        }, error => {
+        }
+      )
+    }
   }
 
 

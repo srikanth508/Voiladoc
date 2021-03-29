@@ -114,14 +114,14 @@
                     <a [ngbTooltip]="tipcontent3"
                       *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
                       <img src="assets/Images/acc.png" style="height:20px;"
-                        (click)="GetAcceptOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" /></a>
+                        (click)="GetAcceptOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID,details.smsmobileno)" /></a>
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent4>{{labels[0].cancel}}</ng-template>
                     <a [ngbTooltip]="tipcontent4"
                       *ngIf="details.approved=='0'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'">
                       <img src="assets/Images/can.png" style="height:20px;"
-                        (click)="GetCancelOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
+                        (click)="GetCancelOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID,details.smsmobileno)" />
                     </a>
                   </td>
                   <td style="border:none">

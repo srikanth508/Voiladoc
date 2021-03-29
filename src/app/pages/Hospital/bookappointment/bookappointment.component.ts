@@ -5,6 +5,7 @@ import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import { DatePipe, formatDate } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 import { TotalHospitalApointmentsComponent } from '../total-hospital-apointments/total-hospital-apointments.component';
+
 @Component({
   selector: 'app-bookappointment',
   templateUrl: './bookappointment.component.html',
@@ -356,5 +357,9 @@ export class BookappointmentComponent implements OnInit {
 
 
 
+
+
+
+ 
   
 }

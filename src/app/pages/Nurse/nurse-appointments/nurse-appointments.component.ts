@@ -138,6 +138,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
 
+
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
       data => {
@@ -195,13 +196,14 @@ export class NurseAppointmentsComponent implements OnInit {
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
+          this.availabletime=this.serverdateandtime.presentTime
       }, error => {
       }
     )
   }
   public canpatientmobileno: any;
 
-  public GetCancelAppointmentID(id, bookedTime, appdate, nurseName, hospital_ClinicName, patientID, emailID, paidAmount, walletAmount, mobileNumber) {
+  public GetCancelAppointmentID(id, bookedTime, appdate, nurseName, hospital_ClinicName, patientID, emailID, paidAmount, walletAmount, mobileNumber, smsmobileno) {
 
     this.canappointmentid = id
     this.canslots = bookedTime;
@@ -212,6 +214,7 @@ export class NurseAppointmentsComponent implements OnInit {
     this.paidamount = paidAmount;
     this.walletamount = walletAmount;
     this.canpatientmobileno = mobileNumber;
+    this.smsmobileno = smsmobileno;
 
 
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
@@ -258,25 +261,37 @@ export class NurseAppointmentsComponent implements OnInit {
         this.InsertCancellNotification();
         this.InsertNotiFicationCancel();
         this.SendCancelPatientmail();
-        this.sendsms();
+        // this.sendsms();
         this.getnurselist();
         this.getnurseappointments();
+
+        
+          var smsdesc = "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. "
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
+        
+        
       }
       else {
         Swal.fire('Annuler avec succès');
         this.InsertCancellNotification();
         this.InsertNotiFicationCancel();
         this.SendCancelPatientmail();
-        this.sendsms();
+        // this.sendsms();
         this.getnurselist();
         this.getnurseappointments();
+
+        var smsdesc = "Votre RDV avec l'infirmier/ère " + this.cannursename + " le " + this.canslots + " n'a pas été confirmé."
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
+
+
       }
 
 
     })
   }
 
-  public GetAcceptAppointmentID(id, nurseid, bookedTime, nurseName, hospital_ClinicName, patientID, emailID) {
+  smsmobileno: any;
+  public GetAcceptAppointmentID(id, nurseid, bookedTime, nurseName, hospital_ClinicName, patientID, emailID, smsmobileno) {
 
     this.acceptappointmentid = id;
     this.acceptnurseid = nurseid;
@@ -285,6 +300,7 @@ export class NurseAppointmentsComponent implements OnInit {
     this.accepthospital = hospital_ClinicName;
     this.acceppatientid = patientID;
     this.accemail = emailID;
+    this.smsmobileno = smsmobileno
   }
 
 
@@ -301,15 +317,24 @@ export class NurseAppointmentsComponent implements OnInit {
     this.insertAcceptNursenotoification();
 
     this.InsertNotificationFORAccept();
+
+    if (this.languageid == 1) {
+      var smsdesc = "Your appoinment with the nurse " + this.acceptnursename + " on " + this.aaceptslots + " has been accepted."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    else {
+      var smsdesc = "Votre RDV avec l'infirmier/ère " + this.acceptnursename + " le " + this.aaceptslots + " a été confirmé. "
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
   }
 
   public insertAcceptNursenotoification() {
-
+debugger
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.acceppatientid,
-        'Notification': "Appointment Accepted By Nurse.",
-        'Description': "Your Appointment with " + this.acceptnursename + " scheduled for " + this.aaceptslots + " at " + this.accepthospital + "has been Accepted.",
+        'Notification': "Appointment confirmed",
+        'Description': "Your appoinment with the nurse " + this.acceptnursename + " on " + this.aaceptslots + " has been accepted.",
         'NotificationTypeID': 25,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -325,8 +350,8 @@ export class NurseAppointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.acceppatientid,
-        'Notification': "Rendez-vous accepté par l'infirmière.",
-        'Description': "Votre rendez-vous avec " + this.acceptnursename + " prévu pour " + this.aaceptslots + "a été accepté.",
+        'Notification': "RDV confirmé",
+        'Description': "Votre RDV avec l'infirmier/ère " + this.acceptnursename + " le " + this.aaceptslots + " a été confirmé. ",
         'NotificationTypeID': 25,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -342,9 +367,9 @@ export class NurseAppointmentsComponent implements OnInit {
   }
   public InsertNotificationFORAccept() {
     if (this.languageid == '1') {
-
+      debugger
       var entity = {
-        'Description': "Your Appointment with " + this.acceptnursename + " scheduled for " + this.aaceptslots + "has been Accepted.",
+        'Description': "Your appoinment with the nurse " + this.acceptnursename + " on " + this.aaceptslots + " has been accepted.",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -355,8 +380,10 @@ export class NurseAppointmentsComponent implements OnInit {
       })
     }
     else if (this.languageid == '6') {
+      debugger
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.acceptnursename + " prévu pour " + this.aaceptslots + "a été accepté.",
+        
+        'Description': "Votre RDV avec l'infirmier/ère " + this.acceptnursename + " le " + this.aaceptslots + " a été confirmé. ",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -368,6 +395,14 @@ export class NurseAppointmentsComponent implements OnInit {
     }
   }
 
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      debugger
+    })
+  }
 
   public getfromampm(even) {
 
@@ -385,21 +420,21 @@ export class NurseAppointmentsComponent implements OnInit {
     this.docservice.UpdateNurse_AvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
 
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         this.getnurselist();
         this.getnurseappointments();
+        this.getserverdateandtime()
         Swal.fire('Agenda updated and appointment accepted successfully.');
-  
+
       }
-      else
-      {
+      else {
         this.getnurselist();
         this.getnurseappointments();
+        this.getserverdateandtime()
         Swal.fire('Agenda mis à jour et rendez-vous accepté avec succès.');
-  
+
       }
-    
+
     })
   }
 
@@ -512,13 +547,12 @@ export class NurseAppointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Appointment Cancelled By Nurse.",
-        'Description': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled.",
+        'Notification': "Appointment not confirmed",
+        'Description': "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. ",
         'NotificationTypeID': 19,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
         'AppointmentID': this.canappointmentid
-
       }
       this.docservice.InsertNotificationsNotifications_NPMWeb(entity).subscribe(data => {
 
@@ -531,8 +565,8 @@ export class NurseAppointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Rendez-vous annulé par l'infirmière.",
-        'Description': "Votre rendez-vous avec " + this.cannursename + " prévu pour " + this.canslots + " a été annulé.",
+        'Notification': "RDV non confirmé",
+        'Description': "Votre RDV avec l'infirmier/ère " + this.cannursename + " le " + this.canslots + " n'a pas été confirmé.",
         'NotificationTypeID': 19,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -548,25 +582,25 @@ export class NurseAppointmentsComponent implements OnInit {
     }
   }
 
-  public sendsms() {
+  // public sendsms() {
 
-    let Entity = {
-      'Contacts': this.canemail,
-      'TextMessage': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled."
-    }
-    this.docservice.SendSMS(Entity).subscribe(data => {
+  //   let Entity = {
+  //     'Contacts': this.canemail,
+  //     'TextMessage': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled."
+  //   }
+  //   this.docservice.SendSMS(Entity).subscribe(data => {
 
-    })
-  }
+  //   })
+  // }
 
 
 
 
   public InsertNotiFicationCancel() {
+    debugger
     if (this.languageid == '1') {
-
       var entity = {
-        'Description': "Your Appointment with " + this.cannursename + " scheduled for " + this.canslots + " has been Cancelled.",
+        'Description': "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. ",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -577,9 +611,9 @@ export class NurseAppointmentsComponent implements OnInit {
       })
     }
     else if (this.languageid == '6') {
-
+      debugger
       var entity = {
-        'Description': "Votre rendez-vous avec" + this.cannursename + " prévu pour " + this.canslots + " a été annulé.",
+        'Description': "Votre RDV avec l'infirmier/ère " + this.cannursename + " le " + this.canslots + " n'a pas été confirmé.",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -590,6 +624,10 @@ export class NurseAppointmentsComponent implements OnInit {
       })
     }
   }
+
+
+
+
 
   AppointmentID;
   showimages;

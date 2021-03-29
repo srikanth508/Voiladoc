@@ -193,15 +193,15 @@
 
             </td>
           </tr>
-          <tr *ngIf="gender=='Female'">
+          <tr *ngIf="genderid=='2'">
             <td style="text-align: left;border:2px solid">
-              {{labels[0].isThePatientPregnant}} :
+              {{labels[0].pragnency}} :
 
               <span *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</span>
               <!-- <span *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</span> -->
             </td>
             <td class="tabletdstyles">
-              Breast feeding :
+              {{labels[0].breastfedding}} :
               <span *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</span>
               <!-- <span *ngIf="breastFeeding=='0'">{{labels[0].no}}</span> -->
             </td>

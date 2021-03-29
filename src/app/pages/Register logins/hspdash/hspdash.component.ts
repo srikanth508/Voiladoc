@@ -174,4 +174,15 @@ export class HspdashComponent implements OnInit {
       }
     }
   }
+
+
+
+
+
+
+
+
+  // send mail
+
+  
 }

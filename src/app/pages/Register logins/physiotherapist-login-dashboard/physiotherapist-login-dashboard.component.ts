@@ -24,6 +24,7 @@ export class PhysiotherapistLoginDashboardComponent implements OnInit {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.pinno = localStorage.getItem('Pinno');
     this.languageid = localStorage.getItem('LanguageID');
+  
     this.GetPhysiotherapistLoginAdmin();
     this.getlanguage();
   }

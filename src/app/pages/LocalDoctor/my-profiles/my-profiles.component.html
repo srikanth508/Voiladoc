@@ -129,7 +129,7 @@
           <!-- <span class="required">*</span> -->
         </div>
         <div class="col-lg-4">
-          <input type="text" placeholder="{{labels[0].password}}" disabled name="password" required [(ngModel)]="password"
+          <input type="text" placeholder="{{labels[0].password}}"  name="password" required [(ngModel)]="password"
             class="form-control">
         </div>
       </div><br>
@@ -138,9 +138,9 @@
           <div class="col-lg-5">
           </div>
           <div class="col-lg-2">
-            <!-- <button type="button" text_align="center" [disabled]="doctorForm.form.invalid"
+            <button type="button" text_align="center" [disabled]="doctorForm.form.invalid"
               class="btn btn-block btn-md allbtns btncolor"
-              (click)="updatedeilas()">{{labels[0].update}}</button> -->
+              (click)="updatedeilas()">{{labels[0].update}}</button>
           </div>
           <div class="col-lg-5">
           </div>

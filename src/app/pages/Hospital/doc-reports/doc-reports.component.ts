@@ -14,7 +14,7 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./doc-reports.component.css']
 })
 export class DocREportsComponent implements OnInit {
-
+  options: NgDateRangePickerOptions;
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   public cancelledlist: any;
@@ -29,6 +29,11 @@ export class DocREportsComponent implements OnInit {
   public id: any;
   public sdate: any;
   public edate: any;
+
+
+  value: any;
+  SDate = new Date();
+  EDate = new Date();
 
   ngOnInit() {
 
@@ -286,5 +291,49 @@ public hospitalid:any;
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+
+
+
+
+  
+  selectedDate(data) {
+
+    //   var sdate = data.split('-')
+    //   this.startdate= sdate[0]
+    //  this.enddate= sdate[1]
+
+    this.startdate = data[0].toLocaleString().split(',')[0];
+    this.enddate = data[1].toLocaleString().split(',')[0];
+
+    
+    if (this.id == undefined) {
+
+      this.getcancelledappoinrtments();
+    }
+
+    else if (this.id == '1') {
+      this.docservice.GetAllAppointmentsForHosp(this.startdate, this.enddate).subscribe(
+        data => {
+
+          this.cancelledlist = data;
+          this.dummlist = this.cancelledlist;
+          this.count = this.cancelledlist.length
+        }, error => {
+        }
+      )
+    }
+    else if (this.id == '2') {
+      this.docservice.GetAllAppointmentsForClinics(this.startdate, this.enddate).subscribe(
+        data => {
+
+          this.cancelledlist = data;
+          this.dummlist = this.cancelledlist;
+          this.count = this.cancelledlist.length
+        }, error => {
+        }
+      )
+    }
   }
 }

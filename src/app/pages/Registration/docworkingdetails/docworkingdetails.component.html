@@ -29,6 +29,7 @@
       <div class="row">
         <div class="col-lg-2">
           <label>Doctor Name : </label>
+          <span class="requird">*</span>
         </div>
         <div class="col-lg-4">
           <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="doctorlist"
@@ -49,7 +50,7 @@
       <br>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-2">
         <label>{{labels[0].bookingType}}: </label>
         <span class="requird">*</span>
@@ -60,7 +61,7 @@
         </ng-multiselect-dropdown>
       </div>
     </div>
-    <br>
+    <br> -->
     <div class="row">
       <div class="col-lg-2">
         <label>
@@ -74,8 +75,25 @@
       </div>
     </div>
     <br>
+
     <div class="row">
       <div class="col-lg-2">
+        <label>{{labels[0].scheduletype}} : </label>
+        <span class="requird">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetAppointmentTypeID($event)" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype">
+          <option value="0">{{labels[0].select}}</option>
+          <option value="1">{{labels[0].inclinic}}</option>
+          <option  value="2">{{labels[0].video}}</option>
+          <option  value="5">{{labels[0].homeVisit}}</option>
+          <option  value="6"> {{labels[0].meeting}}</option>
+        </select>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <!-- <div class="col-lg-2">
         <label>{{labels[0].scheduletype}} : </label>
       </div>
       <div class="col-lg-1">
@@ -91,9 +109,10 @@
         {{labels[0].homeVisit}}
         <input type="radio" [(ngModel)]="mrngAppointmenttype" name="mrngAppointmenttype" value="6"> &nbsp;
         {{labels[0].meeting}}
-      </div>
+      </div> -->
       <div class="col-lg-2">
         <label>{{labels[0].timings}} : </label>
+        <span class="requird">*</span>
       </div>
       <div class="col-lg-3">
         <select class="form-control" (change)="getmrngfrom($event)" [(ngModel)]="mrngfromid" name="mrngfromid">
@@ -112,12 +131,12 @@
     </div><br>
     <div class="row">
       <div class="col-lg-2">
-        <label  *ngIf="mrngAppointmenttype!=6">Fees : </label>
-        <span class="requird"  *ngIf="mrngAppointmenttype!=6">*</span>
+        <label *ngIf="mrngAppointmenttype!=6">Fees : </label>
+        <span class="requird" *ngIf="mrngAppointmenttype!=6">*</span>
       </div>
       <div class="col-lg-3">
         <input type="text" class="form-control" *ngIf="mrngAppointmenttype!=6" [(ngModel)]="fees" required name="fees"
-        onkeypress='return(event.charCode>=48&&event.charCode<=57)' placeholder="Fees">
+          onkeypress='return(event.charCode>=48&&event.charCode<=57)' placeholder="Fees">
       </div>
     </div><br>
     <div class="row">

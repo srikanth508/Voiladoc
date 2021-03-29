@@ -88,7 +88,7 @@ aria-hidden="true">
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Password</h5>
+      <h5 class="modal-title" id="exampleModalLabel">{{labels1[0].editPassword}}</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -96,21 +96,21 @@ aria-hidden="true">
     <div class="modal-body">
       <div class="row" *ngIf="Showpassword=='0'">
         <div class="col-lg-3">
-          <label>Enter Your Pin</label>
+          <label>{{labels1[0].enteryourpin}}</label>
         </div>
         <div class="col-lg-6">
           <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
-            placeholder="Enter Your Pin No">
+            placeholder="{{labels1[0].enteryourpin}}">
         </div>
         <div class="col-lg-2">
-          <button class="btn btncolor" (click)="CheckPasswordvalidate()">Validate</button>
+          <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels1[0].validate}}</button>
         </div>
       </div>
       <div *ngIf="Showpassword=='1'">
         <form #doctorForm="ngForm">
           <div class="row">
             <div class="col-lg-4">
-              <label>Pin No :</label>
+              <label>{{labels1[0].pinno}} :</label>
               <span class="required">*</span>
             </div>
             <div class="col-lg-6">
@@ -133,12 +133,12 @@ aria-hidden="true">
           <br> -->
           <div class="row">
             <div class="col-lg-4">
-              <label>Password :</label>
+              <label>{{labels1[0].password}} :</label>
               <span class="required">*</span>
             </div>
             <div class="col-lg-6">
               <input type="text" class="form-control" name="password" required [(ngModel)]="password"
-                placeholder="Password">
+                placeholder="{{labels1[0].password}}">
             
             </div>
           </div>
@@ -159,7 +159,7 @@ aria-hidden="true">
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" id="close" class="btn btncolor" data-dismiss="modal">Close</button>
+      <button type="button" id="close" class="btn btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
     </div>
   </div>
 </div>

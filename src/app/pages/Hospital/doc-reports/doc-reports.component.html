@@ -14,29 +14,43 @@
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <div class="col-lg-3" >
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+
+    <div class="col-lg-3">
       <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
     </div>
     <div class="col-lg-3" *ngIf="id=='1'">
       <select class="form-control" (change)="GetHosptalWiseAppointments($event)">
-        <option selected value="4">Select Hospital</option>
+        <option selected value="4">{{labels[0].selecthospital}}</option>
         <option *ngFor="let hos of hospitalcliniclist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
       </select>
     </div>
     <div class="col-lg-3" *ngIf="id=='2'">
       <select class="form-control" (change)="GetHosptalWiseAppointments($event)">
-        <option selected value="4">Select Clinic</option>
+        <option selected value="4">{{labels[0].selectclinic}}</option>
         <option *ngFor="let hos of clnicslist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
       </select>
     </div>
-    <!-- <div class="col-lg-3" >
+    <div class="col-lg-3">
       <select class="form-control" (change)="getget($event)">
         <option selected value="4">{{labels[0].selectStatus}}</option>
         <option value="1">{{labels[0].visited}}</option>
         <option value="2">{{labels[0].notVisited}}</option>
         <option value="3">{{labels[0].cancel}}</option>
       </select>
-    </div> -->
+    </div>
+
+  </div>
+  <br>
+  <div class="row">
     <div class="col-lg-3">
       <select class="form-control" (change)="GetAppointmenttype($event)">
         <option value="1">{{labels[0].selectAppType}}</option>
@@ -44,11 +58,13 @@
         <option value="3">{{labels[0].vedio}}</option>
       </select>
     </div>
+    <div class="col-lg-6">
+
+    </div>
     <div class="col-lg-3" style="text-align: end;">
       <label>{{labels[0].count}} : {{count}}</label>
     </div>
-  </div>
-  <br>
+  </div><br>
   <div class="row">
     <div class="col-lg-12" style="overflow-y: auto;">
       <table class="table" id="Appointment" style="overflow: auto;">
@@ -58,8 +74,8 @@
             <th>{{labels[0].appointmentNumber}}</th>
             <th>{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].appointmentType}}</th>
-            <th  *ngIf="id=='1'||id=='2'">{{labels[0].hospitalName}}</th>
-            <th  *ngIf="id=='1'||id=='2'">{{labels[0].doctorName}}</th>
+            <th *ngIf="id=='1'||id=='2'">{{labels[0].hospitalName}}</th>
+            <th *ngIf="id=='1'||id=='2'">{{labels[0].doctorName}}</th>
             <th>{{labels[0].ailment}}</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].mobileNo}}</th>

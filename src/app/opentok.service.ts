@@ -18,7 +18,7 @@ export class OpentokService {
   initSession() {
    
     if (config.API_KEY && config.TOKEN && config.SESSION_ID) {
-      
+      debugger
       this.session = this.getOT().initSession(config.API_KEY, config.SESSION_ID);
       debugger
       this.token = config.TOKEN;
@@ -56,6 +56,7 @@ export class OpentokService {
 
 
    startArchive(){
+    debugger
    debugger
     let url = config.SAMPLE_SERVER_BASE_URL+'/archive/start';
     let data= JSON.stringify({ 'sessionId': this.session.sessionId });
@@ -70,6 +71,7 @@ export class OpentokService {
   }
 
   stoparchive(archiveID){
+    debugger
     let url = config.SAMPLE_SERVER_BASE_URL+'/archive/'+archiveID+'/stop';
     return this.http.post(url, '')
     this.disconnect_1();
@@ -77,6 +79,7 @@ export class OpentokService {
   }
 
   getsessionandtoken(){
+    debugger
     return this.http.get( config.Sessionurl+'?API_KEY='+config.API_KEY+'&API_SECRET='+config.SECRET)
   }
 

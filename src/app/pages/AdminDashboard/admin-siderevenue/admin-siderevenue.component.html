@@ -1,3 +1,4 @@
+<br>
 <div class="container-fluid card card-hover">
   <br />
   <div class="row">
@@ -17,7 +18,7 @@
         <option value="0">Select</option>
         <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
       </select> -->
-      <ng-multiselect-dropdown [placeholder]="'Select Hospital'" [data]="hospitallist" [settings]="hospdd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitallist" [settings]="hospdd"
         (onSelect)="GetHospitalID($event)">
       </ng-multiselect-dropdown>
     </div>
@@ -26,10 +27,10 @@
       <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
       (onSelect)="GetAreaID($event)">
     </ng-multiselect-dropdown> -->
-      <select class="form-control" (change)="GetAreaID($event)">
-        <option value="0">Select City</option>
+      <!-- <select class="form-control" (change)="GetAreaID($event)">
+        <option value="0">{{labels[0].selectCity}}</option>
         <option *ngFor="let area of arealist" value="{{area.id}}">{{area.areaName}}</option>
-      </select>
+      </select> -->
     </div>
   </div>
 </div>
@@ -39,8 +40,8 @@
   <h4 style="text-align: center; font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"></h4>
   <br />
   <div class="row">
-    <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of hospitalrevenue">
+    <!-- <div class="col-lg-3"> -->
+      <!-- <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of hospitalrevenue">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">Hospital Revenue</b>
@@ -55,12 +56,12 @@
       </div>
       <br />
       <br />
-    </div>
+    </div> -->
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of allcounts">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
-          <b style="font-size: 15px;">{{labels[0].totalDocRevenue}}</b>
+          <b style="font-size: 15px;"> {{labels[0].totarevenue}} <br> {{labels[0].totalDocRevenue}}</b>
         </label>
         <br />
         <br />
@@ -74,17 +75,20 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of nursecount">
+      <!--  -->
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  *ngFor="let cou1 of nursecount">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            {{labels[0].totalNurseRevenue}}</b>
+            {{labels[0].totarevenue}} <br> {{labels[0].totalNurseRevenue}}</b>
         </label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;">{{cou.nursetotalamount}}</u>
+            <u style="font-size: 20px;">
+              {{cou1.paidAmount}}
+            </u>
           </b>
         </label>
       </div>
@@ -96,7 +100,25 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            {{labels[0].totalMidwifeRevenue}}</b>
+            {{labels[0].totarevenue}} <br>{{labels[0].totalMidwifeRevenue}}</b>
+        </label>
+        <br />
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.paidAmount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+   <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of physiocount">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            {{labels[0].phiyrevenue}} <br> {{labels[0].physitherapistRevenue}}</b>
         </label>
         <br />
         <br />
@@ -110,8 +132,7 @@
       <br />
     </div>
   </div>
-
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of physiocount">
         <br />
@@ -131,24 +152,7 @@
       <br />
     </div>
 
-    <!-- <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
-        <br />
-        <label style="color: black;font-size: 30px;color: white;">
-          <b style="font-size: 15px;">
-            Delivery Orders</b>
-        </label>
-        <br />
-        <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;">
-          <b>
-            <u style="font-size: 20px;">0</u>
-          </b>
-        </label>
-      </div>
-      <br />
-      <br />
-    </div> -->
+    
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
         <br />
@@ -185,25 +189,57 @@
       <br />
       <br />
     </div>
-  </div>
+  </div> -->
 </div><br>
 
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
+
+
     <div class="col-lg-3">
-      <ng-multiselect-dropdown [placeholder]="'Select Doctor'" [data]="inddoctorslist" [settings]="docdd"
-        (onSelect)="GetDoctorID($event)">
+      <select class="form-control" (change)="GetIndetypeIDs($event)">
+        <option value="0">Select</option>
+        <option value="1">Doctor</option>
+        <option value="2">Nurse</option>
+        <option value="3">Midwife</option>
+        <option value="4">Physiotherapist</option>
+      </select>
+    </div>
+    <div class="col-lg-3" *ngIf="indtypeid=='1'">
+        <ng-multiselect-dropdown [placeholder]="'Select Doctor'" [data]="inddoctorslist" [settings]="docdd"
+          (onSelect)="GetDoctorID($event)">
+        </ng-multiselect-dropdown>
+    </div>
+
+    <div class="col-lg-3" *ngIf="indtypeid=='2'">
+      <ng-multiselect-dropdown [placeholder]="'Select Nurse'" [data]="nurselist1" [settings]="nursedd"
+        (onSelect)="GetNurseIDD($event)">
       </ng-multiselect-dropdown>
     </div>
+
+    <div class="col-lg-3" *ngIf="indtypeid=='3'">
+      <ng-multiselect-dropdown [placeholder]="'Select Midwife'" [data]="midwifes1" [settings]="midwifedd"
+        (onSelect)="GetMidwifeID1($event)">
+      </ng-multiselect-dropdown>
+    </div>
+
+    <div class="col-lg-3" *ngIf="indtypeid=='4'">
+      <ng-multiselect-dropdown [placeholder]="'Select Physiotherapist'" [data]="physiolist1" [settings]="physiodd"
+        (onSelect)="GetPhysioID($event)">
+      </ng-multiselect-dropdown>
+    </div>
+
+
+   
     <div class="col-lg-3">
       <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
       (onSelect)="GetAreaID($event)">
     </ng-multiselect-dropdown> -->
-      <select class="form-control" (change)="GetAreaIndependentDoctor($event)">
+      <!-- <select class="form-control" (change)="GetAreaIndependentDoctor($event)">
         <option value="0">Select City</option>
         <option *ngFor="let area of arealist" value="{{area.id}}">{{area.areaName}}</option>
-      </select>
+      </select> -->
     </div>
   </div><br>
   <div class="row">
@@ -226,7 +262,7 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of indepedentlist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of indnurselist">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
@@ -236,7 +272,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;">0</u>
+            <u style="font-size: 20px;">{{cou.paidAmount}}</u>
           </b>
         </label>
       </div>
@@ -244,7 +280,7 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of indepedentlist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of indmidwifelist">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
@@ -254,7 +290,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;">0</u>
+            <u style="font-size: 20px;">{{cou.paidAmount}}</u>
           </b>
         </label>
       </div>
@@ -262,7 +298,7 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of indepedentlist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of indphysiolist">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
@@ -272,7 +308,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;">0</u>
+            <u style="font-size: 20px;">{{cou.paidAmount}}</u>
           </b>
         </label>
       </div>
@@ -286,7 +322,7 @@
 
 <div class="container-fluid card card-hover">
   <br>
-  <h3 style="text-align: center;">Hospital/Clinic Subscription Fess And Revenue</h3>
+  <h3 style="text-align: center;">Hospital/Clinic Subscription Fees And Revenue</h3>
   <br>
   <div class="row">
     <div class="col-lg-3">
@@ -416,7 +452,7 @@
 <div class="container-fluid card card-hover">
  
   <br>
-  <h3 style="text-align: center;">Independent Subscription Fess And Revenue</h3>
+  <h3 style="text-align: center;">Independent Subscription Fees And Revenue</h3>
   <br>
   <div class="row">
     <div class="col-lg-3">
@@ -532,7 +568,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;">{{cou.independentPhysiorevenue}}</u>
+            <u style="font-size: 20px;">{{cou.physiotherapistmontlysubscription}}</u>
           </b>
         </label>
       </div>
@@ -540,8 +576,6 @@
       <br />
     </div>
   </div>
-
-
   <div class="row">
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"

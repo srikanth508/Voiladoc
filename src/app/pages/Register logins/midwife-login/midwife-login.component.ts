@@ -88,6 +88,8 @@ export class MidwifeLoginComponent implements OnInit {
   }
 
   public insertdetails() {
+    this.password = Math.random().toString(36).slice(-8);
+
     if (this.midewifeid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please Select Mid Wife");
@@ -99,12 +101,12 @@ export class MidwifeLoginComponent implements OnInit {
     }
     else if (this.password != undefined) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
+      // var valpassword = this.docservice.strongpassword(this.password);
+      // if (valpassword == false) {
 
-        this.pp = 1;
-      }
-      else {
+      //   this.pp = 1;
+      // }
+      // else {
 
         var entity = {
           'MidWiveID': this.midewifeid,
@@ -141,7 +143,7 @@ export class MidwifeLoginComponent implements OnInit {
           }
         })
       }
-    }
+    // }
   }
 
   public midwiveslist: any;

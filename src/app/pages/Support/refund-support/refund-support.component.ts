@@ -93,6 +93,9 @@ export class RefundSupportComponent implements OnInit {
   }
 
 
+
+
+
   public GetRefunfSupport() {
     
     this.docservice.GetPatientRefundStatusWeb(this.languageid, this.startdate, this.enddate).subscribe(res => {
@@ -172,11 +175,15 @@ public email:any;
         Swal.fire('Updated Successfully');
         this.GetRefunfSupport();
         this.InsertNotification()
+        this.showidentityproof=[]
+        this.showidentityproof.length=0
       }
       else {
         Swal.fire('Mis à jour avec succés');
         this.GetRefunfSupport();
         this.InsertNotification()
+        this.showidentityproof=[]
+        this.showidentityproof.length=0
       }
     })
   }

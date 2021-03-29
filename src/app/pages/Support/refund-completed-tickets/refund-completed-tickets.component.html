@@ -1,7 +1,7 @@
 <div class="container-fluid card card-hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-5">
-      <h5>Completed Tickets</h5>
+      <h5>{{labels[0].completickets}}</h5>
     </div>
     <div class="col-lg-5">
     </div>
@@ -34,21 +34,21 @@
         <thead>
           <tr>
             
-            <th>Appointment Date</th>
-            <th>Appointment With</th>
-            <th>Provider Name</th>
-            <th>Patient Name</th>
-            <th>Mobile Number</th>
-            <th>Refund Type</th>
-            <th>Card holder Name</th>
-            <th>Bank Name</th>
-            <th>Swift Code</th>
-            <th>Account Number</th>
-            <th>Call Back Comments</th>
-            <th>Paid Amount</th>
-            <th>Refund Date</th>
-            <th>Refund Comments</th>
-            <th>Status</th>
+            <th>{{labels[0].appointmentDate}}</th>
+            <th>{{labels[0].appointmentwith}}</th>
+            <th>{{labels[0].providername}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileno}}</th>
+            <th>{{labels[0].refundtype}}</th>
+            <th>{{labels[0].cardholdername}}</th>
+            <th>{{labels[0].bankname}}</th>
+            <th>{{labels[0].swiftcode}}</th>
+            <th>{{labels[0].accountno}}</th>
+            <th>{{labels[0].callbackcomments}}</th>
+            <th>{{labels[0].paidamount}}</th>
+            <th>{{labels[0].refunddate}}</th>
+            <th>{{labels[0].refundcomments}}</th>
+            <th>{{labels[0].status}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let refund of refundlist|filter:term">
@@ -58,8 +58,8 @@
             <td>{{refund.patientName}}</td>
             <td>{{refund.mobileNumber}}</td>
             <td>
-              <label *ngIf="refund.callBack=='1'">Call back</label>
-              <label *ngIf="refund.bankDetails=='1'">Bank Details Provided</label>
+              <label *ngIf="refund.callBack=='1'">{{labels[0].callback}}</label>
+              <label *ngIf="refund.bankDetails=='1'">{{labels[0].bankdetailsprovided}}</label>
             </td>
             <td>{{refund.cardHolderName}}</td>
             <td>{{refund.bankName}}</td>
@@ -75,7 +75,7 @@
               {{refund.status}}
             </td>
             <td>
-              <ng-template #tipcontent88>Transaction Slip</ng-template>
+              <ng-template #tipcontent88>{{labels[0].transctionslip}}</ng-template>
               <a [ngbTooltip]="tipcontent88">
                 <img src="assets/Images/imgicon.png"  style="height:25px;"
                   data-toggle="modal" data-target="#exampleModalLong2" (click)="GetTransctiuonSlip(refund)" />
@@ -101,7 +101,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Transaction Slip</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].transctionslip}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

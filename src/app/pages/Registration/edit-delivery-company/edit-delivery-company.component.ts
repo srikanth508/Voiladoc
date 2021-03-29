@@ -42,6 +42,9 @@ export class EditDeliveryCompanyComponent implements OnInit {
     )
     this.GetCountryMaster();
     this.getlanguage();
+    this.cityid="";
+    this.countryid="";
+    this.areaid="";
   }
 
   public getlanguage() {

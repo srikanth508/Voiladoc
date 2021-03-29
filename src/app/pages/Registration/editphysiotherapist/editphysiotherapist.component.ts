@@ -56,6 +56,9 @@ export class EditphysiotherapistComponent implements OnInit {
     }
 
 
+    this.countryid = "";
+    this.cityid = "";
+    this.areaid = "";
 
     this.getlanguage();
   }
@@ -222,12 +225,12 @@ export class EditphysiotherapistComponent implements OnInit {
       if (data != undefined) {
         if (this.languageid == 1) {
           Swal.fire("Updated Successfully");
-          location.href="#/PhysiotherapistDashboard"
+          location.href = "#/PhysiotherapistDashboard"
           this.getpsytherapydetails();
         }
         else if (this.languageid == 6) {
           Swal.fire("Mis à jour avec succés");
-          location.href="#/PhysiotherapistDashboard"
+          location.href = "#/PhysiotherapistDashboard"
           this.getpsytherapydetails();
         }
 
@@ -287,7 +290,7 @@ export class EditphysiotherapistComponent implements OnInit {
   }
 
   public updatephoto() {
-    
+
     var entity = {
       'ID': this.id,
       'PhotoUrl': this.attachmentsurl[0]

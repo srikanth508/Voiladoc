@@ -6,11 +6,11 @@
     </div>
     <div class="col-lg-5">
     </div>
-
   </div>
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <br>
+  <form #midwifeForm="ngForm">
   <div class="row">
     <div class="col-lg-8">
       <div class="row">
@@ -58,8 +58,8 @@
           <span class="requird">*</span>
         </div>
         <div class="col-lg-6">
-          <input type="radio" [value]="1" name="genderid" [(ngModel)]="genderid">{{labels[0].male}} &nbsp;&nbsp;
-          <input type="radio" [value]="2" name="genderid" [(ngModel)]="genderid">{{labels[0].female}}
+          <input type="radio" required [value]="1" name="genderid" [(ngModel)]="genderid">{{labels[0].male}} &nbsp;&nbsp;
+          <input type="radio" required [value]="2" name="genderid" [(ngModel)]="genderid">{{labels[0].female}}
         </div>
       </div>
       <br>
@@ -80,8 +80,8 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
-            <option value="" selected>{{labels[0].select}}</option>
+          <select class="form-control" required [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+            <option value="" >{{labels[0].select}}</option>
             <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
           </select>
         </div>
@@ -92,8 +92,8 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
-            <option value="" selected="selected">{{labels[0].select}}</option>
+          <select class=" form-control" required [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+            <option value="" >{{labels[0].select}}</option>
             <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
           </select>
         </div>
@@ -105,8 +105,8 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <select class="form-control" [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
-            <option value="" selected="selected">{{labels[0].select}}</option>
+          <select class="form-control" required [(ngModel)]="areaid" name="areaid" (change)="GetAreaID($event)">
+            <option value="">{{labels[0].select}}</option>
             <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
           </select>
         </div>
@@ -153,7 +153,7 @@
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">
-          <textarea class="form-control" rows="4" name="description" [(ngModel)]="description" required
+          <textarea class="form-control" rows="4" name="description" required [(ngModel)]="description" required
             placeholder="{{labels[0].description}}"></textarea>
         </div>
       </div>
@@ -178,7 +178,7 @@
         </div>
         <div class="col-lg-2">
           <button type="button" text_align="center" (click)="updatedetails()"
-            class="btn btn-block btn-md allbtns btncolor">{{labels[0].update}}</button>
+            class="btn btn-block btn-md allbtns btncolor" [disabled]="midwifeForm.form.invalid">{{labels[0].update}}</button>
         </div>
         <div class="col-lg-5">
         </div>
@@ -203,4 +203,5 @@
 
     <br><br><br>
   </div>
+</form>
 </div>

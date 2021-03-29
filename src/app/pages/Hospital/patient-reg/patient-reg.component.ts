@@ -43,10 +43,17 @@ export class PatientRegComponent implements OnInit {
   public patientid: any;
   public dateofbirth: any;
   public nationalidentitycardno: any;
+  doctorid: any;
+  hospitalid: any;
+  knownalrregies: any;
+  lastname: any;
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
     this.languageid = localStorage.getItem("LanguageID");
+    this.doctorid = localStorage.getItem('userid');
+
+    this.hospitalid = localStorage.getItem('hospitalid');
     this.getlanguage();
     this.Getregisterdpatients();
     this.GetCountryMaster();
@@ -55,7 +62,7 @@ export class PatientRegComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
@@ -67,7 +74,7 @@ export class PatientRegComponent implements OnInit {
   public Getregisterdpatients() {
     this.docservice.GetPatientRegistration(this.startdate, this.enddate).subscribe(
       data => {
-       
+
         this.patientslist = data;
         this.dummlist = this.patientslist
         this.count = this.patientslist.length
@@ -77,7 +84,7 @@ export class PatientRegComponent implements OnInit {
   }
 
   public deletepatient(id) {
-   
+
     this.docservice.DeletePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Disabled Successfully");
@@ -87,7 +94,7 @@ export class PatientRegComponent implements OnInit {
     });
   }
   public Enablepatient(id) {
-   
+
     this.docservice.EnablePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Enabled Successfully");
@@ -102,7 +109,7 @@ export class PatientRegComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -121,12 +128,12 @@ export class PatientRegComponent implements OnInit {
 
 
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -144,7 +151,7 @@ export class PatientRegComponent implements OnInit {
   }
 
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -153,10 +160,10 @@ export class PatientRegComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -172,12 +179,12 @@ export class PatientRegComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-   
+
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }
@@ -187,7 +194,7 @@ export class PatientRegComponent implements OnInit {
 
 
   public insertdetails() {
-   
+    debugger
     var entity = {
       'PatientName': this.patientname,
       'MobileNumber': this.mobileno,
@@ -198,25 +205,37 @@ export class PatientRegComponent implements OnInit {
       'Address': this.address,
       'CountryID': this.countryid,
       'CityID': this.cityid,
-      'AreaID': this.areaid
+      'AreaID': this.areaid,
+      'NationalIdentityNo': this.nationalidentitycardno,
+      'DoctorID': this.doctorid,
+      'HospitalID': this.hospitalid,
+      'LastName': this.lastname,
+      'DateOfBirth': this.dateofbirth,
+      'KnownAllergies': this.knownalrregies
     }
     this.docservice.InsertPatientRegistration(entity).subscribe(data => {
       this.patientid = data;
       if (data != 0) {
         this.patientwalletdetails();
-        if(this.languageid=='1')
-        {
+        this.Insertfamilytredetail();
+
+        if (this.languageid == '1') {
           Swal.fire("Patient Registred Successfully")
           location.href = "#/Ptientregdash"
         }
-        else if(this.languageid=='6')
-        {
+        else if (this.languageid == '6') {
           Swal.fire('Patient enregistré avec succès')
           location.href = "#/Ptientregdash"
         }
       }
       else {
-        Swal.fire("Mobile Number Already Registered With US ");
+        if (this.languageid == 1) {
+          Swal.fire("Phone number has already been used. Please use another phone number. ");
+        }
+        else if (this.languageid == 6) {
+          Swal.fire("Le numéro de téléphone a déjà été utilisé.Veuillez nous donner un autre numéro de téléphone. ");
+        }
+
         // location.href = "#/Ptientregdash"
       }
     })
@@ -232,4 +251,31 @@ export class PatientRegComponent implements OnInit {
     })
   }
 
+
+
+
+  public Insertfamilytredetail() {
+    debugger
+    var entity = {
+      'PatientRelationTypeID': 1,
+      'PatientID': this.patientid,
+      'PR_FirstName': this.patientname,
+      'PR_LastName': this.lastname,
+      'PR_EmailID': this.email,
+      'PR_MobileNumber': this.mobileno,
+      'PR_GenderID': this.getareamasterbyid,
+      'PR_BloodGroupID': 0,
+      'PR_Height': 0,
+      'PR_Weight': 0,
+      'PR_KnownAllergies': this.knownalrregies,
+      'PR_ProfilePic': 0,
+      'DateOfBirth': this.dateofbirth,
+      'NewDesc': 0,
+      'PR_BMI': 0
+    }
+    this.docservice.InsertPatientRelation_FamilyTree_Web(entity).subscribe(data => {
+      debugger
+    })
+
+  }
 }

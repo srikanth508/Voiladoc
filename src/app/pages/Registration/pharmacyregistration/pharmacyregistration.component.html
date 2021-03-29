@@ -29,22 +29,22 @@
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].contactPersonName}} :</label>
-
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <input type="search" class="form-control" name="contactpersonname" [(ngModel)]="contactpersonname"
-          placeholder="{{labels[0].contactPersonName}}">
+        required  placeholder="{{labels[0].contactPersonName}}">
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].licenseNumber}} :</label>
-
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <input type="search" class="form-control" maxlength="15" name="licenseno" [(ngModel)]="licenseno"
-          placeholder="{{labels[0].licenseNumber}}"
+        required  placeholder="{{labels[0].licenseNumber}}"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
       </div>
     </div>
@@ -56,7 +56,7 @@
       </div>
       <div class="col-lg-4">
         <!-- <input type="date" [(ngModel)]="licensevalidtil" required name="licensevalidtil" class="form-control"> -->
-        <input type="text" placeholder="{{labels[0].licenseValidTill}}" class="form-control"
+        <input type="text" placeholder="{{labels[0].licenseValidTill}}" class="form-control" required
           [bsConfig]="{ showWeekNumbers:false }" name="licensevalidtil" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
           [(ngModel)]="licensevalidtil" bsDatepicker>
 
@@ -67,22 +67,22 @@
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].phoneNo}} : </label>
-
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <input type="search" class="form-control" maxlength="13" name="phno" [(ngModel)]="phno"
-          placeholder="{{labels[0].phoneNo}}" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+        required  placeholder="{{labels[0].phoneNo}}" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].email}} : </label>
-
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <input type="email" class="form-control" name="email" [(ngModel)]="email" placeholder="{{labels[0].email}}"
-          (ngModelChange)="onChange($event)">
+        required  (ngModelChange)="onChange($event)">
       </div>
     </div>
     <br>
@@ -161,6 +161,7 @@
       <div class="col-lg-3">
         <label>{{labels[0].timing}} :</label>
         <!-- <span class="required">*</span> -->
+        <span class="required">*</span>
       </div>
       <div class="col-lg-2">
         <input type="time" class="form-control" name="tone" required [(ngModel)]="tone"
@@ -189,11 +190,11 @@
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].monthlysubscription}} :</label>
-
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <input type="text" placeholder="{{labels[0].monthlysubscription}}" name="monthlysubription" [(ngModel)]="monthlysubription"
-          class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+         required class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div>
     <br />
@@ -202,10 +203,10 @@
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].contractstartdate}} :</label>
-
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }" required
         placeholder="{{labels[0].contractstartdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
         [(ngModel)]="contractstartdate" bsDatepicker>
       </div>
@@ -215,9 +216,10 @@
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].contractenddate}} :</label>
+        <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+        <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }" required
         placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
         [(ngModel)]="contractenddate" bsDatepicker>
       </div>

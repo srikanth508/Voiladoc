@@ -65,6 +65,9 @@ export class EditPharmacyRegComponent implements OnInit {
       this.dropzonelable = "Télécharger des fichiers"
     }
 
+    this.countryid=""
+    this.areaid="";
+    this.cityid=""
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
   public getcitymaster() {

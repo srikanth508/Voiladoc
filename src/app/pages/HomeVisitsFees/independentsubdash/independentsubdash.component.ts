@@ -17,13 +17,29 @@ export class IndependentsubdashComponent implements OnInit {
   public independentSubscriptions: any;
   public search: any;
   public count: any;
-
+  labels:any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
 
     this.typeid = 1;
     this.GetALLSubscriptions();
+    this.getlanguage()
+  }
+
+
+
+  SelectLabel: any;
+  public getlanguage() {
+    this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+      
+
+      }, error => {
+      }
+    )
   }
 
 

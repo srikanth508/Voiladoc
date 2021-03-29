@@ -70,7 +70,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
-    
+
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
       data => {
 
@@ -84,9 +84,9 @@ export class HospitalClinicregistrationComponent implements OnInit {
     this.getinsurancemaster();
     this.GetCountryMaster();
 
-   
 
-   
+
+
 
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
@@ -238,11 +238,17 @@ export class HospitalClinicregistrationComponent implements OnInit {
     }
     else {
       if (this.attachmentsurl.length == 0) {
-        this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\HospitalPhotos\\Hospital.jpg';
+        this.attachmentsurl[0] = 'C:\\MarocAPI\\Images\\HospitalPhotos\\Hospital.jpg';
       }
       this.spinner.show();
       this.timings = this.tone + ' ' + ' TO ' + this.ttwo + ' ';
-      this.hspwebsite = 'http://' + '' + this.website
+      if (this.website == undefined) {
+
+      }
+      else {
+        this.hspwebsite = 'http://' + '' + this.website
+      }
+
       var entity = {
         'Hospital_ClinicID': this.hospitaclinic,
         'Hospital_ClinicName': this.hospitalclinicname,

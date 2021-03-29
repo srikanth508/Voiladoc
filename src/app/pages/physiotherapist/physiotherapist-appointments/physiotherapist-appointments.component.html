@@ -37,6 +37,7 @@
             <th>{{labels[0].address}}</th>
             <th id="imp">{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].reason}}</th>
+            <th>Payment type</th>
             <th>{{labels[0].status}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
@@ -55,6 +56,7 @@
             <td>{{app.address}}</td>
             <td>{{app.bookedTime}}</td>
             <td>{{app.reasonForVisit}}</td>
+            <td>{{app.paymentType}}</td>
             <td>
               <label
                 *ngIf="app.accepted=='1'&&app.physioCancelled=='0'&&app.cancelled=='0'&&app.isVisited=='0'&&app.notVisited=='0'"
@@ -71,14 +73,14 @@
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2" *ngIf="app.accepted=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'">
                 <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
-                  (click)="GetAcceptAppointmentID(app.id,app.physioID,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName)"
+                  (click)="GetAcceptAppointmentID(app.id,app.physioID,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName,app.smsmobileno)"
                   style="height:19px;" />
               </a>&nbsp;
               <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
               <a [ngbTooltip]="tipcontent3"
                 *ngIf="app.accepted=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'&&app.physioCancelvalidation=='1'">
                 <img src="assets/Images/can.png" style="height:19px;" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName,app.paidAmount,app.walletAmount,app.mobileNumber)" />
+                  (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName,app.paidAmount,app.walletAmount,app.mobileNumber,app.smsmobileno)" />
               </a>&nbsp;
 
               <ng-template #tipcontent4>{{labels[0].visited}}</ng-template>
@@ -101,7 +103,7 @@
                   data-toggle="modal" data-target="#Reciept" />
               </a>&nbsp;
 
-              <ng-template #tipcontent9>Patient Details</ng-template>
+              <ng-template #tipcontent9>{{labels[0].patientdetails}}</ng-template>
               <a [ngbTooltip]="tipcontent9">
                 <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal"
                   data-target="#Patientdetails" style="height:30px;"
@@ -223,7 +225,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"> Patient Details</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"> {{labels[0].patientdetails}}</h5>
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -233,22 +235,20 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
-              <p>Is patient Pragnent : <span *ngIf="ispatientpragnent=='1'">Yes</span>
-                <span *ngIf="ispatientpragnent=='0'">No</span>
+              <p>{{labels[0].patientpragnent}} : <span *ngIf="ispatientpragnent=='1'">{{labels[0].yes}}</span>
+                <span *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</span>
               </p>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-12">
-              <p>Is patient Breast Feed : <span *ngIf="ispatientbreastfeed=='1'">Yes</span>
-                <span *ngIf="ispatientbreastfeed=='0'">No</span>
+              <p>{{labels[0].breastfeed}} : <span *ngIf="ispatientbreastfeed=='1'">{{labels[0].yes}}</span>
+                <span *ngIf="ispatientbreastfeed=='0'">{{labels[0].no}}</span>
               </p>
             </div>
           </div>
           <br>
         </div>
-
-
       </div>
       <br>
       <div class="modal-footer">

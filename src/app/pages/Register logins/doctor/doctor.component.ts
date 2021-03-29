@@ -64,8 +64,9 @@ export class DoctorComponent implements OnInit {
         }
       )
     }
+    debugger
 
-
+    debugger
 
   }
   public getlanguage() {
@@ -94,6 +95,9 @@ export class DoctorComponent implements OnInit {
 
 
   public insertdetails() {
+    debugger
+    this.password = Math.random().toString(36).slice(-8);
+    debugger
     if (this.doctorid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("please select Doctor");
@@ -103,54 +107,55 @@ export class DoctorComponent implements OnInit {
       }
     }
     else if (this.password != undefined) {
+      
+      // this.password = this.docservice.strongpassword(this.password);
+      // if (valpassword == false) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
+      //   this.pp = 1;
+      // }
+      // else {
 
-        this.pp = 1;
+      var entity = {
+        'DoctorID': this.doctorid,
+        'UserName': this.username,
+        'Password': this.password
       }
-      else {
-        var entity = {
-          'DoctorID': this.doctorid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        // this.username = '';
-        // this.password = '';
-        this.docservice.InsertDoctorLogin(entity).subscribe(data => {
+      // this.username = '';
+      // this.password = '';
+      this.docservice.InsertDoctorLogin(entity).subscribe(data => {
 
-          if (data != 0) {
-            // Swal.fire('Added Successfully.');
-            if (this.languageid == 1) {
-              this.getdoctorloginfordash()
-              Swal.fire('Completed', 'Doctor saved successfully', 'success');
-              location.href = "#/Doctordash"
-              this.pp = 0;
-              // this.sendmail();
-            }
-            else {
-              this.getdoctorloginfordash()
-              Swal.fire('', 'Mis à jour avec succés', 'success');
-              location.href = "#/Doctordash"
-              this.pp = 0;
-
-            }
-
+        if (data != 0) {
+          // Swal.fire('Added Successfully.');
+          if (this.languageid == 1) {
+            this.getdoctorloginfordash()
+            Swal.fire('Completed', 'Doctor saved successfully', 'success');
+            location.href = "#/Doctordash"
+            this.pp = 0;
+            // this.sendmail();
           }
           else {
-            if (this.languageid == 1) {
-              Swal.fire("Doctor Login Already Exists");
-              location.href = "#/Doctordash"
-            }
-            else {
-              Swal.fire("La connexion au médecin existe déjà");
-              location.href = "#/Doctordash"
-            }
+            this.getdoctorloginfordash()
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href = "#/Doctordash"
+            this.pp = 0;
 
           }
-        })
-      }
+
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire("Doctor Login Already Exists");
+            location.href = "#/Doctordash"
+          }
+          else {
+            Swal.fire("La connexion au médecin existe déjà");
+            location.href = "#/Doctordash"
+          }
+
+        }
+      })
     }
+    // }
 
   }
 

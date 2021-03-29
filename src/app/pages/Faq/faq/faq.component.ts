@@ -80,21 +80,29 @@ export class FaqComponent implements OnInit {
   }
 
   public insertdetails() {
-    var entity = {
-      'Faq': this.faq,
-      'answers': this.description,
-      'LanguageID': this.languageid,
-      'TypeID': this.typeid
+    if(this.typeid==0)
+    {
+      Swal.fire("Please Select Type")
     }
-    this.docservice.InsertFrequentlyAskedQuestions(entity).subscribe(data => {
-      if (data != 0) {
-        this.faqid = data;
-        this.insertattachments();
-        Swal.fire('Success', 'Data Added Successfully')
-        location.href = "#/FaqDash"
-
+    else
+    {
+      var entity = {
+        'Faq': this.faq,
+        'answers': this.description,
+        'LanguageID': this.languageid,
+        'TypeID': this.typeid
       }
-    })
+      this.docservice.InsertFrequentlyAskedQuestions(entity).subscribe(data => {
+        if (data != 0) {
+          this.faqid = data;
+          this.insertattachments();
+          Swal.fire('Success', 'Data Added Successfully')
+          location.href = "#/FaqDash"
+  
+        }
+      })
+    }
+   
   }
 
 

@@ -182,7 +182,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
   public canpatientmobileno: any;
 
-  public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount, mobileNumber) {
+  public GetCancelAppointmentID(id, patientID, emailID, name, bookedTime, paidAmount, walletAmount, mobileNumber, smsmobileno) {
 
     this.canappointmentid = id
     this.canpatientid = patientID;
@@ -192,7 +192,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.paidamount = paidAmount;
     this.walletAmount = walletAmount;
     this.canpatientmobileno = mobileNumber;
-
+    this.smsmobileno = smsmobileno
 
 
     this.totaladdmoney = Number(this.walletAmount) + (this.paidamount)
@@ -240,32 +240,41 @@ export class MidwifeAppointmentsComponent implements OnInit {
         this.getmidwifeappointments();
         this.getphisyioappointments();
         this.SendCancelPatientmail()
-        this.sendsms();
+
         this.InsertCancelNotification();
         this.InsertNotiFicationcancel();
+
+        var smsdesc = "Your appoinment with the midwife " + this.acceptname + " on " + this.accbookedtime + " has been accepted."
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
+
       }
       else {
         Swal.fire('Annuler avec succès');
         this.getmidwifeappointments();
         this.getphisyioappointments();
         this.SendCancelPatientmail()
-        this.sendsms();
+
         this.InsertCancelNotification();
         this.InsertNotiFicationcancel();
+
+        var smsdesc = "Votre RDV avec la sage-femme " + this.acceptname + " le " + this.accbookedtime + " a été confirmé. "
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
       }
 
 
 
     })
   }
+  smsmobileno: any;
 
-  public GetAcceptAppointmentID(id, midWivesID, patientID, emailID, name, bookedTime) {
+  public GetAcceptAppointmentID(id, midWivesID, patientID, emailID, name, bookedTime, smsmobileno) {
     this.acceptappointmentid = id;
     this.acceptmidwifeid = midWivesID;
     this.accpatientid = patientID;
     this.accemailid = emailID;
     this.acceptname = name;
     this.accbookedtime = bookedTime;
+    this.smsmobileno = smsmobileno
   }
 
 
@@ -305,18 +314,20 @@ export class MidwifeAppointmentsComponent implements OnInit {
         Swal.fire('Agenda updated and appointment accepted successfully.');
         this.InsertAcceptNotification();
         this.InsertNotiFicationAccepted();
+        debugger
+        var smsdesc = "Your appoinment with the midwife " + this.acceptname + " on " + this.accbookedtime + " has been accepted."
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
       }
-      else
-      {
+      else {
         this.getmidwifeappointments();
         this.getphisyioappointments()
         Swal.fire('Agenda mis à jour et rendez-vous accepté avec succès.');
         this.InsertAcceptNotification();
         this.InsertNotiFicationAccepted();
+
+        var smsdesc = "Votre RDV avec la sage-femme " + this.acceptname + " le " + this.accbookedtime + " a été confirmé. "
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
       }
-
-    
-
     })
   }
   public GetTime(even) {
@@ -408,8 +419,8 @@ export class MidwifeAppointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.accpatientid,
-        'Notification': "Appointment Accepted by MidWife.",
-        'Description': "Your Appointment with " + this.acceptname + " scheduled for " + this.accbookedtime + " has been Accepted.",
+        'Notification': "Appointment confirmed",
+        'Description': "Your appoinment with the midwife " + this.acceptname + " on " + this.accbookedtime + " has been accepted.",
         'NotificationTypeID': 27,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -424,8 +435,8 @@ export class MidwifeAppointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.accpatientid,
-        'Notification': "Nomination acceptée par la sage-femme.",
-        'Description': "Votre rendez-vous avec " + this.acceptname + " prévu pour " + this.accbookedtime + " a été accepté.",
+        'Notification': "Rendez-vous confirmé",
+        'Description': "Votre RDV avec la sage-femme " + this.acceptname + " le " + this.accbookedtime + " a été confirmé. ",
         'NotificationTypeID': 27,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -444,7 +455,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.acceptname + " scheduled for " + this.accbookedtime + " has been Accepted.",
+        'Description': "Your appoinment with the midwife " + this.acceptname + " on " + this.accbookedtime + " has been accepted.",
         'ToUser': this.accemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -456,7 +467,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.acceptname + " prévu pour " + this.accbookedtime + " a été accepté.",
+        'Description': "Votre RDV avec la sage-femme " + this.acceptname + " le " + this.accbookedtime + " a été confirmé. ",
         'ToUser': this.accemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -468,7 +479,12 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   }
 
-
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      debugger
+    })
+  }
 
   //cancel notification
 
@@ -483,7 +499,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Appointment Cancelled by MidWife.",
+        'Notification': "Appointment rejected",
         'Description': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
         'NotificationTypeID': 24,
         'Date': this.todaydate,
@@ -499,8 +515,8 @@ export class MidwifeAppointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Rendez-vous annulé par la sage-femme.",
-        'Description': "Votre rendez-vous avec " + this.canname + " prévu pour " + this.canbookedtime + " a été annulé.",
+        'Notification': "Rendez-vous rejeté",
+        'Description': "Votre RDV avec la sage-femme " + this.canname + " le " + this.canbookedtime + "  n'a pas été confirmé. ",
         'NotificationTypeID': 24,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -531,7 +547,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.canname + " prévu pour " + this.canbookedtime + " a été annulé.",
+        'Description': "Votre RDV avec la sage-femme " + this.canname + " le " + this.canbookedtime + "  n'a pas été confirmé. ",
         'ToUser': this.canemailid,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -542,6 +558,10 @@ export class MidwifeAppointmentsComponent implements OnInit {
       })
     }
   }
+
+
+
+
 
 
   public emailattchementurl = [];
@@ -565,18 +585,18 @@ export class MidwifeAppointmentsComponent implements OnInit {
 
 
 
-  public sendsms() {
+  // public sendsms() {
 
-    let Entity = {
-      'Contacts': this.canpatientmobileno,
-      'TextMessage': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
-    }
-    this.docservice.SendSMS(Entity).subscribe(data => {
+  //   let Entity = {
+  //     'Contacts': this.canpatientmobileno,
+  //     'TextMessage': "Your Appointment with " + this.canname + " scheduled for " + this.canbookedtime + " has been Cancelled.",
+  //   }
+  //   this.docservice.SendSMS(Entity).subscribe(data => {
 
 
 
-    })
-  }
+  //   })
+  // }
 
 
 

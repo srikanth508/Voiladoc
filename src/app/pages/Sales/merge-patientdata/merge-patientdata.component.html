@@ -2,7 +2,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-8">
-      <h5>Merge Patient Data</h5>
+      <h5>{{labels[0].mergePatientData}}</h5>
       <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
       <br>
     </div>
@@ -32,11 +32,11 @@
       <table id="Appointment">
         <thead>
           <tr>
-            <th>Patient Name</th>
-            <th>Mobile Number</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Actions</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileNumber}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>{{labels[0].address}}</th>
+            <th>{{labels[0].select}}</th>
           </tr>
           <tr *ngFor="let details of patientdetails|filter:patientname">
             <td>{{details.patientName}}</td>
@@ -60,7 +60,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Change Mobile Number</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].changemobileno}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -69,7 +69,7 @@
         <form #regForm="ngForm">
         <div class="row">
           <div class="col-lg-3">
-            <label>Mobile Number</label>
+            <label>{{labels[0].oldMobileno}} :</label>
           </div>
           <div class="col-lg-6">
             <input type="text" class="form-control" [(ngModel)]="oldmobilenumber" name="oldmobilenumber" disabled>
@@ -77,18 +77,18 @@
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label>Pin no</label>
+            <label>{{labels[0].pinno}} :</label>
           </div>
           <div class="col-lg-6">
-            <input type="text" class="form-control" required minlength="4" placeholder="Pin no" [(ngModel)]="pinno" name="pinno">
+            <input type="text" class="form-control" required minlength="4" placeholder="{{labels[0].newpino}}" [(ngModel)]="pinno" name="pinno">
           </div>
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label>New Mobile Number</label>
+            <label>{{labels[0].newmobileno}} :</label>
           </div>
           <div class="col-lg-6">
-            <input type="text" class="form-control" required minlength="10" placeholder="New Mobile Number" [(ngModel)]="newmobilenumber" name="newmobilenumber">
+            <input type="text" class="form-control" required minlength="10" placeholder="{{labels[0].newmobileno}}" [(ngModel)]="newmobilenumber" name="newmobilenumber">
           </div>
         </div><br>
         <div class="row">
@@ -96,7 +96,7 @@
           </div>
           <div class="col-lg-2">
             <button type="button" class="btn btncolor" style="background-color: #f18235;"
-            (click)="updatemobilenmber()" [disabled]="regForm.form.invalid">Update</button>
+            (click)="updatemobilenmber()" [disabled]="regForm.form.invalid">{{labels[0].update}}</button>
           </div>
           <div class="col-lg-5">
 
@@ -108,7 +108,7 @@
         <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
           style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button> -->
         <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-          data-dismiss="modal">Close</button>
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

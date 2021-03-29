@@ -25,13 +25,18 @@ export class PtientregdashComponent implements OnInit {
   public countrylist: any;
   public dummlist: any;
   public count: any;
-  public hospitalid:any;
+  public hospitalid: any;
+  doctorid: any;
+  recpid: any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
+
+    this.doctorid = localStorage.getItem('userid');
+    this.recpid = localStorage.getItem('recpid');
 
     this.options = {
       theme: 'default',
@@ -46,11 +51,11 @@ export class PtientregdashComponent implements OnInit {
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
     var lll = this.EDate.setDate(this.EDate.getDate() + 30);
-   
+
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -68,7 +73,7 @@ export class PtientregdashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       },
       error => { }
@@ -76,19 +81,33 @@ export class PtientregdashComponent implements OnInit {
   }
   roleid
   public Getregisterdpatients() {
-    this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid,this.startdate, this.enddate).subscribe(
-      data => {
+    if (this.recpid == undefined) {
+      this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, this.startdate, this.enddate).subscribe(
+        data => {
 
-        this.patientslist = data;
-        this.dummlist = this.patientslist
-        this.count = this.patientslist.length
-      },
-      error => { }
-    );
+          this.patientslist = data;
+          this.dummlist = this.patientslist
+          this.count = this.patientslist.length
+        },
+        error => { }
+      );
+    }
+    else {
+      this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, this.startdate, this.enddate).subscribe(
+        data => {
+
+          this.dummlist = data;
+          this.patientslist = this.dummlist.filter(x => x.doctorID == this.doctorid)
+          this.count = this.patientslist.length
+        },
+        error => { }
+      );
+    }
+
   }
 
   public deletepatient(id) {
-   
+
     this.docservice.DeletePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Disabled Successfully");
@@ -98,7 +117,7 @@ export class PtientregdashComponent implements OnInit {
     });
   }
   public Enablepatient(id) {
-   
+
     this.docservice.EnablePatientRegistration(id).subscribe(data => {
       if (data != undefined || data != null) {
         Swal.fire("Enabled Successfully");
@@ -109,7 +128,7 @@ export class PtientregdashComponent implements OnInit {
   }
 
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

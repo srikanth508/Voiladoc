@@ -34,10 +34,11 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].diagnosticCenterPhoneNo}}: </label>
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="text" maxlength="13" name="diagnosticphno" [(ngModel)]="diagnosticphno"
-              placeholder="{{labels[0].diagnosticCenterPhoneNo}}"
+            required  placeholder="{{labels[0].diagnosticCenterPhoneNo}}"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
@@ -45,10 +46,10 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].contactPersonName}} : </label>
-
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
-            <input class="form-control" type="text" name="contactpersonname" [(ngModel)]="contactpersonname"
+            <input class="form-control" required type="text" name="contactpersonname" [(ngModel)]="contactpersonname"
               placeholder="{{labels[0].contactPersonName}}">
           </div>
         </div>
@@ -56,11 +57,11 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].phno}}: </label>
-
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="text" maxlength="13" name="contactpersonphno"
-              [(ngModel)]="contactpersonphno" placeholder="{{labels[0].phno}}"
+           required   [(ngModel)]="contactpersonphno" placeholder="{{labels[0].phno}}"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
@@ -68,10 +69,11 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].licenseNumber}} : </label>
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
             <input class="form-control" maxlength="15" type="text" [(ngModel)]="licenseno" name="licenseno"
-              placeholder="{{labels[0].licenseNumber}}"
+            required  placeholder="{{labels[0].licenseNumber}}"
               onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
           </div>
         </div>
@@ -92,9 +94,10 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].email}}: </label>
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
-            <input class="form-control" type="email" (ngModelChange)="onChange($event)" name="email" [(ngModel)]="email"
+            <input class="form-control" type="email" required (ngModelChange)="onChange($event)" name="email" [(ngModel)]="email"
               placeholder="{{labels[0].email}}">
           </div>
         </div>
@@ -102,10 +105,10 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].address}} : </label>
-
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
-            <textarea class="form-control" rows="4" name="address" [(ngModel)]="address"
+            <textarea class="form-control" required rows="4" name="address" [(ngModel)]="address"
               placeholder="{{labels[0].address}}"></textarea>
           </div>
         </div>
@@ -163,12 +166,12 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].monthlysubscription}} :</label>
-
+            <span class="requird">*</span>
           </div>
 
           <div class="col-lg-4">
             <input type="text" placeholder="{{labels[0].monthlysubscription}}" name="monthlysubription"
-              [(ngModel)]="monthlysubription" class="form-control"
+            required  [(ngModel)]="monthlysubription" class="form-control"
               onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
 
@@ -177,11 +180,11 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].contractstartdate}} :</label>
-    
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="{{labels[0].contractstartdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          required  placeholder="{{labels[0].contractstartdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractstartdate" bsDatepicker>
           </div>
         </div>
@@ -190,10 +193,11 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].contractenddate}} :</label>
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
             <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-            placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          required  placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
             [(ngModel)]="contractenddate" bsDatepicker>
           </div>
         </div>
@@ -249,7 +253,7 @@
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].timings}}: </label>
-            <!-- <span class="requird">*</span> -->
+            <span class="requird">*</span>
           </div>
           <div class="col-lg-2">
             <input type="time" class="form-control" name="tone" required [(ngModel)]="tone"

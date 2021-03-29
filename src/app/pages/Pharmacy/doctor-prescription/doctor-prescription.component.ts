@@ -46,7 +46,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   public delipharmacyname: any;
   public partnerlist: any;
   dropzonelable: any;
-  labels4:any;
+  labels4: any;
   ngOnInit() {
     this.pharmacyid = localStorage.getItem('pharmacyid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -108,7 +108,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       data => {
 
         this.labels4 = data;
-    
+
       }, error => {
       }
     )
@@ -124,7 +124,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     });
   }
   public GetPharmacyOrders() {
-    
+
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
 
@@ -202,31 +202,6 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
 
-    // let meds = this.list[0].allMedicines.split(',');
-    // let quan = this.list[0].quantity.split(',');
-
-
-
-    // let sig = this.list[0].sig.split(',');
-    // let notetopharmacist = this.list[0].noteToPharmacist.split(',');
-    // let howmanyrefills = this.list[0].renovolment.split(',');
-    // let issubastaible = this.list[0].isSubatianablenotPermittesd.split(',');
-    // let mtype = this.list[0].medicineTypeID.split(',');
-
-    // for (let i = 0; i < meds.length; i++) {
-    //   var medetty = {
-    //     'medicine': meds[i],
-    //     'quantity': quan[i],
-    //     'Sig': sig[i],
-    //     // 'NoteToPharmacist': notetopharmacist[i],
-    //     'howmanyrefills': howmanyrefills[i],
-
-    //     // 'issubastaible': issubastaible[i]
-    //     // 'Medicinetype': mtype[i]
-    //   }
-    //   this.myarray.push(medetty);
-    // }
-
   }
 
   selectedDate(data) {
@@ -254,7 +229,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
 
-  public GetAcceptOrder(id, patientID, pharmacyName, date, emailID) {
+  public GetAcceptOrder(id, patientID, pharmacyName, date, emailID, smsmobileno) {
     this.accpatientid = patientID;
     this.accpharmacyname = pharmacyName;
     this.accdate = date;
@@ -278,6 +253,8 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.InsertAccptNotification();
             this.InsertNotiFicationAccpt();
 
+            var smsdesc = this.accpharmacyname + "  accepted your medicine order which is being processed. "
+            this.SendTwiliSms(smsdesc,smsmobileno)
           })
           Swal.fire(
             'Completed!',
@@ -310,6 +287,8 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.InsertAccptNotification();
             this.InsertNotiFicationAccpt();
 
+            var smsdesc = "La " + this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement."
+            this.SendTwiliSms(smsdesc,smsmobileno)
           })
           Swal.fire(
             'Détails enregistrés',
@@ -329,7 +308,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
 
-  public GetCancelOrder(id, patientID, pharmacyName, date, emailID) {
+  public GetCancelOrder(id, patientID, pharmacyName, date, emailID,smsmobileno) {
     this.canpatientid = patientID;
     this.canpharmacyname = pharmacyName;
     this.canemailID = emailID
@@ -350,6 +329,10 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.getpharmacyorders();
             this.InsertNotiFicationcancel();
             this.InsertCancelNotification()
+
+
+            var smsdesc = this.canpharmacyname + "  has not accepted your medicine order. Please select another pharmacy."
+            this.SendTwiliSms(smsdesc,smsmobileno)
 
           })
           Swal.fire(
@@ -382,7 +365,8 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.getpharmacyorders();
             this.InsertNotiFicationcancel();
             this.InsertCancelNotification()
-
+            var smsdesc = "La "+this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie."
+            this.SendTwiliSms(smsdesc,smsmobileno)
           })
           Swal.fire(
             'Annulé!',
@@ -481,8 +465,8 @@ export class DoctorPrescriptionComponent implements OnInit {
 
       var entity = {
         'PatientID': this.accpatientid,
-        'Notification': "Order Accepted By Pharmacy",
-        'Description': "Your Medicine order With " + this.accpharmacyname + "  has been Accepted.",
+        'Notification': "Prescription order confirmed",
+        'Description': this.accpharmacyname + "  accepted your medicine order which is being processed. ",
         'NotificationTypeID': 13,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -498,8 +482,8 @@ export class DoctorPrescriptionComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.accpatientid,
-        'Notification': "Commande acceptée par la pharmacie",
-        'Description': "Votre commande de médicaments avec " + this.accpharmacyname + "  a été accepté.",
+        'Notification': "Commande est confirmée",
+        'Description': "La " + this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement.",
         'NotificationTypeID': 13,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -520,7 +504,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Medicine Order with " + this.accpharmacyname + " has been Accepted.",
+        'Description': this.accpharmacyname + "  accepted your medicine order which is being processed. ",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -532,7 +516,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre commande de médicaments avec " + this.accpharmacyname + " a été accepté.",
+        'Description': "La " + this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement.",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -543,6 +527,16 @@ export class DoctorPrescriptionComponent implements OnInit {
       })
     }
   }
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      debugger
+    })
+  }
+
+
 
 
   //cancel Notification
@@ -557,8 +551,8 @@ export class DoctorPrescriptionComponent implements OnInit {
 
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Order Cancelled By Pharmacy",
-        'Description': "Your Medicine order With " + this.canpharmacyname + "  has been Cancelled.",
+        'Notification': "Prescription order not accepted",
+        'Description':  this.canpharmacyname + "  has not accepted your medicine order. Please select another pharmacy.",
         'NotificationTypeID': 14,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -574,8 +568,8 @@ export class DoctorPrescriptionComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Commande annulée par la pharmacie",
-        'Description': "Votre commande de médicaments avec" + this.canpharmacyname + " a été annulé.",
+        'Notification': "Commande non confirmé",
+        'Description': "La "+this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
         'NotificationTypeID': 14,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -596,7 +590,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Medicine Order with " + this.canpharmacyname + " has been Cancelled.",
+        'Description': this.canpharmacyname + "  has not accepted your medicine order. Please select another pharmacy.",
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -608,7 +602,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre commande de médicaments avec" + this.canpharmacyname + "a été annulé.",
+        'Description': "La "+this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -697,8 +691,10 @@ export class DoctorPrescriptionComponent implements OnInit {
   prescriptionurl: any;
 
 
-  public GetPrescriptionUrl(url) {
+  public async GetPrescriptionUrl(url) {
     this.prescriptionurl = url;
+
+    
   }
 
   id: any;
@@ -943,9 +939,22 @@ export class DoctorPrescriptionComponent implements OnInit {
   // }
 
 
+  // const FileSaver = require('file-saver');
 
-  public SavePdfPhoto() {
+  public async SavePdfPhoto() {
     window.open(this.prescriptionurl, "_blank");
+
+    // const a = document.createElement("a");
+    // a.href = await toDataURL(this.prescriptionurl);
+    // a.download = "";
+    // debugger
+    // document.body.appendChild(a);
+    // a.click();
+    // document.body.removeChild(a);
+    debugger
+    // const pdfUrl = './assets/sample.pdf';
+    // const pdfName = 'your_pdf_file';
+    // FileSaver.saveAs(pdfUrl, pdfName);
   }
 
 
@@ -1053,7 +1062,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   }
 
 
-  
+
 
   public InsertChatDetails() {
     let conversation = '[doc:-' + this.chatconversation + ';time:-' + this.servertime + ']';
@@ -1110,7 +1119,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       let Chatconversation = res;
 
       this.coversationarray.length = 0;
-      this.coversationarray=[];
+      this.coversationarray = [];
 
       for (let i = 0; i < Chatconversation.length; i++) {
 
@@ -1221,13 +1230,13 @@ export class DoctorPrescriptionComponent implements OnInit {
   public ChangeAvailableMedicines(medicinelist, even) {
     if (even.target.checked == true) {
       this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(medicinelist.id).subscribe(res => {
-        
+
         this.GetPharmacyOrders();
       })
     }
     if (even.target.checked == false) {
       this.docservice.UpdatePatientOrderedMedicinesUnAvailableMedicines(medicinelist.id).subscribe(res => {
-        
+
         this.GetPharmacyOrders();
       })
     }
@@ -1236,7 +1245,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public Updateavailablemedicines() {
     for (let i = 0; i < this.orderedmedicinelist.length; i++) {
-      
+
       var entity = {
         'ID': this.orderedmedicinelist[i].id,
         'Amount': this.orderedmedicinelist[i].amount,
@@ -1244,7 +1253,7 @@ export class DoctorPrescriptionComponent implements OnInit {
         'Quantity': this.orderedmedicinelist[i].quantity,
       }
       this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(entity).subscribe(data => {
-        
+
       })
     }
     if (this.languageid == 1) {
@@ -1258,4 +1267,11 @@ export class DoctorPrescriptionComponent implements OnInit {
     })
     this.GetPharmacyOrders()
   }
+
+
+
 }
+function toDataURL(arg0: string): string | PromiseLike<string> {
+  throw new Error('Function not implemented.');
+}
+

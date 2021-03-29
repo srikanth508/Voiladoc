@@ -34,7 +34,7 @@ export class DocCalenderComponent implements OnInit {
   public today = new Date();
   public daychangedate1: any;
   public timechangedate1: any;
-
+  term:any;
 
   ngOnInit() {
 

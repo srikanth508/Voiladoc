@@ -57,9 +57,9 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public hospitalclinicid: any;
   public hspwebsite: any;
   public hospitalfulltimebit: any;
-  dropzonelable:any;
-  public contractstartdate:any;
-  public contractenddate:any;
+  dropzonelable: any;
+  public contractstartdate: any;
+  public contractenddate: any;
   ngOnInit() {
 
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -68,13 +68,11 @@ export class DiagnosticsregistrationComponent implements OnInit {
     this.GetCountryMaster();
 
     this.getlanguage()
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
@@ -83,7 +81,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DiagnosticRegistration_LabelBYLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
       }, error => {
@@ -92,10 +90,10 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
   SelectLabel
   public getinsurancemaster() {
-   
+
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.insurancelist = data;
 
         this.insurancedd = {
@@ -117,7 +115,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -134,12 +132,12 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -157,26 +155,26 @@ export class DiagnosticsregistrationComponent implements OnInit {
   }
 
 
-  public diagnosticappointmentperslot:any;
-  public homesampleordersperslot:any;
+  public diagnosticappointmentperslot: any;
+  public homesampleordersperslot: any;
 
 
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
   onItemDeSelect3(item1: any) {
-   
+
     this.cityid = this.cityid.slice(item1.id)
     this.getareamasterbyid()
   }
 
 
   public GetInuranceID(item: any) {
-   
+
     this.insuranceid.push(item);
-   
+
   }
 
 
@@ -195,7 +193,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
     //   Swal.fire("Please Upload Photo")
     // }
     if (this.countryid == undefined || this.countryid.length == 0) {
-     
+
       Swal.fire("Please Select Country");
     }
     else if (this.cityid == undefined || this.cityid.length == 0) {
@@ -205,10 +203,16 @@ export class DiagnosticsregistrationComponent implements OnInit {
       Swal.fire("Please Select City");
     }
     else {
-     
+
       this.spinner.show();
       this.timings = this.tone + ' ' + ' TO ' + this.ttwo + ' ';
-      this.hspwebsite = 'http://' + '' + this.website
+      if (this.hspwebsite == undefined) {
+
+      }
+      else {
+        this.hspwebsite = 'http://' + '' + this.website
+      }
+
       var entity = {
         'DiagnosticCenterName': this.diagnosticcentername,
         'Description': this.description,
@@ -235,11 +239,11 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'Hospitalfulltimebit': 0,
         'ContractStartDate': this.contractstartdate,
         'ContractEndDate': this.contractenddate,
-        'DiagnosticAppointmentPerSlot':this.diagnosticappointmentperslot,
-        'HomeSampleOrdersPerSlot':this.homesampleordersperslot
+        'DiagnosticAppointmentPerSlot': this.diagnosticappointmentperslot,
+        'HomeSampleOrdersPerSlot': this.homesampleordersperslot
       }
       this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
-       
+
         if (data != 0) {
           this.diagnosticid = data;
           this.inserthspphotos();
@@ -271,7 +275,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'InsuranceID': this.insuranceid[i].id
       }
       this.docservice.InsertDiagnosticCenterInsurances(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
@@ -280,46 +284,46 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
 
   public insertDiagnosticRevenue() {
-      var entity = {
-        'DiagnosticID': this.diagnosticid,
-        'MonthlySubscription': this.monthlysubription,
-        'ContractStartdate':this.contractstartdate,
-        'ContractEnddate':this.contractstartdate
+    var entity = {
+      'DiagnosticID': this.diagnosticid,
+      'MonthlySubscription': this.monthlysubription,
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractstartdate
+    }
+    this.docservice.InsertDiagnosticCentersSubscriptions_Revenue(entity).subscribe(data => {
+
+      if (data != 0) {
       }
-      this.docservice.InsertDiagnosticCentersSubscriptions_Revenue(entity).subscribe(data => {
-       
-        if (data != 0) {
-        }
-      })
-    
+    })
+
   }
 
 
 
   public inserthspphotos() {
     if (this.attachmentsurl.length == 0) {
-      this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\DiagnosticCenterPhotos\\Diagnostics.jpg'
+      this.attachmentsurl[0] = 'C:\\MarocAPI\\Images\\DiagnosticCenterPhotos\\Diagnostics.jpg'
     }
-   
+
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
         'DiagnosticCenterID': this.diagnosticid,
         'PhotoURL': this.attachmentsurl[i]
       }
       this.docservice.InsertInsertDiagnosticCenterPhotos(entity).subscribe(data => {
-       
+
         if (data != 0) {
         }
       })
     }
   }
 
-  public dummshowsignatureurl=[]
+  public dummshowsignatureurl = []
   public onattachmentUpload(abcd) {
-   this.dummshowsignatureurl=[]
+    this.dummshowsignatureurl = []
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
     // }
     Swal.fire('Added Successfully');
     abcd.length = 0;
@@ -327,7 +331,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.DiagnosticPhotos(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
       this.dummshowsignatureurl.push(res);
       let a = this.dummshowsignatureurl[0].slice(2);
@@ -336,7 +340,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -360,10 +364,10 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
           singleSelection: true,
@@ -379,12 +383,12 @@ export class DiagnosticsregistrationComponent implements OnInit {
     )
   }
   public GetAreaID(item3: any) {
-   
+
     this.areaid = item3.id;
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
+
         this.pincode = this.arealist[i].pincode
       }
     }

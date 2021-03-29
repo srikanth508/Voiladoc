@@ -116,7 +116,7 @@ export class OrdersComponent implements OnInit {
       }
     )
 
-    
+
   }
 
 
@@ -188,7 +188,7 @@ export class OrdersComponent implements OnInit {
     this.canemail = emailID;
   }
 
-  public Appointmentstatus(appointmentID, patientID, diagnosticCenterName, slotName, emailID) {
+  public Appointmentstatus(appointmentID, patientID, diagnosticCenterName, slotName, emailID, smsmobileno) {
 
     this.accpatientid = patientID;
     this.acceptcenter = diagnosticCenterName;
@@ -211,6 +211,11 @@ export class OrdersComponent implements OnInit {
             this.getdiagnosticAppointment();
             this.InsertAccptNotification()
             this.InsertNotiFicationAccpt()
+
+            var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted."
+
+            this.SendTwiliSms(smsmobileno, smsdesc)
+
           })
           Swal.fire(
             'Accepted!',
@@ -242,6 +247,9 @@ export class OrdersComponent implements OnInit {
             this.getdiagnosticAppointment();
             this.InsertAccptNotification()
             this.InsertNotiFicationAccpt()
+
+            var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. "
+            this.SendTwiliSms(smsmobileno, smsdesc)
           })
           Swal.fire(
             'Enregistré !.',
@@ -256,6 +264,14 @@ export class OrdersComponent implements OnInit {
       })
     }
 
+  }
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      debugger
+    })
   }
 
 
@@ -405,6 +421,15 @@ export class OrdersComponent implements OnInit {
         this.InsertCancelNotification();
         this.InsertNotiFicationCancel();
 
+        if (this.languageid == 1) {
+          var smsdesc = "We regret but your appointment with " + this.candiagnostic + " on " + this.canslot + "  as not been confirmed."
+          this.SendTwiliSms(this.smsmobileno, smsdesc)
+        }
+        else {
+          var smsdesc = "Nous regrettons mais votre demande de RDV avec  " + this.candiagnostic + " le " + this.canslot + "  n'a pas été confirmée. "
+          this.SendTwiliSms(this.smsmobileno, smsdesc)
+        }
+
       }, error => {
       }
     )
@@ -513,6 +538,7 @@ export class OrdersComponent implements OnInit {
             this.showphoto.length = 0;
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
+            this.notes=""
           }
           else {
             Swal.fire('Rapport envoyé avec succès au patient.');
@@ -521,6 +547,7 @@ export class OrdersComponent implements OnInit {
             this.showphoto.length = 0;
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
+            this.notes=""
           }
         }
         else {
@@ -654,7 +681,7 @@ export class OrdersComponent implements OnInit {
 
       var entity = {
         'PatientID': this.accpatientid,
-        'Notification': "Appointment Accepted By Diagnostics",
+        'Notification': "Appointment confirmed",
         'Description': "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.",
         'NotificationTypeID': 15,
         'Date': this.todaydate,
@@ -671,8 +698,8 @@ export class OrdersComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.accpatientid,
-        'Notification': "Rendez-vous accepté par les diagnostics",
-        'Description': "Votre rendez-vous avec " + this.acceptcenter + " prévu pour " + this.accslot + "  a été accepté.",
+        'Notification': "RDV confirmé",
+        'Description': "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. ",
         'NotificationTypeID': 15,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -693,7 +720,7 @@ export class OrdersComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + " has been Accepted.",
+        'Description': "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.",
         'ToUser': this.acpaemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -705,7 +732,7 @@ export class OrdersComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.acceptcenter + " prévu pour " + this.accslot + " a été accepté.",
+        'Description': "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. ",
         'ToUser': this.acpaemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -725,8 +752,8 @@ export class OrdersComponent implements OnInit {
 
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Appointment Cancelled By Diagnostics",
-        'Description': "Your Appointment with " + this.candiagnostic + " scheduled for " + this.canslot + "  has been Cancelled.",
+        'Notification': "Appointment not confirmed",
+        'Description': "We regret but your appointment with " + this.candiagnostic + " on " + this.canslot + "  as not been confirmed.",
         'NotificationTypeID': 16,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -742,8 +769,8 @@ export class OrdersComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Rendez-vous annulé par les diagnostics",
-        'Description': "Votre rendez-vous avec " + this.candiagnostic + " prévu pour " + this.canslot + "  a été annulé.",
+        'Notification': "RDVnon confirmé",
+        'Description': "Nous regrettons mais votre demande de RDV avec  " + this.candiagnostic + " le " + this.canslot + "  n'a pas été confirmée. ",
         'NotificationTypeID': 16,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -762,7 +789,7 @@ export class OrdersComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.canpatientid + " scheduled for " + this.canslot + " has been Cancelled.",
+        'Description': "We regret but your appointment with " + this.candiagnostic + " on " + this.canslot + "  as not been confirmed.",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -774,7 +801,7 @@ export class OrdersComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.candiagnostic + " prévu pour " + this.canslot + " a été annulé.",
+        'Description': "Nous regrettons mais votre demande de RDV avec  " + this.candiagnostic + " le " + this.canslot + "  n'a pas été confirmée. ",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -786,8 +813,11 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  //visit email
 
+
+
+
+  //visit email
 
 
   public InsertVisitNotification() {
@@ -1096,14 +1126,15 @@ export class OrdersComponent implements OnInit {
     })
   }
 
+  smsmobileno: any;
 
-
-  public GetAppointmentAcceptBit(appointmentID, patientID, diagnosticCenterName, slotName, emailID) {
+  public GetAppointmentAcceptBit(appointmentID, patientID, diagnosticCenterName, slotName, emailID, smsmobileno) {
     this.appointmentsid = appointmentID;
     this.accpatientid = patientID;
     this.acceptcenter = diagnosticCenterName;
     this.accslot = slotName;
     this.acpaemail = emailID;
+    this.smsmobileno = smsmobileno;
   }
 
 
@@ -1118,9 +1149,15 @@ export class OrdersComponent implements OnInit {
       this.InsertNotiFicationAccpt()
       if (this.languageid == 1) {
         Swal.fire('Accepted', 'Order has been Accepted.');
+        var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted."
+
+        this.SendTwiliSms(this.smsmobileno, smsdesc)
+
       }
       else {
         Swal.fire('Enregistré !.', 'Commande acceptée')
+        var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. "
+        this.SendTwiliSms(this.smsmobileno, smsdesc)
       }
     })
   }

@@ -2818,6 +2818,17 @@ export class HelloDoctorService {
   }
 
 
+  //nurse revenue
+
+
+  public GetNurseAllRevenueByAdmin(sdate, edate, hospitalid, cityid) {
+
+    return this.http.get<any[]>(
+      this.host + "/Doctor/GetNurseAllRevenueByAdmin?Sdate=" + sdate + '&Edate=' + edate + '&HospitalID=' + hospitalid + '&CityID=' + cityid
+    );
+  }
+
+
   public GetMidWifeCommissionDeatailsAdminRevenue(sdate, edate, hospitalid, cityid) {
 
     return this.http.get<any[]>(
@@ -4395,6 +4406,34 @@ export class HelloDoctorService {
     );
   }
 
+
+
+//independent providers
+  
+  public GeIndependentnurserevenueByNurseID(sdate, edate, nurseid, cityid) {
+
+    return this.http.get<any[]>(
+      this.host + "/Doctor/GeIndependentnurserevenueByNurseID?Sdate=" + sdate + '&Edate=' + edate + '&NurseID=' + nurseid + '&CityID=' + cityid
+    );
+  }
+
+  public GetIndependentMidWifeRevenueByMidwifeID(sdate, edate, midwifeid, cityid) {
+
+    return this.http.get<any[]>(
+      this.host + "/Doctor/GetIndependentMidWifeRevenueByMidwifeID?Sdate=" + sdate + '&Edate=' + edate + '&MidWifeID=' + midwifeid + '&CityID=' + cityid
+    );
+  }
+
+  public GetPhsyioTherapistindependentRevenueByphysioID(sdate, edate, physioid, cityid) {
+
+    return this.http.get<any[]>(
+      this.host + "/Doctor/GetPhsyioTherapistindependentRevenueByphysioID?Sdate=" + sdate + '&Edate=' + edate + '&PhysioID=' + physioid + '&CityID=' + cityid
+    );
+  }
+
+
+
+
   public GetHospitalRevenue(sdate, edate, hospitalid, cityid) {
 
     return this.http.get<any[]>(
@@ -5365,4 +5404,63 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetQuickGuideByWeb?LanguageID=' + lid);
   }
 
+  public InsertIndependentDoctors_Receptionist(data) {
+    debugger
+    this.url = this.host + '/Doctor/InsertIndependentDoctors_Receptionist';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdateIndependentDoctors_Receptionist(data) {
+    debugger
+    this.url = this.host + '/Doctor/UpdateIndependentDoctors_Receptionist';
+    return this.http.post(this.url, data)
+  }
+
+  public GetIndependentDoctors_Receptionist(lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetIndependentDoctors_Receptionist?LanguageID=' + lid);
+  }
+
+  public UpdateSickSlipGenaratorSickSlipUrl(data) {
+    debugger
+    this.url = this.host + '/Doctor/UpdateSickSlipGenaratorSickSlipUrl';
+    return this.http.post(this.url, data)
+  }
+  public GetIndependentDoctors_ReceptionistByUserNameAndPwd(pinno, uname, pwd) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetIndependentDoctors_ReceptionistByUserNameAndPwd?Pinno=' + pinno + '&UserName=' + uname + '&Password=' + pwd);
+  }
+
+  public InsertBingoPayments(data) {
+    this.url = "https://preprod.binga.ma/bingaApi/api/orders/json/prepay";
+    return this.http.post(this.url, data)
+  }
+
+
+
+  // public SendTwillioSMS(data) {
+  //   ;
+  //   this.url = this.host + '/Doctor/SendTwillioSMS';
+  //   return this.http.post(this.url, data)
+  // }
+
+
+  public SendTwillioSMS(phoneno, msg) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/SendTwillioSMS?PhoneNumber=' + phoneno + '&Message=' + msg );
+  }
+
+  
+  public GetDoctorForAdminByLanguageIDForWorking(lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorForAdminByLanguageIDForWorking?LanguageID=' + lid);
+  }
+
+
+  
+  public InsertPatientRelation_FamilyTree_Web(data) {
+    debugger
+    this.url = this.host + '/PatientRegistration/InsertPatientRelation_FamilyTree_Web';
+    return this.http.post(this.url, data)
+  }
 }

@@ -110,7 +110,7 @@
                     <a [ngbTooltip]="tipcontent10"
                       *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
                       <img src="assets/Images/can.png" data-toggle="modal" data-target="#exampleModal"
-                        (click)="cancelmedicine(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                        (click)="cancelmedicine(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno)"
                         style="height:19px;">
                     </a>
                   </td>
@@ -119,7 +119,7 @@
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.appointmentType=='1'">
                       <img src="assets/Images/acc.png"
-                        (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                        (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno)"
                         style="height:19px;">
                     </a>
 
@@ -128,7 +128,7 @@
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.appointmentType=='2'">
                       <img src="assets/Images/acc.png" data-toggle="modal" data-target="#AcceptModal"
-                        (click)="GetAppointmentAcceptBit(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID)"
+                        (click)="GetAppointmentAcceptBit(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno)"
                         style="height:19px;">
                     </a>
                   </td>
@@ -156,7 +156,7 @@
                   <td style="border:none">
                     <ng-template #tipcontent8>{{labels[0].uploadreport}}</ng-template>
                     <a [ngbTooltip]="tipcontent8"
-                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'||details.approved=='1'&&details.notVisited=='0'">
+                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'">
                       <img src="assets/Images/uploadfile.png" data-toggle="modal" data-target="#exampleModal1"
                         style="height:19px;"
                         (click)="GetUploadReportID(details.id,details.patientID,details.diagnosticCenterID,details.emailID,details.diagnosticCenterName)">
@@ -172,9 +172,9 @@
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent9867>{{labels[0].chat}}</ng-template>
-                    <span style="color: green;position: absolute;margin-left: 22px;">{{details.chatcount}}</span>
+                    <span style="color: green;position: absolute;margin-left: 22px;"  *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'">{{details.chatcount}}</span>
                     <a [ngbTooltip]="tipcontent9867" >
-                      <img src="assets/Images/chat.jpg" style="height:19px;" (click)="GetChatShowID(details)">
+                      <img src="assets/Images/chat.jpg"   *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'" style="height:19px;" (click)="GetChatShowID(details)">
                     </a>
                   </td>
                 </tr>

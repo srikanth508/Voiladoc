@@ -16,10 +16,11 @@ export class DiagnosticComponent implements OnInit {
   public diagnosticid: any;
   public username: any;
   public password: any;
-  public diadd={}
-  public pp:any;
-  public labels:any;
-  public languageid:any;
+  public diadd = {}
+  public pp: any;
+  public labels: any;
+  public languageid: any;
+  public search: any;
 
   ngOnInit() {
 
@@ -27,7 +28,7 @@ export class DiagnosticComponent implements OnInit {
     this.getlanguage();
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -36,51 +37,53 @@ export class DiagnosticComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
-   
-    
+
+
   }
-  public getlanguage()
-  {
+  public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.SelectLabel=this.labels[0].select;
+        this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
-    )  
+    )
   }
   SelectLabel
-  public GetDiagnosticID(item1:any) {
-   
-    this.diagnosticid =item1.id;
+  public GetDiagnosticID(item1: any) {
+
+    this.diagnosticid = item1.id;
   }
   public insertdetails() {
-   
+
+    this.password = Math.random().toString(36).slice(-8);
+
     if (this.diagnosticid == undefined) {
 
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire("Please Select Diagnostic Center");
       }
-      else{
+      else {
         Swal.fire("Sélectionner un centre d’analyses / imagerie");
       }
 
     }
-    else if(this.password!=undefined)  {
+    else if (this.password != undefined) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
-       
-        this.pp=1;
-      }
-    else {
+      //   var valpassword = this.docservice.strongpassword(this.password);
+      //   if (valpassword == false) {
+
+      //     this.pp=1;
+      //   }
+      // else {
       var entity = {
         'DiagnosticCenterID': this.diagnosticid,
         'UserName': this.username,
@@ -88,83 +91,80 @@ export class DiagnosticComponent implements OnInit {
       }
       this.docservice.InsertDiagnosticCenterAdminRegistration(entity).subscribe(data => {
         if (data != 0) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             this.getdiagnosticloginfordash()
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-            location.href="#/Diagnosticdash"
+            location.href = "#/Diagnosticdash"
             this.clear();
-            this.pp=0;
+            this.pp = 0;
           }
-          else{
+          else {
             this.getdiagnosticloginfordash()
             Swal.fire('', 'Mis à jour avec succés', 'success');
-            location.href="#/Diagnosticdash"
+            location.href = "#/Diagnosticdash"
             this.clear();
-            this.pp=0;
+            this.pp = 0;
           }
         }
-        else{
-          if(this.languageid==1)
-          {
+        else {
+          if (this.languageid == 1) {
             Swal.fire('Success', 'Diagnostic Center Already Exists', 'success');
-            location.href="#/Diagnosticdash"
+            location.href = "#/Diagnosticdash"
           }
-          else
-          {
+          else {
             Swal.fire('', 'Le laboratoire d’analyses / imagerie existe déjà');
-            location.href="#/Diagnosticdash"
+            location.href = "#/Diagnosticdash"
           }
-        
+
         }
       })
+      // }
     }
   }
-}
 
 
-public diagnoticloginlist:any;
+  public diagnoticloginlist: any;
 
-public getdiagnosticloginfordash() {
-  this.docservice.GetDiagnosticLoginForDash(this.languageid).subscribe(
-    data => {
+  public getdiagnosticloginfordash() {
+    this.docservice.GetDiagnosticLoginForDash(this.languageid).subscribe(
+      data => {
 
-      this.diagnoticloginlist = data;
+        this.diagnoticloginlist = data;
 
-       var list= this.diagnoticloginlist.filter(x=>x.diagnosticCenterID==this.diagnosticid)
-       this.diagnosticname=list[0].diagnosticCenterName,
-       this.pinno=list[0].pinno,
-       this.email=list[0].emailID
+        var list = this.diagnoticloginlist.filter(x => x.diagnosticCenterID == this.diagnosticid)
+        this.diagnosticname = list[0].diagnosticCenterName,
+          this.pinno = list[0].pinno,
+          this.email = list[0].emailID
 
-       this.sendmail();
+        this.sendmail();
 
-    }, error => {
-    }
-  )
-}
-
-
-
-pinno: any;
-emailattchementurl = [];
-public email: any;
-public diagnosticname: any;
-
-
-
-public sendmail() {
-  debugger
-  var entity = {
-    'emailto': this.email,
-    'emailsubject': "Voiladoc",
-    'emailbody': 'Dear ' + this.diagnosticname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
-    'attachmenturl': this.emailattchementurl,
-    'cclist': 0,
-    'bcclist': 0
+      }, error => {
+      }
+    )
   }
-  this.docservice.sendemail(entity).subscribe(data => {
-  })
-}
+
+
+
+  pinno: any;
+  emailattchementurl = [];
+  public email: any;
+  public diagnosticname: any;
+
+
+
+  public sendmail() {
+    debugger
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Voiladoc",
+      'emailbody': 'Dear ' + this.diagnosticname + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Please use the below link to  login Voiladoc Platform ' + "<br><br>" + 'Link : https://maroc.voiladoc.org/' + "<br>" + 'Pin : ' + this.pinno + "<br>" + 'UserName :' + this.username + "<br>" + 'Password : ' + this.password + "<br><br>" + 'Dont Share Your Passwords to Anyone. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
+  }
 
 
 

@@ -58,6 +58,7 @@ export class PharmacyComponent implements OnInit {
   }
 
   public insertdetails() {
+    this.password = Math.random().toString(36).slice(-8);
     if (this.pharmacyid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("Please Select Pharmacy");
@@ -67,13 +68,13 @@ export class PharmacyComponent implements OnInit {
       }
     }
     else if (this.password != undefined) {
+    
+      // var valpassword = this.docservice.strongpassword(this.password);
+      // if (valpassword == false) {
 
-      var valpassword = this.docservice.strongpassword(this.password);
-      if (valpassword == false) {
-
-        this.password1 = 1;
-      }
-      else {
+      //   this.password1 = 1;
+      // }
+      // else {
         var entity = {
           'PharmacyID': this.pharmacyid,
           'UserName': this.username,
@@ -116,7 +117,7 @@ export class PharmacyComponent implements OnInit {
           }
         })
       }
-    }
+    // }
   }
 
 

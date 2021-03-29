@@ -162,7 +162,15 @@ export class PharmacyregistrationComponent implements OnInit {
 
       this.timings = this.tone + ' TO ' + this.toampm;
 
-      this.hspwebsite = 'http://' + '' + this.website
+      if(this.hspwebsite==undefined)
+      {
+
+      }
+      else
+      {
+        this.hspwebsite = 'http://' + '' + this.website
+      }
+     
 
       var entity = {
         'PharmacyName': this.pharmacyname,
@@ -211,7 +219,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
   public insertphoto() {
     if (this.attachmentsurl.length == 0) {
-      this.attachmentsurl[0] = 'C:\\VoilaDocWebAPI\\Images\\PharmacyPhotos\\Pharmacy.jpg'
+      this.attachmentsurl[0] = 'C:\\MarocAPI\\Images\\PharmacyPhotos\\Pharmacy.jpg'
     }
     for (let i = 0; i < this.attachmentsurl.length; i++) {
 

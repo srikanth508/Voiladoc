@@ -124,6 +124,16 @@ margin-bottom: 5%;
 border-radius: 5px;
 }
 
+
+.ondemand{
+  background-color: #2e4588;
+  color: aliceblue;
+  border: none;
+  width: 100%;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  }
+
 .strtchatbtn{
 background-color: #988a81;
 color: aliceblue;

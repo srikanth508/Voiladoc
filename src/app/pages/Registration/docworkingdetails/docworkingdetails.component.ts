@@ -127,8 +127,8 @@ export class DocworkingdetailsComponent implements OnInit {
     this.evngtoid = "";
     this.nightfromid = "";
     this.nighttoid = ""
-
-    // this.booktypeid = [1, 2]
+    this.mrngAppointmenttype = 0;
+    this.booktypeid = [{ id: 1 }, { id: 2 }]
     this.dummid = localStorage.getItem('hospitalid');
     this.hosipitalidd = localStorage.getItem('hospitalid');
 
@@ -360,14 +360,14 @@ export class DocworkingdetailsComponent implements OnInit {
 
 
   public GetDaysID(item10: any) {
-    
+    debugger
     // this.dayid = item10.id;
     this.dayid.push(item10)
   }
 
 
   onItemDeSelect1(item1: any) {
-    
+
     this.dayid = this.dayid.slice(item1.id)
   }
 
@@ -400,13 +400,13 @@ export class DocworkingdetailsComponent implements OnInit {
 
   public GetDoctorID(item: any) {
     this.doctorid = item.id;
-    
+
     var list = this.dummlist.filter(x => x.id == this.doctorid)
     this.slottypeid = list[0].slotDurationID,
       this.hosipitalidd = list[0].hospitalClinicID,
       this.hospital_ClinicName = list[0].hospital_ClinicName
     this.departmentid = list[0].departmentID
-    
+
     if (this.slottypeid != null) {
       this.GetMorningSlotsMasterbyid();
       this.GetAfternoonSlotsMasterbyID();
@@ -443,12 +443,12 @@ export class DocworkingdetailsComponent implements OnInit {
     this.morningslots = this.morningslots.slice(item.id)
   }
 
-public itemid:any;
+  public itemid: any;
 
   onItemDeslectDay(item: any) {
 
-     this.itemid=item.id;
-    
+    this.itemid = item.id;
+
     this.dayid.splice(this.itemid, 1);
     // this.dayid = this.dayid.slice(this.itemid)
   }
@@ -683,7 +683,7 @@ public itemid:any;
     var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
     this.mrngtoslot = qwerty[0].slots;
 
- 
+
   }
 
 
@@ -733,6 +733,10 @@ public itemid:any;
   // }
 
 
+
+  public GetAppointmentTypeID(even) {
+    this.mrngAppointmenttype = even.target.value;
+  }
 
 
   public adddetails() {
@@ -797,7 +801,6 @@ public itemid:any;
         this.appontmenttypeid.push(5)
       }
 
-
       var entity = {
         'Sno': this.idcount,
         'DoctorID': this.doctorid,
@@ -832,10 +835,10 @@ public itemid:any;
       }
       this.qwerty.push(entity);
       this.idcount = this.idcount + 1;
-      
+
       var mrngslots = this.mrngfromlist.findIndex(x => x.id == this.mrngtoid);
       this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 1, this.mrngfromlist.length);
-      
+
     }
     this.session1 = "";
     this.session2 = "";
@@ -865,6 +868,7 @@ public itemid:any;
       this.eveningappointmentType = "",
       this.afternoonappointmentType = "",
       this.nightappointmenttype = ""
+    this.mrngAppointmenttype = 0;
     // this.dayid = []
     // this.cleardropdown5 = []
 
@@ -877,14 +881,14 @@ public itemid:any;
     this.nightfromid = "";
     this.nighttoid = ""
     this.fees = "";
-    this.mrngtolist.length=0;
+    this.mrngtolist.length = 0;
 
   }
   // }
 
 
   public insertdetails() {
-    
+
     var entity = {
       'DoctorID': this.doctorid,
       'DoctorAvalibity': this.name,
@@ -897,12 +901,12 @@ public itemid:any;
     this.docservice.InsertDoctorHospitalDetails(entity).subscribe(data => {
 
       if (data != 0) {
-        
+
         this.docid = data;
         this.insertbooktype();
         this.insertbookappointmenttype()
         this.insertdoctorslotsbyid();
-        
+
 
         this.tablecount = 0;
       }
@@ -917,9 +921,9 @@ public itemid:any;
   public insertdoctorslotsbyid() {
 
     for (let j = 0; j < this.dayid.length; j++) {
-      
+
       for (let i = 0; i < this.qwerty.length; i++) {
-        
+
         var entity = {
           'Hospital_ClinicID': this.qwerty[i].Hospital_ClinicID,
           'DoctorID': this.qwerty[i].DoctorID,
@@ -930,7 +934,7 @@ public itemid:any;
           'Fees': this.qwerty[i].Fees,
         }
         this.docservice.InsertDoctorSlotByID(entity).subscribe(data => {
-          
+
           if (data != 0) {
           }
         })

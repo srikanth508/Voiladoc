@@ -1,7 +1,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-10" style="margin-top: -2px;">
-      <h5>{{labels1[0].pharmareports}} </h5>
+      <h5>{{labels[0].pharmareports}} </h5>
     </div>
 
     <div class="col-lg-2" style="margin-top: -12px; text-align: end">
@@ -26,13 +26,13 @@
     </div>
     <div class="col-lg-3" *ngIf="showdrop=='1'">
       <select class="form-control" (change)="GetPharmacyID($event)">
-        <option selected value="0">Select Pharmacy</option>
+        <option selected value="0">{{labels[0].selectpharmacy}}</option>
         <option *ngFor="let pha of pharmacylist" value="{{pha.id}}">{{pha.pharmacyName}}</option>
       </select>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="getget($event)">
-        <option selected value="1">{{labels[0].select}}</option>
+        <option selected value="1">{{labels[0].selectioner}}</option>
         <option value="2">{{labels[0].delivered}}</option>
         <option value="3">{{labels[0].cancelled}}</option>
       </select>
@@ -145,7 +145,181 @@
 
 
 
+
+
+
+
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 939px;
+      height: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="content">
+          <div class="row">
+            <!-- <div class="col-lg-5">
+            </div> -->
+            <div class="col-lg-12">
+              <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title1">
+                    <label *ngIf="languageid=='1'">Doctor</label>
+                    <label *ngIf="languageid=='6'">Médecins</label>
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                  <label>{{doctorname}}</label><br>
+                  <div *ngIf="hospitalid!=590">
+                    <label>{{hospitalname}}</label><br>
+                  </div>
+                  <div style="width: 150px;"> <label>{{docaddress}}</label><br> </div>
+                  <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
+                  <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
+                  <label>{{labels[0].mailId}} : {{email}} </label><br>
+                  <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
+                </div>
+              </div>
+                </div>
+                </section>
+              </aside>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title">
+                      {{labels[0].patientDetails}}
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                        <label> Reference No : {{referencenumber}} </label><br>
+                        <label> {{labels[0].patientname}} : {{patientname}} </label><br>
+                        <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
+                        <label> {{labels[0].address}} : {{address}}</label><br>
+                        <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-12">
+              <aside id="info-block">
+                <section class="file-marker">
+                  <div>
+                    <div class="box-title">
+                      {{labels[0].medicinedetails}}
+                    </div>
+                    <div class="box-contents">
+                      <div id="audit-trail">
+                        <table>
+                          <thead>
+                            <tr>
+                              <!-- <th>{{labels[0].medicineType}}</th> -->
+                              <th style="border: 2px solid black; background-color:#FFD300;
+                              color:black;">{{labels[0].medicines}}</th>
+                              <th style="border: 2px solid black; background-color:#FFD300; color:black;">
+                                {{labels[0].sig}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].quantity}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].howmanyrefills}}</th>
+
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].substitablenotpermitedd}}</th>
+
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].notetoPharmsict}}</th>
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].amount}}</th>
+                              <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                {{labels[0].notetoPharmsict}}</th> -->
+                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">Actions</th>
+                            </tr>
+                            <tr *ngFor="let medicinelist of orderedmedicinelist">
+                              <!-- <td>{{medicinelist.Medicinetype}}</td> -->
+                              <td style="border: 2px solid black;">{{medicinelist.medicineName}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.sig}}</td>
+                              <td style="border: 2px solid black;">
+                                <!-- {{medicinelist.quantity}} -->
+
+                                <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
+                                 style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
+                              </td>
+                              <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
+                              <td style="border: 2px solid black;">{{medicinelist.noteToPharmacist}}</td>
+                              <td style="border: 2px solid black;">
+                                <input type="text" [(ngModel)]="medicinelist.amount" name="medicinelist.amount"
+                                  class="form-control" placeholder="Amount">
+                              </td>
+                              <td style="border: 2px solid black;">
+                                <input type="checkbox" [(ngModel)]="medicinelist.availableBit">
+                              </td>
+                              <!-- <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td> -->
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-2">
+              <!-- <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+                *ngIf="showedit=='0'" data-dismiss="modal" (click)="Updateavailablemedicines()">
+                {{labels[0].update}}</button> -->
+            </div>
+            <div class="col-lg-4">
+              <!-- <img src="{{docsignatureurl}}"> -->
+              <span style="text-align:center;margin-left: 61px;">(Signature)</span>
+              <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
+              <div style="margin-top: -13px;">
+                <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{registrationno}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" style="background-color: #322b6b; color: white;margin-right: 529px;"
+            class="btn btn-default" data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
+          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+            data-dismiss="modal">{{labels[0].close}}</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="width: 800px;
@@ -162,7 +336,7 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-4">
-              <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+           
               <span>{{doctorname}}</span><br>
               <div *ngIf="hospitalid!=590">
                 <span>{{hospitalname}}</span><br>
@@ -215,7 +389,7 @@
                         <table>
                           <thead>
                             <tr>
-                              <!-- <th>{{labels[0].medicineType}}</th> -->
+                             
                               <th style="border: 2px solid black; background-color:#FFD300;
                               color:black;">{{labels[0].medicines}}</th>
                               <th style="border: 2px solid black; background-color:#FFD300; color:black;">
@@ -228,7 +402,7 @@
                                 {{labels[0].notetoPharmsict}}</th>
                             </tr>
                             <tr *ngFor="let medicinelist of myarray">
-                              <!-- <td>{{medicinelist.Medicinetype}}</td> -->
+                             
                               <td style="border: 2px solid black;">{{medicinelist.medicine}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.Sig}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.quantity}}</td>
@@ -247,10 +421,10 @@
           <br>
           <div class="row">
             <div class="col-lg-8">
-              <!-- <label>{{labels[0].notetoPharmsict}} : </label> -->
+           
             </div>
             <div class="col-lg-4">
-              <!-- <img src="{{docsignatureurl}}"> -->
+            
               <span style="text-align:center;margin-left: 61px;">(Signature)</span>
               <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
               <div style="margin-top: -13px;">
@@ -269,7 +443,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 

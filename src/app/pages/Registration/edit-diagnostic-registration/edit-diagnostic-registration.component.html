@@ -27,70 +27,72 @@
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].diagnosticCenterPhoneNo}}:</label>
-              
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control"  maxlength="13"  [(ngModel)]="phno"
+                <input type="text" class="form-control" required  maxlength="13"  [(ngModel)]="phno"
                   name="phno" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].contactPersonName}} : </label>
-              
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" [(ngModel)]="contactperson"  name="contactperson" class="form-control"
+                <input type="text" [(ngModel)]="contactperson" required  name="contactperson" class="form-control"
                 >
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].phno}}: </label>
+                <span class="required">*</span>
                
               </div>
               <div class="col-lg-6">
                 <input type="text" [(ngModel)]="contactpersonphno" maxlength="13"  name="contactpersonphno"
-                  class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                required  class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].licenseNumber}} :</label>
-             
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" [(ngModel)]="licenseno"  name="licenseno" class="form-control"
+                <input type="text" [(ngModel)]="licenseno" required  name="licenseno" class="form-control"
                  >
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].licenceValidTill}}:</label>
+                <span class="required">*</span>
                 <!-- datetime-local -->
               </div>
               <div class="col-lg-6">
-                <input type="date"  [(ngModel)]="licensevalidtill" name="licensevalidtill"
+                <input type="date" required  [(ngModel)]="licensevalidtill" name="licensevalidtill"
                   class="form-control">
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].email}}:</label>
-             
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="email" [(ngModel)]="emailid"  name="emailid" class="form-control"
+                <input type="email" [(ngModel)]="emailid"  required name="emailid" class="form-control"
                   (ngModelChange)="onChange($event)">
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].address}} :</label>
-               
+                <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <textarea class="form-control"  [(ngModel)]="address" name="address" rows="4" cols="30"></textarea>
+                <textarea class="form-control" required  [(ngModel)]="address" name="address" rows="4" cols="30"></textarea>
               </div>
             </div><br>
             <div class="row">
@@ -99,8 +101,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class="form-control" [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
-                  <option value="" selected>{{labels[0].select}}</option>
+                <select class="form-control" required [(ngModel)]="countryid" name="countryid" (change)="GetCountryID($event)">
+                  <option value="" >{{labels[0].select}}</option>
                   <option *ngFor="let cou of countrylist" value={{cou.id}}>{{cou.short}}</option>
                 </select>
               </div>
@@ -111,8 +113,8 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class=" form-control" [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
-                  <option value="" selected="selected">{{labels[0].select}}</option>
+                <select class=" form-control" required [(ngModel)]="cityid" name="cityid" (change)="GetcityID($event)">
+                  <option value="" >{{labels[0].select}}</option>
                   <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
                 </select>
               </div>
@@ -123,8 +125,8 @@
                   <span class="required">*</span>
                 </div>
                 <div class="col-lg-6">
-                  <select class="form-control" (change)="GetAreaID($event)" [(ngModel)]="areaid" name="areaid">
-                    <option value="" selected="selected">{{labels[0].select}}</option>
+                  <select class="form-control" required (change)="GetAreaID($event)" [(ngModel)]="areaid" name="areaid">
+                    <option value="" >{{labels[0].select}}</option>
                     <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
                   </select>
                 </div>

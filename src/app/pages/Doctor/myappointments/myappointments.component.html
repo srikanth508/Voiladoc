@@ -107,7 +107,7 @@
               </button>
 
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
-              <button type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8" *ngIf="details.bookingTypeID=='1'"
+              <button type="button" class="ondemand" [ngbTooltip]="tipcontent8" *ngIf="details.bookingTypeID=='1'"
                 (click)="getvedioconferencebydateandtimedemand(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
 
@@ -165,27 +165,26 @@
                   <td style="border:none">
                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
                     <a [ngbTooltip]="tipcontent3"
-                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.doctorCancelvalidation=='1'">
+                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.doctorCancelvalidation=='1'&&details.bookingTypeID=='2'||details.bookingTypeID=='0'">
                       <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
                         data-target="#exampleModal"
-                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details)" />
+                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details,details.smsmobileno)" />
                     </a>
 
-
-                    <!-- <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
                     <a [ngbTooltip]="tipcontent3"
                       *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.bookingTypeID=='1'">
                       <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
                         data-target="#exampleModal"
-                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details)" />
-                    </a> -->
+                        (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details,details.smsmobileno)" />
+                    </a> 
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.appointmentTypeID!='5'">
                       <img src="assets/Images/acc.png"
-                        (click)="Appointmentstatus(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID)"
+                        (click)="Appointmentstatus(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.smsmobileno)"
                         style="height:20px;" />
                     </a>
 
@@ -193,7 +192,7 @@
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.appointmentTypeID=='5'">
                       <img src="assets/Images/acc.png" data-toggle="modal" data-target="#NextAVilabletime"
-                        (click)="GetNextAvailabilityTime(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID)"
+                        (click)="GetNextAvailabilityTime(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.slots,details.smsmobileno)"
                         style="height:20px;" />
                     </a>
 
@@ -315,7 +314,7 @@
                   <td style="border:none">
                     <ng-template #tipcontent293>{{labels[0].earlyCallReminder}}</ng-template>
                     <a [ngbTooltip]="tipcontent293"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.appointmentTypeID=='2'&&details.earlycall=='0'&&details.earlycallvalidation=='0'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.appointmentTypeID=='2'&&details.earlycall=='0'&&details.earlycallvalidation=='0'&&details.bookingTypeID=='2'">
                       <img src="assets/Images/earlycall.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleealycall"
                         (click)="GetEarlycallPatientID(details.patientID,details.pEmail,details.appointmentID)" />
@@ -440,7 +439,7 @@
           <div class="row">
             <div class="col-lg-4">
               <label *ngIf="languageid=='1'">Refund Amount :</label>
-              
+
               <label *ngIf="languageid=='6'">Montant :</label>
             </div>
             <div class="col-lg-6">
@@ -449,8 +448,8 @@
           </div><br>
           <div class="row">
             <div class="col-lg-4">
-              <label  *ngIf="languageid=='1'">Refund Reason : </label>
-              <label  *ngIf="languageid=='6'"> Motif : </label>
+              <label *ngIf="languageid=='1'">Refund Reason : </label>
+              <label *ngIf="languageid=='6'"> Motif : </label>
             </div>
             <div class="col-lg-6">
               <textarea class="form-control" rows="4" [(ngModel)]="refundreason" name="refundreason"
@@ -476,10 +475,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;"
-          data-dismiss="modal">{{labels[0].close}}</button>
-          <button type="button" class="btn btn-secondary" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;"
-          data-dismiss="modal">Annuler </button>
+        <button type="button" class="btn btn-secondary" *ngIf="languageid=='1'"
+          style="background-color: #f18235;color: white;" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" *ngIf="languageid=='6'"
+          style="background-color: #f18235;color: white;" data-dismiss="modal">Annuler </button>
       </div>
     </div>
   </div>
@@ -1486,7 +1485,6 @@
               </div>
             </div>
             <br>
-
             <div class="row">
               <div class="col-lg-3">
                 <label>
@@ -2202,7 +2200,7 @@
             </div>
             <div class="col-lg-2">
               <button type="button" class="btn btncolor" style="background-color: #f18235;" data-toggle="modal"
-                data-target="#myModal" (click)="InsertSickSlipGenarator()">{{labels1[0].generate}}</button>
+                data-target="#mymedicalcertficate" (click)="InsertSickSlipGenarator()">{{labels1[0].generate}}</button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -2723,9 +2721,6 @@
     </div>
   </div>
 </div>
-
-
-
 
 
 <div class="modal fade" id="UploadFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -3311,7 +3306,7 @@
 <div id="mymedicalcertficate" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-body">
+      <div class="modal-body" id="medicalcontent">
         <div class="row">
           <div class="col-lg-9" style="margin-top:100px">
             <p [innerHTML]="desc"></p>
@@ -3326,6 +3321,9 @@
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          (click)="SaveMedicalCertificatePdf()">Send To Patient</button>
+
         <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
           style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button> -->
         <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
@@ -3334,8 +3332,6 @@
     </div>
   </div>
 </div>
-
-
 
 <div class="modal fade" id="EditMedicalcertificate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true">

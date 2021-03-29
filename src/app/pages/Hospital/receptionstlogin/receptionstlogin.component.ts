@@ -38,6 +38,7 @@ export class ReceptionstloginComponent implements OnInit {
 
 
   public insertdetails() {
+    this.password = Math.random().toString(36).slice(-8);
     var entity = {
       'HospitalID': this.hospitalclinicid,
       'UserName': this.username,

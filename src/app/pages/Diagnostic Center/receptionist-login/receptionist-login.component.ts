@@ -61,7 +61,8 @@ export class ReceptionistLoginComponent implements OnInit {
   }
 
   public InsertDetailes() {
-    
+    this.password = Math.random().toString(36).slice(-8);
+   
     var entity = {
         DiagnosticID: localStorage.getItem('diagnosticid'),
         Name: this.name,

@@ -38,20 +38,20 @@ export class BookappmentsComponent implements OnInit {
   labels: any
   SelectLabel: any
   appointmentid: any;
-  search:any;
+  search: any;
   ngOnInit() {
     this.user = localStorage.getItem('user');
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-     
+
       this.doctorslotid = params['doctorSlotID'];
       this.slotname = params['slotName'];
-      this.PaidAmount=params['doctorFees'];
+      this.PaidAmount = params['doctorFees'];
     }
     )
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
         this.search = this.labels[0].search;
@@ -69,7 +69,7 @@ export class BookappmentsComponent implements OnInit {
     //   },
     //   error => { }s
     // );
-   
+
     this.doctorhospitalid = localStorage.getItem('doctorhospitalid');
     this.appointmentate = localStorage.getItem('appointmentate')
     this.appoentmenTypeid = localStorage.getItem('Appointmenttypeid');
@@ -94,7 +94,7 @@ export class BookappmentsComponent implements OnInit {
     // const pljdjf = 'en-US';
     // const frdat = this.appointmentate;
     // this.appdate = formatDate(frdat, qwer, pljdjf);
-    this.PaymentTypeID="";
+    this.PaymentTypeID = "";
 
     this.GetPatients()
     this.GetNurses();
@@ -103,10 +103,10 @@ export class BookappmentsComponent implements OnInit {
 
 
   public getdoctorforadmin() {
-   
+
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.doctorlist = data;
 
         var list = this.doctorlist.filter(x => x.id == this.doctorid)
@@ -123,7 +123,7 @@ export class BookappmentsComponent implements OnInit {
   public GetNurses() {
     this.docservice.GetNurseRegistrationAdmin().subscribe(
       data => {
-       
+
         this.NurseList = data;
       },
       error => { }
@@ -132,7 +132,7 @@ export class BookappmentsComponent implements OnInit {
   public GetPatients() {
     this.docservice.GetPatientRegistrationBook().subscribe(
       data => {
-       
+
         this.patientslist = data;
 
         this.patientdd = {
@@ -152,7 +152,7 @@ export class BookappmentsComponent implements OnInit {
 
 
   public GetPatientID(item: any) {
-   
+
     this.patientid = item.id;
     var list = this.patientslist.filter(x => x.id == this.patientid)
     this.patientname = list[0].patientName
@@ -167,7 +167,7 @@ export class BookappmentsComponent implements OnInit {
   ReasonForVisit;
   PaidAmount;
   public bookappointment() {
-   
+
     if (this.patientid == null || this.patientid == undefined) {
       Swal.fire("Please Select Patient")
     }
@@ -190,7 +190,7 @@ export class BookappmentsComponent implements OnInit {
         'NurseID': 1,
         'ReasonForVisit': this.ReasonForVisit,
         'PaidAmount': this.PaidAmount,
-        'HomeVisit':0
+        'HomeVisit': 0
       }
       this.docservice.InsertBookAppointmentForWeb(entity).subscribe(data => {
         this.appointmentid = data;
@@ -199,13 +199,11 @@ export class BookappmentsComponent implements OnInit {
           this.SendNotification();
           this.insertpaymentDetails()
           //this.sendmail();
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Success', 'Appointment Booked Successfully');
             location.href = "#/Appointments"
           }
-          else if(this.languageid==6)
-          {
+          else if (this.languageid == 6) {
             Swal.fire('Rendez-vous est réservé');
             location.href = "#/Appointments"
           }
@@ -234,7 +232,7 @@ export class BookappmentsComponent implements OnInit {
 
 
   public InsertNotifiaction() {
-   
+
 
     var entity = {
       'PatientID': this.patientid,
@@ -245,7 +243,7 @@ export class BookappmentsComponent implements OnInit {
       'LanguageID': this.languageid,
     }
     this.docservice.InsertNotifications(entity).subscribe(data => {
-     
+
       if (data != 0) {
 
       }
@@ -255,13 +253,13 @@ export class BookappmentsComponent implements OnInit {
 
 
   public SendNotification() {
-   
+
     var entity = {
       'Description': "Thank you. Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname + "," + this.user,
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
-     
+
       if (data != 0) {
 
       }
@@ -277,17 +275,49 @@ export class BookappmentsComponent implements OnInit {
       ContentType: "text/html",
       Content: "You have New appointment with  " + this.patientname + " is scheduled for " + this.appdate + ", " + this.slotname + "<br><br>Regards,<br>" + this.user,
     };
-   
+
     this.docservice.SendMail(mailentity).subscribe(data => {
-     
+
       Swal.fire('Mail sent successfully.');
     })
   }
 
 
   public GetPaymentTypeID(even) {
-   
+
     this.PaymentTypeID = even.target.value;
+  }
+
+
+
+
+
+  public InserBingoPayments() {
+    var entity = {
+      "PatientID": this.patientid,
+      "ArchiveID": this.patientid,
+      "FirstName": this.patientid,
+      "LastName": this.patientid,
+      "PhoneNo": this.patientid,
+      "Address": this.patientid,
+      "EmailID": this.patientid,
+      "ClientServiceCharge": this.patientid,
+      "ClientStampDuty": this.patientid,
+      "Code": this.patientid,
+      "CreationDate": this.patientid,
+      "ExpirationDate": this.patientid,
+      "ExternalID": this.patientid,
+      "Offline": this.patientid,
+      "PayUrl": this.patientid,
+      "StampDuty": this.patientid,
+      "Status": this.patientid,
+      "TotalAmount": this.patientid
+    }
+    let headers = new Headers();
+    headers.append("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    this.docservice.InsertBingoPayments(entity).subscribe(data => {
+
+    })
   }
 
 }

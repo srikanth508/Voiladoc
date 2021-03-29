@@ -197,7 +197,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
   public canmobileno: any;
 
 
-  public GetCancelAppointmentID(id, bookedTime, name, patientID, emailID, hospital_ClinicName, paidAmount, walletAmount, mobileNumber) {
+  public GetCancelAppointmentID(id, bookedTime, name, patientID, emailID, hospital_ClinicName, paidAmount, walletAmount, mobileNumber, smsmobileno) {
 
     this.canappointmentid = id,
       this.canslots = bookedTime;
@@ -208,6 +208,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.paidamount = paidAmount;
     this.walletamount = walletAmount;
     this.canmobileno = mobileNumber;
+    this.smsmobileno = smsmobileno;
 
 
     this.totaladdmoney = Number(this.walletamount) + (this.paidamount)
@@ -234,8 +235,8 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Appointment Cancelled By Physiotherapist.",
-        'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
+        'Notification': "Appointment not confirmed",
+        'Description': "Your appoinment with the physio " + this.canphysioname + "  on " + this.canslots + " has not been confirmed. ",
         'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -252,8 +253,8 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.canpatientid,
-        'Notification': "Rendez-vous annulé par un physiothérapeute.",
-        'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.",
+        'Notification': "Rendez-vous non confirmé",
+        'Description': "Votre RDV avec le/la physio " + this.canphysioname + " le " + this.canslots + "  n'a pas été confirmé. ",
         'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -272,7 +273,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.canphysioname + " scheduled for " + this.canslots + " has been Cancelled.",
+        'Description': "Your appoinment with the physio " + this.canphysioname + "  on " + this.canslots + " has not been confirmed. ",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -284,7 +285,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.canphysioname + " prévu pour " + this.canslots + " a été annulé.",
+        'Description': "Votre RDV avec le/la physio " + this.canphysioname + " le " + this.canslots + "  n'a pas été confirmé. ",
         'ToUser': this.canemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -295,6 +296,11 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
       })
     }
   }
+
+
+
+
+
 
   public emailattchementurl = []
   public cclist: any;
@@ -321,13 +327,12 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.docservice.UpdateBook_Physio_AppointmentcancelledBit(this.canappointmentid).subscribe(
       data => {
 
-        if(this.languageid==1)
-        {
+        if (this.languageid == 1) {
           Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
         }
-       else{
-        Swal.fire('Annuler avec succès');
-       }
+        else {
+          Swal.fire('Annuler avec succès');
+        }
       }, error => {
       }
     )
@@ -339,6 +344,14 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.sendsms();
     this.InsertCancelNotification();
     this.InsertNotiFicationCancel();
+    if (this.languageid == 1) {
+      var smsdesc = "Your appoinment with the physio " + this.canphysioname + "  on " + this.canslots + " has not been confirmed. "
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    else {
+      var smsdesc = "Votre RDV avec le/la physio " + this.canphysioname + " le " + this.canslots + "  n'a pas été confirmé. "
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
   }
 
 
@@ -369,13 +382,12 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     }
     this.docservice.UpdateBook_Physio_AppointmentReasonForCancel(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire(' Cancelled', 'Appointment Cancelled Successfully');
         this.getphysiolist();
         this.physionappointments()
       }
-      else{
+      else {
         Swal.fire('Annuler avec succès');
         this.getphysiolist();
         this.physionappointments()
@@ -387,11 +399,11 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
 
 
 
+  smsmobileno: any;
 
 
 
-
-  public GetAcceptAppointmentID(id, phsysioid, bookedTime, name, patientID, emailID, hospital_ClinicName) {
+  public GetAcceptAppointmentID(id, phsysioid, bookedTime, name, patientID, emailID, hospital_ClinicName, smsmobileno) {
     this.acceptappointmentid = id;
     this.acceptnurseid = phsysioid;
     this.acceptslots = bookedTime;
@@ -399,6 +411,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.acceptpatientid = patientID;
     this.acceptemail = emailID;
     this.accepthospital = hospital_ClinicName;
+    this.smsmobileno = smsmobileno;
 
   }
   public acceptappointment() {
@@ -412,6 +425,17 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.InsertNextAvailableSlots();
     this.InsertAcceptNotification();
     this.InsertNotiFicationAccept();
+
+    if (this.languageid == 1) {
+      var smsdesc = "Your appoinment with the physio  " + this.acceptphysioname + " on " + this.acceptslots + " has been accepted."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    else {
+      var smsdesc = "Votre RDV avec le/la physio " + this.acceptphysioname + " le " + this.acceptslots + " a été confirmé."
+
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+
   }
 
 
@@ -420,8 +444,8 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.acceptpatientid,
-        'Notification': "Appointment Accepted By Physiotherapist.",
-        'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots + " has been Accepted.",
+        'Notification': "Appointment confirmed",
+        'Description': "Your appoinment with the physio  " + this.acceptphysioname + " on " + this.acceptslots + " has been accepted.",
         'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -437,8 +461,8 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.acceptpatientid,
-        'Notification': "Rendez-vous accepté par un physiothérapeute.",
-        'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots + " a été accepté.",
+        'Notification': "Rendez-vous confirmé",
+        'Description': "Votre RDV avec le/la physio " + this.acceptphysioname + " le " + this.acceptslots + " a été confirmé.",
         'NotificationTypeID': 26,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -457,7 +481,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
 
     if (this.languageid == '1') {
       var entity = {
-        'Description': "Your Appointment with " + this.acceptphysioname + " scheduled for " + this.acceptslots + " has been Accepted.",
+        'Description': "Your appoinment with the physio  " + this.acceptphysioname + " on " + this.acceptslots + " has been accepted.",
         'ToUser': this.acceptemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -469,7 +493,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre rendez-vous avec " + this.acceptphysioname + " prévu pour " + this.acceptslots + " a été accepté.",
+        'Description': "Votre RDV avec le/la physio " + this.acceptphysioname + " le " + this.acceptslots + " a été confirmé.",
         'ToUser': this.acceptemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -483,7 +507,12 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
 
 
 
-
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      debugger
+    })
+  }
 
   public getfromampm(even) {
 
@@ -502,13 +531,12 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.docservice.UpdatePhysiotherapist_AvailabilitySlotsTime(entity).subscribe(res => {
       let test = res;
 
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         this.getphysiolist();
         this.physionappointments()
         Swal.fire('Agenda updated and appointment accepted successfully.');
       }
-      else{
+      else {
         this.getphysiolist();
         this.physionappointments()
         Swal.fire('Agenda mis à jour et rendez-vous accepté avec succès.');
@@ -755,7 +783,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
       this.hospital = details.hospital_ClinicName,
       this.physioaddrees = details.physioAddess,
       this.paidamount = details.paidAmount
-      debugger
+    debugger
   }
 
 }

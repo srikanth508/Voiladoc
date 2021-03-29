@@ -13,6 +13,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
   receptionistloginlist: any;
   term: any;
   count: any;
+  labels1:any;
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
@@ -21,6 +22,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
     this.pinno = localStorage.getItem('Pinno');
     this.GetLables();
     this.GetReceptionistlogin();
+    this.getlanguage()
   }
 
   public GetLables() {
@@ -53,7 +55,15 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
   // }
 
 
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
 
+        this.labels1 = data;
+      }, error => {
+      }
+    )
+  }
 
 
 
