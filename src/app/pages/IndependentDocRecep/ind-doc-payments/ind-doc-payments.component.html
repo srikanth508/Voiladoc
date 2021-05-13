@@ -69,6 +69,7 @@
             <th *ngIf="languageid=='6'">Motif</th>
             <th id="imp">{{labels[0].appointmentTypee}}</th>
             <th>{{labels[0].paymenttypee}}</th>
+            <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let details of doctorlist|filter:term|filter:term1">
             <td>{{details.appointmentID}}</td>
@@ -76,11 +77,28 @@
             <td>{{details.slots}}</td>
             <td>{{details.departmentname}}</td>
             <td>{{details.doctorName}}</td>
-            <td>{{details.paidAmount}}</td>
+            <td>
+              <label *ngIf="details.isVisited=='1'">{{details.paidAmount}}</label>
+            </td>
             <td>{{details.patientName}}</td>
             <td>{{details.reasonForVisit}}</td>
             <td>{{details.appointmentTypeText}}</td>
             <td>{{details.paymentType}}</td>
+            <td>
+              <label *ngIf=" details.accepted=='1' &&details.cancelled=='0' &&details.docCancelled=='0'
+                    &&details.isVisited=='0' &&details.noShow=='0'"
+                style=" color: green;">{{labels[0].accepted}}</label>
+              <label *ngIf="details.cancelled=='1'" style="color: red;">{{labels[0].patientCancelled}}</label>
+              <label *ngIf="details.docCancelled=='1'" style="color: red;">{{labels[0].doctorCancelled}}</label>
+
+              <label *ngIf="details.isVisited=='1'" style="color: orange;">{{labels[0].visited}}</label>
+              <label *ngIf="details.noShow=='1'" style="color: orange;">{{labels[0].notvisited}}</label>
+              <label
+                *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
+
+            </td>
+
           </tr>
         </thead>
       </table>

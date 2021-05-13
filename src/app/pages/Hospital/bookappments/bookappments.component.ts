@@ -39,8 +39,15 @@ export class BookappmentsComponent implements OnInit {
   SelectLabel: any
   appointmentid: any;
   search: any;
+  showback: any;
+  hospitalid: any;
+  homevisit: boolean;
   ngOnInit() {
+    debugger
     this.user = localStorage.getItem('user');
+
+    this.showback = localStorage.getItem('Showbutton');
+    this.hospitalid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
 
@@ -77,12 +84,18 @@ export class BookappmentsComponent implements OnInit {
     // this.PaidAmount = localStorage.getItem('fees');
 
     if (this.appoentmenTypeid == 1) {
+      this.homevisit = false;
       this.combinationvalue = 'In Clinic';
       this.bookingtypeid = 0;
     }
 
     if (this.appoentmenTypeid == 2) {
+      this.homevisit = false;
       this.combinationvalue = 'Video Conference';
+    }
+    if (this.appoentmenTypeid == 5) {
+      this.homevisit = true;
+      this.combinationvalue = 'Home Visit';
     }
 
     const format = 'dd-MMM-yyyy';
@@ -129,25 +142,73 @@ export class BookappmentsComponent implements OnInit {
       error => { }
     );
   }
+
+  dummlist: any;
   public GetPatients() {
-    this.docservice.GetPatientRegistrationBook().subscribe(
-      data => {
 
-        this.patientslist = data;
+    if (this.showback == 1) {
+      debugger
+      this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
+        data => {
+          debugger
+          // this.patientslist = 
+          // this.dummlist.filter(x => x.doctorID == this.doctorid)
+          this.patientslist = data;
+          this.patientdd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'patientName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search
+          };
 
-        this.patientdd = {
-          singleSelection: true,
-          idField: 'id',
-          textField: 'patientName',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          itemsShowLimit: 3,
-          allowSearchFilter: true,
-          searchPlaceholderText: this.search
-        };
-      },
-      error => { }
-    );
+        },
+        error => { }
+      );
+    }
+    else if (this.showback == 2) {
+      this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
+        data => {
+          debugger
+          this.dummlist = data;
+          this.patientslist = this.dummlist.filter(x => x.doctorID == this.doctorid)
+          // this.patientslist = data;
+          this.patientdd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'patientName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            itemsShowLimit: 3,
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search
+          };
+
+        },
+        error => { }
+      );
+    }
+    // this.docservice.GetPatientRegistrationBook().subscribe(
+    //   data => {
+
+    //     this.patientslist = data;
+
+    //     this.patientdd = {
+    //       singleSelection: true,
+    //       idField: 'id',
+    //       textField: 'patientName',
+    //       selectAllText: 'Select All',
+    //       unSelectAllText: 'UnSelect All',
+    //       itemsShowLimit: 3,
+    //       allowSearchFilter: true,
+    //       searchPlaceholderText: this.search
+    //     };
+    //   },
+    //   error => { }
+    // );
   }
 
 
@@ -190,28 +251,41 @@ export class BookappmentsComponent implements OnInit {
         'NurseID': 1,
         'ReasonForVisit': this.ReasonForVisit,
         'PaidAmount': this.PaidAmount,
-        'HomeVisit': 0
+        'HomeVisit': this.homevisit
       }
       this.docservice.InsertBookAppointmentForWeb(entity).subscribe(data => {
         this.appointmentid = data;
         if (data != 0) {
           this.InsertNotifiaction();
+          this.InsertDocNotification()
           this.SendNotification();
-          this.insertpaymentDetails()
+          // this.insertpaymentDetails()
           //this.sendmail();
-          if (this.languageid == 1) {
-            Swal.fire('Success', 'Appointment Booked Successfully');
-            location.href = "#/Appointments"
+
+          if (this.showback == 1) {
+            if (this.languageid == 1) {
+              Swal.fire('Success', 'Appointment Booked Successfully');
+              location.href = "#/Appointments"
+            }
+            else if (this.languageid == 6) {
+              Swal.fire('Rendez-vous est réservé');
+              location.href = "#/Appointments"
+            }
           }
-          else if (this.languageid == 6) {
-            Swal.fire('Rendez-vous est réservé');
-            location.href = "#/Appointments"
+          else {
+            if (this.languageid == 1) {
+              Swal.fire('Success', 'Appointment Booked Successfully');
+              location.href = "#/DocRecpAppointments"
+            }
+            else if (this.languageid == 6) {
+              Swal.fire('Rendez-vous est réservé');
+              location.href = "#/DocRecpAppointments"
+            }
           }
         }
       })
     }
   }
-
 
 
   public insertpaymentDetails() {
@@ -231,18 +305,18 @@ export class BookappmentsComponent implements OnInit {
   }
 
 
+
   public InsertNotifiaction() {
-
-
     var entity = {
       'PatientID': this.patientid,
       'Notification': "Appointment Fixed",
       'Description': "Thank you. Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname + ", At" + this.user,
-      'NotificationTypeID': 10,
+      'NotificationTypeID': 1,
       'Date': this.appdate,
       'LanguageID': this.languageid,
+      'AppointmentID': this.appointmentid
     }
-    this.docservice.InsertNotifications(entity).subscribe(data => {
+    this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
 
       if (data != 0) {
 
@@ -252,10 +326,56 @@ export class BookappmentsComponent implements OnInit {
 
 
 
+
+
+  public InsertDocNotification() {
+    if (this.languageid == 1) {
+      var entity = {
+        'PatientID': this.patientid,
+        'DoctorID': this.doctorid,
+        'Notification': "Appointment Fixed",
+        'Description': "You have a new Appointment fixed for " + this.combinationvalue + " by" + this.doctorname + " is scheduled on " + this.appdate + ", " + this.slotname,
+        'NotificationTypeID': 2,
+        'Date': this.appdate,
+        'LanguageID': this.languageid,
+        'DoctorHospitalDetailsID': this.doctorhospitalid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotifications_DoctorWeb(entity).subscribe(data => {
+
+        if (data != 0) {
+        }
+      })
+    }
+    else {
+      var entity = {
+        'PatientID': this.patientid,
+        'DoctorID': this.doctorid,
+        'Notification': "Rendez-vous  confirmé.",
+        'Description': "Vous avez une nouvelle demande de rendez-vous pour une consultation " + this.combinationvalue + " par  " + this.doctorname + " est confirmé.Date et heure :" + this.appdate + ", " + this.slotname,
+        'NotificationTypeID': 2,
+        'Date': this.appdate,
+        'LanguageID': this.languageid,
+        'DoctorHospitalDetailsID': this.doctorhospitalid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotifications_DoctorWeb(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+
+  }
+
+
+
+
   public SendNotification() {
 
     var entity = {
-      'Description': "Thank you. Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname + "," + this.user,
+      'Description': "Thank you. Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname,
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -314,7 +434,7 @@ export class BookappmentsComponent implements OnInit {
       "TotalAmount": this.patientid
     }
     let headers = new Headers();
-    headers.append("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    headers.append("Authorization", "Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
     this.docservice.InsertBingoPayments(entity).subscribe(data => {
 
     })

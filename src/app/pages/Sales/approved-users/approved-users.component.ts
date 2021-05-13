@@ -65,13 +65,14 @@ export class ApprovedUsersComponent implements OnInit {
 
     this.typeid = 1
     this.GetRegistreedVoiladocusers()
+    this.getlanguage()
   }
 
 
   
   selectedDate(data) {
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.GetRegistreedVoiladocusers()
   }
 
@@ -79,7 +80,7 @@ export class ApprovedUsersComponent implements OnInit {
   public dummreglist: any;
 
   public GetRegistreedVoiladocusers() {
-    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate,this.typeid).subscribe(data => {
+    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate,this.typeid,this.languageid).subscribe(data => {
       // this.RegisteredList = data;
       this.dummreglist = data;
       this.RegisteredList = this.dummreglist.filter(x => x.approved == 1)
@@ -97,4 +98,17 @@ export class ApprovedUsersComponent implements OnInit {
     this.GetRegistreedVoiladocusers();
   }
 
+
+  labels: any;
+
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+
+      }, error => {
+      }
+    )
+  }
 }

@@ -122,7 +122,7 @@ export class VediocallComponent implements OnInit {
 
   public quantity: any;
   public bmi: any;
-
+  dropzonelable: any;
 
 
 
@@ -237,6 +237,8 @@ export class VediocallComponent implements OnInit {
     this.minutes = 0;
     this.seconds = 0;
     debugger
+    this.testid = 0;
+    this.testssid = 0;
     // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
@@ -320,7 +322,12 @@ export class VediocallComponent implements OnInit {
     )
     this.showclosebutton = 0;
 
-
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
 
 
     //chat
@@ -328,7 +335,7 @@ export class VediocallComponent implements OnInit {
     this.savetemplate = 2;
     this.manuallydrug = 2
     this.substainable = 1;
-
+    this.testtemplate = 2;
     this.getserverdateandtime();
 
     // this.appointmentiddd = 570;
@@ -350,9 +357,8 @@ export class VediocallComponent implements OnInit {
     this.geticdcode()
     this.GetDoctorSoapNotesTemplates()
     this.GetDrugnamemaster()
+    this.GetDiagnpsticDoctorTemplates()
 
-
-    
 
 
     // tok bok vamsi  start
@@ -653,7 +659,7 @@ export class VediocallComponent implements OnInit {
           }, error => {
           }
         )
-      
+
         this.GetAllerges()
 
         this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
@@ -905,10 +911,18 @@ export class VediocallComponent implements OnInit {
       'AppointmentID': this.appointmentid,
       'AppointmentDate': this.appointmentdatetime,
       'Subjective': this.subjective,
+      'Objective':this.objective,
+      'Assessment':this.assessment,
+      'Plan':this.plan,
+      'FollowUpPlan':this.followupplan,
+      'DiagnosisCode':this.diagnosiscode,
+      'Notes':this.notes,
       'LanguageID': this.languageid,
       'ICRCode': this.icdcode,
       'ICRDescription': this.icddesc,
-      'ICRID': this.icrcodeid
+      'ICRID': this.icrcodeid,
+      'AttachmentUrl': this.attachmentsurl1[0],
+      'Signature': this.signature
     }
 
     this.docservice.InsertDoctor_PatientSoapNotes1(entity).subscribe(data => {
@@ -917,9 +931,9 @@ export class VediocallComponent implements OnInit {
         if (this.savetemplate == 1) {
           this.InsertDoctorSoapNoteTemplate()
         }
-        this.insertsoapnotes2();
-        this.insertsoapnotes3();
-        this.insertsoapnotes4();
+        // this.insertsoapnotes2();
+        // this.insertsoapnotes3();
+        // this.insertsoapnotes4();
         this.GetDoctorSoapNotesTemplates()
 
         if (this.misuse == 1) {
@@ -996,70 +1010,70 @@ export class VediocallComponent implements OnInit {
 
 
 
-  public insertsoapnotes2() {
-    var entity = {
-      'DoctorID': this.doctorid,
-      'PatientID': this.patientid,
-      'SoapID': this.soapid,
-      'Objective': this.objective
-    }
-    this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
+  // public insertsoapnotes2() {
+  //   var entity = {
+  //     'DoctorID': this.doctorid,
+  //     'PatientID': this.patientid,
+  //     'SoapID': this.soapid,
+  //     'Objective': this.objective
+  //   }
+  //   this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
 
-      if (data != 0) {
-        // if (this.languageid == 1) {
-        //   Swal.fire('Completed', 'Details saved successfully', 'success');
-        // }
-        // else {
-        //   Swal.fire('Détails enregistrés', 'SOAP');
-        // }
-      }
-    })
-  }
+  //     if (data != 0) {
+  //       // if (this.languageid == 1) {
+  //       //   Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       // }
+  //       // else {
+  //       //   Swal.fire('Détails enregistrés', 'SOAP');
+  //       // }
+  //     }
+  //   })
+  // }
 
-  public insertsoapnotes3() {
-    var entity = {
-      'Assessment': this.assessment,
-      'DoctorID': this.doctorid,
-      'PatientID': this.patientid,
-      'SoapID': this.soapid
-    }
-    this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
-      if (data != 0) {
-        // if (this.languageid == 1) {
-        //   Swal.fire('Completed', 'Details saved successfully', 'success');
-        // }
-        // else {
-        //   Swal.fire('Détails enregistrés', 'SOAP');
-        // }
+  // public insertsoapnotes3() {
+  //   var entity = {
+  //     'Assessment': this.assessment,
+  //     'DoctorID': this.doctorid,
+  //     'PatientID': this.patientid,
+  //     'SoapID': this.soapid
+  //   }
+  //   this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
+  //     if (data != 0) {
+  //       // if (this.languageid == 1) {
+  //       //   Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       // }
+  //       // else {
+  //       //   Swal.fire('Détails enregistrés', 'SOAP');
+  //       // }
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
-  public insertsoapnotes4() {
-    var entity = {
-      'Plan': this.plan,
-      'DoctorID': this.doctorid,
-      'PatientID': this.patientid,
-      'SoapID': this.soapid,
-      'DiagnosisCode': this.icdcode,
-      'Orders': 0,
-      'SickSlip': 0,
-      'FollowUpPlan': this.followupplan,
-      'Signature': this.signature,
-      'Notes': this.notes,
-    }
-    this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
-      if (data != 0) {
-        // if (this.languageid == 1) {
-        //   Swal.fire('Completed', 'Details saved successfully', 'success');
-        // }
-        // else {
-        //   Swal.fire('Détails enregistrés', 'SOAP');
-        // }
-      }
-    })
-  }
+  // public insertsoapnotes4() {
+  //   var entity = {
+  //     'Plan': this.plan,
+  //     'DoctorID': this.doctorid,
+  //     'PatientID': this.patientid,
+  //     'SoapID': this.soapid,
+  //     'DiagnosisCode': this.icdcode,
+  //     'Orders': 0,
+  //     'SickSlip': 0,
+  //     'FollowUpPlan': this.followupplan,
+  //     'Signature': this.signature,
+  //     'Notes': this.notes,
+  //   }
+  //   this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
+  //     if (data != 0) {
+  //       // if (this.languageid == 1) {
+  //       //   Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       // }
+  //       // else {
+  //       //   Swal.fire('Détails enregistrés', 'SOAP');
+  //       // }
+  //     }
+  //   })
+  // }
 
   public getdoctorpatientdetailsbydocidandpatientid() {
 
@@ -1389,7 +1403,7 @@ export class VediocallComponent implements OnInit {
       'Duration': this.duration,
       'Dispencequnatity': this.dispensequantity,
       'NoteToPharmacist': this.notetopharmacist,
-      'Diagnosis': this.diagnosis,
+      'Diagnosis': this.icdcode,
       'HowManyRefils': this.howmanyrefills,
       'ICDCode': this.icdcode,
       'ICDDescription': this.icrdescription,
@@ -1622,6 +1636,7 @@ export class VediocallComponent implements OnInit {
       }
     }
   }
+  testtemplate: any;
 
   public adddetails() {
     this.tablecount = 1;
@@ -1637,11 +1652,20 @@ export class VediocallComponent implements OnInit {
     this.qwerty.push(entity);
     this.idcount = this.idcount + 1;
     this.diatest = "";
+    if (this.testtemplate == 1) {
+      this.SaveTestTemplate()
+    }
+    if (this.templateid != 0) {
+      this.UpdateTemplte()
+    }
     this.testslist.length = 0;
     this.tsetssslist.length = 0;
     this.getdiagnosticcentertests()
     this.diagnostictestname = "";
     this.clinicinfo = "";
+    this.testtemplate = 2;
+    this.testid = 0;
+    this.testssid = 0;
   }
 
   public insertDiagnostictestdetails() {
@@ -2302,7 +2326,7 @@ export class VediocallComponent implements OnInit {
         this.getpatientdetails()
       }
       else if (this.languageid == 6) {
-        Swal.fire('Allergies détails enregistrés');
+        Swal.fire('Les allergies ont été mises à jour');
         this.allergieslist = [];
         this.getpatientdetails()
       }
@@ -2324,6 +2348,158 @@ export class VediocallComponent implements OnInit {
 
   public closewindow() {
     window.close();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  dummprescriptionphotourl = []
+  attachments1 = [];
+  attachmentsurl1 = []
+
+  public UploadSoapAttchments(abcd) {
+    debugger
+    this.dummprescriptionphotourl = []
+    debugger
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments1.push(abcd.addedFiles[0]);
+    this.uploadSoAPattachmentss();
+    // }
+    debugger
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+  }
+
+  public shoprescphoto = [];
+
+  public uploadSoAPattachmentss() {
+    this.docservice.SoapAttachments(this.attachments1).subscribe(res => {
+      this.attachmentsurl1.push(res);
+      this.dummprescriptionphotourl.push(res);
+      let a = this.attachmentsurl1[0].slice(2);
+      debugger
+      let b = 'https://maroc.voiladoc.org' + a;
+      if (this.attachments1[0].type == 'image/jpeg') {
+        debugger
+        this.shoprescphoto.push(b)
+      }
+      else if (this.attachments1[0].type == 'application/pdf') {
+        debugger
+        this.shoprescphoto.push('assets/Images/pdf.png')
+      }
+
+      this.attachments1.length = 0;
+
+    })
+    // this.sendattachment();
+  }
+
+  dummtemalelist: any;
+
+
+  public GetDiagnpsticDoctorTemplates() {
+    this.docservice.GetDiagnosticTest_DoctorTemplate(this.doctorid).subscribe(
+      data => {
+
+        this.dummtemalelist = data;
+        this.TestTemplateList = this.dummtemalelist.filter(x => x.doctorID == this.doctorid)
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+  TestTemplateList: any;
+  testtemplatename: any;
+
+
+
+  public SaveTestTemplate() {
+    var entity = {
+      'DoctorID': this.doctorid,
+      'TestTypeID': this.testid,
+      'TestID': this.testssid,
+      'AppointmentTypeID': this.appointmentid,
+      'ClinicalInfo': this.clinicalinfo,
+      'TemplateName': this.testtemplatename
+    }
+    this.docservice.InsertDiagnosticTest_DoctorTemplate(entity).subscribe(data => {
+      this.GetDiagnpsticDoctorTemplates();
+    })
+  }
+
+  public UpdateTemplte() {
+    var entity = {
+      'ID': this.templateid,
+      'DoctorID': this.doctorid,
+      'TestTypeID': this.testid,
+      'TestID': this.testssid,
+      'AppointmentTypeID': this.appointmentid,
+      'ClinicalInfo': this.clinicalinfo,
+      'TemplateName': this.testtemplatename
+    }
+    this.docservice.UpdateDiagnosticTest_DoctorTemplate(entity).subscribe(data => {
+      this.GetDiagnpsticDoctorTemplates();
+    })
+  }
+
+
+  public GetTestTemplateID(even) {
+    if (even.target.value != 0) {
+      debugger
+      this.templateid = even.target.value;
+      var list = this.TestTemplateList.filter(x => x.id == this.templateid)
+      this.testid = list[0].testTypeID
+      this.testssid = list[0].testID
+      this.clinicalinfo = list[0].clinicalInfo,
+      this.testtemplatename=list[0].templateName
+      debugger
+      this.getdiagnostictests()
+      // this.getdiagnosticcentertests()
+      debugger
+      var list1 = this.testslist.filter(x => x.id == this.testid)
+      this.diagnostictesttypename = list1[0].name
+      debugger
+      this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
+        data => {
+          debugger
+          this.tsetssslist = data;
+          var list2 = this.tsetssslist.filter(x => x.id == this.testssid)
+          this.diagnostictestname = list2[0].short
+          debugger
+        }, error => {
+        }
+      )
+
+
+    }
+    else {
+      this.testid = 0
+      this.testssid = 0
+    }
   }
 }
 

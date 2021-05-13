@@ -12,8 +12,24 @@ export class ArticleDashComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
 
   public articlelist:any;
+  labels:any;
+  languageid:any;
   ngOnInit() {
+    this.languageid = localStorage.getItem('LanguageID');
     this.GetArticles()
+    this.getlanguage()
+  }
+
+
+
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
+      data => {
+       
+        this.labels = data;
+      }, error => {
+      }
+    )
   }
 
   public GetArticles() {

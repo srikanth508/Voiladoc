@@ -16,9 +16,9 @@
       </div>
       <div class="col-lg-6">
         <input type="radio" [(ngModel)]="independent" name="independent" value="1"
-          (click)="GetIndependentPhysiotherapist($event)"> Hospital Physiotherapist &nbsp; &nbsp;
+          (click)="GetIndependentPhysiotherapist($event)"> {{labels[0].hospitalPhysiotherapist}} &nbsp; &nbsp;
         <input type="radio" [(ngModel)]="independent" name="independent" value="2"
-          (click)="GetIndependentPhysiotherapist($event)"> Independent Physiotherapist &nbsp; &nbsp;
+          (click)="GetIndependentPhysiotherapist($event)"> {{labels[0].independentphysiotherapist}} &nbsp; &nbsp;
       </div>
     </div>
     <div class="row" style="margin-top: 20px;" *ngIf="showindependentradio=='1'">

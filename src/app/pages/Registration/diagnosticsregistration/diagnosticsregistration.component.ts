@@ -60,14 +60,16 @@ export class DiagnosticsregistrationComponent implements OnInit {
   dropzonelable: any;
   public contractstartdate: any;
   public contractenddate: any;
+  public search:any;
   ngOnInit() {
 
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
-    this.getinsurancemaster();
-    this.GetCountryMaster();
 
     this.getlanguage()
+
+    this.getinsurancemaster();
+    this.GetCountryMaster();
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
     }
@@ -84,11 +86,13 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search
       }, error => {
       }
     )
   }
   SelectLabel
+  
   public getinsurancemaster() {
 
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
@@ -103,7 +107,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -124,7 +129,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -147,7 +153,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -249,18 +256,37 @@ export class DiagnosticsregistrationComponent implements OnInit {
           this.inserthspphotos();
           this.insertinsurance();
           this.insertDiagnosticRevenue()
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+          if(this.languageid==1)
+          {
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            this.spinner.hide();
+          }
+         else
+         {
+          Swal.fire('Inscription terminée');
           this.spinner.hide();
+         }
           this.clear();
 
           location.href = "#/DiagnesticDashboard"
 
         }
         else {
-          Swal.fire('Diagnostic Center Name', 'Already Exists');
-          // this.clear();
-          this.spinner.hide();
-          // location.href="#/DiagnesticDashboard"
+          if(this.languageid==1)
+          {
+            Swal.fire('Diagnostic Center Name', 'Already Exists');
+            // this.clear();
+            this.spinner.hide();
+            // location.href="#/DiagnesticDashboard"
+          }
+          else
+          {
+            Swal.fire('Nom du centre de diagnostic', 'Existe déjà');
+            // this.clear();
+            this.spinner.hide();
+            // location.href="#/DiagnesticDashboard"
+          }
+       
         }
       })
 
@@ -325,8 +351,17 @@ export class DiagnosticsregistrationComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Mis à jour avec succès');
+      abcd.length = 0;
+    }
+ 
   }
 
   public uploadattachments() {
@@ -376,7 +411,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }

@@ -53,51 +53,59 @@ export class DoctorslotsComponent implements OnInit {
   public slottypeID: any;
   public slottodaydates: any;
   public slotdatediff: any;
-  public presenttime:any;
-  combinationvalue:any;
+  public presenttime: any;
+  combinationvalue: any;
+  showback: any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
+    this.showback = localStorage.getItem('Showbutton');
+    debugger
 
     if (this.languageid == 1) {
-      this.slotdatediff=undefined
-      this.slotdatediff = localStorage.getItem('slottimeselecteddates1')
-
+      // this.slotdatediff = undefined
+      // this.slotdatediff = localStorage.getItem('slottimeselecteddates1')
       this.docservice.GetServerDateAndTime().subscribe(
         data => {
           this.serverdateandtime = data;
-          this.presenttime=this.serverdateandtime.presentTime
-          
-          if( this.slotdatediff=='undefined'||null)
-          {
-            
-            this.todaydatessss = this.serverdateandtime.todaydateeeesss
-          }
-          else
-          {
-            this.todaydatessss = this.serverdateandtime.slottodaydateeeesss
-          }
+          this.presenttime = this.serverdateandtime.presentTime
+
+          this.todaydatessss = this.serverdateandtime.todaydateeeesss
+          // if( this.slotdatediff=='undefined'||null)
+          // {
+
+          //   this.todaydatessss = this.serverdateandtime.todaydateeeesss
+          // }
+          // else
+          // {
+          //   this.todaydatessss = this.serverdateandtime.slottodaydateeeesss
+          // }
           // this.selecteddate = this.serverdateandtime.datePickerTodaydate
         }, error => {
         }
       )
     }
     else if (this.languageid == 6) {
-      
-      this.slotdatediff=undefined;
-      this.slotdatediff = localStorage.getItem('slottimeselecteddates1')
+
+      // this.slotdatediff = undefined;
+      // this.slotdatediff = localStorage.getItem('slottimeselecteddates1')
       this.docservice.GetServerDateAndTime().subscribe(
         data => {
+          debugger
           this.serverdateandtime = data;
-          if( this.slotdatediff=='undefined'||null)
-          {
-            
-            this.todaydatessss = this.serverdateandtime.todaydateeeesss.toLocaleString()
-          }
-          else
-          {
-            this.todaydatessss = this.serverdateandtime.slottodaydateeeesss
-          }
+          this.todaydatessss = this.serverdateandtime.todaydateeeesss
+          this.presenttime = this.serverdateandtime.presentTime
+          debugger
+          // if( this.slotdatediff=='undefined'||null)
+          // {
+          //   debugger
+          //   this.todaydatessss = this.serverdateandtime.todaydateeeesss.toLocaleString()
+          // }
+          // else
+          // {
+          //   this.todaydatessss = this.serverdateandtime.slottodaydateeeesss
+          //   debugger
+          // }
           // this.selecteddate = this.serverdateandtime.datePickerTodaydate
         }, error => {
         }
@@ -106,7 +114,7 @@ export class DoctorslotsComponent implements OnInit {
 
     if (this.languageid == 1) {
       this.activatedroute.params.subscribe(params => {
-        
+
         this.doctorid = params['doctorID'];
         this.dochospitalid = params['id'];
         this.hospitalclinicid = params['hospital_ClinicID'];
@@ -123,26 +131,23 @@ export class DoctorslotsComponent implements OnInit {
           }, error => {
           }
         )
-        
+
         if (this.appointmenttypeid == 1) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             this.combinationvalue = 'In Clinic';
           }
-          else
-          {
+          else {
             this.combinationvalue = 'Présentiel';
           }
         }
         if (this.appointmenttypeid == 2) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             this.combinationvalue = 'Video call';
           }
-          else{
+          else {
             this.combinationvalue = 'Téléconsultation';
           }
-         
+
         }
 
 
@@ -151,7 +156,7 @@ export class DoctorslotsComponent implements OnInit {
 
 
         this.filterdate = this.todaydate
-        
+
         //this.filterdate = this.todaydate
         var gsDayNames = [
           'Sunday',
@@ -178,48 +183,93 @@ export class DoctorslotsComponent implements OnInit {
           localStorage.setItem('fees', this.doctorfees);
 
           if (this.todaydate == this.todaydatessss) {
-            
-            this.getdoctormorningslots();
-            this.getafternoonslots();
-            this.geteveningslots();
-            this.GetNightslots();
-            
+
+            if (this.appointmenttypeid == 5) {
+              this.getdoctorHomevistmorningslots();
+              this.getDocHomeVistafternoonslots();
+              this.getHomeVisiteveningslots();
+              this.GetHomeVistNightslots();
+            }
+            else {
+              this.getdoctormorningslots();
+              this.getafternoonslots();
+              this.geteveningslots();
+              this.GetNightslots();
+            }
           }
           else {
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
-                
-                this.dummdoctorslotsss = data;
-                this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
-                
-                this.dummafternoonslotssss = data;
-                this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
-                
-                this.dummeveningslotssss = data;
-                this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
-                
-                this.dummnightslotsss = data;
-                this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-          }
+            if (this.appointmenttypeid == 5) {
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummdoctorslotsss = data;
+                  this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
 
+                  this.dummafternoonslotssss = data;
+                  this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+
+                  this.dummeveningslotssss = data;
+                  this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+
+                  this.dummnightslotsss = data;
+                  this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+            }
+            else {
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummdoctorslotsss = data;
+                  this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+
+                  this.dummafternoonslotssss = data;
+                  this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+
+                  this.dummeveningslotssss = data;
+                  this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+
+                  this.dummnightslotsss = data;
+                  this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+            }
+
+
+
+          }
         })
       }
       )
@@ -240,28 +290,22 @@ export class DoctorslotsComponent implements OnInit {
 
         this.GetDoctorForAdminByLanguageID();
         if (this.appointmenttypeid == 1) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             this.combinationvalue = 'In Clinic';
           }
-          else
-          {
+          else {
             this.combinationvalue = 'Présentiel';
           }
         }
         if (this.appointmenttypeid == 2) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             this.combinationvalue = 'Video call';
           }
-          else{
+          else {
             this.combinationvalue = 'Téléconsultation';
           }
-         
         }
-
-
-
+        debugger
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
           data => {
 
@@ -269,11 +313,10 @@ export class DoctorslotsComponent implements OnInit {
           }, error => {
           }
         )
-
         this.todaydate = localStorage.getItem('SelectedDate');
 
         this.filterdate = this.datepipe.transform(this.todaydate, 'dd/MM/yyyy');
-
+        debugger
         //this.filterdate = this.todaydate
         var gsDayNames = [
           'Sunday',
@@ -298,47 +341,95 @@ export class DoctorslotsComponent implements OnInit {
           localStorage.setItem('BookingTypeID', this.bookingTypeID);
           localStorage.setItem('fees', this.doctorfees);
 
-          
+
           if (this.todaydate == this.todaydatessss) {
-            this.getdoctormorningslots();
-            this.getafternoonslots();
-            this.geteveningslots();
-            this.GetNightslots();
+            debugger
+
+            if (this.appointmenttypeid == 5) {
+              this.getdoctorHomevistmorningslots();
+              this.getDocHomeVistafternoonslots();
+              this.getHomeVisiteveningslots();
+              this.GetHomeVistNightslots();
+            }
+            else {
+              this.getdoctormorningslots();
+              this.getafternoonslots();
+              this.geteveningslots();
+              this.GetNightslots();
+            }
+
           }
           else {
-            
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
-                
-                this.dummdoctorslotsss = data;
-                this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
+            if (this.appointmenttypeid == 5) {
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummdoctorslotsss = data;
+                  this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummafternoonslotssss = data;
+                  this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummeveningslotssss = data;
+                  this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummnightslotsss = data;
+                  this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+            }
+            else {
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummdoctorslotsss = data;
+                  this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummafternoonslotssss = data;
+                  this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummeveningslotssss = data;
+                  this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+              this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+                data => {
+                  debugger
+                  this.dummnightslotsss = data;
+                  this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+                }, error => {
+                }
+              )
+            }
 
-                this.dummafternoonslotssss = data;
-                this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
 
-                this.dummeveningslotssss = data;
-                this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
-            this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
-              data => {
-
-                this.dummnightslotsss = data;
-                this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-              }, error => {
-              }
-            )
           }
 
         })
@@ -347,12 +438,12 @@ export class DoctorslotsComponent implements OnInit {
       //this.DateofAdmission = this.datepipe.transform(details.admisiionDate, 'yyyy-MM-dd');
     }
 
-
   }
 
-  public GetDate(even) {
-
-    this.selecteddate = even.toLocaleString().split(',')[0];
+  public GetDate(newDate: Date) {
+    debugger
+    this.selecteddate = this.docservice.GetDates(newDate)
+    //  even.toLocaleString().split(',')[0];
     // this.selecteddate = even.target.value;
     // this.selecteddate =new Date(even.setDate(even.getDate())).toJSON().slice(0,10).split('-').reverse().join('/');
 
@@ -361,63 +452,134 @@ export class DoctorslotsComponent implements OnInit {
     localStorage.setItem('appointmentate', this.selecteddate);
     // this.selecteddate = even.target.value;
     if (this.selecteddate == this.todaydatessss) {
-      this.dayid = (new Date()).getDay();
-      this.getdoctormorningslots();
-      this.getafternoonslots();
-      this.geteveningslots();
-      this.GetNightslots();
+
+      if (this.appointmenttypeid == 5) {
+        this.dayid = (new Date()).getDay();
+        this.getdoctorHomevistmorningslots();
+        this.getDocHomeVistafternoonslots();
+        this.getHomeVisiteveningslots();
+        this.GetHomeVistNightslots();
+      }
+      else {
+        this.dayid = (new Date()).getDay();
+        this.getdoctormorningslots();
+        this.getafternoonslots();
+        this.geteveningslots();
+        this.GetNightslots();
+      }
+
     }
     else {
-      var gsDayNames = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ];
 
-      var d = new Date(this.selecteddate);
-      var dayName = gsDayNames[d.getDay()];
-      this.docservice.GetDayID(dayName).subscribe(data => {
+      if (this.appointmenttypeid == 5) {
+        var gsDayNames = [
+          'Sunday',
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday'
+        ];
 
-        this.dayidslist = data;
-        this.dayid = this.dayidslist[0].dayID;
-        this.selecteddate = even.toLocaleString().split(',')[0];
-        this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
-          data => {
+        var d = new Date(this.selecteddate);
+        var dayName = gsDayNames[d.getDay()];
+        this.docservice.GetDayID(dayName).subscribe(data => {
 
-            this.dummdoctorslotsss = data;
-            this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-          }, error => {
-          }
-        )
-        this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
-          data => {
+          this.dayidslist = data;
+          this.dayid = this.dayidslist[0].dayID;
+          this.selecteddate = this.docservice.GetDates(newDate)
+          // even.toLocaleString().split(',')[0];
+          this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
 
-            this.dummafternoonslotssss = data;
-            this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-          }, error => {
-          }
-        )
-        this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
-          data => {
+              this.dummdoctorslotsss = data;
+              this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+          this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
 
-            this.dummeveningslotssss = data;
-            this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-          }, error => {
-          }
-        )
-        this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
-          data => {
+              this.dummafternoonslotssss = data;
+              this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+          this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
 
-            this.dummnightslotsss = data;
-            this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
-          }, error => {
-          }
-        )
-      })
+              this.dummeveningslotssss = data;
+              this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+          this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
+
+              this.dummnightslotsss = data;
+              this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+        })
+      }
+      else {
+        var gsDayNames = [
+          'Sunday',
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday'
+        ];
+
+        var d = new Date(this.selecteddate);
+        var dayName = gsDayNames[d.getDay()];
+        this.docservice.GetDayID(dayName).subscribe(data => {
+
+          this.dayidslist = data;
+          this.dayid = this.dayidslist[0].dayID;
+          this.selecteddate = this.docservice.GetDates(newDate)
+          // even.toLocaleString().split(',')[0];
+          this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
+
+              this.dummdoctorslotsss = data;
+              this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+          this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
+
+              this.dummafternoonslotssss = data;
+              this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+          this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
+
+              this.dummeveningslotssss = data;
+              this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+          this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.selecteddate, this.dochospitalid, this.slottypeID).subscribe(
+            data => {
+
+              this.dummnightslotsss = data;
+              this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
+            }, error => {
+            }
+          )
+        })
+
+      }
+
+
     }
 
 
@@ -427,7 +589,7 @@ export class DoctorslotsComponent implements OnInit {
   hours: any;
   minutes: any;
   public getdoctormorningslots() {
-    
+    debugger
     // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     let d = new Date();
     this.hours = d.getHours() + 2
@@ -446,7 +608,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public getafternoonslots() {
-
+    debugger
     //this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     let d = new Date();
     this.hours = d.getHours() + 2
@@ -457,7 +619,7 @@ export class DoctorslotsComponent implements OnInit {
 
     this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-
+        debugger
         this.dummafternoonslots = data;
         this.afternoonslots = this.dummafternoonslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
       }, error => {
@@ -466,7 +628,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public geteveningslots() {
-
+    debugger
     let d = new Date();
     this.hours = d.getHours() + 2
     this.minutes = d.getMinutes() + 30
@@ -476,7 +638,7 @@ export class DoctorslotsComponent implements OnInit {
     // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-
+        debugger
         this.dummeveningslots = data;
         this.eveningslosts = this.dummeveningslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid)
       }, error => {
@@ -495,9 +657,10 @@ export class DoctorslotsComponent implements OnInit {
     let cts = h + ':' + m;
     this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-
+        debugger
         this.dummnightslots = data;
         this.nightslots = this.dummnightslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
+        debugger
       }, error => {
       }
     )
@@ -505,22 +668,134 @@ export class DoctorslotsComponent implements OnInit {
 
 
 
-  dummlist:any;
-  doctorlist:any;
-  doctorname:any;
+  dummlist: any;
+  doctorlist: any;
+  doctorname: any;
 
-  public GetDoctorForAdminByLanguageID()
-  {
+  public GetDoctorForAdminByLanguageID() {
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        
+
         this.dummlist = data;
-       var list = this.dummlist.filter(x => x.id == this.doctorid)
-       this.doctorname=list[0].doctorName
+        var list = this.dummlist.filter(x => x.id == this.doctorid)
+        this.doctorname = list[0].doctorName
 
         // this.count = this.doctorlist.length
       }, error => {
       }
     )
   }
+
+
+
+
+
+
+
+
+
+
+  //Home Visit slots
+
+
+
+
+
+  public getdoctorHomevistmorningslots() {
+    debugger
+    // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
+    let d = new Date();
+    this.hours = d.getHours() + 2
+    this.minutes = d.getMinutes() + 30
+    let h = (d.getHours() < 10 ? '0' : '') + this.hours;
+    let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
+    let cts = h + ':' + m;
+    this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+      data => {
+
+        this.dummdoctorslots = data;
+        this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
+      }, error => {
+      }
+    )
+  }
+
+  public getDocHomeVistafternoonslots() {
+    debugger
+    //this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
+    let d = new Date();
+    this.hours = d.getHours() + 2
+    this.minutes = d.getMinutes() + 30
+    let h = (d.getHours() < 10 ? '0' : '') + this.hours;
+    let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
+    let cts = h + ':' + m;
+
+    this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+      data => {
+        debugger
+        this.dummafternoonslots = data;
+        this.afternoonslots = this.dummafternoonslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
+      }, error => {
+      }
+    )
+  }
+
+  public getHomeVisiteveningslots() {
+    debugger
+    let d = new Date();
+    this.hours = d.getHours() + 2
+    this.minutes = d.getMinutes() + 30
+    let h = (d.getHours() < 10 ? '0' : '') + this.hours;
+    let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
+    let cts = h + ':' + m;
+    // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
+    this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+      data => {
+        debugger
+        this.dummeveningslots = data;
+        this.eveningslosts = this.dummeveningslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid)
+      }, error => {
+      }
+    )
+  }
+
+  public GetHomeVistNightslots() {
+
+    //this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
+    let d = new Date();
+    this.hours = d.getHours() + 2
+    this.minutes = d.getMinutes() + 30
+    let h = (d.getHours() < 10 ? '0' : '') + this.hours;
+    let m = (d.getMinutes() + 150 < 10 ? '0' : '') + this.minutes;
+    let cts = h + ':' + m;
+    this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
+      data => {
+        debugger
+        this.dummnightslots = data;
+        this.nightslots = this.dummnightslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
+        debugger
+      }, error => {
+      }
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

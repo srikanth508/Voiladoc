@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
-import { formatDate } from "@angular/common";
+import { DatePipe, formatDate } from "@angular/common";
 @Component({
   selector: 'app-datecheck',
   templateUrl: './datecheck.component.html',
@@ -10,9 +10,11 @@ import { formatDate } from "@angular/common";
 })
 export class DatecheckComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService, public datepipe: DatePipe) { }
   languageid: any;
   todaydate: any;
+  myDateValue: Date;
+  previousDate: Date;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
 
@@ -20,6 +22,8 @@ export class DatecheckComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
+
+    // this.myDateValue = new Date();
   }
 
   daychangedate: any;
@@ -27,12 +31,38 @@ export class DatecheckComponent implements OnInit {
   dayname: any;
   dayidslist: any;
   datechangedayid: any;
+  daychangedate1: any;
 
-  public GetdaychangeDate(even) {
+  public GetdaychangeDate(newDate: Date) {
     debugger
-    this.datechangedayid="";
-    this.daychangedate="";
-    this.daychangedate = even.toLocaleString().split(',')[0];
+    this.datechangedayid = "";
+    this.daychangedate = "";
+    debugger
+    Swal.fire("Date format is :" + this.daychangedate1)
+    this.daychangedate1 = newDate.toLocaleString().split(',')[0];
+
+    debugger
+    Swal.fire("Date format is :" + this.daychangedate1)
+    this.previousDate = new Date(newDate);
+
+   //  this.daychangedate = this.datepipe.transform(this.daychangedate1, 'MM-dd-yyyy');
+   
+  //  this.daychangedate = newDate.toLocaleDateString().slice(0, 10);
+  //   console.log(this.daychangedate);
+
+
+  var d = new Date(newDate),
+  month = '' + (d.getMonth() + 1),
+  day = '' + d.getDate(),
+  year = d.getFullYear();
+
+if (month.length < 2) 
+  month = '0' + month;
+if (day.length < 2) 
+  day = '0' + day;
+
+  this.daychangedate = month + "-" + day + "-" + year;
+//return [year, month, day].join('-');
     this.Getdays()
     Swal.fire("Date format is :" + this.daychangedate + " and dayid is " + this.datechangedayid)
     debugger
@@ -44,6 +74,8 @@ export class DatecheckComponent implements OnInit {
       debugger
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
+
+      Swal.fire("Date format is :" + this.daychangedate)
       // Swal.fire("Date format is :" + this.daychangedate + " and dayid is " + this.datechangedayid)
       this.Getdayssid();
     }, error => {
@@ -60,5 +92,9 @@ export class DatecheckComponent implements OnInit {
 
     }, error => {
     })
+  }
+
+  onDateChange(newDate: Date) {
+    this.previousDate = new Date(newDate);
   }
 }

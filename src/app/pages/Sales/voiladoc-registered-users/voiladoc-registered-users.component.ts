@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from "../../../hello-doctor.service";
 import Swal from "sweetalert2";
-import { formatDate } from "@angular/common";
+import { formatDate, NgStyle } from "@angular/common";
 import { NgxSpinnerService } from "ngx-spinner";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
@@ -65,19 +65,21 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
     this.typeid = 1
     this.GetRegistreedVoiladocusers()
-
+    this.getlanguage()
+    this.getlang()
+    this.getlanguage1()
   }
 
   selectedDate(data) {
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.GetRegistreedVoiladocusers()
   }
 
   public dummreglist: any;
 
   public GetRegistreedVoiladocusers() {
-    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid).subscribe(data => {
+    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid, this.languageid).subscribe(data => {
       // this.RegisteredList = data;
       this.dummreglist = data;
       this.RegisteredList = this.dummreglist.filter(x => x.approved == 0 && x.rejected == 0)
@@ -97,63 +99,128 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   }
 
   public GetApproveRegistratuions(list) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Approve This!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Approve it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
-          let test = res;
-          this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+    if (this.languageid == 1) {
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Approve This!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Approve it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+            let test = res;
+            this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+            })
+            if (list.type == '1') {
+
+              this.InsertHospitalDetails(list)
+            }
+            if (list.type == '2') {
+
+              this.InsertHospitalDetails(list)
+            }
+            if (list.type == '3') {
+              this.insertdoctorregistration(list)
+            }
+            if (list.type == '4') {
+
+              this.insertnursedetails(list)
+            }
+            if (list.type == '5') {
+
+              this.insertphysiodetails(list)
+            }
+            if (list.type == '6') {
+
+              this.InsertMidWives(list)
+            }
+            if (list.type == '7') {
+
+              this.InserPharmacyDetails(list)
+            }
+            if (list.type == '8') {
+
+              this.InserDiagnostoicDetails(list)
+            }
+
           })
-          if (list.type == '1') {
 
-            this.InsertHospitalDetails(list)
-          }
-          if (list.type == '2') {
+          Swal.fire(
+            'Approved!',
+            'User has been Approved.',
+            'success'
+          )
+        }
+        else {
 
-            this.InsertHospitalDetails(list)
-          }
-          if (list.type == '3') {
-            this.insertdoctorregistration(list)
-          }
-          if (list.type == '4') {
+        }
+      })
+    }
+    else {
 
-            this.insertnursedetails(list)
-          }
-          if (list.type == '5') {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Approve This!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Approuver !',
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+            let test = res;
+            this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+            })
+            if (list.type == '1') {
 
-            this.insertphysiodetails(list)
-          }
-          if (list.type == '6') {
+              this.InsertHospitalDetails(list)
+            }
+            if (list.type == '2') {
 
-            this.InsertMidWives(list)
-          }
-          if (list.type == '7') {
+              this.InsertHospitalDetails(list)
+            }
+            if (list.type == '3') {
+              this.insertdoctorregistration(list)
+            }
+            if (list.type == '4') {
 
-            this.InserPharmacyDetails(list)
-          }
-          if (list.type == '8') {
+              this.insertnursedetails(list)
+            }
+            if (list.type == '5') {
 
-            this.InserDiagnostoicDetails(list)
-          }
+              this.insertphysiodetails(list)
+            }
+            if (list.type == '6') {
 
-        })
-        Swal.fire(
-          'Approved!',
-          'User has been Approved.',
-          'success'
-        )
-      }
-      else {
+              this.InsertMidWives(list)
+            }
+            if (list.type == '7') {
 
-      }
-    })
+              this.InserPharmacyDetails(list)
+            }
+            if (list.type == '8') {
+
+              this.InserDiagnostoicDetails(list)
+            }
+
+          })
+          Swal.fire(
+            'Approuvé!',
+            '',
+            'success'
+          )
+        }
+        else {
+
+        }
+      })
+    }
   }
 
 
@@ -206,9 +273,21 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         // this.insertfacility();
         // this.insertinsurance();
         // this.InsertSubscriptionRevenue()
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
+
         // this.clear();
         // location.href = "#/HspClidash"
+
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        // })
         this.spinner.hide();
         this.GetRegistreedVoiladocusers()
       }
@@ -273,6 +352,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
     }
     this.spinner.show();
+    debugger
     var entity = {
       'DoctorName': list.username,
       'MobileNumber': list.phoneNo,
@@ -287,7 +367,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'Preffered': 0,
       'GenderID': list.genderID,
       'CityID': list.provinceID,
-      'LanguageID': '1',
+      'LanguageID': 1,
       'IsChatEnabled': 0,
       'HomeVisit': 0,
       'AreaID': list.cityID,
@@ -303,9 +383,10 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'SlotDurationID': list.slotDurationID
     }
     this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
-
+      debugger
       if (data != 0) {
         this.doctorid = data;
+        debugger
         // this.insertdoctorspecilisation();
         this.insertidentityProof(list);
         this.InsertMedicalProof(list);
@@ -316,9 +397,20 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         // this.InsertDoctorLoginDetails(list)
         this.insertdoctoreducation(list);
         this.insertdoctorspecilisation(list);
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
         this.spinner.hide();
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        //     })
         // location.href = "#/Docdash";
+        debugger
         this.GetRegistreedVoiladocusers()
       }
       else {
@@ -527,10 +619,20 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (this.nurseid != 0) {
         // this.InserNurseLoginDetails(list);
         this.InsertNurseSpecilization(list);
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
         this.spinner.hide();
         // location.href = '#/NurseDashboard';
         this.GetRegistreedVoiladocusers();
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        //     })
       }
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');
@@ -607,9 +709,20 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (data != 0) {
         // this.InsertPhysiologindetails(list);
         this.insertPhysioSpecilization(list);
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
         this.spinner.hide();
         this.GetRegistreedVoiladocusers()
+
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        //     })
         // location.href = '#/PhysiotherapistDashboard';
       }
       else {
@@ -647,7 +760,12 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     }
     this.docservice.InsertPhysiotherapistLogin(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
       }
       else {
         Swal.fire("Physiotherapist Login Already Exists");
@@ -687,9 +805,19 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       this.midewifeid = data;
       if (data != 0) {
         // this.InsertMidwifeLoginDetails(list)
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
         this.spinner.hide();
         this.GetRegistreedVoiladocusers()
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        //     })
         // location.href = '#/MidwifeDashboard';
       }
       else {
@@ -712,7 +840,12 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     }
     this.docservice.InsertMidWivesLogin(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
       }
       else {
         Swal.fire("Mid Wife Login Already Exists");
@@ -766,7 +899,17 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         this.pharmacyid = data;
         this.insertphoto(list);
         // this.InserPharmacyLogins(list)
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        //     })
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
         this.GetRegistreedVoiladocusers()
 
         this.spinner.hide();
@@ -856,7 +999,17 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         this.inserthspphotosDiagnosticPhotos(list);
         // this.InsertDiagnosticLogins(list)
 
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
+        // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
+        //   let test = res;
+        //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
+        //   })
+        //     })
         this.GetRegistreedVoiladocusers()
         this.spinner.hide();
 
@@ -900,7 +1053,12 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     this.docservice.InsertDiagnosticCenterAdminRegistration(entity).subscribe(data => {
 
       if (data != 0) {
-        Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+        if (this.languageid == 1) {
+          Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+        }
+        else {
+          Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+        }
 
       }
       else {
@@ -948,7 +1106,6 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   public Reject() {
-
     this.docservice.UpdateRejectedVoiladocRegisteredUsers(this.rejectelist.id, this.rejectelist.type).subscribe(res => {
       let test = res;
 
@@ -974,10 +1131,6 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
     })
   }
-
-
-
-
 
 
 
@@ -1176,7 +1329,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   // }
 
   // emailattchementurl = [];
-  
+
   // public sendmail() {
   //   debugger
   //   var entity = {
@@ -1190,5 +1343,52 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   //   this.docservice.sendemail(entity).subscribe(data => {
   //   })
   // }
+
+
+
+
+
+
+  labels: any;
+  labels2:any;
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+
+      }, error => {
+      }
+    )
+  }
+
+  labels1: any;
+  labels3:any;
+  public getlang() {
+    this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+      }, error => {
+      }
+    )
+  }
+  public getlanguage1() {
+    this.docservice.GetAdmin_NurseRegistration_labelByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.labels2 = data;
+      }, error => {
+      }
+    )
+
+    this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
+      data => {
+
+        this.labels3 = data;
+      }, error => {
+      }
+    )
+  }
 
 }

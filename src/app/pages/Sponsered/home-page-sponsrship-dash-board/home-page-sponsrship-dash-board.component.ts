@@ -21,7 +21,7 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   EDate = new Date();
   public todaydate: any;
   public CurrentTime: any;
-  
+
   ngOnInit() {
 
     this.options = {
@@ -35,6 +35,7 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
     };
     this.languageid = localStorage.getItem('LanguageID');
 
+    this.getlanguage()
     var kkk = this.SDate.setDate(this.SDate.getDate() - 5);
     var lll = this.EDate.setDate(this.EDate.getDate() + 7);
     const format = 'yyyy-MM-dd';
@@ -96,8 +97,8 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1];
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.docservice.GetSponcered_AddsMobileByDate(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
 
@@ -110,32 +111,83 @@ export class HomePageSponsrshipDashBoardComponent implements OnInit {
   }
 
 
+
+
+
+  SelectLabel
+  search
+  labels: any;
+  public getlanguage() {
+    this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search
+      }, error => {
+      }
+    )
+  }
+
+
   public DeleteServiceMaster(id) {
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Service!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteSponcered_Adds(id).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Service!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteSponcered_Adds(id).subscribe(res => {
+            let test = res;
+            this.Getsponrshipofhomepage()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Service has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.Getsponrshipofhomepage()
-        })
-        Swal.fire(
-          'Deleted!',
-          'Service has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.Getsponrshipofhomepage()
-      }
-    })
+        }
+      })
+    }
+    else
+    {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Service!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer.!',
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteSponcered_Adds(id).subscribe(res => {
+            let test = res;
+            this.Getsponrshipofhomepage()
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Le service a été supprimé.',
+            'success'
+          )
+        }
+        else {
+          this.Getsponrshipofhomepage()
+        }
+      })
+    }
+  
   }
 
 

@@ -11,6 +11,21 @@
   <div class="container-fluid card card:hover ">
     <br>
     <form #complaintForm="ngForm">
+      <div class="row">
+        <div class="col-lg-2">
+          <label class="DEPARTMENT_label">{{labels[0].department}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <select class="form-control" (change)="GetDepartmentID($event)" required [(ngModel)]="departmentid"
+            name="departmentid">
+            <option value="" selected>{{labels[0].select}}</option>
+            <option *ngFor="let department of departmentlist" value={{department.id}}>{{department.departmentname}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <br>
     <div class="row">
       <div class="col-lg-2">
         <label class="REGISTRATION NO:">{{labels[0].complaint}} :</label>

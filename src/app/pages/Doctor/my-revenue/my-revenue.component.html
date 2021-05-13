@@ -12,10 +12,10 @@
   </ng-daterangepicker> -->
 
   <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-    style="width: 25%;" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)"
+    style="width: 25%;" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue"
     bsDaterangepicker>
   <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-    style="width: 25%;" class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)"
+    style="width: 25%;" class="form-control" [(ngModel)]="value"  (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
     bsDaterangepicker>
   <br>
   <br>

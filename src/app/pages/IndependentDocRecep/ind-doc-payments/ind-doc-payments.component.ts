@@ -61,7 +61,7 @@ export class IndDocPaymentsComponent implements OnInit {
     minutes = minutes < 10 ? 0 + minutes : minutes;
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 365);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 0);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 365);
 
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -158,9 +158,11 @@ export class IndDocPaymentsComponent implements OnInit {
 
   selectedDate(data) {
 
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
 
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    // this.startdate = data[0].toLocaleString().split(',')[0];
+    // this.enddate = data[1].toLocaleString().split(',')[0];
     this.gethospitaldoctorsforadmin()
   }
 

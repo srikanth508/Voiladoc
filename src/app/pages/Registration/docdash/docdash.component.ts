@@ -498,5 +498,10 @@ export class DocdashComponent implements OnInit {
   }
 
 
+
+  // public GetDoctorRating(even)
+  // {
+    
+  // }
   
 }

@@ -22,7 +22,7 @@
       <label>Patient </label>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" placeholder="Search Patient" name="patientname" [(ngModel)]="patientname"
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" name="patientname" [(ngModel)]="patientname"
         (ngModelChange)="Searchpatient(patientname)">
     </div>
   </div><br>
@@ -88,7 +88,7 @@
             <label>{{labels[0].newmobileno}} :</label>
           </div>
           <div class="col-lg-6">
-            <input type="text" class="form-control" required minlength="10" placeholder="{{labels[0].newmobileno}}" [(ngModel)]="newmobilenumber" name="newmobilenumber">
+            <input type="text" class="form-control" required minlength="10" placeholder="{{labels[0].placemobile}}" [(ngModel)]="newmobilenumber" name="newmobilenumber">
           </div>
         </div><br>
         <div class="row">

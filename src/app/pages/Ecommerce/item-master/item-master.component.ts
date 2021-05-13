@@ -163,8 +163,16 @@ export class ItemMasterComponent implements OnInit {
 
         // this._router.navigate(['/ItemMaster']);
         // location.reload();
-        Swal.fire('Deleted Successfully');
-        this.getitem();
+        if(this.languageid==1)
+        {
+          Swal.fire('Deleted Successfully');
+          this.getitem();
+        }
+        else{
+          Swal.fire('Supprimé avec succès ');
+          this.getitem();
+        }
+       
       }
       else {
         alert("something went wrong");

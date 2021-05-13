@@ -40,10 +40,13 @@ export class IndBookAppointmentComponent implements OnInit {
   todaydatesssssss: any;
   public mindate = new Date();
   public slottodaydatesssssss: any;
-  public presenttime:any;
+  public presenttime: any;
+  labels1:any;
   ngOnInit() {
 
     this.doctorid = localStorage.getItem('userid');
+
+    localStorage.setItem('Showbutton', '2')
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
         this.serverdateandtime = data;
@@ -59,7 +62,7 @@ export class IndBookAppointmentComponent implements OnInit {
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
 
           this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss,
-          this.presenttime=this.serverdateandtime.presentTime
+            this.presenttime = this.serverdateandtime.presentTime
 
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
 
@@ -71,7 +74,7 @@ export class IndBookAppointmentComponent implements OnInit {
           this.todaydatesss = this.serverdateandtime.todaydatesss.toLocaleString()
           this.todaydatesssssss = this.serverdateandtime.todaydateeeesss.toLocaleString()
           this.slottodaydatesssssss = this.serverdateandtime.slottodaydateeeesss,
-          this.presenttime=this.serverdateandtime.presentTime
+            this.presenttime = this.serverdateandtime.presentTime
           localStorage.setItem('SelectedDate', this.todaydatesssssss)
         }
       }, error => {
@@ -84,6 +87,7 @@ export class IndBookAppointmentComponent implements OnInit {
     this.appointmentypeid = 1
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalClinicID');
+    localStorage.setItem('Showbutton', '2');
     localStorage.setItem('SelectedDate', this.selecteddate)
 
     localStorage.setItem('slottimeselecteddates1', undefined)
@@ -100,6 +104,18 @@ export class IndBookAppointmentComponent implements OnInit {
       }, error => {
       }
     )
+
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+       
+      }, error => {
+      }
+    )
+
+
     this.getDoctorss()
     this.getdoctorslots()
   }
@@ -169,8 +185,8 @@ export class IndBookAppointmentComponent implements OnInit {
 
         this.dummdoctorslist = data;
         this.filterdummlist = data;
-        this.doctorslist =  this.dummdoctorslist.filter(x=>x.doctorID==this.doctorid) 
-    
+        this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
+
         this.docdd = {
           singleSelection: true,
           idField: 'doctorID',
@@ -196,12 +212,14 @@ export class IndBookAppointmentComponent implements OnInit {
   slottimeselecteddates1: any;
 
   public GetDate(even) {
-    
+
     if (this.languageid == 1) {
-      
-      this.selecteddates1 = even.toLocaleString().split(',')[0];
-      this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-      
+
+       this.selecteddates1 = even.toLocaleString().split(',')[0];
+      // this.selecteddates1 = this.docservice.GetDates(newDate)
+      // this.selecteddate = this.selecteddates1;
+       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
+
       localStorage.setItem('slottimeselecteddates1', this.selecteddates1)
 
       localStorage.setItem('SelectedDate', this.selecteddates1)
@@ -222,41 +240,37 @@ export class IndBookAppointmentComponent implements OnInit {
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
 
-        
+
         this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.selecteddate).subscribe(
           data => {
-            
+
             // this.doctorslist = data;
             this.dummdoctorslist = data;
-            this.doctorslist =  this.dummdoctorslist.filter(x=>x.doctorID==this.doctorid) 
+            this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
             this.selecteddates1 = even.toLocaleString().split(',')[0];
-            this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-            
+            this.selecteddate= this.selecteddates1;
+            // this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
+
             if (this.selecteddates1 == this.slottodaydatesssssss) {
               this.getdoctorslots()
-              
+
             }
             else {
               this.getdoctotsbyid()
-              
             }
           }, error => {
           }
         )
       })
-
-
     }
     else if (this.languageid == 6) {
-
-
+debugger
       this.selecteddates1 = even.toLocaleString().split(',')[0];
-
+      //  even.toLocaleString().split(',')[0];
+      // this.selecteddate =  this.selecteddates1;
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
-
       localStorage.setItem('slottimeselecteddates1', this.selecteddates1)
-
-
+      debugger
       localStorage.setItem('SelectedDate', this.selecteddates1)
       var gsDayNames = [
         'Sunday',
@@ -267,28 +281,27 @@ export class IndBookAppointmentComponent implements OnInit {
         'Friday',
         'Saturday'
       ];
-
       var d = new Date(this.selecteddates1);
       var dayName = gsDayNames[d.getDay()];
       this.docservice.GetDayID(dayName).subscribe(data => {
-
+        debugger
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
-
+        debugger
         this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.selecteddate).subscribe(
           data => {
 
             // this.doctorslist = data;
-
+            debugger
             this.dummdoctorslist = data;
-            this.doctorslist =  this.dummdoctorslist.filter(x=>x.doctorID==this.doctorid) 
+            this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
 
             if (this.selecteddates1 == this.slottodaydatesssssss) {
-              
+
               this.getdoctorslots()
             }
             else {
-              
+
               this.getdoctotsbyid()
             }
           }, error => {
@@ -296,7 +309,6 @@ export class IndBookAppointmentComponent implements OnInit {
         )
       })
     }
-
   }
 
   dummdoctorslots: any;
@@ -304,7 +316,7 @@ export class IndBookAppointmentComponent implements OnInit {
   minutes: any;
 
   public getdoctorslots() {
-    // 
+    // s
     // let d = new Date();
     // this.hours = d.getHours() - 4
     // this.minutes = d.getMinutes() + 30
@@ -336,7 +348,7 @@ export class IndBookAppointmentComponent implements OnInit {
 
   public GetSlotID(even) {
     this.slotid = even.target.value;
-    
+
     this.docservice.GetDoctorDetails_ForVideoConferenceForWeb2(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.slotid, this.selecteddates1).subscribe(
       data => {
 
@@ -351,7 +363,7 @@ export class IndBookAppointmentComponent implements OnInit {
   public doctorid: any;
 
   public GetDoctorID(item2: any) {
-    
+
     // if (even.target.value != 0) {
     this.doctorid = item2.doctorID;
     this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)

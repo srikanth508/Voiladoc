@@ -27,6 +27,7 @@ export class SponserpharmacyComponent implements OnInit {
   public fees:any;
   public id:any;
   public showbutton:any;
+  search:any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -37,7 +38,7 @@ export class SponserpharmacyComponent implements OnInit {
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
    
     this.languageid = localStorage.getItem('LanguageID');
-
+    this.getlanguage();
 
     this.activatedroute.params.subscribe(params => {
 
@@ -71,6 +72,7 @@ export class SponserpharmacyComponent implements OnInit {
        
         this.labels = data;
         this.SelectLabel=this.labels[0].select;
+        this.search=this.labels[0].search;
       }, error => {
       }
     )  
@@ -91,7 +93,8 @@ public getpharmacydetails(){
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         itemsShowLimit: 3,
-        allowSearchFilter: true
+        allowSearchFilter: true,
+        searchPlaceholderText: this.search
       };
     }, error => {
     }

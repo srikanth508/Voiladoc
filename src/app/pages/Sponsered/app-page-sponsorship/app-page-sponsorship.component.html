@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
-      <h5> Sponsorship</h5>
+    <div class="col-lg-6">
+      <h5 *ngIf="languageid=='1'"> Sponsorship</h5>
+      <h5 *ngIf="languageid=='6'"> PAGE DE RENDEZ-VOUS - PUBLICITÉ DES BANNIÈRES</h5>
     </div>
   </div>
 </div>
@@ -9,11 +10,11 @@
 <div class="container-fluid card card:hover ">
   <div *ngIf="paramid==undefined || paramid!=undefined" class="row" style="margin-top:20px;">
     <div class="col-lg-3">
-      <label>Client Name :</label>
+      <label>{{labels[0].clientname}} :</label>
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" name="ClientName" [(ngModel)]="ClientName" placeholder="Client Name">
+      <input type="text" class="form-control" name="ClientName" [(ngModel)]="ClientName" placeholder="{{labels[0].clientname}}">
     </div>
   </div>
   <br>
@@ -30,12 +31,12 @@
   <br>
   <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
     <div class="col-lg-3">
-      <label>Start Date:</label>
+      <label>{{labels[0].startdate}} :</label>
       <span class="required">*</span>
     </div>
 
     <div class="col-lg-4">
-      <input type="text" placeholder="Start Date" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+      <input type="text" placeholder="{{labels[0].startdate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
         name="StartDate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="StartDate" bsDatepicker>
       <!-- <input type="date" name="StartDate" required [(ngModel)]="StartDate" class="form-control"> -->
     </div>
@@ -43,12 +44,12 @@
   <br>
   <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
     <div class="col-lg-3">
-      <label>End Date :</label>
+      <label>{{labels[0].endDate}} :</label>
       <span class="required">*</span>
     </div>
 
     <div class="col-lg-4">
-      <input type="text" placeholder="End Date" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
+      <input type="text" placeholder="{{labels[0].endDate}}" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
         name="EndDate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="EndDate" bsDatepicker>
       <!-- <input type="date" name="EndDate" required [(ngModel)]="EndDate" class="form-control"> -->
     </div>
@@ -56,23 +57,23 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label>Fees :</label>
+      <label>{{labels[0].feess}} :</label>
       <span class="required">*</span>
     </div>
 
     <div class="col-lg-4">
-    <input type="text" class="form-control" placeholder="Fees" required [(ngModel)]="fees" name="fees"
+    <input type="text" class="form-control" placeholder="{{labels[0].feess}}" required [(ngModel)]="fees" name="fees"
     onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
     </div>
   </div>
   <br>
   <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
     <div class="col-lg-3">
-      <label>Photo Url :</label>
+      <label>{{labels[0].photourl}} :</label>
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" name="LinkURL" [(ngModel)]="LinkURL" placeholder="LinkURL">
+      <input type="text" class="form-control" name="LinkURL" [(ngModel)]="LinkURL" placeholder="{{labels[0].photourl}}">
     </div>
   </div> <br>
   <div *ngIf="paramid==undefined" class="row">
@@ -100,7 +101,7 @@
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="insertdetails()">Save</button>
+        (click)="insertdetails()">{{labels[0].save}}</button>
     </div>
     <div class="col-lg-5">
     </div>
@@ -110,7 +111,7 @@
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="UpdateDetails()">Update</button>
+        (click)="UpdateDetails()">{{labels[0].update}}</button>
     </div>
     <div class="col-lg-5">
     </div>

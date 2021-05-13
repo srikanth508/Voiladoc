@@ -19,16 +19,16 @@ export class DepartmentmasterComponent implements OnInit {
   public description: any;
   public attachments = [];
   public attachmentsurl = [];
-  public showphoto: any;
+  public showphoto = [];
   public departmentlist: any;
   public departmentimage: any;
-  dropzonelable:any;
+  dropzonelable: any;
 
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.activatedroute.params.subscribe(params => {
-     
+
 
       this.id = params['id'];
       if (this.id == undefined) {
@@ -42,21 +42,19 @@ export class DepartmentmasterComponent implements OnInit {
     this.getlanguage();
     this.getdepartmentmaster();
 
-    
- if(this.languageid==1)
- {
-   this.dropzonelable="Upload file"
- }
- else if(this.languageid==6)
- {
-   this.dropzonelable="Télécharger des fichiers"
- }
+
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
 
   }
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -65,10 +63,10 @@ export class DepartmentmasterComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd.addedFiles[0]);
-      this.uploadattachments();
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
     // }
 
     Swal.fire('Added Successfully');
@@ -76,16 +74,18 @@ export class DepartmentmasterComponent implements OnInit {
   }
 
   public uploadattachments() {
+    this.attachmentsurl = []
+    this.attachmentsurl.length = 0;
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-     
+      debugger
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-     
-      let b = 'https://maroc.voiladoc.org' + a;
 
+      let b = 'https://maroc.voiladoc.org' + a;
+      debugger
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
@@ -93,32 +93,31 @@ export class DepartmentmasterComponent implements OnInit {
 
   public insertdetails() {
 
-if(this.attachmentsurl==undefined||this.attachmentsurl.length==0)
-{
-  Swal.fire("Please Select Image");
-}
-else{
-  this.spinner.show();
-  var entity = {
-    'Departmentname': this.departmentname,
-    'Description': this.description,
-    'DepartmentImage': this.attachmentsurl[0]
-  }
-  this.docservice.InsertDepartmentMasterWeb(entity).subscribe(data => {
-    if (data != 0) {
-      Swal.fire('Success', 'Details Saved Successfully');
-      this.spinner.hide();
-      location.href = "#/DepartmentDash"
+    if (this.attachmentsurl == undefined || this.attachmentsurl.length == 0) {
+      Swal.fire("Please Select Image");
     }
-  })
-}
+    else {
+      this.spinner.show();
+      var entity = {
+        'Departmentname': this.departmentname,
+        'Description': this.description,
+        'DepartmentImage': this.attachmentsurl[0]
+      }
+      this.docservice.InsertDepartmentMasterWeb(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Success', 'Details Saved Successfully');
+          this.spinner.hide();
+          location.href = "#/DepartmentDash"
+        }
+      })
+    }
   }
 
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
         var list = this.departmentlist.filter(x => x.id == this.id)
         this.departmentname = list[0].departmentname,
@@ -133,7 +132,8 @@ else{
 
 
   public Updatedetails() {
-    this.spinner.show();
+    // this.spinner.show();
+    debugger
     var entity = {
       'ID': this.id,
       'Departmentname': this.departmentname,
@@ -143,6 +143,7 @@ else{
     }
     this.docservice.UpdateDepartmentMaster_Web(entity).subscribe(data => {
       let res = data;
+      debugger
       Swal.fire('Success', 'Details Saved Successfully');
       this.spinner.hide();
       location.href = "#/DepartmentDash"

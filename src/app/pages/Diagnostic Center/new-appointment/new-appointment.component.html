@@ -63,7 +63,7 @@
         <div class="col-lg-5"></div>
         <div class="col-lg-2">
             <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="AddAll()">Add</button>
+                (click)="AddAll()">{{labels[0].add}}</button>
         </div>
     </div>
     <br>
@@ -93,13 +93,13 @@
     <br>
     <div class="row">
         <div class="col-lg-3">
-            <label>Home Sample Pickup: </label>
+            <label>{{labels1[0].homeSample}} : </label>
         </div>
         <div class="col-lg-4">
             <input type="radio" name="homesample" [(ngModel)]="homesample" (ngModelChange)="onChange()"
-                value="1">&nbsp;Yes
+                [value]="1">&nbsp;{{labels1[0].yes}}
             <input type="radio" name="homesample" [(ngModel)]="homesample" (ngModelChange)="onChange()"
-                value="0">&nbsp;No
+                [value]="0">&nbsp;{{labels1[0].no}}
         </div>
     </div>
     <br>
@@ -110,7 +110,7 @@
         <div class="col-lg-4">
             <select class="form-control" data-toggle="modal" data-target="#slots"
                 *ngIf="diagnosticslotid==undefined||diagnosticslotid==null">
-                <option selected hidden>Select Slot</option>
+                <option selected hidden>{{labels1[0].selectslot}}</option>
             </select>
             <input type="text" class="form-control" *ngIf="diagnosticslotid!=undefined||diagnosticslotid!=null"
                 placeholder="{{slotname}}" data-toggle="modal" data-target="#slots">
@@ -122,7 +122,7 @@
         <div class="col-lg-5"></div>
         <div class="col-lg-2">
             <button type="submit" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                (click)="BookAppointment()">Book</button>
+                (click)="BookAppointment()">{{labels1[0].book}}</button>
         </div>
     </div>
     <br>

@@ -13,7 +13,7 @@ export class LinkforregdashComponent implements OnInit {
   options: NgDateRangePickerOptions;
   constructor(public docservice: HelloDoctorService) { }
 
-  
+
   value: any;
   SDate = new Date();
   EDate = new Date();
@@ -22,10 +22,10 @@ export class LinkforregdashComponent implements OnInit {
   public enddate: any;
   public todaydate: any;
   public CurrentTime: any;
-  public languageid:any;
-  public linkslist:any;
-  public search:any;
-  public count:any;
+  public languageid: any;
+  public linkslist: any;
+  public search: any;
+  public count: any;
 
   ngOnInit() {
     this.options = {
@@ -47,7 +47,7 @@ export class LinkforregdashComponent implements OnInit {
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
 
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -60,21 +60,31 @@ export class LinkforregdashComponent implements OnInit {
     this.CurrentTime = hours + ':' + minutes + ' ' + newformat;
     this.languageid = localStorage.getItem("LanguageID");
     this.GetRegisterLinks()
+    this.getlanguage()
   }
 
 
-  public GetRegisterLinks()
-  {
-    this.docservice.GetLinkForRegistrations(this.startdate,this.enddate).subscribe(data=>{
-      this.linkslist=data;
-      this.count= this.linkslist.length;
+  public GetRegisterLinks() {
+    this.docservice.GetLinkForRegistrations(this.startdate, this.enddate,this.languageid).subscribe(data => {
+      this.linkslist = data;
+      this.count = this.linkslist.length;
     })
   }
 
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
 
+        this.labels = data;
+
+      }, error => {
+      }
+    )
+  }
+  labels: any;
   selectedDate(data) {
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.GetRegisterLinks()
 
   }

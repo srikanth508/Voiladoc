@@ -128,8 +128,8 @@ export class AdminMidWifeDashComponent implements OnInit {
     // var sdate = data.split("-");
     // this.startdate = sdate[0];
     // this.enddate = sdate[1];
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.getmidwifeappointments();
     localStorage.setItem("startdate", this.startdate);
     localStorage.setItem("enddate", this.enddate);

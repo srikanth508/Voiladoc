@@ -1,10 +1,10 @@
 <div class="container-fluid card card:hover">
   <br>
   <div class="row ">
-    <div class="col-lg-3">
+    <div class="col-lg-5">
       <h5>{{labels[0].complaintMasterDash}}</h5>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
     </div>
     <div class="col-lg-3">
       <button type="button" routerLink="/ComplaintMaster"
@@ -24,11 +24,13 @@
       <table>
         <thead>
           <tr>
+            <th>{{labels[0].department}}</th>
             <th>{{labels[0].complaint}} </th>
             <th>{{labels[0].description}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let list of complaints|filter:term">
+            <td>{{list.departmentname}}</td>
             <td>{{list.name}}</td>
             <td>{{list.description}}</td>
             <td>

@@ -105,7 +105,24 @@ export class EditDoctorRegistrationComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    this.GetDoctorType()
   }
+
+  doctortyplist: any;
+
+
+  public GetDoctorType() {
+    this.docservice.GetDoctorTypeMasterByLanguageID(this.languageid).subscribe(data => {
+      this.doctortyplist = data;
+
+    }, error => {
+    })
+  }
+
+
+
+
+
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
 
   public getlanguage() {
@@ -196,12 +213,18 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.pincode = this.details.pincode,
           this.docmedicalid = this.details.docmedicalid,
           this.speaklanguages = this.details.spokenLanguages,
-          this.slotid = this.details.slotDurationID
+          this.slotid = this.details.slotDurationID,
+          this.gender = this.details.genderID,
+          this.doctypeid = this.details.doctorType,
+          this.hospitalid = this.details.hospitalClinicID,
+          this.signatureurl = this.details.signatureURL,
+          this.referbit = this.details.referealBit,
 
-        this.GetCountryMaster()
+          this.GetCountryMaster()
         this.getcitymaster();
         this.getareamasterbyid();
         this.getservicemaster()
+        this.GetDoctorType()
       }, error => {
       }
     )
@@ -226,8 +249,19 @@ export class EditDoctorRegistrationComponent implements OnInit {
     this.getservicemaster();
   }
 
-  public updatedetails() {
+  gender: any;
+  doctypeid: any;
 
+  public GetDoctypeID(even) {
+    this.doctypeid = even.target.value;
+  }
+
+  hospitalid: any;
+  signatureurl: any;
+  referbit: any;
+
+  public updatedetails() {
+    debugger
     var entity = {
       'LanguageID': this.languageid,
       'DoctorID': this.id,
@@ -245,10 +279,17 @@ export class EditDoctorRegistrationComponent implements OnInit {
       'MallPractise': this.mallprcise,
       'CountryID': this.countryid,
       'SpokenLanguages': this.speaklanguages,
-      'SlotDurationID': this.slotid
+      'SlotDurationID': this.slotid,
+      'DoctorName': this.doctorname,
+      'GenderID': this.gender,
+      'DoctorType': this.doctypeid,
+      'HospitalClinicID': this.hospitalid,
+      'SignatureURL': this.signatureurl,
+      'ReferealBit': this.referbit
     }
     this.docservice.UpdateDoctorPersonelInfo(entity).subscribe(res => {
       let test = res;
+      debugger
       if (this.languageid == 1) {
         this.getdoctordetailsbyid();
         Swal.fire('Updated Successfully');
@@ -746,4 +787,10 @@ export class EditDoctorRegistrationComponent implements OnInit {
     )
   }
 
+
+
+  public GetGenderID(even) {
+
+    this.gender = even.target.value;
+  }
 }

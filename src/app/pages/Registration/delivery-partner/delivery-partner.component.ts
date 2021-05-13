@@ -53,11 +53,13 @@ export class DeliveryPartnerComponent implements OnInit {
 
     this.deliverytypeid=""
   }
+  select:any;
   public getlanguage() {
     this.docservice.GetAdmin_CompanyDetails_Label(this.languageid).subscribe(
       data => {
        
         this.labels = data;
+        this.select= this.labels[0].select
       }, error => {
       }
     )

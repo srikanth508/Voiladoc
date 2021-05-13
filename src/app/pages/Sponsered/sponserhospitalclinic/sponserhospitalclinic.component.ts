@@ -32,6 +32,7 @@ export class SponserhospitalclinicComponent implements OnInit {
   public hospitalclinicname: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.getlanguage()
     this.activatedroute.params.subscribe(params => {
 
       this.id = params['id'];
@@ -65,12 +66,14 @@ export class SponserhospitalclinicComponent implements OnInit {
     this.getlanguage();
   }
   SelectLabel
+  search
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search
       }, error => {
       }
     )
@@ -90,7 +93,8 @@ export class SponserhospitalclinicComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search
         };
       }, error => {
       }

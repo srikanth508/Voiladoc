@@ -7,3 +7,7 @@ label::first-letter{
   #imp{
     text-transform: none;
   }
+  .required
+  {
+    color: red;
+  }

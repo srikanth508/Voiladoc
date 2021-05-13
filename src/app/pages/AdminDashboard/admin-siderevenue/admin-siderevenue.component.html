@@ -1,62 +1,35 @@
 <br>
-<div class="container-fluid card card-hover">
+<!-- <div class="container-fluid card card-hover">
   <br />
   <div class="row">
     <div class="col-lg-3">
-      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
-      </ng-daterangepicker> -->
-
+     
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <br>
     <br>
     <div class="col-lg-3">
-      <!-- <select class="form-control" (change)="GetHospitalID($event)">
-        <option value="0">Select</option>
-        <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
-      </select> -->
+      
       <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitallist" [settings]="hospdd"
         (onSelect)="GetHospitalID($event)">
       </ng-multiselect-dropdown>
     </div>
 
     <div class="col-lg-3">
-      <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
-      (onSelect)="GetAreaID($event)">
-    </ng-multiselect-dropdown> -->
-      <!-- <select class="form-control" (change)="GetAreaID($event)">
-        <option value="0">{{labels[0].selectCity}}</option>
-        <option *ngFor="let area of arealist" value="{{area.id}}">{{area.areaName}}</option>
-      </select> -->
+    
     </div>
   </div>
 </div>
-<br />
-<div class="container-fluid card card-hover">
+<br /> -->
+<!-- <div class="container-fluid card card-hover">
   <br />
   <h4 style="text-align: center; font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"></h4>
   <br />
   <div class="row">
-    <!-- <div class="col-lg-3"> -->
-      <!-- <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of hospitalrevenue">
-        <br />
-        <label style="color: black;font-size: 30px;color: white;">
-          <b style="font-size: 15px;">Hospital Revenue</b>
-        </label>
-        <br />
-        <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;">
-          <b>
-            <u style="font-size: 20px;">{{cou.hospitalrevenue}}</u>
-          </b>
-        </label>
-      </div>
-      <br />
-      <br />
-    </div> -->
+   
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of allcounts">
         <br />
@@ -75,7 +48,7 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <!--  -->
+    
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  *ngFor="let cou1 of nursecount">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
@@ -132,71 +105,12 @@
       <br />
     </div>
   </div>
-  <!-- <div class="row">
-    <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" *ngFor="let cou of physiocount">
-        <br />
-        <label style="color: black;font-size: 30px;color: white;">
-          <b style="font-size: 15px;">
-            {{labels[0].totalPhysioRevenue}}</b>
-        </label>
-        <br />
-        <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;">
-          <b>
-            <u style="font-size: 20px;">{{cou.paidAmount}}</u>
-          </b>
-        </label>
-      </div>
-      <br />
-      <br />
-    </div>
+ 
+</div><br> -->
 
-    
-    <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
-        <br />
-        <label style="color: black;font-size: 30px;color: white;">
-          <b style="font-size: 15px;">
-            Pharmacy Revenue</b>
-        </label>
-        <br />
-        <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;">
-          <b>
-            <u style="font-size: 20px;">0</u>
-          </b>
-        </label>
-      </div>
-      <br />
-      <br />
-    </div>
-    <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;">
-        <br />
-        <label style="color: black;font-size: 30px;color: white;">
-          <b style="font-size: 15px;">
-            Diagnostic Center Revenue</b>
-        </label>
-        <br />
-        <br />
-        <label style="color: black;font-size: 30px;color: #f17e2d;">
-          <b>
-            <u style="font-size: 20px;">0</u>
-          </b>
-        </label>
-      </div>
-      <br />
-      <br />
-    </div>
-  </div> -->
-</div><br>
-
-<div class="container-fluid card card-hover">
+<!-- <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-
-
     <div class="col-lg-3">
       <select class="form-control" (change)="GetIndetypeIDs($event)">
         <option value="0">Select</option>
@@ -233,13 +147,7 @@
 
    
     <div class="col-lg-3">
-      <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
-      (onSelect)="GetAreaID($event)">
-    </ng-multiselect-dropdown> -->
-      <!-- <select class="form-control" (change)="GetAreaIndependentDoctor($event)">
-        <option value="0">Select City</option>
-        <option *ngFor="let area of arealist" value="{{area.id}}">{{area.areaName}}</option>
-      </select> -->
+    
     </div>
   </div><br>
   <div class="row">
@@ -316,13 +224,13 @@
       <br />
     </div>
   </div>
-</div><br><br>
+</div><br><br> -->
 
 <!-- Hospital Subscription Revenue -->
 
 <div class="container-fluid card card-hover">
   <br>
-  <h3 style="text-align: center;">Hospital/Clinic Subscription Fees And Revenue</h3>
+  <h3 style="text-align: center;">{{labels[0].hospitalsubcommission}}</h3>
   <br>
   <div class="row">
     <div class="col-lg-3">
@@ -334,7 +242,7 @@
         bsDaterangepicker>
     </div>
     <div class="col-lg-3">
-      <ng-multiselect-dropdown [placeholder]="'Select Hospital'" [data]="hospitallist" [settings]="hospdd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitallist" [settings]="hospdd"
         (onSelect)="GetAllSubScriptionRevenueID($event)">
       </ng-multiselect-dropdown>
     </div>
@@ -346,7 +254,8 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Hospital Subscription Revenue</b>
+            {{labels[0].revenue}}<br>
+           {{labels[0].hospitalsubrevenue}}</b>
         </label>
         <br />
         <br />
@@ -357,7 +266,7 @@
         </label>
       </div>
       <br />
-      <br />
+ 
     </div>
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
@@ -365,10 +274,12 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Doctor Revenue From Appointment Fees</b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+            {{labels[0].docApprevenue}}</b>
         </label>
         <br />
-        <br />
+      
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.doctorsHospitalrevenue}}</u>
@@ -384,9 +295,11 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Nurse Revenue From Appointment Fees</b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+          {{labels[0].nurseApprevenue}}
+          </b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -403,9 +316,11 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Midwife Revenue From Appointment Fees</b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+          {{labels[0].midwifeApprevenue}}</b>
         </label>
-        <br />
+  
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -425,9 +340,10 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Physiotherapist Revenue From Appointment Fees</b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+          {{labels[0].physioApprevenue}}</b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -452,7 +368,7 @@
 <div class="container-fluid card card-hover">
  
   <br>
-  <h3 style="text-align: center;">Independent Subscription Fees And Revenue</h3>
+  <h3 style="text-align: center;">{{labels[0].independentsubfees}}</h3>
   <br>
   <div class="row">
     <div class="col-lg-3">
@@ -460,44 +376,42 @@
         class="form-control" [(ngModel)]="value1" (ngModelChange)="ChangAllIndependentPeople($event)"
         bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value1" (ngModelChange)="ChangAllIndependentPeople($event)"
+        class="form-control" [(ngModel)]="value1" (bsValueChange)="ChangAllIndependentPeople($event)"
         bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)">
-        <option value="0">Select</option>
-        <option value="1">Doctor</option>
-        <option value="2">Nurse</option>
-        <option value="3">Midwife</option>
-        <option value="4">Physiotherapist</option>
+        <option value="0">{{labels[0].select}}</option>
+        <option value="1">{{labels[0].doctor}}</option>
+        <option value="2">{{labels[0].nurse}}</option>
+        <option value="3">{{labels[0].midwife}}</option>
+        <option value="4">{{labels[0].psyiotherapist}}</option>
       </select>
     </div>
     <div class="col-lg-3" *ngIf="typeid=='1'">
-      <ng-multiselect-dropdown [placeholder]="'Select Doctor'" [data]="inddoctorslist" [settings]="docdd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="inddoctorslist" [settings]="docdd"
         (onSelect)="GetHomecareTypeID($event)">
       </ng-multiselect-dropdown>
     </div>
 
     <div class="col-lg-3" *ngIf="typeid=='2'">
-      <ng-multiselect-dropdown [placeholder]="'Select Nurse'" [data]="nurselist1" [settings]="nursedd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="nurselist1" [settings]="nursedd"
         (onSelect)="GetNurseID($event)">
       </ng-multiselect-dropdown>
     </div>
 
     <div class="col-lg-3" *ngIf="typeid=='3'">
-      <ng-multiselect-dropdown [placeholder]="'Select Midwife'" [data]="midwifes1" [settings]="midwifedd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="midwifes1" [settings]="midwifedd"
         (onSelect)="GetMidWifeID($event)">
       </ng-multiselect-dropdown>
     </div>
 
     <div class="col-lg-3" *ngIf="typeid=='4'">
-      <ng-multiselect-dropdown [placeholder]="'Select Physiotherapist'" [data]="physiolist1" [settings]="physiodd"
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="physiolist1" [settings]="physiodd"
         (onSelect)="GetPhysiotherapistID($event)">
       </ng-multiselect-dropdown>
     </div>
   </div><br>
-
-
   <div class="row">
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
@@ -505,10 +419,15 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             Doctor Subscription Revenue</b>
+             {{labels[0].revenue}}<br>
+             {{labels[0].appointments}}<br>
+             {{labels[0].docApprevenue}}
+             
+            
+            </b>
         </label>
         <br />
-        <br />
+     
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.doctorsMonthlySubscription}}</u>
@@ -524,10 +443,13 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             Nurse Subscription Revenue</b>
+            {{labels[0].revenue}}<br>
+             {{labels[0].appointments}}<br>
+             {{labels[0].nurseApprevenue}}
+             </b>
         </label>
         <br />
-        <br />
+      
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.nurseMonthlySubscription}}</u>
@@ -543,9 +465,11 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             MidWife Subscription Revenue</b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].appointments}}<br>
+            {{labels[0].midwifeApprevenue}}
+          </b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -562,9 +486,13 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             Physiotherapist Subscription Revenue</b>
+            
+            {{labels[0].revenue}}<br>
+            {{labels[0].appointments}}<br>
+            {{labels[0].physioApprevenue}}
+          </b>
         </label>
-        <br />
+
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -583,9 +511,10 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             Doctor Revenue From Appointment Fees</b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+            {{labels[0].docApprevenue}}</b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -602,9 +531,12 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             Nurse Revenue From Appointment Fees</b>
+            
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+            {{labels[0].nurseApprevenue}}
+          </b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -621,9 +553,12 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             MidWife Revenue From Appointment Fees</b>
+             
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+            {{labels[0].midwifeApprevenue}}
+          </b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -640,9 +575,12 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             Physiotherapist Revenue From Appointment Fees</b>
+          
+            {{labels[0].revenue}}<br>
+            {{labels[0].commission}}<br>
+            {{labels[0].physioApprevenue}}
+          </b>
         </label>
-        <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>

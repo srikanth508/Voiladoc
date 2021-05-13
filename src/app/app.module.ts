@@ -304,7 +304,6 @@ import { ReceptionistLoginDashboardComponent } from './pages/Diagnostic Center/r
 import { ReceptionistLoginComponent } from './pages/Diagnostic Center/receptionist-login/receptionist-login.component';
 import { NewAppointmentComponent } from './pages/Diagnostic Center/new-appointment/new-appointment.component';
 import { DiagnosticAppointmentDashboardComponent } from './pages/Diagnostic Center/diagnostic-appointment-dashboard/diagnostic-appointment-dashboard.component';
-
 import { NewBillingComponent } from './pages/Billing/new-billing/new-billing.component';
 import { SentInvoicesComponent } from './pages/Billing/sent-invoices/sent-invoices.component';
 import { PaidInvoicesComponent } from './pages/Billing/paid-invoices/paid-invoices.component';
@@ -348,6 +347,10 @@ import { DocRecpAppointmentsComponent } from './pages/Doctor/doc-recp-appointmen
 import { IndBookAppointmentComponent } from './pages/IndependentDocRecep/ind-book-appointment/ind-book-appointment.component';
 import { IndDocPaymentsComponent } from './pages/IndependentDocRecep/ind-doc-payments/ind-doc-payments.component';
 import { DatecheckComponent } from './pages/Doctor/datecheck/datecheck.component';
+import { PatientInvitesDashComponent } from './pages/AdminDashboard/patient-invites-dash/patient-invites-dash.component';
+import { InvitationMasterComponent } from './pages/AdminDashboard/invitation-master/invitation-master.component';
+import { InvitationDashComponent } from './pages/AdminDashboard/invitation-dash/invitation-dash.component';
+import { ProviderpayComponent } from './pages/Billing/providerpay/providerpay.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -685,7 +688,11 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DocRecpAppointmentsComponent,
     IndBookAppointmentComponent,
     IndDocPaymentsComponent,
-    DatecheckComponent
+    DatecheckComponent,
+    PatientInvitesDashComponent,
+    InvitationMasterComponent,
+    InvitationDashComponent,
+    ProviderpayComponent
    
   ],
   imports: [

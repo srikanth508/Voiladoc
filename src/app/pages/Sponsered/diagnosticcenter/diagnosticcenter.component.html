@@ -9,7 +9,7 @@
   <form #diagnosticForm="ngForm">
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
-        <h6>{{labels[0].sponsoredDiagnostic}}</h6>
+        <!-- <h6>{{labels[0].sponsoredDiagnostic}}</h6> -->
       </div>
       <div class="col-lg-7">
       </div>
@@ -78,12 +78,12 @@
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>Fees :</label>
+        <label>{{labels[0].fees}} :</label>
         <span class="required">*</span>
       </div>
 
       <div class="col-lg-4">
-      <input type="text" class="form-control" placeholder="Fees" required [(ngModel)]="fees" name="fees"
+      <input type="text" class="form-control" placeholder="{{labels[0].fees}}" required [(ngModel)]="fees" name="fees"
       onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div>

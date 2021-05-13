@@ -101,9 +101,9 @@
       <select class="form-control" [(ngModel)]="PaymentTypeID" (change)="GetPaymentTypeID($event)">
         <option value="" selected>{{labels[0].paymenttype}}</option>
         <option *ngIf="languageid=='1'" value="4">Cash</option>
-        <option *ngIf="languageid=='1'"  value="2">Credit Card / Debit Card</option>
-        <option *ngIf="languageid=='6'" value="4">Espèces</option>
-        <option *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
+        <!-- <option *ngIf="languageid=='1'"  value="2">Credit Card / Debit Card</option> -->
+        <option *ngIf="languageid=='6'" value="4">Cash</option>
+        <!-- <option *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option> -->
         <!-- <option value="3">Debit Card</option> -->
       </select>
     </div>
@@ -158,7 +158,7 @@
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-      *ngIf="appoentmenTypeid=='1'"  (click)="bookappointment()">{{labels[0].book}}</button>
+      *ngIf="appoentmenTypeid=='1'||appoentmenTypeid=='5'"  (click)="bookappointment()">{{labels[0].book}}</button>
     </div>
     <div class="col-lg-5">
     </div>

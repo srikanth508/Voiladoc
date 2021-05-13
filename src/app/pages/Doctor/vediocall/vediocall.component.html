@@ -189,23 +189,24 @@
 
               <!-- {{labels[0].appointmentNumber}}: <b>{{appointmentno}}</b> -->
             </td>
-            <td class="tabletdstyles">
-
-            </td>
-          </tr>
-          <tr *ngIf="genderid=='2'">
-            <td style="text-align: left;border:2px solid">
+            <td class="tabletdstyles" *ngIf="genderid=='2'">
               {{labels[0].pragnency}} :
 
-              <span *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</span>
-              <!-- <span *ngIf="ispatientpragnent=='0'">{{labels[0].no}}</span> -->
-            </td>
-            <td class="tabletdstyles">
+              <span *ngIf="ispatientpragnent=='1'"> {{labels[0].yes}}</span>&nbsp;&nbsp;
+
               {{labels[0].breastfedding}} :
               <span *ngIf="breastFeeding=='1'"> {{labels[0].yes}}</span>
-              <!-- <span *ngIf="breastFeeding=='0'">{{labels[0].no}}</span> -->
             </td>
           </tr>
+          <!-- <tr *ngIf="genderid=='2'">
+            <td style="text-align: left;border:2px solid">
+           
+            </td>
+            <td class="tabletdstyles">
+            
+           
+            </td>
+          </tr> -->
           <tr>
             <th style="background-color: #322b6b;text-align: left;" colspan="2">{{labels[0].photosPatientvideos}}</th>
           </tr>
@@ -356,8 +357,8 @@
                   <thead>
                     <tr>
                       <th>Actions</th>
-                      <th>médicament</th>
-                      <th>Dénomination </th>
+                      <th>Nom commercial </th>
+                      <th>Principe actif</th>
                       <th>Dosage</th>
                     </tr>
                     <tr *ngFor="let code of drugnamelist|filter:medicinename| slice:0:100; let i=index">
@@ -537,7 +538,7 @@
 <div class="modal fade" id="addtest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true" style="float: right;">
   <div class="modal-dialog modal-lg" style="float: right;">
-    <div class="modal-content" style="width:588px;margin-left: 83px;">
+    <div class="modal-content" style="width:717px;margin-left: 83px;">
       <div class="modal-header modal-lg">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].addTest}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -549,17 +550,41 @@
           <form #diaForm="ngForm">
             <div class="row">
               <div class="col-lg-5">
-                <select class="form-control" (change)="GetDiagnosticTestID($event)">
-                  <option>{{labels[0].select}} {{labels[0].testType}}</option>
+                <h6>{{labels[0].chooseFromtemplate}} </h6>
+
+
+                <select class="form-control" (change)="GetTestTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let testtemp of TestTemplateList" value="{{testtemp.id}}">{{testtemp.templateName}}
+                  </option>
+                </select>
+              </div>
+              <!-- <div class="col-lg-7">
+               
+              </div> -->
+            </div>
+            <br>
+            <div class="row">
+              <!-- <div class="col-lg-4"></div> -->
+              <div class="col-lg-5">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
+                  <option value="0">{{labels[0].select}} {{labels[0].testType}}</option>
                   <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
                 </select>
                 <br>
-                <select class="form-control" (change)="GetDiagnosticTestssID($event)">
-                  <option>{{labels[0].select}} {{labels[0].testName}}</option>
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid" name="testssid">
+                  <option value="0">{{labels[0].select}} {{labels[0].testName}}</option>
                   <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
                 </select>
-                <br *ngIf="testid=='2'">
-                <textarea *ngIf="testid=='2'" class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
+                <br>
+                <!-- *ngIf="testid=='2'" -->
+                <textarea class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
                   placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
                 <br>
                 <div *ngIf="testssid=='59'||testssid=='60'">
@@ -568,15 +593,30 @@
                     [(ngModel)]="diagnostictestname" name="diagnostictestname">
 
                 </div><br>
-                <!-- <div *ngIf="testssid=='59'||testssid=='60'">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <label>{{labels[0].saveastemplate}} :</label>
+                  </div>
+                  <div class="col-lg-6">
+                    <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="1">&nbsp;
+                    {{labels[0].yes}} &nbsp;&nbsp;
+                    <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="2">&nbsp;
+                    {{labels[0].no}} &nbsp;&nbsp;
+                  </div>
+                </div>
+                <br>
+                <div *ngIf="testtemplate=='1'">
                   <div class="row">
-                    <div class="col-lg-5">
-                      <label>{{labels[0].testName}} :</label>
+                    <div class="col-lg-6">
+                      <label>{{labels[0].templateName}} :</label>
                     </div>
-                   
-                  </div> <br>
-                </div> -->
-
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" name="testtemplatename" [(ngModel)]="testtemplatename"
+                        placeholder="{{labels[0].templateName}}">
+                    </div>
+                  </div>
+                  <br>
+                </div>
 
                 <button type="button" class="btn btn-default " [disabled]="diaForm.form.invalid"
                   style="background-color: #f18235;color: white;" (click)="adddetails()">{{labels[0].add}}</button>
@@ -613,8 +653,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
+          <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">Annuler</button>
       </div>
     </div>
   </div>
@@ -725,6 +767,14 @@
                 <textarea class="form-control" rows="4" name="notes" [(ngModel)]="notes"
                   placeholder="{{labels[0].notes}}"></textarea>
               </div>
+              <div class="col-lg-6">
+                <ngx-dropzone [multiple]="false" style="height: 90px;" (change)="UploadSoapAttchments($event)" class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+                <span *ngFor="let showphoto of shoprescphoto">
+                  <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+              </div>
             </div>
             <!-- <br>
               <div class="row">
@@ -739,6 +789,20 @@
                 </div>
               </div> -->
             <br>
+            <!-- <div class="row">
+          
+              <div class="col-lg-6">
+                <ngx-dropzone [multiple]="false" (change)="UploadSoapAttchments($event)" class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+                <span *ngFor="let showphoto of shoprescphoto">
+                  <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+              </div>
+              <div>
+              </div>
+            </div>
+            <br> -->
             <div class="row">
               <div class="col-lg-3">
                 {{labels[0].saveastemplate}}
@@ -1177,6 +1241,26 @@
       <div class="modal-body" stylw="width:1100px">
         <div class="container-fluid">
           <form #diaForm="ngForm">
+            <!-- <div class="row">
+              <div class="col-lg-5">
+                <h6>{{labels[0].chooseFromtemplate}} </h6>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetTestTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let testtemp of TestTemplateList" value="{{testtemp.id}}">{{testtemp.templateName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-8">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div>
+            <br> -->
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testType}} :</label>
@@ -1224,6 +1308,32 @@
                 </div>
               </div>
             </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].saveastemplate}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="2">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div *ngIf="testtemplate=='1'">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].templateName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" name="testtemplatename" [(ngModel)]="testtemplatename"
+                    placeholder="{{labels[0].templateName}}">
+                </div>
+              </div>
+              <br>
+            </div>
+
+
             <div class="row">
               <div class="col-lg-5">
               </div>

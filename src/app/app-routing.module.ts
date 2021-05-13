@@ -323,6 +323,10 @@ import { DocRecpAppointmentsComponent } from './pages/Doctor/doc-recp-appointmen
 import { IndBookAppointmentComponent } from './pages/IndependentDocRecep/ind-book-appointment/ind-book-appointment.component';
 import { IndDocPaymentsComponent } from './pages/IndependentDocRecep/ind-doc-payments/ind-doc-payments.component';
 import { DatecheckComponent } from './pages/Doctor/datecheck/datecheck.component';
+import { PatientInvitesDashComponent } from './pages/AdminDashboard/patient-invites-dash/patient-invites-dash.component';
+import { InvitationMasterComponent } from './pages/AdminDashboard/invitation-master/invitation-master.component';
+import { InvitationDashComponent } from './pages/AdminDashboard/invitation-dash/invitation-dash.component';
+import { ProviderpayComponent } from './pages/Billing/providerpay/providerpay.component';
 
 
 
@@ -708,6 +712,11 @@ const routes: Routes = [
   { path: 'IndBookAppointment', component:  IndBookAppointmentComponent},
   { path: 'IndDocPayments', component:  IndDocPaymentsComponent},
   { path: 'Datecheck', component:  DatecheckComponent},
+  { path: 'Pharmacyoffers/:id', component: PharmacyoffersComponent },
+  { path: 'PatientInvitesDash', component:  PatientInvitesDashComponent},
+  { path: 'InvitationMaster', component:  InvitationMasterComponent},
+  { path: 'InvitationDash', component:  InvitationDashComponent},
+  { path: 'Providerpay', component:  ProviderpayComponent},
 ];
 
 @NgModule({

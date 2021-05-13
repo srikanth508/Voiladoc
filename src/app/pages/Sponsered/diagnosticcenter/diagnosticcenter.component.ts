@@ -22,19 +22,19 @@ export class DiagnosticcenterComponent implements OnInit {
   public diadd = {}
   public labels: any;
   public languageid: any;
-  public fees:any;
-  public id:any;
-  public showbutton:any;
-
+  public fees: any;
+  public id: any;
+  public showbutton: any;
+  public search: any;
   ngOnInit() {
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-   
+
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
     this.languageid = localStorage.getItem('LanguageID');
-
+    this.getlanguage();
     this.activatedroute.params.subscribe(params => {
 
       this.id = params['id'];
@@ -56,7 +56,7 @@ export class DiagnosticcenterComponent implements OnInit {
     //   }, error => {
     //   }
     // )
- 
+
     this.getdiagnosticforadmin();
 
 
@@ -64,9 +64,10 @@ export class DiagnosticcenterComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.SelectLabel=this.labels[0].select;
+        this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search;
       }, error => {
       }
     )
@@ -74,10 +75,10 @@ export class DiagnosticcenterComponent implements OnInit {
   SelectLabel
 
   public getdiagnosticforadmin() {
-   
+
     this.docservice.GetDiagnosticCenterListByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.diagnosticlist = data;
         this.diadd = {
           singleSelection: true,
@@ -86,7 +87,8 @@ export class DiagnosticcenterComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search
         };
 
       }, error => {
@@ -96,11 +98,11 @@ export class DiagnosticcenterComponent implements OnInit {
 
 
   public GetDiagnosticID(item2: any) {
-   
+
     this.diagnosticid = item2.id;
   }
   public insertdetails() {
-   
+
     if (this.diagnosticid == undefined) {
       Swal.fire("Please Select Diagnostic Center");
 
@@ -110,10 +112,10 @@ export class DiagnosticcenterComponent implements OnInit {
         'DiagnosticID': this.diagnosticid,
         'SDate': this.startdate,
         'EDate': this.enddate,
-        'Fees':this.fees
+        'Fees': this.fees
       }
       this.docservice.InsertSponsoredDiagnosticCenter(entity).subscribe(data => {
-       
+
         if (data != 0) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           location.href = "#/Diagdash";
@@ -132,8 +134,8 @@ export class DiagnosticcenterComponent implements OnInit {
   }
 
 
-  sponserdialist:any;
-  diagnosticcentername:any;
+  sponserdialist: any;
+  diagnosticcentername: any;
 
 
 
@@ -141,7 +143,7 @@ export class DiagnosticcenterComponent implements OnInit {
     if (this.languageid == 1) {
       this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
         data => {
-          
+
           this.sponserdialist = data;
           var list = this.sponserdialist.filter(x => x.id == this.id)
           this.startdate = list[0].startdate,
@@ -155,9 +157,9 @@ export class DiagnosticcenterComponent implements OnInit {
     else if (this.languageid == 6) {
       this.docservice.GetSponsoredDiagnosticCenterForAdmin().subscribe(
         data => {
-          
+
           this.sponserdialist = data;
-          
+
           var list = this.sponserdialist.filter(x => x.id == this.id)
           this.startdate = list[0].startdate.toLocaleString();
           this.enddate = list[0].enddate.toLocaleString();
@@ -172,14 +174,14 @@ export class DiagnosticcenterComponent implements OnInit {
 
 
   public updatedetails() {
-    
+
     // const qwer = 'dd-MMM-yyyy';
     // const pljdjf = 'en-US';
     // const frdat = this.startdate;
     // this.startdate = formatDate(frdat, qwer, pljdjf);
     // const todat = this.enddate;
     // this.enddate = formatDate(todat, qwer, pljdjf);
-    
+
     var entity1 = {
       'ID': this.id,
       'SDate': this.startdate,

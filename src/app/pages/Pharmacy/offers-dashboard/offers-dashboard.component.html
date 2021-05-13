@@ -3,6 +3,17 @@
     <div class="col-lg-3">
       <h5>{{labels[0].offerrsDahboard}}</h5>
     </div>
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-lg-3">
+      <button type="button" routerLink="/Pharmacyoffers" style="margin-top: -10px;" *ngIf="languageid=='1'"
+        class="btn btncolor">Add new promo</button>
+
+      <button type="button" routerLink="/Pharmacyoffers" style="margin-top: -10px;" *ngIf="languageid=='6'"
+        class="btn btncolor">Ajouter une nouvelle promo
+      </button>
+    </div>
   </div>
 </div>
 <br>
@@ -31,12 +42,20 @@
             <td>{{details.offer}}</td>
             <td>{{details.sdate}}</td>
             <td>{{details.edate}}</td>
-            <td><img src="{{details.photoURL}}" style="height:50px;width:50px;"/></td>
-            <td> <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+            <td><img src="{{details.photoURL}}" style="height:50px;width:50px;" /></td>
+            <td>
+              <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-              <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="deletepharmacyoffer(details.id)">
-            </a>
-          </td>
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="deletepharmacyoffer(details.id)">
+
+              </a>&nbsp;
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1"  [routerLink]="['/Pharmacyoffers',details.id]"
+                style="color:black">
+                <img src="assets/Images/edit.png" style="width: 18px">
+              </a>
+            </td>
           </tr>
 
         </thead>
@@ -45,9 +64,9 @@
   </div>
   <div class="col-lg-12" style="text-align: center">
     <br>
-    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true"
-      autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
-      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
   </div>
 </div>

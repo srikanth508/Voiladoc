@@ -129,10 +129,10 @@ export class AllDiagnosticCalenderComponent implements OnInit {
   }
 
 
-  public GetDoctorDates(even) {
+  public GetDoctorDates(Newdate:Date) {
     this.spinner.show();
-    
-    this.todaydate = even.toLocaleString().split(',')[0];
+    // this.todaydate = even.toLocaleString().split(',')[0];
+    this.todaydate = this.docservice.GetDates(Newdate)
     
     this.getWorkingdetils();
   }
@@ -319,9 +319,9 @@ export class AllDiagnosticCalenderComponent implements OnInit {
 
   public datechangedayid: any;
 
-  public GetdaychangeDate(even) {
-    
-    this.daychangedate = even.toLocaleString().split(',')[0];
+  public GetdaychangeDate(NewDate:Date) {
+    this.daychangedate = this.docservice.GetDates(NewDate)
+    // this.daychangedate = even.toLocaleString().split(',')[0];
     this.Getdays()
   }
 
@@ -414,8 +414,10 @@ export class AllDiagnosticCalenderComponent implements OnInit {
 
 
 
-  public GetTimewisechangedate(even) {
-    this.timechangedate = even.toLocaleString().split(',')[0];
+  public GetTimewisechangedate(NewDate:Date) {
+    // this.timechangedate = even.toLocaleString().split(',')[0];
+    
+    this.timechangedate = this.docservice.GetDates(NewDate)
     this.Getdaystime()
 
   }

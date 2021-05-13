@@ -11,9 +11,9 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)"  [(bsValue)]="myDateValue"  bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -94,8 +94,7 @@
                 style="color: red;">{{labels[0].cancelled}}</label>
               <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'"
                 style="color: yellowgreen;">{{labels[0].visited}}</label>
-              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'" style="color: yellowgreen;">Report
-                Delivered</label>
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'" style="color: yellowgreen;">{{labels[0].reportdelivered}}</label>
 
               <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
               <label

@@ -43,11 +43,11 @@ export class NewAppointmentComponent implements OnInit {
     allselectedtestandpakages = [];
     table: number;
     totalamount: any;
-    homesample: any;
+    homesample:boolean;
     diagnosticslotid: any;
     slotname: any;
     ngOnInit() {
-        
+
         this.type = 1;
 
         this.idcount = 1;
@@ -111,7 +111,7 @@ export class NewAppointmentComponent implements OnInit {
 
             this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.todaydate, 1, this.dayid).subscribe(
                 data => {
-                    
+
                     this.morningslotslist = data;
                 }, error => {
                 }
@@ -154,7 +154,7 @@ export class NewAppointmentComponent implements OnInit {
 
         this.docservice.GetAdmin_DiagnosticLoginOrdersAndOrderReport_Label(this.languageid).subscribe(
             data => {
-                
+
                 this.labels1 = data;
             }, error => {
             }
@@ -189,7 +189,7 @@ export class NewAppointmentComponent implements OnInit {
     }
 
     public openCity(evt, cityName) {
-        
+
         var i, tabcontent, tablinks;
         if (cityName == "Tests") {
             this.type = 1;
@@ -296,24 +296,24 @@ export class NewAppointmentComponent implements OnInit {
     }
 
     public delete(Sno) {
-        
+
         for (let i = 0; i < this.allselectedtestandpakages.length; i++) {
-            
+
             if (Sno == this.allselectedtestandpakages[i].Sno) {
-                
+
                 this.allselectedtestandpakages.splice(i, 1);
                 this.totalamount = this.allselectedtestandpakages.map(a => a.Price).reduce(function (a, b) {
                     return a + b;
                 });
             }
         }
-        
+
     }
 
     public slottime: any;
 
     public BookAppointment() {
-        
+        debugger
         var entity = {
             PatientID: this.patientid,
             DiagnosticCenterID: this.diagnosticid,
@@ -324,8 +324,10 @@ export class NewAppointmentComponent implements OnInit {
             DiagnopatientNmae: this.patientname,
             SlotTime: this.slotname
         }
+        debugger
         this.docservice.InsertDiagnosticAppointments(entity).subscribe(data => {
             this.appointmentid = data;
+            debugger
             ;
             if (data != undefined) {
                 for (let k = 0; k < this.allselectedtestandpakages.length; k++) {
@@ -335,15 +337,22 @@ export class NewAppointmentComponent implements OnInit {
                         DiagnosticAppointmentsID: this.appointmentid
                     }
                     this.docservice.InsertDiagnosticBookedTests(entity2).subscribe(data => {
-                        
+
                         if (data != undefined) {
 
                         }
                     })
                 }
             }
-            Swal.fire("Booked Successfully");
-            location.href = "#/DiagnosticAppointmentDash";
+            if (this.languageid == 1) {
+                Swal.fire("Booked Successfully");
+                location.href = "#/DiagnosticAppointmentDash";
+            }
+            else {
+                Swal.fire("Réservé");
+                location.href = "#/DiagnosticAppointmentDash";
+            }
+
         })
     }
 
@@ -354,9 +363,10 @@ export class NewAppointmentComponent implements OnInit {
     }
     selecteddate: any;
     selectedDate(even) {
-        
+
         this.selecteddate = even.toLocaleString().split(',')[0];
-        if (this.homesample == 1) {
+        if (this.homesample == true) {
+           
             var gsDayNames = [
                 'Sunday',
                 'Monday',
@@ -374,7 +384,7 @@ export class NewAppointmentComponent implements OnInit {
                 this.dayid = this.dayidslist[0].dayID;
                 this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
                     data => {
-                        
+
                         this.morningslotslist = data;
                         this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 1);
                     }, error => {
@@ -426,7 +436,7 @@ export class NewAppointmentComponent implements OnInit {
                 this.dayid = this.dayidslist[0].dayID;
                 this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
                     data => {
-                        
+
                         this.morningslotslist = data;
                         this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 2);
                     }, error => {
@@ -465,7 +475,7 @@ export class NewAppointmentComponent implements OnInit {
 
     public onChange() {
         ;
-        if (this.homesample == 1) {
+        if (this.homesample == true) {
             var gsDayNames = [
                 'Sunday',
                 'Monday',
@@ -483,7 +493,7 @@ export class NewAppointmentComponent implements OnInit {
                 this.dayid = this.dayidslist[0].dayID;
                 this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
                     data => {
-                        
+
                         this.morningslotslist = data;
                         this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 1);
                     }, error => {
@@ -518,6 +528,7 @@ export class NewAppointmentComponent implements OnInit {
 
         }
         else {
+            this.homesample = false
             var gsDayNames = [
                 'Sunday',
                 'Monday',
@@ -535,7 +546,7 @@ export class NewAppointmentComponent implements OnInit {
                 this.dayid = this.dayidslist[0].dayID;
                 this.docservice.GetDiagnosticSlotsWeb(this.diagnosticid, this.selecteddate, 1, this.dayid).subscribe(
                     data => {
-                        
+
                         this.morningslotslist = data;
                         this.morningslotslist = this.morningslotslist.filter(x => x.typeID == 2);
                     }, error => {

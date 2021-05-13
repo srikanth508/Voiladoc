@@ -24,7 +24,7 @@
     <br>
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
-        <label>Sub Category : </label>
+        <label>{{labels[0].subcategory}} : </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" [(ngModel)]="SubCategoryID" id="ddl_subCategoryID" name="SubCategoryID"
@@ -37,7 +37,7 @@
     <br>
     <div class="row" style="margin-top:20px;">
       <div class="col-lg-3">
-        <label>Products : </label>
+        <label>{{labels[0].product}} : </label>
       </div>
       <div class="col-lg-4">
         <select class="form-control" [(ngModel)]="item" id="ddl_item" name="item" (change)="GetItemID($event)">

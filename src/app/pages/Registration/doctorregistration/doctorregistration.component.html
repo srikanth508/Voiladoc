@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].doctorName}}" name="doctorname" required
-                [(ngModel)]="doctorname" class="form-control">
+                [(ngModel)]="doctorname" class="form-control"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)'>
             </div>
           </div>
           <br>
@@ -79,7 +79,7 @@
             </div>
             <div class="col-lg-4">
               <textarea class="form-control" rows="4" required name="address" required [(ngModel)]="address"
-                placeholder="Address"></textarea>
+                placeholder="{{labels[0].address}}"></textarea>
             </div>
           </div>
           <br>

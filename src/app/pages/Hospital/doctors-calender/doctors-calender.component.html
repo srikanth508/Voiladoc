@@ -28,12 +28,12 @@
         [minDate]="today" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="Sélecteur de date"
-        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="todaydatess" name="todaydatess"
-        (ngModelChange)="GetDoctorDates($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
+        (ngModelChange)="GetDoctorDates($event)" [(ngModel)]="todaydatess" name="todaydatess"  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
-    
+    <!-- [(ngModel)]="todaydatess" name="todaydatess" -->
     <div class="col-lg-2" *ngIf="showcalender=='1'">
-      <span >{{labels[0].changeSchedule}} </span>
+      <span>{{labels[0].changeSchedule}} </span>
     </div>
     <div class="col-lg-4" *ngIf="showcalender=='1'">
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
@@ -126,8 +126,8 @@
               <td>{{details.slotname}}</td>
               <td [style.background-color]="details.day1color" style="color:white">{{details.day1}}<br>
                 <span
-                *ngIf="details.day1AppointmentTypeID!=6&&details.day1AppointmentTypeID!=4">{{details.mondayFees}}</span>
-              <br>
+                  *ngIf="details.day1AppointmentTypeID!=6&&details.day1AppointmentTypeID!=4">{{details.mondayFees}}</span>
+                <br>
                 {{details.day1Availabilty}}<br>
                 <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
@@ -157,7 +157,7 @@
               </td>
               <td [style.background-color]="details.day4color" style="color:white">{{details.day4}}<br>
                 <label *ngIf="details.day4AppointmentTypeID!=6&&details.day4AppointmentTypeID!=4">{{details.thursdayFees
-                }}</label><br>
+                  }}</label><br>
                 {{details.day4Availabilty}}<br>
                 <ng-template #tipcontent953545>{{labels[0].edit}}</ng-template>
                 <a [ngbTooltip]="tipcontent953545" style="color:black">
@@ -167,8 +167,8 @@
               </td>
               <td [style.background-color]="details.day5color" style="color:white">{{details.day5}}<br>
                 <label
-                *ngIf="details.day5AppointmentTypeID!=6&&details.day5AppointmentTypeID!=4">{{details.fridayFees}}</label>
-              <br>
+                  *ngIf="details.day5AppointmentTypeID!=6&&details.day5AppointmentTypeID!=4">{{details.fridayFees}}</label>
+                <br>
                 {{details.day5Availabilty}}<br>
                 <ng-template #tipcontent95355>{{labels[0].edit}}</ng-template>
                 <a [ngbTooltip]="tipcontent95355" style="color:black">
@@ -178,8 +178,8 @@
               </td>
               <td [style.background-color]="details.day6color" style="color:white">{{details.day6}}<br>
                 <label
-                *ngIf="details.day6AppointmentTypeID!=6&&details.day6AppointmentTypeID!=4">{{details.satdayFees}}</label>
-              <br>
+                  *ngIf="details.day6AppointmentTypeID!=6&&details.day6AppointmentTypeID!=4">{{details.satdayFees}}</label>
+                <br>
                 {{details.day6Availabilty}}<br>
                 <ng-template #tipcontent953556>{{labels[0].edit}}</ng-template>
                 <a [ngbTooltip]="tipcontent953556" style="color:black">
@@ -189,7 +189,7 @@
               </td>
               <td [style.background-color]="details.day7color" style="color:white">{{details.day7}}<br>
                 <label *ngIf="details.day7AppointmentTypeID!=6&&details.day7AppointmentTypeID!=4"> {{details.sundayFees
-                }}</label> <br>
+                  }}</label> <br>
                 {{details.day7Availabilty}}<br>
                 <ng-template #tipcontent953564>{{labels[0].edit}}</ng-template>
                 <a [ngbTooltip]="tipcontent953564" style="color:black">
@@ -229,17 +229,17 @@
           </div><br><br>
           <div class="col-lg-1">
           </div>
-          <div class="col-lg-2">
-          <span *ngIf="appointmentypeid!=4&&appointmentypeid!=6"> {{labels[0].fees}} :</span>
+          <div class="col-lg-3">
+            <span *ngIf="appointmentypeid!=4&&appointmentypeid!=6"> {{labels[0].fees}} :</span>
           </div><br>
           <div class="col-lg-6">
             <input type="text" *ngIf="appointmentypeid!=4&&appointmentypeid!=6" class="form-control" [(ngModel)]="fees"
-            onkeypress='return(event.charCode>=48&&event.charCode<=57)'    name="fees" placeholder="{{labels[0].fees}}">
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)' name="fees" placeholder="{{labels[0].fees}}">
           </div>
-          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+          <!-- <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
             MAD
-          </div>
-          <div class="col-lg-3">
+          </div> -->
+          <div class="col-lg-2">
           </div><br>
         </div>
         <br>
@@ -276,12 +276,14 @@
           <div class="col-lg-6">
             <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
               [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="daychangedate"
-              (ngModelChange)="GetdaychangeDate($event)" [minDate]="today"
-              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+              (ngModelChange)="GetdaychangeDate($event)" [minDate]="today" bsDatepicker [(bsValue)]="myDateValue"
+              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
 
-            <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="daychangedate1"
-              (ngModelChange)="GetdaychangeDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+
+            <input type="text" *ngIf="languageid==6" placeholder="jj/mm/aa" [bsConfig]="{ showWeekNumbers:false }"
+              class="form-control" [minDate]="today" #dp="bsDatepicker"  [(ngModel)]="daychangedate" (ngModelChange)="GetdaychangeDate($event)"
+              bsDatepicker  [minDate]="today" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+              <!-- [(bsValue)]="myDateValue" -->
           </div>
         </div><br>
         <div class="row">
@@ -302,16 +304,17 @@
         <div class="row">
           <div class="col-lg-1">
           </div>
-          <div class="col-lg-2">
-          <span *ngIf="Daywiseappointmentid!=4&&Daywiseappointmentid!=6"> {{labels[0].fees}} :</span>
+          <div class="col-lg-3">
+            <span *ngIf="Daywiseappointmentid!=4&&Daywiseappointmentid!=6"> {{labels[0].fees}} :</span>
           </div><br>
           <div class="col-lg-6">
             <input type="text" *ngIf="Daywiseappointmentid!=4&&Daywiseappointmentid!=6" class="form-control"
-            onkeypress='return(event.charCode>=48&&event.charCode<=57)'   [(ngModel)]="fees" name="fees" placeholder="Fees">
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)' [(ngModel)]="fees" name="fees"
+              placeholder="Fees">
           </div>
-          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+          <!-- <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
             MAD
-          </div>
+          </div> -->
         </div><br>
         <div class="row">
           <div class="col-lg-4">
@@ -347,13 +350,13 @@
           <div class="col-lg-6">
             <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
               [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="timechangedate"
-              (ngModelChange)="GetTimewisechangedate($event)" [minDate]="today"
+              (ngModelChange)="GetTimewisechangedate($event)" [minDate]="today" 
               [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
             <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-              [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="timechangedate1"
-              (ngModelChange)="GetTimewisechangedate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-              bsDatepicker>
+              [bsConfig]="{ showWeekNumbers:false }" bsDatepicker [(ngModel)]="timechangedate1" (ngModelChange)="GetTimewisechangedate($event)"
+              [minDate]="today"    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+            <!-- [(ngModel)]="timechangedate1" -->
           </div>
         </div><br>
         <div class="row">
@@ -397,16 +400,17 @@
         <div class="row">
           <div class="col-lg-1">
           </div>
-          <div class="col-lg-2">
-          <span *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6"> {{labels[0].fees}} :</span>
+          <div class="col-lg-3">
+            <span *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6"> {{labels[0].fees}} :</span>
           </div>
           <div class="col-lg-6">
             <input type="text" *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6" class="form-control"
-            onkeypress='return(event.charCode>=48&&event.charCode<=57)'  [(ngModel)]="fees" name="fees" placeholder="Fees">
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)' [(ngModel)]="fees" name="fees"
+              placeholder="Fees">
           </div>
-          <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
+          <!-- <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
             MAD
-          </div>
+          </div> -->
         </div><br>
         <div class="row">
           <div class="col-lg-4">

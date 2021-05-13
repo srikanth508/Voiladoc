@@ -15,8 +15,8 @@
     <div class="col-lg-3">
     </div>
     <div class="col-lg-6">
-      <input type="radio" [(ngModel)]="independent"   name="independent" value="1" (click)="GetIndependentNurse($event)"> Hospital Nurse &nbsp; &nbsp;
-      <input type="radio" [(ngModel)]="independent"   name="independent" value="2" (click)="GetIndependentNurse($event)"> Independent Nurse &nbsp; &nbsp;
+      <input type="radio" [(ngModel)]="independent"   name="independent" value="1" (click)="GetIndependentNurse($event)"> {{labels[0].hospitalnurse}} &nbsp; &nbsp;
+      <input type="radio" [(ngModel)]="independent"   name="independent" value="2" (click)="GetIndependentNurse($event)"> {{labels[0].independentnurse}} &nbsp; &nbsp;
     </div>
   </div>
   <div class="row" style="margin-top: 20px;" *ngIf="showindependentradio=='1'">

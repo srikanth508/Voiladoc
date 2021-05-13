@@ -389,8 +389,10 @@ export class AdminSiderevenueComponent implements OnInit {
 
 
   selectedDate(data) {
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    // this.startdate = data[0].toLocaleString().split(',')[0];
+    // this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.GetCounts();
     localStorage.setItem('StartTime', this.startdate)
     localStorage.setItem('EndDate', this.enddate)
@@ -545,8 +547,13 @@ export class AdminSiderevenueComponent implements OnInit {
 
 
   public ChangAllIndependentPeople(data) {
-    this.monthstartdate = data[0].toLocaleString().split(',')[0];
-    this.monthenddate = data[1].toLocaleString().split(',')[0];
+    // this.monthstartdate = data[0].toLocaleString().split(',')[0];
+    // this.monthenddate = data[1].toLocaleString().split(',')[0];
+
+     
+    this.monthstartdate = this.docservice.GetDates(data[0])
+    this.monthenddate = this.docservice.GetDates(data[1])
+
     this.GetCounts();
     localStorage.setItem('StartTime', this.startdate)
     localStorage.setItem('EndDate', this.enddate)

@@ -160,30 +160,63 @@ export class InventoryDashComponent implements OnInit {
 
   public DeleteInventory(id)
   {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to This Inventory!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteInventory(id).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to This Inventory!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteInventory(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Deleted!',
+            'Inventory has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.ngOnInit()
-        })
-        Swal.fire(
-          'Deleted!',
-          'Inventory has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.ngOnInit()
-      }
-    })
+        }
+      })
+    }else{
+
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: "You Want to This Inventory!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer',
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteInventory(id).subscribe(res => {
+            let test = res;
+            this.ngOnInit()
+          })
+          Swal.fire(
+            'Supprimé!',
+            'L inventaire a été supprimé.',
+            'success'
+          )
+        }
+        else {
+          this.ngOnInit()
+        }
+      })
+
+
+    }
+  
   }
 
 

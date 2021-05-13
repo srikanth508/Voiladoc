@@ -18,7 +18,7 @@
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
         [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -35,7 +35,7 @@
             <!-- <th style="width:25%;">{{labels[0].address}}</th> -->
             <th>{{labels[0].startdate}}</th>
             <th>{{labels[0].endDate}}</th>
-            <th>Fees</th>
+            <th>{{labels[0].fees}}</th>
             <th>Actions</th></tr>
           <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.hospital_ClinicName}}</td>

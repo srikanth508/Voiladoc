@@ -80,12 +80,29 @@ export class IndependentSubscriptionsComponent implements OnInit {
       }
     )
 
+    this.getlanguage()
+
+  }
+
+
+  labels: any;
+
+  public getlanguage() {
+    this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+
+
+      }, error => {
+      }
+    )
   }
 
 
 
   public GetTypeID(even) {
-    
+
     this.typeid = even.target.value;
   }
 
@@ -95,7 +112,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
   public GetNurseID(even) {
 
     this.nurseid = even.target.value;
-    
+
     var list = this.nurselist1.filter(x => x.nurseID == this.nurseid)
     // this.nursename = list[0].nurseName,
     //   this.hospitalid = list[0].hospitalClinicID,
@@ -126,12 +143,12 @@ export class IndependentSubscriptionsComponent implements OnInit {
   public GetphysioID(even) {
 
     this.physioid = even.target.value;
-    
+
     // var list1 = this.dummphysiolist.filter(x => x.physiotherapyID == this.physioid)
     // this.physihospitalid = list1[0].id,
     //   this.hospitalid = list1[0].hospitalClinicID,
     //   this.hospitalname = list1[0].hospital_ClinicName
-    
+
     // this.gethospitals();
   }
 
@@ -143,7 +160,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
   public contractenddate: any;
 
   public Getsubscriptontype() {
-    
+
     this.appointmentpercentage = 0;
     this.monthlysubription = 0;
   }
@@ -228,7 +245,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
         }
       })
     }
-    
+
   }
 
 
@@ -256,7 +273,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
         }
       })
     }
-    
+
   }
 
 

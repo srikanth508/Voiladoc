@@ -6,7 +6,7 @@
   <br />
   <div class="row ">
     <div class="col-lg-3">
-      <h5>REGISTRED USERS</h5>
+      <h5>{{labels[0].registeredusers}}</h5>
     </div>
     <div class="col-lg-7"></div>
     <div class="col-lg-2">
@@ -22,29 +22,29 @@
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{labels[0].search}}" />
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)" [(ngModel)]="typeid" name="typeid">
-        <option value="0">Select Type</option>
-        <option value="1">Hospital</option>
-        <option value="2">Clinic</option>
-        <option value="3">Independent Doctor</option>
-        <option value="4">Independent Nurse</option>
-        <option value="5">Independent Physiotherapist</option>
-        <option value="6">Independent Midwife</option>
-        <option value="7">Pharmacy</option>
-        <option value="8">Diagnostic Center</option>
+        <option value="0">{{labels[0].selecttype}}</option>
+        <option value="1">{{labels[0].hospitlal}}</option>
+        <option value="2">{{labels[0].clinic}}</option>
+        <option value="3">{{labels[0].inddoctor}}</option>
+        <option value="4">{{labels[0].indnurse}}</option>
+        <option value="5">{{labels[0].indphysio}}</option>
+        <option value="6">{{labels[0].indmidiwfe}}</option>
+        <option value="7">{{labels[0].pharmcy}}</option>
+        <option value="8">{{labels[0].diagnosticenter}}</option>
       </select>
     </div>
     <div class="col-lg-1">
 
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
   </div>
   <br />
@@ -55,13 +55,15 @@
           <tr>
             <th>Date</th>
             <th>Type</th>
-            <th>User Name</th>
-            <th>Phone Number</th>
+            <th>{{labels[0].nom}}</th>
+            <th>{{labels[0].phoneNo}}</th>
             <th *ngIf="typeid!='1'&&typeid!='2'&&typeid!='7'&&typeid!='8'">Gender</th>
             <th>Email</th>
-            <th>Address</th>
-            <th>Details</th>
-            <th>Status</th>
+            <th *ngIf="languageid=='1'">Address</th>
+            <th *ngIf="languageid=='6'">Adresse</th>
+            <th *ngIf="languageid=='1'">Details</th>
+            <th *ngIf="languageid=='6'">Dossier</th>
+            <th>{{labels[0].status}}</th>
             <th>Actions</th>
           </tr>
           <tr *ngFor="let list of RegisteredList|filter:search">
@@ -80,11 +82,11 @@
                 (click)="GetViewdetails(list)">
             </td>
             <td>
-              <span *ngIf="list.rejected=='0'&&list.approved=='0'" style="color: green;">Waiting For Approvals</span>
+              <span *ngIf="list.rejected=='0'&&list.approved=='0'" style="color: green;">{{labels[0].waitingforpproval}}</span>
               <!-- <span *ngIf="list.rejected=='1'" style="color: red;">Rejected</span> -->
             </td>
             <td>
-              <ng-template #tipcontent3>Approved</ng-template>
+              <ng-template #tipcontent3>{{labels[0].approve}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
                 <img src="assets/Images/acc.png" *ngIf="list.approved=='0'&&list.rejected=='0'" style="height:20px;"
                   (click)="GetApproveRegistratuions(list)" />
@@ -116,7 +118,8 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+        <h5 class="modal-title" *ngIf="languageid=='1'" id="exampleModalLabel">Details</h5>
+        <h5 class="modal-title" *ngIf="languageid=='6'" id="exampleModalLabel">Dossier</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -127,7 +130,7 @@
             <div *ngIf="typeids=='1'">
               <div class="row">
                 <div class="col-lg-4">
-                  <label>Hospital name : </label>
+                  <label>{{labels3[0].hospitalClinicName}} : </label>
                 </div>
                 <div class="col-lg-4">
                   {{hospitalname}}
@@ -137,7 +140,7 @@
             <div *ngIf="typeids=='2'">
               <div class="row">
                 <div class="col-lg-4">
-                  <label>Clinic name : </label>
+                  <label>{{labels3[0].hospitalClinicName}} : </label>
                 </div>
                 <div class="col-lg-4">
                   {{hospitalname}}
@@ -146,7 +149,7 @@
             </div>
             <div class="row">
               <div class="col-lg-4">
-                <label>Phone no : </label>
+                <label>{{labels3[0].hospitalPhoneNo}} : </label>
               </div>
               <div class="col-lg-4">
                 {{phoneno}}
@@ -155,7 +158,7 @@
 
             <div class="row">
               <div class="col-lg-4">
-                <label>Contact Person Name : </label>
+                <label>{{labels3[0].contactPersonName}} : </label>
               </div>
               <div class="col-lg-4">
                 {{contactpersonname}}
@@ -163,7 +166,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Contact Person Phone no : </label>
+                <label>{{labels3[0].contactPersonPhoneNumber}} : </label>
               </div>
               <div class="col-lg-4">
                 {{contactpersonphno}}
@@ -171,7 +174,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Email : </label>
+                <label>{{labels3[0].email}} : </label>
               </div>
               <div class="col-lg-4">
                 {{email}}
@@ -179,7 +182,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Address : </label>
+                <label>{{labels3[0].address}} : </label>
               </div>
               <div class="col-lg-4">
                 {{address}}
@@ -187,7 +190,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Website : </label>
+                <label>{{labels3[0].website}} : </label>
               </div>
               <div class="col-lg-4">
                 {{website}}
@@ -195,7 +198,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Year Established : </label>
+                <label>{{labels3[0].yearEstablished}} : </label>
               </div>
               <div class="col-lg-4">
                 {{yearEstablished}}
@@ -204,7 +207,7 @@
 
             <div class="row">
               <div class="col-lg-4">
-                <label>Description : </label>
+                <label>{{labels3[0].description}} : </label>
               </div>
               <div class="col-lg-4">
                 {{description}}
@@ -223,7 +226,7 @@
           <div *ngIf="typeids=='3'">
             <div class="row">
               <div class="col-lg-4">
-                <label>Doctor name : </label>
+                <label>{{labels1[0].doctorName}} : </label>
               </div>
               <div class="col-lg-4">
                 {{doctorname}}
@@ -231,7 +234,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Phone no : </label>
+                <label>{{labels1[0].phoneNo}} : </label>
               </div>
               <div class="col-lg-4">
                 {{phoneno}}
@@ -239,7 +242,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Email : </label>
+                <label>{{labels1[0].email}} : </label>
               </div>
               <div class="col-lg-4">
                 {{email}}
@@ -247,7 +250,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Address : </label>
+                <label>{{labels1[0].address}} : </label>
               </div>
               <div class="col-lg-4">
                 {{address}}
@@ -255,7 +258,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Experience : </label>
+                <label>{{labels1[0].experience}} : </label>
               </div>
               <div class="col-lg-4">
                 {{experience}}
@@ -263,7 +266,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Doctor type : </label>
+                <label>{{labels1[0].doctorType}} : </label>
               </div>
               <div class="col-lg-4">
                 <label *ngIf="doctortype=='1'">Local</label>
@@ -272,7 +275,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Speak languages : </label>
+                <label>{{labels1[0].speaklanguages}} : </label>
               </div>
               <div class="col-lg-4">
                 {{speaklanguages}}
@@ -280,7 +283,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Registration No : </label>
+                <label>{{labels1[0].registrationNo}} : </label>
               </div>
               <div class="col-lg-4">
                 {{regno}}
@@ -288,7 +291,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Registration Council : </label>
+                <label>{{labels1[0].registrationCouncil}} : </label>
               </div>
               <div class="col-lg-4">
                 {{regcouncil}}
@@ -296,7 +299,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Slot duration : </label>
+                <label>{{labels1[0].slotDuration}} : </label>
               </div>
               <div class="col-lg-4">
                 <label *ngIf="slotdurationid=='1'">15 Minutes</label>
@@ -309,7 +312,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Colleage : </label>
+                <label>{{labels1[0].college}} : </label>
               </div>
               <div class="col-lg-4">
                 {{colleage}}
@@ -317,7 +320,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Other experiences : </label>
+                <label>{{labels1[0].otherExperiences}} : </label>
               </div>
               <div class="col-lg-4">
                 {{otherexp}}
@@ -325,7 +328,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Photo : </label>
+                <label>{{labels1[0].photo}} : </label>
               </div>
               <div class="col-lg-4">
                 <img src="{{photo}}" style="width: 100px;">
@@ -333,7 +336,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Medical proof : </label>
+                <label>{{labels1[0].medicalRegistrationProof}} : </label>
               </div>
               <div class="col-lg-4">
                 <img src="{{mediclproof}}" style="width: 100px;">
@@ -344,7 +347,7 @@
           <div *ngIf="typeids=='4'">
             <div class="row">
               <div class="col-lg-4">
-                <label>Nurse name: </label>
+                <label>{{labels2[0].name}} : </label>
               </div>
               <div class="col-lg-4">
                 {{nursename}}
@@ -352,7 +355,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Phone no : </label>
+                <label>{{labels2[0].phoneNo}} : </label>
               </div>
               <div class="col-lg-4">
                 {{phoneno}}
@@ -360,7 +363,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Email : </label>
+                <label>{{labels2[0].emailID}} : </label>
               </div>
               <div class="col-lg-4">
                 {{email}}
@@ -368,7 +371,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Address : </label>
+                <label>{{labels2[0].address}} : </label>
               </div>
               <div class="col-lg-4">
                 {{address}}
@@ -376,7 +379,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Experience : </label>
+                <label>{{labels2[0].experience}} : </label>
               </div>
               <div class="col-lg-4">
                 {{experience}}
@@ -385,7 +388,7 @@
 
             <div class="row">
               <div class="col-lg-4">
-                <label>Speak languages : </label>
+                <label>{{labels2[0].spokenLanguages}} : </label>
               </div>
               <div class="col-lg-4">
                 {{speaklanguages}}
@@ -409,7 +412,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Medical proof : </label>
+                <label>{{labels2[0].identityProof}} : </label>
               </div>
               <div class="col-lg-4">
                 <img src="{{mediclproof}}" style="width: 100px;">
@@ -421,7 +424,7 @@
           <div *ngIf="typeids=='5'">
             <div class="row">
               <div class="col-lg-4">
-                <label>Nurse name: </label>
+                <label>{{labels2[0].name}} : </label>
               </div>
               <div class="col-lg-4">
                 {{nursename}}
@@ -429,7 +432,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Phone no : </label>
+                <label>{{labels2[0].phoneNo}} : </label>
               </div>
               <div class="col-lg-4">
                 {{phoneno}}
@@ -437,7 +440,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Email : </label>
+                <label>{{labels2[0].emailID}} : </label>
               </div>
               <div class="col-lg-4">
                 {{email}}
@@ -445,7 +448,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Address : </label>
+                <label>{{labels2[0].address}} : </label>
               </div>
               <div class="col-lg-4">
                 {{address}}
@@ -453,7 +456,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Experience : </label>
+                <label>{{labels2[0].experience}} : </label>
               </div>
               <div class="col-lg-4">
                 {{experience}}
@@ -462,7 +465,7 @@
 
             <div class="row">
               <div class="col-lg-4">
-                <label>Speak languages : </label>
+                <label>{{labels2[0].spokenLanguages}} : </label>
               </div>
               <div class="col-lg-4">
                 {{speaklanguages}}
@@ -486,7 +489,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Medical proof : </label>
+                <label>{{labels2[0].identityProof}} : </label>
               </div>
               <div class="col-lg-4">
                 <img src="{{mediclproof}}" style="width: 100px;">
@@ -497,7 +500,7 @@
           <div *ngIf="typeids=='6'">
             <div class="row">
               <div class="col-lg-4">
-                <label>Nurse name: </label>
+                <label>{{labels2[0].name}} : </label>
               </div>
               <div class="col-lg-4">
                 {{nursename}}
@@ -505,7 +508,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Phone no : </label>
+                <label>{{labels2[0].phoneNo}} : </label>
               </div>
               <div class="col-lg-4">
                 {{phoneno}}
@@ -513,7 +516,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Email : </label>
+                <label>{{labels2[0].emailID}} : </label>
               </div>
               <div class="col-lg-4">
                 {{email}}
@@ -521,7 +524,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Address : </label>
+                <label>{{labels2[0].address}} : </label>
               </div>
               <div class="col-lg-4">
                 {{address}}
@@ -529,7 +532,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Experience : </label>
+                <label>{{labels2[0].experience}} : </label>
               </div>
               <div class="col-lg-4">
                 {{experience}}
@@ -538,7 +541,7 @@
 
             <div class="row">
               <div class="col-lg-4">
-                <label>Speak languages : </label>
+                <label>{{labels2[0].spokenLanguages}} : </label>
               </div>
               <div class="col-lg-4">
                 {{speaklanguages}}
@@ -562,7 +565,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>Medical proof : </label>
+                <label>{{labels2[0].identityProof}} : </label>
               </div>
               <div class="col-lg-4">
                 <img src="{{mediclproof}}" style="width: 100px;">

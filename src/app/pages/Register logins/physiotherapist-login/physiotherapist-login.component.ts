@@ -21,7 +21,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummphysiolist: any;
-
+  public search: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -38,7 +38,8 @@ export class PhysiotherapistLoginComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -58,7 +59,8 @@ export class PhysiotherapistLoginComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -75,6 +77,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -105,41 +108,41 @@ export class PhysiotherapistLoginComponent implements OnInit {
       // }
       // else {
 
-        var entity = {
-          'PhysiotherapistID': this.physioid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        // this.username = '';
-        // this.password = '';
-        this.docservice.InsertPhysiotherapistLogin(entity).subscribe(data => {
+      var entity = {
+        'PhysiotherapistID': this.physioid,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      // this.username = '';
+      // this.password = '';
+      this.docservice.InsertPhysiotherapistLogin(entity).subscribe(data => {
 
-          if (data != 0) {
-            if (this.languageid == 1) {
-              this.GetPhysiotherapistLoginAdmin()
-              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              location.href = "#/PhysiotherapistLoginDashboard"
-              this.pp = 0;
-            }
-            else {
-              this.GetPhysiotherapistLoginAdmin()
-              Swal.fire('', 'Mis à jour avec succés', 'success');
-              location.href = "#/PhysiotherapistLoginDashboard"
-              this.pp = 0;
-            }
+        if (data != 0) {
+          if (this.languageid == 1) {
+            this.GetPhysiotherapistLoginAdmin()
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href = "#/PhysiotherapistLoginDashboard"
+            this.pp = 0;
           }
           else {
-            if (this.languageid == 1) {
-              Swal.fire("Physiotherapist Login Already Exists");
-              location.href = "#/PhysiotherapistLoginDashboard"
-            }
-            else {
-              Swal.fire("Cet identifiant existe déjà");
-              location.href = "#/PhysiotherapistLoginDashboard"
-            }
+            this.GetPhysiotherapistLoginAdmin()
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href = "#/PhysiotherapistLoginDashboard"
+            this.pp = 0;
           }
-        })
-      }
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire("Physiotherapist Login Already Exists");
+            location.href = "#/PhysiotherapistLoginDashboard"
+          }
+          else {
+            Swal.fire("Cet identifiant existe déjà");
+            location.href = "#/PhysiotherapistLoginDashboard"
+          }
+        }
+      })
+    }
     // }
   }
 

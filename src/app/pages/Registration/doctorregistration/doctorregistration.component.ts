@@ -370,6 +370,7 @@ export class DoctorregistrationComponent implements OnInit {
         this.attachmentsurl1[0] = 'C:\\MarocAPI\\Images\\DocPhoto\\Doctor.jpg'
       }
       this.spinner.show();
+      // var doc = 'Dr.' + '' + this.doctorname
       var entity = {
         'DoctorName': this.doctorname,
         'MobileNumber': this.phoneno,
@@ -384,7 +385,7 @@ export class DoctorregistrationComponent implements OnInit {
         'Preffered': this.prefer,
         'GenderID': Number(this.gender),
         'CityID': this.cityid,
-        'LanguageID': '1',
+        'LanguageID': this.languageid,
         'IsChatEnabled': Number(this.chat),
         'HomeVisit': Number(this.homevisit),
         'AreaID': this.areaid,
@@ -428,8 +429,16 @@ export class DoctorregistrationComponent implements OnInit {
 
         }
         else {
+          if(this.languageid==1)
+        {
           Swal.fire('Doctor Name', 'Already Exists');
           this.spinner.hide();
+        }
+        else{
+          Swal.fire('Le nom du médecin', 'existe déjà.');
+          this.spinner.hide();
+        }
+         
           // location.href = "#/Docdash";
         }
       })

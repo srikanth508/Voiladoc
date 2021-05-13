@@ -9,8 +9,10 @@
       <div style="background-color: #322b6b;padding: 12%;border-radius: 20px;">
         <form #loginForm="ngForm">
           <h3
-            style="border-radius: 10px;padding-top: 3%;height:100px;width:100%;background-color: aliceblue;color: aliceblue;">
-            <img src="assets/Images/logo.png" style="margin-top:2px;">
+            style="border-radius: 10px;padding-top: 3%;height:114px;width:100%;background-color: white;color: aliceblue;">
+            <img src="assets/Images/logo.png" style="margin-top: -14px;width: 29%;">
+            <h6 style="color: #322b6b;margin-top: -9px;
+            font-size: 10px;">Plateforme d'optimisation opérationnelle. </h6>
           </h3>
           <br>
           <!-- <select class="form-control" style="hei  ght:40px;" (change)="GetCountryID($event)">
@@ -18,7 +20,7 @@
             <option *ngFor="let cou of countrylist" value={{cou.countryID}}>{{cou.countryName}}</option>
           </select><br> -->
           <!-- *ngIf="countryid!=null" -->
-          <div >
+          <div>
             <select class="form-control" style="height:40px;" (change)="GetLanguageID($event)">
               <option value="" selected>Select Language</option>
               <option *ngFor="let lang of languagelist" value={{lang.id}}>{{lang.languageName}}</option>
@@ -32,20 +34,23 @@
             </select>
             <br>
             <input type="text" [(ngModel)]="pinno" style="height:40px;" name="pinno" required
-            placeholder="{{labels[0].pinno}}" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-          <br>
+              placeholder="{{labels[0].pinno}}" class="form-control"
+              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            <br>
             <input type="text" [(ngModel)]="uname" style="height:40px;" name="uname" required
               placeholder="{{labels[0].userName}}" class="form-control">
             <br>
-    
-            <input type="password" [(ngModel)]="pwd" *ngIf="Showpass=='1'"  style="height:40px;" name="pwd" required
-            placeholder="{{labels[0].password}}" class="form-control">              
-            <span style="position:absolute;right: 83px;top: 517px;"  *ngIf="Showpass=='1'" (click)="hidepassord()" class="fa fa-eye-slash"></span>
 
-            <input type="text" [(ngModel)]="pwd"  *ngIf="Showpass=='0'" style="height:40px;" name="pwd" required
-            placeholder="{{labels[0].password}}" class="form-control">              
-            <span style="position:absolute;right: 83px;top: 517px;"  *ngIf="Showpass=='0'"  (click)="showpassword()" class="fa fa-eye"></span>
-         
+            <input type="password" [(ngModel)]="pwd" *ngIf="Showpass=='1'" style="height:40px;" name="pwd" required
+              placeholder="{{labels[0].password}}" class="form-control">
+            <span style="position:absolute;right: 83px;top: 531px;" *ngIf="Showpass=='1'" (click)="hidepassord()"
+              class="fa fa-eye-slash"></span>
+
+            <input type="text" [(ngModel)]="pwd" *ngIf="Showpass=='0'" style="height:40px;" name="pwd" required
+              placeholder="{{labels[0].password}}" class="form-control">
+            <span style="position:absolute;right: 83px;top: 531px;" *ngIf="Showpass=='0'" (click)="showpassword()"
+              class="fa fa-eye"></span>
+
             <!-- <input type="text"   [(ngModel)]="otp" style="height:40px;" name="otp" required placeholder="Password"
             class="form-control"> -->
             <br>
@@ -59,4 +64,3 @@
     </div>
   </div>
 </div>
-

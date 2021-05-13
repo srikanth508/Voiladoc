@@ -26,8 +26,8 @@
         [minDate]="today" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="Sélecteur de date"
-        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="todaydatess" name="todaydatess"
-        (ngModelChange)="GetDoctorDates($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
+        (bsValueChange)="GetDoctorDates($event)"    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
     <div class="col-lg-2">
       <span>{{labels[0].changeSchedule}} </span>
@@ -229,7 +229,7 @@
           <div class="col-lg-1">
 
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <span *ngIf="appointmentypeid!=4&&appointmentypeid!=6"> {{labels[0].fees}} :</span>
           </div>
           <div class="col-lg-6">
@@ -255,10 +255,6 @@
 </div>
 
 
-
-
-
-
 <div id="EditDayWiseSlots" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content" style="width: 600px;">
@@ -269,7 +265,6 @@
       </div>
       <div class="modal-body" style="width: 600px;">
         <div class="container-fluid">
-
           <div class="row">
             <div class="col-lg-3">
               <span>Date </span>
@@ -277,12 +272,14 @@
             <div class="col-lg-6">
               <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
                 [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="daychangedate"
-                (ngModelChange)="GetdaychangeDate($event)" [minDate]="today"
+                (ngModelChange)="GetdaychangeDate($event)" [minDate]="today" [(bsValue)]="myDateValue"
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
               <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="daychangedate1"
-                (ngModelChange)="GetdaychangeDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
+                (bsValueChange)="GetdaychangeDate($event)"   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                <!-- [(ngModel)]="daychangedate1" -->
+                <!-- [(bsValue)]="myDateValue" -->
             </div>
           </div><br>
           <div class="row">
@@ -309,7 +306,7 @@
             <div class="col-lg-1">
 
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <span *ngIf="Daywiseappointmentid!=4&&Daywiseappointmentid!=6"> {{labels[0].fees}} :</span>
             </div>
             <div class="col-lg-6">
@@ -354,13 +351,14 @@
             <div class="col-lg-6">
               <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
                 [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="timechangedate"
-                (ngModelChange)="GetTimewisechangedate($event)" [minDate]="today"
+                (ngModelChange)="GetTimewisechangedate($event)" [minDate]="today" [(bsValue)]="timechangedate"
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
               <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="timechangedate1"
-                (ngModelChange)="GetTimewisechangedate($event)" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
+                (bsValueChange)="GetTimewisechangedate($event)"     [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 bsDatepicker>
+                <!-- [(ngModel)]="timechangedate1" -->
             </div>
           </div><br>
           <div class="row">
@@ -405,7 +403,7 @@
             <div class="col-lg-1">
 
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <span *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6">{{labels[0].fees}} :</span>
             </div>
             <div class="col-lg-6">

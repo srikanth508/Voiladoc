@@ -32,6 +32,14 @@
       </select>
     </div>
     <div class="col-lg-3">
+      <!-- <select class="form-control" (chnge)="GetDoctorRating($event)">
+        <option>Select Doctor Rating</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select> -->
     </div>
     <div class="col-lg-3" *ngIf="languageid==1" style="text-align: end;">
       <label> Count : {{doctorlist.length}}</label>
@@ -49,14 +57,16 @@
             <th>{{labels[0].doctorName}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
-            <th>{{labels[0].registeredDate}}</th>
+            <!-- <th>{{labels[0].registeredDate}}</th> -->
             <th>{{labels[0].country}}</th>
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].registrationNo}}</th>
-            <th>{{labels[0].department}}</th> 
+            <th>{{labels[0].department}}</th>
             <th>{{labels[0].address}}</th>
-            <th>Hospital/Clinic</th>
+            <th>Type</th>
+            <th>{{labels[0].doctorrating}}</th>
+            <th>{{labels[0].apprating}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr
@@ -65,7 +75,7 @@
             <td>{{details.doctorName}}</td>
             <td>{{details.mobileNumber}}</td>
             <td>{{details.emailID}}</td>
-            <td>{{details.registeredDate}}</td>
+            <!-- <td>{{details.registeredDate}}</td> -->
             <td>{{details.short}}</td>
             <td>{{details.city}}</td>
             <td>{{details.areaName}}</td>
@@ -73,10 +83,13 @@
             <td>{{details.departmentname}}</td>
             <td>{{details.address}}</td>
             <td>{{details.hospital_ClinicName}}</td>
+            <td>{{details.doctorRating}}</td>
+            <td>{{details.appRating}}</td>
             <td style="width: 100px;">
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" *ngIf="showdelete=='1'" style="width: 18px;" (click)="deletedoctorregistration(details.id)">
+                <img src="assets/Images/dell.png" *ngIf="showdelete=='1'" style="width: 18px;"
+                  (click)="deletedoctorregistration(details.id)">
               </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" *ngIf="details.editiconShow=='0'&&showeditbutton=='1'"
@@ -102,5 +115,3 @@
     </pagination-controls>
   </div><br><br>
 </div><br><br><br>
-
-

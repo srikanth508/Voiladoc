@@ -26,13 +26,14 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
     };
     this.Getsponrshipofhomepage();
     this.languageid = localStorage.getItem('LanguageID');
+    this.getlanguage()
   }
   ApppageSponsrships: any
   public Getsponrshipofhomepage() {
-   
+
     this.docservice.GetAppPageSponsorship().subscribe(
       data => {
-       
+
         let temp: any = data;
         this.ApppageSponsrships = temp;
       }, error => {
@@ -41,10 +42,10 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
   }
   PhotoUrl
   public GetPhotoUrl(id) {
-   
+
     this.docservice.GetAppPageSponsorship().subscribe(
       data => {
-       
+
         let temp: any = data;
         let temp1: any = temp.filter(x => x.id == id);
         this.PhotoUrl = temp1[0].photoURL;
@@ -55,15 +56,16 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
   startdate
   enddate
   selectedDate(data) {
-   
+
     //  var sdate = data.split('-')
     //  this.startdate = sdate[0]
     //  this.enddate = sdate[1];
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
+
     this.docservice.GetAppPageSponsorshipByDate(this.startdate, this.enddate).subscribe(
       data => {
-       
+
         let temp: any = data;
         this.ApppageSponsrships = temp;
       }, error => {
@@ -74,7 +76,7 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
 
 
   public DeleteServiceMaster(id) {
-   
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You Want to Delete This Service!",
@@ -102,6 +104,20 @@ export class AppPageSponsorshipDashboardComponent implements OnInit {
   }
 
 
+  SelectLabel
+  search
+  labels: any;
+  public getlanguage() {
+    this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search
+      }, error => {
+      }
+    )
+  }
 
 }
 

@@ -7,11 +7,12 @@
   </div>
 </div>
 <br>
-
 <div class="container-fluid card card:hover">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
-      <label>Patient Name</label>
+      <label *ngIf="languageid=='1'">Patient name :</label>
+      <label *ngIf="languageid=='6'">Nom du patient :</label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <!-- <select class="form-control" (change)="GetPatientID($event)">
@@ -26,6 +27,7 @@
   <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].email}} : </label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <input type="text" class="form-control" disabled [(ngModel)]="email" name="email">
@@ -35,6 +37,7 @@
   <div class="row">
     <div class="col-lg-3">
       <label>{{labels[0].phoneNo}} : </label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <input type="text" class="form-control" disabled [(ngModel)]="mobileno" name="mobileno">
@@ -44,6 +47,7 @@
   <div class="row">
     <div class="col-lg-3">
       <label id="imp">{{labels[0].selectappointmentby}} : </label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <select class="form-control" (change)="GetTypeID($event)">
@@ -59,6 +63,7 @@
   <div class="row">
     <div class="col-lg-3">
       <label id="imp">{{labels[0].appointmentdate}} : </label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
@@ -73,6 +78,7 @@
   <div class="row">
     <div class="col-lg-3">
       <label id="imp">{{labels[0].appointmenttime}} : </label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <input type="time" class="form-control" [(ngModel)]="appointmenttime" name="appointmenttime" (change)="GetAppointmentTimeChange($event)">
@@ -159,14 +165,15 @@
   <div class="row">
     <div class="col-lg-3">
       <label class="DEPARTMENT_label"> {{labels[0].paymenttype}} :</label>
+      <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <select class="form-control"  (change)="GetPaymentTypeID($event)">
         <option value="0" >{{labels[0].paymenttype}}</option>
-        <!-- <option *ngIf="languageid=='1'" value="4">Cash</option> -->
-        <option  *ngIf="languageid=='1'" value="2">Credit Card / Debit Card Using Swipe Machine</option>
-        <!-- <option  *ngIf="languageid=='6'" value="4">Espèces</option> -->
-        <option  *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
+        <option *ngIf="languageid=='1'" value="4">Cash</option>
+        <option  *ngIf="languageid=='1'" disabled value="2">Credit Card / Debit Card Using Swipe Machine</option>
+        <option  *ngIf="languageid=='6'" value="4">Cash</option>
+        <option  *ngIf="languageid=='6'" disabled value="2">Carte de débit/crédit’</option>
         <!-- <option value="3">Debit Card</option> -->
       </select>
     </div>

@@ -1,13 +1,14 @@
+<br>
 <div class="container-fluid card card:hover ">
   <div class="row headerspace">
     <div class="col-lg-3">
-      <h5>Articles</h5>
+      <h5>{{labels[0].articles}}</h5>
     </div>
     <div class="col-lg-7">
 
     </div>
     <div class="col-lg-2">
-      <button type="button" routerLink="/Writearticle" class="btn btncolor">Write article</button>
+      <button type="button" routerLink="/Writearticle" class="btn btncolor">{{labels[0].writeArticle}}</button>
     </div>
   </div>
 </div><br>
@@ -30,16 +31,16 @@
         <thead>
           <tr>
             <th>Photo</th>
-            <th>Doctor Name</th>
-            <th>Category</th>
-            <th>Topic</th>
-            <th>Sub Topic</th>
+            <!-- <th>Doctor Name</th> -->
+            <th>{{labels[0].category}}</th>
+            <th>{{labels[0].topic}}</th>
+            <th>{{labels[0].subTopic}}</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
           <tr *ngFor="let article of articlelist">
             <td><img src="{{article.photo}}" style="height:40px;width:40px"></td>
-            <td>{{article.doctorName}}</td>
+            <!-- <td>{{article.doctorName}}</td> -->
             <td>{{article.category}}</td>
             <td>{{article.topic}}</td>
             <td>{{article.subTopic}}</td>

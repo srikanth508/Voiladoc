@@ -21,7 +21,7 @@ export class MidwifeLoginComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummmidwifelist: any;
-
+  public search: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -40,7 +40,8 @@ export class MidwifeLoginComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -60,7 +61,8 @@ export class MidwifeLoginComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -76,6 +78,7 @@ export class MidwifeLoginComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -108,41 +111,41 @@ export class MidwifeLoginComponent implements OnInit {
       // }
       // else {
 
-        var entity = {
-          'MidWiveID': this.midewifeid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        // this.username = '';
-        // this.password = '';
-        this.docservice.InsertMidWivesLogin(entity).subscribe(data => {
+      var entity = {
+        'MidWiveID': this.midewifeid,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      // this.username = '';
+      // this.password = '';
+      this.docservice.InsertMidWivesLogin(entity).subscribe(data => {
 
-          if (data != 0) {
-            if (this.languageid == 1) {
-              this.GetMidWivesLoginAdmin();
-              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              this.pp = 0;
-              location.href = "#/MidwifeLoginDashboard"
-            }
-            else {
-              this.GetMidWivesLoginAdmin();
-              Swal.fire('', 'Mis à jour avec succés', 'success');
-              this.pp = 0;
-              location.href = "#/MidwifeLoginDashboard"
-            }
+        if (data != 0) {
+          if (this.languageid == 1) {
+            this.GetMidWivesLoginAdmin();
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            this.pp = 0;
+            location.href = "#/MidwifeLoginDashboard"
           }
           else {
-            if (this.languageid == 1) {
-              Swal.fire("Mid Wife Login Already Exists");
-              location.href = "#/MidwifeLoginDashboard"
-            }
-            else {
-              Swal.fire("Cet identifiant existe déjà");
-              location.href = "#/MidwifeLoginDashboard"
-            }
+            this.GetMidWivesLoginAdmin();
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            this.pp = 0;
+            location.href = "#/MidwifeLoginDashboard"
           }
-        })
-      }
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire("Mid Wife Login Already Exists");
+            location.href = "#/MidwifeLoginDashboard"
+          }
+          else {
+            Swal.fire("Cet identifiant existe déjà");
+            location.href = "#/MidwifeLoginDashboard"
+          }
+        }
+      })
+    }
     // }
   }
 

@@ -91,7 +91,7 @@
     </div>
 
     <div class="col-lg-2" *ngIf="appointmenttype=='1'">
-      <input type="text" class="form-control" placeholder="No of Appointments" [(ngModel)]="homenoofappointments"
+      <input type="text" class="form-control" placeholder="{{labels[0].noofappointments}}" [(ngModel)]="homenoofappointments"
         name="homenoofappointments">
     </div>
 
@@ -109,7 +109,7 @@
       </select>
     </div>
     <div class="col-lg-2" *ngIf="appointmenttype=='2'">
-      <input type="text" class="form-control" placeholder="No of Appointments" [(ngModel)]="dianoofappointments"
+      <input type="text" class="form-control" placeholder="{{labels[0].noofappointments}}" [(ngModel)]="dianoofappointments"
         name="dianoofappointments">
     </div>
 

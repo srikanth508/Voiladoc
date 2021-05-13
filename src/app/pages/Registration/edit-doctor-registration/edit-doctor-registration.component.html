@@ -3,8 +3,7 @@
 </ngx-spinner>
 <br>
 <div class="container-fluid card card:hover">
-  <br>
-  <div class="row ">
+  <div class="row headerspace ">
     <div class="col-lg-3">
       <h5>{{labels[0].myProfile}}</h5>
     </div>
@@ -19,29 +18,29 @@
           <form #doctorForm="ngForm">
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].doctorName}}:</label>
+                <label>{{labels[0].doctorName}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" disabled [(ngModel)]="doctorname" name="doctorname" class="form-control">
+                <input type="text"  [(ngModel)]="doctorname" name="doctorname" class="form-control">
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].phoneNo}}:</label>
+                <label>{{labels[0].phoneNo}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
                 <input type="text" maxlength="13" [(ngModel)]="phno" name="phno" class="form-control"
-                readonly  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
               <br>
             </div>
             <br>
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].email}}:</label>
+                <label>{{labels[0].email}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
@@ -61,9 +60,10 @@
               </div>
             </div>
             <br>
+           
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].address}}:</label>
+                <label>{{labels[0].address}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
@@ -111,7 +111,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].department}}:</label>
+                <label>{{labels[0].department}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
@@ -127,9 +127,9 @@
             <br>
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].experience}}:</label>
+                <label>{{labels[0].experience}} :</label>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6"> 
                 <input type="text" maxlength="2" [(ngModel)]="experience" name="experience" class="form-control"
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
@@ -147,7 +147,7 @@
             </div><br> -->
             <div class="row">
               <div class="col-lg-4">
-                <label>{{labels[0].description}}:</label>
+                <label>{{labels[0].description}} :</label>
 
               </div>
               <div class="col-lg-6">
@@ -175,13 +175,54 @@
                 <input type="radio" name="mallprcise" [(ngModel)]="mallprcise" [value]="false">{{labels[0].no}}
               </div>
             </div><br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="Email_label">{{labels[0].gender}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="gender" [(ngModel)]="gender" required (click)="GetGenderID($event)" [value]="1">
+                {{labels[0].male}} &nbsp;
+                <input type="radio" name="gender" [(ngModel)]="gender" required (click)="GetGenderID($event)" [value]="2">
+                {{labels[0].female}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="City_label">{{labels[0].doctorType}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <!-- <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="doctortyplist" [settings]="doctypeee"
+                  (onSelect)="GetDoctypeID($event)">
+                </ng-multiselect-dropdown> -->
+  
+                <select class="form-control" (change)="GetDoctypeID($event)" [(ngModel)]="doctypeid" name="doctypeid">
+                  <option value="0">Select</option>
+                 <option *ngFor="let doctype of doctortyplist" value="{{doctype.id}}">{{doctype.type}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="Email_label">{{labels[0].referred}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="referbit" [(ngModel)]="referbit" [value]="1">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="referbit" [(ngModel)]="referbit" [value]="0">{{labels[0].no}}
+              </div>
+            </div>
+            <br>
             <div class="row">
               <div class="col-lg-4">
                 <label class="DEPARTMENT_label">{{labels[0].slotDuration}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <select class="form-control" required (change)="GetSlotDurationID($event)" [(ngModel)]="slotid" name="slotid">
+                <select class="form-control" disabled required (change)="GetSlotDurationID($event)" [(ngModel)]="slotid" name="slotid">
                   <option value="" >{{labels[0].select}}</option>
                   <option value="1">15 Minutes</option>
                   <option value="2">30 Minutes</option>
@@ -274,7 +315,7 @@
             <div class="row">
 
               <div class="col-lg-5">
-                <label>{{labels[0].registrationNo}}:</label>
+                <label>{{labels[0].registrationNo}} :</label>
 
               </div>
               <div class="col-lg-5">
@@ -286,7 +327,7 @@
             <br>
             <div class="row">
               <div class="col-lg-5">
-                <label>{{labels[0].registrationCouncil}}:</label>
+                <label>{{labels[0].registrationCouncil}} :</label>
 
               </div>
               <div class="col-lg-5">
@@ -298,7 +339,7 @@
             <br>
             <div class="row">
               <div class="col-lg-5">
-                <label>{{labels[0].registrationYear}}:</label>
+                <label>{{labels[0].registrationYear}} :</label>
 
               </div>
               <div class="col-lg-5">
@@ -344,7 +385,7 @@
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label class="DEPARTMENT_label">{{labels[0].degree}}:</label>
+            <label class="DEPARTMENT_label">{{labels[0].degree}} :</label>
             <!-- <span class="required">*</span> -->
           </div>
           <div class="col-lg-4">
@@ -356,7 +397,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label class="">{{labels[0].college}}:</label>
+            <label class="">{{labels[0].college}} :</label>
             <!-- <span class="required">*</span> -->
           </div>
           <div class="col-lg-4">
@@ -367,7 +408,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-3">
-            <label class="REGISTRATION NO:">{{labels[0].yearOfPassing}}:</label>
+            <label class="REGISTRATION NO:">{{labels[0].yearOfPassing}} :</label>
             <!-- <span class="required">*</span> -->
           </div>
           <div class="col-lg-4">

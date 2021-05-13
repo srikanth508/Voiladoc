@@ -33,4 +33,37 @@
          height:70px;
          width:100%;
        }
+       .h5{
+           text-transform: capitalize;
+       }
    
+
+
+       
+label::first-letter{
+    text-transform: uppercase;
+  }
+  label{
+    text-transform: lowercase;
+  }
+
+  input::first-letter{
+    text-transform: uppercase;
+  }
+
+
+  textarea::first-letter{
+    text-transform: uppercase;
+  }
+
+.textarea{
+  text-transform: lowercase; 
+}
+
+input:placeholder-shown {
+  text-transform: lowercase; 
+}
+
+#imp{
+  text-transform: none;
+}

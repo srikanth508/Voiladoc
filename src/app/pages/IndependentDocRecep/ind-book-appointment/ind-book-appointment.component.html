@@ -7,6 +7,7 @@
         <option value="0" selected>{{labels[0].appointmentType}}</option>
         <option value="1">{{labels[0].inclinic}}</option>
         <option value="2">{{labels[0].vidoecall}}</option>
+        <option value="5">{{labels1[0].homeVisit}}</option>
       </select>
     </div>
     <div class="col-lg-3">
@@ -17,21 +18,21 @@
       </select> -->
     </div>
     <div class="col-lg-3">
-      <input *ngIf="languageid==1" type="text" [minDate]="mindate" class="form-control" placeholder="MM/DD/YYYY"
+      <!-- <input *ngIf="languageid==1" type="text" [minDate]="mindate" class="form-control" placeholder="MM/DD/YYYY"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="Selecteddate2" name="Selecteddate2"
         (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" [minDate]="mindate" class="form-control" placeholder="jj/mm/aa"
         [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="selecteddate" name="selecteddate"
-        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        (ngModelChange)="GetDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker> -->
       <!-- <input type="date" class="form-control" min={{todaydate}} (change)="GetDate($event)"> -->
       <br>
     </div>
     <div class="col-lg-3">
-      <select class="form-control" (change)="GetSlotID($event)">
+      <!-- <select class="form-control" (change)="GetSlotID($event)">
         <option value="0">{{labels[0].selectSlot}}</option>
         <option *ngFor="let slot of doctorslots" value="{{slot.slots}}">{{slot.slots}}</option>
-      </select>
+      </select> -->
     </div>
   </div><br>
   <!-- <div class="row">
@@ -79,12 +80,12 @@
         <br>
         <br>
         <button class="btn btncolor" style="height: 33px;
-        width: 124px;" *ngIf="appointmentypeid=='1'"
+        width: 124px;" *ngIf="appointmentypeid=='1'||appointmentypeid=='5'"
           [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID,doc.slotDurationID]">{{labels[0].book}}</button>
 
-          <button class="btn btncolorssssdssd"  style="height: 33px;
+        <button class="btn btncolorssssdssd" style="height: 33px;
           width: 124px;" *ngIf="appointmentypeid=='2'"
-            [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID,doc.slotDurationID]">{{labels[0].view}}</button>
+          [routerLink]="['/Doctorslots',doc.doctorID,doc.id,doc.hospital_ClinicID,doc.appointmentTypeID,doc.bookingTypeID,doc.slotDurationID]">{{labels[0].view}}</button>
       </div>
     </div>
   </div>

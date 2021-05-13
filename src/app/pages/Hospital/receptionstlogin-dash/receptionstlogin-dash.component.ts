@@ -120,4 +120,51 @@ export class ReceptionstloginDashComponent implements OnInit {
     }
   }
 
+
+
+
+
+
+
+
+  public GetDisablerecp(docid) {
+    this.docservice.DisableReceiptionistLogin(docid).subscribe(
+      data => {
+
+        if(this.languageID==1)
+        {
+          Swal.fire('Disabled', 'Receptionist has been Disabled');
+          this.getreceptionlogin();
+        }
+        else
+        {
+          Swal.fire('Désactivée', 'Accès désactivé');
+          this.getreceptionlogin();
+        }
+      
+
+      }, error => {
+      }
+    )
+  }
+  public GetRecpEnable(id) {
+    this.docservice.EnableReceiptionistLogin(id).subscribe(
+      data => {
+
+        if(this.languageID==1)
+        {
+          Swal.fire('Enabled', 'Receptionist has been Enabled');
+          this.getreceptionlogin();
+        }
+        else
+        {
+          Swal.fire('Activé', 'Accès Activé');
+          this.getreceptionlogin();
+        }
+       
+
+      }, error => {
+      }
+    )
+  }
 }

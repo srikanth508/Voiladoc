@@ -56,6 +56,19 @@
                 <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetDeatsils(details)">
               </a>
+
+              <ng-template #tipcontent1>{{labels[0].disable}}</ng-template>
+              <a [ngbTooltip]="tipcontent12" style="color:black">
+                <img src="assets/Images/active.png" style="width: 30px" *ngIf="details.hidden=='0'" 
+                   (click)="GetDisablerecp(details.id)">
+              </a>
+              <ng-template #tipcontent1>{{labels[0].enable}}</ng-template>
+              <a [ngbTooltip]="tipcontent13" style="color:black">
+                <img src="assets/Images/dactive.png" style="width: 30px" *ngIf="details.hidden=='1'" 
+                  (click)="GetRecpEnable(details.id)">
+              </a>
+
+
             </td>
           </tr>
         </thead>
@@ -107,54 +120,54 @@
           </div>
         </div>
         <div *ngIf="Showpassword=='1'">
-        <form #doctorForm="ngForm">
-          <div class="row">
-            <div class="col-lg-4">
-              <label>Pin No :</label>
-              <span class="required">*</span>
+          <form #doctorForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Pin No :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno">
+              </div>
             </div>
-            <div class="col-lg-6">
-              <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno">
-            </div>
-          </div>
-          <br>
+            <br>
 
-          <div class="row">
-            <div class="col-lg-4">
-              <label>{{labels[0].userName}} :</label>
-              <span class="required">*</span>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].userName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="username" required [(ngModel)]="username"
+                  placeholder="{{labels[0].userName}}"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+              </div>
             </div>
-            <div class="col-lg-6">
-              <input type="text" class="form-control" disabled name="username" required [(ngModel)]="username"
-                placeholder="{{labels[0].userName}}"
-                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-lg-4">
-              <label>{{labels[0].password}} :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-6">
-              <input type="text" class="form-control" name="password" required [(ngModel)]="password"
-                placeholder="{{labels[0].password}}">
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].password}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="password" required [(ngModel)]="password"
+                  placeholder="{{labels[0].password}}">
 
+              </div>
             </div>
-          </div>
-          <br><br>
-          <div class="row">
-            <div class="col-lg-5">
-            </div>
-            <div class="col-lg-2">
-              <button type="button" class="btn allbtns btncolor" (click)="updatedetails()"
-                [disabled]="doctorForm.form.invalid">{{labels[0].update}}</button>
-            </div>
-            <div class="col-lg-5">
-            </div>
-          </div><br><br>
-        </form>
-      </div>
+            <br><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn allbtns btncolor" (click)="updatedetails()"
+                  [disabled]="doctorForm.form.invalid">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div><br><br>
+          </form>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="close" class="btn btncolor" data-dismiss="modal">{{labels[0].close}}</button>

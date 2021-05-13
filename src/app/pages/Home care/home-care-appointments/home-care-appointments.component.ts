@@ -82,13 +82,14 @@ export class HomeCareAppointmentsComponent implements OnInit {
     )
   }
 
-
   public GetPatients() {
-    this.docservice.GetPatientRegistrationBook().subscribe(
+
+    this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
       data => {
-
+        debugger
+        // this.patientslist = 
+        // this.dummlist.filter(x => x.doctorID == this.doctorid)
         this.patientslist = data;
-
         this.patientdd = {
           singleSelection: true,
           idField: 'id',
@@ -97,11 +98,34 @@ export class HomeCareAppointmentsComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
           allowSearchFilter: true,
-          searchPlaceholderText: this.search,
+          searchPlaceholderText: this.search
         };
+
       },
       error => { }
     );
+
+
+
+
+    // this.docservice.GetPatientRegistrationBook().subscribe(
+    //   data => {
+
+    //     this.patientslist = data;
+
+    //     this.patientdd = {
+    //       singleSelection: true,
+    //       idField: 'id',
+    //       textField: 'patientName',
+    //       selectAllText: 'Select All',
+    //       unSelectAllText: 'UnSelect All',
+    //       itemsShowLimit: 3,
+    //       allowSearchFilter: true,
+    //       searchPlaceholderText: this.search,
+    //     };
+    //   },
+    //   error => { }
+    // );
   }
 
   public dateofbirth: any;

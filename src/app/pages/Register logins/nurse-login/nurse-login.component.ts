@@ -21,6 +21,7 @@ export class NurseLoginComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummnurselist: any;
+  public search: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -38,7 +39,8 @@ export class NurseLoginComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -58,7 +60,8 @@ export class NurseLoginComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -76,6 +79,7 @@ export class NurseLoginComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -107,40 +111,40 @@ export class NurseLoginComponent implements OnInit {
       // }
       // else {
 
-        var entity = {
-          'NurseID': this.nurseid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        // this.username = '';
-        // this.password = '';
-        this.docservice.InsertNurseLogin(entity).subscribe(data => {
+      var entity = {
+        'NurseID': this.nurseid,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      // this.username = '';
+      // this.password = '';
+      this.docservice.InsertNurseLogin(entity).subscribe(data => {
 
-          if (data != 0) {
-            if (this.languageid == 1) {
-              this.GetNurseLoginAdmin()
-              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              location.href = "#/NurseLoginDashboard"
-            }
-            else {
-              this.GetNurseLoginAdmin()
-              Swal.fire('', 'Mis à jour avec succés', 'success');
-              location.href = "#/NurseLoginDashboard"
-            }
-
+        if (data != 0) {
+          if (this.languageid == 1) {
+            this.GetNurseLoginAdmin()
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href = "#/NurseLoginDashboard"
           }
           else {
-            if (this.languageid == 1) {
-              Swal.fire("Nurse Login Already Exists");
-              location.href = "#/NurseLoginDashboard"
-            }
-            else {
-              Swal.fire("La connexion infirmière existe déjà");
-              location.href = "#/NurseLoginDashboard"
-            }
-
+            this.GetNurseLoginAdmin()
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href = "#/NurseLoginDashboard"
           }
-        })
+
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire("Nurse Login Already Exists");
+            location.href = "#/NurseLoginDashboard"
+          }
+          else {
+            Swal.fire("La connexion infirmière existe déjà");
+            location.href = "#/NurseLoginDashboard"
+          }
+
+        }
+      })
       // }
     }
   }

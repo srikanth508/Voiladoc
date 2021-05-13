@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-lg-6">
       <br>
-      <h5>LINK FOR REGISTRATION</h5>
+      <h5>{{labels[0].linkForRegistration}}</h5>
       <br>
     </div>
     <div class="col-lg-6">
@@ -23,20 +23,20 @@
   <form #doctorForm="ngForm">
     <div class="row">
       <div class="col-lg-3">
-        <label>Select type :</label>
+        <label>{{labels[0].selecttype}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
         <select class="form-control" (change)="GetTypeName($event)">
-          <option value="0">Select Type</option>
-          <option value="1">Hospital</option>
-          <option value="2">Clinic</option>
-          <option value="3">Independent Doctor</option>
-          <option value="4">Independent Nurse</option>
-          <option value="5">Independent Physiotherapist</option>
-          <option value="6">Independent Midwife</option>
-          <option value="7">Pharmacy</option>
-          <option value="8">Diagnostic Center</option>
+          <option value="0">{{labels[0].selecttype}}</option>
+          <option value="1">{{labels[0].hospitlal}}</option>
+          <option value="2">{{labels[0].clinic}}</option>
+          <option value="3">{{labels[0].inddoctor}}</option>
+          <option value="4">{{labels[0].indnurse}}</option>
+          <option value="5">{{labels[0].indphysio}}</option>
+          <option value="6">{{labels[0].indmidiwfe}}</option>
+          <option value="7">{{labels[0].pharmcy}}</option>
+          <option value="8">{{labels[0].diagnosticenter}}</option>
         </select>
       </div>
     </div>
@@ -53,44 +53,44 @@
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>User Name :</label>
+        <label>{{labels[0].userName}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="email" class="form-control" placeholder="User Name" [(ngModel)]="username" name="username">
+        <input type="email" class="form-control" placeholder="{{labels[0].userName}}" [(ngModel)]="username" name="username">
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>Password :</label>
+        <label>{{labels[0].password}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="email" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
-        <span *ngIf="pp=='1'" style="color:red">Week Password!! Please Enter Password Which Contains One Capital, One Number,One Special Character & Eight Characters
+        <input type="email" class="form-control" placeholder="{{labels[0].password}} " [(ngModel)]="password" name="password">
+        <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}
         </span>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>Address Link:</label>
+        <label>{{labels[0].addressLink}}  :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <textarea rows="4" class="form-control" disabled [(ngModel)]="address" name="address" placeholder="Address Link"
+        <textarea rows="4" class="form-control" disabled [(ngModel)]="address" name="address" placeholder="{{labels[0].addressLink}}"
         ></textarea>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label>Notes : </label>
+        <label>{{labels[0].notes}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <textarea rows="4" class="form-control" [(ngModel)]="notes" name="notes" placeholder="Notes"></textarea>
+        <textarea rows="4" class="form-control" [(ngModel)]="notes" name="notes" placeholder="{{labels[0].notes}}"></textarea>
       </div>
     </div>
     <br>
@@ -99,7 +99,7 @@
       </div>
       <div class="col-lg-2">
         <button type="button" [disabled]="doctorForm.form.invalid" class="btn btn-block btn-md allbtns btncolor"
-          (click)="Insertdetails()">Send</button>
+          (click)="Insertdetails()">{{labels[0].send}}</button>
       </div>
       <div class="col-lg-5">
       </div>

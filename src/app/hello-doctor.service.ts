@@ -8,12 +8,19 @@ import { pipeDef } from '@angular/core/src/view';
 })
 
 export class HelloDoctorService {
+  //live
+  //     public host = "https://maroc.voiladoc.org/MarocAPI";
 
+  //  private host1 = "https://maroc.voiladoc.org/MarocAPI";
 
-  
-  public host = "https://maroc.voiladoc.org/MarocAPI";
+  //test
 
-  private host1 = "https://maroc.voiladoc.org/MarocAPI";
+  //test1
+
+  public host = "https://maroc.voiladoc.org/MarocTestAPi";
+
+  private host1 = "https://maroc.voiladoc.org/MarocTestAPi";
+
 
   private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";
 
@@ -160,21 +167,21 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/ServiceMaster/GetSalesRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid);
   }
-  public GetDoctorLogin(uname, pwd, lid, url,pinno) {
+  public GetDoctorLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/ServiceMaster/GetDoctorLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/ServiceMaster/GetDoctorLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
-  public GetHospitalAdminRegistrationLogin(uname, pwd, lid, url,pinno) {
+  public GetHospitalAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
     debugger
-    return this.http.get<any[]>(url + '/ServiceMaster/GetHospitalAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/ServiceMaster/GetHospitalAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
-  public GetDiagnosticCenterAdminRegistrationLogin(uname, pwd, lid, url,pinno) {
+  public GetDiagnosticCenterAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/ServiceMaster/GetDiagnosticCenterAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/ServiceMaster/GetDiagnosticCenterAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
-  public GetPharmacyAdminRegistrationLogin(uname, pwd, lid, url,pinno) {
+  public GetPharmacyAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/ServiceMaster/GetPharmacyAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/ServiceMaster/GetPharmacyAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
 
   public DeleteHospital_Clinic(id) {
@@ -1073,13 +1080,13 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Admin/DisablePhysiotherapistLogin?PhysiotherapistID=' + id);
   }
-  public GetNurseLogin(uname, pwd, lid, url,pinno) {
+  public GetNurseLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/Admin/GetNurseLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/Admin/GetNurseLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
-  public GetPhysiotherapistLogin(uname, pwd, lid, url,pinno) {
+  public GetPhysiotherapistLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/Admin/GetPhysiotherapistLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/Admin/GetPhysiotherapistLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
   public InsertMidWivesRegistration(data) {
 
@@ -1111,13 +1118,13 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Admin/DisableMidWivesLogin?MidWiveID=' + id);
   }
-  public GetMidWivesLogin(uname, pwd, lid, url,pinno) {
+  public GetMidWivesLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/Admin/GetMidWivesLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/Admin/GetMidWivesLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
-  public GetDeliveryCompanyLogin(uname, pwd, lid, url,pinno) {
+  public GetDeliveryCompanyLogin(uname, pwd, lid, url, pinno) {
 
-    return this.http.get<any[]>(url + '/Admin/GetDeliveryCompanyLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/Admin/GetDeliveryCompanyLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
   public InsertNurseServices(data) {
 
@@ -2605,10 +2612,10 @@ export class HelloDoctorService {
     );
   }
 
-  public GetLocalDoctorRegistrationUnameAndPwd(uname, pwd, url,pinno) {
+  public GetLocalDoctorRegistrationUnameAndPwd(uname, pwd, url, pinno) {
 
     return this.http.get<any[]>(
-      url + "/Doctor/GetLocalDoctorRegistrationUnameAndPwd?UserName=" + uname + '&Password=' + pwd+'&Pinno='+pinno
+      url + "/Doctor/GetLocalDoctorRegistrationUnameAndPwd?UserName=" + uname + '&Password=' + pwd + '&Pinno=' + pinno
     );
   }
 
@@ -2940,10 +2947,10 @@ export class HelloDoctorService {
     );
   }
 
-  public GetMeridionalAdmin_LoginUnameAndPwd(uname, pwd, url,pinno) {
+  public GetMeridionalAdmin_LoginUnameAndPwd(uname, pwd, url, pinno) {
 
     return this.http.get<any[]>(
-      url + "/Doctor/GetMeridionalAdmin_LoginUnameAndPwd?UserName=" + uname + '&Password=' + pwd+'&Pinno='+pinno
+      url + "/Doctor/GetMeridionalAdmin_LoginUnameAndPwd?UserName=" + uname + '&Password=' + pwd + '&Pinno=' + pinno
     );
   }
 
@@ -2951,10 +2958,10 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertSupportRegistration';
     return this.http.post(this.url, data)
   }
-  public GetSupportRegistrationUnameAndPwd(uname, pwd, url,pinno) {
+  public GetSupportRegistrationUnameAndPwd(uname, pwd, url, pinno) {
 
     return this.http.get<any[]>(
-      url + "/Doctor/GetSupportRegistrationUnameAndPwd?UserName=" + uname + '&Password=' + pwd+'&Pinno='+pinno
+      url + "/Doctor/GetSupportRegistrationUnameAndPwd?UserName=" + uname + '&Password=' + pwd + '&Pinno=' + pinno
     );
   }
   public UpdateSupportRegistration(data) {
@@ -3380,10 +3387,10 @@ export class HelloDoctorService {
       this.host + "/Doctor/GetReceiptionistLoginDash?HospitalID=" + hosid
     );
   }
-  public GetReceiptionistLogin(uname, pwd, url,pinno) {
+  public GetReceiptionistLogin(uname, pwd, url, pinno) {
 
     return this.http.get<any[]>(
-      url + "/Doctor/GetReceiptionistLogin?UserName=" + uname + '&Password=' + pwd+'&Pinno='+pinno
+      url + "/Doctor/GetReceiptionistLogin?UserName=" + uname + '&Password=' + pwd + '&Pinno=' + pinno
     );
   }
 
@@ -4368,8 +4375,8 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/DeleteUsers_RoleMapping?ID=' + id);
   }
 
-  public GetUsers_RoleMappingByUnameAndPwd(uname, pwd, url, roleid,pinno) {
-    return this.http.get<any[]>(url + '/Doctor/GetUsers_RoleMappingByUnameAndPwd?UserName=' + uname + '&Password=' + pwd + '&RoleID=' + roleid+'&Pinno='+pinno);
+  public GetUsers_RoleMappingByUnameAndPwd(uname, pwd, url, roleid, pinno) {
+    return this.http.get<any[]>(url + '/Doctor/GetUsers_RoleMappingByUnameAndPwd?UserName=' + uname + '&Password=' + pwd + '&RoleID=' + roleid + '&Pinno=' + pinno);
   }
 
   public GetMenuRoleMappingTableByRoleID(lid, roleid) {
@@ -4408,8 +4415,8 @@ export class HelloDoctorService {
 
 
 
-//independent providers
-  
+  //independent providers
+
   public GeIndependentnurserevenueByNurseID(sdate, edate, nurseid, cityid) {
 
     return this.http.get<any[]>(
@@ -4594,14 +4601,14 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  public GetLinkForRegistrations(sdate, edate) {
+  public GetLinkForRegistrations(sdate, edate, lid) {
 
-    return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationEmails?Sdate=' + sdate + '&Edate=' + edate);
+    return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationEmails?Sdate=' + sdate + '&Edate=' + edate + '&LanguageID=' + lid);
   }
 
-  public GetVoiladocRegistrationsUsers(sdate, edate, typeid) {
+  public GetVoiladocRegistrationsUsers(sdate, edate, typeid, langugeid) {
 
-    return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationsUsers?Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid);
+    return this.http.get<any[]>(this.host2 + '/Master/GetVoiladocRegistrationsUsers?Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid + '&LanguageID=' + langugeid);
   }
 
   public UpdateRejectedVoiladocRegisteredUsers(id, typeid) {
@@ -4903,9 +4910,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Master/UpdateDiagnosticReceptionistLogin';
     return this.http.post(this.url, data)
   }
-  public GetDiagnosticReceptionistLoginByUserNameAndPassword(uname, password, url,pinno) {
+  public GetDiagnosticReceptionistLoginByUserNameAndPassword(uname, password, url, pinno) {
     ;
-    return this.http.get<any[]>(url + '/Master/GetDiagnosticReceptionistLoginByUserNameAndPassword?UserName=' + uname + '&Password=' + password+'&Pinno='+pinno);
+    return this.http.get<any[]>(url + '/Master/GetDiagnosticReceptionistLoginByUserNameAndPassword?UserName=' + uname + '&Password=' + password + '&Pinno=' + pinno);
   }
   public GetDiagnosticReceptionistLogin(did) {
 
@@ -5299,7 +5306,7 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  
+
   public GetQuickGuide(lid) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetQuickGuide?LanguageID=' + lid);
@@ -5310,7 +5317,7 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/DeleteQuickGuide?ID=' + id);
   }
 
-  
+
   public UpdateQuickGuide(data) {
     debugger
     this.url = this.host + '/Doctor/UpdateQuickGuide';
@@ -5318,7 +5325,7 @@ export class HelloDoctorService {
   }
 
 
- public InsertTopicMaster(data) {
+  public InsertTopicMaster(data) {
     debugger
     this.url = this.host + '/Doctor/InsertTopicMaster';
     return this.http.post(this.url, data)
@@ -5329,7 +5336,7 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  
+
   public DeleteTopicMaster(id) {
 
     return this.http.get<any[]>(this.host + '/Doctor/DeleteTopicMaster?ID=' + id);
@@ -5340,12 +5347,12 @@ export class HelloDoctorService {
   public ReceiptUpload(files) {
     debugger
     let formdata: FormData = new FormData();
-      formdata.append('file_upload', files, files.name);
+    formdata.append('file_upload', files, files.name);
     debugger
     return this.http.post(this.host + '/Doctor/ReceiptUpload/', formdata);
   }
 
-  
+
   public UpdateBookAppoinmentReceiptUrl(data) {
     debugger
     this.url = this.host + '/Doctor/UpdateBookAppoinmentReceiptUrl';
@@ -5372,15 +5379,15 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  
-    public UpdateBookAppointment(data) {
+
+  public UpdateBookAppointment(data) {
     debugger
     this.url = this.host + '/Doctor/UpdateBookAppointment';
     return this.http.post(this.url, data)
   }
 
 
-   
+
   public UpdateBookAppointmentRefund(data) {
     debugger
     this.url = this.host + '/Doctor/UpdateBookAppointmentRefund';
@@ -5447,20 +5454,163 @@ export class HelloDoctorService {
 
   public SendTwillioSMS(phoneno, msg) {
 
-    return this.http.get<any[]>(this.host + '/Doctor/SendTwillioSMS?PhoneNumber=' + phoneno + '&Message=' + msg );
+    return this.http.get<any[]>(this.host + '/Doctor/SendTwillioSMS?PhoneNumber=' + phoneno + '&Message=' + msg);
   }
 
-  
+
   public GetDoctorForAdminByLanguageIDForWorking(lid) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDoctorForAdminByLanguageIDForWorking?LanguageID=' + lid);
   }
 
 
-  
+
   public InsertPatientRelation_FamilyTree_Web(data) {
     debugger
     this.url = this.host + '/PatientRegistration/InsertPatientRelation_FamilyTree_Web';
     return this.http.post(this.url, data)
   }
+
+  public GetDates(newDate) {
+    var d = new Date(newDate),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+    var date = month + "-" + day + "-" + year;
+    return date = month + "-" + day + "-" + year;
+
+  }
+
+
+  public UpdatePharmacyOffers(data) {
+    debugger
+    this.url = this.host + '/Pharmacy/UpdatePharmacyOffers';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdatePharmacyOffersPhotos(data) {
+    debugger
+    this.url = this.host + '/Pharmacy/UpdatePharmacyOffersPhotos';
+    return this.http.post(this.url, data)
+  }
+
+  public GetPharmacyOffersPhotos(id) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetPharmacyOffersPhotos?ID=' + id);
+  }
+
+  public GetPatient_Referal_InvitationsWeb(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_Referal_InvitationsWeb?ID=' + id);
+  }
+  public InsertPatient_Invites_Master(data) {
+    debugger
+    this.url = this.host + '/Doctor/InsertPatient_Invites_Master';
+    return this.http.post(this.url, data)
+  }
+  public GetPatient_Invites_Master(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_Invites_Master?LanguageID=' + id);
+  }
+
+
+  public InsertPatient_WalletLogWeb(data) {
+    this.url = this.host + '/Doctor/InsertPatient_WalletLogWeb';
+    return this.http.post(this.url, data)
+  }
+
+
+
+
+  public InsertNotifications_DoctorWeb(data) {
+    this.url = this.host + '/Doctor/InsertNotifications_DoctorWeb';
+    return this.http.post(this.url, data)
+  }
+
+
+
+  public DisableIndependentDoctors_Receptionist(id) {
+    return this.http.get(this.host + '/Doctor/DisableIndependentDoctors_Receptionist?ID=' + id);
+  }
+
+
+  public EnableIndependentDoctors_Receptionist(id) {
+    return this.http.get(this.host + '/Doctor/EnableIndependentDoctors_Receptionist?ID=' + id);
+  }
+  public DisableReceiptionistLogin(id) {
+    return this.http.get(this.host + '/Doctor/DisableReceiptionistLogin?ID=' + id);
+  }
+  public EnableReceiptionistLogin(id) {
+    return this.http.get(this.host + '/Doctor/EnableReceiptionistLogin?ID=' + id);
+  }
+
+
+  public UpdateDepartmentMasterEnable(typeid, id) {
+    return this.http.get(this.host + '/Hospital/UpdateDepartmentMasterEnable?TypeID=' + typeid + '&ID=' + id);
+  }
+
+
+  public GetProvidersPay(sdate, edate, typeid, lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetProvidersPay?Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid + '&LanguageID=' + lid);
+  }
+
+
+  public InsertDiagnostic_SoapNotesAttachments(data) {
+    this.url = this.host + '/Doctor/InsertDiagnostic_SoapNotesAttachments';
+    return this.http.post(this.url, data)
+  }
+
+
+
+//home visit slots
+
+
+
+public GetDoctorSlotsss(docid, dayid, hospitalid, timeid, appdatetime, dhid, slottypeid) {
+
+  return this.http.get<any[]>(
+    this.host + "/Doctor/GetDoctorSlotsss?DoctorID=" + docid + '&DayID=' + dayid + '&Hospital_ClinicID=' + hospitalid + '&TimeID=' + timeid + '&ApptDatetime=' + appdatetime + '&DoctorHospitalDetailsID=' + dhid + '&SlotTypeID=' + slottypeid
+  );
+}
+
+
+public GetDiagnostic_SoapNotesAttachmentsWeb(id) {
+
+  return this.http.get<any[]>(this.host + '/Doctor/GetDiagnostic_SoapNotesAttachmentsWeb?PatientID=' + id);
+}
+
+public GetDiagnosticTest_DoctorTemplate(id) {
+
+  return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTest_DoctorTemplate?DoctorID=' + id);
+}
+
+
+public InsertDiagnosticTest_DoctorTemplate(data) {
+  this.url = this.host + '/Doctor/InsertDiagnosticTest_DoctorTemplate';
+  return this.http.post(this.url, data)
+}
+
+
+public UpdateDiagnosticTest_DoctorTemplate(data) {
+  this.url = this.host + '/Doctor/UpdateDiagnosticTest_DoctorTemplate';
+  return this.http.post(this.url, data)
+}
+
+
+
+public SoapAttachments(files) {
+
+  let formdata: FormData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    formdata.append('file_upload', files[i], files[i].name);
+    debugger
+  }
+  return this.http.post(this.host + '/Doctor/SoapAttachments/', formdata);
+}
 }

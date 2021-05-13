@@ -3,6 +3,7 @@ import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({
   selector: 'app-new-patient-history',
   templateUrl: './new-patient-history.component.html',
@@ -68,6 +69,7 @@ export class NewPatientHistoryComponent implements OnInit {
   dummsoaplist: any;
   dummvedioslist: any;
   age: any;
+  color:any;
   ngOnInit() {
 
 
@@ -190,6 +192,17 @@ export class NewPatientHistoryComponent implements OnInit {
 
     this.getlanguage();
     this.getlanguagesssss();
+    this.GetDiagnosticAttachments()
+
+
+
+    if(this.languageid==1)
+    {
+      this.color="#5d53ad"
+    }
+    else{
+      this.color="#5d53ad"
+    }
 
   }
   public getlanguage() {
@@ -197,6 +210,19 @@ export class NewPatientHistoryComponent implements OnInit {
       data => {
 
         this.labels = data;
+      }, error => {
+      }
+    )
+  }
+
+  DiaAttchmentList: any;
+
+
+  public GetDiagnosticAttachments() {
+    this.docservice.GetDiagnostic_SoapNotesAttachmentsWeb(this.patientid).subscribe(
+      data => {
+
+        this.DiaAttchmentList = data;
       }, error => {
       }
     )
@@ -227,6 +253,7 @@ export class NewPatientHistoryComponent implements OnInit {
   }
 
   icrdescription
+  attchment
   public GetSoapID(soapid) {
 
     this.soapid = soapid;
@@ -257,7 +284,8 @@ export class NewPatientHistoryComponent implements OnInit {
             this.notes = this.soaplist[0].notes,
             this.neurological = this.soaplist[0].neurological,
             this.objective = this.soaplist[0].objective,
-            this.icrdescription = this.soaplist[0].icrDescription
+            this.icrdescription = this.soaplist[0].icrDescription,
+            this.attchment = this.soaplist[0].attchment
 
         }
 
@@ -271,4 +299,20 @@ export class NewPatientHistoryComponent implements OnInit {
     window.open('http://amazintchtokbox.herokuapp.com/archive/' + archiveID + '/view', '_blank');
 
   }
+
+
+
+  public GetPdfsss(attchments) {
+    debugger
+    // document.getElementById('closeview').click();
+    window.open(attchments, '_blank');
+  }
+
+
+  public GetSoapPdf() {
+    debugger
+    // document.getElementById('closeview').click();
+    window.open(this.attchment, '_blank');
+  }
+
 }

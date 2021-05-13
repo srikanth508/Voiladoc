@@ -26,7 +26,7 @@
         <thead>
           <tr>
             <th>{{labels[0].department}}</th>
-            <th>{{labels[0].description}}</th>
+            <th style="    width: 900px;">{{labels[0].description}}</th>
             <th>{{labels[0].image}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
@@ -36,15 +36,19 @@
             <td><img src="{{list.deptphoto}}" style="height: 50px;
               width: 50px;"></td>
             <td>
+
+
               <ng-template #tipcontent2>Delete</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
                   (click)="DeleteDepartmentMaster(list.id)">
-              </a>
+              </a>&nbsp;
               <ng-template #tipcontent1>Edit</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/Departmentmaster',list.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 20px">
-              </a>
+              </a>&nbsp;
+
+              <input type="checkbox"   [(ngModel)]="list.enabled" (click)="UpdateEnable(list)" >
             </td>
           </tr>
         </thead>

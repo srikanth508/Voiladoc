@@ -9,11 +9,11 @@
             <select class="form-control" (change)="GetType($event)">
             <option selected value="">Select</option>
             <option  value="Hospital">Hospital</option>
-            <option  value="Clinic">Clinic</option>
-            <option  value="Doctor">Doctor</option>
-            <option  value="Nurse">Nurse</option>
-            <option  value="Physiotherapist">Physiotherapist</option>
-            <option  value="MidWives">MidWife</option>
+            <option  value="Clinic"> Clinic</option>
+            <option  value="Doctor">Independent Doctor</option>
+            <option  value="Nurse">Independent Nurse</option>
+            <option  value="Physiotherapist">Independent Physiotherapist</option>
+            <option  value="MidWives">Independent MidWife</option>
           </select>
         </div>
         <div class="col-lg-3">
@@ -41,7 +41,7 @@
                     <th>Contract Start Date</th>
                     <th>Contract End Date</th>
                     <th>Monthly Subscription Fee</th>
-                    <th>Commission On Vedio Call Appointment</th>
+                    <!-- <th>Commission On Vedio Call Appointment</th> -->
                     <th style="width:10%;">Action</th>
                 </tr>
                 <tr *ngFor="let list of billinglist">
@@ -52,7 +52,7 @@
                     <td>{{list.contractStartdate|date}}</td>
                     <td>{{list.contractEnddate|date}}</td>
                     <td>{{list.monthlySubscription}}</td>
-                    <td>{{list.appointmentpercentageamount}}</td>
+                    <!-- <td>{{list.appointmentpercentageamount}}</td> -->
                     <td><button (click)="GetList(list)" data-toggle="modal" data-target="#invoiceModal">View Invoice</button></td>
                 </tr>
             </table>
@@ -113,14 +113,14 @@
                                 <th style="font-size: 12px;">Contract Start Date</th>
                                 <th style="font-size: 12px;">Contract End Date</th>
                                 <th style="font-size: 12px;">Monthly Subscription</th>
-                                <th style="font-size: 12px;">Commission On Vedio Call Appointment</th>
+                                <!-- <th style="font-size: 12px;">Commission On Vedio Call Appointment</th> -->
                             </tr>
                             <tr>
                                 <td>{{hospitalname}}</td>
                                 <td>{{contractsdate|date}}</td>
                                 <td>{{contractedate|date}}</td>
                                 <td>{{monthlysub}}</td>
-                                <td>{{appointmentperc}}</td>
+                                <!-- <td>{{appointmentperc}}</td> -->
                             </tr>
                         </table>
                     </div>

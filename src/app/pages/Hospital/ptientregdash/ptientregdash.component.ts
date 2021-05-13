@@ -28,6 +28,7 @@ export class PtientregdashComponent implements OnInit {
   public hospitalid: any;
   doctorid: any;
   recpid: any;
+  showback:any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -37,7 +38,7 @@ export class PtientregdashComponent implements OnInit {
 
     this.doctorid = localStorage.getItem('userid');
     this.recpid = localStorage.getItem('recpid');
-
+  
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -132,9 +133,8 @@ export class PtientregdashComponent implements OnInit {
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
-
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.Getregisterdpatients();
   }
 }

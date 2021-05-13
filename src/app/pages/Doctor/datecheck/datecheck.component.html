@@ -6,14 +6,20 @@
       <span>Date </span>
     </div>
     <div class="col-lg-4">
-      <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
-        [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="daychangedate"
-        (ngModelChange)="GetdaychangeDate($event)" [minDate]="today"
-        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
-
+      <input *ngIf="languageid==1" type="text" class="form-control" placeholder="yyyy-MM-dd"
+        [bsConfig]="{ showWeekNumbers:false }"  (bsValueChange)="GetdaychangeDate($event)"
+        [minDate]="today" [(bsValue)]="myDateValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+<!-- 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
         [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" [(ngModel)]="daychangedate1"
-        (ngModelChange)="GetdaychangeDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        (ngModelChange)="GetdaychangeDate($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker> -->
+
+        <input type="text" *ngIf="languageid==6" placeholder="jj/mm/aa"  [bsConfig]="{ showWeekNumbers:false }" 
+        class="form-control"
+        [minDate]="today"
+        #dp="bsDatepicker"
+        (bsValueChange)="GetdaychangeDate($event)"
+        bsDatepicker [(bsValue)]="myDateValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
     </div>
   </div><br>
-  </div>
+</div>

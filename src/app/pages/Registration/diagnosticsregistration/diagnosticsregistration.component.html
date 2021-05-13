@@ -27,13 +27,13 @@
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="text" name="diagnosticcentername" required
-              [(ngModel)]="diagnosticcentername" placeholder="{{labels[0].diacenter}}">
+              [(ngModel)]="diagnosticcentername" placeholder="{{labels[0].diacenter}}"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)'>
           </div>
         </div>
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].diagnosticCenterPhoneNo}}: </label>
+            <label>{{labels[0].diagnosticCenterPhoneNo}} : </label>
             <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
@@ -56,7 +56,7 @@
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].phno}}: </label>
+            <label>{{labels[0].phno}} : </label>
             <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
@@ -93,7 +93,7 @@
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].email}}: </label>
+            <label>{{labels[0].email}} : </label>
             <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
@@ -127,7 +127,7 @@
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].province}}: </label>
+            <label>{{labels[0].province}} : </label>
             <span class="requird">*</span>
           </div>
           <div class="col-lg-4">
@@ -155,7 +155,7 @@
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].zipCode}}: </label>
+            <label>{{labels[0].zipCode}} : </label>
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="text" maxlength="6" name="zipcode" [(ngModel)]="zipcode"
@@ -204,7 +204,7 @@
         <br />
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].webSite}}: </label>
+            <label>{{labels[0].webSite}} : </label>
             <!-- <span class="requird">*</span> -->
           </div>
           <div class="col-lg-4">
@@ -252,7 +252,7 @@
         </div> -->
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].timings}}: </label>
+            <label>{{labels[0].timings}} : </label>
             <span class="requird">*</span>
           </div>
           <div class="col-lg-2">
@@ -280,7 +280,7 @@
         <br>
         <div class="row">
           <div class="col-lg-3">
-            <label>{{labels[0].homeSamplePicUp}} : </label>
+            <label>{{labels[0].homeSamplePicUp}}  </label>
 
           </div>
           <div class="col-lg-4">

@@ -1,0 +1,169 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace1">
+    <div class="col-lg-3">
+      <h5>Provider Pay</h5>
+    </div>
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetType($event)">
+        <option selected value="">Select</option>
+        <option value="1">Hospital</option>
+        <option value="2">Independent Doctor</option>
+        <option value="3">Independent Nurse</option>
+        <option value="4">Independent Physiotherapist</option>
+        <option value="5">Independent MidWife</option>
+      </select>
+    </div>
+
+  </div>
+</div><br>
+
+<div class="container-fluid card">
+  <br>
+  <div class="row">
+    <div class="col-lg-12">
+      <table>
+        <tr>
+          <th>Provider Name</th>
+          <th>Phone No</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Gross Total</th>
+          <th>Commission</th>
+          <th>Net Total</th>
+          <th style="width:10%;">Action</th>
+        </tr>
+        <tr *ngFor="let list of providerlist">
+          <td>{{list.providername}}</td>
+          <td>{{list.contactPersonPhNo}}</td>
+          <td>{{list.emailID}}</td>
+          <td>{{list.address}}</td>
+          <td>{{list.grossAmount}}</td>
+          <td>{{list.commissionAmount}}</td>
+          <td>{{list.totalAmount}}</td>
+          <!-- <td>{{list.appointmentpercentageamount}}</td> -->
+          <td><button (click)="GetList(list)" data-toggle="modal" data-target="#invoiceModal">View Invoice</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Invoice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-12" id="content">
+          <div class="row">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-6">
+              <h1>INVOICE</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Invoice Number</label>
+              <p>{{invoicenumber}}</p>
+            </div>
+            <div class="col-lg-4">
+              <label>Date Of Issue</label>
+              <p>{{todaydate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Billed To</label>
+              <p>{{hospitalname}}</p>
+              <p>{{address}}</p>
+            </div>
+            <div class="col-lg-4">
+              <label>From</label>
+              <p>Meridional Health Pte. Ltd.</p>
+              <p>77 Robinson Rd, Singapore 068896</p>
+            </div>
+          </div>
+          <br>
+          <div class="col-lg-12">
+            <table>
+              <tr>
+                <th style="font-size: 12px;" *ngIf="typeid=='1'">Hospital/Clinic</th>
+                <th style="font-size: 12px;" *ngIf="typeid=='2'">Doctor Name</th>
+                <th style="font-size: 12px;" *ngIf="typeid=='3'">Nurse Name</th>
+                <th style="font-size: 12px;" *ngIf="typeid=='4'">Physiotherapist Name</th>
+                <th style="font-size: 12px;" *ngIf="typeid=='5'">MidWife Name</th>
+                <!-- <th style="font-size: 12px;">Contract Start Date</th>
+                              <th style="font-size: 12px;">Contract End Date</th> -->                                             
+                <th style="font-size: 12px;">From Date</th>
+                <th style="font-size: 12px;">To Date</th>
+                <th style="font-size: 12px;">Gross Total</th>
+                <th style="font-size: 12px;">Commission</th>
+                <th style="font-size: 12px;">Net Total</th>
+                <!-- <th style="font-size: 12px;">Commission On Vedio Call Appointment</th> -->
+              </tr>
+              <tr>
+                <td>{{hospitalname}}</td>
+                <td>{{startdate|date}}</td>
+                <td>{{enddate|date}}</td>
+                <td>{{grossamount}}</td>
+                <td>{{CommissionAmount}}</td>
+                <td>{{totalamount}}</td>
+                <!-- <td>{{appointmentperc}}</td> -->
+              </tr>
+            </table>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-3">
+              <p
+                style="margin-top: 4px;background-color: #b7c3d0;padding-top: 6px;padding-bottom: 6px;padding-left: 12px;">
+                Invoice Total:{{totalamount}}</p>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-7">
+            </div>
+            <div class="col-lg-3">
+              <p style="margin-top: 4px;font-size: 13px;margin-left: 64px;">Signature</p>
+            </div>
+            <div class="col-lg-2">
+              <img src="assets/Images/signature.jpg" style="width:75%;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  class="btn btn-primary" data-dismiss="modal">Send Invoice</button>
+      </div>
+    </div>
+  </div>
+</div>

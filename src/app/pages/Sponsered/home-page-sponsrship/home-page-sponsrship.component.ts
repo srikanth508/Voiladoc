@@ -44,6 +44,7 @@ export class HomePageSponsrshipComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    this.getlanguage()
   }
   public getsponsradd(id) {
       this.docservice.GetSponcered_AddsMobile(this.languageid).subscribe(
@@ -140,5 +141,29 @@ export class HomePageSponsrshipComponent implements OnInit {
       }
     })
 
+ 
   }
+
+
+
+
+
+  
+
+
+  SelectLabel
+  search
+  labels: any;
+  public getlanguage() {
+    this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search
+      }, error => {
+      }
+    )
+  }
+
 }

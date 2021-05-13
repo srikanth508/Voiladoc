@@ -20,7 +20,10 @@ import { listLocales } from 'ngx-bootstrap/chronos';
 })
 
 export class AppComponent {
+
+  debugger
   public locales = listLocales();
+  
   vid: number;
   constructor(public docservice: HelloDoctorService, private localeService: BsLocaleService) { }
 
@@ -63,6 +66,7 @@ export class AppComponent {
 
     }
     else {
+      debugger
       this.localeService.use('fr');
     }
     this.temp = sessionStorage.getItem('temp');
@@ -127,7 +131,7 @@ export class AppComponent {
 
   oberserableTimer() {
 
-    const source = timer(1000, 20000);
+    const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
       if (this.doctorid != null) {
         this.GetDoctorNotifications();
@@ -135,7 +139,7 @@ export class AppComponent {
         this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
           this.doctorNotifications = data;
           this.notificationcount = (this.doctorNotifications[0].notifycount);
-         
+
           // this.notificationcount = data[0].notifycount;
         })
         this.docservice.GetChatForNotificationForDoctor(this.doctorid).subscribe(
@@ -145,17 +149,17 @@ export class AppComponent {
             this.notificationcount = 0
             this.notifications = [];
             this.notificationcount = data[0].notifycount;
-        this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe
-          (datas => {
-            this.doctorNotifications = datas;
-            // if (this.doctorNotifications.length = 0) {
-            //   this.notificationcount = (this.doctorNotifications[0].notifycount);
-            // }
-            // else {
-            //   this.notificationcount = 0;
-            // }
+            this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe
+              (datas => {
+                this.doctorNotifications = datas;
+                // if (this.doctorNotifications.length = 0) {
+                //   this.notificationcount = (this.doctorNotifications[0].notifycount);
+                // }
+                // else {
+                //   this.notificationcount = 0;
+                // }
 
-          })
+              })
 
           }, error => {
           }

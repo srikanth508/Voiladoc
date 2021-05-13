@@ -30,6 +30,7 @@ export class AppPageSponsorshipComponent implements OnInit {
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
    
     this.languageid = localStorage.getItem('LanguageID');
+    this.getlanguage()
     this.activatedroute.params.subscribe(params => {
      
       this.paramid = params['id'];
@@ -142,6 +143,20 @@ public showPhotoURL=[];
 
   }
 
+  SelectLabel
+  search
+  labels: any;
+  public getlanguage() {
+    this.docservice.GetAdmin_Sponsored_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+        this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search
+      }, error => {
+      }
+    )
+  }
 
 
 }

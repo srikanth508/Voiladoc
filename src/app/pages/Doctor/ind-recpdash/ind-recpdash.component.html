@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-9">
       <h5 *ngIf="languageID=='1'">Receptionist</h5>
-      <h5 *ngIf="languageID=='6'">secrétaires</h5>
+      <h5 *ngIf="languageID=='6'">SECRETAIRES</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;">
       <button *ngIf="languageID=='1'&&notshow=='1'" type="button"  routerLink="/IndRecp" class="btn btncolor">ADD</button>
@@ -33,11 +33,11 @@
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>Email</th>
-            <th>User Name</th>
-            <th>Password</th>
-            <th>Address</th>
+            <th>{{labels[0].userName}}</th>
+            <th>{{labels[0].password}}</th>
+            <th *ngIf="languageID=='1'">Address</th>
+            <th *ngIf="languageID=='6'">Adresse  </th>
             <th>Actions</th>
-
           </tr>
           <tr *ngFor="let details of receptionistlogins|filter:term">
             <td>{{details.name}}</td>
@@ -48,12 +48,24 @@
             <td>{{details.address}}</td>
             <!-- <td>{{details.password}}</td> -->
             <td>
-
-              <ng-template #tipcontent1>Edit</ng-template>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetDeatsils(details)">
+              </a>&nbsp;
+
+              <ng-template #tipcontent12>{{labels[0].disable}}</ng-template>
+              <a [ngbTooltip]="tipcontent12" style="color:black">
+                <img src="assets/Images/active.png" style="width: 30px" *ngIf="details.hidden=='0'&&notshow=='1'" 
+                   (click)="GetDisablerecp(details.id)">
               </a>
+              <ng-template #tipcontent13>{{labels[0].enable}}</ng-template>
+              <a [ngbTooltip]="tipcontent13" style="color:black">
+                <img src="assets/Images/dactive.png" style="width: 30px" *ngIf="details.hidden=='1'&&notshow=='1'" 
+                  (click)="GetRecpEnable(details.id)">
+              </a>
+
+
             </td>
           </tr>
         </thead>
@@ -76,9 +88,6 @@
 <br>
 
 
-
-
-
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -94,21 +103,21 @@
 
         <div class="row" *ngIf="Showpassword=='0'">
           <div class="col-lg-3">
-            <label>Enter Your Pin</label>
+            <label>{{labels[0].enteryourpin}}</label>
           </div>
           <div class="col-lg-6">
             <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
-              placeholder="Enter Your Pin No">
+              placeholder="{{labels[0].enteryourpin}}">
           </div>
           <div class="col-lg-2">
-            <button class="btn btncolor" (click)="CheckPasswordvalidate()">Validate</button>
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels[0].validate}}</button>
           </div>
         </div>
         <div *ngIf="Showpassword=='1'">
           <form #doctorForm="ngForm">
             <div class="row">
               <div class="col-lg-4">
-                <label>Pin No :</label>
+                <label>{{labels[0].pinno}} :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">

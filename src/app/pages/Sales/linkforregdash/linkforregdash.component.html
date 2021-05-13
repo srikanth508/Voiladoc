@@ -3,12 +3,13 @@
   <br />
   <div class="row ">
     <div class="col-lg-6">
-      <h5>LINK FOR REGISTRATION DASHBOARD</h5>
+      <h5 *ngIf="languageid=='1'">LINK FOR REGISTRATION DASHBOARD</h5>
+      <h5 *ngIf="languageid=='6'">LIEN ENREGISTREMENT</h5>
     </div>
     <div class="col-lg-4"></div>
     <div class="col-lg-2">
       <button style="margin-left: 10px;"  type="button" routerLink="/LinkForreg"
-      class="btn btncolor">Add</button>
+      class="btn btncolor">{{labels[0].addLink}}</button>
     </div>
   </div>
   <br />
@@ -20,15 +21,15 @@
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
         [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{labels[0].search}}" />
     </div>
     <div class="col-lg-4">
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
   </div>
   <br />
@@ -39,21 +40,21 @@
           <tr>
             <th>Date</th>
             <th>Type</th>
-            <th>User Name</th>
-            <th>Password</th>
+            <!-- <th  >{{labels[0].userName}}</th>
+            <th>{{labels[0].password}}</th> -->
             <th>Email</th>
-            <th>Address Link</th>
-            <th>Notes</th>
-            <th>Status</th>
+            <!-- <th>{{labels[0].addressLink}}</th>
+            <th>{{labels[0].notes}}</th> -->
+            <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let list of linkslist|filter:search">
             <td>{{list.date}}</td>
             <td>{{list.typename}}</td>
-            <td>{{list.userName}}</td>
-            <td>{{list.password}}</td>
+            <!-- <td>{{list.userName}}</td>
+            <td>{{list.password}}</td> -->
             <td>{{list.emailID}}</td>
-            <td>{{list.addressLink}}</td>
-            <td>{{list.notes}}</td>
+            <!-- <td>{{list.addressLink}}</td>
+            <td>{{list.notes}}</td> -->
             <td style="color: green;">{{list.status}}</td>
           </tr>
         </thead>

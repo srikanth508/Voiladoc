@@ -32,6 +32,8 @@ export class DoctorsCalenderComponent implements OnInit {
   public daychangedate1:any;
   public timechangedate1:any;
   public term:any;
+
+  myDateValue: Date;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
@@ -212,10 +214,11 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
 
-  public GetDoctorDates(even) {
+  public GetDoctorDates(newDate: Date) {
     this.spinner.show();
     
-    this.todaydate = even.toLocaleString().split(',')[0];
+    // this.todaydate = even.toLocaleString().split(',')[0];
+    this.todaydate=this.docservice.GetDates(newDate)
     
     this.GetMyDoctorWorkingDetails();
   }
@@ -524,9 +527,21 @@ export class DoctorsCalenderComponent implements OnInit {
   public datechangedayid: any;
 
 
-  public GetdaychangeDate(even) {
+  public GetdaychangeDate(newDate: Date) {
     
-    this.daychangedate = even.toLocaleString().split(',')[0];
+    // this.daychangedate = even.toLocaleString().split(',')[0];
+    var d = new Date(newDate),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+  
+  if (month.length < 2) 
+    month = '0' + month;
+  if (day.length < 2) 
+    day = '0' + day;
+  
+    this.daychangedate = month + "-" + day + "-" + year;
+    
     this.Getdays()
   }
 
@@ -727,8 +742,11 @@ export class DoctorsCalenderComponent implements OnInit {
   public timechangedayid: any;
   public timechangedate: any;
 
-  public GetTimewisechangedate(even) {
-    this.timechangedate = even.toLocaleString().split(',')[0];
+  public GetTimewisechangedate(newDate: Date) {
+    // this.timechangedate = even.toLocaleString().split(',')[0];
+    debugger
+    this.timechangedate=this.docservice.GetDates(newDate)
+    debugger
     this.Getdaystime()
 
   }
@@ -925,14 +943,26 @@ export class DoctorsCalenderComponent implements OnInit {
 
         })
       }
-      this.GetMyDoctorWorkingDetails();
       this.insertbookappointmenttype();
+      this.GetMyDoctorWorkingDetails();
       this.spinner.show();
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
+        this.timewiseappointmentid = "";
+        this.timechangedate = "";
+        this.mrngtoid = "";
+        this.mrngfromid = "";
+        this.fees=""
+        this.timechangedate1="";
       }
       else {
         Swal.fire('Mis à jour avec succés');
+        this.timewiseappointmentid = "";
+        this.timechangedate = "";
+        this.mrngtoid = "";
+        this.mrngfromid = "";
+        this.fees=""
+        this.timechangedate1="";
       }
       this.timewiseappointmentid = "";
       this.timechangedate = "";
@@ -940,6 +970,7 @@ export class DoctorsCalenderComponent implements OnInit {
       this.mrngfromid = "";
       this.fees=""
       this.timechangedate1="";
+      
     }
   }
 

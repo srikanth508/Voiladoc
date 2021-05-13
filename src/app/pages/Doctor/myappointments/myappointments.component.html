@@ -13,9 +13,11 @@
         </ng-daterangepicker> -->
 
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
@@ -91,24 +93,23 @@
               <!-- early call -->
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
               <button
-                [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
+                [disabled]="details.isVisited=='1' &&details.bookingTypeID=='2'&& details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
                 type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
                 *ngIf="details.bookingTypeID=='2'&&details.earlycall=='2'"
                 (click)="GetVideoconfrenceEarlycall(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
-
               <!-- normal call -->
               <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
               <button
-                [disabled]="details.isVisited=='1' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
+                [disabled]="details.isVisited=='1'&&details.bookingTypeID=='2' && details.completed=='2'||details.disableall=='0'||details.cancelled=='1'||details.docCancelled=='1'"
                 type="button" class="strtvideobtn" [ngbTooltip]="tipcontent8"
                 *ngIf="details.bookingTypeID=='2'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'"
                 (click)="getvedioconferencebydateandtime(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
               </button>
 
-              <ng-template #tipcontent8>{{labels[0].vedioConference}}</ng-template>
-              <button type="button" class="ondemand" [ngbTooltip]="tipcontent8" *ngIf="details.bookingTypeID=='1'"
-                (click)="getvedioconferencebydateandtimedemand(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime)">{{labels[0].startvideo}}
+              <ng-template #tipcontent828>{{labels[0].vedioConference}}</ng-template>
+              <button type="button" class="ondemand" [ngbTooltip]="tipcontent828" *ngIf="details.bookingTypeID=='1'"
+                (click)="getvedioconferencebydateandtimedemand(details.patientID,details.appointmentID,details.appdate,details.slots,details.endTime,details.completed)">{{labels[0].startvideo}}
               </button>
 
               <ng-template #tipcontent2099>{{labels[0].homeVisit}}</ng-template>
@@ -150,14 +151,15 @@
                 [ngbTooltip]="tipcontent300" style="margin: 2%;width: 24px;" data-toggle="modal"
                 data-target="#exampleModalLong78" (click)="GetViewDetails(details.appointmentID)" />&nbsp;
 
-              <ng-template #tipcontent2094>Diagnostic Report</ng-template>
+              <ng-template #tipcontent2094>{{labels[0].diagnosticreport}}</ng-template>
               <a [ngbTooltip]="tipcontent2094">
                 <img src="assets/Images/pdf.png" style="height:20px;" *ngIf="details.reportUrl!='0'"
                   title="Diagnostic Report" (click)="GetReportPdf(details.reportUrl)"></a>
-              <!-- <ng-template #tipcontent756>{{labels[0].insurencedetails}}</ng-template>
-              <img src="assets/Images/insurance.png" *ngIf="details.cancelled=='0'&&details.docCancelled=='0'"
-                [ngbTooltip]="tipcontent756" style="margin: 2%;width: 24px;" data-toggle="modal"
-                data-target="#Insurancedetails" (click)="Getinsurancedetails(details.patientID)" />&nbsp; -->
+
+              <ng-template #tipcontent2004>Pdf</ng-template>
+              <a [ngbTooltip]="tipcontent2004">
+                <img src="assets/Images/pdf.png" style="height:20px;" *ngIf="details.uploadrepornotexist!='0'"
+                  title="Diagnostic Report" (click)="GetReportsssss(details.illnesspdf)"></a>
             </td>
             <td>
               <table style="box-shadow:none">
@@ -165,36 +167,35 @@
                   <td style="border:none">
                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
                     <a [ngbTooltip]="tipcontent3"
-                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.doctorCancelvalidation=='1'&&details.bookingTypeID=='2'||details.bookingTypeID=='0'">
+                      *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.doctorCancelvalidation=='1'&&details.bookingTypeID!='1'">
                       <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
                         data-target="#exampleModal"
                         (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details,details.smsmobileno)" />
                     </a>
-
-                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+                    <!-- &&details.bookingTypeID=='2'||details.bookingTypeID=='0' -->
+                    <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
                     <a [ngbTooltip]="tipcontent3"
                       *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.bookingTypeID=='1'">
                       <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
                         data-target="#exampleModal"
                         (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details,details.smsmobileno)" />
-                    </a> 
+                    </a>
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
                     <a [ngbTooltip]="tipcontent2"
-                      *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.appointmentTypeID!='5'">
+                      *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'">
                       <img src="assets/Images/acc.png"
                         (click)="Appointmentstatus(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.smsmobileno)"
                         style="height:20px;" />
                     </a>
-
-                    <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+                    <!-- <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.appointmentTypeID=='5'">
                       <img src="assets/Images/acc.png" data-toggle="modal" data-target="#NextAVilabletime"
                         (click)="GetNextAvailabilityTime(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.slots,details.smsmobileno)"
                         style="height:20px;" />
-                    </a>
+                    </a> -->
 
                   </td>
                   <td style="border:none">
@@ -214,24 +215,34 @@
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent56>{{labels[0].receipt}}</ng-template>
-                    <a [ngbTooltip]="tipcontent56" *ngIf="details.appointmentTypeID=='2' && details.isVisited=='1'">
+                    <a [ngbTooltip]="tipcontent56"
+                      *ngIf="details.isVisited=='1'&&details.reportBit=='0'&&details.payPayment=='1'">
                       <img src="assets/Images/Receipts.png" style="height:25px;" (click)="GenerateReciept(details)"
                         data-toggle="modal" data-target="#Reciept" />
                     </a>
                   </td>
-                  <td style="border:none">
+                  <!-- <td style="border:none">
                     <ng-template #tipcontent567>{{labels[0].uploadprescription}}</ng-template>
                     <a [ngbTooltip]="tipcontent567"
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.disableall=='1'">
                       <img src=" assets/Images/uploadfile.png" style="height:25px;" data-toggle="modal"
                         data-target="#UploadPhotos" (click)="GetPrescriptionPhoto(details)" />
                     </a>
+                  </td> -->
+                  <td style="border:none">
+                    <ng-template #tipcontent567>{{labels[0].uploaddocuments}}</ng-template>
+                    <a [ngbTooltip]="tipcontent567"
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'">
+                      <img src=" assets/Images/uploadfile.png" style="height:25px;" data-toggle="modal"
+                        data-target="#UploadPhotosDiagnostic" (click)="GetPrescriptionPhoto(details)" />
+                    </a>
+                  </td>
                   <td style="border:none">
                     <ng-template #tipcontent948>whats app</ng-template>
                     <a [ngbTooltip]="tipcontent948">
                       <img src=" assets/Images/whatapp.png" style="height:25px;"
                         *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.disableall=='1'"
-                        (click)="GetDocWhatsaPP(details.pMobileNo)" />
+                        (click)="GetDocWhatsaPP(details.smsmobileno)" />
                     </a>
                   </td>
                 </tr>
@@ -329,10 +340,11 @@
                     </a>
                   </td>
                   <td style="border:none">
-                    <a
+                    <ng-template #tipcontent9586>{{labels[0].refund}}</ng-template>
+                    <a [ngbTooltip]="tipcontent9586"
                       *ngIf="details.noShow=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.alertBit=='1'&&details.refundBit=='0'">
-                      <img src="assets/Images/refund.png" title="Refund" style="height:25px;" data-toggle="modal"
-                        data-target="#RefundAmount" (click)="GetRefundPatientDetailsID(details)" />
+                      <img src="assets/Images/refund.png" title="{{labels[0].refund}}" style="height:25px;"
+                        data-toggle="modal" data-target="#RefundAmount" (click)="GetRefundPatientDetailsID(details)" />
                       <!-- [routerLink]="['/Soapdash',details.patientID]" -->
                     </a>
                   </td>
@@ -547,9 +559,6 @@
 </div>
 
 
-
-
-
 <div class="modal fade" id="exampleModal1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -727,7 +736,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].reasonForCancel}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">{{labels[0].reasonForCancel}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Motif du rejet (optionnel / note interne
+          non destinée au patient).</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -877,10 +888,9 @@
                 <table>
                   <thead>
                     <tr>
-                      <th>médicament</th>
-                      <th>Dénomination </th>
-                      <th>Forme & Dosage
-                      </th>
+                      <th>Nom commercial </th>
+                      <th>Principe actif </th>
+                      <th>Dosage</th>
                       <th>Actions</th>
                     </tr>
                     <tr *ngFor="let code of drugnamelist|filter:medicinename | slice:0:100; let i=index">
@@ -1163,7 +1173,29 @@
       <div class="modal-body" style="height:500px;width:800px;overflow-y: auto;">
         <div class="container-fluid">
           <form #diaForm="ngForm">
+
             <div class="row">
+              <div class="col-lg-5">
+                <h6>{{labels[0].chooseFromtemplate}} </h6>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetTestTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let testtemp of TestTemplateList" value="{{testtemp.id}}">{{testtemp.templateName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-8">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div>
+            <br>
+
+            <!-- <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].followup}}</label>
               </div>
@@ -1173,13 +1205,15 @@
                 <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="0">&nbsp;
                 {{labels[0].no}} &nbsp;&nbsp;
               </div>
-            </div><br>
+            </div><br> -->
+
+
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testType}} :</label>
               </div>
               <div class="col-lg-7">
-                <select class="form-control" (change)="GetDiagnosticTestID($event)">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
                   <option value="0" selected>{{labels[0].select}}</option>
                   <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
                 </select>
@@ -1191,7 +1225,8 @@
                 <label>{{labels[0].testName}} :</label>
               </div>
               <div class="col-lg-7">
-                <select class="form-control" (change)="GetDiagnosticTestssID($event)">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
+                  name="testssid">
                   <option value="0" selected>{{labels[0].select}}</option>
                   <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
                 </select>
@@ -1209,7 +1244,8 @@
                 </div>
               </div> <br>
             </div>
-            <div *ngIf="testid==2">
+            <!-- *ngIf="testid==2" -->
+            <div>
               <div class="row">
                 <div class="col-lg-5">
                   <label>{{labels[0].clinicalInfo}} :</label>
@@ -1220,6 +1256,30 @@
                 </div>
               </div>
             </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].saveastemplate}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="2">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div *ngIf="testtemplate=='1'">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].templateName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" name="testtemplatename" [(ngModel)]="testtemplatename"
+                    placeholder="{{labels[0].templateName}}">
+                </div>
+              </div>
+              <br>
+            </div>
             <div class="row">
               <div class="col-lg-5">
               </div>
@@ -1487,6 +1547,24 @@
             <br>
             <div class="row">
               <div class="col-lg-3">
+                <label for="" class="reglabel">Attachment :</label>
+              </div>
+              <div class="col-lg-7">
+                <ngx-dropzone [multiple]="false" (change)="UploadSoapAttchments($event)" class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+                <span *ngFor="let showphoto of shoprescphoto">
+                  <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+                <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session*        </span>
+                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par session*   </span>
+              </div>
+              <div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
                 <label>
                   {{labels[0].saveastemplate}}
                 </label>
@@ -1581,7 +1659,7 @@
                     <!-- <th>Actions</th> -->
                   </tr>
                   <tr *ngFor="let dia of dialist">
-                    <td id="imp">{{dia.appointmentID}}</td>
+                    <td>{{dia.appointmentID}}</td>
                     <td>{{dia.appdate}}</td>
                     <td>{{dia.departmentname}}</td>
                     <td>{{dia.doctorName}}</td>
@@ -2262,7 +2340,7 @@
       <div class="modal-body">
         <div class="tab">
           <button class="tablinks" style="width: 50%;" id="defaultOpen"
-            (click)="openCity($event, 'referdoctor')">{{labels[0].refertodoctor}}
+            (click)="openCity($event, 'referdoctor')">{{labels[0].refersdoctor}}
           </button>
           <button class="tablinks" style="width: 50%;" (click)="openCity($event, 'previousreferels')">
             {{labels[0].previousrefererals}}</button>
@@ -2425,7 +2503,7 @@
               </div>
               <div class="col-lg-6">
                 <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="doctorname"
-                  name="doctorname" (ngModelChange)="Getdocname(doctorname)" placeholder="{{labels[0].doctorName}}">
+                  name="doctorname"  placeholder="{{labels[0].doctorName}}">
               </div>
             </div>
             <br>
@@ -2819,12 +2897,14 @@
           <div class="row">
             <div class="col-lg-4">
               Date
+             <hr style="margin-top: 5px;">
             </div>
             <div class="col-lg-4">
-              Description
+              Description<hr style="margin-top: 5px;">
             </div>
             <div class="col-lg-4">
               {{labels[0].charge}}
+              <hr style="margin-top: 5px;">
             </div>
           </div>
           <div class="row">
@@ -2835,7 +2915,7 @@
               {{labels[0].vediocallreciept}}
             </div>
             <div class="col-lg-4">
-              {{videoAmount}}
+              {{videoAmount}} MAD
             </div>
           </div>
           <br>
@@ -2849,9 +2929,9 @@
 
           <div style="margin-top: -83px;">
             {{labels[0].doctorr}} : {{doctorName}}
-            <img src="{{signatureURL}}" style="height: 69px;">
+            <!-- <img src="{{signatureURL}}" style="height: 69px;"> -->
 
-            <label style="text-align: end;float: right;">{{labels[0].totalCharges}} : {{videoAmount}}</label>
+            <label style="text-align: end;float: right;">{{labels[0].totalCharges}} : {{videoAmount}} MAD</label>
           </div>
         </div>
 
@@ -2866,7 +2946,12 @@
   </div>
 </div>
 
-<!-- Upload prescription photo -->
+
+
+
+
+
+<!-- Upload test and soap -->
 
 <div class="modal fade" id="UploadPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -2896,6 +2981,80 @@
           (click)="InsertPrescrptionPhoto()" data-dismiss="modal">{{labels[0].save}}</button>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="SendReciept()" data-dismiss="modal">Send Email</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Upload prescription photo -->
+
+<div class="modal fade" id="UploadPhotosDiagnostic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="languageid=='1'" id="exampleModalLabel">Upload documents</h5>
+        <h5 class="modal-title" *ngIf="languageid=='6'" id="exampleModalLabel">Télécharger des documents</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <!-- <div class="col-lg-2">
+
+          </div> -->
+          <div class="col-lg-4">
+            <input type="radio" value="1" [(ngModel)]="diasoaptypeid" name="diasoaptypeid">&nbsp;{{labels[0].tests}}
+          </div>
+          <div class="col-lg-4">
+            <input type="radio" value="3" [(ngModel)]="diasoaptypeid"
+              name="diasoaptypeid">&nbsp;{{labels[0].ptrescriptions}}
+          </div>
+          <div class="col-lg-4">
+            <input type="radio" value="2" [(ngModel)]="diasoaptypeid"
+              name="diasoaptypeid">&nbsp;{{labels[0].soapnotess}}
+          </div>
+        </div><br>
+        <div *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='3'">
+          <div class="row">
+            <!-- <label>Upload Photo</label> -->
+
+            <div class="col-lg-12">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+              </ngx-dropzone>
+              <span *ngFor="let photo of shoprescphoto">
+                <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+              </span>
+            </div>
+          </div>
+          <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
+            (click)="InsertDiagnostictestAndSoap()" *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'"
+            data-dismiss="modal">{{labels[0].save}}</button>
+
+          <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
+            (click)="InsertPrescrptionPhoto()" *ngIf="diasoaptypeid=='3'"
+            data-dismiss="modal">{{labels[0].save}}</button>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session*        </span>
+        <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par session*   </span>
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
         <!-- <button type="button" class="btn btn-secondary" (click)="SendReciept()" data-dismiss="modal">Send Email</button> -->
       </div>
@@ -3009,7 +3168,8 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content" style="width:1200px;margin-left: 80px;">
       <div class="modal-header modal-xl">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].soap}}</h5>
+        <h5 class="modal-title" *ngIf="languageid=='1'" id="exampleModalLongTitle">{{labels[0].soap}}</h5>
+        <h5 class="modal-title" *ngIf="languageid=='6'" id="exampleModalLongTitle">Notes SOAP antérieures</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -3060,8 +3220,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
+
+          <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">Fermer     </button>
       </div>
     </div>
   </div>
@@ -3648,7 +3811,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].earlyCall}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">{{labels[0].earlyCall}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Message à destination du patient.
+          Modifier si necessaire. </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

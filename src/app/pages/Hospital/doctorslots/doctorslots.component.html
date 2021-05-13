@@ -109,11 +109,20 @@
   <br>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="showback=='1'">
   <div class="row">
     <div class="col-lg-2">
       <button style="background-color:#f18235 ;" class="btn btn-primary" *ngIf="languageid=='1'"  [routerLink]="['/Bookappointment']">Back</button>
       <button style="background-color:#f18235 ;" class="btn btn-primary"  *ngIf="languageid=='6'" [routerLink]="['/Bookappointment']">Retour</button>
+      </div>
+  </div>
+</div><br>
+
+<div class="container"  *ngIf="showback=='2'">
+  <div class="row">
+    <div class="col-lg-2">
+      <button style="background-color:#f18235 ;" class="btn btn-primary" *ngIf="languageid=='1'"  [routerLink]="['/IndBookAppointment']">Back</button>
+      <button style="background-color:#f18235 ;" class="btn btn-primary"  *ngIf="languageid=='6'" [routerLink]="['/IndBookAppointment']">Retour</button>
       </div>
   </div>
 </div><br>

@@ -51,8 +51,17 @@ export class CategorydashboardComponent implements OnInit {
     this.docservice.DeleteCategory(id).subscribe(
       data => {
        
-        Swal.fire("Deleted Successfully");
-        this.Getcategoryfordashboard()
+        if(this.languageid==1)
+        {
+          Swal.fire("Deleted Successfully");
+          this.Getcategoryfordashboard()
+        }
+        else
+        {
+          Swal.fire("Supprimé avec succès");
+          this.Getcategoryfordashboard()
+        }
+       
       }, error => {
       }
     )

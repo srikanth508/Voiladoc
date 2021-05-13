@@ -67,6 +67,7 @@ export class RejectedusersComponent implements OnInit {
 
     this.typeid = 1
     this.GetRegistreedVoiladocusers()
+    this.getlanguage()
   }
 
   selectedDate(data) {
@@ -80,7 +81,7 @@ export class RejectedusersComponent implements OnInit {
   public dummreglist: any;
 
   public GetRegistreedVoiladocusers() {
-    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid).subscribe(data => {
+    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid,this.languageid).subscribe(data => {
       // this.RegisteredList = data;
       this.dummreglist = data;
       this.RegisteredList = this.dummreglist.filter(x => x.rejected == 1)
@@ -98,4 +99,17 @@ export class RejectedusersComponent implements OnInit {
     this.GetRegistreedVoiladocusers()
   }
 
+
+  labels:any;
+
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+
+      }, error => {
+      }
+    )
+  }
 }

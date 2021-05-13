@@ -4,7 +4,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
-      <h5>Sponsorship Dashboard</h5>
+      <h5>{{labels[0].sponserdash}}</h5>
     </div>
 
     <div class="col-lg-3" style="text-align: end; margin-top: -10px;">
@@ -22,7 +22,7 @@
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
         [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }" class="form-control"
-        [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+        [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
 
 
     </div>
@@ -38,13 +38,13 @@
       <table>
         <thead>
           <tr>
-            <th>Client Name</th>
+            <th>{{labels[0].clientname}}</th>
             <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date </th>
-            <th>PhotoURL </th>
-            <th>Fees</th>
-            <th>Action </th>
+            <th>{{labels[0].startdate}}</th>
+            <th>{{labels[0].endDate}} </th>
+            <th>{{labels[0].photourl}} </th>
+            <th>{{labels[0].fees}}</th>
+            <th>Actions </th>
           </tr>
           <tr *ngFor="let details of HomepageSponsrships|filter:term">
             <td>{{details.clientName}}</td>
@@ -83,7 +83,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLabel">
-          <b>Sponsorship Image</b>
+          <!-- <b>Sponsorship Image</b> -->
         </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -99,7 +99,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" style="background-color: #f18235;" data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

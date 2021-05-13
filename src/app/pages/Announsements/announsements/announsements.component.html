@@ -15,7 +15,7 @@
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label class="dname_label">{{labels[0].announsementName}}:</label>
+        <label class="dname_label">{{labels[0].announsementName}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
@@ -30,18 +30,18 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="countrylist" [settings]="countrydd"
+        <ng-multiselect-dropdown [placeholder]="select" [data]="countrylist" [settings]="countrydd"
           (onSelect)="GetCountryID($event)">
         </ng-multiselect-dropdown>
       </div>
     </div><br>
     <div class="row">
       <div class="col-lg-3">
-        <label class="City_label">{{labels[0].state}}:</label>
+        <label class="City_label">{{labels[0].state}} :</label>
         <!-- <span class="required">*</span> -->
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="citylist" [settings]="citydd"
+        <ng-multiselect-dropdown [placeholder]="select" [data]="citylist" [settings]="citydd"
           (onSelect)="GetCityID($event)">
         </ng-multiselect-dropdown>
       </div>
@@ -53,14 +53,14 @@
         <!-- <span class="required">*</span> -->
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="arealist" [settings]="areadd"
+        <ng-multiselect-dropdown [placeholder]="select" [data]="arealist" [settings]="areadd"
           (onSelect)="GetAreaID($event)">
         </ng-multiselect-dropdown>
       </div>
     </div><br>
     <div class="row">
       <div class="col-lg-3">
-        <label class="dname_label">{{labels[0].description}}:</label>
+        <label class="dname_label">{{labels[0].description}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-6">
@@ -72,7 +72,7 @@
     <br>
     <div class="row">
       <div class="col-lg-3">
-        <label for="" class="reglabel">{{labels[0].photo}}:</label>
+        <label for="" class="reglabel">{{labels[0].photo}} :</label>
       </div>
       <div class="col-lg-4">
         <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">

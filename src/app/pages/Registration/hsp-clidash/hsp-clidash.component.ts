@@ -37,7 +37,7 @@ export class HspClidashComponent implements OnInit {
   public showeditbutton: any;
   public salesrepresntiveid: any;
   meridionalid: any;
-  showdelete:any;
+  showdelete: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -61,13 +61,11 @@ export class HspClidashComponent implements OnInit {
     if (this.countrymanaerid != undefined) {
       this.showexportbutton = 1;
     }
-    if(this.meridionalid==undefined)
-    {
-      this.showdelete=0;
+    if (this.meridionalid == undefined) {
+      this.showdelete = 0;
     }
-    else
-    {
-      this.showdelete=1;
+    else {
+      this.showdelete = 1;
     }
 
     this.countryid = 0;
@@ -98,10 +96,13 @@ export class HspClidashComponent implements OnInit {
       this.docservice.GetHospital_ClinicDetailsMaster(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
 
-          this.hospitalcliniclist = data;
-          this.dummlist = this.hospitalcliniclist
+          //  this.hospitalcliniclist = data;
+          this.dummlist = data;
+          //  this.hospitalcliniclist
+          debugger
+          this.hospitalcliniclist = this.dummlist.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
           this.hospitalcount = this.hospitalcliniclist.length;
-
+          debugger
         }, error => {
         }
       )
@@ -110,8 +111,8 @@ export class HspClidashComponent implements OnInit {
 
       this.docservice.GetHospital_ClinicDetailsMasterForwebClinics(this.startdate, this.enddate, this.languageid).subscribe(
         data => {
-
-          this.hospitalcliniclist = data;
+          this.dummlist = data;
+          this.hospitalcliniclist = this.dummlist.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
           this.hospitalcount = this.hospitalcliniclist.length;
 
         }, error => {
@@ -125,14 +126,18 @@ export class HspClidashComponent implements OnInit {
 
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-
+        debugger
         this.dummlist = data;
-        this.hospitalcliniclist = this.dummlist.filter(x => x.hospital_ClinicID == 1)
+        this.dummlist1 = this.dummlist.filter(x => x.hospital_ClinicID == 1)
+        this.hospitalcliniclist = this.dummlist1.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
+        debugger
         this.hospitalcount = this.hospitalcliniclist.length;
+        debugger
       }, error => {
       }
     )
   }
+  dummlist1:any;
   // public deletehospitalclinic(id)
   // {
   //   this.docservice.DeleteHospital_Clinic(id).subscribe(

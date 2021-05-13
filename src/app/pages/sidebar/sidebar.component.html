@@ -3,7 +3,7 @@
         <div class="col-md-2 sidenav" style="overflow-y: auto;margin-top: 10vh;border-top-right-radius: 5px;">
 
             <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='12'" data-target="#AdminReports">
-                <img src="assets/Images/docreg.png" style="width: 20px;">&nbsp; &nbsp; Reports
+                <img src="assets/Images/docreg.png" style="width: 20px;">&nbsp; Reports
             </a>
             <div id="AdminReports" class="collapse">
                 <a class="tablinks" (click)="highlight($event)" routerLink="/AdminDash">
@@ -98,43 +98,82 @@
                 </a>
             </div>
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/SupportRegDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportReg}}
+
+
+            <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='12'" data-target="#MeridionalMenus">
+                <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp; Menus
             </a>
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/MergePatientdata" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Merge Patient Data
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
+            <div id="MeridionalMenus" class="collapse" style="padding-left: 7%;">
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/RolemenuDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Role Menu Mapping
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/SupportRegDash">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportReg}}
+                </a>
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/UserRoleMappingdash" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; User Role Mapping
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/MergePatientdata">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Merge Patient Data
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/Sendemails" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Emails
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/RolemenuDash">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Role Menu Mapping
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/EmailDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Email Dash
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
-            <a class="tablinks" (click)="highlight($event)" routerLink="/SendSms" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Sms
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/UserRoleMappingdash">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; User Role Mapping
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
 
-            <a class="tablinks" (click)="highlight($event)" routerLink="/SmsDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Sms Dash
-                <!-- {{labels[0].howToUseVoilaDoc}} -->
-            </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/Sendemails">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Emails
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
+
+                <a class="tablinks" (click)="highlight($event)" routerLink="/EmailDash">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Email Dash
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/SendSms">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Sms
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
+
+                <a class="tablinks" (click)="highlight($event)" routerLink="/SmsDash">
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Sms Dash
+                    <!-- {{labels[0].howToUseVoilaDoc}} -->
+                </a>
+
+                <a class="tablinks" (click)="highlight($event)" routerLink="/FaqDash" >
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; FAQ
+                    <!-- {{labels[0].announcements}} -->
+                </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/QuickGuideDash">
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Quick Guide
+                    <!-- {{labels[0].announcements}} -->
+                </a>
+    
+                <a class="tablinks" (click)="highlight($event)" routerLink="/AnnounseDash">
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Announcements
+                    <!-- {{labels[0].announcements}} -->
+                </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/RegisterPatients" >
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Registered Patients
+                    <!-- {{labels[0].registeredPatients}} -->
+                </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/PatientWallet">
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Wallet
+                    <!-- {{labels[0].patientWallet}} -->
+                </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/PatientInvitesDash">
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Invitations
+                    <!-- {{labels[0].patientWallet}} -->
+                </a>
+                <a class="tablinks" (click)="highlight($event)" routerLink="/InvitationDash">
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;Invitation Master
+                    <!-- {{labels[0].patientWallet}} -->
+                </a>
+            </div>
 
             <!-- 
 
@@ -301,16 +340,7 @@
                 </a>
 
             </div>
-            <a class="tablinks" (click)="highlight($event)" routerLink="/RegisterPatients" *ngIf="roleid=='12'">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Registered Patients
-                <!-- {{labels[0].registeredPatients}} -->
-            </a>
-            <a class="tablinks" (click)="highlight($event)" routerLink="/PatientWallet" *ngIf="roleid=='12'">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Wallet
-                <!-- {{labels[0].patientWallet}} -->
-            </a>
-
-
+          
             <a class="tablinks" (click)="highlight($event)" routerLink="/SupportProfile" *ngIf="roleid=='13'">
                 <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myProfile}}
             </a>
@@ -322,10 +352,10 @@
             <div class="collapse" id="Websupportticets" style="padding-left: 2%;">
                 <a class="tablinks" (click)="highlight($event)" routerLink="/SupportWeb">
                     <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;
-                    Provider Tickets
+                   {{labels[0].providertickets}}
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/SupportDash">
-                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Tickets
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].patientTickets}}
                 </a>
                 <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='12'" routerLink="/MeridionalSupport">
                     <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Escalated Tickets
@@ -337,48 +367,35 @@
             </div>
 
             <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='13'||roleid=='12'" data-target="#Refund">
-                <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Refund
+                <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].refundTick}}
             </a>
             <div class="collapse" id="Refund" style="padding-left: 2%;">
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/RefundSupport">
                     <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;
-                    Refund Tickets
+                    {{labels[0].refundtickets}}
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/RefundCompletedTickets">
                     <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;
-                    Completed Tickets
+                    {{labels[0].completedTickets}}
                 </a>
             </div>
-            <a class="tablinks" (click)="highlight($event)" routerLink="/FaqDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; FAQ
-                <!-- {{labels[0].announcements}} -->
-            </a>
-            <a class="tablinks" (click)="highlight($event)" routerLink="/QuickGuideDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Quick Guide
-                <!-- {{labels[0].announcements}} -->
-            </a>
-
-            <a class="tablinks" (click)="highlight($event)" routerLink="/AnnounseDash" *ngIf="roleid=='12'">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Announcements
-                <!-- {{labels[0].announcements}} -->
-            </a>
+           
 
             <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='12'" data-target="#Masters">
-                <img src="assets/Images/sponser.png" style="width: 20px;">&nbsp; &nbsp; {{labels[0].masters}}
+                <img src="assets/Images/sponser.png" style="width: 20px;"> &nbsp; {{labels[0].masters}}
             </a>
             <div id="Masters" class="collapse" style="padding-left: 7%;">
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/CancelationTimings">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Cancellation Settings
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/TopicMasterDash">
+                <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/TopicMasterDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Topic Master
-                </a>
-
-                <a class="tablinks" (click)="highlight($event)" routerLink="/EnableLocalDoctor">
+                </a> -->
+                <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/EnableLocalDoctor">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].enableLocadoctor}}
-                </a>
+                </a> -->
                 <a class="tablinks" (click)="highlight($event)" routerLink="/CountryDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].countryMaster}}
                 </a>
@@ -404,9 +421,9 @@
                 <a class="tablinks" (click)="highlight($event)" routerLink="/FacilityMasterDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].facilityMaster}}
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/MedicineTypeMasterDash">
+                <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/MedicineTypeMasterDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].medicineTypeMaster}}
-                </a>
+                </a> -->
                 <a class="tablinks" (click)="highlight($event)" routerLink="/DiagnosticTestTypeDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticTestType}}
                 </a>
@@ -416,10 +433,10 @@
                 <a class="tablinks" (click)="highlight($event)" routerLink="/BloodGroupMasterDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].bloodGroupMaster}}
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/WhenToConsumeMaster">
+                <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/WhenToConsumeMaster">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp;
                     {{labels[0].whenToConsumeMaster}}
-                </a>
+                </a> -->
                 <a class="tablinks" (click)="highlight($event)" routerLink="/InsuranceMasterDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].insuranceMaster}}
                 </a>
@@ -429,7 +446,7 @@
                 <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/TreatmentDash">
                 <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].treatmentservice}}
             </a> -->
-                <a class="tablinks" (click)="highlight($event)" routerLink="/FrequentlyDash">
+                <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/FrequentlyDash">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp;
                     {{labels[0].frequentlYaskedQuestions}}
                 </a>
@@ -438,7 +455,7 @@
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/DocTipsDash" *ngIf="roleid=='12'">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].doctorTipsMaster}}
-                </a>
+                </a> -->
                 <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/HowToUseDocDash" *ngIf="roleid=='12'">
                 <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; How To Use Doctors
             </a> -->
@@ -449,7 +466,7 @@
                 <!-- <a class="tablinks" (click)="highlight($event)" routerLink="/RelationshipTypeDash">
                 <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Relation Ship Type
             </a> -->
-            </div>
+            </div><br>
             <!-- DOCTOR -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/Myappointments">
                 <img src="assets/Images/app.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myAppointments}}
@@ -475,6 +492,28 @@
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].patientReferrals}}
             </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/Appointmentsreport">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].refundReports}}
+            </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'&&hospitalid=='590'"
+                routerLink="/IndRecpdash">
+                <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].receptionist}}
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DocChangePwd">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].changepassword}}
+            </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DoctorNotifications">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].notifications}}
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/FAQuestions">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                FAQ
+            </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DoctorSupportDash">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
@@ -484,34 +523,11 @@
                 <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myProfile}}
             </a>
 
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/Appointmentsreport">
-                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-                {{labels[0].refundReports}}
-            </a>
-
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/FAQuestions">
-                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-                FAQ
-            </a>
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DocChangePwd">
-                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-               {{labels[0].changepassword}}
-            </a>
-
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'&&hospitalid=='590'"
-                routerLink="/IndRecpdash">
-                <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; Receptionist
-            </a>
-
-            <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/Quickguide">
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/Quickguide">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 Quick Guide
-            </a> -->
-
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/DoctorNotifications">
-                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-                {{labels[0].notifications}}
             </a>
+
 
             <!-- Independent Doctor Receptionist -->
 
@@ -519,7 +535,7 @@
                 <img src="assets/Images/dash.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].dashboard}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/DocRecpAppointments">
-                <img src="assets/Images/EMR.png" style="width: 15px;">&nbsp; &nbsp; Appointments
+                <img src="assets/Images/EMR.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].appointments}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/MyRevenue">
                 <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myRevenue}}
@@ -531,27 +547,24 @@
             <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/MedicalHistory">
                 <img src="assets/Images/EMR.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].pmr}}
             </a> -->
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/IndRecpdash">
-                <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp;   {{labels[0].changepassword}}
-            </a>
-            
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/Ptientregdash">
                 <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].patient_Registration}}
             </a>
-
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/IndDocPayments">
                 <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp;
-                Payments
+                {{labels[0].payments}}
             </a>
-
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/DoctorSupportDash">
-                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
-                {{labels[0].supportTickets}}
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/IndRecpdash">
+                <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].changepassword}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/FAQuestions">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 FAQ
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/DoctorSupportDash">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].supportTickets}}
             </a>
 
             <!-- HOSPITAL -->
@@ -564,7 +577,7 @@
             </a>
 
             <a data-toggle="collapse" class="togglebtn button" *ngIf="roleid=='3'" data-target="#REGISTRATIONS">
-                <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].registration}}
+                <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].hosregistraton}}
             </a>
             <div id="REGISTRATIONS" class="collapse" style="padding-left: 7%;">
 
@@ -723,11 +736,17 @@
                 <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/ChangediaPwd">
-                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp;   {{labels[0].changepassword}}
+                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].changepassword}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/Profiles">
                 <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myProfile}}
             </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/FAQuestions">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                FAQ
+            </a>
+
 
             <!-- DiagnosticReceptionist -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'"
@@ -743,16 +762,33 @@
             </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/ChangeDiaRecpPwd">
-                <img src="assets/Images/diaslot.png" style="width: 15px;">&nbsp; &nbsp;   {{labels[0].changepassword}}
+                <img src="assets/Images/diaslot.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].changepassword}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/DiagnosticReports">
+                <img src="assets/Images/orderreport32x32.png" style="width: 15px;">&nbsp;
+                &nbsp;{{labels[0].digorederReports}}
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/DiagnosticSupportDash">
+                <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/FAQuestions">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                FAQ
+            </a>
+            
             <!-- FINANACEMANAGER -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='22'" routerLink="/BillingDashboard">
                 <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; Dashboard
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='22'" routerLink="/NewBilling">
-                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; Billing
+                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; Subscription Billing
             </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='22'" routerLink="/Providerpay">
+                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; Provider Pay
+            </a>
+
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='22'" routerLink="/SentInvoices">
                 <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; Sent Invoices
             </a>
@@ -771,7 +807,7 @@
                 <img src="assets/Images/orderreport32x32.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].pharmareports}}
             </a>
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/Pharmacyoffers">
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/OffersDashboard">
                 <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].offers}}
             </a>
 
@@ -781,7 +817,7 @@
             </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/ChangePhaPwd">
-                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp;   {{labels[0].changepassword}}
+                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].changepassword}}
             </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/Pharmacyprofile">
@@ -795,7 +831,7 @@
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/NurseAppointments">
                 <img src="assets/Images/app.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myAppointments}}
             </a>
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/Nurserevenue">
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'&&hospitalid=='612'" routerLink="/Nurserevenue">
                 <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myRevenue}}
             </a>
 
@@ -848,7 +884,7 @@
                 routerLink="/PhysiotherapistAppointments">
                 <img src="assets/Images/app.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myAppointments}}
             </a>
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='8'" routerLink="/PhysioRevenue">
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='8'&&hospitalid=='613'" routerLink="/PhysioRevenue">
                 <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myRevenue}}
             </a>
 
@@ -900,7 +936,7 @@
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'" routerLink="/MidwifeAppointments">
                 <img src="assets/Images/app.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myAppointments}}
             </a>
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'" routerLink="/Midwiferevenue">
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'&&hospitalid=='614'" routerLink="/Midwiferevenue">
                 <img src="assets/Images/myrevenue.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myRevenue}}
             </a>
 
@@ -1140,10 +1176,9 @@
                         routerLink="/DoctorsCalender">
                         <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp; Agenda
                     </a>
-                    <a class="tablinks" (click)="highlight($event)" 
-                    routerLink="/Datecheck">
-                    <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp; Date check
-                </a>
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/Datecheck">
+                        <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp; Date check
+                    </a>
                 </div>
                 <a data-toggle="collapse" class="togglebtn button" data-target="#NurseWorkmanage">{{labels[0].nursee}}
                 </a>
@@ -1342,7 +1377,7 @@
 
                 <a class="tablinks" (click)="highlight($event)" *ngIf="supportpatienttickets=='1'"
                     routerLink="/SupportDash">
-                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Tickets
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].patientTickets}}
                 </a>
             </div>
 
@@ -1400,27 +1435,26 @@
 
             <a data-toggle="collapse" class="togglebtn button" *ngIf="Registeredusers=='1'"
                 data-target="#Registeredusers">
-                <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; Registrations
+                <img src="assets/Images/work.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].registrationss}}
             </a>
             <div class="collapse" id="Registeredusers" style="padding-left: 2%;">
                 <a class="tablinks" (click)="highlight($event)" routerLink="/Linkforregdash"
                     *ngIf="linforregistration=='1'">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Generate Link
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp;  {{labels[0].genarateLink}}
                     <!-- {{labels[0].howToUseVoilaDoc}} -->
                 </a>
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/VoiladocRegisteredUsers"
                     *ngIf="registrationdash=='1'">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Dashboard
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].dashboard}}
 
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/ApprovedUsers" *ngIf="Approveddash=='1'">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Approved
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].approved}}
 
                 </a>
-
                 <a class="tablinks" (click)="highlight($event)" routerLink="/Rejectedusers" *ngIf="Approveddash=='1'">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Rejected
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].rejected}}
 
                 </a>
             </div>

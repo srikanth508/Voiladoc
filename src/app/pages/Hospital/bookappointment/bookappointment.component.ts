@@ -42,8 +42,9 @@ export class BookappointmentComponent implements OnInit {
   public mindate = new Date();
   public slottodaydatesssssss: any;
   public presenttime:any;
+  labels1:any;
   ngOnInit() {
-
+    localStorage.setItem('Showbutton', '1')
 
     this.docservice.GetServerDateAndTime().subscribe(
       data => {
@@ -98,6 +99,15 @@ export class BookappointmentComponent implements OnInit {
         this.labels = data;
         this.search = this.labels[0].search
         this.select = this.labels[0].selectdoctor
+      }, error => {
+      }
+    )
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+       
       }, error => {
       }
     )

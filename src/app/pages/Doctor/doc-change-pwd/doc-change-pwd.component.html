@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid=='1'">{{labels[0].doctor}}</h5>
-      <h5 *ngIf="languageid=='6'">ACCES MEDECINS  </h5>
+      <h5 *ngIf="languageid=='6'">CHANGER LE MOT DE PASSE      </h5>
     </div>
     <!-- <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button type="button" routerLink="/Doctor" class="btn btncolor"
@@ -54,7 +54,7 @@
                 style="background-color: red;color: aliceblue;border: none;"
                 *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
               &nbsp; -->
-              <ng-template #tipcontent1>Edit</ng-template>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetDeatsils(details)">

@@ -105,12 +105,14 @@ export class NewBillingComponent implements OnInit {
         this.appointmentperc = invlist.appointmentpercentageamount;
         this.address = invlist.address;
         this.emailid = invlist.emailID;
-        this.totalamount = Number(invlist.monthlySubscription) + Number(invlist.appointmentpercentageamount);
+        this.totalamount = Number(invlist.monthlySubscription)
+        //  + Number(invlist.appointmentpercentageamount);
         this.invoicenumber = Math.floor(100000 + Math.random() * 900000);
 
     }
     public SavePDF() {
         ;
+        debugger
         let pdfContent = window.document.getElementById("content");
         var doc = new jsPDF('p', 'mm', "a4");
 
@@ -128,9 +130,12 @@ export class NewBillingComponent implements OnInit {
             let body = new FormData();
             
             body.append('Dan', file);
+            debugger
             this.docservice.UploadInvoicePDF(file).subscribe(res => {
                 ;
+                debugger
                 this.invoiceurl = res;
+                debugger
                 this.InsertDetailes();
             });
         });
@@ -147,19 +152,18 @@ export class NewBillingComponent implements OnInit {
     }
 
     public InsertDetailes() {
-        
-        let fjkjhafd = this.invoiceurl.split('.');
-        let one = fjkjhafd[fjkjhafd.length - 2].split('/');
-        var re = /\\/gi;
-        var path2 = one[one.length - 1].replace(/\\/g, "-");
-        let two = path2.split('-');
-        var docname = two[3] + '-' + two[4] + '.pdf';
+        // let fjkjhafd = this.invoiceurl.split('.');
+        // let one = fjkjhafd[fjkjhafd.length - 2].split('/');
+        // var re = /\\/gi;
+        // var path2 = one[one.length - 1].replace(/\\/g, "-");
+        // let two = path2.split('-');
+        // var docname = two[3] + '-' + two[4] + '.pdf';
         var entity = {
             Type: this.type,
             UserID: this.userid,
             InvoiceUrl: this.invoiceurl,
             HospitalName: this.hospitalname,
-            filename: docname,
+            filename: this.invoiceurl,
             ContractStartDate: this.contractsdate,
             ContractEndDate: this.contractedate,
             PaidAmount: this.totalamount,
@@ -168,6 +172,7 @@ export class NewBillingComponent implements OnInit {
         this.docservice.InsertSentInvoice(entity).subscribe(data => {
             ;
             if (data != undefined) {
+                debugger
                 Swal.fire("Invoice Send Successfully");
                 this.GetBillingdetails(this.type, this.startdate, this.enddate);
             }

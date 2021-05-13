@@ -1,0 +1,46 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace1">
+    <div class="col-lg-8">
+      <h5>Invitation Master Dashboard</h5>
+      <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
+      <br>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-2">
+      <button type="button" routerLink="/InvitationMaster" class="btn btncolor">Add
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="Search">
+    </div>
+  </div><br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">s
+      <table id="Appointment">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>No of Instalations</th>
+            <th>Amount</th>
+          </tr>
+          <tr *ngFor="let invitation of invitationslist|filter:term">
+            <td>{{invitation.date}}</td>
+            <td>{{invitation.noOfInstalations}}</td>
+            <td>{{invitation.amount}}</td>
+           
+          </tr>
+
+        </thead>
+      </table>
+    </div>
+  </div><br>
+</div>
+<br>

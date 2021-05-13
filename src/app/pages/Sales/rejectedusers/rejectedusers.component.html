@@ -3,7 +3,7 @@
   <br />
   <div class="row ">
     <div class="col-lg-3">
-      <h5>REJECTED USERS</h5>
+      <h5>{{labels[0].rejectedUsers}}</h5>
     </div>
     <div class="col-lg-7"></div>
     <div class="col-lg-2">
@@ -22,26 +22,26 @@
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+      <input type="text" class="form-control" [(ngModel)]="search" placeholder="{{labels[0].search}}" />
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)" [(ngModel)]="typeid" name="typeid">
-        <option value="0">Select Type</option>
-        <option value="1">Hospital</option>
-        <option value="2">Clinic</option>
-        <option value="3">Independent Doctor</option>
-        <option value="4">Independent Nurse</option>
-        <option value="5">Independent Physiotherapist</option>
-        <option value="6">Independent MidWife</option>
-        <option value="7">Pharmacy</option>
-        <option value="8">Diagnostic center</option>
+        <option value="0">{{labels[0].selecttype}}</option>
+        <option value="1">{{labels[0].hospitlal}}</option>
+        <option value="2">{{labels[0].clinic}}</option>
+        <option value="3">{{labels[0].inddoctor}}</option>
+        <option value="4">{{labels[0].indnurse}}</option>
+        <option value="5">{{labels[0].indphysio}}</option>
+        <option value="6">{{labels[0].indmidiwfe}}</option>
+        <option value="7">{{labels[0].pharmcy}}</option>
+        <option value="8">{{labels[0].diagnosticenter}}</option>
       </select>
     </div>
     <div class="col-lg-1">
 
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
   </div>
   <br />
@@ -52,12 +52,12 @@
           <tr>
             <th>Date</th>
             <th>Type</th>
-            <th>User Name</th>
-            <th>Phone Number</th>
+            <th>{{labels[0].userName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
             <th *ngIf="typeid!='1'&&typeid!='2'&&typeid!='7'&&typeid!='8'">Gender</th>
             <th>Email</th>
             <th>Address</th>
-            <th>Status</th>
+            <th>{{labels[0].status}}</th>
             <!-- <th>Actions</th> -->
           </tr>
           <tr *ngFor="let list of RegisteredList|filter:search">

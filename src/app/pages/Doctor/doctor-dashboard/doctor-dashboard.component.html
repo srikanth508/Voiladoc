@@ -9,20 +9,14 @@
 <div  class="container-fluid card card-hover">
   <br>
   <div class="col-lg-4" *ngIf="languageid=='1'">
-    <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
-    </ng-daterangepicker> -->
-
     <input type="text" placeholder="selectDate" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-      [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      [(ngModel)]="value" (ngModelChange)="selectedDate($event)"   [(bsValue)]="myDateValue" bsDaterangepicker>
   </div>
 
   <div class="col-lg-4" *ngIf="languageid=='6'">
-    <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
-    </ng-daterangepicker> -->
-
     <input type="text" placeholder=" {{labels[0].selectDate}}" class="form-control"
-      [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="value" (ngModelChange)="selectedDate($event)"
-      bsDaterangepicker>
+      [bsConfig]="{ showWeekNumbers:false }" [(ngModel)]="value" (bsValueChange)="selectedDate($event)"
+      [(bsValue)]="myDateValue"  bsDaterangepicker>
 
   </div>
   <!-- <h3 style="text-align: center;">{{labels[0].dashboard}}</h3> -->

@@ -90,10 +90,11 @@ export class VideocallappointementsComponent implements OnInit {
   enddate: any
   value: any
   selectedDate(data) {
+
    
-    var sdate = data.split('-')
-    this.startdate = sdate[0];
-    this.enddate = sdate[1];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
+
     this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
        

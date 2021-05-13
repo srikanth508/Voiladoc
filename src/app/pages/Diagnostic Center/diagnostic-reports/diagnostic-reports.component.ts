@@ -185,9 +185,10 @@ export class DiagnosticReportsComponent implements OnInit {
     // var sdate = data.split('-')
     // var s = sdate[0]
     // var e = sdate[1]
-
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
+    // this.startdate = data[0].toLocaleString().split(',')[0];
+    // this.enddate = data[1].toLocaleString().split(',')[0];
 
     this.docservice.GetDiagnosticAppointmentsByApprovedReports(this.diagnosticid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {

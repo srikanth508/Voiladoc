@@ -1,7 +1,7 @@
 <div class="container-fluid" *ngIf="temp=='1'" style="height:100vh;overflow: hidden;">
     <div class="row" style="height: 10vh;" *ngIf="isDescktopResolution==true">
         <div class="col-lg-2">
-            <img src="assets/Images/logo.png" style="margin-top:10px;width: 150px;">
+            <img src="assets/Images/logo1.png" >
             <!-- 
             <img src="assets/Images/ham.png" *ngIf="showsidebar1==0" (click)="openNav1()"
             style="margin-left: 1%;float: right;height:30px;margin-top: 21px;">
@@ -817,13 +817,13 @@
                             <button class="chatnow" data-dismiss="modal" style="float: right;"
                                 (click)="UpdateDoctorSeenAll(docnoti.doctorID)" *ngIf="docnoti.notificationTypeID!=17">{{labels[0].seenAll}}</button><br>
 
-                                <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
+                                <!-- <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
                                 style="float: left;"
                                 (click)="RejectVedioAppointment(docnoti.doctorID)">{{labels[0].reject}}</button>
                             <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
                                 style="float: right;"
                                 (click)="Update_appointmentFordemand(docnoti.doctorHospitalDetailsID,docnoti.doctorID,docnoti.appointmentID,docnoti.id,docnoti.emailID,docnoti.doctorName,docnoti.date)">{{labels[0].accept}}</button>
-                            <br>
+                            <br> -->
 
                         </div>
 

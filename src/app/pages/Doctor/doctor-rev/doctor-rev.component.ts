@@ -34,53 +34,53 @@ export class DoctorRevComponent implements OnInit {
     this.startdate = localStorage.getItem('SDATE');
     this.enddate = localStorage.getItem('EDATE');
     this.activatedroute.params.subscribe(params => {
-     
+
       this.id = params['id'];
 
       if (this.id == 2) {
         this.docservice.GetBookAppointmentByDoctorID(this.doctorID, this.startdate, this.enddate, this.languageid).subscribe(
           data => {
-           
+
 
             this.appointmentdummlist = data;
-            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 2 && x.isVisited == 1)
+            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 2 && x.isVisited == 1 && x.refundBit == 0)
             this.GrandTotal = 0
             for (let i = 0; i < this.appointmentlist.length; i++) {
-             
-              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].paidAmount;
+
+              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].indcorevenue;
             }
           })
       }
       if (this.id == 1) {
         this.docservice.GetBookAppointmentByDoctorID(this.doctorID, this.startdate, this.enddate, this.languageid).subscribe(
           data => {
-           
+
             this.appointmentdummlist = data;
-            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 1 && x.isVisited == 1)
+            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 1 && x.isVisited == 1 && x.refundBit == 0)
             this.GrandTotal = 0
             for (let i = 0; i < this.appointmentlist.length; i++) {
-             
-              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].paidAmount;
+
+              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].indcorevenue;
             }
           })
       }
       if (this.id == 3) {
         this.docservice.GetBookAppointmentByDoctorID(this.doctorID, this.startdate, this.enddate, this.languageid).subscribe(
           data => {
-           
+
             this.appointmentdummlist = data;
-            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 5 && x.isVisited == 1)
+            this.appointmentlist = this.appointmentdummlist.filter(x => x.appointmentTypeID == 5 && x.isVisited == 1 && x.refundBit == 0)
             this.GrandTotal = 0
             for (let i = 0; i < this.appointmentlist.length; i++) {
-             
-              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].paidAmount;
+
+              this.GrandTotal = this.GrandTotal + this.appointmentlist[i].indcorevenue;
             }
           })
       }
     }
     )
 
-   
+
 
     // this.gethospitaldoctorsforadmin();
     this.getdepartmentmaster();
@@ -93,7 +93,7 @@ export class DoctorRevComponent implements OnInit {
 
 
   public GetDepartmentID(even) {
-   
+
     this.term = even.target.value;
 
   }
@@ -101,7 +101,7 @@ export class DoctorRevComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -125,7 +125,7 @@ export class DoctorRevComponent implements OnInit {
   //   )
   // }
   public deletedoctorhosiptaldetails() {
-   
+
     this.docservice.DeleteDoctorHospitalDetails(this.hospitalid).subscribe(
       data => {
         Swal.fire("Deleted Succesfully");
@@ -135,10 +135,10 @@ export class DoctorRevComponent implements OnInit {
     )
   }
   public getdepartmentmaster() {
-   
+
     this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.departmentlist = data;
       }, error => {
       }

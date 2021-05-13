@@ -51,7 +51,10 @@ export class LoginComponent implements OnInit {
       }
     )
 
-    localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocAPI');
+    
+    // localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocAPI');
+
+    localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocTestAPi');
 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
@@ -198,14 +201,15 @@ export class LoginComponent implements OnInit {
         'Password': 'HelloDoc',
         'RoleID': 1
       }
+      debugger
       this.docservice.Authenicate(entity).subscribe(data => {
         debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-
-          this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          debugger
+          this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
-
+              debugger
               this.result = data;
 
               if (this.result.length != '0') {
@@ -250,7 +254,7 @@ export class LoginComponent implements OnInit {
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           debugger
-          this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
               this.result = data;
               if (this.result.length != '0') {
@@ -294,7 +298,7 @@ export class LoginComponent implements OnInit {
         debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
 
               this.result = data;
@@ -337,7 +341,7 @@ export class LoginComponent implements OnInit {
         debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
 
               this.result = data;
@@ -383,7 +387,7 @@ export class LoginComponent implements OnInit {
         debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
 
               this.result = data;
@@ -426,7 +430,7 @@ export class LoginComponent implements OnInit {
         debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
 
               this.result = data;
@@ -471,7 +475,7 @@ export class LoginComponent implements OnInit {
         debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'),this.pinno).subscribe(
+          this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
 
               this.result = data;
@@ -671,7 +675,7 @@ export class LoginComponent implements OnInit {
                   this.pwd = "";
                   this.pinno = "";
                 }
-              } 
+              }
             }, error => {
             }
           )
@@ -748,7 +752,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '15');
                 localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('countrymanagerid', this.result[0].id);
-               
+
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -1035,7 +1039,7 @@ export class LoginComponent implements OnInit {
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
 
-          this.docservice.GetIndependentDoctors_ReceptionistByUserNameAndPwd(this.pinno,this.uname, this.pwd).subscribe(
+          this.docservice.GetIndependentDoctors_ReceptionistByUserNameAndPwd(this.pinno, this.uname, this.pwd).subscribe(
             data => {
               this.result = data;
               if (this.result.length != '0') {

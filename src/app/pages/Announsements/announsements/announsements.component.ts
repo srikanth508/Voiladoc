@@ -29,7 +29,7 @@ export class AnnounsementsComponent implements OnInit {
   public announsementname: any;
   public description: any;
   dropzonelable:any;
-
+  select:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
 
@@ -37,6 +37,7 @@ export class AnnounsementsComponent implements OnInit {
       data => {
        
         this.labels = data;
+        this.select=this.labels[0].select
       }, error => {
       }
     )

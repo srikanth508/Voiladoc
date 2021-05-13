@@ -237,6 +237,7 @@ export class MyappointmentsComponent implements OnInit {
     this.departmentid = 0;
     this.savetemplate = 2;
     this.medicinetemplate = 2;
+    this.testtemplate = 2;
     this.medicineid = 0
     this.substainable = 1
     this.manuallydrug = 2
@@ -469,8 +470,10 @@ export class MyappointmentsComponent implements OnInit {
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
-    this.startdate = data[0].toLocaleString().split(',')[0];
-    this.enddate = data[1].toLocaleString().split(',')[0];
+    // this.startdate = data[0].toLocaleString().split(',')[0];
+    // this.enddate = data[1].toLocaleString().split(',')[0];
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
     this.getbookappointmentbydocid();
   }
   public getbookappointmentbydocid() {
@@ -931,7 +934,7 @@ export class MyappointmentsComponent implements OnInit {
         this.SendTwiliSms(smsdesc, this.phonenumber)
       }
       else if (this.languageid == 6) {
-        Swal.fire('', 'Rendez-vous annulé avec succès');
+        Swal.fire('', 'Rendez-vous rejeté');
         // this.updatedateails()
         this.reason = "";
         this.insercancelnotoification();
@@ -1154,7 +1157,7 @@ export class MyappointmentsComponent implements OnInit {
         this.display = "none";
       }
       else if (this.languageid == 6) {
-        Swal.fire('Alert', 'Cette date de rendez-vous est terminée. vous ne pouvez pas ajouter de prescription.');
+        Swal.fire('Alert', "Vous ne pouvez pas créer d' ordonnance, le rendez-vous n'a pas commencé. ");
         this.display = "none";
       }
 
@@ -1637,6 +1640,7 @@ export class MyappointmentsComponent implements OnInit {
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
     this.slots = slots
+    this.GetDiagnpsticDoctorTemplates();
   }
 
 
@@ -1659,6 +1663,8 @@ export class MyappointmentsComponent implements OnInit {
         this.diaappointmentID = appointmentID;
         this.appdate = appdate
         this.slots = slots
+
+        this.GetDiagnpsticDoctorTemplates()
       }
       else {
         if (this.languageid == 1) {
@@ -1677,7 +1683,7 @@ export class MyappointmentsComponent implements OnInit {
         this.testdisplay = "none";
       }
       else if (this.languageid == 6) {
-        Swal.fire('Alert', 'Cette date de rendez-vous est terminée. vous ne pouvez pas ajouter de test de diagnostic');
+        Swal.fire('Alert', "Vous ne pouvez pas créer de prescription de test de laboratoire, le rendez-vous n'a pas commencé.  ");
         this.testdisplay = "none";
       }
 
@@ -1717,10 +1723,22 @@ export class MyappointmentsComponent implements OnInit {
       }
     )
   }
+  TestTemplateList: any;
+  dummtemalelist: any;
 
+  public GetDiagnpsticDoctorTemplates() {
+    this.docservice.GetDiagnosticTest_DoctorTemplate(this.doctorid).subscribe(
+      data => {
+
+
+        this.dummtemalelist = data;
+        this.TestTemplateList = this.dummtemalelist.filter(x => x.doctorID == this.doctorid)
+      }, error => {
+      }
+    )
+  }
 
   public GetDiagnosticTestssID(even) {
-
     this.testssid = even.target.value;
     if (this.testssid == 59 || this.testssid == 60) {
       this.diagnostictestname = ""
@@ -1731,6 +1749,55 @@ export class MyappointmentsComponent implements OnInit {
           this.diagnostictestname = this.tsetssslist[i].short
         }
       }
+    }
+  }
+
+  testtemplate: any;
+  testtemplatename: any;
+
+
+  public GetTestTemplateID(even) {
+    if (even.target.value != 0) {
+      debugger
+      this.templateid = even.target.value;
+      var list = this.TestTemplateList.filter(x => x.id == this.templateid)
+      this.testid = list[0].testTypeID
+      this.testssid = list[0].testID
+      this.clinicalinfo = list[0].clinicalInfo,
+      this.testtemplatename=list[0].templateName
+      debugger
+      this.getdiagnostictests()
+      // this.getdiagnosticcentertests()
+      debugger
+      var list1 = this.testslist.filter(x => x.id == this.testid)
+      this.diagnostictesttypename = list1[0].name
+      debugger
+      this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
+        data => {
+          debugger
+          this.tsetssslist = data;
+          var list2 = this.tsetssslist.filter(x => x.id == this.testssid)
+          this.diagnostictestname = list2[0].short
+          debugger
+        }, error => {
+        }
+      )
+      // for (let i = 0; i < this.testslist.length; i++) {
+
+      //   if (this.testslist[i].id == this.testid) {
+      //     this.diagnostictesttypename = this.testslist[i].name
+      //   }
+      // }
+      // for (let i = 0; i < this.tsetssslist.length; i++) {
+      //   if (this.tsetssslist[i].id == this.testssid) {
+      //     this.diagnostictestname = this.tsetssslist[i].short
+      //   }
+      // }
+
+    }
+    else {
+      this.testid = 0
+      this.testssid = 0
     }
   }
 
@@ -1754,6 +1821,12 @@ export class MyappointmentsComponent implements OnInit {
         'ClinicalInfo': this.clinicalinfo
       }
       this.qwerty.push(entity);
+      if (this.testtemplate == 1) {
+        this.SaveTestTemplate()
+      }
+      if (this.templateid != 0) {
+        this.UpdateTemplte()
+      }
       this.idcount = this.idcount + 1;
       this.diatest = "";
       this.testslist.length = 0;
@@ -1761,9 +1834,42 @@ export class MyappointmentsComponent implements OnInit {
       this.diagnostictestname = ""
       this.testid = 0;
       this.testssid = 0;
+      this.testtemplate = 2;
       this.getdiagnosticcentertests();
+      this.GetDiagnpsticDoctorTemplates();
     }
   }
+
+
+  public SaveTestTemplate() {
+    var entity = {
+      'DoctorID': this.doctorid,
+      'TestTypeID': this.testid,
+      'TestID': this.testssid,
+      'AppointmentTypeID': this.diaappointmentID,
+      'ClinicalInfo': this.clinicalinfo,
+      'TemplateName': this.testtemplatename
+    }
+    this.docservice.InsertDiagnosticTest_DoctorTemplate(entity).subscribe(data => {
+      this.GetDiagnpsticDoctorTemplates();
+    })
+  }
+
+  public UpdateTemplte() {
+    var entity = {
+      'ID': this.templateid,
+      'DoctorID': this.doctorid,
+      'TestTypeID': this.testid,
+      'TestID': this.testssid,
+      'AppointmentTypeID': this.diaappointmentID,
+      'ClinicalInfo': this.clinicalinfo,
+      'TemplateName': this.testtemplatename
+    }
+    this.docservice.UpdateDiagnosticTest_DoctorTemplate(entity).subscribe(data => {
+      this.GetDiagnpsticDoctorTemplates();
+    })
+  }
+
 
 
 
@@ -2038,11 +2144,13 @@ export class MyappointmentsComponent implements OnInit {
         }
         else {
           if (this.languageid == 1) {
-            Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+            Swal.fire('Alert', 'Your Exceeded Video Conference Time  ');
+
 
           }
           else if (this.languageid == 6) {
-            Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
+            Swal.fire('L heure du rendez-vous est déjà passée');
+            // + endtime)
           }
         }
       }
@@ -2093,55 +2201,61 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-
-  public getvedioconferencebydateandtimedemand(patientID, appointmentID, appdate, slots, endtime) {
+  public getvedioconferencebydateandtimedemand(patientID, appointmentID, appdate, slots, endtime, completed) {
 
     debugger
 
     localStorage.setItem('patientID', patientID);
     localStorage.setItem('appointmentID', appointmentID);
     localStorage.setItem('appdate', appdate);
+    this.getserverdateandtime();
+    if (completed == 2) {
+      Swal.fire("Session Ended");
+    }
+    else {
+      if (this.serverdate == appdate) {
+        if (this.servertime >= slots) {
+          if (this.servertime <= endtime) {
+            // location.href = '#/Vediocall';
+            window.open("#/Vediocall", "_blank");
+            debugger
+          }
+          else {
+            if (this.languageid == 1) {
+              Swal.fire('Alert', 'Your Exceeded Video Conference Time  ');
 
-    if (this.serverdate == appdate) {
-      if (this.servertime >= slots) {
-        if (this.servertime <= endtime) {
-          // location.href = '#/Vediocall';
-          window.open("#/Vediocall", "_blank");
-          debugger
+            }
+            else if (this.languageid == 6) {
+              Swal.fire('L’heure du rendez-vous est passée, le patient a été remboursé.');
+            }
+            // Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+          }
         }
         else {
-
           if (this.languageid == 1) {
-            Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+            Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
 
           }
           else if (this.languageid == 6) {
-            Swal.fire('L heure du rendez-vous est déjà passée' + endtime);
+            Swal.fire('Votre rendez-vous est à ' + slots);
           }
-          // Swal.fire('Alert', 'Your Exceeded Video Conference Time  ' + endtime);
+          // Swal.fire('Alert', 'You Can Start Video Conference At ' + slots)
         }
       }
       else {
         if (this.languageid == 1) {
-          Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots);
+          Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots + ' on ' + appdate);
 
         }
         else if (this.languageid == 6) {
-          Swal.fire('Votre rendez-vous est à ' + slots);
+          Swal.fire('Alerte rendez-vous', 'Votre rendez-vous est à ' + slots + ' le ' + appdate);
         }
-        // Swal.fire('Alert', 'You Can Start Video Conference At ' + slots)
+        // Swal.fire('Alert', 'You Can Start Video Conference At ' + slots + ' on ' + appdate)
       }
     }
-    else {
-      if (this.languageid == 1) {
-        Swal.fire('Alert', 'It is Still not yet Time to start the Video conference. You Can Start At ' + slots + ' on ' + appdate);
 
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Alert', 'Votre rendez-vous est à ' + slots + ' on ' + appdate);
-      }
-      // Swal.fire('Alert', 'You Can Start Video Conference At ' + slots + ' on ' + appdate)
-    }
+
+
   }
 
   misuse: any;
@@ -2244,7 +2358,7 @@ export class MyappointmentsComponent implements OnInit {
         this.soapdisplay = "none"
       }
       else if (this.languageid == 6) {
-        Swal.fire('Alert', 'Cette date de rendez-vous est terminée. vous ne pouvez pas ajouter de notes de savon');
+        Swal.fire('Alert', "Vous ne pouvez pas créer de notes SOAP, le rendez-vous n'a pas commencé.");
         this.soapdisplay = "none"
       }
 
@@ -2282,6 +2396,54 @@ export class MyappointmentsComponent implements OnInit {
   //     }
   //   })
   // }
+
+
+
+
+
+  public UploadSoapAttchments(abcd) {
+    debugger
+    this.dummprescriptionphotourl = []
+    debugger
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments1.push(abcd.addedFiles[0]);
+    this.uploadSoAPattachmentss();
+    // }
+    debugger
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+  }
+
+  public shoprescphoto = [];
+
+  public uploadSoAPattachmentss() {
+    this.docservice.SoapAttachments(this.attachments1).subscribe(res => {
+      this.attachmentsurl1.push(res);
+      this.dummprescriptionphotourl.push(res);
+      let a = this.attachmentsurl1[0].slice(2);
+      debugger
+      let b = 'https://maroc.voiladoc.org' + a;
+      if (this.attachments1[0].type == 'image/jpeg') {
+        debugger
+        this.shoprescphoto.push(b)
+      }
+      else if (this.attachments1[0].type == 'application/pdf') {
+        debugger
+        this.shoprescphoto.push('assets/Images/pdf.png')
+      }
+
+      this.attachments1.length = 0;
+
+    })
+    // this.sendattachment();
+  }
+
 
   doctemplatelist: any;
   templatelist: any;
@@ -2420,19 +2582,26 @@ export class MyappointmentsComponent implements OnInit {
       'AppointmentID': this.appointmentid,
       'AppointmentDate': this.appointmentdatetime,
       'Subjective': this.subjective,
+      'Objective':this.objective,
+      'Assessment':this.assessment,
+      'Plan':this.plan,
+      'FollowUpPlan':this.followupplan,
+      'DiagnosisCode':this.icdcode,
+      'Notes':this.notes,
       'LanguageID': this.languageid,
       'ICRCode': this.icdcode,
       'ICRDescription': this.icddesc,
-      'ICRID': this.icrcodeid
+      'ICRID': this.icrcodeid,
+      'AttachmentUrl': this.attachmentsurl1[0],
+      'Signature': this.signature
     }
-
     this.docservice.InsertDoctor_PatientSoapNotes1(entity).subscribe(data => {
       if (data != 0) {
         this.soapid = data;
 
-        this.insertsoapnotes2();
-        this.insertsoapnotes3();
-        this.insertsoapnotes4();
+        // this.insertsoapnotes2();
+        // this.insertsoapnotes3();
+        // this.insertsoapnotes4();
         this.Insertnotificationsoapnotesazuere()
         this.InsertNotificationSoapnotes()
         this.VisitDoctorAppointmentStatus(this.appointmentid);
@@ -2469,6 +2638,7 @@ export class MyappointmentsComponent implements OnInit {
           })
         }
         this.followupvisit = 0;
+        this.shoprescphoto = [];
       }
     })
 
@@ -2548,38 +2718,38 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-  public insertsoapnotes2() {
-    var entity = {
-      'DoctorID': this.doctorid,
-      'PatientID': this.patientid,
-      'SoapID': this.soapid,
-      'Objective': this.objective
-    }
-    this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
+  // public insertsoapnotes2() {
+  //   var entity = {
+  //     'DoctorID': this.doctorid,
+  //     'PatientID': this.patientid,
+  //     'SoapID': this.soapid,
+  //     'Objective': this.objective
+  //   }
+  //   this.docservice.InsertDoctor_PatientSoapNotes2(entity).subscribe(data => {
 
-      if (data != 0) {
-        // Swal.fire('Completed', 'Details saved successfully', 'success');
-        this.clear()
+  //     if (data != 0) {
+  //       // Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       this.clear()
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
-  public insertsoapnotes3() {
-    var entity = {
-      'Assessment': this.assessment,
-      'DoctorID': this.doctorid,
-      'PatientID': this.patientid,
-      'SoapID': this.soapid
-    }
-    this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
-      if (data != 0) {
-        // Swal.fire('Completed', 'Details saved successfully', 'success');
-        this.clear()
+  // public insertsoapnotes3() {
+  //   var entity = {
+  //     'Assessment': this.assessment,
+  //     'DoctorID': this.doctorid,
+  //     'PatientID': this.patientid,
+  //     'SoapID': this.soapid
+  //   }
+  //   this.docservice.InsertDoctor_PatientSoapNotes3(entity).subscribe(data => {
+  //     if (data != 0) {
+  //       // Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       this.clear()
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
 
 
@@ -2688,28 +2858,28 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
-  public insertsoapnotes4() {
-    var entity = {
-      'Plan': this.plan,
-      'DoctorID': this.doctorid,
-      'PatientID': this.patientid,
-      'SoapID': this.soapid,
-      'DiagnosisCode': this.icdcode,
-      'Orders': 0,
-      'SickSlip': 0,
-      'FollowUpPlan': this.followupplan,
-      'Signature': this.signature,
-      'Notes': this.notes,
+  // public insertsoapnotes4() {
+  //   var entity = {
+  //     'Plan': this.plan,
+  //     'DoctorID': this.doctorid,
+  //     'PatientID': this.patientid,
+  //     'SoapID': this.soapid,
+  //     'DiagnosisCode': this.icdcode,
+  //     'Orders': 0,
+  //     'SickSlip': 0,
+  //     'FollowUpPlan': this.followupplan,
+  //     'Signature': this.signature,
+  //     'Notes': this.notes,
 
-    }
-    this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
-      if (data != 0) {
-        // Swal.fire('Completed', 'Details saved successfully', 'success');
-        this.clear()
+  //   }
+  //   this.docservice.InsertDoctor_PatientSoapNotes4(entity).subscribe(data => {
+  //     if (data != 0) {
+  //       // Swal.fire('Completed', 'Details saved successfully', 'success');
+  //       this.clear()
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
 
 
@@ -2853,7 +3023,7 @@ export class MyappointmentsComponent implements OnInit {
       if (this.leavefor == 'École') {
         this.Scholldata = 'Arrêt maladie (Ecole).'
       }
-      if (this.leavefor == 'Bureau') {
+      if (this.leavefor == 'Travail') {
 
         this.Scholldata = 'un arrêt de travail.'
       }
@@ -3045,7 +3215,7 @@ export class MyappointmentsComponent implements OnInit {
         Swal.fire('Medical Cerifiate Sent Successfully');
       }
       else {
-        Swal.fire('Le reçu a été envoyé avec succès');
+        Swal.fire('a été envoyé avec succès.');
       }
     })
   }
@@ -3183,7 +3353,7 @@ export class MyappointmentsComponent implements OnInit {
     if (this.languageid == 1) {
       this.referalnotes = " DATE: " + this.todaydate + "<br><p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>&nbsp;</p > <p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "<br>" + this.MobileNumber + "</p><p>Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "<br>" + this.docphoneno + "<br>" + this.Hospital_ClinicName + "</p>"
     }
-    else {
+    else if(this.languageid==6) {
       this.referalnotes = " DATE :" + this.todaydate + "<br>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "<p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<p>Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     // this.referalnotes = "<p><br>" + this.todaydate + "</p><p>SUBJECT : Referral To " + this.doctorname + "</p><p>RE: Mr. " + this.patientname + "</p><p>&nbsp;</p><p>i am referring my patient " + this.patientname + " for review of his new onset.</p><p>&nbsp;</p><p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "</p><p>&nbsp;</p><p>Voiladoc</p><p>" + this.docphoneno + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + this.doctorname + "</p><p>Chief Complaint :&nbsp;</p><p>Diagnosis :</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
@@ -3262,7 +3432,12 @@ export class MyappointmentsComponent implements OnInit {
         }
       }
       else if (this.doctoremail == null) {
-        Swal.fire("Please Enter Doctor Email")
+        if (this.languageid == 1) {
+          Swal.fire("Please Enter Doctor Email")
+        }
+        else {
+          Swal.fire("Veuillez saisir l’adresse email du médecin")
+        }
       }
       else if (this.referalnotes == null || this.referalnotes == "") {
         Swal.fire("Please Enter Referral Notes")
@@ -3828,7 +4003,7 @@ export class MyappointmentsComponent implements OnInit {
     }
   }
 
-  public shoprescphoto = [];
+  // public shoprescphoto = [];
 
   public uploadattachments1() {
     this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
@@ -3893,6 +4068,50 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
+
+
+
+
+  // Diagnostic Test and Soap notes 
+
+
+
+  public InsertDiagnostictestAndSoap() {
+    if (this.attachmentsurl1.length == 0 || (this.attachmentsurl1 == null)) {
+      if (this.languageid == 1) {
+        Swal.fire('Please Add Test or Soap')
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Please Add Test or Soap')
+      }
+    }
+    else {
+      var entity = {
+        'TypeID': this.diasoaptypeid,
+        'AppointmentID': this.appointmentid,
+        'DoctorID': this.doctorid,
+        'PatientID': this.patientid,
+        'PhotoUrl': this.attachmentsurl1[0],
+      }
+      this.docservice.InsertDiagnostic_SoapNotesAttachments(entity).subscribe(data => {
+        if (data != 0) {
+          if (this.languageid == 1) {
+            Swal.fire('success', 'Saved Successfully');
+            this.attachmentsurl1.length = 0;
+            this.shoprescphoto.length = 0;
+            this.shoprescphoto=[]
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Enregistré avec succès ');
+            this.attachmentsurl1.length = 0;
+            this.shoprescphoto.length = 0;
+            this.shoprescphoto=[]
+          }
+
+        }
+      })
+    }
+  }
 
 
 
@@ -4362,7 +4581,8 @@ export class MyappointmentsComponent implements OnInit {
   public attachments5 = [];
   public attachmentsurl5 = [];
   public onattachmentUpload15(abcd) {
-
+    this.attachments5.length = 0;
+    this.showattachdoc.length = 0;
     this.attachments5.push(abcd.addedFiles[0]);
     this.uploadattachments15();
 
@@ -4882,13 +5102,13 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         // title: 'Êtes-vous sûr ?',
-        text: "Souhaitez-vous accorder une consultation gratuite à ce patient ?",
+        text: "Souhaitez-vous accorder une consultation gratuite àce patient ?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Oui',
-        cancelButtonText: 'No'
+        cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {
           this.docservice.UpdateBookVideoCallRejoinbit(appointmentID).subscribe(res => {
@@ -4910,7 +5130,7 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
-
+  diasoaptypeid: any;
 
   public InsertFreecallazureNotification(pEmail) {
 
@@ -5074,15 +5294,19 @@ export class MyappointmentsComponent implements OnInit {
     this.docservice.UpdateBookAppointmentRefund(entity).subscribe(data => {
       debugger
       this.updateWalletdetails()
+      this.InserWlletlog()
+      this.insertWalletnotification()
       debugger
       if (this.languageid == 1) {
         Swal.fire('Amount Refunded Successfully');
         this.getbookappointmentbydoctorid();
+
         this.refundreason = "";
       }
       else {
         Swal.fire('Montant remboursé avec succès.');
         this.getbookappointmentbydoctorid();
+
         this.refundreason = "";
       }
 
@@ -5102,6 +5326,70 @@ export class MyappointmentsComponent implements OnInit {
       // Swal.fire('Amount Added Successfully to Your Wallet');
     })
   }
+
+
+
+
+  public insertWalletnotification() {
+
+    if (this.languageid == '1') {
+      var entity = {
+        'PatientID': this.patientID,
+        'Notification': "Amount Refunded By" + this.user,
+        'Description': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+        'NotificationTypeID': 30,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+      })
+    }
+    else if (this.languageid == '6') {
+      var entity = {
+        'PatientID': this.patientID,
+        'Notification': "Amount Refunded By" + this.user,
+        'Description': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+        'NotificationTypeID': 30,
+        'Date': this.todaydate,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid
+      }
+      this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
+
+        if (data != 0) {
+
+        }
+
+      })
+    }
+  }
+
+
+  public InserWlletlog() {
+    var entity = {
+      'PatientID': this.patientID,
+      'Date': this.serverdate,
+      'Time': this.servertime,
+      'User': this.user,
+      'Reason': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+      'Amount': this.paidamount,
+      'DoctorID': this.doctorid,
+      'AppointmentID': this.appointmentid,
+      'PaymentType': 1,
+      'TypeID': 1
+    }
+    this.docservice.InsertPatient_WalletLogWeb(entity).subscribe(data => {
+      if (data != 0) {
+
+      }
+    })
+  }
+
 
 
 
@@ -5139,5 +5427,35 @@ export class MyappointmentsComponent implements OnInit {
     debugger
     window.open(pdf, "_blank");
   }
+
+
+
+
+  public GetReportsssss(pdf) {
+    debugger
+    window.open(pdf, "_blank");
+  }
+
+
+
+
+
+  // public InserWlletlog() {
+  //   var entity = {
+  //     'PatientID': this.patientid,
+  //     'Date': this.serverdate,
+  //     'Time': this.servertime,
+  //     'User': this.user,
+  //     'Reason': this.reason,
+  //     'Amount': this.entermoney
+  //   }
+  //   this.docservice.InsertPatient_WalletLog(entity).subscribe(data => {
+  //     if (data != 0) {
+
+  //     }
+  //   })
+  // }
+
+
 
 }

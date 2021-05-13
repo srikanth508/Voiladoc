@@ -22,15 +22,15 @@ export class PublisherComponent implements AfterViewInit {
   ngAfterViewInit() {
 
     const OT = this.opentokService.getOT();
-
+    debugger
     this.publisher = OT.initPublisher(this.publisherDiv.nativeElement, {
       insertMode: 'append',
       width: 180,
       height: 120,
-      publishAudio:true,
-      publishVideo:true
+      publishAudio: true,
+      publishVideo: true
 
-    }, function(err) {
+    }, function (err) {
       debugger;
       if (err.name === 'OT_CHROME_MICROPHONE_ACQUISITION_ERROR') {
         alert('Failed to acquire microphone. Please completely quit and restart your browser');
@@ -38,9 +38,10 @@ export class PublisherComponent implements AfterViewInit {
     });
 
     if (this.session) {
-
+      debugger
       if (this.session['isConnected']()) {
         this.publish();
+        debugger
       }
       this.session.on('sessionConnected', () => this.publish());
       this.session.on("sessionDisconnected", function (event) {
@@ -55,6 +56,7 @@ export class PublisherComponent implements AfterViewInit {
         alert(err.message);
       } else {
         this.publishing = true;
+        debugger
       }
     });
   }

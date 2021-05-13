@@ -120,10 +120,13 @@ export class TotalHospitalApointmentsComponent implements OnInit {
 
   selectedDate(data) {
     
+    
+    this.startdate = this.docservice.GetDates(data[0])
+    this.enddate = this.docservice.GetDates(data[1])
 
-    var sdate = data.split('-')
-    this.startdate = sdate[0];
-    this.enddate = sdate[1];
+    // var sdate = data.split('-')
+    // this.startdate = sdate[0];
+    // this.enddate = sdate[1];
     this.docservice.GetHospitalAppointmentDetails(this.hospitalid, this.startdate, this.enddate).subscribe(
       data => {
 

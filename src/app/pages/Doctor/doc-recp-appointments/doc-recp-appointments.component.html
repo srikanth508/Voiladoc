@@ -5,8 +5,7 @@
       <h5 *ngIf="languageid==6">RENDEZ-VOUS MEDECINS</h5>
     </div>
     <div class="col-lg-3" style="margin-top: -5px;text-align: end;">
-      <button type="button" routerLink="/IndBookAppointment"
-        class="btn btncolor">{{labels[0].addapp}}</button>
+      <button type="button" routerLink="/IndBookAppointment" class="btn btncolor">{{labels[0].addapp}}</button>
     </div>
   </div>
 </div>
@@ -91,27 +90,52 @@
               <textarea rows="4" placeholder="{{labels[0].reasonForCancel}}" [(ngModel)]="details.ReasonForCancel"
                 *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'"></textarea>
             </td> -->
-            <td >
+            <td>
+
+
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+              <a [ngbTooltip]="tipcontent2"
+                *ngIf="details.accepted=='0'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'">
+                <img src="assets/Images/acc.png"
+                  (click)="Appointmentstatus(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.emailID,details.smsmobileno)"
+                  style="height:20px;" />
+              </a>&nbsp;&nbsp;
+
               <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
               <a [ngbTooltip]="tipcontent3"
                 *ngIf="details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'">
-                <img src="assets/Images/can.png" style="height:20px;"
-                  (click)="cancelappoinement(details.appointmentID,details.ReasonForCancel)" />
+                <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal" data-target="#exampleModal4"
+                  (click)="cancelapp(details.appointmentID,details.ReasonForCancel)" />
               </a>&nbsp;&nbsp;
+
+              <ng-template #tipcontent567>{{labels[0].uploaddocuments}}</ng-template>
+              <a [ngbTooltip]="tipcontent567"
+                *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'">
+                <img src=" assets/Images/uploadfile.png" style="height:25px;" data-toggle="modal"
+                  data-target="#UploadPhotosDiagnostic" (click)="GetPrescriptionPhoto(details)" />
+              </a>&nbsp;&nbsp;
+
               <!-- <label  >{{labels[0].paid}}</label> -->
               <ng-template #tipcontent76>{{labels[0].paid}}</ng-template>
               <a [ngbTooltip]="tipcontent76">
                 <img src="assets/Images/paidfees.png"
-                  *ngIf="details.payPayment=='1'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                  *ngIf="details.payPayment=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'"
                   style="height:20px;" />
-              </a>
+              </a>&nbsp;
 
               <ng-template #tipcontent78>{{labels[0].pay}}</ng-template>
-              <a [ngbTooltip]="tipcontent8">
+              <a [ngbTooltip]="tipcontent78">
                 <img src="assets/Images/paymentss1.png" data-toggle="modal" data-target="#exampleModal3"
-                  *ngIf="details.payPayment=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                  *ngIf="details.payPayment=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'"
                   (click)="GetDetails(details)" style="height:20px;" />
-              </a>
+              </a>&nbsp;
+
+              <ng-template #tipcontent56>{{labels[0].receipt}}</ng-template>
+              <a [ngbTooltip]="tipcontent56">
+                <img src="assets/Images/Receipts.png"
+                  *ngIf="details.isVisited=='1'&&details.reportBit=='0'&&details.payPayment=='1'" style="height:25px;"
+                  (click)="GenerateReciept(details)" data-toggle="modal" data-target="#Reciept" /></a>&nbsp;
+
             </td>
           </tr>
         </thead>
@@ -119,6 +143,8 @@
     </div>
   </div>
   <br>
+
+  <!-- *ngIf="details.appointmentTypeID=='2' && details.isVisited=='1'" -->
   <!-- <div class="col-lg-12" style="text-align: center">
     <br>
     <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
@@ -132,13 +158,18 @@
 
 
 
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+
+
+
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Pay</h5>
-        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Payer</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Cancellation</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Annulation</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -147,24 +178,73 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-4">
-              <label class="DEPARTMENT_label"> Amount :</label>
+              <label >{{labels[0].reasonForCancel}}</label>
+           
             </div>
             <div class="col-lg-6">
-              <input type="number" [(ngModel)]="PaidAmount" disabled id="Amount" name="PaidAmount" class="form-control">
+              <textarea class="form-control" rows="4" placeholder="{{labels[0].reasonForCancel}}" [(ngModel)]="ReasonForCancel"
+                name="ReasonForCancel">
+              </textarea>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-6">
+              <input type="radio" data-dismiss="modal"
+                (click)="cancelappoinement()">&nbsp;{{labels[0].patientscancelled}}
+            </div>
+            <div class="col-lg-6">
+              <input type="radio" data-dismiss="modal" (click)="DocCancelled()">&nbsp;{{labels[0].doctorscanceled}}
+            </div>
+          </div><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Pay</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Paiement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4">
+              <label class="DEPARTMENT_label"> {{labels1[0].amount}} (MAD) :</label>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" [(ngModel)]="PaidAmount" id="Amount" name="PaidAmount" class="form-control">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-lg-4">
-              <label class="DEPARTMENT_label"> {{labels1[0].paymenttype}} :</label>
+              <label class="DEPARTMENT_label">{{labels[0].payment_Type}} </label>
             </div>
             <div class="col-lg-6">
               <select class="form-control" [(ngModel)]="PaymentTypeID" (change)="GetPaymentTypeID($event)">
-                <option value="" selected>{{labels1[0].paymenttype}}</option>
+                <option value="" selected>{{labels[0].payment_Type}}</option>
                 <option *ngIf="languageid=='1'" value="4">Cash</option>
-                <option *ngIf="languageid=='1'" value="2">Credit Card / Debit Card</option>
-                <option *ngIf="languageid=='6'" value="4">Encaisser</option>
-                <option *ngIf="languageid=='6'" value="2">Carte de débit/crédit’</option>
+                <option *ngIf="languageid=='1'" disabled value="2">Credit Card / Debit Card</option>
+                <option *ngIf="languageid=='6'" value="4">Cash</option>
+                <option *ngIf="languageid=='6'" disabled value="2">Carte de débit/crédit’</option>
                 <!-- <option value="3">Debit Card</option> -->
               </select>
             </div>
@@ -217,6 +297,199 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
           data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="Reciept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 153%;
+      margin-left: -160px;
+  ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].receiptt}}</h5>
+        <!-- <img src="assets/Images/logo.png" style="height: 33px;
+          margin-left: 539px;"> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <div class="container-fluid" id="content">
+          <div class="row">
+            <div class="col-lg-6">
+              <div>Date : {{adate}}</div>
+              <div>{{labels[0].receiptNo}} : {{appointmentID}} </div>
+              <div>{{labels[0].patientName}} : {{patientName}}</div>
+              <div>{{labels[0].nationalIDNo}} : {{nationaidno}}</div>
+              <div>{{labels[0].address}} : {{patientaddress}}</div>
+            </div>
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-4">
+              <!-- <label>Video Call Reciept</label> -->
+              <div>{{doctorName}}</div>
+              <div>{{regno}} </div>
+              <div>{{hospital_ClinicName}}</div>
+              <div>{{docaddres}}</div>
+
+              <!-- <div>{{labels[0].phoneNoo}} : {{mobileNumber}}</div>
+
+            <div>{{labels[0].patientName}} : {{patientName}}</div> -->
+
+            </div>
+          </div>
+          <hr>
+
+          <!-- <label>Slot : {{slots}}</label>
+  
+              <label>Name : {{patientName}}</label>
+  
+              <label>Phone No : {{pMobileNo}}</label>
+  
+              <label>Paid Amount: {{videoAmount}}</label> -->
+
+          <div class="row">
+            <div class="col-lg-4">
+              Date
+            </div>
+            <div class="col-lg-4">
+              Description
+            </div>
+            <div class="col-lg-4">
+              {{labels[0].charge}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              {{adate}}
+            </div>
+            <div class="col-lg-4">
+              {{labels[0].vediocallreciept}} {{appointmentType}}
+            </div>
+            <div class="col-lg-4">
+              {{videoAmount}}
+            </div>
+          </div>
+          <br>
+          <hr>
+          <br>
+          <div style="text-align: end;
+              margin-top: 81px;
+              margin-right: 46px;">
+            <!-- <label>{{labels[0].totalCharges}} : {{videoAmount}}</label> -->
+          </div>
+
+          <div style="margin-top: -83px;">
+            {{labels[0].doctorr}} : {{doctorName}}
+            <!-- <img src="{{signatureURL}}" style="height: 69px;"> -->
+
+            <label style="text-align: end;float: right;">{{labels[0].totalCharges}} : {{videoAmount}}</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()"
+          data-dismiss="modal">{{labels[0].sendEmail}}</button>
+
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF1()"
+          data-dismiss="modal">Download</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Upload prescription photo -->
+
+<div class="modal fade" id="UploadPhotosDiagnostic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="languageid=='1'" id="exampleModalLabel">Upload documents</h5>
+        <h5 class="modal-title" *ngIf="languageid=='6'" id="exampleModalLabel">Télécharger des documents</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <!-- <div class="col-lg-2">
+
+          </div> -->
+          <div class="col-lg-4">
+            <input type="radio" value="1" [(ngModel)]="diasoaptypeid" name="diasoaptypeid">&nbsp;{{labels[0].tests}}
+          </div>
+          <div class="col-lg-4">
+            <input type="radio" value="3" [(ngModel)]="diasoaptypeid" name="diasoaptypeid">&nbsp;{{labels[0].ptrescriptions}}
+          </div>
+          <div class="col-lg-4">
+            <input type="radio" value="2" [(ngModel)]="diasoaptypeid" name="diasoaptypeid">&nbsp;{{labels[0].soapnotess}}
+          </div>
+        </div><br>
+        <div *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='3'">
+          <div class="row">
+            <!-- <label>Upload Photo</label> -->
+
+            <div class="col-lg-12">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+              </ngx-dropzone>
+              <span *ngFor="let photo of shoprescphoto">
+                <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
+              </span>
+            </div>
+          </div>
+          <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
+            (click)="InsertDiagnostictestAndSoap()" *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'"
+            data-dismiss="modal">{{labels[0].save}}</button>
+
+          <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
+            (click)="InsertPrescrptionPhoto()" *ngIf="diasoaptypeid=='3'"
+            data-dismiss="modal">{{labels[0].save}}</button>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="SendReciept()" data-dismiss="modal">Send Email</button> -->
       </div>
     </div>
   </div>

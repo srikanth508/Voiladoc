@@ -1,0 +1,44 @@
+<div class="container-fluid card card:hover headerspace">
+    <div class="row headerspace1">
+        <div class="col-lg-3">
+            <h5>Invitation Master</h5>
+        </div>
+    </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+    <br>
+    <form #countryForm="ngForm">
+        <div class="row">
+            <div class="col-lg-2">
+                <label class="REGISTRATION NO:">No Of Instalations : </label>
+                <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" required [(ngModel)]="noofinstalations" name="noofinstalations"
+                    placeholder="No Of Instalations">
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-lg-2">
+                <label class="REGISTRATION NO:">Amount :</label>
+
+            </div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" required placeholder="Amount" [(ngModel)]="amount" name="amount">
+                <!-- <textarea class="form-control" rows="4" </textarea> -->
+            </div>
+        </div><br>
+
+        <div class="row">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-2">
+                <button type="button" text_align="center" [disabled]="countryForm.form.invalid"
+                    class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">Save</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+        </div>
+        <br>
+    </form>
+</div>
