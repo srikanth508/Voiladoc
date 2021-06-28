@@ -235,7 +235,7 @@ export class PrescriptionReportsComponent implements OnInit {
 
   public GetMedicines(id) {
     this.myarray.length = 0;
-    debugger
+    
     this.listid = id;
     this.list = this.reportlist.filter(x => x.id == this.listid)
 
@@ -265,7 +265,7 @@ export class PrescriptionReportsComponent implements OnInit {
       )
 
 
-    debugger
+    
   }
   // public GetMedicines(id) {
   //   this.myarray.length = 0;

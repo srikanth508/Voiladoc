@@ -16,10 +16,12 @@ export class ChangediaPwdComponent implements OnInit {
   public languageid: any;
   public pinno: any;
   public diagnosticid: any;
+  public currentpwd: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
     this.diagnosticid = localStorage.getItem('diagnosticid');
+    this.currentpwd = localStorage.getItem('Password');
     this.getdiagnosticloginfordash();
 
     this.getlanguage();
@@ -60,12 +62,12 @@ export class ChangediaPwdComponent implements OnInit {
   public password: any;
   public mypinno: any;
 
-
+  oldpassword: any;
   public GetDeatsils(details) {
 
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password,
+      this.oldpassword = details.password,
       this.mypinno = details.pinno
 
     this.Showpassword = 0;
@@ -128,24 +130,45 @@ export class ChangediaPwdComponent implements OnInit {
 
   public Enteredpinno: any;
   public Showpassword: any;
+  public entercurrentpwd: any;
 
   public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
-      Swal.fire('Please Enter Your Pin No')
+    
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+      
+      if (this.languageid == 1) {
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+      else {
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+
 
     }
     else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
+      
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+        
+        if (this.languageid == 1) {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+
       }
     }
   }

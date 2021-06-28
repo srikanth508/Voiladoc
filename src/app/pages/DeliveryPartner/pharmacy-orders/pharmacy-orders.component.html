@@ -63,7 +63,7 @@
             <td>
               <span *ngIf="details.assignBit=='0'">
                 <button type="button" class="asignbtn" style="background-color: #00b0f0; color: white;  width: 75px;"
-                  (click)="getid(details.id)" data-toggle="modal" data-target="#asssign">Assign</button>
+                  (click)="getid(details.id)" data-toggle="modal" data-target="#asssign">{{labels[0].assign}}</button>
               </span>
               <!-- <ng-template #tipcontent3>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent3"
@@ -91,16 +91,16 @@
           <div class="col-lg-12">
             <table>
               <tr>
-                <td style="background-color: #f18235;">{{labels[0].name}}</td>
-                <td style="background-color: #f18235;">{{labels[0].phoneNo}}</td>
-                <td style="background-color: #f18235;">{{labels[0].assign}}</td>
+                <td style="background-color: #f18235;color:white">{{labels[0].agentname}}</td>
+                <td style="background-color: #f18235;color:white">{{labels[0].agentphoneno}}</td>
+                <td style="background-color: #f18235;color:white">{{labels[0].assign}}</td>
               </tr>
               <tr *ngFor="let details of partnerlist|filter:term">
                 <td>{{details.name}}</td>
                 <td>{{details.phoneNo}}</td>
                 <td>
                   <button type="button" style="background-color: #00b0f0; color: white;  width: 75px;"
-                    (click)="asssign(details.id)" class="asignbtn" data-dismiss="modal">Assign</button>
+                    (click)="asssign(details.id)" class="asignbtn" data-dismiss="modal">{{labels[0].assign}}</button>
                 </td>
               </tr>
             </table>

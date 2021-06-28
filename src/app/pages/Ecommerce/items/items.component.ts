@@ -192,7 +192,7 @@ export class ItemsComponent implements OnInit {
 
 
   Updatedetail() {
-  debugger
+  
     let entity = {
       'ID': this.ID,
       'ProductName': this.productname,
@@ -203,7 +203,7 @@ export class ItemsComponent implements OnInit {
       'SubcategoryID': this.SubcategoryID,
     };
     this.service.UpdateProducts(entity).subscribe(data => {
-      debugger
+      
       Swal.fire('Updated Successfully');
       location.href = '#/ItemMaster';
       // if (data != 0) {

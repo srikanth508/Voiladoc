@@ -79,7 +79,7 @@ export class PharmacyoffersComponent implements OnInit {
 
     this.docservice.GetPharmacyOfferByPharmacyID(this.pharmacyid).subscribe(
       data => {
-        debugger
+        
         this.offerslist = data;
         var list = this.offerslist.filter(x => x.id == this.id)
         this.offername = list[0].offerName,
@@ -87,7 +87,7 @@ export class PharmacyoffersComponent implements OnInit {
           this.startdate = list[0].sdate,
           this.enddate = list[0].edate,
           this.offer = list[0].offer
-        debugger
+        
       }, error => {
       }
     )
@@ -255,13 +255,13 @@ export class PharmacyoffersComponent implements OnInit {
 
 
   public updatephotos() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'PhotoURL': this.attachmentsurl[0]
     }
     this.docservice.UpdatePharmacyOffersPhotos(entity).subscribe(data => {
-      debugger
+      
       this.phrmayphotos()
     })
   }

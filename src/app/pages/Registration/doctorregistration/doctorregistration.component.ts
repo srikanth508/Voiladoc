@@ -323,7 +323,7 @@ export class DoctorregistrationComponent implements OnInit {
   typeofdoctor: any;
 
   public GetTypeofdoctor(even) {
-    debugger
+    
 
     this.typeofdoctor = even.target.value;
     if (this.typeofdoctor == '1') {
@@ -412,7 +412,7 @@ export class DoctorregistrationComponent implements OnInit {
           this.insertdoctorexperience();
           this.insertdoctormembership();
           // this.getdoctorforadmin();
-          debugger
+          
           // this.sendmail();
           if (this.languageid == 1) {
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
@@ -429,16 +429,15 @@ export class DoctorregistrationComponent implements OnInit {
 
         }
         else {
-          if(this.languageid==1)
-        {
-          Swal.fire('Doctor Name', 'Already Exists');
-          this.spinner.hide();
-        }
-        else{
-          Swal.fire('Le nom du médecin', 'existe déjà.');
-          this.spinner.hide();
-        }
-         
+          if (this.languageid == 1) {
+            Swal.fire('Doctor Name', 'Already Exists');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire('Le nom du médecin', 'existe déjà.');
+            this.spinner.hide();
+          }
+
           // location.href = "#/Docdash";
         }
       })
@@ -447,12 +446,12 @@ export class DoctorregistrationComponent implements OnInit {
   doctorlist: any;
 
   public getdoctorforadmin() {
-    debugger
+    
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.doctorlist = data;
-        debugger
+        
         var list = this.doctorlist.filter(x => x.id == this.doctorid)
         this.pinno = list[0].pinno
         this.sendmail()
@@ -466,7 +465,7 @@ export class DoctorregistrationComponent implements OnInit {
   emailattchementurl = [];
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",
@@ -496,7 +495,12 @@ export class DoctorregistrationComponent implements OnInit {
     }
   }
   public insertdoctormedicalregistration() {
-
+    if (this.registrationno == "") {
+      this.registrationno = 0;
+    }
+    if (this.registrationcouncil == "") {
+      this.registrationcouncil = 'none';
+    }
     var entity = {
       'DoctorID': this.doctorid,
       'RegistrationNo': this.registrationno,
@@ -842,12 +846,12 @@ export class DoctorregistrationComponent implements OnInit {
     this.registrationcouncil = '';
   }
   public getareamasterbyid() {
-    debugger
+    
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        debugger
+        
         this.arealist = data;
-        debugger
+        
         this.areadd = {
           singleSelection: true,
           idField: 'id',

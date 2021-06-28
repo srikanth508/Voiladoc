@@ -327,6 +327,17 @@ import { PatientInvitesDashComponent } from './pages/AdminDashboard/patient-invi
 import { InvitationMasterComponent } from './pages/AdminDashboard/invitation-master/invitation-master.component';
 import { InvitationDashComponent } from './pages/AdminDashboard/invitation-dash/invitation-dash.component';
 import { ProviderpayComponent } from './pages/Billing/providerpay/providerpay.component';
+import { ForgotPasswordComponent } from './pages/Sales/forgot-password/forgot-password.component';
+import { HomedeliveryFeesComponent } from './pages/Masters/homedelivery-fees/homedelivery-fees.component';
+import { PharmacyReportComponent } from './pages/AdminDashboard/pharmacy-report/pharmacy-report.component';
+import { DiagnosticHomeReportComponent } from './pages/AdminDashboard/diagnostic-home-report/diagnostic-home-report.component';
+import { PharmacyChargesReportComponent } from './pages/Pharmacy/pharmacy-charges-report/pharmacy-charges-report.component';
+import { DiaChargesReportComponent } from './pages/Diagnostic Center/dia-charges-report/dia-charges-report.component';
+import { DiaPharmaPayComponent } from './pages/Billing/dia-pharma-pay/dia-pharma-pay.component';
+import { NpmEmrComponent } from './pages/Nurse/npm-emr/npm-emr.component';
+import { NurseEmrComponent } from './pages/Nurse/nurse-emr/nurse-emr.component';
+import { PatientPdfsComponent } from './pages/GenaratePDFs/patient-pdfs/patient-pdfs.component';
+import { PatientPdfComponent } from './pages/GenaratePDFs/patient-pdf/patient-pdf.component';
 
 
 
@@ -384,6 +395,7 @@ const routes: Routes = [
   { path: 'Pharmacyprofile', component: PharmacyprofileComponent },
   { path: 'Pharmacyoffers', component: PharmacyoffersComponent },
   { path: 'Writearticle', component: WritearticleComponent },
+  { path: 'Writearticle/:id', component: WritearticleComponent },
   { path: 'Offersdash', component: OffersdashComponent },
   { path: 'OffersDashboard', component: OffersDashboardComponent },
   { path: 'EditHospitalClinic/:id', component: EditHospitalClinicComponent },
@@ -518,6 +530,7 @@ const routes: Routes = [
   { path: 'MyPatientPrescriptions', component: MyPatientPrescriptionsComponent },
   { path: 'MyProfiles', component: MyProfilesComponent },
   { path: 'Announsements', component: AnnounsementsComponent },
+  { path: 'Announsements/:id', component: AnnounsementsComponent },
   { path: 'AnnounseDash', component: AnnounseDashComponent },
   { path: 'NurseFees', component: NurseFeesComponent },
   { path: 'NurseFees/:id', component: NurseFeesComponent },
@@ -717,6 +730,17 @@ const routes: Routes = [
   { path: 'InvitationMaster', component:  InvitationMasterComponent},
   { path: 'InvitationDash', component:  InvitationDashComponent},
   { path: 'Providerpay', component:  ProviderpayComponent},
+  { path: 'ForgotPassword', component:  ForgotPasswordComponent},
+  { path: 'HomedeliveryFees', component:  HomedeliveryFeesComponent},
+  { path: 'PharmacyReport', component:  PharmacyReportComponent},
+  { path: 'DiagnosticHomeReport', component:  DiagnosticHomeReportComponent},
+  { path: 'PharmacyChargesReport', component:  PharmacyChargesReportComponent},
+  { path: 'DiaChargesReport', component:  DiaChargesReportComponent},
+  { path: 'DiaPharmaPay', component:  DiaPharmaPayComponent},
+  { path: 'NpmEmr', component:  NpmEmrComponent},
+  { path: 'NurseEmr/:patientID', component:  NurseEmrComponent},
+  { path: 'PatientPdfs', component:  PatientPdfsComponent},
+  { path: 'PatientPdf', component:  PatientPdfComponent},
 ];
 
 @NgModule({

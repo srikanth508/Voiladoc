@@ -5,7 +5,7 @@
       <!-- <br><br> -->
       <h6 *ngIf="languageid=='1'" style="margin-top:6px">Patient Video <span style="margin-left: 550px;"
           id="demo"></span> </h6>
-      <h6 *ngIf="languageid=='6'" style="margin-top:6px">Vidéo patient <span style="margin-left: 550px;"
+      <h6 *ngIf="languageid=='6'" style="margin-top:6px">Vidéo du patient<span style="margin-left: 550px;"
           id="demo"></span> </h6>
       <!-- <h6   id="demo"></h6> -->
       <div class="row">
@@ -257,12 +257,19 @@
           data-toggle="modal" data-target="#previoustest">
           {{labels[0].previoustest}}</button>
       </div>
+      <div class="col-lg-12">
+        <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
+          data-toggle="modal" data-target="#Vitaldetals">
+          {{labels[0].vitalDetals}}</button>
+      </div>
 
       <div class="col-lg-12">
         <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
           data-toggle="modal" data-target="#chat" (click)="GetChatShowID()">
           {{labels[0].chat}}</button>
       </div>
+
+
       <div class="col-lg-12">
         <ng-template #tipcontent948>whats app</ng-template>
         <a [ngbTooltip]="tipcontent948">
@@ -516,11 +523,11 @@
             <div class="row" *ngIf="tablecuont1=='1'">
               <div class="col-lg-5">
               </div>
-              <div class="col-lg-2">
-                <button type="button" style="color: white;" class="btn btn-default"
-                data-dismiss="modal"  (click)="InsertPrescription()">{{labels[0].save}}</button>
-              </div>
               <div class="col-lg-5">
+                <button type="button" style="color: white;" class="btn btn-default" data-dismiss="modal"
+                  (click)="InsertPrescription()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-2">
               </div>
             </div>
           </form>
@@ -548,44 +555,142 @@
       <div class="modal-body" stylw="width:1100px">
         <div class="container-fluid">
           <form #diaForm="ngForm">
+
             <div class="row">
               <div class="col-lg-5">
                 <h6>{{labels[0].chooseFromtemplate}} </h6>
-
-
+              </div>
+              <div class="col-lg-7">
                 <select class="form-control" (change)="GetTestTemplateID($event)">
                   <option selected="selected" value="0">{{labels[0].select}}</option>
                   <option *ngFor="let testtemp of TestTemplateList" value="{{testtemp.id}}">{{testtemp.templateName}}
                   </option>
                 </select>
               </div>
-              <!-- <div class="col-lg-7">
-               
-              </div> -->
             </div>
             <br>
             <div class="row">
-              <!-- <div class="col-lg-4"></div> -->
-              <div class="col-lg-5">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-8">
                 <h6>{{labels[0].fillAllDetails}}</h6>
               </div>
             </div>
             <br>
+
             <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testType}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].testName}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
+                  name="testssid">
+                  <option value="0" selected>{{labels[0].select}}</option>
+                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div *ngIf="testssid=='59'||testssid=='60'">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].testName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
+                    [(ngModel)]="diagnostictestname" name="diagnostictestname">
+                </div>
+              </div> <br>
+            </div>
+            <!-- *ngIf="testid==2" -->
+            <div>
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].clinicalInfo}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <textarea rows="3" class="form-control" placeholder="{{labels[0].clinicalInfo}}"
+                    [(ngModel)]="clinicalinfo" name="clinicalinfo"></textarea>
+                </div>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+                <label>{{labels[0].saveastemplate}} :</label>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="2">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div>
+            <br>
+            <div *ngIf="testtemplate=='1'">
+              <div class="row">
+                <div class="col-lg-5">
+                  <label>{{labels[0].templateName}} :</label>
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" name="testtemplatename" [(ngModel)]="testtemplatename"
+                    placeholder="{{labels[0].templateName}}">
+                </div>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+                  (click)="adddetails()">{{labels[0].add}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+              <div class="col-lg-5">
+                <h6>{{labels[0].chooseFromtemplate}} </h6>
+                <select class="form-control" (change)="GetTestTemplateID($event)">
+                  <option selected="selected" value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let testtemp of TestTemplateList" value="{{testtemp.id}}">{{testtemp.templateName}}
+                  </option>
+                </select>
+              </div>
+          
+            </div>
+            <br> -->
+            <!-- <div class="row">
+              
+              <div class="col-lg-5">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div>
+            <br> -->
+            <!-- <div class="row">
               <div class="col-lg-5">
                 <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
                   <option value="0">{{labels[0].select}} {{labels[0].testType}}</option>
                   <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
                 </select>
                 <br>
-                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid" name="testssid">
+                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
+                  name="testssid">
                   <option value="0">{{labels[0].select}} {{labels[0].testName}}</option>
                   <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
                 </select>
-                <br>
-                <!-- *ngIf="testid=='2'" -->
-                <textarea class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
-                  placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
                 <br>
                 <div *ngIf="testssid=='59'||testssid=='60'">
 
@@ -593,6 +698,11 @@
                     [(ngModel)]="diagnostictestname" name="diagnostictestname">
 
                 </div><br>
+               
+                <textarea class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
+                  placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
+                <br>
+   
                 <div class="row">
                   <div class="col-lg-6">
                     <label>{{labels[0].saveastemplate}} :</label>
@@ -621,7 +731,12 @@
                 <button type="button" class="btn btn-default " [disabled]="diaForm.form.invalid"
                   style="background-color: #f18235;color: white;" (click)="adddetails()">{{labels[0].add}}</button>
               </div>
-              <div class="col-lg-7">
+            
+
+            </div><br> -->
+
+            <div class="row">
+              <div class="col-lg-12">
                 <table *ngIf="tablecount=='1'">
                   <thead>
                     <tr>
@@ -643,20 +758,27 @@
                   </tr>
                 </table>
                 <br>
-                <button type="button" *ngIf="tablecount=='1'" class="btn btn-default " style="background-color: #f18235;color: white
-                 ;"  data-dismiss="modal" (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+              </div><br>
+              <div class="row">
+                <div class="col-lg-7">
+
+                </div>
+                <div class="col-lg-5">
+                  <button type="button" *ngIf="tablecount=='1'" class="btn btn-default " style="background-color: #f18235;color: white
+                ;" data-dismiss="modal" (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+                </div>
               </div>
 
-            </div><br>
+            </div>
 
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">{{labels[0].close}}</button>
-          <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">Annuler</button>
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">Annuler</button>
       </div>
     </div>
   </div>
@@ -768,13 +890,19 @@
                   placeholder="{{labels[0].notes}}"></textarea>
               </div>
               <div class="col-lg-6">
-                <ngx-dropzone [multiple]="false" style="height: 90px;" (change)="UploadSoapAttchments($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone [multiple]="false" style="height: 50px;" (change)="UploadSoapAttchments($event)"
+                  class="dropzone_vendorinvoice">
                   <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                  <span *ngFor="let showphoto of shoprescphoto">
+                    <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+                  </span>
                 </ngx-dropzone>
-                <span *ngFor="let showphoto of shoprescphoto">
-                  <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
-                </span>
+
+                <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session* </span>
+                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par
+                  session* </span>
               </div>
+
             </div>
             <!-- <br>
               <div class="row">
@@ -822,11 +950,12 @@
             <div class="row">
               <div class="col-lg-5">
               </div>
-              <div class="col-lg-2">
-                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
-                  data-dismiss="modal"  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
-              </div>
               <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
+                  data-dismiss="modal" data-dismiss="modal"
+                  [disabled]="soapForm.form.invalid">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-2">
               </div>
             </div>
           </form>
@@ -1915,6 +2044,85 @@
 </div>
 
 
+
+
+
+<!-- 
+Vital details -->
+
+
+<div class="modal fade" id="Vitaldetals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:751px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].vitalDetals}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>BPM : </label>
+            </div>
+            <div class="col-lg-4">
+              {{bpm}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>CPM : </label>
+            </div>
+            <div class="col-lg-4">
+              {{cpm}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].oxygen}} : </label>
+            </div>
+            <div class="col-lg-4">
+              {{oxygen}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].stress}} : </label>
+            </div>
+            <div class="col-lg-4">
+              {{stress}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].bloodpressure}} : </label>
+            </div>
+            <div class="col-lg-4">
+              {{bloodpressure}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-3">
+              <!-- <img src="assets/Images/arrowleft.jpg"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">{{labels[0].close}}</button>
+
+        <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">Fermer </button>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

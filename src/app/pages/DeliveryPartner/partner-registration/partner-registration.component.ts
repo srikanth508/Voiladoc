@@ -71,8 +71,17 @@ export class PartnerRegistrationComponent implements OnInit {
       this.attachments.push(abcd.addedFiles[0]);
       this.uploadattachments();
     // }
-    Swal.fire('Added Successfully');
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Ajouté avec succès');
     abcd.length = 0;
+    }
+    
   }
 
   public uploadattachments() {
@@ -96,8 +105,16 @@ export class PartnerRegistrationComponent implements OnInit {
       this.idproof.push(abcd.addedFiles[0]);
       this.uploadid();
     // }
-    Swal.fire('Added Successfully');
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Ajouté avec succès');
     abcd.length = 0;
+    }
   }
 
   public uploadid() {

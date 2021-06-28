@@ -48,16 +48,31 @@
               <p innerHTML="{{article.writeup}}"></p>
             </td>
             <td>
-              <a [ngbTooltip]="tipcontent3">
-                <button  *ngIf="article.enable=='0'"
-                  style="background-color: red;color: aliceblue;border: none;"
-                (click)="GetDisableArticle(article.id)" >Disable</button>
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/Writearticle',article.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 22px">
+              </a>&nbsp;
+              <ng-template #tipcontent1>Delete</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/dell.png" style="width: 22px" (click)="DeleteArticle(article.id)">
+              </a>&nbsp;&nbsp;
+
+              <ng-template #tipcontent8>Photo</ng-template>
+              <a [ngbTooltip]="tipcontent8">
+                <img src="assets/Images/att.png" style="width: 20px;margin-left: 10px;"
+                  *ngIf="article.typeID=='1'||article.typeID=='2'"
+                  (click)="GetPhotoUrl(article.subPhotoUrl,article.typeID)" data-toggle="modal" data-target="#myModal">
               </a>
-            <ng-template #tipcontent2>Enable</ng-template>
-            <a [ngbTooltip]="tipcontent2" *ngIf="article.enable=='1'">
-                <button  *ngIf="article.enable=='1'"
-                  style="background-color: green;color: aliceblue;border: none;"
-                (click)="GetEnableArticle(article.id)" >Enable</button>
+
+
+              <a [ngbTooltip]="tipcontent3">
+                <button *ngIf="article.enable=='0'" style="background-color: red;color: aliceblue;border: none;"
+                  (click)="GetDisableArticle(article.id)">Disable</button>
+              </a>&nbsp;
+              <ng-template #tipcontent2>Enable</ng-template>
+              <a [ngbTooltip]="tipcontent2" *ngIf="article.enable=='1'">
+                <button *ngIf="article.enable=='1'" style="background-color: green;color: aliceblue;border: none;"
+                  (click)="GetEnableArticle(article.id)">Enable</button>
               </a>
             </td>
           </tr>
@@ -73,3 +88,46 @@
     </pagination-controls>
   </div><br><br> -->
 </div><br>
+
+
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">
+          <!-- <b>Sponsorship Image</b> -->
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="phototypeid=='1'">
+          <div class="row">
+            <div class="col-lg-12" style="overflow: auto;">
+              <img src="assets/Images/pdf.png" style="width: auto; 
+              height: 150px;width: 150px;" (click)="opentab()">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="phototypeid=='2'">
+          <div class="row">
+            <div class="col-lg-12" style="overflow: auto;">
+              <img src="{{photourl}}" style="width: auto;
+              height: 427px;">
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" style="background-color: #f18235;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,12 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
-      <h5>{{labels2[0].pharmacyreturnorders}}</h5>
+      <h5  *ngIf="languageid=='1'">{{labels2[0].pharmacyreturnorders}}</h5>
+      <h5  *ngIf="languageid=='6'">RETOURS DE PHARMACIE</h5>
+      <!-- <h5 *ngIf="languageid=='6'">RETOURS D’ACHAT</h5> -->
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
-      <button class="btn  btncolor" (click)="getglmasterexcel()">Export To Excel</button>
+      <button class="btn  btncolor" (click)="getglmasterexcel()">{{labels[0].exportExcel}}</button>
     </div>
   </div>
 </div><br>
@@ -25,7 +27,8 @@
     <div class="col-lg-3">
     </div>
     <div class="col-lg-3" style="text-align: end;">
-      <label> Count : {{count}}</label>
+      <label *ngIf="languageid=='1'"> Count : {{count}}</label>
+      <label *ngIf="languageid=='6'"> Nombre : {{count}}</label>
     </div>
   </div><br>
   <div class="row">
@@ -78,7 +81,7 @@
             <td>
               <span *ngIf="details.returnAssignBit=='0'">
                 <button type="button" class="asignbtn" style="background-color: #00b0f0; color: white;  width: 75px;"
-                  (click)="getid(details.id)" data-toggle="modal" data-target="#asssign">Assign</button>
+                  (click)="getid(details.id)" data-toggle="modal" data-target="#asssign">{{labels[0].assign}}</button>
               </span>
               <span>
                 <button type="button" class="asignbtn" style="background-color: #00b0f0; color: white;  width: 75px;"
@@ -117,16 +120,16 @@
           <div class="col-lg-12">
             <table>
               <tr>
-                <td style="background-color: #f18235;">{{labels[0].name}}</td>
-                <td style="background-color: #f18235;">{{labels[0].phoneNo}}</td>
-                <td style="background-color: #f18235;">{{labels[0].assign}}</td>
+                <td style="background-color: #f18235;color:white">{{labels[0].agentname}}</td>
+                <td style="background-color: #f18235;color:white">{{labels[0].agentphoneno}}</td>
+                <td style="background-color: #f18235;color:white">{{labels[0].assign}}</td>
               </tr>
               <tr *ngFor="let details of partnerlist|filter:term">
                 <td>{{details.name}}</td>
                 <td>{{details.phoneNo}}</td>
                 <td>
                   <button type="button" style="background-color: #00b0f0; color: white;  width: 75px;"
-                    (click)="asssign(details.id)" class="asignbtn" data-dismiss="modal">Assign</button>
+                    (click)="asssign(details.id)" class="asignbtn" data-dismiss="modal">{{labels[0].assign}}</button>
                 </td>
               </tr>
             </table>

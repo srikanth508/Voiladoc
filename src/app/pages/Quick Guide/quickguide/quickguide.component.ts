@@ -14,31 +14,111 @@ export class QuickguideComponent implements OnInit {
   public languageid: any;
   public chapterlist: any;
   subchapterlist: any;
+  pharmacyid: any;
+  nurseid: any;
+  midwifeid: any;
+  physioid: any;
+  diagnosticid: any;
+  doctorid: any;
+  hospitalid: any;
+
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
+    this.pharmacyid = localStorage.getItem('pharmacyid');
+    this.nurseid = localStorage.getItem('nurseid');
+    this.midwifeid = localStorage.getItem('midwifeid');
+    this.physioid = localStorage.getItem('physioid');
+    this.diagnosticid = localStorage.getItem('diagnosticid');
+    this.doctorid = localStorage.getItem('userid');
+    this.hospitalid = localStorage.getItem('hospitalid');
 
-    this.docservice.GetChapterMaster(this.languageid).subscribe(
-      data => {
-        debugger
-        this.chapterlist = data;
 
-      }, error => {
-      }
-    )
+    if (this.doctorid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 2).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    } 
+    else if (this.nurseid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 3).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.physioid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 4).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.midwifeid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 5).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.diagnosticid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 7).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.pharmacyid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 6).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.pharmacyid != undefined) {
+      this.docservice.GetChapterMaster(this.languageid, 8).subscribe(
+        data => {
+          
+          this.chapterlist = data;
+
+        }, error => {
+        }
+      )
+    }
+
+
 
   }
 
   public GetID(id) {
-    debugger
+    
     this.GetSubchpters(id)
   }
 
   public GetSubchpters(id) {
-
+    this.subchapterlist = ""
     this.docservice.GetQuickGuideByWeb(id).subscribe(
       data => {
-        debugger
+        
         this.subchapterlist = data;
 
       }, error => {

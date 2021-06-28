@@ -87,7 +87,7 @@ export class AdminDashComponent implements OnInit {
 
 
   selectedDate(data) {
-   debugger;
+   ;
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]

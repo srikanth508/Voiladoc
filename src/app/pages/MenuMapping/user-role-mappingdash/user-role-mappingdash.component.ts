@@ -82,20 +82,20 @@ export class UserRoleMappingdashComponent implements OnInit {
 
 
   public CheckPasswordvalidate() {
-    debugger
+    
     if (this.Enteredpinno == "") {
-      debugger
+      
       Swal.fire('Please Enter Your Pin No')
 
     }
     else {
-      debugger
+      
       if (this.pinno == this.Enteredpinno) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
       }
       else {
-        debugger
+        
         Swal.fire('You Entered Pin no is invalid')
         this.Enteredpinno = ""
       }

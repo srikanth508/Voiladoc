@@ -56,26 +56,159 @@ export class HspclidashComponent implements OnInit {
     )
   }
 
-  public disablehospital(hosid) {
-    this.docservice.DisableSponsoredHospitals(hosid).subscribe(
-      data => {
 
-        Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
-        this.getsponserhospitalforadmin();
-      }, error => {
-      }
-    )
-  }
-  public enablehospital(hosid) {
-    this.docservice.EnableSponsoredHospitals(hosid).subscribe(
-      data => {
 
-        Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
-        this.getsponserhospitalforadmin();
-      }, error => {
-      }
-    )
+
+
+
+
+
+
+
+  public disablehospital(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to disable this Hospital !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, disable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableSponsoredHospitals(id).subscribe(res => {
+            let test = res;
+            this.getsponserhospitalforadmin();
+          })
+          Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
+        }
+        else {
+          this.getsponserhospitalforadmin();
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, désactiver !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableSponsoredHospitals(id).subscribe(res => {
+            let test = res;
+            this.getsponserhospitalforadmin();
+          })
+          Swal.fire(
+            '',
+            'Désactivé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getsponserhospitalforadmin();
+        }
+      })
+    }
+
+
   }
+
+
+
+
+
+  // public disablehospital(hosid) {
+  //   this.docservice.DisableSponsoredHospitals(hosid).subscribe(
+  //     data => {
+
+  //       Swal.fire('Disabled', 'Hospital/Clinic has been Disabled');
+  //       this.getsponserhospitalforadmin();
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+
+
+
+
+
+
+
+  
+  public enablehospital(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Enable this Hospital !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Enable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableSponsoredHospitals(id).subscribe(res => {
+            let test = res;
+            this.getsponserhospitalforadmin();
+          })
+          Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
+        }
+        else {
+          this.getsponserhospitalforadmin();
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableSponsoredHospitals(id).subscribe(res => {
+            let test = res;
+            this.getsponserhospitalforadmin();
+          })
+          Swal.fire(
+            '',
+            'Activé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getsponserhospitalforadmin();
+        }
+      })
+    }
+
+
+  }
+
+
+  // public enablehospital(hosid) {
+  //   this.docservice.EnableSponsoredHospitals(hosid).subscribe(
+  //     data => {
+
+  //       Swal.fire('Enabled', 'Hospital/Clinic has been Enabled');
+  //       this.getsponserhospitalforadmin();
+  //     }, error => {
+  //     }
+  //   )
+  // }
   public pageChanged(even) {
 
     let fgdgfgd = even;

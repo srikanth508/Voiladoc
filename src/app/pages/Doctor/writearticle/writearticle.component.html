@@ -13,7 +13,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="dropdown form-control" (change)="GetCategoryID($event)">
+        <select class="dropdown form-control" (change)="GetCategoryID($event)" [(ngModel)]="categoryid"
+          name="categoryid">
           <option value="" selected>{{labels[0].select}}</option>
           <option *ngFor="let category of categorylist" value={{category.id}}>{{category.category}}</option>
         </select>
@@ -25,7 +26,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <textarea  rows="4" name="topic" class="form-control" required cols="45" [(ngModel)]="topic" placeholder="{{labels[0].topic}}"
+        <textarea rows="4" name="topic" class="form-control" required cols="45" [(ngModel)]="topic"
+          placeholder="{{labels[0].topic}}"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
       </div>
     </div><br>
@@ -35,7 +37,8 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <textarea rows="4" cols="45" placeholder="{{labels[0].subTopic}}" [(ngModel)]="subtopic" rows="4" name="subtopic" required class="form-control"
+        <textarea rows="4" cols="45" placeholder="{{labels[0].subTopic}}" [(ngModel)]="subtopic" rows="4"
+          name="subtopic" required class="form-control"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea>
       </div>
     </div><br>
@@ -43,28 +46,18 @@
       <div class="col-lg-3">
         <label>{{labels[0].tags}}:</label>
         <span class="required">*</span><br>
-       <label>({{labels[0].seperatetagswithSemicolon}})</label> 
+        <label>({{labels[0].seperatetagswithSemicolon}})</label>
       </div>
       <div class="col-lg-4">
-        <textarea  rows="4" [(ngModel)]="tags" name="tags"  class="form-control" required cols="45" placeholder="{{labels[0].tags}}"
+        <textarea rows="4" [(ngModel)]="tags" name="tags" class="form-control" required cols="45"
+          placeholder="{{labels[0].tags}}"
           onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==35'></textarea>
       </div>
     </div><br>
+
     <div class="row">
       <div class="col-lg-3">
-        <label>{{labels[0].writeup}}:</label>
-        <span class="required">*</span>
-      </div>
-      <div class="col-lg-6">
-        <ckeditor [editor]="Editor"  [(ngModel)]="writeup" name="writeup" data=""></ckeditor>
-        <!-- <textarea class="form-contol" rows="4" cols="45" [(ngModel)]="writeup" name="writeup" required
-          placeholder="Write Up"
-          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea> -->
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-3">
-        <label>{{labels[0].photos}} :</label>
+        <label>Banner Photo :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
@@ -75,18 +68,100 @@
           <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
         </span>
       </div>
-      <div class="col-lg-5 specforimg">
-        <p>
+      <!-- specforimg -->
+      <div class="col-lg-5 ">
+        <img src="{{showphotos}}" *ngIf="showicon=='1'" style="height: 100px;width: 100px;">
+        <!-- <p>
           {{labels[0].image}}
-        </p>
+        </p> -->
       </div>
     </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>Type </label>
+      </div>
+      <div class="col-lg-7">
+        <input type="radio" [(ngModel)]="typeid" name="typeid" [value]="1" >&nbsp;&nbsp;Pdf
+        &nbsp;
+        <input type="radio" [(ngModel)]="typeid" name="typeid" [value]="2" >&nbsp;&nbsp;Image
+        &nbsp;
+        <input type="radio" [(ngModel)]="typeid" name="typeid" [value]="3" >&nbsp;&nbsp;Text
+        &nbsp;
+
+      </div>
+    </div>
+    <div>
+
+      <div *ngIf="typeid=='1'">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>PDF :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone>
+            <span *ngFor="let pho of showphoto">
+              <img src="{{subshowphoto}}" style="height:50px;width:70px">&nbsp;
+            </span>
+          </div>
+          <!-- specforimg -->
+          <div class="col-lg-5 ">
+            <img src="{{showsubphoto}}" *ngIf="showicon=='1'" style="height: 100px;width:100px;">
+            <!-- <p>
+              {{labels[0].image}}
+            </p> -->
+          </div>
+        </div><br>
+      </div>
+
+
+      <div *ngIf="typeid=='2'">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Image :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-4">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone>
+            <span *ngFor="let pho of showphoto">
+              <img src="{{subshowphoto}}" style="height:50px;width:70px">&nbsp;
+            </span>
+          </div>
+          <!-- specforimg -->
+          <div class="col-lg-5 ">
+            <img src="{{showsubphoto}}" *ngIf="showicon=='1'" style="height: 100px;width:100px;">
+            <!-- <p>
+              {{labels[0].image}}
+            </p> -->
+          </div>
+        </div><br>
+      </div>
+      <div class="row" *ngIf="typeid=='3'">
+        <div class="col-lg-3">
+          <label>{{labels[0].writeup}}:</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-6">
+          <ckeditor [editor]="Editor" [(ngModel)]="writeup" name="writeup" data=""></ckeditor>
+          <!-- <textarea class="form-contol" rows="4" cols="45" [(ngModel)]="writeup" name="writeup" required
+          placeholder="Write Up"
+          onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'></textarea> -->
+        </div>
+      </div><br>
+    </div>
+
     <div class="row">
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" class="btn btn-block  allbtns btncolor" [disabled]="articleForm.form.invalid"
-          (click)="insertdetails()">  {{labels[0].save}}</button>
+        <button type="button" class="btn btn-block   allbtns btncolor" *ngIf="showicon=='0'"
+          [disabled]="articleForm.form.invalid" (click)="insertdetails()"> {{labels[0].publish}}</button>
+        <button type="button" class="btn btn-block   allbtns btncolor" *ngIf="showicon=='1'"
+          [disabled]="articleForm.form.invalid" (click)="UpdateDetails()"> Update</button>
       </div>
       <div class="col-lg-5">
 

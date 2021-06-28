@@ -771,16 +771,18 @@
         </div>
     </div>
 </div>
+<!-- class="modal-title" -->
 
 <div id="notification" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">
-                    {{labels[0].notifications}}</h4>
+                <!-- <h5> -->
+                    {{labels[0].notifications}}
+                <!-- </h5> -->
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
+            <!-- <div class="modal-body">
                 <div class="row" *ngFor="let noti of notifications">
                     <div class="col-lg-9">
                         <p>{{noti.Msg}}</p>
@@ -800,7 +802,7 @@
                             data-dismiss="modal">{{labels[0].chatNow}}</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="modal-body">
                 <div class="row card card-hover newcard" *ngFor="let docnoti of doctorNotifications"
                     style="overflow: auto;">
@@ -1024,3 +1026,14 @@
         <br>
     </form>
 </div>
+
+
+
+
+
+
+
+
+
+
+

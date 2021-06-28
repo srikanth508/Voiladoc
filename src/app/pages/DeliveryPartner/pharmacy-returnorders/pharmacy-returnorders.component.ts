@@ -171,8 +171,17 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
     }
     this.docservice.UpdateDeliveryPartnerrReturnAssignOrdersAssignedOrders(entity).subscribe(res => {
       let test = res;
-      Swal.fire(' Assigned', 'Order Assigned to delivery partner.');
+      if(this.languageid==1)
+      {
+        Swal.fire(' Assigned', 'Order Assigned to delivery partner.');
+        this.GetPharmacyOrders()
+      }
+      else
+      {
+        Swal.fire('La commande a été attribuée au livreur');
       this.GetPharmacyOrders()
+
+      }
     })
   }
 

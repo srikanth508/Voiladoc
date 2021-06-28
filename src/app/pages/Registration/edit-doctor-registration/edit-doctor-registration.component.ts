@@ -261,7 +261,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
   referbit: any;
 
   public updatedetails() {
-    debugger
+    
     var entity = {
       'LanguageID': this.languageid,
       'DoctorID': this.id,
@@ -289,7 +289,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
     }
     this.docservice.UpdateDoctorPersonelInfo(entity).subscribe(res => {
       let test = res;
-      debugger
+      
       if (this.languageid == 1) {
         this.getdoctordetailsbyid();
         Swal.fire('Updated Successfully');

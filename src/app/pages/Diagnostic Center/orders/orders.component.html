@@ -11,9 +11,11 @@
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)"  [(bsValue)]="myDateValue"  bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -29,7 +31,7 @@
             <th id="imp">{{labels[0].diaAppointmentType}}</th>
             <th id="imp">{{labels[0].slot}}</th>
             <th id="imp">{{labels[0].orderNumber}}</th>
-             <th>{{labels4[0].primarypatientname}}</th>
+            <th>{{labels4[0].primarypatientname}}</th>
             <th>{{labels4[0].phoneNoo}}</th>
             <th>{{labels4[0].bookedPatientname}}</th>
             <!-- <th>{{labels[0].patientname}}</th>
@@ -56,8 +58,14 @@
             <!-- <td>{{details.emailID}}</td> -->
             <td>{{details.relationaddress}}</td>
             <td>
-              <label  *ngIf="details.homeSampleBit=='1'&&details.diagnosticSlotID!='0'">{{labels[0].yes}}</label>
+              <label *ngIf="details.homeSampleBit=='1'&&details.diagnosticSlotID!='0'">{{labels[0].yes}}</label>
               <label *ngIf="details.homeSampleBit=='0'&&details.diagnosticSlotID!='0'">{{labels[0].no}}</label>
+
+
+              <label *ngIf="details.homeSampleBit=='1'&&details.appointmentType=='2'">{{labels[0].yes}}</label>
+              <label *ngIf="details.homeSampleBit=='0'&&details.appointmentType=='2'">{{labels[0].no}}</label>
+
+
             </td>
             <td>
               {{details.assinedname}}
@@ -66,7 +74,7 @@
               <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
               <a [ngbTooltip]="tipcontent18">
                 <img src="assets/Images/test1.png" *ngIf="details.testsCount!=0" data-toggle="modal"
-                  data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(details.id,details.hideupdate)">
+                  data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(details.id,details.hideupdate,details)">
               </a>&nbsp;
               <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
               <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
@@ -74,29 +82,42 @@
                   (click)="GetPackageID(details.id)">&nbsp;
               </a>
               <ng-template #tipcontent2045>Photo</ng-template>
-              <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'&&photoexist=='1'">
-                <img src="assets/Images/phaprescripton.png" data-toggle="modal" data-target="#exampleModal6"
+              <a [ngbTooltip]="tipcontent2045" >
+                <img src="assets/Images/phaprescripton.png" *ngIf="details.appointmentType=='2'&&details.photoexist=='1'" data-toggle="modal" data-target="#exampleModal6"
                   style="height:20px;" (click)="GetAttachments(details.id)"></a>
 
-                  <ng-template #tipcontent2094>Pdf</ng-template>
-                  <a [ngbTooltip]="tipcontent2094" *ngIf="details.appointmentType=='2'&&details.fileAvailableBit=='1'">
-                    <img src="assets/Images/pdf.png" 
-                      style="height:20px;" (click)="GetPdf(details.fileUrl)"></a>
+              <ng-template #tipcontent2094>Pdf</ng-template>
+              <a [ngbTooltip]="tipcontent2094" *ngIf="details.appointmentType=='2'&&details.fileAvailableBit=='1'">
+                <img src="assets/Images/pdf.png" style="height:20px;" (click)="GetPdf(details.fileUrl)"></a>
 
             </td>
 
             <td>
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='0'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType=='0'&&details.hideupdate=='0'"
                 style="color: green;">{{labels[0].accepted}}</label>
               <label
-                *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
+                *ngIf="details.diagnosticCancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
                 style="color: red;">{{labels[0].cancelled}}</label>
+                <label
+                *ngIf="details.cancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
+                style="color: red;">{{labels[0].patientCancelled}}</label>
+
               <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'"
                 style="color: yellowgreen;">{{labels[0].visited}}</label>
-              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'" style="color: yellowgreen;">{{labels[0].reportdelivered}}</label>
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'"
+                style="color: yellowgreen;">{{labels[0].reportdelivered}}</label>
 
               <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
+
+              <label
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType=='0'&&details.deliverPatnerAssigned=='0'&&details.hideupdate=='1'"
+                style="color: green;">{{labels[0].pricesenttopatient}}</label>
+
+              <label
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'"
+                style="color: green;">{{labels[0].readyfordelivery}}</label>
+
               <label
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'"
                 style="color: green;">{{labels[0].assigned}}</label>
@@ -155,10 +176,10 @@
                   <td style="border:none">
                     <ng-template #tipcontent8>{{labels[0].uploadreport}}</ng-template>
                     <a [ngbTooltip]="tipcontent8"
-                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'">
+                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'&&details.uploadedBit=='0'">
                       <img src="assets/Images/uploadfile.png" data-toggle="modal" data-target="#exampleModal1"
                         style="height:19px;"
-                        (click)="GetUploadReportID(details.id,details.patientID,details.diagnosticCenterID,details.emailID,details.diagnosticCenterName)">
+                        (click)="GetUploadReportID(details.id,details.patientID,details.diagnosticCenterID,details.emailID,details.diagnosticCenterName,details.smsmobileno)">
                     </a>
                   </td>
                   <td style="border:none">
@@ -171,9 +192,12 @@
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent9867>{{labels[0].chat}}</ng-template>
-                    <span style="color: green;position: absolute;margin-left: 22px;"  *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'">{{details.chatcount}}</span>
-                    <a [ngbTooltip]="tipcontent9867" >
-                      <img src="assets/Images/chat.jpg"   *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'" style="height:19px;" (click)="GetChatShowID(details)">
+                    <span style="color: green;position: absolute;margin-left: 22px;"
+                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'">{{details.chatcount}}</span>
+                    <a [ngbTooltip]="tipcontent9867">
+                      <img src="assets/Images/chat.jpg"
+                        *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'"
+                        style="height:19px;" (click)="GetChatShowID(details)">
                     </a>
                   </td>
                 </tr>
@@ -266,12 +290,12 @@
             </div>
           </div><br>
           <div class="row">
-            <div class="col-lg-5">
-            </div>
             <div class="col-lg-2">
+            </div>
+            <div class="col-lg-6">
               <button class="btn btn-primary" (click)="insertdiagnosticupload()"
                 style="background-color: #f18235;color: white;border:none"
-                data-dismiss="modal">{{labels[0].save}}</button>
+                data-dismiss="modal">{{labels[0].sendtopatient}}</button>
             </div>
           </div>
         </div>
@@ -303,11 +327,17 @@
                   <tr>
                     <th>{{labels[0].tests}}</th>
                     <th>Description</th>
+                    <th>{{labels[0].price}}</th>
                     <th>{{labels[0].available}}</th>
                   </tr>
                   <tr *ngFor="let listss of testslist">
                     <td>{{listss.testName}}</td>
                     <td>{{listss.description}}</td>
+                    <td>
+                      <input type="text" [(ngModel)]="listss.fees" name="listss.fees" class="form-control"
+                        placeholder="{{labels[0].price}}">
+
+                    </td>
                     <td><input type="checkbox" [(ngModel)]="listss.available" (click)="GetAvailableBit"></td>
                   </tr>
                 </thead>
@@ -484,7 +514,8 @@
             <label>{{labels[0].amountsss}} :</label>
           </div>
           <div class="col-lg-4">
-            <input type="text" class="form-control" [(ngModel)]="amount" placeholder="{{labels[0].amount}}" name="amount">
+            <input type="text" class="form-control" [(ngModel)]="amount" placeholder="{{labels[0].amount}}"
+              name="amount">
           </div>
           <div class="col-lg-1">
             MAD
@@ -495,7 +526,7 @@
           </div>
           <div class="col-lg-2">
             <button style="background-color: #f18235;color: white;border:none" (click)="GetAppointmentAccept()"
-            class="btn btn-block btn-md allbtns btncolor"     data-dismiss="modal">{{labels[0].update}}</button>
+              class="btn btn-block btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].update}}</button>
           </div>
         </div>
       </div>

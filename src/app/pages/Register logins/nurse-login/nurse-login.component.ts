@@ -179,7 +179,7 @@ export class NurseLoginComponent implements OnInit {
 
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

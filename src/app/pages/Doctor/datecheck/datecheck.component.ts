@@ -34,14 +34,14 @@ export class DatecheckComponent implements OnInit {
   daychangedate1: any;
 
   public GetdaychangeDate(newDate: Date) {
-    debugger
+    
     this.datechangedayid = "";
     this.daychangedate = "";
-    debugger
+    
     Swal.fire("Date format is :" + this.daychangedate1)
     this.daychangedate1 = newDate.toLocaleString().split(',')[0];
 
-    debugger
+    
     Swal.fire("Date format is :" + this.daychangedate1)
     this.previousDate = new Date(newDate);
 
@@ -65,13 +65,13 @@ if (day.length < 2)
 //return [year, month, day].join('-');
     this.Getdays()
     Swal.fire("Date format is :" + this.daychangedate + " and dayid is " + this.datechangedayid)
-    debugger
+    
   }
 
   public Getdays() {
-    debugger
+    
     this.docservice.GetDaysHomecare(this.daychangedate).subscribe(data => {
-      debugger
+      
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
 
@@ -84,7 +84,7 @@ if (day.length < 2)
 
   public Getdayssid() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      debugger
+      
       this.dayidslist = data;
       this.datechangedayid = this.dayidslist[0].dayID;
 

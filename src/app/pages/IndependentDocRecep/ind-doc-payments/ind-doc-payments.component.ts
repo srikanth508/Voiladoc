@@ -120,7 +120,7 @@ export class IndDocPaymentsComponent implements OnInit {
     this.docservice.GetBookAppointmentByHospital_ClinicID(this.hospitalid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
         this.dummlist = data;
-        debugger
+        
         this.doctorlist = this.dummlist.filter(x => x.doctorID == this.doctorid)
         this.dummlist1=  this.dummlist.filter(x => x.doctorID == this.doctorid)
         this.count = this.doctorlist.length;

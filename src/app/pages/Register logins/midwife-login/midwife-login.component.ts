@@ -154,10 +154,10 @@ export class MidwifeLoginComponent implements OnInit {
 
 
   public GetMidWivesLoginAdmin() {
-    debugger
+    
     this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.midwiveslist = data;
         var list = this.midwiveslist.filter(x => x.midWiveID == this.midewifeid)
         this.midwifename = list[0].name,
@@ -178,7 +178,7 @@ export class MidwifeLoginComponent implements OnInit {
 
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

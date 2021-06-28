@@ -54,28 +54,147 @@ public value;
       }
     )
   }
+  // public diasblePharmacy(id) {
+   
+  //   this.docservice.DisableSponsoredPharmacy(id).subscribe(
+  //     data => {
+       
+  //       Swal.fire('Disabled', 'Pharmacy has been Disabled');
+  //       this.getsponserpharmacyforadmin();
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+
+
+
+
   public diasblePharmacy(id) {
-   
-    this.docservice.DisableSponsoredPharmacy(id).subscribe(
-      data => {
-       
-        Swal.fire('Disabled', 'Pharmacy has been Disabled');
-        this.getsponserpharmacyforadmin();
-      }, error => {
-      }
-    )
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Disable this Pharmacy !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, disable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableSponsoredPharmacy(id).subscribe(res => {
+            let test = res;
+            this.getsponserpharmacyforadmin();
+          })
+          Swal.fire('Disabled', 'Pharmacy has been Disabled');
+        }
+        else {
+          this.getsponserpharmacyforadmin();
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableSponsoredPharmacy(id).subscribe(res => {
+            let test = res;
+            this.getsponserpharmacyforadmin();
+          })
+          Swal.fire(
+            '',
+            'Désactivé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getsponserpharmacyforadmin();
+        }
+      })
+    }
+
+
   }
+
+
+
+  
   public enablePharmacy(id) {
-   
-    this.docservice.EnableSponsoredPharmacy(id).subscribe(
-      data => {
-       
-        Swal.fire('Enabled', 'Pharmacy has been Enabled');
-        this.getsponserpharmacyforadmin();
-      }, error => {
-      }
-    )
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Enable this Pharmacy !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Enable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableSponsoredPharmacy(id).subscribe(res => {
+            let test = res;
+            this.getsponserpharmacyforadmin();
+          })
+          Swal.fire('Enabled', 'Pharmacy has been Enabled');
+        }
+        else {
+          this.getsponserpharmacyforadmin();
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableSponsoredPharmacy(id).subscribe(res => {
+            let test = res;
+            this.getsponserpharmacyforadmin();
+          })
+          Swal.fire(
+            '',
+            'Activé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getsponserpharmacyforadmin();
+        }
+      })
+    }
+
+
   }
+
+
+  // public enablePharmacy(id) {
+   
+  //   this.docservice.EnableSponsoredPharmacy(id).subscribe(
+  //     data => {
+       
+  //       Swal.fire('Enabled', 'Pharmacy has been Enabled');
+  //       this.getsponserpharmacyforadmin();
+  //     }, error => {
+  //     }
+  //   )
+  // }
   public pageChanged(even) {
    
     let fgdgfgd = even;

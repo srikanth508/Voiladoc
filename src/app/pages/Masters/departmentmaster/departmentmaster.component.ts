@@ -77,12 +77,12 @@ export class DepartmentmasterComponent implements OnInit {
     this.attachmentsurl = []
     this.attachmentsurl.length = 0;
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      debugger
+      
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
-      debugger
+      
       this.showphoto.push(b)
       this.attachments.length = 0;
 
@@ -133,7 +133,7 @@ export class DepartmentmasterComponent implements OnInit {
 
   public Updatedetails() {
     // this.spinner.show();
-    debugger
+    
     var entity = {
       'ID': this.id,
       'Departmentname': this.departmentname,
@@ -143,7 +143,7 @@ export class DepartmentmasterComponent implements OnInit {
     }
     this.docservice.UpdateDepartmentMaster_Web(entity).subscribe(data => {
       let res = data;
-      debugger
+      
       Swal.fire('Success', 'Details Saved Successfully');
       this.spinner.hide();
       location.href = "#/DepartmentDash"

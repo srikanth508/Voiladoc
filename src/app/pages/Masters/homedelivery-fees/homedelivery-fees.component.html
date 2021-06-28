@@ -1,0 +1,203 @@
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5 *ngIf="languageid=='1'">HOME DELIVERY FEES</h5>
+      <h5 *ngIf="languageid=='6'">FRAIS DE TRANSACTION </h5>
+    </div>
+    <div class="col-lg-6">
+    </div>
+    <div class="col-lg-3">
+      <!-- <button type="button" routerLink="/FacilityMaster"
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].add}}</button> -->
+    </div>
+  </div>
+  <br>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr *ngIf="languageid=='1'">
+            <th>Type</th>
+            <th>Delivery Charges </th>
+            <th>Meridional Commission</th>
+            <th>Delivery Patner Fees</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngIf="languageid=='6'">
+            <th>Type</th>
+            <th>Frais </th>
+            <th>Commission Voiladoc</th>
+            <th>Honoraires du partenaire</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let list of charges|filter:term">
+            <td>{{list.typeName}}</td>
+            <td>{{list.deliveryCharges}}</td>
+            <td>{{list.meridionalCommision}}</td>
+            <td>{{list.deliveryPatnerFees}}</td>
+            <td>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px" data-toggle="modal" data-target="#exampleModal"
+                  (click)="GetDetails(list)">
+              </a>&nbsp;
+
+              <ng-template #tipcontent12>Disable</ng-template>
+              <a [ngbTooltip]="tipcontent12" style="color:black">
+                <img src="assets/Images/active.png" style="width: 30px" *ngIf="list.hidden=='0'" 
+                   (click)="GetDisableFess(list.id)">
+              </a>
+              <ng-template #tipcontent13>Enable</ng-template>
+              <a [ngbTooltip]="tipcontent13" style="color:black">
+                <img src="assets/Images/dactive.png" style="width: 30px" *ngIf="list.hidden=='1'" 
+                  (click)="EnableFess(list.id)">
+              </a>
+
+              <!-- <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteFacilitiesMaster(list.id)">
+              </a>
+             -->
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div><br><br>
+  </div><br><br>
+  <br>
+</div><br><br><br><br>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="    width: 700px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Edit</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'&&id=='1'">Modifications des frais de livraison en pharmacie        </h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'&&id=='2'">Modifications des frais de analyses et Imagerie </h5>
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="id=='1'">
+        <form #doctorForm="ngForm">
+        <div class="row">
+          <div class="col-lg-4">
+            <label *ngIf="languageid=='1'">Delivery Charges :</label>
+            <label *ngIf="languageid=='6'">Frais de livraison :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" required [(ngModel)]="deliverycharges" name="deliverycharges" class="form-control" />
+          </div>
+
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label *ngIf="languageid=='1'">Meridional Commission :</label>
+            <label *ngIf="languageid=='6'">Commission Voiladoc :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text"  class="form-control" required [(ngModel)]="meridionalcommission" name="meridionalcommission"
+              (ngModelChange)="GetCommission($event)" />
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label *ngIf="languageid=='1'">Delivery Patner Fees :</label>
+            <label *ngIf="languageid=='6'">Frais de partenaire de livraison :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" disabled [(ngModel)]="deliveryPatnerFees" name="deliveryPatnerFees"  />
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" *ngIf="languageid=='1'"  class="btn allbtns btncolor" (click)="updatedetails()"
+              [disabled]="doctorForm.form.invalid">Update</button>
+
+              <button type="button" *ngIf="languageid=='6'" class="btn allbtns btncolor" (click)="updatedetails()"
+              [disabled]="doctorForm.form.invalid">Mettre à jour</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div><br><br>
+      </form>
+        <div class="modal-footer">
+          <button type="button" id="close" class="btn btncolor" data-dismiss="modal" *ngIf="languageid=='6'">Fermer</button>
+          <button type="button" id="close" class="btn btncolor" data-dismiss="modal" *ngIf="languageid=='1'" >Close</button>
+        </div>
+      </div>
+
+
+
+
+      <div class="modal-body" *ngIf="id=='2'">
+        <form #doctorForm="ngForm">
+        <div class="row">
+          <div class="col-lg-4">
+            <label *ngIf="languageid=='1'">Delivery Charges :</label>
+            <label *ngIf="languageid=='6'">Analyses et Imagerie (Frais) :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" required [(ngModel)]="deliverycharges" name="deliverycharges" class="form-control" />
+          </div>
+
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label *ngIf="languageid=='1'">Meridional Commission :</label>
+            <label *ngIf="languageid=='6'">Commission Voiladoc :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text"  class="form-control" required [(ngModel)]="meridionalcommission" name="meridionalcommission"
+              (ngModelChange)="GetCommission($event)" />
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label *ngIf="languageid=='1'">Delivery Patner Fees :</label>
+            <label *ngIf="languageid=='6'">Frais de partenaire :</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" disabled [(ngModel)]="deliveryPatnerFees" name="deliveryPatnerFees"  />
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" *ngIf="languageid=='1'"  class="btn allbtns btncolor" (click)="updatedetails()"
+              [disabled]="doctorForm.form.invalid">Update</button>
+
+              <button type="button" *ngIf="languageid=='6'" class="btn allbtns btncolor" (click)="updatedetails()"
+              [disabled]="doctorForm.form.invalid">Mettre à jour</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div><br><br>
+      </form>
+        <div class="modal-footer">
+          <button type="button" id="close" class="btn btncolor" data-dismiss="modal" *ngIf="languageid=='6'">Fermer</button>
+          <button type="button" id="close" class="btn btncolor" data-dismiss="modal" *ngIf="languageid=='1'" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

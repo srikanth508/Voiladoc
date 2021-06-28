@@ -22,11 +22,13 @@ export class DocChangePwdComponent implements OnInit {
   public count: any;
   public pinno: any;
   public doctorid: any;
-  public dummdocloginlist:any;
+  public dummdocloginlist: any;
+  currentpwd: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
     this.pinno = localStorage.getItem('Pinno');
+    this.currentpwd = localStorage.getItem('Password');
     this.getdoctorloginfordash()
     this.getlanguage()
   }
@@ -43,17 +45,17 @@ export class DocChangePwdComponent implements OnInit {
   }
 
   public getdoctorloginfordash() {
-      this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
-        data => {
+    this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
+      data => {
 
-          this.dummdocloginlist=data
-          this.doctorloginlist =this.dummdocloginlist.filter(x=>x.doctorID==this.doctorid)
+        this.dummdocloginlist = data
+        this.doctorloginlist = this.dummdocloginlist.filter(x => x.doctorID == this.doctorid)
 
-        
-        }, error => {
-        }
-      )
-    
+
+      }, error => {
+      }
+    )
+
   }
 
 
@@ -64,16 +66,18 @@ export class DocChangePwdComponent implements OnInit {
   pp: any;
   username: any;
   mypinno: any;
+  oldpassword: any;
 
 
   public GetDeatsils(details) {
 
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password,
-      this.mypinno = details.pinno
+      // this.password = details.password,
+      this.mypinno = details.pinno,
+      this.oldpassword = details.password,
 
-    this.Showpassword = 0;
+      this.Showpassword = 0;
   }
 
   public Showpassword: any;
@@ -105,12 +109,14 @@ export class DocChangePwdComponent implements OnInit {
               this.pp = 0;
               this.getdoctorloginfordash()
               document.getElementById('close').click();
+              this.password = ""
             }
             else {
               Swal.fire('', 'Mis à jour avec succés', 'success');
               this.pp = 0;
               this.getdoctorloginfordash()
               document.getElementById('close').click();
+              this.password = ""
             }
 
           }
@@ -126,26 +132,49 @@ export class DocChangePwdComponent implements OnInit {
 
   public Enteredpinno: any;
 
+  public entercurrentpwd: any;
+
   public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
-      Swal.fire('Please Enter Your Pin No')
+    
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+      
+      if (this.languageid == 1) {
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+      else {
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+
 
     }
     else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
+      
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+        
+        if (this.languageid == 1) {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+
       }
     }
   }
+
 
   public pageChanged(even) {
 

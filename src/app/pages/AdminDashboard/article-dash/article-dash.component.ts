@@ -11,9 +11,9 @@ export class ArticleDashComponent implements OnInit {
 
   constructor(public docservice: HelloDoctorService) { }
 
-  public articlelist:any;
-  labels:any;
-  languageid:any;
+  public articlelist: any;
+  labels: any;
+  languageid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.GetArticles()
@@ -25,7 +25,7 @@ export class ArticleDashComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginArticleAppointmentReport_Lable(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -35,10 +35,10 @@ export class ArticleDashComponent implements OnInit {
   public GetArticles() {
     this.docservice.GetArticleForAdminForWeb().subscribe(
       data => {
-       
+
         this.articlelist = data;
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -46,60 +46,206 @@ export class ArticleDashComponent implements OnInit {
 
 
   public GetDisableArticle(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Disable This Article!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Disable it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.GetDisableArticle(id).subscribe(res => {
-          let test = res;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Disable This Article!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Disable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetDisableArticle(id).subscribe(res => {
+            let test = res;
+            this.GetArticles();
+          })
+          Swal.fire(
+            'Disabled!',
+            'Article has been Disabled.',
+            'success'
+          )
+        }
+        else {
           this.GetArticles();
-        })
-        Swal.fire(
-          'Disabled!',
-          'Article has been Disabled.',
-          'success'
-        )
-      }
-      else {
-        this.GetArticles();
-      }
-    })
+        }
+      })
+
+    }
+    else
+    {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, désactiver !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetDisableArticle(id).subscribe(res => {
+            let test = res;
+            this.GetArticles();
+          })
+          Swal.fire(
+            '',
+            'Désactivé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.GetArticles();
+        }
+      })
+    }
+
+  
   }
 
 
   public GetEnableArticle(id) {
-   ;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Enable This Article!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Enable it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.GetEnableArticle(id).subscribe(res => {
-          let test = res;
+    ;
+    if(this.languageid==1)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Enable This Article!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Enable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetEnableArticle(id).subscribe(res => {
+            let test = res;
+            this.GetArticles();
+          })
+          Swal.fire(
+            'Enabled!',
+            'Article has been Enabled.',
+            'success'
+          )
+        }
+        else {
           this.GetArticles();
-        })
-        Swal.fire(
-          'Enabled!',
-          'Article has been Enabled.',
-          'success'
-        )
-      }
-      else {
-        this.GetArticles();
-      }
-    })
+        }
+      })
+    }
+    else{
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.GetEnableArticle(id).subscribe(res => {
+            let test = res;
+            this.GetArticles();
+          })
+          Swal.fire(
+            '',
+            'Activé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.GetArticles();
+        }
+      })
+    }
+   
   }
 
+
+
+
+
+
+
+
+
+
+
+  public DeleteArticle(id) {
+    if(this.languageid==1)
+    {
+      
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Article!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteArticle(id).subscribe(res => {
+            let test = res;
+            this.GetArticles();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Article has been Deleted.',
+            'success'
+          )
+        }
+        else {
+          this.GetArticles();
+        }
+      })
+    }else{
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteArticle(id).subscribe(res => {
+            let test = res;
+            this.GetArticles();
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Article a été supprimé.',
+            'success'
+          )
+        }
+        else {
+          this.GetArticles();
+        }
+      })
+    }
+   
+  }
+  photourl: any;
+
+  phototypeid: any;
+
+
+
+  public GetPhotoUrl(url, typeID) {
+    this.photourl = url;
+    this.phototypeid = typeID;
+  }
+
+  public opentab()
+  {
+    window.open(this.photourl, '_blank');
+  }
 }

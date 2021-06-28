@@ -21,7 +21,7 @@ export class EnableLocalDoctorComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.labels = data;
       }, error => {
       }
@@ -29,7 +29,7 @@ export class EnableLocalDoctorComponent implements OnInit {
     this.getlocaldoctors();
   }
   public pageChanged(even) {
-    debugger
+    
     let fgdgfgd = even;
     this.p = even;
   }
@@ -38,7 +38,7 @@ export class EnableLocalDoctorComponent implements OnInit {
   public getlocaldoctors() {
     this.docservice.GetLocalDoctorRegistration(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.localdoclist = data;
         this.enabledisable=this.localdoclist[0].enableDisable
         this.count= this.localdoclist.length
@@ -50,7 +50,7 @@ export class EnableLocalDoctorComponent implements OnInit {
 
   
 public deletedoctorregistration(id) {
-  debugger;
+  ;
   Swal.fire({
     title: 'Are you sure?',
     text: "You Want to Delete This Doctor!",

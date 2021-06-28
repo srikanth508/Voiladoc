@@ -64,9 +64,9 @@ export class DoctorComponent implements OnInit {
         }
       )
     }
-    debugger
+    
 
-    debugger
+    
 
   }
   public getlanguage() {
@@ -83,7 +83,7 @@ export class DoctorComponent implements OnInit {
   public GetDoctorID(item2: any) {
 
     this.doctorid = item2.id;
-    debugger
+    
 
   }
 
@@ -95,9 +95,9 @@ export class DoctorComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+    
     this.password = Math.random().toString(36).slice(-8);
-    debugger
+    
     if (this.doctorid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("please select Doctor");
@@ -165,7 +165,7 @@ export class DoctorComponent implements OnInit {
 
     this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.doctorloginlist = data;
         var list = this.doctorloginlist.filter(x => x.doctorID == this.doctorid)
         this.pinno = list[0].pinno,
@@ -187,7 +187,7 @@ export class DoctorComponent implements OnInit {
   public doctorname: any;
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

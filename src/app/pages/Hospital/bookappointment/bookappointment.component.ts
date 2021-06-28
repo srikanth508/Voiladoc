@@ -317,7 +317,7 @@ export class BookappointmentComponent implements OnInit {
     // 
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
-        debugger
+        
         this.dummdoctorslots = data;
         this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > this.presenttime)
 

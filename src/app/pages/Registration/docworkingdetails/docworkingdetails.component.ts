@@ -360,7 +360,7 @@ export class DocworkingdetailsComponent implements OnInit {
 
 
   public GetDaysID(item10: any) {
-    debugger
+    
     // this.dayid = item10.id;
     this.dayid.push(item10)
   }

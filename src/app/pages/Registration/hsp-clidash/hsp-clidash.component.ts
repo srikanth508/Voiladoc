@@ -99,10 +99,10 @@ export class HspClidashComponent implements OnInit {
           //  this.hospitalcliniclist = data;
           this.dummlist = data;
           //  this.hospitalcliniclist
-          debugger
+          
           this.hospitalcliniclist = this.dummlist.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
           this.hospitalcount = this.hospitalcliniclist.length;
-          debugger
+          
         }, error => {
         }
       )
@@ -126,13 +126,13 @@ export class HspClidashComponent implements OnInit {
 
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.dummlist = data;
         this.dummlist1 = this.dummlist.filter(x => x.hospital_ClinicID == 1)
         this.hospitalcliniclist = this.dummlist1.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
-        debugger
+        
         this.hospitalcount = this.hospitalcliniclist.length;
-        debugger
+        
       }, error => {
       }
     )

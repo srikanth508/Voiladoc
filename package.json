@@ -32,6 +32,7 @@
     "angular-archwizard": "^4.0.0",
     "angular-notification-icons": "^1.0.0",
     "angular-translator": "^3.1.0",
+    "angular-user-idle": "^2.2.5",
     "angular5-csv": "^0.2.11",
     "bootstrap": "4.2.1",
     "bootstrap-fileinput": "^5.0.2",

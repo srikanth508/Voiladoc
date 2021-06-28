@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
     <div class="row headerspace1">
-        <div class="col-lg-3">
-            <h5>Invitation Master</h5>
+        <div class="col-lg-6">
+            <h5 *ngIf="languageid=='1'">Invitation Master</h5>
+            <h5 *ngIf="languageid=='6'">AJOUTER UN NOUVEAU PROGRAMME            </h5>
         </div>
     </div>
 </div><br>
@@ -9,22 +10,27 @@
     <br>
     <form #countryForm="ngForm">
         <div class="row">
-            <div class="col-lg-2">
-                <label class="REGISTRATION NO:">No Of Instalations : </label>
+            <div class="col-lg-3">
+                <label class="REGISTRATION NO:" *ngIf="languageid=='1'">No of converted users  : </label>
+                <label class="REGISTRATION NO:" *ngIf="languageid=='6'">Nombre d'utilisateurs convertis  : </label>
                 <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-                <input type="text" class="form-control" required [(ngModel)]="noofinstalations" name="noofinstalations"
-                    placeholder="No Of Instalations">
+                <input type="text" class="form-control"  *ngIf="languageid=='1'" required [(ngModel)]="noofinstalations" name="noofinstalations"
+                placeholder="No of converted users">
+                <input type="text" class="form-control"  *ngIf="languageid=='6'" required [(ngModel)]="noofinstalations" name="noofinstalations"
+                    placeholder="Utilisateurs convertis">
             </div>
         </div><br>
         <div class="row">
-            <div class="col-lg-2">
-                <label class="REGISTRATION NO:">Amount :</label>
-
+            <div class="col-lg-3">
+                <label class="REGISTRATION NO:" *ngIf="languageid=='1'">Deposit into wallet :</label>
+                <label class="REGISTRATION NO:" *ngIf="languageid=='6'">Dépôt dans le portefeuille :</label>
+                <span class="required">*</span>
             </div>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" required placeholder="Amount" [(ngModel)]="amount" name="amount">
+            <div class="col-lg-4"> 
+                <input type="text" class="form-control" *ngIf="languageid=='1'" required placeholder="Amount" [(ngModel)]="amount" name="amount">
+                <input type="text" class="form-control" *ngIf="languageid=='6'" required placeholder="Montant" [(ngModel)]="amount" name="amount">
                 <!-- <textarea class="form-control" rows="4" </textarea> -->
             </div>
         </div><br>
@@ -33,8 +39,11 @@
             <div class="col-lg-3">
             </div>
             <div class="col-lg-2">
-                <button type="button" text_align="center" [disabled]="countryForm.form.invalid"
+                <button type="button" text_align="center" *ngIf="languageid=='1'" [disabled]="countryForm.form.invalid"
                     class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">Save</button>
+
+                    <button type="button" text_align="center" *ngIf="languageid=='6'" [disabled]="countryForm.form.invalid"
+                    class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">Sauvegarder</button>
             </div>
             <div class="col-lg-5">
             </div>

@@ -117,9 +117,19 @@ export class DiagnosticcenterComponent implements OnInit {
       this.docservice.InsertSponsoredDiagnosticCenter(entity).subscribe(data => {
 
         if (data != 0) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-          location.href = "#/Diagdash";
-          this.clear();
+          if(this.languageid==1)
+          {
+            Swal.fire('Completed', 'Published successfully', 'success');
+            location.href = "#/Diagdash";
+            this.clear();
+          }
+          else
+          {
+            Swal.fire('','Publié avec succès', 'success');
+            location.href = "#/Diagdash";
+            this.clear();
+          }
+         
 
         }
       })

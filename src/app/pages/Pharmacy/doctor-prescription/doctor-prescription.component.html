@@ -12,9 +12,11 @@
         </ng-daterangepicker> -->
 
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
@@ -54,8 +56,9 @@
               <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>
             </td>
             <td>
-              <span *ngIf="details.selfPickUP=='0'">{{labels[0].homeDelivery}}</span>
-              <span *ngIf="details.selfPickUP=='1'">{{labels[0].selfpickup}}</span>
+              <span *ngIf="details.selfPickUP=='0'&&details.readyfordelivery=='1'">{{labels[0].homeDelivery}}</span>
+              <span *ngIf="details.selfPickUP=='1'&&details.readyfordelivery=='1'">{{labels[0].selfpickup}}</span>
+              <span *ngIf="details.readyfordelivery=='0'">{{labels[0].progressing}}</span>
             </td>
             <!-- <td>
               <span *ngIf="details.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
@@ -71,13 +74,13 @@
               <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
               <a [ngbTooltip]="tipcontent12">
                 <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='1'" style="height:30px;"
-                  data-toggle="modal" data-target="#exampleModal" (click)="GetMedicines(details.id)" /></a>
+                  data-toggle="modal" data-target="#exampleModal" (click)="GetMedicines(details.id,details)" /></a>
 
               <ng-template #tipcontent890>Photo</ng-template>
               <a [ngbTooltip]="tipcontent890">
                 <img src="assets/Images/phaprescripton.png" *ngIf="details.orderType=='2'" style="height:30px;"
                   data-toggle="modal" data-target="#exampleModal2"
-                  (click)="GetPrescriptionUrl(details.prescriptionUrl)" /></a>
+                  (click)="GetPrescriptionUrl(details.prescriptionUrl,details)" /></a>
             </td>
             <td>
               <label style="color:green"
@@ -85,10 +88,10 @@
               <label style="color:red"
                 *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='0'">{{labels[0].delivered}}</label>
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
 
-              <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='1'">{{labels[0].selfpickupcollected}}</label>
+              <!-- <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'&&details.selfPickUP=='1'">{{labels[0].selfpickupcollected}}</label> -->
 
               <!-- <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">
@@ -96,14 +99,20 @@
 
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='1'&&details.readyfordelivery=='0'">
+                
+                
                 {{labels[0].partailAvailable}}</label> -->
 
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='0'">
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='1'">
+                {{labels[0].deliveryCompany}}</label>
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='0'">
                 {{labels[0].readyfordelivery}}</label>
 
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.delivered=='0'">
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='1'&&details.delivered=='0'">
                 Paid</label>
             </td>
             <td>
@@ -141,9 +150,9 @@
                 </tr>
                 <tr>
                   <td style="border:none">
-                    <ng-template #tipcontent899>{{labels[0].readyfordelivery}}</ng-template>
+                    <ng-template #tipcontent899>{{labels[0].deliveryCompany}}</ng-template>
                     <a [ngbTooltip]="tipcontent899"
-                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'">
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.partialBit=='0'&&details.selfPickUP=='0'">
                       <img src="assets/Images/readyfordel.png" style="height:20px;"
                         (click)="GetReadyForDelivery(details.id)" /></a>
                   </td>
@@ -152,7 +161,7 @@
                     <a [ngbTooltip]="tipcontent5"
                       *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'">
                       <img src="assets/Images/deli.jpg" style="height:30px;"
-                        (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID)" />
+                        (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID,details.smsmobileno)" />
                     </a>
                   </td>
 
@@ -165,7 +174,7 @@
                         *ngIf="details.approved=='1'&&details.delivered=='0'">{{details.chatcount}}</span>
                       <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'"
                         data-toggle="modal" data-target="#asssignss" style="margin: 2%;width: 30px;"
-                        (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id)" />
+                        (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id,details.smsmobileno)" />
 
                     </a>
                   </td>
@@ -214,23 +223,23 @@
                 <section class="file-marker">
                   <div>
                     <div class="box-title1">
-                    <label *ngIf="languageid=='1'">Doctor</label>
-                    <label *ngIf="languageid=='6'">Médecins</label>
+                      <label *ngIf="languageid=='1'">Doctor</label>
+                      <label *ngIf="languageid=='6'">Médecins</label>
                     </div>
                     <div class="box-contents">
                       <div id="audit-trail">
-                  <label>{{doctorname}}</label><br>
-                  <div *ngIf="hospitalid!=590">
-                    <label>{{hospitalname}}</label><br>
+                        <label>{{doctorname}}</label><br>
+                        <div *ngIf="hospitalid!=590">
+                          <label>{{hospitalname}}</label><br>
+                        </div>
+                        <div style="width: 150px;"> <label>{{docaddress}}</label><br> </div>
+                        <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
+                        <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
+                        <label>{{labels[0].mailId}} : {{email}} </label><br>
+                        <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
+                      </div>
+                    </div>
                   </div>
-                  <div style="width: 150px;"> <label>{{docaddress}}</label><br> </div>
-                  <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
-                  <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
-                  <label>{{labels[0].mailId}} : {{email}} </label><br>
-                  <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
-                </div>
-              </div>
-                </div>
                 </section>
               </aside>
             </div>
@@ -299,7 +308,7 @@
                                 <!-- {{medicinelist.quantity}} -->
 
                                 <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
-                                 style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
+                                  style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
                               </td>
                               <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
                               <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
@@ -324,9 +333,9 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-4">
               <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
                 *ngIf="showedit=='0'" data-dismiss="modal" (click)="Updateavailablemedicines()">
                 {{labels[0].update}}</button>
@@ -373,7 +382,28 @@
           <div class="col-lg-12" id="contentPhoto">
             <img src="{{prescriptionurl}}" style="height: 100%;width: 100%;">
           </div>
+        </div><br>
+        <div class="row" *ngIf="showedit=='0'">
+          <div class="col-lg-4">
+            <label>{{labels[0].amountToPay}} :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="{{labels[0].amountToPay}}" [(ngModel)]="amounttopay"
+              name="amounttopay">
+          </div>
+        </div><br>
+        <div class="row" *ngIf="showedit=='0'">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-7">
+            <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+              (click)="updateamount()"  style="width: 246px;"
+              data-dismiss="modal">{{labels[0].update}}</button>
+          </div>
+          <!-- <div class="col-lg-5">
+          </div> -->
         </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"

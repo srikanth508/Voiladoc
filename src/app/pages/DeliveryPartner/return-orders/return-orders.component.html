@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-12">
-      <h5>{{labels1[0].shoppingreturnorders}}</h5>
+      <h5 *ngIf="languageid=='1'">{{labels1[0].shoppingreturnorders}}</h5>
+      <h5 *ngIf="languageid=='6'">RETOURS D’ACHAT</h5>
     </div>
   </div>
 </div>
@@ -45,7 +46,8 @@
             <th>{{labels[0].order_Status}}</th>
        
             <th>Image</th>
-            <th>Return Comments</th>
+            <th *ngIf="languageid=='1'">Return Comments</th>
+            <th *ngIf="languageid=='6'">Remarques</th>
             <th style="width: 100px;">{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of orderlist| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}|filter:term">

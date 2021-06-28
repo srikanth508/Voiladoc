@@ -1,18 +1,21 @@
+<br>
 <div class="container-fluid card card:hover">
-    <br>
-    <div class="row ">
+
+    <div class="row " style="margin-top: 19px;">
         <div class="col-lg-3">
             <h5>Sent Invoices</h5>
         </div>
         <div class="col-lg-3">
             <select class="form-control" (change)="GetType($event)">
             <option selected value="">Select</option>
-            <option  value="Hospital">Hospital</option>
-            <option  value="Clinic">Clinic</option>
-            <option  value="Doctor">Doctor</option>
-            <option  value="Nurse">Nurse</option>
-            <option  value="Physiotherapist">Physiotherapist</option>
-            <option  value="MidWives">MidWife</option>
+            <option  value="1">Hospital</option>
+            <!-- <option  value="Clinic">Clinic</option> -->
+            <option  value="2">Doctor</option>
+            <option  value="3">Nurse</option>
+            <option  value="5">Physiotherapist</option>
+            <option  value="4">MidWife</option>
+            <option  value="10">Pharmacy</option>
+            <option  value="11">Diagnostic Center</option>
          </select>
         </div>
     </div>
@@ -29,22 +32,28 @@
             <table>
                 <thead>
                     <tr>
-                        <th *ngIf="type=='Hospital'||type=='Clinic'">Hospital/Clinic Name</th>
-                        <th *ngIf="type=='Doctor'">Doctor Name</th>
-                        <th *ngIf="type=='Nurse'">Nurse Name</th>
-                        <th *ngIf="type=='Physiotherapist'">Physiotherapist Name</th>
-                        <th *ngIf="type=='MidWives'">MidWife Name</th>
+                        <th *ngIf="type=='1'||type=='2'">Hospital/Clinic Name</th>
+                        <th *ngIf="type=='2'">Doctor Name</th>
+                        <th *ngIf="type=='3'">Nurse Name</th>
+                        <th *ngIf="type=='5'">Physiotherapist Name</th>
+                        <th *ngIf="type=='4'">MidWife Name</th>
+                        <th *ngIf="type=='10'">Pharmacy</th>
+                        <th *ngIf="type=='11'">Diagnostic Center</th>
                         <th>Invoice Date</th>
-                        <th *ngIf="type=='Hospital'||type=='Clinic'">Contact Person</th>
+                        <th *ngIf="type=='1'||type=='2'">Contact Person</th>
                         <th>Phone No</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
                         <th>Invoice</th>
                         <th>Action</th>
                     </tr>
                     <tr *ngFor="let list of invoiceslist|filter:term">
                         <td>{{list.hospital_ClinicName}}</td>
-                        <td>{{list.modifiedDate|date}}</td>
-                        <td *ngIf="type=='Hospital'||type=='Clinic'">{{list.contactPersonName}}</td>
+                        <td>{{list.modifiedDate}}</td>
+                        <td *ngIf="type=='1'||type=='2'">{{list.contactPersonName}}</td>
                         <td>{{list.phoneNo}}</td>
+                        <td>{{list.contractstartdate}}</td>
+                        <td>{{list.contractenddate}}</td>
                         <td>
                             <a href="{{list.invoiceUrl}}" target="blank">
                                 <img src="assets/Images/pdf.png" style="width:8%;">

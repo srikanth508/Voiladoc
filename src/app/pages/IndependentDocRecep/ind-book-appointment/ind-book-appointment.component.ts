@@ -264,13 +264,13 @@ export class IndBookAppointmentComponent implements OnInit {
       })
     }
     else if (this.languageid == 6) {
-debugger
+
       this.selecteddates1 = even.toLocaleString().split(',')[0];
       //  even.toLocaleString().split(',')[0];
       // this.selecteddate =  this.selecteddates1;
       this.selecteddate = this.datepipe.transform(this.selecteddates1, 'dd/MM/yyyy');
       localStorage.setItem('slottimeselecteddates1', this.selecteddates1)
-      debugger
+      
       localStorage.setItem('SelectedDate', this.selecteddates1)
       var gsDayNames = [
         'Sunday',
@@ -284,15 +284,15 @@ debugger
       var d = new Date(this.selecteddates1);
       var dayName = gsDayNames[d.getDay()];
       this.docservice.GetDayID(dayName).subscribe(data => {
-        debugger
+        
         this.dayidslist = data;
         this.dayid = this.dayidslist[0].dayID;
-        debugger
+        
         this.docservice.GetDoctorDetails_ForVideoConferenceForWeb1(5, this.doctortype, this.appointmentypeid, this.bookingtype, this.languageid, this.hospitalid, this.dayid, this.selecteddate).subscribe(
           data => {
 
             // this.doctorslist = data;
-            debugger
+            
             this.dummdoctorslist = data;
             this.doctorslist = this.dummdoctorslist.filter(x => x.doctorID == this.doctorid)
 
@@ -326,7 +326,7 @@ debugger
     // 
     this.docservice.GetSlotsMasterSlots().subscribe(
       data => {
-        debugger
+        
         this.dummdoctorslots = data;
         this.doctorslots = this.dummdoctorslots.filter(x => x.slotcompare > this.presenttime)
 

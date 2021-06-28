@@ -16,9 +16,21 @@ export class DiagnosticdashComponent implements OnInit {
   public labels: any;
   public languageid: any;
   public pinno: any;
+  currentpwd:any;
+  countrymanaerid: any;
+  showeditbutton: any;
+
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
+    this.currentpwd = localStorage.getItem('Password');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    if (this.countrymanaerid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
     this.getdiagnosticloginfordash();
 
     this.getlanguage();
@@ -84,13 +96,14 @@ export class DiagnosticdashComponent implements OnInit {
   public username: any;
   public password: any;
   public mypinno: any;
+  oldpassword: any;
 
 
   public GetDeatsils(details) {
 
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password,
+      this.oldpassword = details.password,
       this.mypinno = details.pinno
 
     this.Showpassword = 0;
@@ -121,11 +134,13 @@ export class DiagnosticdashComponent implements OnInit {
               this.getdiagnosticloginfordash()
               this.pp = 0;
               document.getElementById('close').click();
+              this.password=""
             }
             else {
               Swal.fire('', 'Mis à jour avec succés', 'success');
               this.getdiagnosticloginfordash()
               this.pp = 0;
+              this.password=""
               document.getElementById('close').click();
             }
 
@@ -136,12 +151,14 @@ export class DiagnosticdashComponent implements OnInit {
               Swal.fire('Success', 'username already exists', 'success');
               this.getdiagnosticloginfordash()
               this.pp = 0;
+              this.password=""
               document.getElementById('close').click();
             }
             else{
               Swal.fire('Succès', "Ce nom d'utilisateur existe déjà");
               this.getdiagnosticloginfordash()
               this.pp = 0;
+              this.password=""
               document.getElementById('close').click();
             }
           
@@ -155,26 +172,53 @@ export class DiagnosticdashComponent implements OnInit {
   public Enteredpinno: any;
   public Showpassword: any;
 
-  public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
-      Swal.fire('Please Enter Your Pin No')
+   public entercurrentpwd: any;
 
-    }
-    else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
-        this.Showpassword = 1;
-        this.Enteredpinno = ""
-      }
-      else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
-      }
-    }
-  }
+
+
+   public CheckPasswordvalidate() {
+     
+     if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+       
+       if (this.languageid == 1) {
+         Swal.fire('Please Enter Your Pin No && Current password')
+         this.entercurrentpwd = "";
+         this.Enteredpinno = "";
+       }
+       else {
+         Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+         this.entercurrentpwd = "";
+         this.Enteredpinno = "";
+       }
+ 
+ 
+     }
+     else {
+       
+       if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
+         this.Showpassword = 1;
+         this.Enteredpinno = ""
+         this.entercurrentpwd = "";
+       }
+       else {
+         
+         if(this.languageid==1)
+         {
+           Swal.fire('Please enter valid Pinno and valid password')
+           this.Enteredpinno = ""
+           this.currentpwd = ""
+         }
+         else
+         {
+           Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+           this.Enteredpinno = ""
+           this.currentpwd = ""
+         }
+       
+       }
+     }
+   }
+ 
 
 
 

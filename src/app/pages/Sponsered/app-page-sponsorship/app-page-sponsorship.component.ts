@@ -26,41 +26,44 @@ export class AppPageSponsorshipComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-   
+
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes();
-   
+
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage()
     this.activatedroute.params.subscribe(params => {
-     
+
       this.paramid = params['id'];
       this.languageid = localStorage.getItem('LanguageID');
       this.getsponsradd(this.paramid);
 
     }
     )
-    if(this.languageid==1)
-    {
-      this.dropzonelable="Upload file"
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
     }
-    else if(this.languageid==6)
-    {
-      this.dropzonelable="Télécharger des fichiers"
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
     }
   }
+
+
+  showphoto: any;
   public getsponsradd(id) {
-   
+
     this.docservice.GetAppPageSponsorship().subscribe(
       data => {
-       
+
         let temp: any = data;
         let temp1: any = temp.filter(x => x.id == id)
         this.ClientName = temp1[0].clientName;
         this.Description = temp1[0].description;
         this.LinkURL = temp1[0].linkURL;
-        this.StartDate=temp1[0].startdatee;
-        this.EndDate=temp1[0].enddatee;
-        this.fees=temp1[0].fees;
+        this.StartDate = temp1[0].startdatee;
+        this.EndDate = temp1[0].enddatee;
+        this.fees = temp1[0].fees;
+        this.showphoto = temp1[0].photoURL;
+        this.PhotoURL = temp1[0].photourlss;
         // this.StartDate = this.datePipe.transform(temp1[0].startDate, 'yyyy-MM-dd');
         // this.EndDate = this.datePipe.transform(temp1[0].endDate, 'yyyy-MM-dd');
       }, error => {
@@ -70,31 +73,38 @@ export class AppPageSponsorshipComponent implements OnInit {
 
   public attachments1 = [];
   public attachmentsurl = [];
-public showPhotoURL=[];
+  public showPhotoURL = [];
 
   public onattachmentUpload1(abcd) {
-   
     // for (let i = 0; i < abcd.length; i++) {
-      this.attachments1.push(abcd.addedFiles[0]);
-      this.uploadattachments1();
+    this.attachments1.push(abcd.addedFiles[0]);
+    this.uploadattachments1();
     // }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Photo Added Successfully');
+      abcd.length = 0;
+    }
+    else{
+      Swal.fire('Photo ajoutée');
+      abcd.length = 0;
+    }
   }
   PhotoURL: any
   public uploadattachments1() {
+    
     this.docservice.ArticlePhoto(this.attachments1).subscribe(res => {
-     
+      
       this.PhotoURL = res;
 
-      
+
       let a = this.PhotoURL.slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
       this.showPhotoURL.push(b)
-    
-     
+
+
     })
   }
   ClientName
@@ -103,7 +113,7 @@ public showPhotoURL=[];
   StartDate
   EndDate
   public insertdetails() {
-   
+
 
     var entity = {
       'ClientName': this.ClientName,
@@ -112,18 +122,27 @@ public showPhotoURL=[];
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
       'EndDate': this.EndDate,
-      'Fees':this.fees
+      'Fees': this.fees
     }
     this.docservice.InsertAppPageSponsorship(entity).subscribe(data => {
-     
+
       if (data != 0) {
-        Swal.fire('Completed', 'Details saved successfully', 'success');
-        location.href = "#/AppPageSponsorshipDashBoard";
+        if(this.languageid==1)
+        {
+          Swal.fire('Completed', 'Published successfully', 'success');
+          location.href = "#/AppPageSponsorshipDashBoard";
+        }
+        else{
+          Swal.fire('','Publié avec succès', 'success');
+          location.href = "#/AppPageSponsorshipDashBoard";
+        }
+    
       }
     })
   }
-  
+
   public UpdateDetails() {
+    
     var entity = {
       'ID': this.paramid,
       'ClientName': this.ClientName,
@@ -131,10 +150,11 @@ public showPhotoURL=[];
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
       'EndDate': this.EndDate,
-      'Fees':this.fees
+      'Fees': this.fees,
+      'PhotoURL': this.PhotoURL
     }
     this.docservice.UpdateAppPageSponsorship(entity).subscribe(data => {
-     
+      
       if (data != 0) {
         Swal.fire('Completed', 'Details Updated successfully', 'success');
         location.href = "#/AppPageSponsorshipDashBoard";

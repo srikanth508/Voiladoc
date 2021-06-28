@@ -52,26 +52,160 @@ export class DiagdashComponent implements OnInit {
       }
     )
   }
+  // public disablediagnostic(id) {
+  //   this.docservice.DisableSponsoredDiagnosticCenter(id).subscribe(
+  //     data => {
+       
+  //       Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
+  //       this.getdiagnosticloginfordash();
+  //     }, error => {
+  //     }
+  //   )
+  
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
   public disablediagnostic(id) {
-    this.docservice.DisableSponsoredDiagnosticCenter(id).subscribe(
-      data => {
-       
-        Swal.fire('Disabled', 'Diagnostic Center has been Disabled');
-        this.getdiagnosticloginfordash();
-      }, error => {
-      }
-    )
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Disable this Diagnostic Center !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, disable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableSponsoredDiagnosticCenter(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticloginfordash();
+          })
+          Swal.fire('Disabled', 'Diagnostic Center been Disabled');
+        }
+        else {
+          this.getdiagnosticloginfordash();
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableSponsoredDiagnosticCenter(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticloginfordash();
+          })
+          Swal.fire(
+            '',
+            'Désactivé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticloginfordash();
+        }
+      })
+    }
+
+
   }
+
+
+
+
+
+
+
+  
   public enablediagnostic(id) {
-    this.docservice.EnableSponsoredDiagnosticCenter(id).subscribe(
-      data => {
-       
-        Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
-        this.getdiagnosticloginfordash();
-      }, error => {
-      }
-    )
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Disable this Diagnostic Center !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, disable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableSponsoredDiagnosticCenter(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticloginfordash();
+          })
+          Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
+        }
+        else {
+          this.getdiagnosticloginfordash();
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableSponsoredDiagnosticCenter(id).subscribe(res => {
+            let test = res;
+            this.getdiagnosticloginfordash();
+          })
+          Swal.fire(
+            '',
+            'Activé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getdiagnosticloginfordash();
+        }
+      })
+    }
+
+
   }
+
+
+
+
+
+  // public enablediagnostic(id) {
+  //   this.docservice.EnableSponsoredDiagnosticCenter(id).subscribe(
+  //     data => {
+       
+  //       Swal.fire('Enabled', 'Diagnostic Center has been Enabled');
+  //       this.getdiagnosticloginfordash();
+  //     }, error => {
+  //     }
+  //   )
+  // }
   public pageChanged(even) {
    
     let fgdgfgd = even;

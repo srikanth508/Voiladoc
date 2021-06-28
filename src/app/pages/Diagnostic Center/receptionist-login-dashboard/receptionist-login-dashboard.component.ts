@@ -20,6 +20,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
+    this.currentpwd = localStorage.getItem('Password');
     this.GetLables();
     this.GetReceptionistlogin();
     this.getlanguage()
@@ -132,38 +133,115 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
   public mypinno: any;
   public Showpassword: any;
   public pinno: any;
+  oldpassword: any;
+  receptionistlist:any;
+  name:any;
+  phoneno:any;
+  email:any;
+  address:any;
+  username:any;
+  id:any;
+
 
   public getpassword(details) {
-    this.password = details.password,
-      this.mypinno = details.pinno
+    
+    this.oldpassword = details.password,
+      this.mypinno = details.pinno,
+      this.id=details.id
 
     this.Showpassword = 0;
+
+    this.docservice.GetDiagnosticReceptionistLogin(localStorage.getItem('diagnosticid')).subscribe(data => {
+      this.receptionistlist = data;
+      var list = this.receptionistlist.filter(x => x.id == this.id);
+      this.name = list[0].name,
+          this.phoneno = list[0].phoneNo,
+          this.email = list[0].email,
+          this.address = list[0].address,
+          this.username = list[0].userName
+          // this.password = list[0].password
+  })
   }
 
 
 
   public Enteredpinno: any;
+  public entercurrentpwd:any;
+  public currentpwd:any;
 
 
   public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
-      Swal.fire('Please Enter Your Pin No')
+    
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+      
+      if (this.languageid == 1) {
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+      else {
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+
 
     }
     else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
+      
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+        
+        if(this.languageid==1)
+        {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else
+        {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+      
       }
     }
   }
 
+
+
+
+
+  public UpdateDetailes() {
+    
+    var entity = {
+        ID: this.id,
+        DiagnosticID: localStorage.getItem('diagnosticid'),
+        Name: this.name,
+        PhoneNo: this.phoneno,
+        EmailID: this.email,
+        Address: this.address,
+        UserName: this.username,
+        Password: this.password
+    }
+    this.docservice.UpdateDiagnosticReceptionistLogin(entity).subscribe(res => {
+        if (this.languageid == 1) {
+      
+            
+            Swal.fire('Success', 'Updated successfully')
+            // location.href = "#/ReceptionistLoginDashboard"
+            this.GetReceptionistlogin()
+        }
+        else if (this.languageid == 6) {
+          this.GetReceptionistlogin()
+            Swal.fire('Mis à jour avec Succés')
+            // location.href = "#/ReceptionistLoginDashboard"
+        }
+    })
+  }
 }

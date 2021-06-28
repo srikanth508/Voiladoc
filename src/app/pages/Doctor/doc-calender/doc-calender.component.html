@@ -26,8 +26,8 @@
         [minDate]="today" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
       <input *ngIf="languageid==6" type="text" class="form-control" placeholder="Sélecteur de date"
-        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
-        (bsValueChange)="GetDoctorDates($event)"    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+        [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" (bsValueChange)="GetDoctorDates($event)"
+        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
     <div class="col-lg-2">
       <span>{{labels[0].changeSchedule}} </span>
@@ -45,25 +45,25 @@
     </div>
     <div class="col-lg-2">
     </div>
-      <div class="col-lg-1" style="margin-right: -1px;">
-        <div class="rectangle"><span style="margin-left: 21px;">{{labels[0].inclinic}}</span></div>
+    <div class="col-lg-1" style="margin-right: -1px;">
+      <div class="rectangle"><span style="margin-left: 21px;">{{labels[0].inclinic}}</span></div>
+    </div>
+    <div class="col-lg-1" style="margin-right: -6px;">
+      <div class="vdioerect"> <span style="margin-left: 18px;">{{labels[0].video}}</span></div>
+    </div>
+    <div class="col-lg-1" style="margin-left: 33px;">
+      <div class="homecare"><span style="margin-left: 20px;">{{labels[0].homeVisit}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
+        <p style="margin-left:12px"> {{labels[0].notAvailable}}</p>
       </div>
-      <div class="col-lg-1" style="margin-right: -6px;">
-        <div class="vdioerect"> <span style="margin-left: 18px;">{{labels[0].video}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 42px;width: 127%;">
+        <p style="margin-left:12px"> {{labels[0].meeting}}</p>
       </div>
-      <div class="col-lg-1" style="margin-left: 33px;">
-        <div class="homecare"><span style="margin-left: 20px;">{{labels[0].homeVisit}}</span></div>
-      </div>
-      <div class="col-lg-1 ">
-        <div class="Notavailable" style="margin-left: 20px;width: 167%;">
-          <p style="margin-left:12px"> {{labels[0].notAvailable}}</p>
-        </div>
-      </div>
-      <div class="col-lg-1 ">
-        <div class="meeting" style="margin-left: 42px;width: 127%;">
-          <p style="margin-left:12px"> {{labels[0].meeting}}</p>
-        </div>
-       
+
     </div>
     <div class="col-lg-1 ">
       <div class="booked" style="margin-left: 34px;width: 140%;">
@@ -131,6 +131,11 @@
                   *ngIf="details.day1AppointmentTypeID!=6&&details.day1AppointmentTypeID!=4">{{details.mondayFees}}</span>
                 <br>
                 {{details.day1Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day1patientdetails|filter:term">
+                    <span style="color:#e69d17"> {{det.pName}}</span>
+                  </tr>
+                </table>
                 <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
@@ -138,57 +143,86 @@
                 </a>
               </td>
               <td [style.background-color]="details.day2color" style="color:white">{{details.day2}}<br>
-                <label *ngIf="details.day2AppointmentTypeID!=6&&details.day2AppointmentTypeID!=4">
-                  {{details.tuesdayFees}}</label> <br>
+                <span *ngIf="details.day2AppointmentTypeID!=6&&details.day2AppointmentTypeID!=4">
+                  {{details.tuesdayFees}}</span> <br>
                 {{details.day2Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day2patientdetails">
+                    <span style="color:#e69d17"> {{det.pName}}</span>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                     (click)="GetDay2List(details)">
                 </a>
               </td>
               <td [style.background-color]="details.day3color" style="color:white">{{details.day3}}<br>
-                <label *ngIf="details.day3AppointmentTypeID!=6&&details.day3AppointmentTypeID!=4">
-                  {{details.wednessdayFees}}</label> <br>
+                <span *ngIf="details.day3AppointmentTypeID!=6&&details.day3AppointmentTypeID!=4">
+                  {{details.wednessdayFees}}</span> <br>
                 {{details.day3Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day3patientdetails">
+                    <label style="color:#e69d17"> {{det.pName}}</label>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                     (click)="GetDay3List(details)">
                 </a>
               </td>
               <td [style.background-color]="details.day4color" style="color:white">{{details.day4}}<br>
-                <label *ngIf="details.day4AppointmentTypeID!=6&&details.day4AppointmentTypeID!=4">{{details.thursdayFees
-                  }}</label><br>
+                <span *ngIf="details.day4AppointmentTypeID!=6&&details.day4AppointmentTypeID!=4">{{details.thursdayFees
+                  }}</span><br>
                 {{details.day4Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day4patientdetails">
+                    <span style="color:#e69d17"> {{det.pName}}</span>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                     (click)="GetDay4List(details)">
                 </a>
               </td>
               <td [style.background-color]="details.day5color" style="color:white">{{details.day5}}<br>
-                <label
-                  *ngIf="details.day5AppointmentTypeID!=6&&details.day5AppointmentTypeID!=4">{{details.fridayFees}}</label>
+                <span
+                  *ngIf="details.day5AppointmentTypeID!=6&&details.day5AppointmentTypeID!=4">{{details.fridayFees}}</span>
                 <br>
 
                 {{details.day5Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day5patientdetails">
+                    <label style="color:#e69d17"> {{det.pName}}</label>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                     (click)="GetDay5List(details)">
                 </a>
               </td>
               <td [style.background-color]="details.day6color" style="color:white">{{details.day6}}<br>
-                <label
-                  *ngIf="details.day6AppointmentTypeID!=6&&details.day6AppointmentTypeID!=4">{{details.satdayFees}}</label>
+                <span
+                  *ngIf="details.day6AppointmentTypeID!=6&&details.day6AppointmentTypeID!=4">{{details.satdayFees}}</span>
                 <br>
                 {{details.day6Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day6patientdetails">
+                    <span style="color:#e69d17"> {{det.pName}}</span>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                     (click)="GetDay6List(details)">
                 </a>
               </td>
               <td [style.background-color]="details.day7color" style="color:white">{{details.day7}}<br>
-                <label *ngIf="details.day7AppointmentTypeID!=6&&details.day7AppointmentTypeID!=4"> {{details.sundayFees
-                  }}</label> <br>
+                <span *ngIf="details.day7AppointmentTypeID!=6&&details.day7AppointmentTypeID!=4"> {{details.sundayFees}}</span> <br>
                 {{details.day7Availabilty}}<br>
+                <table>
+                  <tr *ngFor="let det of details.day7patientdetails">
+                    <span style="color:#e69d17"> {{det.pName}}</span>
+                  </tr>
+                </table>
                 <a [ngbTooltip]="tipcontent9503" style="color:black">
                   <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                     (click)="GetDay7List(details)">
@@ -276,10 +310,10 @@
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
               <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
-                (bsValueChange)="GetdaychangeDate($event)"   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
-                <!-- [(ngModel)]="daychangedate1" -->
-                <!-- [(bsValue)]="myDateValue" -->
+                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" (bsValueChange)="GetdaychangeDate($event)"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+              <!-- [(ngModel)]="daychangedate1" -->
+              <!-- [(bsValue)]="myDateValue" -->
             </div>
           </div><br>
           <div class="row">
@@ -355,10 +389,9 @@
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
 
               <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" 
-                (bsValueChange)="GetTimewisechangedate($event)"     [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                bsDatepicker>
-                <!-- [(ngModel)]="timechangedate1" -->
+                [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" (bsValueChange)="GetTimewisechangedate($event)"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" bsDatepicker>
+              <!-- [(ngModel)]="timechangedate1" -->
             </div>
           </div><br>
           <div class="row">

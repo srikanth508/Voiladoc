@@ -35,18 +35,18 @@ export class EditQuickGuideComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
 
-    debugger
+    
     this.activatedroute.params.subscribe(params => {
 
       this.id = params['id'];
-      debugger
+      
       this.docservice.GetQuickGuide(this.languageid).subscribe(
         data => {
 
           this.quicklist = data;
-          debugger
+          
           var list = this.quicklist.filter(x => x.id == this.id)
-          debugger
+          
           this.typeid = list[0].typeID,
             this.topicid = list[0].topicID,
             this.chpterid = list[0].chapterID,
@@ -115,12 +115,12 @@ export class EditQuickGuideComponent implements OnInit {
 
   public uploadattachments() {
 
-    debugger
+    
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      debugger
+      
       this.attachmentsurl.push(res);
       this.dummshowsignatureurl.push(res);
-      debugger
+      
       let a = this.dummshowsignatureurl[0].slice(2);
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto = b;
@@ -147,12 +147,12 @@ export class EditQuickGuideComponent implements OnInit {
   public videoattachmentsss = []
 
   public onAttchamneVideoupload(abcd) {
-    debugger
+    
     this.dummshowsignatureurl = [];
     this.videoattachmentsss.push(abcd.addedFiles[0]);
-    debugger
+    
     this.uploadvideoattchments();
-    debugger
+    
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -161,14 +161,14 @@ export class EditQuickGuideComponent implements OnInit {
 
 
   public uploadvideoattchments() {
-    debugger
+    
     this.docservice.HospitalClinicPhotos(this.videoattachmentsss).subscribe(res => {
-      debugger
+      
       this.Videoattachmenturl.push(res);
       this.dummshowsignatureurl.push(res);
-      debugger
+      
       let a = this.dummshowsignatureurl[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       this.showvideo = b;
       this.videoattachmentsss.length = 0;
@@ -180,7 +180,7 @@ export class EditQuickGuideComponent implements OnInit {
   public chpterid: any;
 
   public UpdateDetails() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'ChapterID': this.chpterid,
@@ -193,7 +193,7 @@ export class EditQuickGuideComponent implements OnInit {
     }
     this.docservice.UpdateQuickGuide(entity).subscribe(data => {
       let res = data;
-      debugger
+      
       Swal.fire('Updated Successfully');
       location.href="#/QuickGuideDash"
     })

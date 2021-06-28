@@ -1,0 +1,44 @@
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-4">
+      <h5>{{labels[0].patientMedicalRecords}}</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].phoneNo}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>{{labels[0].address}}</th>
+            <th id="imp">{{labels[0].pmr}}</th>
+          </tr>
+          <tr *ngFor="let details of patientslist|filter:term">
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.address}}</td>
+            <td>
+              <ng-template #tipcontent11>{{labels[0].pmr}}</ng-template>
+              <a [ngbTooltip]="tipcontent11" >
+                <img src="assets/Images/pmr.png" style="height:25px;"
+                  [routerLink]="['/NurseEmr',details.relationPatientID]" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table><br><br>
+    </div><br>
+  </div><br><br>
+</div><br>

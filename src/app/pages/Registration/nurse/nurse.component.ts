@@ -454,7 +454,7 @@ export class NurseComponent implements OnInit {
   emailattchementurl = [];
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

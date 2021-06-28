@@ -744,9 +744,9 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetTimewisechangedate(newDate: Date) {
     // this.timechangedate = even.toLocaleString().split(',')[0];
-    debugger
+    
     this.timechangedate=this.docservice.GetDates(newDate)
-    debugger
+    
     this.Getdaystime()
 
   }
@@ -986,4 +986,6 @@ export class DoctorsCalenderComponent implements OnInit {
     })
   }
 
+
+  
 }

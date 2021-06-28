@@ -327,8 +327,16 @@ export class MidwifeComponent implements OnInit {
 
       }
       else {
-        Swal.fire('Error', 'User details already exists', 'success');
-         this.spinner.hide();
+        if(this.languageid==1)
+        {
+          Swal.fire('Error', 'User details already exists', 'success');
+          this.spinner.hide();
+        }
+        else
+        {
+          Swal.fire('Erreur', 'Ce courriel existe déjà. Un autre utilisateur.', 'success');
+          this.spinner.hide();
+        }
         // location.href = '#/MidwifeDashboard';
       }
     })

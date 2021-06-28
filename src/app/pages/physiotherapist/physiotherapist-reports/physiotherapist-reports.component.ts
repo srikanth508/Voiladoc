@@ -94,7 +94,7 @@ export class PhysiotherapistReportsComponent implements OnInit {
     else {
       this.docservice.GetBook_Physio_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+          
 this.showdrop=1;
           this.appointmentreportlist = data;
           this.dummlist = this.appointmentreportlist
@@ -112,7 +112,7 @@ this.showdrop=1;
   hospitalid: any;
 
   public Gethsopital() {
-    debugger
+    
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
         this.hospitallist = data;
@@ -132,7 +132,7 @@ this.showdrop=1;
     {
       this.docservice.GetBook_Physio_AppointmentForWeb(this.sdate, this.edate, this.languageid).subscribe(
         data => {
-          debugger
+          
           this.appointmentreportlist = data;
           this.dummlist = this.appointmentreportlist
           this.count = this.appointmentreportlist.length
@@ -147,7 +147,7 @@ this.showdrop=1;
   public getphysiolist() {
     this.docservice.GetPhysiotherapyRegistrationAdminByLanguageID(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.physioist = data;
 
       }, error => {
@@ -158,7 +158,7 @@ this.showdrop=1;
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.labels = data;
       }, error => {
       }
@@ -169,7 +169,7 @@ this.showdrop=1;
 
     this.docservice.GetBook_Physio_AppointmentReports(this.physioid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-debugger
+
         this.appointmentreportlist = data;
         this.dummlist = this.appointmentreportlist
         this.count = this.appointmentreportlist.length

@@ -17,10 +17,12 @@ export class ReceptionstloginDashComponent implements OnInit {
   count: any;
   pinno: any;
   Showpassword: any;
+  currentpwd: any;
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.pinno = localStorage.getItem('Pinno');
     this.languageID = localStorage.getItem('LanguageID');
+    this.currentpwd = localStorage.getItem('Password');
     this.getreceptionlogin();
     this.getlanguage()
   }
@@ -55,7 +57,7 @@ export class ReceptionstloginDashComponent implements OnInit {
   public mypinno: any;
 
   public GetDeatsils(details) {
-    debugger
+    
     this.id = details.id,
       this.username = details.userName,
       this.password = details.password,
@@ -99,23 +101,45 @@ export class ReceptionstloginDashComponent implements OnInit {
 
   public Enteredpinno: any;
 
+  public entercurrentpwd: any;
+
   public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
-      Swal.fire('Please Enter Your Pin No')
+    
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+      
+      if (this.languageID == 1) {
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+      else {
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+
 
     }
     else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
+      
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+        
+        if (this.languageID == 1) {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+
       }
     }
   }
@@ -131,17 +155,15 @@ export class ReceptionstloginDashComponent implements OnInit {
     this.docservice.DisableReceiptionistLogin(docid).subscribe(
       data => {
 
-        if(this.languageID==1)
-        {
+        if (this.languageID == 1) {
           Swal.fire('Disabled', 'Receptionist has been Disabled');
           this.getreceptionlogin();
         }
-        else
-        {
+        else {
           Swal.fire('Désactivée', 'Accès désactivé');
           this.getreceptionlogin();
         }
-      
+
 
       }, error => {
       }
@@ -151,17 +173,15 @@ export class ReceptionstloginDashComponent implements OnInit {
     this.docservice.EnableReceiptionistLogin(id).subscribe(
       data => {
 
-        if(this.languageID==1)
-        {
+        if (this.languageID == 1) {
           Swal.fire('Enabled', 'Receptionist has been Enabled');
           this.getreceptionlogin();
         }
-        else
-        {
+        else {
           Swal.fire('Activé', 'Accès Activé');
           this.getreceptionlogin();
         }
-       
+
 
       }, error => {
       }

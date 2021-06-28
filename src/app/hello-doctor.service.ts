@@ -9,28 +9,22 @@ import { pipeDef } from '@angular/core/src/view';
 
 export class HelloDoctorService {
   //live
-  //     public host = "https://maroc.voiladoc.org/MarocAPI";
+ public host = "https://maroc.voiladoc.org/MarocAPI";
 
-  //  private host1 = "https://maroc.voiladoc.org/MarocAPI";
+   private host1 = "https://maroc.voiladoc.org/MarocAPI";
 
-  //test
+
 
   //test1
 
-  public host = "https://maroc.voiladoc.org/MarocTestAPi";
+ // public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
-  private host1 = "https://maroc.voiladoc.org/MarocTestAPi";
+ // private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
 
   private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";
 
 
-  // public host = localStorage.getItem('WebUrl');
-
-  // public host="https://maroc.voiladoc.org/MarocAPI";
-
-  // private host1 = "https://maroc.voiladoc.org/MarocAPI";
-  // private host2 = "https://maroc.voiladoc.org/VoiladocRegistrationsWebApi";
 
   private url: string = '';
   public showvid = 0;
@@ -172,7 +166,7 @@ export class HelloDoctorService {
     return this.http.get<any[]>(url + '/ServiceMaster/GetDoctorLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
   public GetHospitalAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
-    debugger
+    
     return this.http.get<any[]>(url + '/ServiceMaster/GetHospitalAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
   public GetDiagnosticCenterAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
@@ -401,7 +395,7 @@ export class HelloDoctorService {
     let formdata: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formdata.append('file_upload', files[i], files[i].name);
-      debugger
+      
     }
     return this.http.post(this.host + '/Hospital/HospitalPhotoUpload/', formdata);
   }
@@ -570,6 +564,13 @@ export class HelloDoctorService {
     this.url = this.host + '/Articles/InsertArticle';
     return this.http.post(this.url, data)
   }
+
+  public UpdateArticle(data) {
+    this.url = this.host + '/Articles/UpdateArticle';
+    return this.http.post(this.url, data)
+  }
+
+
   public GetArticleForAdminByDocID(lid) {
 
     return this.http.get<any[]>(this.host + '/Articles/GetArticleForAdminByDocID?DoctorID=' + lid);
@@ -1769,7 +1770,7 @@ export class HelloDoctorService {
   }
   public GetRoleTypesMasterBYID(lid, url) {
 
-    return this.http.get<any[]>(url + '/LanguageMaster/GetRoleTypesMasterBYID?LanguageID=' + lid);
+    return this.http.get<any[]>(this.host + '/LanguageMaster/GetRoleTypesMasterBYID?LanguageID=' + lid);
   }
 
   public GetAdmin_Doctorregistration_LabelsByLanguageID(lid) {
@@ -1823,7 +1824,7 @@ export class HelloDoctorService {
   }
   public Getloginlabel(lid, url) {
 
-    return this.http.get<any[]>(url + '/LanguageMaster/GetAdmin_RegisterLogins_Label?LanguageID=' + lid);
+    return this.http.get<any[]>(this.host + '/LanguageMaster/GetAdmin_RegisterLogins_Label?LanguageID=' + lid);
   }
   public GetAdmin_Sponsored_Label(lid) {
 
@@ -2639,6 +2640,13 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertAnnouncements';
     return this.http.post(this.url, data)
   }
+
+
+  public UpdateAnnouncements(data) {
+    this.url = this.host + '/Doctor/UpdateAnnouncements';
+    return this.http.post(this.url, data)
+  }
+
   public GetAnnouncements(sdate, edate, lid) {
 
     return this.http.get<any[]>(
@@ -4284,6 +4292,7 @@ export class HelloDoctorService {
   }
 
   public sendemail(data) {
+    
     this.url = this.host + '/Doctor/sendemail';
     return this.http.post(this.url, data)
   }
@@ -5301,7 +5310,7 @@ export class HelloDoctorService {
 
 
   public InsertQuickGuide(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/InsertQuickGuide';
     return this.http.post(this.url, data)
   }
@@ -5319,19 +5328,19 @@ export class HelloDoctorService {
 
 
   public UpdateQuickGuide(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateQuickGuide';
     return this.http.post(this.url, data)
   }
 
 
   public InsertTopicMaster(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/InsertTopicMaster';
     return this.http.post(this.url, data)
   }
   public UpdateTopicMaster(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateTopicMaster';
     return this.http.post(this.url, data)
   }
@@ -5345,43 +5354,43 @@ export class HelloDoctorService {
 
 
   public ReceiptUpload(files) {
-    debugger
+    
     let formdata: FormData = new FormData();
     formdata.append('file_upload', files, files.name);
-    debugger
+    
     return this.http.post(this.host + '/Doctor/ReceiptUpload/', formdata);
   }
 
 
   public UpdateBookAppoinmentReceiptUrl(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateBookAppoinmentReceiptUrl';
     return this.http.post(this.url, data)
   }
 
 
   public UpdateBook_Nurse_AppointmentPdfUrl(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateBook_Nurse_AppointmentPdfUrl';
     return this.http.post(this.url, data)
   }
 
 
   public UpdateBook_Midwives_Appointment(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateBook_Midwives_Appointment';
     return this.http.post(this.url, data)
   }
 
   public UpdateBook_Physio_AppointmentPdfUrl(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateBook_Physio_AppointmentPdfUrl';
     return this.http.post(this.url, data)
   }
 
 
   public UpdateBookAppointment(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateBookAppointment';
     return this.http.post(this.url, data)
   }
@@ -5389,21 +5398,21 @@ export class HelloDoctorService {
 
 
   public UpdateBookAppointmentRefund(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateBookAppointmentRefund';
     return this.http.post(this.url, data)
   }
 
   public UpdatePatientWalletAmountDetailsLoadWallet(data) {
-    debugger
+    
     this.url = this.host + '/Diagnostic/UpdatePatientWalletAmountDetailsLoadWallet';
     return this.http.post(this.url, data)
   }
 
 
-  public GetChapterMaster(lid) {
+  public GetChapterMaster(lid, typeid) {
 
-    return this.http.get<any[]>(this.host + '/Doctor/GetChapterMaster?LanguageID=' + lid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetChapterMaster?LanguageID=' + lid + '&Typeid=' + typeid);
   }
 
   public GetQuickGuideByWeb(lid) {
@@ -5412,13 +5421,13 @@ export class HelloDoctorService {
   }
 
   public InsertIndependentDoctors_Receptionist(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/InsertIndependentDoctors_Receptionist';
     return this.http.post(this.url, data)
   }
 
   public UpdateIndependentDoctors_Receptionist(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateIndependentDoctors_Receptionist';
     return this.http.post(this.url, data)
   }
@@ -5429,7 +5438,7 @@ export class HelloDoctorService {
   }
 
   public UpdateSickSlipGenaratorSickSlipUrl(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/UpdateSickSlipGenaratorSickSlipUrl';
     return this.http.post(this.url, data)
   }
@@ -5466,7 +5475,7 @@ export class HelloDoctorService {
 
 
   public InsertPatientRelation_FamilyTree_Web(data) {
-    debugger
+    
     this.url = this.host + '/PatientRegistration/InsertPatientRelation_FamilyTree_Web';
     return this.http.post(this.url, data)
   }
@@ -5488,13 +5497,13 @@ export class HelloDoctorService {
 
 
   public UpdatePharmacyOffers(data) {
-    debugger
+    
     this.url = this.host + '/Pharmacy/UpdatePharmacyOffers';
     return this.http.post(this.url, data)
   }
 
   public UpdatePharmacyOffersPhotos(data) {
-    debugger
+    
     this.url = this.host + '/Pharmacy/UpdatePharmacyOffersPhotos';
     return this.http.post(this.url, data)
   }
@@ -5506,10 +5515,10 @@ export class HelloDoctorService {
 
   public GetPatient_Referal_InvitationsWeb(id) {
 
-    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_Referal_InvitationsWeb?ID=' + id);
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_Referal_InvitationsWeb?LanguageID=' + id);
   }
   public InsertPatient_Invites_Master(data) {
-    debugger
+    
     this.url = this.host + '/Doctor/InsertPatient_Invites_Master';
     return this.http.post(this.url, data)
   }
@@ -5523,8 +5532,6 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertPatient_WalletLogWeb';
     return this.http.post(this.url, data)
   }
-
-
 
 
   public InsertNotifications_DoctorWeb(data) {
@@ -5568,49 +5575,180 @@ export class HelloDoctorService {
 
 
 
-//home visit slots
+  //home visit slots
 
 
 
-public GetDoctorSlotsss(docid, dayid, hospitalid, timeid, appdatetime, dhid, slottypeid) {
+  public GetDoctorSlotsss(docid, dayid, hospitalid, timeid, appdatetime, dhid, slottypeid) {
 
-  return this.http.get<any[]>(
-    this.host + "/Doctor/GetDoctorSlotsss?DoctorID=" + docid + '&DayID=' + dayid + '&Hospital_ClinicID=' + hospitalid + '&TimeID=' + timeid + '&ApptDatetime=' + appdatetime + '&DoctorHospitalDetailsID=' + dhid + '&SlotTypeID=' + slottypeid
-  );
-}
-
-
-public GetDiagnostic_SoapNotesAttachmentsWeb(id) {
-
-  return this.http.get<any[]>(this.host + '/Doctor/GetDiagnostic_SoapNotesAttachmentsWeb?PatientID=' + id);
-}
-
-public GetDiagnosticTest_DoctorTemplate(id) {
-
-  return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTest_DoctorTemplate?DoctorID=' + id);
-}
-
-
-public InsertDiagnosticTest_DoctorTemplate(data) {
-  this.url = this.host + '/Doctor/InsertDiagnosticTest_DoctorTemplate';
-  return this.http.post(this.url, data)
-}
-
-
-public UpdateDiagnosticTest_DoctorTemplate(data) {
-  this.url = this.host + '/Doctor/UpdateDiagnosticTest_DoctorTemplate';
-  return this.http.post(this.url, data)
-}
-
-
-
-public SoapAttachments(files) {
-
-  let formdata: FormData = new FormData();
-  for (let i = 0; i < files.length; i++) {
-    formdata.append('file_upload', files[i], files[i].name);
-    debugger
+    return this.http.get<any[]>(
+      this.host + "/Doctor/GetDoctorSlotsss?DoctorID=" + docid + '&DayID=' + dayid + '&Hospital_ClinicID=' + hospitalid + '&TimeID=' + timeid + '&ApptDatetime=' + appdatetime + '&DoctorHospitalDetailsID=' + dhid + '&SlotTypeID=' + slottypeid
+    );
   }
-  return this.http.post(this.host + '/Doctor/SoapAttachments/', formdata);
-}
+
+
+  public GetDiagnostic_SoapNotesAttachmentsWeb(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDiagnostic_SoapNotesAttachmentsWeb?PatientID=' + id);
+  }
+
+  public GetDiagnosticTest_DoctorTemplate(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTest_DoctorTemplate?DoctorID=' + id);
+  }
+
+
+  public InsertDiagnosticTest_DoctorTemplate(data) {
+    this.url = this.host + '/Doctor/InsertDiagnosticTest_DoctorTemplate';
+    return this.http.post(this.url, data)
+  }
+
+
+  public UpdateDiagnosticTest_DoctorTemplate(data) {
+    this.url = this.host + '/Doctor/UpdateDiagnosticTest_DoctorTemplate';
+    return this.http.post(this.url, data)
+  }
+
+
+
+  public SoapAttachments(files) {
+
+    let formdata: FormData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formdata.append('file_upload', files[i], files[i].name);
+      
+    }
+    return this.http.post(this.host + '/Doctor/SoapAttachments/', formdata);
+  }
+
+
+  public DeleteArticle(lid) {
+
+    return this.http.get<any[]>(this.host + '/Articles/DeleteArticle?ID=' + lid);
+  }
+
+  public GetPatient_VitalDetailsWeb(appid, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_VitalDetailsWeb?AppointmentID=' + appid + '&TypeID=' + typeid);
+  }
+
+  public GetPatient_VitalDetailsByPatientID(appid, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_VitalDetailsByPatientID?PatientID=' + appid + '&TypeID=' + typeid);
+  }
+
+  public UpdateForgotPsswords(data) {
+    this.url = this.host + '/Doctor/UpdateForgotPsswords';
+    return this.http.post(this.url, data)
+  }
+
+  public GetRoleTypesMasterBYIDForgotpassword(lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetRoleTypesMasterBYIDForgotpassword?LanguageID=' + lid);
+  }
+
+  public GetAllProvidersByPinAndUname(pino, uname, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetAllProvidersByPinAndUname?Pinno=' + pino + '&UserName=' + uname + '&TypeID=' + typeid);
+  }
+  public UpdateRecpPsswords(data) {
+    this.url = this.host + '/Doctor/UpdateRecpPsswords';
+    return this.http.post(this.url, data)
+  }
+
+
+  public UpdateHomeVisitDeliveryChargesMaster(data) {
+    this.url = this.host + '/Doctor/UpdateHomeVisitDeliveryChargesMaster';
+    return this.http.post(this.url, data)
+  }
+  public GetHomeVisitDeliveryChargesMaster(lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetHomeVisitDeliveryChargesMaster?LanguageID=' + lid);
+  }
+
+  public GetDianosticAppointments_PaymentsReport(sdate, edate, lid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetDianosticAppointments_PaymentsReport?StartDate=' + sdate + '&EndDate=' + edate + '&LanguageID=' + lid);
+  }
+
+  public GetPharmcyOrders_PaymentsReport(sdate, edate, lid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetPharmcyOrders_PaymentsReport?StartDate=' + sdate + '&EndDate=' + edate + '&LanguageID=' + lid);
+  }
+
+  public GetDiaPharmacCounts(sdate, edate, lid) {
+    
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetDiaPharmacCounts?StartDate=' + sdate + '&EndDate=' + edate + '&LanguageID=' + lid);
+  }
+
+  public GetDiaPharmaPaymenets(sdate, edate, typeid, lid) {
+    
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetDiaPharmaPaymenets?Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid + '&LanguageID=' + lid);
+  }
+
+
+  public UpdateEnableDisableHomeVisitDeliveryChargesMaster(id, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/UpdateEnableDisableHomeVisitDeliveryChargesMaster?ID=' + id + '&TypeID=' + typeid);
+  }
+
+
+  public UpdatePatient_TextMedicineDetailsPhotoAmount(data) {
+    this.url = this.host + '/Pharmacy/UpdatePatient_TextMedicineDetailsPhotoAmount';
+    return this.http.post(this.url, data)
+  }
+
+  public GetHomeCareDistinctPatientID(lid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetHomeCareDistinctPatientID?LanguageID=' + lid);
+  }
+
+  public GetHomeCaeeSoapNotesByID(id, lid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetHomeCaeeSoapNotesByID?ID=' + id + '&LanguageID=' + lid);
+  }
+
+  public GetAllHomeCareSoap(pid, lid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetAllHomeCareSoap?PatientID=' + pid + '&LanguageID=' + lid);
+  }
+
+  public InsertNPM_PatientSoapNotesWeb(data) {
+    
+    this.url = this.host + '/Doctor/InsertNPM_PatientSoapNotesWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public GetAllPreascriptionByPatientID(lid, pid, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetAllPreascriptionByPatientID?LanguageID=' + lid + '&PatientID=' + pid + '&TypeID=' + typeid);
+  }
+
+  public GetBookAppointmentByDOctorss(lid, pid, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByDOctorss?LanguageID=' + lid + '&DoctorID=' + pid + '&TypeID=' + typeid);
+  }
+
+
+  public GetBookAppointmentByAppID(lid, pid, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointmentByAppID?LanguageID=' + lid + '&AppointmentID=' + pid + '&TypeID=' + typeid);
+  }
+
+
+
+  public DoctorPdfreports(files) {
+    
+    let formdata: FormData = new FormData();
+    formdata.append('file_upload', files, files.name);
+    
+    return this.http.post(this.host + '/Doctor/DoctorPdfreports/', formdata);
+  }
+  
+ 
+  public UpdateBookAppointmentReportPdfsUrl(data) {
+    this.url = this.host + '/Doctor/UpdateBookAppointmentReportPdfsUrl';
+    return this.http.post(this.url, data)
+  }
+
 }

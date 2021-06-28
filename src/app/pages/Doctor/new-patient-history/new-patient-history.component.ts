@@ -69,7 +69,8 @@ export class NewPatientHistoryComponent implements OnInit {
   dummsoaplist: any;
   dummvedioslist: any;
   age: any;
-  color:any;
+  color: any;
+  homecaresoaplist:any;
   ngOnInit() {
 
 
@@ -165,7 +166,18 @@ export class NewPatientHistoryComponent implements OnInit {
         }, error => {
         }
       )
+
+
+      this.docservice.GetAllHomeCareSoap(this.patientid, this.languageid).subscribe(
+        data => {
+          
+          this.homecaresoaplist = data;
+        }, error => {
+        }
+      )
     }
+
+    
 
 
 
@@ -193,15 +205,13 @@ export class NewPatientHistoryComponent implements OnInit {
     this.getlanguage();
     this.getlanguagesssss();
     this.GetDiagnosticAttachments()
+    this.getvitaldetails()
 
-
-
-    if(this.languageid==1)
-    {
-      this.color="#5d53ad"
+    if (this.languageid == 1) {
+      this.color = "#f18235"
     }
-    else{
-      this.color="#5d53ad"
+    else {
+      this.color = "#f18235"
     }
 
   }
@@ -223,6 +233,16 @@ export class NewPatientHistoryComponent implements OnInit {
       data => {
 
         this.DiaAttchmentList = data;
+      }, error => {
+      }
+    )
+  }
+  vitalslist: any;
+  public getvitaldetails() {
+
+    this.docservice.GetPatient_VitalDetailsByPatientID(this.patientid, 1).subscribe(
+      data => {
+        this.vitalslist = data;
       }, error => {
       }
     )
@@ -303,16 +323,66 @@ export class NewPatientHistoryComponent implements OnInit {
 
 
   public GetPdfsss(attchments) {
-    debugger
+    
     // document.getElementById('closeview').click();
     window.open(attchments, '_blank');
   }
 
 
   public GetSoapPdf() {
-    debugger
+    
     // document.getElementById('closeview').click();
     window.open(this.attchment, '_blank');
+  }
+
+
+
+
+
+
+
+
+
+  
+  public GetSoapHomeCarelist(soapid) {
+    
+    this.soapid = soapid;
+    this.docservice.GetHomeCaeeSoapNotesByID(this.soapid, this.languageid).subscribe(
+      data => {
+        
+        this.soaplist = data;
+        if (this.soaplist == null || this.soaplist.length == 0 || this.soaplist == undefined) {
+          this.subjective = "";
+
+          this.assessment = "";
+          this.plan = "";
+          this.diagnosiscode = "";
+          this.followupplan = "";
+          this.notes = "";
+          this.neurological = "";
+          this.signature = "";
+          this.subjective = "";
+          this.signature = "";
+          this.icrdescription = ""
+        }
+        else {
+          
+          this.subjective = this.soaplist[0].subjective,
+            this.assessment = this.soaplist[0].assessment,
+            this.plan = this.soaplist[0].plan,
+            this.diagnosiscode = this.soaplist[0].diagnosisCode,
+            this.followupplan = this.soaplist[0].followUpPlan,
+            this.notes = this.soaplist[0].notes,
+            this.neurological = this.soaplist[0].neurological,
+            this.subjective = this.soaplist[0].objective,
+            this.icrdescription = this.soaplist[0].icrDescription,
+            this.attchment = this.soaplist[0].attchment
+          
+        }
+
+      }, error => {
+      }
+    )
   }
 
 }

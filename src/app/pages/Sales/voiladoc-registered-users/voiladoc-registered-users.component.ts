@@ -352,7 +352,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
     }
     this.spinner.show();
-    debugger
+    
     var entity = {
       'DoctorName': list.username,
       'MobileNumber': list.phoneNo,
@@ -383,10 +383,10 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'SlotDurationID': list.slotDurationID
     }
     this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
-      debugger
+      
       if (data != 0) {
         this.doctorid = data;
-        debugger
+        
         // this.insertdoctorspecilisation();
         this.insertidentityProof(list);
         this.InsertMedicalProof(list);
@@ -410,7 +410,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         //   })
         //     })
         // location.href = "#/Docdash";
-        debugger
+        
         this.GetRegistreedVoiladocusers()
       }
       else {
@@ -1172,9 +1172,9 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   dianame: any;
 
   public GetViewdetails(list) {
-    debugger
+    
     if (list.type == 1) {
-      debugger
+      
       this.typeids = list.type;
       this.contactpersonname = list.contactpersonName;
       this.contactpersonphno = list.contatcpersonPhoneNo;
@@ -1190,7 +1190,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
     }
     else if (list.type == 2) {
-      debugger
+      
       this.typeids = list.type;
       this.contactpersonname = list.contactpersonName;
       this.contactpersonphno = list.contatcpersonPhoneNo;
@@ -1206,7 +1206,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
     }
     else if (list.type == 3) {
-      debugger
+      
       this.typeids = list.type;
       this.contactpersonname = list.contactpersonName;
       this.contactpersonphno = list.contatcpersonPhoneNo;
@@ -1331,7 +1331,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   // emailattchementurl = [];
 
   // public sendmail() {
-  //   debugger
+  //   
   //   var entity = {
   //     'emailto': this.email,
   //     'emailsubject': "Voiladoc",

@@ -20,21 +20,21 @@ export class IndRecpdashComponent implements OnInit {
   doctorid: any;
   recpid: any;
   dummrecplogins: any;
-  public notshow:any;
+  public notshow: any;
+  currentpwd: any;
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
     this.recpid = localStorage.getItem('recpid');
-    if(this.recpid!=undefined)
-    {
-      this.notshow=0;
+    if (this.recpid != undefined) {
+      this.notshow = 0;
     }
-    else
-    {
-      this.notshow=1;
+    else {
+      this.notshow = 1;
     }
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.pinno = localStorage.getItem('Pinno');
     this.languageID = localStorage.getItem('LanguageID');
+    this.currentpwd = localStorage.getItem('Password');
     this.getreceptionlogin();
     this.getlanguage()
   }
@@ -83,13 +83,14 @@ export class IndRecpdashComponent implements OnInit {
   address: any;
   mobileno: any;
   email: any;
+  oldpassword: any;
 
 
   public GetDeatsils(details) {
-    debugger
+    
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password,
+      this.oldpassword = details.password,
       this.mypinno = details.pinno,
       this.name = details.name,
       this.mobileno = details.mobileNo,
@@ -101,7 +102,7 @@ export class IndRecpdashComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'DoctorID': this.doctorid,
@@ -118,11 +119,13 @@ export class IndRecpdashComponent implements OnInit {
         Swal.fire('Updated Successfully');
         this.getreceptionlogin();
         document.getElementById('close').click();
+        this.password = ""
       }
       else {
         Swal.fire('', 'Mis à jour avec succés');
         this.getreceptionlogin();
         document.getElementById('close').click();
+        this.password = ""
       }
 
 
@@ -140,23 +143,45 @@ export class IndRecpdashComponent implements OnInit {
 
   public Enteredpinno: any;
 
+  public entercurrentpwd: any;
+
   public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
-      Swal.fire('Please Enter Your Pin No')
+    
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+      
+      if (this.languageID == 1) {
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+      else {
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+
 
     }
     else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
+      
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+        
+        if (this.languageID == 1) {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+
       }
     }
   }
@@ -165,22 +190,19 @@ export class IndRecpdashComponent implements OnInit {
 
 
 
-  
   public GetDisablerecp(docid) {
     this.docservice.DisableIndependentDoctors_Receptionist(docid).subscribe(
       data => {
 
-        if(this.languageID==1)
-        {
+        if (this.languageID == 1) {
           Swal.fire('Disabled', 'Receptionist has been Disabled');
           this.getreceptionlogin();
         }
-        else
-        {
+        else {
           Swal.fire('Désactivée', 'Accès désactivé');
           this.getreceptionlogin();
         }
-      
+
 
       }, error => {
       }
@@ -188,22 +210,20 @@ export class IndRecpdashComponent implements OnInit {
   }
 
 
-  
+
   public GetRecpEnable(id) {
     this.docservice.EnableIndependentDoctors_Receptionist(id).subscribe(
       data => {
 
-        if(this.languageID==1)
-        {
+        if (this.languageID == 1) {
           Swal.fire('Enabled', 'Receptionist has been Enabled');
           this.getreceptionlogin();
         }
-        else
-        {
+        else {
           Swal.fire('Activé', 'Accès Activé');
           this.getreceptionlogin();
         }
-       
+
 
       }, error => {
       }

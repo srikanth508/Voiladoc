@@ -1,11 +1,13 @@
 <br>
 <div class="container-fluid card card-hover ">
-  <div class="row headerspace1" >
-    <div class="col-lg-1">
-    </div>
+  <div class="row headerspace1">
+    <!-- <div class="col-lg-1">
+    </div> -->
     <div class="col-lg-9">
       <h5 style="margin-top: 27px;" *ngIf="languageid=='1'">Quick Guide </h5>
-      <h5  style=" margin-top: 27px;"  *ngIf="languageid=='6'">DÉMARRAGE RAPIDE      </h5>
+      <h5 style=" margin-top: 27px;" *ngIf="languageid=='6'">DÉMARRAGE RAPIDE </h5>
+    </div>
+    <div class="col-lg-1">
     </div>
     <div class="col-lg-2">
       <img src="assets/Images/logo.png" style="width: 50%;">
@@ -21,18 +23,38 @@
         <h4 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+data.id"
             (click)="GetID(data.id)" aria-expanded="true" [attr.aria-controls]="'collapse'+data.id">
-            <span style="color:#303577">{{data.chapterName}}</span>
+            <h6 style="color:#303577;font-size: 22px;">{{data.chapterName}}</h6>
           </a>
         </h4>
       </div><br>
+      <!-- (click)="GetData(sub)" -->
       <div [id]="'collapse'+data.id" class="panel-collapse collapse" role="tabpanel"
         [attr.aria-labelledby]="'heading'+data.id">
         <div class="panel-body">
           <div *ngFor="let sub of subchapterlist">
-            <label (click)="GetData(sub)">{{sub.description}}</label>
+            <div class="row">
+              <div class="col-lg-12">
+                <p><b>{{sub.description}}</b></p>
+              </div>
+              <div class="col-lg-6">
+                <img src="{{sub.photoUrl}}" *ngIf="sub.photo!='0'" style="width: 100%;height: auto;"><br>
+              </div>
+              <div class="col-lg-6">
+                <div class="video">
+                  <video controls id="videoPlayer" *ngIf="sub.video!='0'" autoplay style="height:auto; width: 100%;">
+                    <source src="{{sub.videoUrl}}" type="video/mp4" /> Browser not
+                    supported
+                  </video>
+                </div>
+
+              </div>
+
+            </div>
+
+
           </div><br>
           <div>
-            <span> {{description}}</span>
+            <!-- <span> {{description}}</span> -->
           </div>
         </div>
       </div>

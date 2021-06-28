@@ -90,7 +90,7 @@ export class HospitalClinicComponent implements OnInit {
         this.docservice.InsertHospitalClinicAdminRegistration(entity).subscribe(data => {
 
           if (data != 0) {
-            debugger
+            
             if (this.languageid == 1) {
               this.gethospitalclinicfordash()
               Swal.fire('Registration Completed', 'Details saved successfully', 'success');
@@ -147,7 +147,7 @@ export class HospitalClinicComponent implements OnInit {
 
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

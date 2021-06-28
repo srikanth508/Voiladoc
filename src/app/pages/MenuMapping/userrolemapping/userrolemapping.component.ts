@@ -82,7 +82,7 @@ export class UserrolemappingComponent implements OnInit {
       }
       this.docservice.InsertUsers_RoleMapping(entity).subscribe(data => {
         if (data != 0) {
-          debugger
+          
           this.pinno = data;
           // this.GetuserRoles();
           this.sendmail();
@@ -100,7 +100,7 @@ export class UserrolemappingComponent implements OnInit {
   public doctorname: any;
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

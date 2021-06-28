@@ -22,11 +22,11 @@ export class FAQuestionsComponent implements OnInit {
 
     this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.dummfaqlist = data;
         this.faqlist = this.dummfaqlist.filter(x => x.typeID == 2);
         
-        debugger
+        
       }, error => {
       }
     )

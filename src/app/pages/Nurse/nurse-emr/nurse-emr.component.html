@@ -1,0 +1,270 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-4">
+      <h5 *ngIf="languageid==1">EMR</h5>
+      <h5 *ngIf="languageid==6">DOSSIER MEDICAL PATIENT
+      </h5>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/Name.png" title="{{labels[0].patientName}}" style="height:20px;width:20px"> :
+        <b>{{patientname}}</b>
+      </label>
+    </div>
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/Phone.png" title="{{labels[0].phoneNo}}" style="height:20px;width:20px"> :
+        <b>{{mobileno}}</b>
+      </label>
+    </div>
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/gmail.png" title="{{labels[0].emailID}}" style="height:20px;width:20px"> :
+        <b>{{emailid}}</b>
+      </label>
+    </div>
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/gender.png" title="{{labels[0].gender}}" style="height:20px;width:20px"> :
+        <b>{{gender}}</b>
+      </label>
+    </div>
+    <br>
+    <br>
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/blood.png" title="{{labels[0].blood}}" style="height:20px;width:20px"> :
+        <b>{{bloodgroup}}</b>
+      </label>
+    </div>
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/address.png" title="{{labels[0].address}}" style="height:20px;width:20px"> :
+        <b>{{address}}</b>
+      </label>
+    </div>
+    <div class="col-lg-3">
+      <label>
+        <img src="assets/Images/age.png" title="Age" style="height:20px;width:20px"> :
+        <!-- Age : -->
+        <b>{{age}}</b>
+      </label>
+    </div>
+  </div>
+</div>
+<br>
+
+
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label *ngIf="languageid=='1'"><b>SOAP Notes Homecare</b></label>
+      <label *ngIf="languageid=='6'"><b>Notes- Homecare / Soins a domicile</b></label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <table>
+        <thead>
+          <tr>
+            <th id="imp" [style.background-color]="color">{{labels[0].appointmentDate}}</th>
+            <th id="imp" [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
+            <th [style.background-color]="color">Name</th>
+            <!-- <th [style.background-color]="color">{{labels1[0].department}}</th> -->
+            <th [style.background-color]="color">{{labels1[0].phoneNo}}</th>
+            <!-- <th [style.background-color]="color">{{labels[0].ailment}}</th> -->
+            <th id="imp11" [style.background-color]="color">{{labels[0].soqp}}</th>
+          </tr>
+          <tr *ngFor="let soap of soaplist1">
+            <td>{{soap.appointDate}}</td>
+            <td>{{soap.appointmentID}}</td>
+            <td>{{soap.nurseName}}</td>
+            <!-- <td>{{soap.departmentname}}</td> -->
+            <td>{{soap.phoneNo}}</td>
+            <!-- <td>{{soap.reasonForVisit}}</td> -->
+            <td>
+              <a [ngbTooltip]="tipcontent10">
+                <img src="assets/Images/pmr.png" (click)="GetSoapID(soap.soapID)" data-toggle="modal"
+                  data-target="#exampleModal1" style="margin: 2%;width: 20px;" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+
+
+
+
+
+<div class="modal fade" id="exampleModal1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{labels1[0].soap}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].subjective}}</b>
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" disabled name="subjective" required rows="4"
+                  placeholder="{{labels1[0].subjective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].objective}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" disabled required [(ngModel)]="objective"
+                  placeholder="{{labels1[0].objective}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].assessment}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" disabled required [(ngModel)]="assessment"
+                  placeholder="{{labels1[0].assessment}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].plan}}</b>
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" disabled required [(ngModel)]="plan"
+                  placeholder="{{labels1[0].plan}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].diagnosisCode}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="diagnosiscode" disabled name="diagnosiscode"
+                  placeholder="{{labels1[0].diagnosisCode}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">
+                  <b>Diagnosis description</b>
+                </label>
+                <label *ngIf="languageid=='6'">
+                  <b>Description du diagnostic</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="icrdescription" disabled name="icrdescription" />
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+          <div class="col-lg-3">
+            <label><b>Sick Slip Genarator</b> </label>
+          
+          </div>
+          <div class="col-lg-7">
+            <input type="text" class="form-control" [(ngModel)]="sickslip" name="sickslip"
+              placeholder="Sick Slip Genarator" />
+          </div>
+        </div><br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].followUpPlan}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [(ngModel)]="followupplan" disabled name="followupplan"
+                  placeholder="{{labels1[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>Attachments</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <img src="assets/Images/pdf.png" style="  height: 39px;" *ngIf="attchment!=0" (click)="GetSoapPdf()">
+              </div>
+            </div>
+            <br>
+
+            <!-- <div class="row">
+          <div class="col-lg-3">
+            <label><b>Signature</b> </label>
+          <span style="color: red;">*</span>
+          </div>
+          <div class="col-lg-7">
+            <input type="text" class="form-control" [(ngModel)]="signature" name="signature"
+              placeholder="Signature" />
+          </div>
+        </div>
+        <br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  <b>{{labels1[0].notes}}</b>
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="notes" disabled [(ngModel)]="notes"
+                  placeholder="{{labels1[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -124,12 +124,16 @@ export class SidebarComponent implements OnInit {
   completedtickets:any;
   refundtickets:any;
   refundticketsmenu:any;
+  hospitalididd:any;
   ngOnInit() {
 
     this.display = "none";
     this.roleid = localStorage.getItem('roleid');
     this.languageid = localStorage.getItem('LanguageID')
-    this.hospitalid = localStorage.getItem('hospitalClinicID')
+    this.hospitalid = localStorage.getItem('hospitalClinicID');
+
+    this.hospitalididd = localStorage.getItem('hospitalid');
+
     this.getlanguage()
 
     if (this.roleid == 15 || this.roleid == 18 || this.roleid == 19 || this.roleid == 20 || this.roleid == 21 || this.roleid == 17) {
@@ -445,11 +449,19 @@ export class SidebarComponent implements OnInit {
             if (this.menulist[s].subMenuName == 'Diagnostic Agenda') {
               this.diagnosticagenda = 1;
             }
+            if (this.menulist[s].subMenuName == 'Home Delivery Fees') {
+              this.homedeliveryfees = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Invitation Master') {
+              this.invitationmaster = 1;
+            }
           }
         })
     }
   }
  
+  homedeliveryfees:any;
+  invitationmaster:any;
 
 
   public getlanguage() {

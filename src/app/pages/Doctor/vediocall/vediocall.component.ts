@@ -61,34 +61,17 @@ export class VediocallComponent implements OnInit {
   public soapddddd: any;
   public sppp: any;
 
-  public historyofillness: any;
-  public medcondition: any;
-  public meditations: any;
-
-  public pastsix: any;
-  public socialhx: any;
   public assessment: any;
   public soapid: any;
-  public bp: any;
-  public hr: any;
+
   public temp: any;
-  public extraoral: any;
-  public intraoral: any;
-  public radiology: any;
   public plan: any;
-  public getss: any;
-  public getoo: any;
-  public getaa: any;
-  public getpp: any;
+
   public soaplist: any;
   public issubscriberready = false;
   public isRecordingstoped = false;
   public appointmentdatetime: any;
   public details1: any;
-
-  public pdpd: any;
-  public pdpp: any;
-  public pddt: any;
   public ondemandid: any;
   public soaplist1: any;
 
@@ -96,19 +79,6 @@ export class VediocallComponent implements OnInit {
 
 
   public subjective: any;
-  public phsycialexam: any;
-  public genaral: any;
-  public ent: any;
-  public neck: any;
-  public lymphnode: any;
-  public cardiovascular: any;
-  public lungs: any;
-  public skin: any;
-  public breast: any;
-  public Psychiatry: any;
-  public abdomen: any;
-  public genitourinary: any;
-  public rectal: any;
   public extremities: any;
   public musculoskeletal: any;
   public neurological: any;
@@ -123,9 +93,6 @@ export class VediocallComponent implements OnInit {
   public quantity: any;
   public bmi: any;
   dropzonelable: any;
-
-
-
   public medicineid: any;
   public consumelist: any;
   public consumeid: any;
@@ -236,22 +203,20 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-    debugger
+    
     this.testid = 0;
     this.testssid = 0;
     // document.getElementById('def_op').click();
     this.docservice.showvid = 1;
 
     var countDownDate = new Date().getTime();
-
-
     document.getElementById("sidbarid").style.display = "none";
 
     document.getElementById("vidiv").classList.remove('col-lg-10');
     document.getElementById("vidiv").classList.add("col-lg-12");
     document.getElementById("vidpagehead").style.display = "none";
 
-    debugger
+    
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -279,7 +244,6 @@ export class VediocallComponent implements OnInit {
 
 
     this.display = "block";
-
     this.Date = new Date();
     this.idcount = 1;
     this.allergyidcount = 1;
@@ -294,27 +258,21 @@ export class VediocallComponent implements OnInit {
     this.sidate = formatDate(sigdate, llll, locales);
 
     this.docname = localStorage.getItem('user');
-    debugger
+    
 
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
+    this.getlanguage();
     if (this.languageid == 1) {
       this.signature = 'Electronically signed by ' + this.docname + ' ' + this.sidate;
     }
     else if (this.languageid == 6) {
       this.signature = 'Signature électronique du ' + this.docname + ' ' + this.sidate;
     }
-    this.getlanguage();
+
     document.getElementById('stoprecoring').style.display = 'none';
-    // document.getElementById('viewrecoring').style.display = 'none';
-
-    // document.getElementById('stoprecoring_forshow').style.display = 'block';
+   
     this.activatedroute.params.subscribe(params => {
-      debugger
-      // this.patientid = params['patientID'];
-      // this.appointmentid = params['appointmentID'];
-      // this.appointmentdatetime = params['appdate'];
-
       this.patientid = localStorage.getItem('patientID');
       this.appointmentid = localStorage.getItem('appointmentID');
       this.appointmentdatetime = localStorage.getItem('appdate');
@@ -340,11 +298,35 @@ export class VediocallComponent implements OnInit {
 
     // this.appointmentiddd = 570;
     this.appointmentdatetimee = localStorage.getItem('appdate');
-
-
     this.getserverdateandtime();
 
     this.doctorid = localStorage.getItem('userid');
+
+    // tok bok vamsi  start
+
+    this.opentokService.getsessionandtoken().subscribe(res => {
+      
+      config.SESSION_ID = res['sessionid'];
+      config.TOKEN = res['token'];
+      
+      this.insertvedioeconferencedetails();
+      
+      this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
+        data => {
+          
+        }, error => {
+        }
+      )
+    })
+
+
+    // tok bok vamsi End
+    this.GetSoapNotesByPatientID();
+    this.medicinetemplate = 2;
+    this.oberserableTimer();
+
+
+
     this.getpatientdetails();
     this.getdoctorpatinetdetails();
     this.getpatient_diagnosticdetails();
@@ -358,31 +340,7 @@ export class VediocallComponent implements OnInit {
     this.GetDoctorSoapNotesTemplates()
     this.GetDrugnamemaster()
     this.GetDiagnpsticDoctorTemplates()
-
-
-
-    // tok bok vamsi  start
-
-    this.opentokService.getsessionandtoken().subscribe(res => {
-      debugger
-      config.SESSION_ID = res['sessionid'];
-      config.TOKEN = res['token'];
-      debugger
-      this.insertvedioeconferencedetails();
-      debugger
-      this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
-        data => {
-          debugger
-        }, error => {
-        }
-      )
-    })
-
-    // tok bok vamsi End
-    this.GetSoapNotesByPatientID();
-    this.medicinetemplate = 2;
-    this.oberserableTimer();
-
+    this.getvitaldetails()
   }
 
 
@@ -391,8 +349,9 @@ export class VediocallComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-
+        
         this.labels = data;
+        
         this.endsession = this.labels[0].endsession
       }, error => {
       }
@@ -413,7 +372,7 @@ export class VediocallComponent implements OnInit {
 
 
   public insertvedioeconferencedetails() {
-    debugger
+    
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -435,32 +394,31 @@ export class VediocallComponent implements OnInit {
             document.getElementById('stoprecoring').style.display = 'block';
 
             // document.getElementById('stoprecoring_forshow').style.display = 'none';
-            debugger
+            
             this.startarchive();
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
             const idx = this.streams.indexOf(event.stream);
-            debugger
+            
             if (idx > -1) {
               this.streams.splice(idx, 1);
               this.changeDetectorRef.detectChanges();
             }
           });
           this.session.on('archiveStarted', (event) => {
-            debugger
+            
             this.archiveID = event.id;
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
             ;
-            debugger
+            
             this.archiveID = event.id;
 
           });
         })
-
           .then(() => this.opentokService.connect())
           .catch((err) => {
             console.error(err);
@@ -469,7 +427,7 @@ export class VediocallComponent implements OnInit {
       }
       else {
         this.updatearchiveid('notyet')
-        debugger
+        
         this.opentokService.initSession().then((session: OT.Session) => {
           this.session = session;
           this.session.on('streamCreated', (event) => {
@@ -485,7 +443,7 @@ export class VediocallComponent implements OnInit {
             ;
             this.stoparchive();
 
-            debugger
+            
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
               this.streams.splice(idx, 1);
@@ -498,13 +456,13 @@ export class VediocallComponent implements OnInit {
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
-            debugger
+            
             this.archiveID = event.id;
           });
         })
           .then(() => this.opentokService.connect())
           .catch((err) => {
-            debugger
+            
             console.error(err);
             alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
           });
@@ -514,7 +472,7 @@ export class VediocallComponent implements OnInit {
   }
 
   public updatearchiveid(archiveID) {
-    debugger
+    
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -638,6 +596,7 @@ export class VediocallComponent implements OnInit {
           this.showdrugname = this.details.drugName,
           this.showdosage = this.details.dosage,
           this.showfrequency = this.details.frequency,
+          this.smsmobileno = this.details.smsmobileno,
 
 
 
@@ -655,7 +614,7 @@ export class VediocallComponent implements OnInit {
 
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
-            debugger
+            
           }, error => {
           }
         )
@@ -678,30 +637,39 @@ export class VediocallComponent implements OnInit {
 
 
 
+  smsmobileno:any;
+
 
 
   public SendNotification() {
 
     if (this.languageid == 1) {
       var entity = {
-        'Description': "Doctor Has Started Video Please Join ",
+        'Description': "The doctor has started the call. Please open Voiladoc app and accept the call now. ",
         'ToUser': this.email,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
 
         if (data != 0) {
-
+         
+            var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. "
+       
+      
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
         }
       })
     }
     else if (this.languageid == 6) {
       var entity = {
-        'Description': "Le médecin a commencé la vidéo, veuillez rejoindre",
+        'Description': "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel.",
         'ToUser': this.email,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
 
         if (data != 0) {
+          var smsdesc = "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel."
+      
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
 
         }
       })
@@ -709,6 +677,17 @@ export class VediocallComponent implements OnInit {
     }
 
   }
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      
+    })
+  }
+
+
+
 
   showdrugname: any;
   showfrequency: any;
@@ -747,6 +726,27 @@ export class VediocallComponent implements OnInit {
         this.diagnosticlist = data;
       }, error => {
       }
+    )
+  }
+
+  vitalslist: any;
+  oxygen: any;
+  bpm: any;
+  bloodpressure: any;
+  cpm:any;
+  stress:any;
+  public getvitaldetails() {
+
+    this.docservice.GetPatient_VitalDetailsWeb(this.appointmentid, 1).subscribe(
+      data => {
+        this.vitalslist = data;
+        this.oxygen = this.vitalslist[0].oxygenSaturation,
+          this.bpm = this.vitalslist[0].bpm,
+          this.cpm = this.vitalslist[0].rr,
+          this.stress = this.vitalslist[0].streeLevel,
+          this.bloodpressure = this.vitalslist[0].bloodPressureStatus
+      }, error => {
+    }
     )
   }
 
@@ -805,7 +805,7 @@ export class VediocallComponent implements OnInit {
       'Objective': this.objective,
       'Assesment': this.assessment,
       'Plan': this.plan,
-      'DiagnosisCode': this.diagnosiscode,
+      'DiagnosisCode': this.icdcode,
       'FollowUpPlan': this.followupplan,
       'Signature': this.signature,
       'Notes': this.notes,
@@ -911,12 +911,12 @@ export class VediocallComponent implements OnInit {
       'AppointmentID': this.appointmentid,
       'AppointmentDate': this.appointmentdatetime,
       'Subjective': this.subjective,
-      'Objective':this.objective,
-      'Assessment':this.assessment,
-      'Plan':this.plan,
-      'FollowUpPlan':this.followupplan,
-      'DiagnosisCode':this.diagnosiscode,
-      'Notes':this.notes,
+      'Objective': this.objective,
+      'Assessment': this.assessment,
+      'Plan': this.plan,
+      'FollowUpPlan': this.followupplan,
+      'DiagnosisCode': this.diagnosiscode,
+      'Notes': this.notes,
       'LanguageID': this.languageid,
       'ICRCode': this.icdcode,
       'ICRDescription': this.icddesc,
@@ -1627,6 +1627,7 @@ export class VediocallComponent implements OnInit {
     this.testssid = even.target.value;
 
     if (this.testssid == 59 || this.testssid == 60) {
+      this.diagnostictestname = ""
     }
     else {
       for (let i = 0; i < this.tsetssslist.length; i++) {
@@ -2373,14 +2374,14 @@ export class VediocallComponent implements OnInit {
   attachmentsurl1 = []
 
   public UploadSoapAttchments(abcd) {
-    debugger
+    
     this.dummprescriptionphotourl = []
-    debugger
+    
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadSoAPattachmentss();
     // }
-    debugger
+    
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -2398,14 +2399,14 @@ export class VediocallComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       if (this.attachments1[0].type == 'image/jpeg') {
-        debugger
+        
         this.shoprescphoto.push(b)
       }
       else if (this.attachments1[0].type == 'application/pdf') {
-        debugger
+        
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
 
@@ -2469,27 +2470,27 @@ export class VediocallComponent implements OnInit {
 
   public GetTestTemplateID(even) {
     if (even.target.value != 0) {
-      debugger
+      
       this.templateid = even.target.value;
       var list = this.TestTemplateList.filter(x => x.id == this.templateid)
       this.testid = list[0].testTypeID
       this.testssid = list[0].testID
       this.clinicalinfo = list[0].clinicalInfo,
-      this.testtemplatename=list[0].templateName
-      debugger
+        this.testtemplatename = list[0].templateName
+      
       this.getdiagnostictests()
       // this.getdiagnosticcentertests()
-      debugger
+      
       var list1 = this.testslist.filter(x => x.id == this.testid)
       this.diagnostictesttypename = list1[0].name
-      debugger
+      
       this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
         data => {
-          debugger
+          
           this.tsetssslist = data;
           var list2 = this.tsetssslist.filter(x => x.id == this.testssid)
           this.diagnostictestname = list2[0].short
-          debugger
+          
         }, error => {
         }
       )

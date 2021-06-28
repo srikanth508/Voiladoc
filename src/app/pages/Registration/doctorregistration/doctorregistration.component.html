@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].doctorName}}" name="doctorname" required
-                [(ngModel)]="doctorname" class="form-control"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)'>
+                [(ngModel)]="doctorname" class="form-control"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'>
             </div>
           </div>
           <br>
@@ -387,9 +387,9 @@
             </div>
             <div class="col-lg-4">
 
-              <input type="text" maxlength="10" placeholder="{{labels[0].registrationNo}}" name="registrationno"
+              <input type="text"  placeholder="{{labels[0].registrationNo}}" name="registrationno"
                 [(ngModel)]="registrationno" class="form-control"
-                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode>=48&&event.charCode<=57)' />
+                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode>=48&&event.charCode<=57)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'/>
             </div>
           </div>
           <br>
@@ -402,7 +402,7 @@
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].registrationCouncil}}" name="registrationcouncil"
                 [(ngModel)]="registrationcouncil" class="form-control"
-                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode>=48&&event.charCode<=57)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'>
             </div>
 
           </div>

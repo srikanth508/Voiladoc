@@ -44,7 +44,7 @@
               &nbsp;
               <ng-template #tipcontent1>Edit</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
-                <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
+                <img src="assets/Images/edit.png" style="width: 24px" *ngIf="showeditbutton=='0'" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetDeatsils(details)">
               </a>
             </td>
@@ -68,7 +68,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content"  style="    width: 700px;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{labels[0].editPassword}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -84,8 +84,22 @@
             <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
               placeholder=" {{labels[0].enteryourpin}}">
           </div>
-          <div class="col-lg-2">
+          <!-- <div class="col-lg-2">
             <button class="btn btncolor" (click)="CheckPasswordvalidate()"> {{labels[0].validate}}</button>
+          </div> -->
+        </div><br>
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>{{labels[0].password}} :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control"   required [(ngModel)]="entercurrentpwd" name="entercurrentpwd"
+              placeholder="{{labels[0].password}}">
+            <!-- <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span> -->
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels[0].validate}}</button>
           </div>
         </div>
         <div *ngIf="Showpassword=='1'">
@@ -118,8 +132,20 @@
                 <span class="required">*</span>
               </div>
               <div class="col-lg-6">
-                <input type="text" class="form-control" name="password" required [(ngModel)]="password"
+                <input type="text" class="form-control" disabled name="oldpassword" required [(ngModel)]="oldpassword"
                   placeholder="{{labels[0].password}}">
+                <!-- <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span> -->
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].newpassword}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required [(ngModel)]="password" name="password"
+                  placeholder="{{labels[0].newpassword}}">
                 <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span>
               </div>
             </div>

@@ -1,7 +1,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-12">
-      <h5>{{labels1[0].shoppingdeliveryorders}}</h5>
+      <h5 *ngIf="languageid=='1'">{{labels1[0].shoppingdeliveryorders}}</h5>
+      <h5 *ngIf="languageid=='6'">COMMANDES DE LIVRAISON D’ACHATS</h5>
     </div>
   </div>
 </div>

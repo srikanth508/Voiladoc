@@ -103,7 +103,7 @@ public UpdateDetailes() {
     this.docservice.UpdateDiagnosticReceptionistLogin(entity).subscribe(res => {
         if (this.languageid == 1) {
       
-            debugger
+            
             Swal.fire('Success', 'Updated successfully')
             location.href = "#/ReceptionistLoginDashboard"
         }
@@ -121,7 +121,7 @@ public UpdateDetailes() {
   public doctorname: any;
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

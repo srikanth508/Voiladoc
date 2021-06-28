@@ -30,7 +30,7 @@ export class QuickGuideDashComponent implements OnInit {
 
     this.docservice.GetQuickGuide(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.quicklist = data;
         this.count = this.quicklist.length;
 

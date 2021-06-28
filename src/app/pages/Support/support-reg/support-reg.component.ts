@@ -213,7 +213,7 @@ export class SupportRegComponent implements OnInit {
   emailattchementurl = [];
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

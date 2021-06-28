@@ -76,14 +76,14 @@ export class TopicMasterComponent implements OnInit {
 
 
   public updatedetails() {
-    debugger
+    
     var entity = {
       'ID': this.id,
       'TopicName': this.topicname,
       'Description': this.description,
     }
     this.docservice.UpdateTopicMaster(entity).subscribe(data => {
-      debugger
+      
         Swal.fire('Success', 'Details Updated Successfully');
      
         location.href = "#/TopicMasterDash"

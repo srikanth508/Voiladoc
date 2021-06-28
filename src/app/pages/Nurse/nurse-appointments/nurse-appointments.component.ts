@@ -68,7 +68,8 @@ export class NurseAppointmentsComponent implements OnInit {
   public paidamount: any;
   public walletamount: any;
   public labels1: any;
-
+  user: any;
+  dropzonelable: any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -103,6 +104,7 @@ export class NurseAppointmentsComponent implements OnInit {
     this.enddate = formatDate(lll, format, locale);
     this.nurseid = localStorage.getItem('nurseid');
     this.languageid = localStorage.getItem('LanguageID');
+    this.user = localStorage.getItem('user');
     this.getnurselist();
     this.getserverdateandtime();
     this.Obseravabletimer();
@@ -110,7 +112,19 @@ export class NurseAppointmentsComponent implements OnInit {
     this.timingsss = this.datePipe.transform(this.availabletime, 'h:mm a');
     this.getlanguage()
 
+    if (this.languageid == 1) {
+      this.signature = 'Electronically signed by ' + this.user + ' ' + this.todaydate;
+    }
+    else if (this.languageid == 6) {
+      this.signature = 'Signature électronique du ' + this.user + ' ' + this.todaydate;
+    }
 
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
 
 
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
@@ -137,7 +151,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
 
-
+  labels4: any;
 
   public getlanguage() {
     this.docservice.GetAdmin_NurseLoginAppointmentReportWorkingDetails_Lable(this.languageid).subscribe(
@@ -147,6 +161,17 @@ export class NurseAppointmentsComponent implements OnInit {
       }, error => {
       }
     )
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels4 = data;
+        // this.selectlabel = this.labels[0].select,
+        //   this.search2 = this.labels[0].search
+      }, error => {
+      }
+    )
+    this.geticdcode()
   }
 
 
@@ -198,7 +223,7 @@ export class NurseAppointmentsComponent implements OnInit {
         this.serverdateandtime = data;
         this.servertime = this.serverdateandtime.presentTime,
           this.serverdate = this.serverdateandtime.todaydate
-          this.availabletime=this.serverdateandtime.presentTime
+        this.availabletime = this.serverdateandtime.presentTime
       }, error => {
       }
     )
@@ -267,11 +292,11 @@ export class NurseAppointmentsComponent implements OnInit {
         this.getnurselist();
         this.getnurseappointments();
 
-        
-          var smsdesc = "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. "
-          this.SendTwiliSms(smsdesc, this.smsmobileno)
-        
-        
+
+        var smsdesc = "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. "
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
+
+
       }
       else {
         Swal.fire('Annuler avec succès');
@@ -331,7 +356,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public insertAcceptNursenotoification() {
-debugger
+    
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.acceppatientid,
@@ -369,7 +394,7 @@ debugger
   }
   public InsertNotificationFORAccept() {
     if (this.languageid == '1') {
-      debugger
+      
       var entity = {
         'Description': "Your appoinment with the nurse " + this.acceptnursename + " on " + this.aaceptslots + " has been accepted.",
         'ToUser': this.accemail,
@@ -382,9 +407,9 @@ debugger
       })
     }
     else if (this.languageid == '6') {
-      debugger
+      
       var entity = {
-        
+
         'Description': "Votre RDV avec l'infirmier/ère " + this.acceptnursename + " le " + this.aaceptslots + " a été confirmé. ",
         'ToUser': this.accemail,
       }
@@ -400,9 +425,9 @@ debugger
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    debugger
+    
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      debugger
+      
     })
   }
 
@@ -599,7 +624,7 @@ debugger
 
 
   public InsertNotiFicationCancel() {
-    debugger
+    
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. ",
@@ -613,7 +638,7 @@ debugger
       })
     }
     else if (this.languageid == '6') {
-      debugger
+      
       var entity = {
         'Description': "Votre RDV avec l'infirmier/ère " + this.cannursename + " le " + this.canslots + " n'a pas été confirmé.",
         'ToUser': this.canemail,
@@ -770,10 +795,10 @@ debugger
 
   public SavePDF() {
     ;
-    debugger
+    
     let pdfContent = window.document.getElementById("pdfcontent");
     var doc = new jsPDF('p', 'mm', "a4");
-    debugger
+    
     html2canvas(pdfContent).then(canvas => {
       ;
       var imgData = canvas.toDataURL('image/jpeg', 1.0);
@@ -786,21 +811,21 @@ debugger
       var file = new File([pdf], "NurseReceipts" + ".pdf");
 
       let body = new FormData();
-      debugger
+      
       body.append('Dan', file);
 
       this.docservice.ReceiptUpload(file).subscribe(res => {
         ;
         this.pdfurl = res;
         this.UpdateReceipt();
-        debugger
+        
       });
     });
   }
 
 
   public UpdateReceipt() {
-    debugger
+    
     var entity = {
       'AppointmentID': this.visitappid,
       'ReceiptURL': this.pdfurl
@@ -827,6 +852,168 @@ debugger
 
   }
 
+
+
+
+
+
+
+  // soap notes
+
+
+
+
+  public GetSoapID(app) {
+    this.patientid = app.patientID,
+      this.appointmentdatetime = app.apptDatetime,
+      this.appointmentid = app.id
+  }
+
+
+  icrcodedummlist: any;
+  icdcodelist: any;
+  states: any;
+
+  public geticdcode() {
+    this.docservice.GetICDCodeMaster(this.languageid).subscribe(
+      data => {
+        ;
+        this.icrcodedummlist = data;
+        this.icdcodelist = data;
+
+        this.states = this.icdcodelist.map(x => x.description);
+      },
+      error => { }
+    );
+  }
+
+
+  showsearchsoap: any;
+
+  public SearchIcrCode() {
+
+    if (this.icddesc == '') {
+      this.icdcode = ''
+      this.showsearchsoap = 0
+    }
+    else {
+      // let wqew = this.icdcodelist.filter(v => v.description.toLowerCase().indexOf(this.icddesc.toLowerCase()) > -1);
+      // this.icdcode = wqew[0].icdCode,
+      //   this.icrcodeid = wqew[0].id
+      this.showsearchsoap = 1;
+
+    }
+  }
+
+
+
+  public GetIcrCodeID(id, description, icdCode) {
+    this.icdcode = icdCode,
+      this.icrcodeid = id
+    this.icddesc = description
+    this.showsearchsoap = 0
+  }
+
+
+  patientid: any;
+  appointmentid: any;
+  appointmentdatetime: any;
+  subjective: any;
+  objective: any;
+  assessment: any;
+  plan: any;
+  followupplan: any;
+  icdcode: any;
+  notes: any;
+  icddesc: any;
+  icrcodeid: any;
+  attachmentsurl1 = []
+  signature: any;
+
+  public insertsoapnotes1() {
+    
+    var entity = {
+      'NPMID': this.nurseid,
+      'PatientID': this.patientid,
+      'AppointmentID': this.appointmentid,
+      'AppointmentDate': this.appointmentdatetime,
+      'Subjective': this.subjective,
+      'Objective': this.objective,
+      'Assessment': this.assessment,
+      'Plan': this.plan,
+      'FollowUpPlan': this.followupplan,
+      'DiagnosisCode': this.icdcode,
+      'Notes': this.notes,
+      'LanguageID': this.languageid,
+      'ICRCode': this.icdcode,
+      'ICRDescription': this.icddesc,
+      'ICRID': this.icrcodeid,
+      'AttachmentUrl': this.attachmentsurl1[0],
+      'Signature': this.signature,
+      'TypeID': 1
+    }
+    this.docservice.InsertNPM_PatientSoapNotesWeb(entity).subscribe(data => {
+      
+      if (data != 0) {
+        
+        if (this.languageid == 1) {
+          Swal.fire('Completed', 'Details saved successfully', 'success');
+        }
+        else if (this.languageid == 6) {
+
+          Swal.fire('', 'Détails enregistrés !', 'success');
+        }
+      }
+
+    }
+    )
+  }
+
+
+
+  public UploadSoapAttchments(abcd) {
+    
+    this.dummprescriptionphotourl = []
+    
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments1.push(abcd.addedFiles[0]);
+    this.uploadSoAPattachmentss();
+    // }
+    
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Mis à jour avec succés');
+      abcd.length = 0;
+    }
+  }
+
+  public shoprescphoto = [];
+  attachments1 = []
+  dummprescriptionphotourl = []
+  public uploadSoAPattachmentss() {
+    this.docservice.SoapAttachments(this.attachments1).subscribe(res => {
+      this.attachmentsurl1.push(res);
+      this.dummprescriptionphotourl.push(res);
+      let a = this.attachmentsurl1[0].slice(2);
+      
+      let b = 'https://maroc.voiladoc.org' + a;
+      if (this.attachments1[0].type == 'image/jpeg') {
+        
+        this.shoprescphoto.push(b)
+      }
+      else if (this.attachments1[0].type == 'application/pdf') {
+        
+        this.shoprescphoto.push('assets/Images/pdf.png')
+      }
+
+      this.attachments1.length = 0;
+
+    })
+    // this.sendattachment();
+  }
 
 
 }

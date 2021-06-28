@@ -1,0 +1,498 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<br />
+<div class="container-fluid card card:hover">
+  <br />
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>Doctor Medicines</h5>
+    </div>
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+  </div>
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <br>
+  <div class="row">
+    <br>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search" name="search">
+
+    </div>
+
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>{{labels1[0].doctorPhoto}}</th>
+            <th>{{labels1[0].doctorName}}</th>
+            <th>{{labels1[0].phoneNo}}</th>
+            <th>{{labels1[0].email}}</th>
+            <!-- <th>{{labels[0].registeredDate}}</th> -->
+
+            <th>{{labels1[0].registrationNo}}</th>
+            <th>{{labels1[0].department}}</th>
+            <th>{{labels1[0].address}}</th>
+            <th>Type</th>
+            <th>{{ labels[0].actions }}</th>
+          </tr>
+          <tr *ngFor="let details of doctorlist|filter:search">
+            <td><img src="{{details.photoURL}}" style="height: 50px;width: 50px;" /></td>
+            <td>{{details.doctorName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <!-- <td>{{details.registeredDate}}</td> -->
+
+            <td>{{details.registrationNo}}</td>
+            <td>{{details.departmentname}}</td>
+            <td>{{details.address}}</td>
+            <td>{{details.hospital_ClinicName}}</td>
+            <td>
+              <img src="assets/Images/medical.png" data-toggle="modal" data-target="#mymodalss"
+                (click)="GetAllPrescription(details.id,details.emailID)">&nbsp;
+
+              <button (click)="disabledoctor(details.id)" *ngIf="details.enabledisble=='0'"
+                style="background-color: green;color: aliceblue;border: none;">Disable</button>
+              <!-- *ngIf="details.hidden=='0'" -->
+
+
+              <button (click)="enabledoctor(details.id)" *ngIf="details.enabledisble=='1'"
+                style="background-color: red;color: aliceblue;border: none;">Enable</button>
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br /><br />
+  </div>
+  <br /><br />
+  <br />
+</div>
+<br /><br /><br /><br />
+
+
+
+
+
+<div id="mymodalss" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width: 900px;
+      height: auto;">
+      <div class="modal-body" id="Prescriptions" #myTempRef>
+        <div class="container-fluid" *ngFor="let alldetails of pdfprslist">
+          <div *ngIf="alldetails.prescriptionExists!='0'">
+            <div class="row">
+              <div class="col-lg-5">
+                <img src="assets/Images/logo.png" style="width: 26%;">
+              </div>
+              <div class="col-lg-4">
+                <h3>Prescription</h3>
+              </div>
+            </div>
+            <hr style="color:#333;background-color:#333;">
+            <div class="row">
+              <div class="col-lg-5">
+                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
+                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>Address</b> : {{alldetails.address}}</label><br>
+                <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                <label><b>Age</b> : {{alldetails.age}}</label><br>
+                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+              </div>
+              <div class="col-lg-3">
+                <h6><b>Appointment Date</b></h6>
+                <span><b>{{alldetails.appointmentdate}}</b></span>
+              </div>
+              <div class="col-lg-4">
+                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
+                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
+                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>Department</b> : {{alldetails.departmentname}}</label>
+                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+              </div>
+              <br>
+            </div><br><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th id="imp">Date</th>
+                      <th id="imp">Drug Name </th>
+                      <th id="imp">Sig </th>
+                      <th id="imp">Dispence Quantity </th>
+                      <th id="imp">How Many Refills </th>
+                      <th id="imp">Note to Pharmacist </th>
+                    </tr>
+                    <tr *ngFor="let medicines of alldetails.medicines">
+                      <td style="    width: 13%;">{{medicines.date}}</td>
+                      <td>{{medicines.medicineName}}</td>
+                      <td>{{medicines.sig}}</td>
+                      <td>{{medicines.dispenseQuantity}}</td>
+                      <td>{{medicines.howmanyRefills}}</td>
+                      <td>{{medicines.noteToPharmasist}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div><br>
+            </div><br><br><br><br><br><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <p style="justify-content: center;">
+                  Prescriptions in the USA often have a box. When checked, the pharmacist is instructed to
+                  label the medication and provide information about the prescription itself is given in addition to
+                  instructions on taking the medication. Otherwise, the patient is simply given the instructions. Some
+                  prescribers further inform the patient and pharmacist by providing the indication for the medication;
+                  i.e. what is being treated. This assists the pharmacist in checking for errors as many common
+                  medications can be used for multiple medical conditions. Some prescriptions will specify whether and
+                  how
+                  many "repeats" or "refills" are allowed; that is whether the patient may obtain more of the same
+                  medication without getting a new prescription from the medical practitioner. Regulations may restrict
+                  some types of drugs from being refilled.
+                </p>
+              </div>
+              <!-- <div cl ass="col-lg-4">s
+            <img src="assets/Images/sign.png" style="width: 39%;"><br>
+            <label>Prescription provided by doctor</label>
+          </div> -->
+            </div><br><br>
+            <div class="row">
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-4">
+                <img src="assets/Images/sign.png" style="width: 39%;"><br>
+                <!-- <label>Prescription provided by doctor</label><br> -->
+                <b>Dr. {{alldetails.doctorName}}</b><br>
+                <label>Reg no<b>{{alldetails.registrationNo}}</b></label>
+              </div>
+
+            </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          </div>
+          <!-- soapnotes -->
+
+          <div *ngIf="alldetails.soapNotesExist!='0'">
+            <div class="row">
+              <div class="col-lg-5">
+                <img src="assets/Images/logo.png" style="width: 26%;">
+              </div>
+              <div class="col-lg-4">
+                <h3>SOAP Notes</h3>
+              </div>
+            </div>
+            <hr style="color:#333;background-color:#333;">
+            <div class="row">
+              <div class="col-lg-5">
+                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
+                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>Address</b> : {{alldetails.address}}</label><br>
+                <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                <label><b>Age</b> : {{alldetails.age}}</label><br>
+                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+              </div>
+              <div class="col-lg-3">
+                <h6><b>Appointment Date</b></h6>
+                <span><b>{{alldetails.appointmentdate}}</b></span>
+              </div>
+              <div class="col-lg-4">
+                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
+                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
+                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>Department</b> : {{alldetails.departmentname}}</label>
+                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+              </div>
+              <br>
+
+            </div><br><br>
+
+
+            <h5>SOAP</h5>
+            <div class="row" *ngFor="let soap of alldetails.soaplist">
+              <div class="col-lg-6">
+
+                <label><b>Date : </b> {{soap.appointmentDate}}</label>
+
+              </div><br>
+              <div class="col-lg-6">
+                <label><b>Subjective : </b> {{soap.subjective}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label><b>Objective : </b>{{soap.objective}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label><b>Assessment : </b>{{soap.assessment}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label><b>Plan : </b> {{soap.plan}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label><b>Diagnostic : </b> {{soap.diagnostic}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label><b>Diagnostic Code : </b> {{soap.diagnoticCode}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label><b>Followup Plan : </b>{{soap.followUpPlan}}</label>
+              </div>
+            </div><br><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label><b>Allergies : </b> {{alldetails.knownAllergies}}</label>
+              </div>
+              <div class="col-lg-3">
+                <label><b>Vaccination Status : </b> {{alldetails.vaccinationStatus}}</label>
+              </div>
+            </div><br>
+            <h5 >Vitals </h5><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label><b>BPM : </b> {{alldetails.bpm}}</label>
+               
+              </div>
+              <div class="col-lg-4">
+                <label><b>RR : </b> {{alldetails.rr}}</label>
+              </div>
+              <div class="col-lg-4">
+                <label><b>Oxygen : </b>{{alldetails.bpm}}</label>
+              </div>
+              <div class="col-lg-4">
+                <label><b>Stress : </b>{{alldetails.streeLevel}}</label>
+              </div>
+              <div class="col-lg-4">
+                <label><b>Blood Pressure : </b> {{alldetails.bloodPressureStatus}}</label>
+              </div>
+            </div>
+            <br><br><br>
+
+            <div class="row">
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-4">
+                <img src="assets/Images/sign.png" style="width: 39%;"><br>
+                <!-- <label>SOAP Notes provided by doctor</label><br> -->
+                <b>Dr. {{alldetails.doctorName}}</b><br>
+                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+              </div>
+
+            </div><br><br><br><br><br><br><br><br><br><br><br><br>
+          </div>
+          <!-- Test -->
+
+          <div *ngIf="alldetails.diagnosticTestExist!='0'">
+            <div class="row">
+              <div class="col-lg-5">
+                <img src="assets/Images/logo.png" style="width: 26%;">
+              </div>
+              <div class="col-lg-4">
+                <h3>Diagnostic Test</h3>
+              </div>
+            </div>
+            <hr style="color:#333;background-color:#333;">
+            <div class="row">
+              <div class="col-lg-5">
+                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
+                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>Address</b> : {{alldetails.address}}</label><br>
+                <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                <label><b>Age</b> : {{alldetails.age}}</label><br>
+                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+              </div>
+              <div class="col-lg-3">
+                <h6><b>Appointment Date</b></h6>
+                <span><b>{{alldetails.appointmentdate}}</b></span>
+              </div>
+              <div class="col-lg-4">
+                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
+                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
+                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>Department</b> : {{alldetails.departmentname}}</label>
+                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+              </div>
+              <br>
+            </div><br><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th id="imp">Date</th>
+                      <th id="imp">Test Type </th>
+                      <th id="imp">Test Name </th>
+                      <th id="imp">Clinical Info </th>
+                    </tr>
+                    <tr *ngFor="let test of alldetails.diagnosticTest">
+                      <td style="  width: 13%;">{{test.appdate}}</td>
+                      <td>{{test.name}}</td>
+                      <td>{{test.testName}}</td>
+                      <td>{{test.clinicalInfo}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div><br>
+            </div><br><br><br><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <p style="justify-content: center;">
+                  Prescriptions in the USA often have a box. When checked, the pharmacist is instructed to
+                  label the medication and provide information about the prescription itself is given in addition to
+                  instructions on taking the medication. Otherwise, the patient is simply given the instructions. Some
+                  prescribers further inform the patient and pharmacist by providing the indication for the medication;
+                  i.e. what is being treated. This assists the pharmacist in checking for errors as many common
+                  medications can be used for multiple medical conditions. Some prescriptions will specify whether and
+                  how
+                  many "repeats" or "refills" are allowed; that is whether the patient may obtain more of the same
+                  medication without getting a new prescription from the medical practitioner. Regulations may restrict
+                  some types of drugs from being refilled.
+                </p>
+              </div>
+              <!-- <div cl ass="col-lg-4">s
+  <img src="assets/Images/sign.png" style="width: 39%;"><br>
+  <label>Prescription provided by doctor</label>
+</div> -->
+            </div><br><br>
+            <div class="row">
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-4">
+                <img src="assets/Images/sign.png" style="width: 39%;"><br>
+                <!-- <label>Diagnostic Test provided by doctor</label><br> -->
+                <b>Dr. {{alldetails.doctorName}}</b><br>
+                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+              </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          </div>
+          <div *ngIf="alldetails.sickslipcount!='0'">
+            <div class="row">
+              <div class="col-lg-5">
+                <img src="assets/Images/logo.png" style="width: 26%;">
+              </div>
+              <div class="col-lg-4">
+                <h5><b>Medical Certificate</b></h5>
+              </div>
+            </div>
+            <hr style="color:#333;background-color:#333;">
+            <div>
+              <div class="row">
+                <div class="col-lg-5">
+                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>Address</b> : {{alldetails.address}}</label><br>
+                  <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>Age</b> : {{alldetails.age}}</label><br>
+                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                </div>
+                <div class="col-lg-3">
+                  <h6><b>Appointment Date</b></h6>
+                  <span><b>{{alldetails.appointmentdate}}</b></span>
+                </div>
+                <div class="col-lg-4">
+                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
+                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
+                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                </div>
+                <br>
+              </div>
+            </div><br><br><br><br>
+            <div>
+              <div class="row" *ngFor="let sickslip of alldetails.sicksliplist">
+                <div class="col-lg-12">
+
+                  <p [innerHTML]="sickslip.description">
+                  </p>
+
+                </div><br>
+              </div>
+            </div><br><br><br><br><br><br>
+
+            <div class="row">
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-4">
+                <img src="assets/Images/sign.png" style="width: 39%;"><br>
+                <!-- <label>Medical certificate provided by doctor</label><br> -->
+                <b>{{alldetails.doctorName}}</b><br>
+                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+              </div>
+            </div><br><br><br><br><br><br><br><br><br><br>
+          </div>
+
+          <div *ngIf="alldetails.referalsCount!='0'">
+            <div class="row">
+              <div class="col-lg-5">
+                <img src="assets/Images/logo.png" style="width: 26%;">
+              </div>
+              <div class="col-lg-4">
+                <h5><b>Doctor Referals</b></h5>
+              </div>
+            </div>
+            <hr style="color:#333;background-color:#333;">
+            <div>
+              <div class="row">
+                <div class="col-lg-5">
+                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>Address</b> : {{alldetails.address}}</label><br>
+                  <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>Age</b> : {{alldetails.age}}</label><br>
+                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                </div>
+                <div class="col-lg-3">
+                  <h6><b>Appointment Date</b></h6>
+                  <span><b>{{alldetails.appointmentdate}}</b></span>
+                </div>
+                <div class="col-lg-4">
+                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
+                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
+                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                </div>
+                <br>
+              </div>
+            </div><br><br><br><br>
+
+            <div class="row" *ngFor="let ref of alldetails.referalist">
+              <div class="col-lg-12">
+                <p [innerHTML]="ref.referalNotes">
+                </p>
+
+              </div><br>
+            </div><br><br><br><br>
+
+            <div class="row">
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-4">
+                <img src="assets/Images/sign.png" style="width: 39%;"><br>
+                <!-- <label>Doctor Referals provided by doctor</label><br> -->
+                <b>Dr. {{alldetails.doctorName}}</b><br>
+                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+              </div>
+            </div><br><br><br><br><br><br><br><br><br><br>
+          </div>
+        </div>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+      <div class="modal-footer" style="margin-top: -24px;">
+        <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
+          (click)="SavePdf()">Send Mail</button>
+
+        <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
+          (click)="DownloadPdf()">Download</button>
+      </div>
+    </div>
+  </div>
+</div>

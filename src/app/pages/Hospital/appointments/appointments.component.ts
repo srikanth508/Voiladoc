@@ -490,7 +490,7 @@ export class AppointmentsComponent implements OnInit {
 
   public SavePDF() {
     ;
-    debugger
+    
     let pdfContent = window.document.getElementById("content");
     var doc = new jsPDF('p', 'mm', "a4");
 
@@ -506,13 +506,13 @@ export class AppointmentsComponent implements OnInit {
       var file = new File([pdf], "DocReceipt" + ".pdf");
 
       let body = new FormData();
-      debugger
+      
       body.append('Dan', file);
       this.docservice.ReceiptUpload(file).subscribe(res => {
         ;
         this.pdfurl = res;
         this.UpdateReceipt();
-        debugger
+        
       });
     });
   }
@@ -559,7 +559,7 @@ export class AppointmentsComponent implements OnInit {
 
 
   public UpdateReceipt() {
-    debugger
+    
     var entity = {
       'AppointmentID': this.appointmentID,
       'ReceiptURL': this.pdfurl
@@ -601,7 +601,7 @@ export class AppointmentsComponent implements OnInit {
   accappointmentID: any;
 
   public Appointmentstatus(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, smsmobileno) {
-    debugger
+    
     if (this.languageid == 1) {
       this.doctorname = doctorName;
       this.slotsname = notificationdate;
@@ -775,9 +775,9 @@ export class AppointmentsComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    debugger
+    
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      debugger
+      
     })
   }
 
@@ -900,14 +900,14 @@ export class AppointmentsComponent implements OnInit {
 
 
   public onattachmentUpload1(abcd) {
-    debugger
+    
     this.dummprescriptionphotourl = []
-    debugger
+    
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadattachments1();
     // }
-    debugger
+    
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -927,14 +927,14 @@ export class AppointmentsComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       if (this.attachments1[0].type == 'image/jpeg') {
-        debugger
+        
         this.shoprescphoto.push(b)
       }
       else if (this.attachments1[0].type == 'application/pdf') {
-        debugger
+        
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
 

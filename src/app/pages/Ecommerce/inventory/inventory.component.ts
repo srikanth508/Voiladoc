@@ -100,12 +100,12 @@ export class InventoryComponent implements OnInit {
   SubCategoryID;
   InventoryLists;
   public GetSubCategoryID(evn) {
-    debugger
+    
     this.SubCategoryID = evn.target.value;
-debugger
+
     this.docservice.GetInventoryByID(this.CategoryID, this.SubCategoryID).subscribe(
       data => {
-        debugger
+        
         this.InventoryLists = data;
       }, error => {
       }
@@ -120,14 +120,14 @@ debugger
 
   Quantity
   public insertdetails() {
-    debugger
+    
     let Entity = {
       'CategoryID': this.CategoryID,
       'SubCategoryID': this.SubCategoryID,
       'Item': this.ItemsID,
       'Quantity': this.Quantity
     }
-    debugger
+    
     this.docservice.InsertInventory(Entity).subscribe(data => {
       if (data != 0) {
         Swal.fire('Saved Successfully');
@@ -139,7 +139,7 @@ debugger
 
 
   public Update() {
-    debugger
+    
     let Entity = {
       'ID': this.paramID,
       'CategoryID': this.CategoryID,
@@ -147,7 +147,7 @@ debugger
       'Item': this.item,
       'Quantity': this.Quantity
     }
-    debugger
+    
     this.docservice.UpdateInventory(Entity).subscribe(data => {
       if (data != 0) {
         Swal.fire('Updated Successfully');

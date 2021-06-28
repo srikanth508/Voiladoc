@@ -297,7 +297,7 @@ export class DiagfnosticCalenderComponent implements OnInit {
   public datechangedayid: any;
 
   public GetdaychangeDate(newDate: Date) {
-    debugger
+    
     // this.daychangedate = even.toLocaleString().split(',')[0];
     
  this.daychangedate=this.docservice.GetDates(newDate)

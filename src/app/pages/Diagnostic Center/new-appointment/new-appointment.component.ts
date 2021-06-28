@@ -313,7 +313,7 @@ export class NewAppointmentComponent implements OnInit {
     public slottime: any;
 
     public BookAppointment() {
-        debugger
+        
         var entity = {
             PatientID: this.patientid,
             DiagnosticCenterID: this.diagnosticid,
@@ -324,10 +324,10 @@ export class NewAppointmentComponent implements OnInit {
             DiagnopatientNmae: this.patientname,
             SlotTime: this.slotname
         }
-        debugger
+        
         this.docservice.InsertDiagnosticAppointments(entity).subscribe(data => {
             this.appointmentid = data;
-            debugger
+            
             ;
             if (data != undefined) {
                 for (let k = 0; k < this.allselectedtestandpakages.length; k++) {

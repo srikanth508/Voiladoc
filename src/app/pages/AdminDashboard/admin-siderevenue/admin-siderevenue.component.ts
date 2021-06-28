@@ -108,11 +108,17 @@ export class AdminSiderevenueComponent implements OnInit {
 
         this.GetAllHospitalSubscriptions();
         this.GetAllIndepenentPeopleRevenue();
+        this.GetDiaPharmacCounts();
+
+
+        localStorage.setItem('SDATE', this.monthstartdate)
+        localStorage.setItem('EDATE', this.monthenddate)
       }, error => {
       }
     )
     this.getlanguage()
     this.GetCounts()
+
 
     this.getIndependentDoctors()
 
@@ -550,7 +556,7 @@ export class AdminSiderevenueComponent implements OnInit {
     // this.monthstartdate = data[0].toLocaleString().split(',')[0];
     // this.monthenddate = data[1].toLocaleString().split(',')[0];
 
-     
+
     this.monthstartdate = this.docservice.GetDates(data[0])
     this.monthenddate = this.docservice.GetDates(data[1])
 
@@ -618,4 +624,58 @@ export class AdminSiderevenueComponent implements OnInit {
       }
     )
   }
+
+
+
+  //Home Care Charges
+  DiagnosticChargeslist: any;
+
+  // public GetDiagnosticHomeCareCharges() {
+  //   this.docservice.GetDianosticAppointments_PaymentsReport(this.monthstartdate, this.monthenddate, this.languageid).subscribe(
+  //     data => {
+
+  //       this.DiagnosticChargeslist = data;
+
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+
+  // public GetPharmacyHomeCareList() {
+  //   this.docservice.GetDianosticAppointments_PaymentsReport(this.monthstartdate, this.monthenddate, this.languageid).subscribe(
+  //     data => {
+
+  //       this.DiagnosticChargeslist = data;
+
+  //     }, error => {
+  //     }
+  //   )
+  // }
+  diaphacounts: any;
+
+
+  public GetDiaPharmacCounts() {
+    
+    this.docservice.GetDiaPharmacCounts(this.monthstartdate, this.monthenddate, this.languageid).subscribe(
+      data => {
+        
+        this.diaphacounts = data;
+
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetHomeChargesSelectDate(data) {
+    this.monthstartdate = this.docservice.GetDates(data[0])
+    this.monthenddate = this.docservice.GetDates(data[1])
+
+    localStorage.setItem('SDATE', this.monthstartdate)
+    localStorage.setItem('EDATE', this.monthenddate)
+
+    this.GetDiaPharmacCounts();
+  }
+
 }

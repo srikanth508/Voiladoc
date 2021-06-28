@@ -5,6 +5,7 @@ import { formatDate } from "@angular/common";
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-doc-recp-appointments',
   templateUrl: './doc-recp-appointments.component.html',
@@ -27,7 +28,7 @@ export class DocRecpAppointmentsComponent implements OnInit {
   nationaidno: any;
   regno: any;
   patientaddress: any;
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService,private spinner: NgxSpinnerService) { }
 
   public hospitalid: any;
   public appointmentlist: any;
@@ -485,7 +486,7 @@ export class DocRecpAppointmentsComponent implements OnInit {
 
   public SavePDF() {
     ;
-    debugger
+    
     let pdfContent = window.document.getElementById("content");
     var doc = new jsPDF('p', 'mm', "a4");
 
@@ -501,13 +502,13 @@ export class DocRecpAppointmentsComponent implements OnInit {
       var file = new File([pdf], "DocReceipt" + ".pdf");
 
       let body = new FormData();
-      debugger
+      
       body.append('Dan', file);
       this.docservice.ReceiptUpload(file).subscribe(res => {
         ;
         this.pdfurl = res;
         this.UpdateReceipt();
-        debugger
+        
       });
     });
   }
@@ -554,7 +555,7 @@ export class DocRecpAppointmentsComponent implements OnInit {
 
 
   public UpdateReceipt() {
-    debugger
+    
     var entity = {
       'AppointmentID': this.appointmentID,
       'ReceiptURL': this.pdfurl
@@ -596,7 +597,7 @@ export class DocRecpAppointmentsComponent implements OnInit {
   accappointmentID: any;
 
   public Appointmentstatus(appointmentID, patientID, notificationdate, doctorName, hospital_ClinicName, emailID, smsmobileno) {
-    debugger
+    
     if (this.languageid == 1) {
       this.doctorname = doctorName;
       this.slotsname = notificationdate;
@@ -770,9 +771,9 @@ export class DocRecpAppointmentsComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    debugger
+    
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      debugger
+      
     })
   }
 
@@ -894,14 +895,14 @@ export class DocRecpAppointmentsComponent implements OnInit {
 
 
   public onattachmentUpload1(abcd) {
-    debugger
+    
     this.dummprescriptionphotourl = []
-    debugger
+    
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadattachments1();
     // }
-    debugger
+    
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -921,14 +922,14 @@ export class DocRecpAppointmentsComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       if (this.attachments1[0].type == 'image/jpeg') {
-        debugger
+        
         this.shoprescphoto.push(b)
       }
       else if (this.attachments1[0].type == 'application/pdf') {
-        debugger
+        
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
 
@@ -939,4 +940,171 @@ export class DocRecpAppointmentsComponent implements OnInit {
   }
 
 
+
+
+
+  Prescription: boolean;
+  Test: boolean;
+  soappdf: boolean;
+  medicalcertificate: boolean;
+  referals: boolean;
+  pdfprslist: any;
+
+  public GetAllPrescription(appointmentid, email) {
+    this.appointmentid = appointmentid;
+    this.email = email;
+    // this.docservice.GetBookAppointmentByAppID(this.languageid, patientid, 1).subscribe(data => {
+    //   this.pdfprslist = data;
+    // })
+  }
+
+  public GenaratePdf() {
+    this.spinner.show()
+    this.docservice.GetBookAppointmentByAppID(this.languageid, this.appointmentid, 1).subscribe(data => {
+      this.pdfprslist = data;
+      this.spinner.hide()
+      // document.getElementById("mymodalss").click();
+
+    })
+
+  }
+
+
+
+
+
+  public DownloadPDf() {
+    this.spinner.show()
+    var data = document.getElementById('Prescriptions');
+
+    html2canvas(data).then(canvas => {
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var doc = new jsPDF("p", "mm", "a4");
+      var width = doc.internal.pageSize.getWidth();
+      var height = doc.internal.pageSize.getHeight();
+
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0;
+      while (heightLeft >= 0) {
+        const contentDataURL = canvas.toDataURL('image/png')
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      doc.deletePage(1)
+    
+      this.spinner.hide()
+       doc.save('Reports.pdf');
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+  public sendattchmenturl = [];
+  emailurl: any;
+
+  public SavePdf() {
+    this.spinner.show()
+    var data = document.getElementById('Prescriptions');
+
+    html2canvas(data).then(canvas => {
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var doc = new jsPDF("p", "mm", "a4");
+      var width = doc.internal.pageSize.getWidth();
+      var height = doc.internal.pageSize.getHeight();
+
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0;
+      while (heightLeft >= 0) {
+        const contentDataURL = canvas.toDataURL('image/png')
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      doc.deletePage(1)
+      var pdf = doc.output('blob');
+      var file = new File([pdf], "Report" + ".pdf");
+      let body = new FormData();
+      body.append('Dan', file);
+      
+      this.docservice.DoctorPdfreports(file).subscribe(res => {
+        ;
+        // ReceiptUpload
+        // DoctorPdfreports
+        
+        this.sendattchmenturl.push(res);
+        let a = this.sendattchmenturl[0].slice(2);
+
+        let b = 'https://maroc.voiladoc.org' + a;
+        this.emailurl = b;
+
+        this.SendMailReport()
+        this.updateReport();
+        this.spinner.hide()
+      });
+      this.spinner.hide()
+
+      // doc.save('Prescriptions.pdf');
+    });
+  }
+
+
+
+
+  public updateReport() {
+    
+    var entity = {
+      'ApointmentID': this.appointmentid,
+      'ReportPdfsUrl': this.sendattchmenturl[0]
+    }
+    this.docservice.UpdateBookAppointmentReportPdfsUrl(entity).subscribe(data => {
+      this.sendattchmenturl = [];
+      this.sendattchmenturl.length = 0;
+
+    })
+  }
+  public noattachments = []
+  email:any;
+  cclist=[]
+  bcclist=[]
+
+  public SendMailReport() {
+    
+    var entity = {
+      'emailto': this.email,
+      'emailsubject': "Medical report",
+      'emailbody': "Doctor Sent a Medical report. Please click below link <br><br>" + this.emailurl + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'attachmenturl': this.noattachments,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+      
+      let res = data;
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
+    })
+  }
 }

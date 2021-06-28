@@ -86,7 +86,7 @@ export class HomeCareAppointmentsComponent implements OnInit {
 
     this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
       data => {
-        debugger
+        
         // this.patientslist = 
         // this.dummlist.filter(x => x.doctorID == this.doctorid)
         this.patientslist = data;

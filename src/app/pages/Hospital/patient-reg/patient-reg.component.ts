@@ -194,7 +194,7 @@ export class PatientRegComponent implements OnInit {
 
 
   public insertdetails() {
-    debugger
+    
     var entity = {
       'PatientName': this.patientname,
       'MobileNumber': this.mobileno,
@@ -255,7 +255,7 @@ export class PatientRegComponent implements OnInit {
 
 
   public Insertfamilytredetail() {
-    debugger
+    
     var entity = {
       'PatientRelationTypeID': 1,
       'PatientID': this.patientid,
@@ -274,7 +274,7 @@ export class PatientRegComponent implements OnInit {
       'PR_BMI': 0
     }
     this.docservice.InsertPatientRelation_FamilyTree_Web(entity).subscribe(data => {
-      debugger
+      
     })
 
   }

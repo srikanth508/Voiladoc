@@ -37,7 +37,7 @@ export class AnnounseDashComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
     var lll = this.EDate.setDate(this.EDate.getDate() + 20);
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -46,7 +46,7 @@ export class AnnounseDashComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-   
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -61,7 +61,7 @@ export class AnnounseDashComponent implements OnInit {
 
     this.docservice.GetAdmin_LocalDoctor_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
@@ -71,43 +71,72 @@ export class AnnounseDashComponent implements OnInit {
 
 
   public DeleteAnnouncements(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Announcement!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteAnnouncements(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Delete This Announcement!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteAnnouncements(id).subscribe(res => {
+            let test = res;
+            this.getannounsements();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Announcement has been deleted.',
+            'success'
+          )
+        }
+        else {
           this.getannounsements();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Announcement has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getannounsements();
-      }
-    })
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteAnnouncements(id).subscribe(res => {
+            let test = res;
+            this.getannounsements();
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Annonce a été supprimé.',
+            'success'
+          )
+        }
+        else {
+          this.getannounsements();
+        }
+      })
+    }
+
   }
   public getannounsements() {
     this.docservice.GetAnnouncements(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-       
+
         this.annousments = data;
       }, error => {
       }
     )
   }
   selectedDate(data) {
-   
+
     // var sdate = data.split('-')
     // this.startdate = sdate[0]
     // this.enddate = sdate[1]
@@ -121,34 +150,65 @@ export class AnnounseDashComponent implements OnInit {
 
 
 
-  
-  
+
+
   public DisableAnnouncements(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to disable this Announcement !",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, disable it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DisableAnnouncements(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to disable this Announcement !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, disable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableAnnouncements(id).subscribe(res => {
+            let test = res;
+            this.getannounsements();
+          })
+          Swal.fire(
+            'Disabled!',
+            'Announcement has been Disabled.',
+            'success'
+          )
+        }
+        else {
           this.getannounsements();
-        })
-        Swal.fire(
-          'Disabled!',
-          'Announcement has been Disabled.',
-          'success'
-        )
-      }
-      else {
-        this.getannounsements();
-      }
-    })
+        }
+      })
+
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, désactiver !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DisableAnnouncements(id).subscribe(res => {
+            let test = res;
+            this.getannounsements();
+          })
+          Swal.fire(
+            '',
+            'Désactivé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getannounsements();
+        }
+      })
+    }
+
+
   }
 
 
@@ -157,31 +217,60 @@ export class AnnounseDashComponent implements OnInit {
 
 
   public EnableAnnouncements(id) {
-   
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Enable This Announcement!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Enable it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.EnableAnnouncements(id).subscribe(res => {
-          let test = res;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Enable This Announcement!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Enable it!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableAnnouncements(id).subscribe(res => {
+            let test = res;
+            this.getannounsements();
+          })
+          Swal.fire(
+            'Enabled!',
+            'Announcement has been Enabled.',
+            'success'
+          )
+        }
+        else {
           this.getannounsements();
-        })
-        Swal.fire(
-          'Enabled!',
-          'Announcement has been Enabled.',
-          'success'
-        )
-      }
-      else {
-        this.getannounsements();
-      }
-    })
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        // text: "You Want to Delete This Doctor!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Activer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.EnableAnnouncements(id).subscribe(res => {
+            let test = res;
+            this.getannounsements();
+          })
+          Swal.fire(
+            '',
+            'Activé avec succès',
+            'success'
+          )
+        }
+        else {
+          this.getannounsements();
+        }
+      })
+    }
+
   }
 
 }

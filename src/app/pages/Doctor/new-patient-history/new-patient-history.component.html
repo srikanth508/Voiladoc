@@ -174,7 +174,7 @@
             <td>{{dia.name}}</td>
             <td>{{dia.testName}}</td>
             <td>{{dia.clinicalInfo}}</td>
-            <td></td>
+          
           </tr>
         </thead>
       </table>
@@ -263,9 +263,11 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label>
+      <label *ngIf="languageid=='1'"> <b>SOAP Notes Doctors</b></label>
+      <label *ngIf="languageid=='6'"><b>Note SOAP - Docteurs</b></label>
+      <!-- <label>
         <b id="imp">{{labels[0].soapNotes}}</b>
-      </label>
+      </label> -->
     </div>
   </div>
   <div class="row">
@@ -303,6 +305,114 @@
   <br>
 </div>
 <br>
+<br>
+
+
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label *ngIf="languageid=='1'"><b>SOAP Notes Homecare</b></label>
+      <label *ngIf="languageid=='6'"><b>Notes- Homecare / Soins a domicile</b></label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <table>
+        <thead>
+          <tr>
+            <th id="imp" [style.background-color]="color">{{labels[0].appointmentDate}}</th>
+            <th id="imp" [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
+            <th [style.background-color]="color">Provider Name</th>
+            <!-- <th [style.background-color]="color">{{labels1[0].department}}</th> -->
+            <th [style.background-color]="color">{{labels1[0].phoneNo}}</th>
+            <!-- <th [style.background-color]="color">{{labels[0].ailment}}</th> -->
+            <th id="imp11" [style.background-color]="color">{{labels[0].soqp}}</th>
+          </tr>
+          <tr *ngFor="let soap of homecaresoaplist">
+            <td>{{soap.appointDate}}</td>
+            <td>{{soap.appointmentID}}</td>
+            <td>{{soap.nurseName}}</td>
+            <!-- <td>{{soap.departmentname}}</td> -->
+            <td>{{soap.phoneNo}}</td>
+            <!-- <td>{{soap.reasonForVisit}}</td> -->
+            <td>
+              <a [ngbTooltip]="tipcontent10">
+                <img src="assets/Images/pmr.png" (click)="GetSoapHomeCarelist(soap.soapID)" data-toggle="modal"
+                  data-target="#exampleModal1" style="margin: 2%;width: 20px;" />
+              </a>
+            </td>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+
+
+
+
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label>
+        <b id="imp">Vital Details </b>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <table>
+        <thead>
+          <tr>
+            <th [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
+            <th  id="imp" [style.background-color]="color">BPM</th>
+           
+            <th  id="imp" [style.background-color]="color">CPM</th>
+            <th [style.background-color]="color">{{labels1[0].oxygen}}</th>
+            <th [style.background-color]="color">{{labels1[0].stress}}</th>
+            <!-- <th [style.background-color]="color">{{labels[0].ailment}}</th> -->
+            <th [style.background-color]="color">{{labels1[0].bloodpressure}}</th>
+            <!-- <th id="imp11">{{labels[0].soqp}}</th> -->
+          </tr>
+          <tr *ngFor="let vital of vitalslist">
+        
+            <td>{{vital.appointmentID}}</td>
+            <td>{{vital.bpm}}</td>
+            <td>{{vital.rr}}</td>
+            <td>{{vital.oxygenSaturation}}</td>
+            <td>{{vital.streeLevel}}</td>
+            <!-- <td>{{soap1.reasonForVisit}}</td> -->
+            <td>
+              {{vital.bloodPressureStatus}}
+            </td>
+            <!-- <td>
+              <a [ngbTooltip]="tipcontent10">
+                <img src="assets/Images/pmr.png" (click)="GetSoapID(soap.soapID)" data-toggle="modal"
+                  data-target="#exampleModal1" style="margin: 2%;width: 20px;" />
+              </a>
+            </td> -->
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+
+
+
+
+
+
+
+
 
 
 

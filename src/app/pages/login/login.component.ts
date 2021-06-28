@@ -51,10 +51,10 @@ export class LoginComponent implements OnInit {
       }
     )
 
-    
-    // localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocAPI');
 
-    localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocTestAPi');
+    localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocAPI');
+
+    // localStorage.setItem('WebUrl', 'https://madagascar.voiladoc.org/MadagascarWebAPI');
 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
@@ -64,8 +64,28 @@ export class LoginComponent implements OnInit {
     //   }
     // )
     this.getlang()
-
+    // this.autologout()
   }
+
+
+
+  // public autologout() {
+  //   
+  //   window.addEventListener('storage', () => {
+  //     
+  //     window.alert('Voiladoc is opened in another tab. Please logout from that tab to login here');
+  //     sessionStorage.clear();
+  //     localStorage.clear();
+  //     location.href = "#/login";
+  //     // location.reload();
+  //     
+  //   }, false)
+  //   localStorage.setItem('Sentinel', Math.random());
+  //   
+  // }
+
+
+
 
 
   public getlang() {
@@ -110,7 +130,6 @@ export class LoginComponent implements OnInit {
     this.getroletypemaster();
 
   }
-
   public getroletypemaster() {
 
     this.docservice.GetRoleTypesMasterBYID(this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
@@ -148,21 +167,21 @@ export class LoginComponent implements OnInit {
     }
     else {
       if (this.roleid == "1") {
-        debugger
+        
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          debugger
+          
           if (data['requestMessage'] != undefined || null) {
-            debugger
+            
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            debugger
+            
             this.docservice.GetSalesRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl')).subscribe(
               data => {
-                debugger
+                
                 this.result = data;
 
                 if (this.result != null) {
@@ -201,15 +220,15 @@ export class LoginComponent implements OnInit {
         'Password': 'HelloDoc',
         'RoleID': 1
       }
-      debugger
+      
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          debugger
+          
           this.docservice.GetDoctorLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
-              debugger
+              
               this.result = data;
 
               if (this.result.length != '0') {
@@ -220,9 +239,10 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
                 localStorage.setItem('userid', this.result[0].doctorID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
                 localStorage.setItem('departmentid', this.result[0].departmentID)
-                location.href = '#/DoctorDashboard';
+                location.href = '#/Myappointments';
                 location.reload();
               }
               else {
@@ -250,25 +270,26 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          debugger
+          
           this.docservice.GetHospitalAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
               this.result = data;
               if (this.result.length != '0') {
-                debugger
+                
                 localStorage.setItem('user', this.result[0].hospital_ClinicName)
                 localStorage.setItem('roleid', '3');
                 localStorage.setItem('hospitalid', this.result[0].hospital_ClinicID);
                 localStorage.setItem('hospitaltype', this.result[0].hospitalType);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
 
                 location.href = '#/HospitalRevenue';
                 location.reload();
-                debugger
+                
               }
               else {
                 if (this.LanguageID == 1) {
@@ -295,7 +316,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetDiagnosticCenterAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -307,6 +328,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '4');
                 localStorage.setItem('diagnosticid', this.result[0].diagnosticCenterID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/Orders';
                 location.reload();
@@ -338,7 +360,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetPharmacyAdminRegistrationLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -351,6 +373,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '5');
                 localStorage.setItem('pharmacyid', this.result[0].pharmacyID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/DoctorPrescription';
                 location.reload();
@@ -384,7 +407,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetNurseLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -398,8 +421,10 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('nurseid', this.result[0].nurseID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
+                
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
-                location.href = '#/NurseProfile';
+                location.href = '#/NurseAppointments';
                 location.reload();
               }
               else {
@@ -427,7 +452,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetPhysiotherapistLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -441,8 +466,9 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('physioid', this.result[0].physiotherapistID);
                 localStorage.setItem('hospitalid', this.result[0].hospitalClinicID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
-                location.href = '#/PhysiotherapistProfile';
+                location.href = '#/PhysiotherapistAppointments';
                 location.reload();
               }
               else {
@@ -472,7 +498,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetMidWivesLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -485,8 +511,9 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '9');
                 localStorage.setItem('midwifeid', this.result[0].midWiveID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
-                location.href = '#/MidwifeProfile';
+                location.href = '#/MidwifeAppointments';
                 location.reload();
               }
               else {
@@ -516,7 +543,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetDeliveryCompanyLogin(this.uname, this.pwd, this.LanguageID, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -529,6 +556,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '10');
                 localStorage.setItem('deliveryid', this.result[0].deliveryCompanyID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.pwd);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/DeliverPartnerProfile';
                 location.reload();
@@ -560,7 +588,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetLocalDoctorRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -602,7 +630,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetMeridionalAdmin_LoginUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -614,6 +642,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', 'Manny')
                 localStorage.setItem('roleid', '12');
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('meridionalid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
@@ -645,7 +674,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetSupportRegistrationUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -656,6 +685,7 @@ export class LoginComponent implements OnInit {
               if (this.result.length != '0') {
                 localStorage.setItem('supportid', this.result[0].id)
                 localStorage.setItem('user', this.result[0].name)
+
                 localStorage.setItem('roleid', '13');
                 // localStorage.setItem('localdocid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
@@ -692,7 +722,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetReceiptionistLogin(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
@@ -706,6 +736,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('hospitalid', this.result[0].hospitalID);
                 localStorage.setItem('Receptionstid', this.result[0].id);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('receptiostname', this.result[0].name);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/Appointments';
@@ -741,7 +772,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
@@ -751,6 +782,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('user', this.result[0].firstName)
                 localStorage.setItem('roleid', '15');
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('countrymanagerid', this.result[0].id);
 
                 sessionStorage.setItem('temp', '1');
@@ -782,7 +814,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
@@ -791,6 +823,7 @@ export class LoginComponent implements OnInit {
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].firstName)
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '17');
                 localStorage.setItem('implementationid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
@@ -822,7 +855,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
@@ -831,6 +864,7 @@ export class LoginComponent implements OnInit {
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].firstName)
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '18');
                 localStorage.setItem('clientserviceid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
@@ -862,7 +896,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
@@ -871,6 +905,7 @@ export class LoginComponent implements OnInit {
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].firstName)
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '19');
                 localStorage.setItem('salesmanagerid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
@@ -907,7 +942,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
@@ -916,6 +951,7 @@ export class LoginComponent implements OnInit {
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].firstName)
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '20');
                 localStorage.setItem('salesrepresntativeid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
@@ -947,7 +983,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetUsers_RoleMappingByUnameAndPwd(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.roleid, this.pinno).subscribe(
@@ -956,6 +992,7 @@ export class LoginComponent implements OnInit {
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].firstName)
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '22');
                 localStorage.setItem('finanacemanagerid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
@@ -987,13 +1024,13 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-          debugger
+          
           this.docservice.GetDiagnosticReceptionistLoginByUserNameAndPassword(this.uname, this.pwd, localStorage.getItem('WebUrl'), this.pinno).subscribe(
             data => {
-              debugger;
+              ;
               this.result = data;
               if (this.result.length != '0') {
                 localStorage.setItem('user', this.result[0].userName);
@@ -1003,6 +1040,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Receptionstid', this.result[0].id);
                 localStorage.setItem('receptiostname', this.result[0].name);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('Password', this.result[0].password);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/DiagnosticAppointmentDash';
                 location.reload();
@@ -1035,7 +1073,7 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-        debugger
+        
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
 
@@ -1047,13 +1085,14 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '24');
                 sessionStorage.setItem('temp', '1');
                 localStorage.setItem('MobileNumber', this.result[0].mobileNumber);
-                debugger
+                
                 localStorage.setItem('Hospital_ClinicName', this.result[0].hospital_ClinicName);
                 localStorage.setItem('userid', this.result[0].doctorID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('hospitalClinicID', this.result[0].hospitalClinicID)
                 localStorage.setItem('hospitalid', this.result[0].hospitalClinicID)
                 localStorage.setItem('departmentid', this.result[0].departmentID)
+                localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('recpid', this.result[0].id)
                 location.href = '#/DoctorDashboard';
                 location.reload();

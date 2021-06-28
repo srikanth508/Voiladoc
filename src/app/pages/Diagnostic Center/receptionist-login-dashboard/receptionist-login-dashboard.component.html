@@ -55,7 +55,7 @@
                           <a [ngbTooltip]="tipcontent95585" style="color:black">
                               <img src="assets/Images/edit.png" style="width: 18px" [routerLink]="['/ReceptionistLogin',list.id]"></a>&nbsp;
 
-                              <ng-template #tipcontent300>Password</ng-template>
+                              <ng-template #tipcontent300>{{labels1[0].password}}</ng-template>
                               <img src="assets/Images/medicalquestion.png"  data-toggle="modal" data-target="#exampleModal" [ngbTooltip]="tipcontent300" style="margin: 2%;width: 24px;"
                                
                                 (click)="getpassword(list)" />&nbsp;
@@ -86,7 +86,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
-  <div class="modal-content">
+  <div class="modal-content"  style="    width: 700px;">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">{{labels1[0].editPassword}}</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -102,10 +102,26 @@ aria-hidden="true">
           <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
             placeholder="{{labels1[0].enteryourpin}}">
         </div>
+        <!-- <div class="col-lg-2">
+          <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels1[0].validate}}</button>
+        </div> -->
+      </div><br>
+      <div class="row" *ngIf="Showpassword=='0'">
+        <div class="col-lg-3">
+          <label>{{labels[0].password}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-6">
+          <input type="text" class="form-control"   required [(ngModel)]="entercurrentpwd" name="entercurrentpwd"
+            placeholder="{{labels[0].password}}">
+          <!-- <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span> -->
+        </div>
         <div class="col-lg-2">
           <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels1[0].validate}}</button>
         </div>
       </div>
+
+
       <div *ngIf="Showpassword=='1'">
         <form #doctorForm="ngForm">
           <div class="row">
@@ -131,7 +147,46 @@ aria-hidden="true">
             </div>
           </div>
           <br> -->
+
           <div class="row">
+            <div class="col-lg-4">
+              <label>{{labels1[0].password}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" disabled name="oldpassword" required [(ngModel)]="oldpassword"
+                placeholder="{{labels1[0].password}}">
+              <!-- <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span> -->
+            </div>
+          </div>
+          <br>
+          
+
+
+          <div class="row">
+            <div class="col-lg-4">
+              <label>{{labels1[0].newpassword}} :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" required [(ngModel)]="password" name="password"
+                placeholder="{{labels1[0].newpassword}}">
+              <span *ngIf="pp=='1'" style="color:red">{{labels1[0].weakPassword}}</span>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn allbtns btncolor" (click)="UpdateDetailes()"
+                [disabled]="doctorForm.form.invalid">{{labels1[0].update}}</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div><br><br>
+
+          <!-- <div class="row">
             <div class="col-lg-4">
               <label>{{labels1[0].password}} :</label>
               <span class="required">*</span>
@@ -142,7 +197,7 @@ aria-hidden="true">
             
             </div>
           </div>
-          <br><br>
+          <br><br> -->
           <!-- <div class="row">
             <div class="col-lg-5">
             </div>

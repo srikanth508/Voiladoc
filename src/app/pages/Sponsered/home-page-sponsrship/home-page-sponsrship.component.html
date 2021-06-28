@@ -14,7 +14,8 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" name="ClientName" [(ngModel)]="ClientName" placeholder="{{labels[0].clientname}}">
+      <input type="text" class="form-control" name="ClientName" [(ngModel)]="ClientName"
+        placeholder="{{labels[0].clientname}}">
     </div>
   </div>
   <br>
@@ -37,7 +38,8 @@
 
     <div class="col-lg-4">
       <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }" name="StartDate"
-        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="StartDate" placeholder="{{labels[0].startdate}}" bsDatepicker>
+        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="StartDate" placeholder="{{labels[0].startdate}}"
+        bsDatepicker>
       <!-- <input type="date" name="StartDate" required [(ngModel)]="StartDate" class="form-control"> -->
     </div>
   </div>
@@ -62,21 +64,21 @@
     </div>
 
     <div class="col-lg-4">
-    <input type="text" class="form-control" placeholder="{{labels[0].feess}} " required [(ngModel)]="fees" name="fees"
-    onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      <input type="text" class="form-control" placeholder="{{labels[0].feess}} " required [(ngModel)]="fees" name="fees"
+        onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
     </div>
   </div>
   <br>
   <div *ngIf="paramid==undefined || paramid!=undefined" class="row">
     <div class="col-lg-3">
-      <label>{{labels[0].photourl}}  :</label>
+      <label>{{labels[0].photourl}} :</label>
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
       <input type="text" class="form-control" name="LinkURL" [(ngModel)]="LinkURL" placeholder="{{labels[0].photourl}}">
     </div>
   </div> <br>
-  <div *ngIf="paramid==undefined" class="row">
+  <div class="row">
     <div class="col-lg-3">
       <label for="" class="reglabel">Photo:</label>
     </div>
@@ -87,11 +89,15 @@
       <span *ngFor="let pho of showPhotoURL">
         <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
       </span>
+     
       <!-- <div>
         <span *ngFor="let docphoto of showdocphoto">
           <img src="{{docphoto}}" style="height:50px;width:70px">&nbsp;
         </span>
       </div> -->
+    </div>
+    <div class="col-lg-4"  *ngIf="paramid!=undefined">
+      <img src="{{showphoto}}" style="height: 100px;width:100px;">
     </div>
   </div>
   <br>
@@ -111,7 +117,7 @@
     </div>
     <div class="col-lg-2">
       <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-        (click)="UpdateDetails()">Update</button>
+        (click)="UpdateDetails()">{{labels[0].update}}</button>
     </div>
     <div class="col-lg-5">
     </div>

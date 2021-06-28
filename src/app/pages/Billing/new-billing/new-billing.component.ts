@@ -112,7 +112,7 @@ export class NewBillingComponent implements OnInit {
     }
     public SavePDF() {
         ;
-        debugger
+        
         let pdfContent = window.document.getElementById("content");
         var doc = new jsPDF('p', 'mm', "a4");
 
@@ -130,12 +130,12 @@ export class NewBillingComponent implements OnInit {
             let body = new FormData();
             
             body.append('Dan', file);
-            debugger
+            
             this.docservice.UploadInvoicePDF(file).subscribe(res => {
                 ;
-                debugger
+                
                 this.invoiceurl = res;
-                debugger
+                
                 this.InsertDetailes();
             });
         });
@@ -172,7 +172,7 @@ export class NewBillingComponent implements OnInit {
         this.docservice.InsertSentInvoice(entity).subscribe(data => {
             ;
             if (data != undefined) {
-                debugger
+                
                 Swal.fire("Invoice Send Successfully");
                 this.GetBillingdetails(this.type, this.startdate, this.enddate);
             }

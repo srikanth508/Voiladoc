@@ -82,7 +82,7 @@ export class ProviderpayComponent implements OnInit {
 
 
   public getprovidepay() {
-    debugger
+    
     this.docservice.GetProvidersPay(this.startdate, this.enddate, this.typeid, this.languageid).subscribe(data => {
       this.providerlist = data;
     })

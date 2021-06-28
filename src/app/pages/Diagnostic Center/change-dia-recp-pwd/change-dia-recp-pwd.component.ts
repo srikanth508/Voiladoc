@@ -80,20 +80,20 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
 
 
   public CheckPasswordvalidate() {
-    debugger
+    
     if (this.Enteredpinno == "") {
-      debugger
+      
       Swal.fire('Please Enter Your Pin No')
 
     }
     else {
-      debugger
+      
       if (this.pinno == this.Enteredpinno) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
       }
       else {
-        debugger
+        
         Swal.fire('You Entered Pin no is invalid')
         this.Enteredpinno = ""
       }
@@ -118,7 +118,7 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
     this.docservice.UpdateDiagnosticReceptionistLogin(entity).subscribe(res => {
       if (this.languageid == 1) {
 
-        debugger
+        
         Swal.fire('Success', 'Updated successfully')
         // location.href = "#/ReceptionistLoginDashboard"
       }

@@ -73,16 +73,16 @@ export class DepartmentDashComponent implements OnInit {
 
 
   public UpdateEnable(list) {
-    debugger
+    
     if (list.enabled == 0) {
-      debugger
+      
       this.docservice.UpdateDepartmentMasterEnable(1, list.id).subscribe(data => {
         Swal.fire("Checked Successfully");
         this.getdepartmentmaster()
       })
     }
     else if (list.enabled == 1) {
-      debugger
+      
       this.docservice.UpdateDepartmentMasterEnable(2, list.id).subscribe(data => {
         Swal.fire("Un Checked Successfully");
         this.getdepartmentmaster()

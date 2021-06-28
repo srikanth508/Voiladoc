@@ -60,7 +60,7 @@ export class DoctorslotsComponent implements OnInit {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.showback = localStorage.getItem('Showbutton');
-    debugger
+    
 
     if (this.languageid == 1) {
       // this.slotdatediff = undefined
@@ -91,20 +91,20 @@ export class DoctorslotsComponent implements OnInit {
       // this.slotdatediff = localStorage.getItem('slottimeselecteddates1')
       this.docservice.GetServerDateAndTime().subscribe(
         data => {
-          debugger
+          
           this.serverdateandtime = data;
           this.todaydatessss = this.serverdateandtime.todaydateeeesss
           this.presenttime = this.serverdateandtime.presentTime
-          debugger
+          
           // if( this.slotdatediff=='undefined'||null)
           // {
-          //   debugger
+          //   
           //   this.todaydatessss = this.serverdateandtime.todaydateeeesss.toLocaleString()
           // }
           // else
           // {
           //   this.todaydatessss = this.serverdateandtime.slottodaydateeeesss
-          //   debugger
+          //   
           // }
           // this.selecteddate = this.serverdateandtime.datePickerTodaydate
         }, error => {
@@ -201,7 +201,7 @@ export class DoctorslotsComponent implements OnInit {
             if (this.appointmenttypeid == 5) {
               this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummdoctorslotsss = data;
                   this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -235,7 +235,7 @@ export class DoctorslotsComponent implements OnInit {
             else {
               this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummdoctorslotsss = data;
                   this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -305,7 +305,7 @@ export class DoctorslotsComponent implements OnInit {
             this.combinationvalue = 'Téléconsultation';
           }
         }
-        debugger
+        
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
           data => {
 
@@ -316,7 +316,7 @@ export class DoctorslotsComponent implements OnInit {
         this.todaydate = localStorage.getItem('SelectedDate');
 
         this.filterdate = this.datepipe.transform(this.todaydate, 'dd/MM/yyyy');
-        debugger
+        
         //this.filterdate = this.todaydate
         var gsDayNames = [
           'Sunday',
@@ -343,7 +343,7 @@ export class DoctorslotsComponent implements OnInit {
 
 
           if (this.todaydate == this.todaydatessss) {
-            debugger
+            
 
             if (this.appointmenttypeid == 5) {
               this.getdoctorHomevistmorningslots();
@@ -363,7 +363,7 @@ export class DoctorslotsComponent implements OnInit {
             if (this.appointmenttypeid == 5) {
               this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummdoctorslotsss = data;
                   this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -371,7 +371,7 @@ export class DoctorslotsComponent implements OnInit {
               )
               this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummafternoonslotssss = data;
                   this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -379,7 +379,7 @@ export class DoctorslotsComponent implements OnInit {
               )
               this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummeveningslotssss = data;
                   this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -387,7 +387,7 @@ export class DoctorslotsComponent implements OnInit {
               )
               this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummnightslotsss = data;
                   this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -397,7 +397,7 @@ export class DoctorslotsComponent implements OnInit {
             else {
               this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 1, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummdoctorslotsss = data;
                   this.doctorslots = this.dummdoctorslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -405,7 +405,7 @@ export class DoctorslotsComponent implements OnInit {
               )
               this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummafternoonslotssss = data;
                   this.afternoonslots = this.dummafternoonslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -413,7 +413,7 @@ export class DoctorslotsComponent implements OnInit {
               )
               this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummeveningslotssss = data;
                   this.eveningslosts = this.dummeveningslotssss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -421,7 +421,7 @@ export class DoctorslotsComponent implements OnInit {
               )
               this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
                 data => {
-                  debugger
+                  
                   this.dummnightslotsss = data;
                   this.nightslots = this.dummnightslotsss.filter(x => x.appointmentTypeID == this.appointmenttypeid)
                 }, error => {
@@ -441,7 +441,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public GetDate(newDate: Date) {
-    debugger
+    
     this.selecteddate = this.docservice.GetDates(newDate)
     //  even.toLocaleString().split(',')[0];
     // this.selecteddate = even.target.value;
@@ -589,7 +589,7 @@ export class DoctorslotsComponent implements OnInit {
   hours: any;
   minutes: any;
   public getdoctormorningslots() {
-    debugger
+    
     // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     let d = new Date();
     this.hours = d.getHours() + 2
@@ -608,7 +608,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public getafternoonslots() {
-    debugger
+    
     //this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     let d = new Date();
     this.hours = d.getHours() + 2
@@ -619,7 +619,7 @@ export class DoctorslotsComponent implements OnInit {
 
     this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-        debugger
+        
         this.dummafternoonslots = data;
         this.afternoonslots = this.dummafternoonslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
       }, error => {
@@ -628,7 +628,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public geteveningslots() {
-    debugger
+    
     let d = new Date();
     this.hours = d.getHours() + 2
     this.minutes = d.getMinutes() + 30
@@ -638,7 +638,7 @@ export class DoctorslotsComponent implements OnInit {
     // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-        debugger
+        
         this.dummeveningslots = data;
         this.eveningslosts = this.dummeveningslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid)
       }, error => {
@@ -657,10 +657,10 @@ export class DoctorslotsComponent implements OnInit {
     let cts = h + ':' + m;
     this.docservice.GetDoctorSlotsForWeb(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-        debugger
+        
         this.dummnightslots = data;
         this.nightslots = this.dummnightslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
-        debugger
+        
       }, error => {
       }
     )
@@ -702,7 +702,7 @@ export class DoctorslotsComponent implements OnInit {
 
 
   public getdoctorHomevistmorningslots() {
-    debugger
+    
     // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     let d = new Date();
     this.hours = d.getHours() + 2
@@ -721,7 +721,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public getDocHomeVistafternoonslots() {
-    debugger
+    
     //this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     let d = new Date();
     this.hours = d.getHours() + 2
@@ -732,7 +732,7 @@ export class DoctorslotsComponent implements OnInit {
 
     this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 2, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-        debugger
+        
         this.dummafternoonslots = data;
         this.afternoonslots = this.dummafternoonslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
       }, error => {
@@ -741,7 +741,7 @@ export class DoctorslotsComponent implements OnInit {
   }
 
   public getHomeVisiteveningslots() {
-    debugger
+    
     let d = new Date();
     this.hours = d.getHours() + 2
     this.minutes = d.getMinutes() + 30
@@ -751,7 +751,7 @@ export class DoctorslotsComponent implements OnInit {
     // this.PresentTime = this.datepipe.transform(new Date(), 'shortTime');
     this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 3, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-        debugger
+        
         this.dummeveningslots = data;
         this.eveningslosts = this.dummeveningslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid)
       }, error => {
@@ -770,10 +770,10 @@ export class DoctorslotsComponent implements OnInit {
     let cts = h + ':' + m;
     this.docservice.GetDoctorSlotsss(this.doctorid, this.dayid, this.hospitalclinicid, 4, this.todaydate, this.dochospitalid, this.slottypeID).subscribe(
       data => {
-        debugger
+        
         this.dummnightslots = data;
         this.nightslots = this.dummnightslots.filter(x => x.slotcompare > this.presenttime && x.appointmentTypeID == this.appointmenttypeid);
-        debugger
+        
       }, error => {
       }
     )

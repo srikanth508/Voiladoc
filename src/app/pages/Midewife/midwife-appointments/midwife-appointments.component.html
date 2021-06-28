@@ -100,7 +100,11 @@
                 <img src="assets/Images/notvisit.png" style="height:19px;"
                   (click)="UpdatePatientNotVisitedBit(app.id)" /></a>&nbsp;
 
-
+                  <ng-template #tipcontent8>SOAP Notes</ng-template>
+                  <a [ngbTooltip]="tipcontent8"
+                    *ngIf="app.accepted=='1'&&app.notVisited=='0'&&app.midwivesCancelled=='0'&&app.cancelled=='0'">
+                    <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)"  data-toggle="modal"  data-target="#Soapnotes" />
+                  </a>&nbsp;
 
                   <ng-template #tipcontent87>Receipts</ng-template>
                   <a [ngbTooltip]="tipcontent87" *ngIf="app.isVisited=='1'">
@@ -108,9 +112,6 @@
                       (click)="GetRecept(app.id,app.bookedTime,app.appdate,app.name,app.patientID,app.emailID,app)"
                       data-toggle="modal" data-target="#Reciept" />
                   </a>&nbsp;
-
-
-
 
                   <ng-template #tipcontent9>{{labels[0].patientdetails}}</ng-template>
                   <a [ngbTooltip]="tipcontent9">
@@ -347,6 +348,279 @@
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
         <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()" data-dismiss="modal">Send to
           patient</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="Soapnotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header modal-lg">
+        <h5 class="modal-title" id="exampleModalLongTitle">SOAP Notes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <form #soapForm="ngForm">
+            <!-- <div class="row">
+              <div class="col-lg-3">
+
+                <h6>{{labels[0].chooseFromtemplate}}</h6>
+
+              </div>
+              <div class="col-lg-7">
+                <select class="form-control" (change)="GetTemplateID($event)">
+                  <option value="0">{{labels[0].select}}</option>
+                  <option *ngFor="let temp of templatelist" value="{{temp.id}}">{{temp.templateName}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-8">
+                <h6>{{labels[0].fillAllDetails}}</h6>
+              </div>
+            </div>
+            <br> -->
+            <!-- <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].followup}}</label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="1">&nbsp;
+                {{labels[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="followupvisit" name="followupvisit" [value]="0">&nbsp;
+                {{labels[0].no}} &nbsp;&nbsp;
+              </div>
+            </div><br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].subjective}}
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" [(ngModel)]="subjective" name="subjective" required rows="4"
+                  placeholder="{{labels4[0].subjective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].objective}}
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="objective" required [(ngModel)]="objective"
+                  placeholder="{{labels4[0].objective}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].assessment}}
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="assessment" required [(ngModel)]="assessment"
+                  placeholder="{{labels4[0].assessment}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].plan}}
+                </label>
+                <span style="color: red;">*</span>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" name="plan" required [(ngModel)]="plan"
+                  placeholder="{{labels4[0].plan}}" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+                <div class="col-lg-3">
+                  <label>
+                    <b>{{labels[0].diagnosisCode}}</b>
+                  </label>
+                
+                </div>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" [(ngModel)]="diagnosiscode" name="diagnosiscode"
+                    placeholder="{{labels[0].diagnosisCode}}" [ngModelOptions]="{standalone: true}" />
+                </div>
+              </div>
+              <br> -->
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].diagnposticCode}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                  placeholder="{{labels4[0].diagnposticCode}}" name="icddesc"
+                  (ngModelChange)="SearchIcrCode()"></textarea>
+
+                <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].diagnposticCode}}"
+                  [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search"
+                  (ngModelChange)="getid()" /> -->
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showsearchsoap=='1'">
+              <!-- <div class="col-lg-1">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels4[0].diagnposticCode}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        {{code.description}}</td>
+                      <td>
+                        <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].diagnosticDescription}} :</label>
+              </div>
+              <div class="col-lg-7">
+                <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                    name="icdcode" [(ngModel)]="icdcode"></textarea> -->
+                <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
+                  placeholder="{{labels[0].diagnosticDescription}}" name="icdcode" [(ngModel)]="icdcode">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].followUpPlan}}
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="followupplan"
+                  name="followupplan" placeholder="{{labels4[0].followUpPlan}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].signature}}
+                </label>
+                <!-- <span style="color: red;">*</span> -->
+              </div>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" disabled
+                  [(ngModel)]="signature" name="signature" placeholder="{{labels4[0].signature}}" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].notes}}
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="notes"
+                  [(ngModel)]="notes" placeholder="{{labels4[0].notes}}"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="" class="reglabel">Attachment :</label>
+              </div>
+              <div class="col-lg-7">
+                <ngx-dropzone [multiple]="false" style="height: 50px;" (change)="UploadSoapAttchments($event)" class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+                <span *ngFor="let showphoto of shoprescphoto">
+                  <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+                <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session*        </span>
+                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par session*   </span>
+              </div>
+              <div>
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].saveastemplate}}
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <input type="radio" [(ngModel)]="savetemplate" [ngModelOptions]="{standalone: true}" name="savetemplate"
+                  [value]="1">&nbsp;{{labels4[0].yes}} &nbsp;&nbsp;
+                <input type="radio" [(ngModel)]="savetemplate" [ngModelOptions]="{standalone: true}" name="savetemplate"
+                  [value]="2">&nbsp;{{labels4[0].no}}
+              </div>
+            </div> -->
+            <!-- <br>
+            <div class="row" *ngIf="savetemplate=='1'">
+              <div class="col-lg-3">
+                <label>
+                  {{labels4[0].templateName}}
+                </label>
+              </div>
+              <div class="col-lg-7">
+                <textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" name="templatename"
+                  [(ngModel)]="templatename" placeholder="{{labels4[0].templateName}}"></textarea>
+              </div>
+            </div>
+            <br> -->
+         
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-5">
+                <button class="btn allbtns btncolor" style="background-color: #f18235;" (click)="insertsoapnotes1()"
+                  data-dismiss="modal" [disabled]="soapForm.form.invalid">{{labels4[0].save}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels4[0].close}}</button>
       </div>
     </div>
   </div>

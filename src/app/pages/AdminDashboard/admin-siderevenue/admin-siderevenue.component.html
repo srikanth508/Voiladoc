@@ -233,6 +233,7 @@
   <h3 style="text-align: center;">{{labels[0].hospitalsubcommission}}</h3>
   <br>
   <div class="row">
+
     <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="HospitalRevenueSelecteddate($event)"
@@ -245,6 +246,9 @@
       <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="hospitallist" [settings]="hospdd"
         (onSelect)="GetAllSubScriptionRevenueID($event)">
       </ng-multiselect-dropdown>
+    </div>
+    <div class="col-lg-3">
+      {{monthstartdate|date}} to {{monthenddate|date}}
     </div>
   </div><br>
   <div class="row">
@@ -370,6 +374,9 @@
   <br>
   <h3 style="text-align: center;">{{labels[0].independentsubfees}}</h3>
   <br>
+  
+    {{monthstartdate|date}} to {{monthenddate|date}}
+
   <div class="row">
     <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
@@ -619,3 +626,186 @@
 
 
 <!-- Sponsered Revenue -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid card card-hover">
+ 
+  <br>
+  <h3 style="text-align: center;">Pharmacy Home Delivery Charges</h3>
+  <br>
+  <div class="row">
+
+    <div class="col-lg-3">
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="GetHomeChargesSelectDate($event)"
+        bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="GetHomeChargesSelectDate($event)"
+        bsDaterangepicker>
+    </div>
+   
+    <div class="col-lg-3">
+      {{monthstartdate|date}} to {{monthenddate|date}}
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/PharmacyReport']"
+        *ngFor="let cou of diaphacounts">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+           Total Amount Collected
+            
+            </b>
+        </label>
+        <br />
+     
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.pharmapaidamount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/PharmacyReport']"
+        *ngFor="let cou of diaphacounts">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Meridional Delivery Commission
+             </b>
+        </label>
+        <br />
+      
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.pharmacmeridionalcoommission}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/PharmacyReport']"
+        *ngFor="let cou of diaphacounts">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+           Delivery Patner Fees
+          </b>
+        </label>
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.pharmadelivercharges}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+   
+  </div>
+  
+
+  <br>
+  <h3 style="text-align: center;">Diagnostic Home Delivery Charges</h3>
+  <br>
+
+  <div class="row">
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DiagnosticHomeReport']"
+        *ngFor="let cou of diaphacounts">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+           Total Amount Collected
+            
+            </b>
+        </label>
+        <br />
+     
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.diagnosticpadiamount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DiagnosticHomeReport']"
+        *ngFor="let cou of diaphacounts">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+            Meridional Delivery Commission
+             </b>
+        </label>
+        <br />
+      
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.diagnosticmeridionalcommission}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DiagnosticHomeReport']"
+        *ngFor="let cou of diaphacounts">
+        <br />
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 15px;">
+           Delivery Patner Fees
+          </b>
+        </label>
+        <br />
+        <label style="color: black;font-size: 30px;color: #f17e2d;">
+          <b>
+            <u style="font-size: 20px;">{{cou.diagnosticdeliverycharges}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+    </div>
+   
+  </div>
+ 
+</div><br><br>

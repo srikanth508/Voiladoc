@@ -62,7 +62,7 @@
             <td>
               <ng-template #tipcontent2>Delete</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteQuickGuide(details.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteQuickGuide(details.chapterID)">
               </a>&nbsp;
               <ng-template #tipcontent1>Edit</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/EditQuickGuide',details.id]" style="color:black">

@@ -351,6 +351,18 @@ import { PatientInvitesDashComponent } from './pages/AdminDashboard/patient-invi
 import { InvitationMasterComponent } from './pages/AdminDashboard/invitation-master/invitation-master.component';
 import { InvitationDashComponent } from './pages/AdminDashboard/invitation-dash/invitation-dash.component';
 import { ProviderpayComponent } from './pages/Billing/providerpay/providerpay.component';
+import { UserIdleModule } from 'angular-user-idle';
+import { ForgotPasswordComponent } from './pages/Sales/forgot-password/forgot-password.component';
+import { HomedeliveryFeesComponent } from './pages/Masters/homedelivery-fees/homedelivery-fees.component';
+import { PharmacyReportComponent } from './pages/AdminDashboard/pharmacy-report/pharmacy-report.component';
+import { DiagnosticHomeReportComponent } from './pages/AdminDashboard/diagnostic-home-report/diagnostic-home-report.component';
+import { PharmacyChargesReportComponent } from './pages/Pharmacy/pharmacy-charges-report/pharmacy-charges-report.component';
+import { DiaChargesReportComponent } from './pages/Diagnostic Center/dia-charges-report/dia-charges-report.component';
+import { DiaPharmaPayComponent } from './pages/Billing/dia-pharma-pay/dia-pharma-pay.component';
+import { NpmEmrComponent } from './pages/Nurse/npm-emr/npm-emr.component';
+import { NurseEmrComponent } from './pages/Nurse/nurse-emr/nurse-emr.component';
+import { PatientPdfsComponent } from './pages/GenaratePDFs/patient-pdfs/patient-pdfs.component';
+import { PatientPdfComponent } from './pages/GenaratePDFs/patient-pdf/patient-pdf.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -692,7 +704,18 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PatientInvitesDashComponent,
     InvitationMasterComponent,
     InvitationDashComponent,
-    ProviderpayComponent
+    ProviderpayComponent,
+    ForgotPasswordComponent,
+    HomedeliveryFeesComponent,
+    PharmacyReportComponent,
+    DiagnosticHomeReportComponent,
+    PharmacyChargesReportComponent,
+    DiaChargesReportComponent,
+    DiaPharmaPayComponent,
+    NpmEmrComponent,
+    NurseEmrComponent,
+    PatientPdfsComponent,
+    PatientPdfComponent
    
   ],
   imports: [
@@ -715,8 +738,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     [BrowserModule, NgxPaginationModule],
     CKEditorModule,
     NgxTagsInputModule,
-   
-
+    UserIdleModule.forRoot({idle: 60, timeout: 60, ping: 120}),
     TranslatorModule.forRoot({
       providedLanguages: ['en', 'fr'],
       defaultLanguage: 'en'

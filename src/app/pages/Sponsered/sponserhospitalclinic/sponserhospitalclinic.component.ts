@@ -140,9 +140,18 @@ export class SponserhospitalclinicComponent implements OnInit {
       this.docservice.InsertSponsoredHospitals(entity).subscribe(data => {
 
         if (data != 0) {
-          Swal.fire('Completed', 'Details saved successfully', 'success');
-          this.clear();
-          location.href = "#/Hspclidash";
+          if(this.languageid==1)
+          {
+            Swal.fire('Completed', 'Published successfully', 'success');
+            this.clear();
+            location.href = "#/Hspclidash";
+          }
+          else{
+            Swal.fire('','Publié avec succès', 'success');
+            this.clear();
+            location.href = "#/Hspclidash";
+          }
+        
         }
       })
     }

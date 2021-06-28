@@ -43,7 +43,7 @@ export class BookappmentsComponent implements OnInit {
   hospitalid: any;
   homevisit: boolean;
   ngOnInit() {
-    debugger
+    
     this.user = localStorage.getItem('user');
 
     this.showback = localStorage.getItem('Showbutton');
@@ -147,10 +147,10 @@ export class BookappmentsComponent implements OnInit {
   public GetPatients() {
 
     if (this.showback == 1) {
-      debugger
+      
       this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
         data => {
-          debugger
+          
           // this.patientslist = 
           // this.dummlist.filter(x => x.doctorID == this.doctorid)
           this.patientslist = data;
@@ -172,7 +172,7 @@ export class BookappmentsComponent implements OnInit {
     else if (this.showback == 2) {
       this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
         data => {
-          debugger
+          
           this.dummlist = data;
           this.patientslist = this.dummlist.filter(x => x.doctorID == this.doctorid)
           // this.patientslist = data;

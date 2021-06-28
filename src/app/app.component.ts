@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import Swal from 'sweetalert2';
 import { timer } from 'rxjs';
 import { NgxSpinnerService } from "ngx-spinner";
+import { UserIdleService } from 'angular-user-idle';
+
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { nbLocale } from "ngx-bootstrap/locale";
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -21,11 +23,11 @@ import { listLocales } from 'ngx-bootstrap/chronos';
 
 export class AppComponent {
 
-  debugger
-  public locales = listLocales();
   
+  public locales = listLocales();
+
   vid: number;
-  constructor(public docservice: HelloDoctorService, private localeService: BsLocaleService) { }
+  constructor(public docservice: HelloDoctorService, private localeService: BsLocaleService, private userIdle: UserIdleService) { }
 
   public temp: any;
   public roleid: any;
@@ -55,7 +57,22 @@ export class AppComponent {
   docnoti
   labels10: any;
 
+
   ngOnInit() {
+
+    
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count)
+    );
+    
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() =>
+      console.log('Time is up!'));
+    
+
+
     this.show = 1;
     this.showsidebar = 0;
     this.languageid = localStorage.getItem('LanguageID');
@@ -66,7 +83,7 @@ export class AppComponent {
 
     }
     else {
-      debugger
+      
       this.localeService.use('fr');
     }
     this.temp = sessionStorage.getItem('temp');
@@ -107,6 +124,38 @@ export class AppComponent {
     this.getlanguageprescription();
     this.obseravablepharmacyno();
   }
+
+
+
+
+
+  stop() {
+    this.userIdle.stopTimer();
+    
+    this.clear();
+    
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+    
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+    
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
+    
+  }
+
+
+
+
+
+
   public getlanguage() {
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
@@ -385,13 +434,13 @@ export class AppComponent {
   }
 
   public Update_appointmentFordemand(doctorHospitalDetailsID, doctorID, appointmentID, notificationID, emailID, doctorName, date) {
-    debugger
+    
     this.doctorname = doctorName,
       this.email = emailID,
       this.date = date
 
     this.docservice.Update_AppointmentForOnDemandVideoConferenceForDoctor(doctorHospitalDetailsID, doctorID, appointmentID, notificationID).subscribe(data => {
-      debugger
+      
       if (data != undefined) {
         this.GetDoctorNotifications();
         this.Insertvisitnotificatiaccept()
@@ -720,9 +769,14 @@ export class AppComponent {
         }
         if (this.languageid == 1) {
           Swal.fire('Success', 'Order Rejected Successfully');
+
+          var smsdesc = this.details.pharmacyName + " has not accepted your medicine order. Please select another pharmacy."
+          this.SendTwiliSms(smsdesc, this.mobileno)
         }
         else if (this.languageid == 6) {
           Swal.fire('Succès', 'Commande rejetée avec succès');
+          var smsdesc =  "La " + this.details.pharmacyName + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie."
+          this.SendTwiliSms(smsdesc, this.mobileno)
         }
       }, error => {
       }
@@ -752,7 +806,7 @@ export class AppComponent {
 
   public InsertRejectNotification() {
     var entity = {
-      'Description': this.details.pharmacyName + " Rejected You Medicine Order ",
+      'Description': "La " + this.details.pharmacyName + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
       'ToUser': this.details.emailID,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -769,13 +823,22 @@ export class AppComponent {
       data => {
         this.InsertAcceptedNotification()
         this.InsertPharmacyAcceptNotifications()
+
+
         if (this.languageid == 1) {
           Swal.fire('Success', 'Order Accepted Successfully');
+          var smsdesc = this.details.pharmacyName + " accepted your medicine order which is being processed. "
+          this.SendTwiliSms(smsdesc, this.mobileno)
+
           location.href = "#/DoctorPrescription"
         }
         else if (this.languageid == 6) {
           Swal.fire('Succès', 'Commande acceptée avec succès');
+          var smsdesc = "La " + this.details.pharmacyName + " a accepté votre commande de médicaments qui est en cours de traitement."
+          this.SendTwiliSms(smsdesc, this.mobileno)
           location.href = "#/DoctorPrescription"
+
+
         }
       }, error => {
       }
@@ -784,7 +847,7 @@ export class AppComponent {
 
   public InsertAcceptedNotification() {
     var entity = {
-      'Description': this.details.pharmacyName + " Accepted You Medicine Order ",
+      'Description': this.details.pharmacyName + " accepted your medicine order which is being processed. ",
       'ToUser': this.details.emailID,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -798,11 +861,12 @@ export class AppComponent {
 
 
   public InsertPharmacyAcceptNotifications() {
+    debugger
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.details.patientID,
-        'Notification': this.details.pharmacyName + " Accepted Your Medicine order",
-        'Description': this.details.pharmacyName + " Accepted Your Medicine order",
+        'Notification': "Prescription order confirmed",
+        'Description': this.details.pharmacyName + "  accepted your medicine order which is being processed. ",
         'NotificationTypeID': 201,
         'Date': new Date(),
         'LanguageID': this.languageid,
@@ -817,8 +881,8 @@ export class AppComponent {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.details.patientID,
-        'Notification': this.details.pharmacyName + " Accepté votre commande de médicaments.",
-        'Description': this.details.pharmacyName + " Accepté votre commande de médicaments.",
+        'Notification': "Commande est confirmée",
+        'Description': "La " + this.details.pharmacyName + " a accepté votre commande de médicaments qui est en cours de traitement.",
         'NotificationTypeID': 201,
         'Date': new Date(),
         'LanguageID': this.languageid,
@@ -838,8 +902,8 @@ export class AppComponent {
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.details.patientID,
-        'Notification': this.details.pharmacyName + " Rejected Your Medicine order",
-        'Description': this.details.pharmacyName + " Rejected Your Medicine order",
+        'Notification': "Prescription order not ccepted",
+        'Description': this.details.pharmacyName + " has not accepted your medicine order. Please select another pharmacy.",
         'NotificationTypeID': 202,
         'Date': new Date(),
         'LanguageID': this.languageid,
@@ -854,8 +918,8 @@ export class AppComponent {
     else if (this.languageid == '6') {
       var entity = {
         'PatientID': this.details.patientID,
-        'Notification': this.details.pharmacyName + " Accepté votre commande de médicaments.",
-        'Description': this.details.pharmacyName + " Accepté votre commande de médicaments.",
+        'Notification': "Commande non confirmé",
+        'Description': "La " + this.details.pharmacyName + "  n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
         'NotificationTypeID': 202,
         'Date': new Date(),
         'LanguageID': this.languageid,
@@ -872,11 +936,13 @@ export class AppComponent {
   public show1: any;
   public acceptrejectid: any;
   public details: any;
+  mobileno: any;
 
   public orderedmedicinelist: any;
   public ViewMedicines(docnoti) {
     this.acceptrejectid = docnoti.id
-    this.details = docnoti
+    this.details = docnoti,
+      this.mobileno = docnoti.smsmobileno
     this.docservice.GetPatientOrderedMedicines(docnoti.orderID, this.languageid).subscribe(
       data => {
         this.orderedmedicinelist = data;
@@ -933,5 +999,15 @@ export class AppComponent {
         }
       })
     }
+  }
+
+
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      
+    })
   }
 }

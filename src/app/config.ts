@@ -5,9 +5,9 @@ export default {
      SAMPLE_SERVER_BASE_URL:'https://voilodocopentokbox.herokuapp.com',
     //  Sessionurl:'https://maroc.voiladoc.org/MarocAPI/Doctor/genratevideosessionID',
     //  Sessionurl:'https://maroc.voiladoc.org/MarocAPI/Doctor/genratevideosessionID',
-    // Sessionurl:'https://maroc.voiladoc.org/MarocAPI/Doctor/genratevideosessionID',
+    Sessionurl:'https://maroc.voiladoc.org/MarocAPI/Doctor/genratevideosessionID',
 
-    Sessionurl:'https://14.192.17.225/MarocAPI/Doctor/genratevideosessionID',
+   // Sessionurl:'https://14.192.17.225/MarocAPI/Doctor/genratevideosessionID',
 
   //  Sessionurl:'http://localhost:4199/Doctor/genratevideosessionID',
     // OR, if you have not set up a web server that runs the learning-opentok-php code,

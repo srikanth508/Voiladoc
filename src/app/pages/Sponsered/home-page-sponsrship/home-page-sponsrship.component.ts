@@ -19,6 +19,7 @@ export class HomePageSponsrshipComponent implements OnInit {
   value;
   dropzonelable: any;
   fees: any;
+  showphoto:any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -32,6 +33,8 @@ export class HomePageSponsrshipComponent implements OnInit {
     this.activatedroute.params.subscribe(params => {
 
       this.paramid = params['id'];
+
+      
       this.languageid = localStorage.getItem('LanguageID');
       this.getsponsradd(this.paramid);
 
@@ -58,6 +61,8 @@ export class HomePageSponsrshipComponent implements OnInit {
           this.fees=temp1[0].fees;
           this.StartDate=temp1[0].startdatee;
           this.EndDate=temp1[0].enddatee;
+          this.PhotoURL=temp1[0].photourlss;
+          this.showphoto=temp1[0].photoURL
           // this.StartDate = this.datePipe.transform(temp1[0].startDate, 'yyyy-MM-dd');
           // this.EndDate = this.datePipe.transform(temp1[0].endDate, 'yyyy-MM-dd');
         }, error => {
@@ -70,20 +75,33 @@ export class HomePageSponsrshipComponent implements OnInit {
   public attachments1 = [];
   public attachmentsurl = [];
   public showPhotoURL=[];
-  public onattachmentUpload1(abcd) {
 
+
+  public onattachmentUpload1(abcd) {
+    
+    this.attachmentsurl.length=0
+    
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadattachments1();
     // }
+    
+    if(this.languageid==1)
+    {
+      Swal.fire('Photo Added Successfully');
+      abcd.length = 0;
+    }
+    else{
+      Swal.fire('Photo ajoutée');
+      abcd.length = 0;
+    }
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
   }
   PhotoURL: any
   public uploadattachments1() {
+    
     this.docservice.ArticlePhoto(this.attachments1).subscribe(res => {
-
+      
       this.PhotoURL = res;
 
       let a = this.PhotoURL.slice(2);
@@ -115,9 +133,19 @@ export class HomePageSponsrshipComponent implements OnInit {
     this.docservice.InsertSponcered_Adds(entity).subscribe(data => {
 
       if (data != 0) {
-        this.spinner.hide();
-        Swal.fire('Completed', 'Details saved successfully', 'success');
-        location.href = "#/HomePageSponsrshipDashBoard";
+        if(this.languageid==1)
+        {
+          this.spinner.hide();
+          Swal.fire('Completed', 'Published successfully', 'success');
+          location.href = "#/HomePageSponsrshipDashBoard";
+        }
+        else
+        {
+          this.spinner.hide();
+          Swal.fire('','Publié avec succès', 'success');
+          location.href = "#/HomePageSponsrshipDashBoard";
+        }
+      
       }
     })
 
@@ -130,8 +158,8 @@ export class HomePageSponsrshipComponent implements OnInit {
       'LinkURL': this.LinkURL,
       'StartDate': this.StartDate,
       'EndDate': this.EndDate,
-      'Fees':this.fees
-
+      'Fees':this.fees,
+      'PhotoURL':this.PhotoURL
     }
     this.docservice.UpdateSponcered_Adds(entity).subscribe(data => {
 

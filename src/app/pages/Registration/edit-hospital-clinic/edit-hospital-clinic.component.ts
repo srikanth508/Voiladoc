@@ -262,12 +262,12 @@ export class EditHospitalClinicComponent implements OnInit {
   
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      debugger
+      
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
       
       let b = 'https://maroc.voiladoc.org' + a;
-      debugger
+      
       this.showphoto.push(b);
 
       this.attachments.length = 0;

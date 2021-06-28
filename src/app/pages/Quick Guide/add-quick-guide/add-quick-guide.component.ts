@@ -81,12 +81,12 @@ export class AddQuickGuideComponent implements OnInit {
 
   public uploadattachments() {
 
-    debugger
+    
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      debugger
+      
       this.attachmentsurl.push(res);
       this.dummshowsignatureurl.push(res);
-      debugger
+      
       let a = this.dummshowsignatureurl[0].slice(2);
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto = b;
@@ -116,12 +116,12 @@ export class AddQuickGuideComponent implements OnInit {
   public videoattachmentsss=[]
 
   public onAttchamneVideoupload(abcd) {
-    debugger
+    
     this.dummshowsignatureurl=[];
     this.videoattachmentsss.push(abcd.addedFiles[0]);
-    debugger
+    
     this.uploadvideoattchments();
-    debugger
+    
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -130,14 +130,14 @@ export class AddQuickGuideComponent implements OnInit {
 
 
   public uploadvideoattchments() {
-    debugger
+    
     this.docservice.HospitalClinicPhotos(this.videoattachmentsss).subscribe(res => {
-      debugger
+      
       this.Videoattachmenturl.push(res);
       this.dummshowsignatureurl.push(res);
-      debugger
+      
       let a = this.dummshowsignatureurl[0].slice(2);
-      debugger
+      
       let b = 'https://maroc.voiladoc.org' + a;
       this.showvideo = b;
       this.videoattachmentsss.length = 0;
@@ -190,7 +190,7 @@ export class AddQuickGuideComponent implements OnInit {
     }
     this.docservice.InsertChapterMaster(entity1).subscribe(data => {
       this.chapterid = data;
-      debugger
+      
       this.InsertSubChapters();
       Swal.fire('Saved Successfully');
       location.href = "#/QuickGuideDash"
@@ -199,7 +199,7 @@ export class AddQuickGuideComponent implements OnInit {
 
 
   public InsertSubChapters() {
-    debugger
+    
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity1 = {
         'ChapterID': this.chapterid,

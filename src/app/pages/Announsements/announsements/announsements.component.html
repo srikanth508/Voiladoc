@@ -24,6 +24,20 @@
       </div>
     </div>
     <br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].websiteLink}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].websiteLink}}" required class="form-control"
+          [(ngModel)]="websitelink" name="websitelink">
+      </div>
+    </div>
+    <br>
+
+    <div *ngIf="showicon=='0'">
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].country}} : </label>
@@ -58,6 +72,7 @@
         </ng-multiselect-dropdown>
       </div>
     </div><br>
+  </div>
     <div class="row">
       <div class="col-lg-3">
         <label class="dname_label">{{labels[0].description}} :</label>
@@ -85,6 +100,10 @@
           </span>
         </div>
       </div>
+      <div *ngIf="showicon=='1'">
+        <img src="{{photo}}" style="    height: 113px;width: 200px;">
+
+      </div>
       <!-- <div class="col-lg-5 specforimg">
         <p>
           {{labels[0].images}}
@@ -96,12 +115,18 @@
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
-        <button type="button" text_align="center" [disabled]="nurseForm.form.invalid"
-          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].save}}</button>
+        <button type="button" text_align="center" *ngIf="showicon=='0'" [disabled]="nurseForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">{{labels[0].publish}}</button>
+
+          <button type="button" text_align="center" *ngIf="showicon=='1'" [disabled]="nurseForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="updatedetils()">Update</button>
       </div>
       <div class="col-lg-5">
       </div>
     </div>
     <br>
   </form>
+</div>
+<div id=qwerty>
+
 </div>

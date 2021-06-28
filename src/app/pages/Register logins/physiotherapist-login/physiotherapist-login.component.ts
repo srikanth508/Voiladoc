@@ -152,10 +152,10 @@ export class PhysiotherapistLoginComponent implements OnInit {
   public physioname: any;
 
   public GetPhysiotherapistLoginAdmin() {
-    debugger
+    
     this.docservice.GetPhysiotherapistLoginAdmin(this.languageid).subscribe(
       data => {
-        debugger
+        
         this.physiologinlist = data;
         var list = this.physiologinlist.filter(x => x.physiotherapistID == this.physioid)
         this.physioname = list[0].name,
@@ -176,7 +176,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
 
 
   public sendmail() {
-    debugger
+    
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

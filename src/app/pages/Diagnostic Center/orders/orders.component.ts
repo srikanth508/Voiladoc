@@ -212,7 +212,7 @@ export class OrdersComponent implements OnInit {
             this.InsertAccptNotification()
             this.InsertNotiFicationAccpt()
 
-            var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted."
+            var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.Type : Diagnostic center. Please arrive 10 minutes before your schedule time. "
 
             this.SendTwiliSms(smsmobileno, smsdesc)
 
@@ -248,7 +248,7 @@ export class OrdersComponent implements OnInit {
             this.InsertAccptNotification()
             this.InsertNotiFicationAccpt()
 
-            var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. "
+            var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. Type : Au laboratoire. Veuillez arriver 10 minutes avant l'heure prévue. "
             this.SendTwiliSms(smsmobileno, smsdesc)
           })
           Swal.fire(
@@ -267,10 +267,10 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  public SendTwiliSms(smsdesc, smsmobileno) {
+  public SendTwiliSms(smsmobileno, smsdesc) {
     debugger
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      debugger
+
     })
   }
 
@@ -475,6 +475,7 @@ export class OrdersComponent implements OnInit {
 
   public onattachmentUpload(abcd) {
     this.dummattchmenturl = []
+    debugger
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -491,8 +492,9 @@ export class OrdersComponent implements OnInit {
   }
 
   public uploadattachments() {
+    debugger
     this.docservice.DiagnosticRecordUploads(this.attachments).subscribe(res => {
-
+      debugger
       this.attachmentsurl.push(res);
       this.dummattchmenturl.push(res);
       let a = this.dummattchmenturl[0].slice(2);
@@ -507,12 +509,13 @@ export class OrdersComponent implements OnInit {
 
   public diacentername: any;
 
-  public GetUploadReportID(id, patientid, diagnosticCenterID, email, diacenter) {
+  public GetUploadReportID(id, patientid, diagnosticCenterID, email, diacenter, smsmobileno) {
     this.appointmentsid = id;
     this.patientid = patientid;
     this.diaid = diagnosticCenterID;
     this.patientemail = email;
     this.diacentername = diacenter;
+    this.smsmobileno = smsmobileno;
   }
 
 
@@ -532,13 +535,19 @@ export class OrdersComponent implements OnInit {
 
         if (data != 0) {
           if (this.languageid == 1) {
+            debugger
             Swal.fire('Success', 'Report successfully sent to the patient');
             this.VisitOrder(this.appointmentsid);
             this.attachmentsurl.length = 0;
             this.showphoto.length = 0;
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
-            this.notes=""
+            this.Insertnotificationsoapnotesazuere();
+
+            var smsdesc = "Diagnostic Center has uploaded your report. please open voiladoc app and check ";
+
+            this.SendTwiliSms(this.smsmobileno, smsdesc)
+            this.notes = ""
           }
           else {
             Swal.fire('Rapport envoyé avec succès au patient.');
@@ -547,15 +556,23 @@ export class OrdersComponent implements OnInit {
             this.showphoto.length = 0;
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
-            this.notes=""
+            this.Insertnotificationsoapnotesazuere();
+            var smsdesc = "Diagnostic Center has uploaded your report. please open voiladoc app and check ";
+
+            this.SendTwiliSms(this.smsmobileno, smsdesc)
+            this.notes = ""
           }
         }
         else {
           if (this.languageid == 1) {
             this.VisitOrder(this.appointmentsid);
+            this.Insertnotificationsoapnotesazuere();
             this.UpdateDiaReport();
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
+            var smsdesc = "Diagnostic Center has uploaded your report. please open voiladoc app and check ";
+
+            this.SendTwiliSms(this.smsmobileno, smsdesc)
             Swal.fire('Success', 'Report successfully sent to the patient');
           }
           else {
@@ -563,13 +580,18 @@ export class OrdersComponent implements OnInit {
             this.UpdateDiaReport();
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
+            this.Insertnotificationsoapnotesazuere();
+            var smsdesc = "Diagnostic Center has uploaded your report. please open voiladoc app and check ";
+
+            this.SendTwiliSms(this.smsmobileno, smsdesc)
+
             Swal.fire('Rapport envoyé avec succès au patient.');
           }
 
         }
       })
     }
-    this.Insertnotificationsoapnotesazuere();
+
 
   }
 
@@ -636,10 +658,13 @@ export class OrdersComponent implements OnInit {
   hideupdate: any;
 
 
-  public GetTestsID(id, hideupdate) {
+  public GetTestsID(id, hideupdate, details) {
 
     this.diatestid = id;
     this.hideupdate = hideupdate;
+    this.smsmobileno = details.smsmobileno;
+    this.email = details.relationemail
+
     this.GetDiaTests()
   }
 
@@ -682,7 +707,7 @@ export class OrdersComponent implements OnInit {
       var entity = {
         'PatientID': this.accpatientid,
         'Notification': "Appointment confirmed",
-        'Description': "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.",
+        'Description': "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.Type : Diagnostic center. Please arrive 10 minutes before your schedule time. ",
         'NotificationTypeID': 15,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -699,7 +724,7 @@ export class OrdersComponent implements OnInit {
       var entity = {
         'PatientID': this.accpatientid,
         'Notification': "RDV confirmé",
-        'Description': "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. ",
+        'Description': "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé.Type : Au laboratoire. Veuillez arriver 10 minutes avant l'heure prévue.",
         'NotificationTypeID': 15,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -732,7 +757,7 @@ export class OrdersComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. ",
+        'Description': "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé.Type : Au laboratoire ",
         'ToUser': this.acpaemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -913,6 +938,8 @@ export class OrdersComponent implements OnInit {
     this.docservice.InsertDiagnostic_HomeSampleOrders(entity).subscribe(data => {
       if (this.languageid == 1) {
         Swal.fire('Success', 'Order Assigned Successfully');
+        var smsdesc = "Diagnostic Center assigned a new order to you. Please Open Your Delivery App And Check"
+        this.SendTwiliSms(list.smsmobileno, smsdesc)
         this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
           this.homesamplelist = data;
         })
@@ -920,6 +947,8 @@ export class OrdersComponent implements OnInit {
       }
       else if (this.languageid == 6) {
         Swal.fire('', 'Commande assignée');
+        var smsdesc = "Diagnostic Center assigned a new order to you. Please Open Your Delivery App And Check"
+        this.SendTwiliSms(list.smsmobileno, smsdesc)
         this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
           this.homesamplelist = data;
         })
@@ -934,7 +963,9 @@ export class OrdersComponent implements OnInit {
     for (let i = 0; i < this.testslist.length; i++) {
       var entity = {
         'ID': this.testslist[i].bookediid,
-        'Available': this.testslist[i].available
+        'Available': this.testslist[i].available,
+        'AppointmentID': this.diatestid,
+        'Fees': this.testslist[i].fees
       }
       this.docservice.UpdateDiagnosticBookedTests(entity).subscribe(data => {
         if (this.languageid == 1) {
@@ -943,10 +974,38 @@ export class OrdersComponent implements OnInit {
         else if (this.languageid == 6) {
           Swal.fire('Mis à jour avec Succés');
         }
+
+
       })
     }
+    if (this.languageid == 1) {
+      var smsdesc = "The lab responded with price for the test. Please accept or decline."
+      this.SendTwiliSms(this.smsmobileno, smsdesc,)
+      this.notiazure();
+    }
+    else {
+      var smsdesc = "Le laboratoire a répondu avec des prix. Veuillez accepter ou refuser."
+      this.SendTwiliSms(this.smsmobileno, smsdesc)
+      this.notiazure()
+    }
+
+
 
   }
+  email: any;
+
+  public notiazure() {
+    var entity = {
+      'Description': "Le laboratoire a répondu avec des prix. Veuillez accepter ou refuser.",
+      'ToUser': this.email,
+    }
+    this.docservice.PostGCMNotifications(entity).subscribe(data => {
+
+      if (data != 0) {
+      }
+    })
+  }
+
 
 
 

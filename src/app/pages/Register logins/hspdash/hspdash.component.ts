@@ -17,10 +17,22 @@ export class HspdashComponent implements OnInit {
   public labels: any;
   public languageid: any;
   public pinno: any;
+  public currentpwd: any;
+  countrymanaerid: any;
+  showeditbutton: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
+    this.currentpwd = localStorage.getItem('Password');
+    this.countrymanaerid = localStorage.getItem('countrymanagerid');
+    if (this.countrymanaerid != undefined) {
+      this.showeditbutton = 1
+    }
+    else {
+      this.showeditbutton = 0;
+    }
+
     this.gethospitalclinicfordash();
 
     this.getlanguage();
@@ -89,12 +101,12 @@ export class HspdashComponent implements OnInit {
   public password: any;
   public mypinno: any;
 
-
+  oldpassword: any;
   public GetDeatsils(details) {
 
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password,
+      this.oldpassword = details.password,
       this.mypinno = details.pinno
 
     this.Showpassword = 0;
@@ -125,12 +137,14 @@ export class HspdashComponent implements OnInit {
               this.gethospitalclinicfordash()
               document.getElementById('close').click();
               this.pp = 0;
+              this.password = ""
             }
             else {
               Swal.fire('Succès', 'Mot de passe mis à jour avec succès');
               this.gethospitalclinicfordash()
               document.getElementById('close').click();
               this.pp = 0;
+              this.password = ""
             }
 
 
@@ -150,27 +164,76 @@ export class HspdashComponent implements OnInit {
 
   public Enteredpinno: any;
 
+  // public CheckPasswordvalidate() {
+  //   
+  //   if (this.Enteredpinno == "") {
+  //     
+  //     if (this.languageid == 1) {
+  //       Swal.fire('Please Enter Your Pin No')
+  //     }
+  //     else {
+  //       Swal.fire('Veuillez entrer votre code PIN Non')
+  //     }
+  //   }
+  //   else {
+  //     
+  //     if (this.pinno == this.Enteredpinno) {
+  //       this.Showpassword = 1;
+  //       this.Enteredpinno = ""
+  //     }
+  //     else {
+  //       
+  //       Swal.fire('You Entered Pin no is invalid')
+  //       this.Enteredpinno = ""
+  //     }
+  //   }
+  // }
+
+
+
+
+
+
+
+  public entercurrentpwd: any;
+
   public CheckPasswordvalidate() {
-    debugger
-    if (this.Enteredpinno == "") {
-      debugger
+    
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+      
       if (this.languageid == 1) {
-        Swal.fire('Please Enter Your Pin No')
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
       }
       else {
-        Swal.fire('Veuillez entrer votre code PIN Non')
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
       }
+
+
     }
     else {
-      debugger
-      if (this.pinno == this.Enteredpinno) {
+      
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        debugger
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+        
+        if (this.languageid == 1) {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+
       }
     }
   }
@@ -179,10 +242,7 @@ export class HspdashComponent implements OnInit {
 
 
 
-
-
-
   // send mail
 
-  
+
 }

@@ -75,7 +75,7 @@ export class FaqComponent implements OnInit {
   public faqid: any;
 
   public GetTypeID(even) {
-    debugger
+    
     this.typeid = even.target.value;
   }
 
@@ -107,14 +107,14 @@ export class FaqComponent implements OnInit {
 
 
   public insertattachments() {
-    debugger
+    
     for (let i = 0; i < this.attachmentsurl.length; i++) {
       var entity = {
         'FaqID': this.faqid,
         'PhotoUrl': this.attachmentsurl[i]
       }
       this.docservice.InsertFAQ_Attachments(entity).subscribe(data => {
-        debugger
+        
         if (data != 0) {
           // Swal.fire('Success', 'Data Added Successfully')
          

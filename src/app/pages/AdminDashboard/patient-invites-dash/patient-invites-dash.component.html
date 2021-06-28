@@ -32,12 +32,17 @@
             <th>Refered name</th>
             <th>Refered phone no</th>
             <th>Refered email</th>
-            <th>Referal Code</th>
-            <th>Status</th>
+            <!-- <th>Referal Code</th>
+            <th>Status</th> -->
           </tr>
           <tr *ngFor="let ref of invitationslist">
-            <td></td>
-
+            <td>{{ref.patientName}}</td>
+            <td>{{ref.referedMobileNumber}}</td>
+            <td>{{ref.referedEmailID}}</td>
+            <td>{{ref.address}}</td>
+            <td>{{ref.name}}</td>
+            <td>{{ref.mobileNumber}}</td>
+            <td>{{ref.emailID}}</td>
           </tr>
 
         </thead>
