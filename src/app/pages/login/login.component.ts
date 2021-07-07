@@ -51,10 +51,9 @@ export class LoginComponent implements OnInit {
       }
     )
 
-
     localStorage.setItem('WebUrl', 'https://maroc.voiladoc.org/MarocAPI');
 
-    // localStorage.setItem('WebUrl', 'https://madagascar.voiladoc.org/MadagascarWebAPI');
+  // localStorage.setItem('WebUrl', 'https://madagascar.voiladoc.org/MadagascarWebAPI');
 
     // this.docservice.GetLanguageMaster().subscribe(
     //   data => {
@@ -556,9 +555,11 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('roleid', '10');
                 localStorage.setItem('deliveryid', this.result[0].deliveryCompanyID);
                 localStorage.setItem('Pinno', this.result[0].pinno);
+                localStorage.setItem('pincode', this.result[0].pincode);
                 localStorage.setItem('Password', this.pwd);
+                
                 sessionStorage.setItem('temp', '1');
-                location.href = '#/DeliverPartnerProfile';
+                location.href = '#/PharmacyOrders';
                 location.reload();
               }
               else {
@@ -784,6 +785,8 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Pinno', this.result[0].pinno);
                 localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('countrymanagerid', this.result[0].id);
+                localStorage.setItem('Commacountryid', this.result[0].id);
+
 
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
@@ -826,6 +829,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '17');
                 localStorage.setItem('implementationid', this.result[0].id);
+                localStorage.setItem('Commacountryid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -867,6 +871,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '18');
                 localStorage.setItem('clientserviceid', this.result[0].id);
+                localStorage.setItem('Commacountryid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -908,6 +913,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '19');
                 localStorage.setItem('salesmanagerid', this.result[0].id);
+                localStorage.setItem('Commacountryid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -954,6 +960,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '20');
                 localStorage.setItem('salesrepresntativeid', this.result[0].id);
+                localStorage.setItem('Commacountryid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/AdminDash';
                 location.reload();
@@ -995,6 +1002,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Password', this.result[0].password);
                 localStorage.setItem('roleid', '22');
                 localStorage.setItem('finanacemanagerid', this.result[0].id);
+                localStorage.setItem('Commacountryid', this.result[0].id);
                 sessionStorage.setItem('temp', '1');
                 location.href = '#/BillingDashboard';
                 location.reload();

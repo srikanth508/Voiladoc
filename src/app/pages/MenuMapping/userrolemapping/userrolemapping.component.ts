@@ -67,6 +67,7 @@ export class UserrolemappingComponent implements OnInit {
 
 
   public InsertDetails() {
+    this.password = Math.random().toString(36).slice(-8);
     if (this.roleid == "" || this.roleid == undefined) {
       Swal.fire('Please select role')
     }

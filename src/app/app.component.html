@@ -782,27 +782,7 @@
                 <!-- </h5> -->
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <!-- <div class="modal-body">
-                <div class="row" *ngFor="let noti of notifications">
-                    <div class="col-lg-9">
-                        <p>{{noti.Msg}}</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <button class="chatnow" [routerLink]="['/Mychats',noti.DoctorID,noti.PatientID]"
-                            data-dismiss="modal">{{labels[0].chatNow}}</button>
-                    </div>
-                </div>
-
-                <div class="row" *ngFor="let phanoti of phanotifications">
-                    <div class="col-lg-9">
-                        <p>{{phanoti.Msg}}</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <button class="chatnow" [routerLink]="['/PharmacyChat',phanoti.PharmacyID,phanoti.PatientID]"
-                            data-dismiss="modal">{{labels[0].chatNow}}</button>
-                    </div>
-                </div>
-            </div> -->
+          
             <div class="modal-body">
                 <div class="row card card-hover newcard" *ngFor="let docnoti of doctorNotifications"
                     style="overflow: auto;">
@@ -819,13 +799,7 @@
                             <button class="chatnow" data-dismiss="modal" style="float: right;"
                                 (click)="UpdateDoctorSeenAll(docnoti.doctorID)" *ngIf="docnoti.notificationTypeID!=17">{{labels[0].seenAll}}</button><br>
 
-                                <!-- <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
-                                style="float: left;"
-                                (click)="RejectVedioAppointment(docnoti.doctorID)">{{labels[0].reject}}</button>
-                            <button class="chatnow" *ngIf="docnoti.notificationTypeID==17" data-dismiss="modal"
-                                style="float: right;"
-                                (click)="Update_appointmentFordemand(docnoti.doctorHospitalDetailsID,docnoti.doctorID,docnoti.appointmentID,docnoti.id,docnoti.emailID,docnoti.doctorName,docnoti.date)">{{labels[0].accept}}</button>
-                            <br> -->
+                           
 
                         </div>
 
@@ -836,6 +810,11 @@
                         <div *ngIf="supportid!=undefined">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updatesupportseenbit(docnoti.id)">{{labels[0].seen}}</button>
+                        </div>
+
+                        <div *ngIf="countrymanagersid!=undefined">
+                            <button class="chatnow" data-dismiss="modal" style="float: left;"
+                                (click)="updatecountrynoti(docnoti.id)">{{labels[0].seen}}</button>
                         </div>
                      
                         <br>

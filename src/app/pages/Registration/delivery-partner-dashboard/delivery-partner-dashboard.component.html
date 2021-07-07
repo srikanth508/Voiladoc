@@ -28,7 +28,7 @@
     </div>
     <div class="col-lg-3">
       <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
-        <option value="0">{{labels1[0].selectProvince}}</option>
+        <option value="0">{{labels[0].selectProvonce}}</option>
         <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
       </select>
     </div>
@@ -47,23 +47,25 @@
           <tr>
             <th>{{labels[0].companyName}}</th>
             <th>{{labels[0].contactPerson}}</th>
-            <th>{{labels[0].country}}</th>
+            <!-- <th>{{labels[0].country}}</th> -->
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].emailD}}</th>
             <th>{{labels[0].address}}</th>
+            <th>{{labels[0].pincode}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
           <tr *ngFor="let del of deliverycompanylist|filter:term">
             <td>{{del.companyName}}</td>
             <td>{{del.contactPerson}}</td>
-            <td>{{del.country}}</td>
+            <!-- <td>{{del.country}}</td> -->
             <td>{{del.city}}</td>
             <td>{{del.areaName}}</td>
             <td>{{del.phoneNo}}</td>
             <td>{{del.emailID}}</td>
             <td>{{del.address}}</td>
+            <td>{{del.pincode}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">

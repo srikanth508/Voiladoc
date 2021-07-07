@@ -1216,26 +1216,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     });
   }
 
-  // public updateusertyping() {
-  //   if (this.chatconversation.length > 0) {
-  //     this.docservice.UpdateIsTyping(this.appointmentiddd, true).subscribe(res => {
-  //       let tt = res;
-  //     })
-  //   }
-  //   else {
-  //     this.docservice.UpdateIsTyping(this.appointmentiddd, false).subscribe(res => {
-  //       let tt = res;
-  //     })
-  //   }
-  // }
 
-  // public getusertyping() {
-  //   this.docservice.getChat(this.pharmacyid, this.patientid).subscribe(res => {
-  //    
-  //     let isUserTyping = res.filter(x => x.appointmentID == this.appointmentiddd);
-  //     this.istyping = isUserTyping[0].isTyping;
-  //   })
-  // }
 
   public onattachmentUpload(abcd) {
 
@@ -1262,13 +1243,6 @@ export class DoctorPrescriptionComponent implements OnInit {
     })
     // this.sendattachment();
   }
-
-
-  // public GetShowID()
-  // {
-  //   this.showwindow=0;
-  // }
-
 
   public ChangeAvailableMedicines(medicinelist, even) {
     if (even.target.checked == true) {
@@ -1309,7 +1283,12 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     })
     this.Notification()
-    var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
+    if (this.languageid == 1) {
+      var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
+    }
+    else {
+      var smsdesc = "La" + this.user + " Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc";
+    }
     this.SendTwiliSms(smsdesc, this.smsmobleno);
     this.GetPharmacyOrders()
   }

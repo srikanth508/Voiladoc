@@ -775,26 +775,130 @@ export class DoctorsCalenderComponent implements OnInit {
   }
 
 
+
+  public gettimechange(even) {
+
+    this.timewiseappointmentid = even.target.value;
+    if (this.timewiseappointmentid == 4) {
+
+    }
+    else {
+      this.mrngtoid = "";
+      this.mrngfromid = "";
+    }
+
+  }
+
+
   public mrngfromid: any;
   public mrngfromslot: any;
   public mrngtolist: any;
   public mrngtoid: any;
   public mrngtoslot: any;
 
+
+
+
   public getmrngfrom(even) {
     this.mrngfromid = even.target.value;
-    var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
-    this.mrngfromslot = qwerty[0].slots;
-    this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
-    this.mrngtoid = "";
+    debugger
+    if (this.timewiseappointmentid == 4) {
+      var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+      this.mrngfromslot = qwerty[0].slots;
+      this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+      this.mrngtoid = "";
+    }
+    else {
+      this.docservice.GetDoctorSlotsGap(this.mrngfromid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 1).subscribe(data => {
+        debugger
+        let data1 = data;
+        if (data.length == 0) {
+          var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+          this.mrngfromslot = qwerty[0].slots;
+          this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+          this.mrngtoid = "";
+        }
+        else {
+          Swal.fire("Can not block this time as it is insufficient time to complete the appointment");
+          this.mrngfromid = "";
+        }
+      })
+    }
   }
 
   public getmrngto(even) {
     this.mrngtoid = even.target.value;
-    var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
-    this.mrngtoslot = qwerty[0].slots;
-    this.GetGetSlotsByIDPlanning();
+    debugger
+    if (this.timewiseappointmentid == 4) {
+      var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+      this.mrngtoslot = qwerty[0].slots;
+      this.GetGetSlotsByIDPlanning();
+    }
+    else {
+
+
+      this.docservice.GetDoctorSlotsGap(this.mrngtoid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 2).subscribe(data => {
+        if (data.length == 0) {
+          debugger
+          var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+          this.mrngtoslot = qwerty[0].slots;
+          this.GetGetSlotsByIDPlanning();
+        }
+        else {
+          debugger
+          Swal.fire("Can not block this time as it is insufficient time to complete the appointment");
+          this.mrngtoid = "";
+
+        }
+      })
+    }
+    debugger
   }
+
+
+
+  // public getmrngfrom(even) {
+  //   this.mrngfromid = even.target.value;
+
+  //   debugger
+  //   this.docservice.GetDoctorSlotsGap(this.mrngfromid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 1).subscribe(data => {
+  //     debugger
+  //     let data1 = data;
+  //     if (data.length == 0) {
+  //       var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+  //       this.mrngfromslot = qwerty[0].slots;
+  //       this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+  //       this.mrngtoid = "";
+  //     }
+  //     else {
+  //       Swal.fire("Please Select Another Time ");
+  //       this.mrngfromid = "";
+  //     }
+  //   })
+
+   
+  // }
+
+  // public getmrngto(even) {
+  //   this.mrngtoid = even.target.value;
+
+  //   debugger
+  //   this.docservice.GetDoctorSlotsGap(this.mrngtoid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 2).subscribe(data => {
+  //     if (data.length == 0) {
+  //       debugger
+  //       var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+  //       this.mrngtoslot = qwerty[0].slots;
+  //       this.GetGetSlotsByIDPlanning();
+  //     }
+  //     else {
+  //       debugger
+  //       Swal.fire("Please Select Another Time");
+  //       this.mrngtoid = "";
+
+  //     }
+  //   })
+  
+  // }
 
   public timewisechangeslotlist: any;
   public totalappcount: any;

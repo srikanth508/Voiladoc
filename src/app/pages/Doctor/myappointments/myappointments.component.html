@@ -26,14 +26,6 @@
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
     <div class="col-lg-3">
-      <!-- <select class="form-control" (change)="getget($event)">
-        <option value="4" selected>{{labels[0].selectsatus}}</option>
-        <option value="1">{{labels[0].visited}}</option>
-        <option value="2">{{labels[0].notvisited}}</option>
-        <option value="3">{{labels[0].patientCancelled}}</option>
-        <option value="6">{{labels[0].doctorCancelled}}</option>
-        <option value="5">{{labels[0].accepted}}</option>
-      </select> -->
     </div>
     <div class="col-lg-3" style="text-align: end;margin-left: -8px; ">
       <label>
@@ -45,24 +37,6 @@
   <div class="row">
     <div class="col-lg-6">
     </div>
-    <!-- <div class="col-lg-2">
-        <img src="assets/Images/vedio.png" style="width:25px;">:
-        <label>
-          <b>{{labels[0].scheduled}}</b>
-        </label>
-      </div>
-      <div class="col-lg-2">
-        <img src="assets/Images/ondemand.png" style="width:25px;">:
-        <label>
-          <b>{{labels[0].ondemand}}</b>
-        </label>
-      </div> -->
-    <!-- <div class="col-lg-2">
-        <img src="assets/Images/clinic.png" style="width:20px;">:
-        <label>
-          <b>{{labels[0].inClinic}}</b>
-        </label>
-      </div> -->
   </div>
   <div class="row" *ngIf="apppppp=='0'">
     <div class="col-lg-12" style="overflow: auto;">
@@ -166,6 +140,8 @@
             </td>
             <td>
               <table style="box-shadow:none">
+
+               
                 <tr>
                   <td style="border:none">
                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
@@ -211,7 +187,7 @@
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent201>{{labels[0].followup}}</ng-template>
-                    <a [ngbTooltip]="tipcontent201" *ngIf="details.isVisited=='1'&&details.followUpVisit=='0'">
+                    <a [ngbTooltip]="tipcontent201" *ngIf="details.isVisited=='1'&&details.followUpVisit=='0'&&details.followApp=='0'">
                       <img src="assets/Images/followup.png" style="height:25px;"
                         (click)="GetFolloupVistID(details.appointmentID)" />
                     </a>
@@ -346,13 +322,12 @@
                     <ng-template #tipcontent9586>{{labels[0].refund}}</ng-template>
                     <!-- &&details.alertBit=='1' -->
                     <a [ngbTooltip]="tipcontent9586"
-                      *ngIf="details.accepted=='1'&&details.refundBit=='0'&&details.appointmentTypeID=='2'">
+                      *ngIf="details.accepted=='1'&&details.refundBit=='0'&&details.appointmentTypeID=='2'&&details.followApp=='0'">
                       <img src="assets/Images/refund.png" title="{{labels[0].refund}}" style="height:25px;"
                         data-toggle="modal" data-target="#RefundAmount" (click)="GetRefundPatientDetailsID(details)" />
                       <!-- [routerLink]="['/Soapdash',details.patientID]" -->
                     </a>
                   </td>
-
                   <td style="border:none">
                     <ng-template #tipcontent95353>{{labels[0].consulationReport}}</ng-template>
                     <a [ngbTooltip]="tipcontent95353">
@@ -373,6 +348,8 @@
 
             </td>
             <td>
+              <label *ngIf="details.followApp=='1'" style="color:red;font-size: 5px;">{{labels[0].followup}}</label>
+             
               <label *ngIf=" details.accepted=='1' &&details.cancelled=='0' &&details.docCancelled=='0'
                     &&details.isVisited=='0' &&details.noShow=='0'"
                 style=" color: green;">{{labels[0].accepted}}</label>
@@ -1353,15 +1330,18 @@
               <button class="btn btn-default" style="background-color: #f18235;color: white;"
                 (click)="cancelledappointment()" data-dismiss="modal">
                 <label *ngIf="languageid=='1'">Cancel</label>
-                <label *ngIf="languageid=='6'">Annuler</label>
+                <label *ngIf="languageid=='6'">Mettre à jour</label>
               </button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
+
+          <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;" class="btn btn-default"
+          data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -1650,7 +1630,7 @@
               </div>
             </div>
             <br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].followup}}</label>
               </div>
@@ -1661,7 +1641,7 @@
                 {{labels[0].no}} &nbsp;&nbsp;
               </div>
 
-            </div><br>
+            </div><br> -->
             <div class="row" *ngIf="tablecuont1=='1'">
               <div class="col-lg-12">
                 <table>
@@ -3173,7 +3153,7 @@
               <table>
                 <thead>
                   <tr>
-                    <th>{{labels[0].type}}</th>
+                    <th>Type</th>
                     <th>{{ labels2[0].patientID }}</th>
                     <th>{{ labels[0].patientName }}</th>
                     <th>{{ labels2[0].mobileNumber }}</th>
@@ -3431,8 +3411,8 @@
       </div>
       <div class="modal-footer" style="justify-content: center;">
         <button type="button" style="background-color: #f18235;color: white; text-align: center;"
-          class="btn btn-default" (click)="InsertDoctorRefererlasAttachemenys()" data-dismiss="modal">{{ labels[0].save
-          }}</button>
+          class="btn btn-default" (click)="InsertDoctorRefererlasAttachemenys()"
+          data-dismiss="modal">{{labels[0].save}}</button>
       </div>
     </div>
   </div>

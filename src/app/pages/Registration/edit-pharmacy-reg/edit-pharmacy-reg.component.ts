@@ -170,7 +170,7 @@ export class EditPharmacyRegComponent implements OnInit {
       'Website': this.website,
       'Description': this.description,
       'AreaID': this.areaid,
-      'Pincode': this.pincode,
+      'Pincode': this.zipcode,
       'CountryID': this.countryid
     }
     this.docservice.UpdatePharmacyProfile(entity).subscribe(res => {

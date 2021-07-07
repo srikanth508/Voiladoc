@@ -27,18 +27,32 @@ export class FaqDashComponent implements OnInit {
     )
     this.getfaq()
   }
+  dummfaq: any;
+
   public getfaq() {
     this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
       data => {
-
+        this.dummfaq = data;
         this.faq = data;
-        this.count = this.faq.length
+        this.count = this.faq.length;
       }, error => {
       }
     )
   }
 
 
+  typeid: any;
+
+  public GetType(even) {
+    this.typeid = even.target.value;
+    if (even.target.value != 0) {
+      this.faq = this.dummfaq.filter(x => x.typeID == this.typeid)
+      this.count = this.faq.length;
+    }
+    else {
+      this.getfaq();
+    }
+  }
 
   public DeleteFrequentlyAskedQuestions(id) {
 

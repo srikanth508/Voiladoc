@@ -28,6 +28,7 @@
             <th>{{labels[0].name}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
+            <th>Actions</th>
           </tr>
           <tr *ngFor="let details of partnerlist|filter:term">
             <td *ngIf="details.staffType==1&&languageid==1">Delivery Supervisor</td>
@@ -37,9 +38,120 @@
             <td>{{details.name}}</td>
             <td>{{details.phoneNo}}</td>
             <td>{{details.emailID}}</td>
+
+            <td>
+            
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
+                  (click)="GetDeatsils(details)">
+              </a>
+            </td>
+
           </tr>
         </thead>
       </table><br><br>
     </div>
   </div>
 </div><br><br>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 700px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels1[0].editPassword}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>{{labels1[0].enteryourpin}} </label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
+              placeholder="{{labels1[0].enteryourpin}}">
+          </div>
+          <!-- <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()"> {{labels[0].validate}}</button>
+          </div> -->
+        </div><br>
+        <div class="row" *ngIf="Showpassword=='0'">
+          <div class="col-lg-3">
+            <label>{{labels1[0].password}} :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" required [(ngModel)]="entercurrentpwd" name="entercurrentpwd"
+              placeholder="{{labels1[0].password}}">
+            <!-- <span *ngIf="pp=='1'" style="color:red">{{labels[0].weakPassword}}</span> -->
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btncolor" (click)="CheckPasswordvalidate()">{{labels1[0].validate}}</button>
+          </div>
+        </div>
+
+        <div *ngIf="Showpassword=='1'">
+          <form #doctorForm="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels1[0].pinno}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="mypinno" required [(ngModel)]="mypinno">
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels1[0].userName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" disabled name="username" required [(ngModel)]="username"
+                  placeholder="{{labels1[0].userName}}"
+                  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32'>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels1[0].password}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" name="password" required [(ngModel)]="password"
+                  placeholder="{{labels1[0].password}}">
+                <span *ngIf="pp=='1'" style="color:red">{{labels1[0].weakPassword}}</span>
+              </div>
+            </div>
+            <!-- <br><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn allbtns btncolor" (click)="insertdetails()"
+                  [disabled]="doctorForm.form.invalid">
+                  {{labels1[0].update}}
+                </button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div><br><br> -->
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

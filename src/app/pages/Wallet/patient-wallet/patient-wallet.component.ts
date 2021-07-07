@@ -59,8 +59,8 @@ export class PatientWalletComponent implements OnInit {
     };
 
 
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 30);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 30);
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 10000);
+    var lll = this.EDate.setDate(this.EDate.getDate() +  10000);
    
 
     this.startdate = formatDate(kkk, format, locale);

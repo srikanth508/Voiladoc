@@ -23,7 +23,7 @@ import { listLocales } from 'ngx-bootstrap/chronos';
 
 export class AppComponent {
 
-  
+
   public locales = listLocales();
 
   vid: number;
@@ -56,23 +56,10 @@ export class AppComponent {
   hidesidebar
   docnoti
   labels10: any;
-
+  countrymanagersid: any;
+  countrynotifications: any;
 
   ngOnInit() {
-
-    
-    this.userIdle.startWatching();
-
-    // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().subscribe(count => console.log(count)
-    );
-    
-    // Start watch when time is up.
-    this.userIdle.onTimeout().subscribe(() =>
-      console.log('Time is up!'));
-    
-
-
     this.show = 1;
     this.showsidebar = 0;
     this.languageid = localStorage.getItem('LanguageID');
@@ -83,7 +70,7 @@ export class AppComponent {
 
     }
     else {
-      
+
       this.localeService.use('fr');
     }
     this.temp = sessionStorage.getItem('temp');
@@ -104,6 +91,7 @@ export class AppComponent {
     this.midwifeid = localStorage.getItem('midwifeid');
     this.physioid = localStorage.getItem('physioid');
     this.supportid = localStorage.getItem('supportid');
+    this.countrymanagersid = localStorage.getItem('Commacountryid');
     this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
@@ -124,35 +112,6 @@ export class AppComponent {
     this.getlanguageprescription();
     this.obseravablepharmacyno();
   }
-
-
-
-
-
-  stop() {
-    this.userIdle.stopTimer();
-    
-    this.clear();
-    
-  }
-
-  stopWatching() {
-    this.userIdle.stopWatching();
-    
-  }
-
-  startWatching() {
-    this.userIdle.startWatching();
-    
-  }
-
-  restart() {
-    this.userIdle.resetTimer();
-    
-  }
-
-
-
 
 
 
@@ -182,7 +141,7 @@ export class AppComponent {
 
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
-      if (this.doctorid != null) {
+      if (this.doctorid != null && this.doctorid != undefined) {
         this.GetDoctorNotifications();
         this.GetChatnotificationslist();
         this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe(data => {
@@ -195,18 +154,10 @@ export class AppComponent {
           data => {
 
             let alldata = data;
-            this.notificationcount = 0
-            this.notifications = [];
-            this.notificationcount = data[0].notifycount;
+
             this.docservice.GetNotifications_DoctorByDoctorID(this.doctorid).subscribe
               (datas => {
                 this.doctorNotifications = datas;
-                // if (this.doctorNotifications.length = 0) {
-                //   this.notificationcount = (this.doctorNotifications[0].notifycount);
-                // }
-                // else {
-                //   this.notificationcount = 0;
-                // }
 
               })
 
@@ -249,16 +200,23 @@ export class AppComponent {
         this.docservice.GetNotification_Pharmacy(this.pharmacyid).subscribe
           (datas => {
             this.notificationcount = 0;
-
-            this.pharmcunoti = datas;
+            this.doctorNotifications = datas;
             this.notificationcount = Number(this.pharmcunoti[0].notifycount);
+            // Swal.fire('New Notifications');
+          })
+      }
+      else if (this.countrymanagersid != null && this.countrymanagersid != undefined) {
+        this.docservice.GetNotifications(this.countrymanagersid, this.languageid).subscribe
+          (datas => {
+            this.notificationcount = 0;
+            this.doctorNotifications = datas;
+            this.notificationcount = Number(this.doctorNotifications[0].notifycount);
             // Swal.fire('New Notifications');
           })
       }
 
     });
   }
-
 
   obseravablepharmacyno() {
 
@@ -401,8 +359,11 @@ export class AppComponent {
 
     const source = timer(1000, 20000);
     const abc = source.subscribe(val => {
-
-      this.GetDocnoti()
+      if (this.doctorid != null || this.doctorid != undefined)
+      {
+        this.GetDocnoti()
+      }
+      
     });
   }
 
@@ -434,13 +395,13 @@ export class AppComponent {
   }
 
   public Update_appointmentFordemand(doctorHospitalDetailsID, doctorID, appointmentID, notificationID, emailID, doctorName, date) {
-    
+
     this.doctorname = doctorName,
       this.email = emailID,
       this.date = date
 
     this.docservice.Update_AppointmentForOnDemandVideoConferenceForDoctor(doctorHospitalDetailsID, doctorID, appointmentID, notificationID).subscribe(data => {
-      
+
       if (data != undefined) {
         this.GetDoctorNotifications();
         this.Insertvisitnotificatiaccept()
@@ -775,7 +736,7 @@ export class AppComponent {
         }
         else if (this.languageid == 6) {
           Swal.fire('Succès', 'Commande rejetée avec succès');
-          var smsdesc =  "La " + this.details.pharmacyName + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie."
+          var smsdesc = "La " + this.details.pharmacyName + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie."
           this.SendTwiliSms(smsdesc, this.mobileno)
         }
       }, error => {
@@ -1002,12 +963,18 @@ export class AppComponent {
   }
 
 
+  public updatecountrynoti(id) {
+    this.docservice.UpdateNotificationSeen(id).subscribe(data => {
+
+    })
+  }
+
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
     debugger
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      
+
     })
   }
 }

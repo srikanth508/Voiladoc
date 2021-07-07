@@ -55,12 +55,13 @@ export class ReceptionstloginDashComponent implements OnInit {
   public username: any;
   public password: any;
   public mypinno: any;
+  oldpassword: any;
 
   public GetDeatsils(details) {
-    
+
     this.id = details.id,
       this.username = details.userName,
-      this.password = details.password,
+      this.oldpassword = details.password,
       this.mypinno = details.pinno
     this.Showpassword = 0;
   }
@@ -104,9 +105,9 @@ export class ReceptionstloginDashComponent implements OnInit {
   public entercurrentpwd: any;
 
   public CheckPasswordvalidate() {
-    
+
     if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
-      
+
       if (this.languageID == 1) {
         Swal.fire('Please Enter Your Pin No && Current password')
         this.entercurrentpwd = "";
@@ -121,14 +122,14 @@ export class ReceptionstloginDashComponent implements OnInit {
 
     }
     else {
-      
+
       if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
         this.entercurrentpwd = "";
       }
       else {
-        
+
         if (this.languageID == 1) {
           Swal.fire('Please enter valid Pinno and valid password')
           this.Enteredpinno = ""

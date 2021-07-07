@@ -128,13 +128,13 @@ export class EditDeliveryCompanyComponent implements OnInit {
   public GetAreaID(even) {
 
     this.areaid = even.target.value;
-    for (let i = 0; i < this.arealist.length; i++) {
+    // for (let i = 0; i < this.arealist.length; i++) {
 
-      if (this.arealist[i].id == this.areaid) {
+    //   if (this.arealist[i].id == this.areaid) {
 
-        this.pincode = this.arealist[i].pincode
-      }
-    }
+    //     this.pincode = this.arealist[i].pincode
+    //   }
+    // }
   }
   public updatedetails() {
 

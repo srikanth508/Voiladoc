@@ -23,7 +23,7 @@ export class ChangeDeliveryPwdComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
-    
+
     this.currentpwd = localStorage.getItem('Password');
     this.deliverycompanyid = localStorage.getItem('deliveryid');
     this.GetDeliveryCompanyLoginAdmin();
@@ -45,11 +45,11 @@ export class ChangeDeliveryPwdComponent implements OnInit {
   public GetDeliveryCompanyLoginAdmin() {
     this.docservice.GetDeliveryCompanyLoginAdmin(this.languageid).subscribe(
       data => {
-        
+
         this.dummphysiologinlist = data;
-        
+
         this.physiologinlist = this.dummphysiologinlist.filter(x => x.deliveryCompanyID == this.deliverycompanyid)
-        
+
 
       }, error => {
       }
@@ -131,31 +131,29 @@ export class ChangeDeliveryPwdComponent implements OnInit {
   public entercurrentpwd: any;
 
   public CheckPasswordvalidate() {
-    
+
     if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
-      
+
       if (this.languageid == 1) {
         Swal.fire('Please Enter Your Pin No && Current password')
         this.entercurrentpwd = "";
         this.Enteredpinno = "";
       }
       else {
-        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        Swal.fire("Nom d'utilisateur et mot de passe ne correspondent pas.");
         this.entercurrentpwd = "";
         this.Enteredpinno = "";
       }
-
-
     }
     else {
-      
+
       if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
         this.entercurrentpwd = "";
       }
       else {
-        
+
         if (this.languageid == 1) {
           Swal.fire('Please enter valid Pinno and valid password')
           this.Enteredpinno = ""

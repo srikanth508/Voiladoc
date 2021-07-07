@@ -16,11 +16,22 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="{{labels[0].search}}">
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetType($event)">
+        <option value="0">Select</option>
+        <option value="1">Patient</option>
+        <option value="2">Doctors</option>
+        <option value="3">Home Care</option>
+        <option value="4">Hospitals / Clinics</option>
+        <option value="5">Pharmacy</option>
+        <option value="6">Lab</option>
+      </select>
+    </div>
+    <div class="col-lg-4">
 
     </div>
     <div class="col-lg-2">
-     <span style="margin-left:50px"> Count : <b>{{count}}</b></span>
+      <span style="margin-left:50px"> Count : <b>{{count}}</b></span>
     </div>
   </div>
   <br>
@@ -44,7 +55,8 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
-                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;" (click)="DeleteFrequentlyAskedQuestions(details.id)">
+                <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                  (click)="DeleteFrequentlyAskedQuestions(details.id)">
               </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/Faq',details.id]" style="color:black">
@@ -52,9 +64,8 @@
               </a>
 
 
-              <img src="assets/Images/imgicon.png" title="Images" 
-              (click)="GetImagesID(details.id)" data-toggle="modal" data-target="#exampleModalLong2"
-                style="margin: 2%;width: 20px;" />&nbsp;
+              <img src="assets/Images/imgicon.png" title="Images" (click)="GetImagesID(details.id)" data-toggle="modal"
+                data-target="#exampleModalLong2" style="margin: 2%;width: 20px;" />&nbsp;
               <!-- <a>
                 <img *ngIf="details.enableDisable =='0'" src="assets/Images/dactive.png" title="Disable" (click)="DisableFrequentlyAskedQuestions(details.id)"
                   style="width: 50px;" />
@@ -100,7 +111,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="row" >
+          <div class="row">
             <div class="col-lg-6" *ngFor="let showphoto of showimages">
               <br>
               <img src="{{showphoto.photoUrl}}" style="width: 100%;" />
@@ -109,14 +120,13 @@
             <br>
           </div>
           <br>
-        
+
           <br>
         </div>
       </div>
       <br>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;"
-          data-dismiss="modal">Close</button>
+        <button type="button" style="background-color: #f18235; color: white;" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

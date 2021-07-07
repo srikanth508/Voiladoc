@@ -38,11 +38,12 @@ export class DeliveryPartnerComponent implements OnInit {
   dropzonelable: any;
 
   ngOnInit() {
-   
+
     this.languageid = localStorage.getItem('LanguageID');
+    this.getlanguage();
     this.GetCountryMaster()
 
-    this.getlanguage();
+
 
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
@@ -51,28 +52,30 @@ export class DeliveryPartnerComponent implements OnInit {
       this.dropzonelable = "Télécharger des fichiers"
     }
 
-    this.deliverytypeid=""
+    this.deliverytypeid = ""
   }
-  select:any;
+  select: any;
+  search: any;
   public getlanguage() {
     this.docservice.GetAdmin_CompanyDetails_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
-        this.select= this.labels[0].select
+        this.select = this.labels[0].select;
+        this.search = this.labels[0].search
       }, error => {
       }
     )
   }
 
   public GetDeliveryTypeID(even) {
-   
+
     this.deliverytypeid = even.target.value;
   }
   public GetCountryMaster() {
     this.docservice.GetCountryMasterByLanguageID(this.languageid).subscribe(
       data => {
-       
+
         this.countrylist = data;
         this.countrydd = {
           singleSelection: true,
@@ -81,7 +84,8 @@ export class DeliveryPartnerComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search
         };
       }, error => {
       }
@@ -89,12 +93,12 @@ export class DeliveryPartnerComponent implements OnInit {
   }
 
   public GetCountryID(item: any) {
-   
+
     this.countryid = item.id;
-   
+
     this.docservice.GetCityMasterBYIDandLanguageID(this.countryid, this.languageid).subscribe(
       data => {
-       
+
         this.citylist = data;
 
         this.citydd = {
@@ -104,7 +108,8 @@ export class DeliveryPartnerComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -113,7 +118,7 @@ export class DeliveryPartnerComponent implements OnInit {
 
 
   public GetCityID(item1: any) {
-   
+
     this.cityid = item1.id;
     this.getareamasterbyid();
   }
@@ -122,7 +127,7 @@ export class DeliveryPartnerComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-   
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
@@ -134,50 +139,67 @@ export class DeliveryPartnerComponent implements OnInit {
 
   public uploadattachments() {
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-     
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-     
+
       let b = 'https://maroc.voiladoc.org' + a;
 
       this.showphoto.push(b)
       this.attachments.length = 0;
-     
+
     })
     // this.sendattachment();
   }
 
   public getareamasterbyid() {
-   
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-       
+
         this.arealist = data;
         this.areadd = {
-          singleSelection: true,
+          singleSelection: false,
           idField: 'id',
           textField: 'areaName',
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
     )
   }
 
+  public cityidss = [];
+  multipincodes = [];
+
+
   public GetAreaID(item3: any) {
-   
+    debugger
     this.areaid = item3.id;
+    debugger
+    this.cityidss.push(item3.id);
+
+    // debugger
+    //     this.citssid = this.cityidss;
+    //     this.multiplecityid = this.citssid.join(',')
+    debugger
     for (let i = 0; i < this.arealist.length; i++) {
-     
+
       if (this.arealist[i].id == this.areaid) {
-       
-        this.pincode = this.arealist[i].pincode
+        debugger
+        this.multipincodes.push(this.arealist[i].pincode);
+        break;
+        debugger
       }
     }
   }
+  citssid: any;
+  multiplecityid: any;
+  multipincode: any;
 
   public insertdeliverycompany() {
     if (this.countryid == undefined || this.countryid.length == 0) {
@@ -190,9 +212,15 @@ export class DeliveryPartnerComponent implements OnInit {
     else if (this.areaid == undefined || this.areaid.length == 0) {
       Swal.fire("Please Select City");
     }
-    else
-    {
-      this.spinner.show();
+    else {
+      // this.spinner.show();
+      debugger
+      this.citssid = this.cityidss;
+      this.multiplecityid = this.citssid.join(',');
+      
+      var mulpin=this.multipincodes;
+      this.multipincode = mulpin.join(',');
+      debugger
       var entity = {
         'CompanyName': this.companyname,
         'ContactPerson': this.contactname,
@@ -205,10 +233,11 @@ export class DeliveryPartnerComponent implements OnInit {
         'PhotoURL': this.attachmentsurl[0],
         'Pincode': this.pincode,
         'DeliveryType': this.deliverytypeid,
-  
+        'CityIDs': this.multiplecityid,
+        'CityPincodes':this.multipincode
       }
       this.docservice.InsertDeliveryCompany(entity).subscribe(data => {
-       
+
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.spinner.hide();
         location.href = '#/DeliveryPartnerDashboard';

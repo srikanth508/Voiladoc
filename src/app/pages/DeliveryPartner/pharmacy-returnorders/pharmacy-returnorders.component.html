@@ -2,11 +2,11 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5  *ngIf="languageid=='1'">{{labels2[0].pharmacyreturnorders}}</h5>
-      <h5  *ngIf="languageid=='6'">RETOURS DE PHARMACIE</h5>
+      <h5  *ngIf="languageid=='6'">RETOUR DE MARCHANDISES</h5>
       <!-- <h5 *ngIf="languageid=='6'">RETOURS D’ACHAT</h5> -->
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
-      <button class="btn  btncolor" (click)="getglmasterexcel()">{{labels[0].exportExcel}}</button>
+      <!-- <button class="btn  btncolor" (click)="getglmasterexcel()">{{labels[0].exportExcel}}</button> -->
     </div>
   </div>
 </div><br>
@@ -38,7 +38,7 @@
           <tr>
             <th>{{labels[0].orderDate}}</th>
             <th>{{labels[0].orderNumber}}</th>
-            <th>{{labels[0].prescriptiontype}}</th>
+            <!-- <th>{{labels[0].prescriptiontype}}</th> -->
             <th>{{labels[0].pharmacyname}}</th>
             <!-- <th>{{labels[0].phoneNo}} </th> -->
             <th>{{labels[0].sustomerpickupaddress}}</th>
@@ -58,10 +58,10 @@
           <tr *ngFor="let details of orderlist|filter:term">
             <td>{{details.date}}</td>
             <td>{{details.id}}</td>
-            <td>
+            <!-- <td>
               <span *ngIf="details.orderType=='1'">Online</span>
               <span *ngIf="details.orderType=='2'">Photo</span>
-            </td>
+            </td> -->
             <td>{{details.pharmacyName}}</td>
             <!-- <td>{{details.mobileNumber}}</td> -->
             <td>{{details.address}}</td>

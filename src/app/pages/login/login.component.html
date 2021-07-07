@@ -68,18 +68,3 @@
 </div>
 
 
-
-<script>
-
-  
-  window.addEventListener('storage', () => {
-    
-    window.alert('Voiladoc is opened in another tab. Please logout from that tab to login here');
-    sessionStorage.clear();
-    localStorage.clear();
-    location.href = "#/login";
-    // location.reload();
-    
-  }, false)
-  localStorage.setItem('Sentinel', Math.random());
-</script>

@@ -39,7 +39,7 @@
       <span class="required">*</span>
     </div>
     <div class="col-lg-4">
-      <input type="text" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
+      <input type="text"  placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
         class="form-control">
     </div>
   </div>
@@ -106,6 +106,15 @@
           <option value="" >{{labels[0].select}}</option>
           <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
         </select>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">Pincode :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" [(ngModel)]="pincode" name="pincode" placeholder="Pincode">
       </div>
     </div><br>
   <div class="row">

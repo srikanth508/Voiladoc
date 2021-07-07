@@ -96,7 +96,7 @@
             <td>{{details.pEmail}}</td>
             <td  *ngIf="showreason=='1'">{{details.paidAmount}}</td>
             <td  *ngIf="showreason=='1'">{{details.refundComments}}</td>
-            <td *ngIf="showreason=='1'">Refunded</td>
+            <td *ngIf="showreason=='1'">{{labels[0].refunded}}</td>
             <td *ngIf="showreason!='1'">
               <label
                 *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"

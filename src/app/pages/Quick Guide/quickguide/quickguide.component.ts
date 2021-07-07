@@ -37,37 +37,37 @@ export class QuickguideComponent implements OnInit {
     if (this.doctorid != undefined) {
       this.docservice.GetChapterMaster(this.languageid, 2).subscribe(
         data => {
-          
+
           this.chapterlist = data;
 
         }, error => {
         }
       )
-    } 
-    else if (this.nurseid != undefined) {
+    }
+    else if (this.nurseid != undefined || this.midwifeid != undefined || this.physioid != undefined) {
       this.docservice.GetChapterMaster(this.languageid, 3).subscribe(
         data => {
-          
+
           this.chapterlist = data;
 
         }, error => {
         }
       )
     }
-    else if (this.physioid != undefined) {
+    else if (this.hospitalid != undefined) {
       this.docservice.GetChapterMaster(this.languageid, 4).subscribe(
         data => {
-          
+
           this.chapterlist = data;
 
         }, error => {
         }
       )
     }
-    else if (this.midwifeid != undefined) {
+    else if (this.pharmacyid != undefined) {
       this.docservice.GetChapterMaster(this.languageid, 5).subscribe(
         data => {
-          
+
           this.chapterlist = data;
 
         }, error => {
@@ -75,42 +75,32 @@ export class QuickguideComponent implements OnInit {
       )
     }
     else if (this.diagnosticid != undefined) {
-      this.docservice.GetChapterMaster(this.languageid, 7).subscribe(
-        data => {
-          
-          this.chapterlist = data;
-
-        }, error => {
-        }
-      )
-    }
-    else if (this.pharmacyid != undefined) {
       this.docservice.GetChapterMaster(this.languageid, 6).subscribe(
         data => {
-          
+
           this.chapterlist = data;
 
         }, error => {
         }
       )
     }
-    else if (this.pharmacyid != undefined) {
-      this.docservice.GetChapterMaster(this.languageid, 8).subscribe(
-        data => {
-          
-          this.chapterlist = data;
+    // else if (this.pharmacyid != undefined) {
+    //   this.docservice.GetChapterMaster(this.languageid, 8).subscribe(
+    //     data => {
 
-        }, error => {
-        }
-      )
-    }
+    //       this.chapterlist = data;
+
+    //     }, error => {
+    //     }
+    //   )
+    // }
 
 
 
   }
 
   public GetID(id) {
-    
+
     this.GetSubchpters(id)
   }
 
@@ -118,7 +108,7 @@ export class QuickguideComponent implements OnInit {
     this.subchapterlist = ""
     this.docservice.GetQuickGuideByWeb(id).subscribe(
       data => {
-        
+
         this.subchapterlist = data;
 
       }, error => {

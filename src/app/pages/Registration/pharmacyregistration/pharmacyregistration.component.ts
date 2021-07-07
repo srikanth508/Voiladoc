@@ -192,7 +192,7 @@ export class PharmacyregistrationComponent implements OnInit {
         'CityID': this.cityid,
         'Description': this.description,
         'AreaID': this.areaid,
-        'Pincode': this.pincode,
+        'Pincode': this.zipcode,
         'CountryID': this.countryid,
         'MonthlySubscription': this.monthlysubription,
         'HospitalClinicID': this.hospitalclinicid,

@@ -1,0 +1,67 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-12">
+      <h5 *ngIf="languageid=='1'">Delivery Reports</h5>
+      <h5 *ngIf="languageid=='6'">RAPPORT DE L'ENTREPRISE DE LIVRAISON- PHARMACIES</h5>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <!-- <div class="col-lg-3">
+      <select class="form-control" (change)="GetDepartmentName($event)">
+        <option value="0">{{labels[0].selectDepartment}}</option>
+        <option *ngFor="let dept of departmentlist" value={{dept.departmentname}}>{{dept.departmentname}}</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetDoctorName($event)">
+        <option value="0">{{labels[0].selectDoctor}}</option>
+        <option *ngFor="let doc of doctorlist" value={{doc.doctorName}}>{{doc.doctorName}}</option>
+      </select>
+    </div> -->
+  </div>
+  <br>
+  <!-- <h3 style="text-align: center;">{{labels[0].docAppts}}</h3> -->
+  <br>
+  <div class="row">
+
+    <div class="col-lg-3" *ngFor="let dets of deliverychargeslist">
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 25px;">
+        <br>
+        <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">{{dets.companyName}}</b>
+        </label>
+        <br />
+        <br />
+        <!-- <label style="color: black;font-size: 30px;color: white;">
+          <b style="font-size: 14px;">{{dets.departmentname}}</b>
+        </label>
+        <br />
+        <br /> -->
+        <label style="color: black;font-size: 30px;color: #f17e2d;" routerLink="/DeliveryPatnerReports"
+          (click)="GetDeliveryID(dets.deliveryCompanyID)">
+          <b>
+            <u style="font-size: 20px;">{{dets.totalAmount}}</u>
+          </b>
+        </label>
+      </div>
+      <br />
+      <br />
+      <!-- <p style="margin-left: 56px;margin-top: -16px;">Leads</p> -->
+    </div>
+    <br />
+  </div>
+</div><br>

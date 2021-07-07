@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-12">
       <h5 *ngIf="languageid=='1'">{{labels1[0].shoppingreturnorders}}</h5>
-      <h5 *ngIf="languageid=='6'">RETOURS D’ACHAT</h5>
+      <h5 *ngIf="languageid=='6'">Retours de marchandises</h5>
     </div>
   </div>
 </div>
@@ -38,16 +38,18 @@
             <!-- <th>{{labels[0].pharmacy_Name}}</th> -->
             <th>{{labels[0].pickUpAddress}}</th>
             <th>{{labels[0].customer_Name}}</th>
-            <th>{{labels[0].phoneNo}}</th>
+            <th *ngIf="languageid=='1'" >{{labels[0].phoneNo}}</th>
+            <th *ngIf="languageid=='6'" >No de tél du patient</th>
             <th>{{labels[0].email}}</th>
             <th>{{labels[0].deliveryAddress}}</th>
             <th>{{labels[0].assigned_To}}</th>
             <th>{{labels[0].assigned_To_PhoneNo}}</th>
             <th>{{labels[0].order_Status}}</th>
        
-            <th>Image</th>
+            <th *ngIf="languageid=='1'">Image</th>
+            <th *ngIf="languageid=='6'">Photo du problème</th>
             <th *ngIf="languageid=='1'">Return Comments</th>
-            <th *ngIf="languageid=='6'">Remarques</th>
+            <th *ngIf="languageid=='6'">Le problème</th>
             <th style="width: 100px;">{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of orderlist| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}|filter:term">

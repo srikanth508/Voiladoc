@@ -91,12 +91,14 @@ export class DeliveryCompanyLoginComponent implements OnInit {
             if (this.languageid == 1) {
               this.GetDeliveryCompanyLoginAdmin()
               Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+              location.href="#/DeliveryCompanyLoginDashboard"
               this.pp = 0;
             }
             else {
               this.GetDeliveryCompanyLoginAdmin()
               Swal.fire('Enregistré avec succès');
               this.pp = 0;
+              location.href="#/DeliveryCompanyLoginDashboard"
             }
 
 

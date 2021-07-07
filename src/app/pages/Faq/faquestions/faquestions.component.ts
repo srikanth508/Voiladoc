@@ -16,20 +16,87 @@ export class FAQuestionsComponent implements OnInit {
   public id: any;
   public faqlist: any;
   public dummfaqlist: any;
+  public pharmacyid: any;
+  public nurseid: any;
+  public midwifeid: any;
+  public physioid: any;
+  public diagnosticid: any;
+  public doctorid: any;
+  public hospitalid: any;
+  term:any;
+
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
 
-    this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
-      data => {
-        
-        this.dummfaqlist = data;
-        this.faqlist = this.dummfaqlist.filter(x => x.typeID == 2);
-        
-        
-      }, error => {
-      }
-    )
+    this.pharmacyid = localStorage.getItem('pharmacyid');
+    this.nurseid = localStorage.getItem('nurseid');
+    this.midwifeid = localStorage.getItem('midwifeid');
+    this.physioid = localStorage.getItem('physioid');
+    this.diagnosticid = localStorage.getItem('diagnosticid');
+    this.doctorid = localStorage.getItem('userid');
+    this.hospitalid = localStorage.getItem('hospitalid');
+
+    if (this.doctorid != undefined) {
+      this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
+        data => {
+
+          this.dummfaqlist = data;
+          this.faqlist = this.dummfaqlist.filter(x => x.typeID == 2);
+        }, error => {
+        }
+      )
+    
+    }
+    else if (this.nurseid != undefined || this.midwifeid != undefined || this.physioid != undefined) {
+      this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
+        data => {
+          this.dummfaqlist = data;
+          this.faqlist = this.dummfaqlist.filter(x => x.typeID == 3);
+
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.hospitalid != undefined) {
+      this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
+        data => {
+
+          this.dummfaqlist = data;
+          this.faqlist = this.dummfaqlist.filter(x => x.typeID == 4);
+
+
+        }, error => {
+        }
+      )
+    }
+
+    else if (this.pharmacyid != undefined) {
+      this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
+        data => {
+
+          this.dummfaqlist = data;
+          this.faqlist = this.dummfaqlist.filter(x => x.typeID == 5);
+
+        }, error => {
+        }
+      )
+    }
+    else if (this.diagnosticid != undefined) {
+      this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
+        data => {
+
+          this.dummfaqlist = data;
+          this.faqlist = this.dummfaqlist.filter(x => x.typeID == 6);
+
+
+        }, error => {
+        }
+      )
+    }
+
+
 
   }
 

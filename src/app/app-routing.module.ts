@@ -338,6 +338,8 @@ import { NpmEmrComponent } from './pages/Nurse/npm-emr/npm-emr.component';
 import { NurseEmrComponent } from './pages/Nurse/nurse-emr/nurse-emr.component';
 import { PatientPdfsComponent } from './pages/GenaratePDFs/patient-pdfs/patient-pdfs.component';
 import { PatientPdfComponent } from './pages/GenaratePDFs/patient-pdf/patient-pdf.component';
+import { DeliveryRevenueComponent } from './pages/DeliveryPartner/delivery-revenue/delivery-revenue.component';
+import { DeliveryPatnerReportsComponent } from './pages/DeliveryPartner/delivery-patner-reports/delivery-patner-reports.component';
 
 
 
@@ -741,6 +743,9 @@ const routes: Routes = [
   { path: 'NurseEmr/:patientID', component:  NurseEmrComponent},
   { path: 'PatientPdfs', component:  PatientPdfsComponent},
   { path: 'PatientPdf', component:  PatientPdfComponent},
+  { path: 'DeliveryRevenue', component:  DeliveryRevenueComponent},
+  { path: 'DeliveryPatnerReports', component:  DeliveryPatnerReportsComponent},
+
 ];
 
 @NgModule({

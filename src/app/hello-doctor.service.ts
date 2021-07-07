@@ -9,17 +9,17 @@ import { pipeDef } from '@angular/core/src/view';
 
 export class HelloDoctorService {
   //live
- public host = "https://maroc.voiladoc.org/MarocAPI";
+  public host = "https://maroc.voiladoc.org/MarocAPI";
 
-   private host1 = "https://maroc.voiladoc.org/MarocAPI";
+  private host1 = "https://maroc.voiladoc.org/MarocAPI";
 
 
 
   //test1
 
- // public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
+  // public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
- // private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
+  // private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
 
   private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";
@@ -166,7 +166,7 @@ export class HelloDoctorService {
     return this.http.get<any[]>(url + '/ServiceMaster/GetDoctorLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
   public GetHospitalAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
-    
+
     return this.http.get<any[]>(url + '/ServiceMaster/GetHospitalAdminRegistrationLogin?UserName=' + uname + '&Password=' + pwd + '&LanguageID=' + lid + '&Pinno=' + pinno);
   }
   public GetDiagnosticCenterAdminRegistrationLogin(uname, pwd, lid, url, pinno) {
@@ -395,7 +395,7 @@ export class HelloDoctorService {
     let formdata: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formdata.append('file_upload', files[i], files[i].name);
-      
+
     }
     return this.http.post(this.host + '/Hospital/HospitalPhotoUpload/', formdata);
   }
@@ -4067,9 +4067,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetDeliveredPatnerAssignReadyForAvailable?ID=' + id);
   }
 
-  public GetPatient_TextMedicineDetailsForDeliverCompany(sdate, edate, lid) {
-
-    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_TextMedicineDetailsForDeliverCompany?SDate=' + sdate + '&EDate=' + edate + '&LanguageID=' + lid);
+  public GetPatient_TextMedicineDetailsForDeliverCompany(sdate, edate, lid, pincodes) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_TextMedicineDetailsForDeliverCompany?SDate=' + sdate + '&EDate=' + edate + '&LanguageID=' + lid + '&Pincode=' + pincodes);
   }
 
   public GetPrescriptionReturnedPhotos(OrderID) {
@@ -4292,7 +4292,7 @@ export class HelloDoctorService {
   }
 
   public sendemail(data) {
-    
+
     this.url = this.host + '/Doctor/sendemail';
     return this.http.post(this.url, data)
   }
@@ -4634,10 +4634,40 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host2 + '/Master/UpdateVoiladocRegistrationEmailsStatus?ID=' + id);
   }
 
+  public UpdateVoiladocRegistrationEmailsStatusBackNormal(id) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/UpdateVoiladocRegistrationEmailsStatusBackNormal?ID=' + id);
+  }
+
+  public UpdateApprovedVoiladocRegisteredUsersAndUnApprove(id, typeid) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/UpdateApprovedVoiladocRegisteredUsersAndUnApprove?ID=' + id + '&TypeID=' + typeid);
+  }
+
   public UpdateVoiladocRegistrationEmailsStatusReject(id) {
 
     return this.http.get<any[]>(this.host2 + '/Master/UpdateVoiladocRegistrationEmailsStatusReject?ID=' + id);
   }
+
+
+  public GetNotifications(cid, lid) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/GetNotifications?countrymangerID=' + cid + '&LanguageID=' + lid);
+  }
+
+  public UpdateNotificationSeen(id) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/UpdateNotificationSeen?ID=' + id);
+  }
+
+
+
+
+  public GetAllRegisteredUsersCount(sdate, edate) {
+
+    return this.http.get<any[]>(this.host2 + '/Master/GetAllRegisteredUsersCount?StartDate=' + sdate + '&Enddate=' + edate);
+  }
+
   //end
 
   public UpdateDoctorLogins(data) {
@@ -5310,7 +5340,7 @@ export class HelloDoctorService {
 
 
   public InsertQuickGuide(data) {
-    
+
     this.url = this.host + '/Doctor/InsertQuickGuide';
     return this.http.post(this.url, data)
   }
@@ -5328,19 +5358,19 @@ export class HelloDoctorService {
 
 
   public UpdateQuickGuide(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateQuickGuide';
     return this.http.post(this.url, data)
   }
 
 
   public InsertTopicMaster(data) {
-    
+
     this.url = this.host + '/Doctor/InsertTopicMaster';
     return this.http.post(this.url, data)
   }
   public UpdateTopicMaster(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateTopicMaster';
     return this.http.post(this.url, data)
   }
@@ -5354,43 +5384,43 @@ export class HelloDoctorService {
 
 
   public ReceiptUpload(files) {
-    
+
     let formdata: FormData = new FormData();
     formdata.append('file_upload', files, files.name);
-    
+
     return this.http.post(this.host + '/Doctor/ReceiptUpload/', formdata);
   }
 
 
   public UpdateBookAppoinmentReceiptUrl(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateBookAppoinmentReceiptUrl';
     return this.http.post(this.url, data)
   }
 
 
   public UpdateBook_Nurse_AppointmentPdfUrl(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateBook_Nurse_AppointmentPdfUrl';
     return this.http.post(this.url, data)
   }
 
 
   public UpdateBook_Midwives_Appointment(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateBook_Midwives_Appointment';
     return this.http.post(this.url, data)
   }
 
   public UpdateBook_Physio_AppointmentPdfUrl(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateBook_Physio_AppointmentPdfUrl';
     return this.http.post(this.url, data)
   }
 
 
   public UpdateBookAppointment(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateBookAppointment';
     return this.http.post(this.url, data)
   }
@@ -5398,13 +5428,13 @@ export class HelloDoctorService {
 
 
   public UpdateBookAppointmentRefund(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateBookAppointmentRefund';
     return this.http.post(this.url, data)
   }
 
   public UpdatePatientWalletAmountDetailsLoadWallet(data) {
-    
+
     this.url = this.host + '/Diagnostic/UpdatePatientWalletAmountDetailsLoadWallet';
     return this.http.post(this.url, data)
   }
@@ -5421,13 +5451,13 @@ export class HelloDoctorService {
   }
 
   public InsertIndependentDoctors_Receptionist(data) {
-    
+
     this.url = this.host + '/Doctor/InsertIndependentDoctors_Receptionist';
     return this.http.post(this.url, data)
   }
 
   public UpdateIndependentDoctors_Receptionist(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateIndependentDoctors_Receptionist';
     return this.http.post(this.url, data)
   }
@@ -5438,7 +5468,7 @@ export class HelloDoctorService {
   }
 
   public UpdateSickSlipGenaratorSickSlipUrl(data) {
-    
+
     this.url = this.host + '/Doctor/UpdateSickSlipGenaratorSickSlipUrl';
     return this.http.post(this.url, data)
   }
@@ -5475,7 +5505,7 @@ export class HelloDoctorService {
 
 
   public InsertPatientRelation_FamilyTree_Web(data) {
-    
+
     this.url = this.host + '/PatientRegistration/InsertPatientRelation_FamilyTree_Web';
     return this.http.post(this.url, data)
   }
@@ -5497,13 +5527,13 @@ export class HelloDoctorService {
 
 
   public UpdatePharmacyOffers(data) {
-    
+
     this.url = this.host + '/Pharmacy/UpdatePharmacyOffers';
     return this.http.post(this.url, data)
   }
 
   public UpdatePharmacyOffersPhotos(data) {
-    
+
     this.url = this.host + '/Pharmacy/UpdatePharmacyOffersPhotos';
     return this.http.post(this.url, data)
   }
@@ -5518,7 +5548,7 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Doctor/GetPatient_Referal_InvitationsWeb?LanguageID=' + id);
   }
   public InsertPatient_Invites_Master(data) {
-    
+
     this.url = this.host + '/Doctor/InsertPatient_Invites_Master';
     return this.http.post(this.url, data)
   }
@@ -5616,7 +5646,7 @@ export class HelloDoctorService {
     let formdata: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formdata.append('file_upload', files[i], files[i].name);
-      
+
     }
     return this.http.post(this.host + '/Doctor/SoapAttachments/', formdata);
   }
@@ -5677,12 +5707,12 @@ export class HelloDoctorService {
   }
 
   public GetDiaPharmacCounts(sdate, edate, lid) {
-    
+
     return this.http.get<any[]>(this.host + '/Pharmacy/GetDiaPharmacCounts?StartDate=' + sdate + '&EndDate=' + edate + '&LanguageID=' + lid);
   }
 
   public GetDiaPharmaPaymenets(sdate, edate, typeid, lid) {
-    
+
     return this.http.get<any[]>(this.host + '/Pharmacy/GetDiaPharmaPaymenets?Sdate=' + sdate + '&Edate=' + edate + '&TypeID=' + typeid + '&LanguageID=' + lid);
   }
 
@@ -5714,7 +5744,7 @@ export class HelloDoctorService {
   }
 
   public InsertNPM_PatientSoapNotesWeb(data) {
-    
+
     this.url = this.host + '/Doctor/InsertNPM_PatientSoapNotesWeb';
     return this.http.post(this.url, data)
   }
@@ -5738,17 +5768,31 @@ export class HelloDoctorService {
 
 
   public DoctorPdfreports(files) {
-    
+
     let formdata: FormData = new FormData();
     formdata.append('file_upload', files, files.name);
-    
+
     return this.http.post(this.host + '/Doctor/DoctorPdfreports/', formdata);
   }
-  
- 
+
+
   public UpdateBookAppointmentReportPdfsUrl(data) {
     this.url = this.host + '/Doctor/UpdateBookAppointmentReportPdfsUrl';
     return this.http.post(this.url, data)
   }
 
+  public GetDoctorSlotsGap(slotid, appdate, appid, doctorid, dayid, typeid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctorSlotsGap?SlotID=' + slotid + '&AppointmentDate=' + appdate + '&AppointmentID=' + appid + '&DoctorID=' + doctorid + '&DayID=' + dayid + '&TypeID=' + typeid);
+  }
+
+  public GetALlDeliveryChargesByCompany(lid, sdate, edate) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetALlDeliveryChargesByCompany?LanguageID=' + lid + '&StartDate=' + sdate + '&EndDate=' + edate);
+  }
+
+  public GetAllDeliveryPatnerDeliverReports(sdate, edate, deliveryid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetAllDeliveryPatnerDeliverReports?StartDate=' + sdate + '&EndDate=' + edate + '&DeliveryComapnayID=' + deliveryid);
+  }
 }

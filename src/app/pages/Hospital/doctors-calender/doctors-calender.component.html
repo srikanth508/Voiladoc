@@ -398,6 +398,21 @@
           </div>
         </div><br>
         <div class="row">
+          <div class="col-lg-12">
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" value="1"  (click)="gettimechange($event)"> &nbsp;
+            {{labels[0].inclinic}} &nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" value="2" (click)="gettimechange($event)"> &nbsp;
+            {{labels[0].video}} &nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" value="5" (click)="gettimechange($event)"> &nbsp;
+            {{labels[0].homeVisit}}&nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" value="4" (click)="gettimechange($event)"> &nbsp;
+            {{labels[0].notAvailable}}&nbsp;
+            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" value="6" (click)="gettimechange($event)"> &nbsp;
+            {{labels[0].meeting}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
           <div class="col-lg-3">
             <span>{{labels[0].startTime}} </span>
           </div>
@@ -420,24 +435,9 @@
             </select>
           </div>
         </div><br>
+        
         <div class="row">
-          <div class="col-lg-12">
-            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="1"> &nbsp;
-            {{labels[0].inclinic}} &nbsp;
-            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="2"> &nbsp;
-            {{labels[0].video}} &nbsp;
-            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="5"> &nbsp;
-            {{labels[0].homeVisit}}&nbsp;
-            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="4"> &nbsp;
-            {{labels[0].notAvailable}}&nbsp;
-            <input type="radio" [(ngModel)]="timewiseappointmentid" name="timewiseappointmentid" [value]="6"> &nbsp;
-            {{labels[0].meeting}}
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-lg-1">
-          </div>
+        
           <div class="col-lg-3">
             <span *ngIf="timewiseappointmentid!=4&&timewiseappointmentid!=6"> {{labels[0].fees}} :</span>
           </div>

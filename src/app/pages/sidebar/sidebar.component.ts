@@ -120,11 +120,12 @@ export class SidebarComponent implements OnInit {
   public doctoragenda: any;
   public nurseagenda: any;
   public physiotherapistagenda: any;
-  diagnosticagenda:any;
-  completedtickets:any;
-  refundtickets:any;
-  refundticketsmenu:any;
-  hospitalididd:any;
+  diagnosticagenda: any;
+  completedtickets: any;
+  refundtickets: any;
+  refundticketsmenu: any;
+  hospitalididd: any;
+  deliveryreports: any;
   ngOnInit() {
 
     this.display = "none";
@@ -137,12 +138,12 @@ export class SidebarComponent implements OnInit {
     this.getlanguage()
 
     if (this.roleid == 15 || this.roleid == 18 || this.roleid == 19 || this.roleid == 20 || this.roleid == 21 || this.roleid == 17) {
-      
+
       this.docservice.GetMenuRoleMappingTableByRoleID(this.languageid, this.roleid).subscribe(
         data => {
-          
+
           this.menulist = data;
-          
+
           for (let s = 0; s < this.menulist.length; s++) {
             if (this.menulist[s].menus == 'Masters') {
               this.masters = 1;
@@ -455,13 +456,16 @@ export class SidebarComponent implements OnInit {
             if (this.menulist[s].subMenuName == 'Invitation Master') {
               this.invitationmaster = 1;
             }
+            if (this.menulist[s].subMenuName == 'Delivery Reports') {
+              this.deliveryreports = 1;
+            }
           }
         })
     }
   }
- 
-  homedeliveryfees:any;
-  invitationmaster:any;
+
+  homedeliveryfees: any;
+  invitationmaster: any;
 
 
   public getlanguage() {

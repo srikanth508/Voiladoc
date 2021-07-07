@@ -263,8 +263,8 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label *ngIf="languageid=='1'"> <b>SOAP Notes Doctors</b></label>
-      <label *ngIf="languageid=='6'"><b>Note SOAP - Docteurs</b></label>
+      <label id="imp" *ngIf="languageid=='1'"> <b>SOAP Notes Doctors</b></label>
+      <label  id="imp" *ngIf="languageid=='6'"><b>Notes SOAP - Docteurs</b></label>
       <!-- <label>
         <b id="imp">{{labels[0].soapNotes}}</b>
       </label> -->
@@ -312,8 +312,8 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-      <label *ngIf="languageid=='1'"><b>SOAP Notes Homecare</b></label>
-      <label *ngIf="languageid=='6'"><b>Notes- Homecare / Soins a domicile</b></label>
+      <label *ngIf="languageid=='1'" id="imp"><b>SOAP Notes Homecare</b></label>
+      <label *ngIf="languageid=='6'" id="imp"><b>Notes - Prestataires de soins à domicile</b></label>
     </div>
   </div>
   <div class="row">
@@ -323,7 +323,7 @@
           <tr>
             <th id="imp" [style.background-color]="color">{{labels[0].appointmentDate}}</th>
             <th id="imp" [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
-            <th [style.background-color]="color">Provider Name</th>
+            <th id="imp" [style.background-color]="color">{{labels[0].providername}}</th>
             <!-- <th [style.background-color]="color">{{labels1[0].department}}</th> -->
             <th [style.background-color]="color">{{labels1[0].phoneNo}}</th>
             <!-- <th [style.background-color]="color">{{labels[0].ailment}}</th> -->
@@ -360,7 +360,8 @@
   <div class="row">
     <div class="col-lg-3">
       <label>
-        <b id="imp">Vital Details </b>
+        <b id="imp" *ngIf="languageid=='1'">Vital Details </b>
+        <b id="imp" *ngIf="languageid=='6'">Paramètres vitaux </b>
       </label>
     </div>
   </div>
@@ -369,7 +370,7 @@
       <table>
         <thead>
           <tr>
-            <th [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
+            <th id="imp" [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
             <th  id="imp" [style.background-color]="color">BPM</th>
            
             <th  id="imp" [style.background-color]="color">CPM</th>

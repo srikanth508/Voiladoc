@@ -64,7 +64,8 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
     this.languageid = localStorage.getItem("LanguageID");
 
     this.typeid = 1
-    this.GetRegistreedVoiladocusers()
+    this.GetRegistreedVoiladocusers();
+    this.GetAllRegisteredUsersCount()
     this.getlanguage()
     this.getlang()
     this.getlanguage1()
@@ -77,6 +78,19 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   }
 
   public dummreglist: any;
+
+  countlist:any;
+
+  public GetAllRegisteredUsersCount() {
+    this.docservice.GetAllRegisteredUsersCount(this.startdate, this.enddate).subscribe(data => {
+      // this.RegisteredList = data;
+      this.countlist = data;
+    
+
+    })
+  }
+
+
 
   public GetRegistreedVoiladocusers() {
     this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid, this.languageid).subscribe(data => {
@@ -289,11 +303,17 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         //   })
         // })
         this.spinner.hide();
-        this.GetRegistreedVoiladocusers()
+        this.GetRegistreedVoiladocusers();
+        this.GetAllRegisteredUsersCount()
       }
       else {
         Swal.fire('Hospital Clinic Name', 'Already Exists');
         // this.clear();
+        this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+          let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+          })
+        })
         this.spinner.hide();
         // location.href = "#/HspClidash"
       }
@@ -352,7 +372,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       this.attachmentsurl1[0] = 'C:\\VoilaDocWebAPI\\Images\\DocPhoto\\Doctor.jpg'
     }
     this.spinner.show();
-    
+
     var entity = {
       'DoctorName': list.username,
       'MobileNumber': list.phoneNo,
@@ -383,10 +403,10 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       'SlotDurationID': list.slotDurationID
     }
     this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
-      
+
       if (data != 0) {
         this.doctorid = data;
-        
+
         // this.insertdoctorspecilisation();
         this.insertidentityProof(list);
         this.InsertMedicalProof(list);
@@ -410,14 +430,38 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         //   })
         //     })
         // location.href = "#/Docdash";
-        
+
         this.GetRegistreedVoiladocusers()
+        this.GetAllRegisteredUsersCount()
       }
       else {
-        Swal.fire('Doctor Name', 'Already Exists');
-        this.spinner.hide();
-        // location.href = "#/Docdash";
-        this.GetRegistreedVoiladocusers()
+        if (this.languageid == 1) {
+          Swal.fire('Doctor Name', 'Already Exists');
+          this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+            let test = res;
+            this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+            })
+          })
+          this.spinner.hide();
+          // location.href = "#/Docdash";
+          this.GetRegistreedVoiladocusers()
+
+
+        }
+        else {
+          Swal.fire('Nom du docteur', 'Existe déjà.');
+          this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+            let test = res;
+            this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+            })
+          })
+          this.spinner.hide();
+          // location.href = "#/Docdash";
+
+          this.GetRegistreedVoiladocusers()
+
+        }
+
       }
     })
   }
@@ -625,9 +669,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         else {
           Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
         }
+
         this.spinner.hide();
         // location.href = '#/NurseDashboard';
         this.GetRegistreedVoiladocusers();
+        this.GetAllRegisteredUsersCount()
         // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
         //   let test = res;
         //   this.docservice.UpdateVoiladocRegistrationEmailsStatus(list.regID).subscribe(data => {
@@ -636,6 +682,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       }
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');
+        this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+          let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+          })
+        })
         this.spinner.hide();
         // location.href = '#/NurseDashboard';
         this.GetRegistreedVoiladocusers()
@@ -716,7 +767,8 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
           Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
         }
         this.spinner.hide();
-        this.GetRegistreedVoiladocusers()
+        this.GetRegistreedVoiladocusers();
+        this.GetAllRegisteredUsersCount()
 
         // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
         //   let test = res;
@@ -727,6 +779,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       }
       else {
         Swal.fire('Error', 'Details Already Exists', 'success');
+        this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+          let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+          })
+        })
         this.spinner.hide();
         // location.href = '#/PhysiotherapistDashboard';
         this.GetRegistreedVoiladocusers()
@@ -811,7 +868,10 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         else {
           Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
         }
+
+
         this.spinner.hide();
+        this.GetAllRegisteredUsersCount()
         this.GetRegistreedVoiladocusers()
         // this.docservice.UpdateApprovedVoiladocRegisteredUsers(list.id, list.type).subscribe(res => {
         //   let test = res;
@@ -822,6 +882,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       }
       else {
         Swal.fire('Error', 'User details already exists', 'success');
+        this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+          let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+          })
+        })
         this.spinner.hide();
         this.GetRegistreedVoiladocusers()
         // location.href = '#/MidwifeDashboard';
@@ -842,9 +907,11 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
       if (data != 0) {
         if (this.languageid == 1) {
           Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
+          this.GetAllRegisteredUsersCount()
         }
         else {
           Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
+          this.GetAllRegisteredUsersCount()
         }
       }
       else {
@@ -910,10 +977,20 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         else {
           Swal.fire("Inscription terminée", "Merci.Nous serons en contact bientot. ");
         }
-        this.GetRegistreedVoiladocusers()
 
+        this.GetAllRegisteredUsersCount()
         this.spinner.hide();
         // location.href = "#/Pharmacydashboard"
+      }
+      else {
+        this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+          let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+          })
+        })
+        Swal.fire("Pharmacy already Exists");
+        this.spinner.hide();
+        this.GetRegistreedVoiladocusers()
       }
     })
   }
@@ -998,6 +1075,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
         this.diagnosticid = data;
         this.inserthspphotosDiagnosticPhotos(list);
         // this.InsertDiagnosticLogins(list)
+        this.GetAllRegisteredUsersCount()
 
         if (this.languageid == 1) {
           Swal.fire('Registration Completed', 'Thank you. We will be in touch soon', 'success');
@@ -1015,10 +1093,16 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
       }
-      // else {
-      //   Swal.fire('Diagnostic Center Name', 'Already Exists');
+      else {
+        this.docservice.UpdateApprovedVoiladocRegisteredUsersAndUnApprove(list.id, list.type).subscribe(res => {
+          let test = res;
+          this.docservice.UpdateVoiladocRegistrationEmailsStatusBackNormal(list.regID).subscribe(data => {
+          })
+        })
+        this.spinner.hide();
+        Swal.fire('Diagnostic Center Name', 'Already Exists');
 
-      // }
+      }
     })
 
 
@@ -1172,9 +1256,9 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   dianame: any;
 
   public GetViewdetails(list) {
-    
+
     if (list.type == 1) {
-      
+
       this.typeids = list.type;
       this.contactpersonname = list.contactpersonName;
       this.contactpersonphno = list.contatcpersonPhoneNo;
@@ -1190,7 +1274,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
     }
     else if (list.type == 2) {
-      
+
       this.typeids = list.type;
       this.contactpersonname = list.contactpersonName;
       this.contactpersonphno = list.contatcpersonPhoneNo;
@@ -1206,7 +1290,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
     }
     else if (list.type == 3) {
-      
+
       this.typeids = list.type;
       this.contactpersonname = list.contactpersonName;
       this.contactpersonphno = list.contatcpersonPhoneNo;
@@ -1350,7 +1434,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
 
 
   labels: any;
-  labels2:any;
+  labels2: any;
   public getlanguage() {
     this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
       data => {
@@ -1363,7 +1447,7 @@ export class VoiladocRegisteredUsersComponent implements OnInit {
   }
 
   labels1: any;
-  labels3:any;
+  labels3: any;
   public getlang() {
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {

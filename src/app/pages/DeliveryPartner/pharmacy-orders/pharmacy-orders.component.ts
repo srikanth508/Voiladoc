@@ -46,13 +46,17 @@ export class PharmacyOrdersComponent implements OnInit {
   public partnerlist: any;
   public labels1: any;
   public deliverycompanyid: any;
-  public labels2:any;
+  public labels2: any;
+  public pincode: any;
+  public pincodecodearray: any;
+  public filteredpincodes = [];
 
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.deliverycompanyid = localStorage.getItem('deliveryid');
-
+    this.pincode = localStorage.getItem('pincode');
+    debugger
     this.getlanguage()
     this.options = {
       theme: 'default',
@@ -85,35 +89,35 @@ export class PharmacyOrdersComponent implements OnInit {
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
-    this.GetPharmacyOrders()
+
 
     this.docservice.GetDeliveryPartnersByID(this.deliverycompanyid).subscribe(
       data => {
-       
+
         this.partnerlist = data;
       }, error => {
       }
     )
 
 
-    
-this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
-  data => {
-   
-    this.labels2 = data;
-  }, error => {
-  }
-)
 
+    this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
+      data => {
 
+        this.labels2 = data;
+      }, error => {
+      }
+    )
+
+    this.GetPharmacyOrders()
   }
 
 
   public GetPharmacyOrders() {
-   
-    this.docservice.GetPatient_TextMedicineDetailsForDeliverCompany(this.startdate, this.enddate, this.languageid).subscribe(
+    debugger
+    this.docservice.GetPatient_TextMedicineDetailsForDeliverCompany(this.startdate, this.enddate, this.languageid, this.pincode).subscribe(
       data => {
-       
+        debugger
         this.orderlist = data;
       }, error => {
       }
@@ -124,14 +128,14 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   public getlanguage() {
     this.docservice.GetAdmin_PharmacyLoginDoctorPrescriptionReports_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
     this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       }, error => {
       }
@@ -139,7 +143,7 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
   }
 
   selectedDate(data) {
-   
+
 
     // var sdate = data.split('-')
     // this.startdate= sdate[0]
@@ -160,27 +164,25 @@ this.docservice.GetAdmin_LoginPage_Labels(this.languageid).subscribe(
 
 
   public asssign(pid) {
-   
+
     var entity = {
       'MedicineOrderID': this.orderid,
       'DeliveryCompanyID': this.deliverycompanyid,
       'PartnerID': pid,
-      'Status': 'Assigned'
+      'Status': 'Attribué'
     }
     this.docservice.InsertDeliveryPartnerAssignedOrders(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire(' Assigned', 'Order Assigned to delivery partner.');
         this.GetPharmacyOrders()
       }
-      else
-      {
+      else {
         Swal.fire('La commande a été attribuée au livreur');
-      this.GetPharmacyOrders()
+        this.GetPharmacyOrders()
 
       }
-      
+
 
     })
 

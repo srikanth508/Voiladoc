@@ -837,7 +837,7 @@ export class DocworkingdetailsComponent implements OnInit {
       this.idcount = this.idcount + 1;
 
       var mrngslots = this.mrngfromlist.findIndex(x => x.id == this.mrngtoid);
-      this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 1, this.mrngfromlist.length);
+      this.mrngfromlist = this.mrngfromlist.slice(mrngslots + 2, this.mrngfromlist.length);
 
     }
     this.session1 = "";

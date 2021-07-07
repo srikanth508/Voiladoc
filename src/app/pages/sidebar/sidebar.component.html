@@ -19,6 +19,13 @@
                     <img src="assets/Images/hos.png" style="width: 15px;margin-left: 18px;">&nbsp; &nbsp; Revenue
                     <!-- {{labels[0].revenue}} -->
                 </a>
+
+                <a class="tablinks" (click)="highlight($event)" routerLink="/DeliveryRevenue">
+                    <img src="assets/Images/hos.png" style="width: 15px;margin-left: 18px;">&nbsp; &nbsp;
+                    {{labels[0].deliveryReports}}
+
+                    <!-- {{labels[0].revenue}} -->
+                </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/AllCancelledAppointments">
                     <img src="assets/Images/hos.png" style="width: 15px;margin-left: 18px;">&nbsp; &nbsp; Cancelled
                     Appointments
@@ -577,6 +584,11 @@
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 FAQ
             </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/Quickguide">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].quickGuide}}
+            </a>
+
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='24'" routerLink="/DoctorSupportDash">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].supportTickets}}
@@ -703,6 +715,10 @@
                 <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='3'" routerLink="/FAQuestions">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                FAQ
+            </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='3'" routerLink="/Quickguide">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].quickGuide}}
@@ -740,7 +756,7 @@
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiaChargesReport">
                 <!-- <img src="assets/Images/dt.png" style="width: 15px;">&nbsp; &nbsp; -->
-                 {{labels[0].homeDeliveryCharges}}
+                {{labels[0].homeDeliveryCharges}}
             </a>
             <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiagnosticPackageDash">
                 <img src="assets/Images/diapack.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticpackage}}
@@ -804,6 +820,11 @@
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 FAQ
             </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/Quickguide">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].quickGuide}}
+            </a>
+
 
             <!-- FINANACEMANAGER -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='22'" routerLink="/BillingDashboard">
@@ -842,7 +863,7 @@
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/PharmacyChargesReport">
                 <img src="assets/Images/orderreport32x32.png" style="width: 15px;">&nbsp; &nbsp;
-                Home Delivery Charges
+                {{labels[0].pharmacyDeliveryFees}}
             </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='5'" routerLink="/OffersDashboard">
@@ -1079,9 +1100,9 @@
                 <img src="assets/Images/offers.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].employees}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='10'" routerLink="/ChangeDeliveryPwd">
-                <img src="assets/Images/offers.png" style="width: 15px;">&nbsp; &nbsp; Change Password
+                <img src="assets/Images/offers.png" style="width: 15px;">&nbsp; &nbsp;   {{labels[0].changepassword}}
             </a>
-          
+
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='10'" routerLink="/DeliverPartnerProfile">
                 <img src="assets/Images/offers.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myProfile}}
             </a>
@@ -1166,6 +1187,15 @@
                 <img src="assets/Images/feedback.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='14'" routerLink="/FAQuestions">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                FAQ
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='14'" routerLink="/Quickguide">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].quickGuide}}
+            </a>
+
             <!-- management -->
 
             <a class="tablinks" (click)="highlight($event)" routerLink="/AdminDash" *ngIf="regentityes=='1'">
@@ -1182,7 +1212,12 @@
                 <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].appointmentss}}
                 <!-- {{labels[0].appointments}} -->
             </a>
+            <a class="tablinks" (click)="highlight($event)" routerLink="/DeliveryRevenue" *ngIf="deliveryreports=='1'">
+                <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp;
+                {{labels[0].deliveryReports}}
 
+                <!-- {{labels[0].revenue}} -->
+            </a>
             <a data-toggle="collapse" class="togglebtn button" *ngIf="registery=='1'" data-target="#manageregistration">
                 <img src="assets/Images/docreg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].registration}}
             </a>
@@ -1322,9 +1357,10 @@
                     <!-- <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;  -->
                     {{labels[0].subscriptions}}
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/HomedeliveryFees" *ngIf="homedeliveryfees=='1'">
+                <a class="tablinks" (click)="highlight($event)" routerLink="/HomedeliveryFees"
+                    *ngIf="homedeliveryfees=='1'">
                     <!-- <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; -->
-                     {{labels[0].homedeiliveryfees}}
+                    {{labels[0].homedeiliveryfees}}
                 </a>
             </div>
             <a data-toggle="collapse" class="togglebtn button" *ngIf="managelogins=='1'"
@@ -1555,9 +1591,10 @@
                     *ngIf="enablelocaldoctors=='1'">
                     <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].enableLocadoctor}}
                 </a>
-             
 
-                <a class="tablinks" (click)="highlight($event)" routerLink="/InvitationDash" *ngIf="invitationmaster=='1'">
+
+                <a class="tablinks" (click)="highlight($event)" routerLink="/InvitationDash"
+                    *ngIf="invitationmaster=='1'">
                     <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;Invitation Master
                     <!-- {{labels[0].patientWallet}} -->
                 </a>

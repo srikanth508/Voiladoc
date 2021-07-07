@@ -363,6 +363,8 @@ import { NpmEmrComponent } from './pages/Nurse/npm-emr/npm-emr.component';
 import { NurseEmrComponent } from './pages/Nurse/nurse-emr/nurse-emr.component';
 import { PatientPdfsComponent } from './pages/GenaratePDFs/patient-pdfs/patient-pdfs.component';
 import { PatientPdfComponent } from './pages/GenaratePDFs/patient-pdf/patient-pdf.component';
+import { DeliveryRevenueComponent } from './pages/DeliveryPartner/delivery-revenue/delivery-revenue.component';
+import { DeliveryPatnerReportsComponent } from './pages/DeliveryPartner/delivery-patner-reports/delivery-patner-reports.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -715,7 +717,9 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NpmEmrComponent,
     NurseEmrComponent,
     PatientPdfsComponent,
-    PatientPdfComponent
+    PatientPdfComponent,
+    DeliveryRevenueComponent,
+    DeliveryPatnerReportsComponent
    
   ],
   imports: [

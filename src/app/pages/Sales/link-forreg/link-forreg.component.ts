@@ -19,6 +19,7 @@ export class LinkForregComponent implements OnInit {
   public username: any;
   public password: any;
   languageid: any;
+  countrymanagerid: any;
   ngOnInit() {
     this.address = "https://voiladoc.org/registration/#/Login";
     if (this.languageid == 1) {
@@ -30,6 +31,7 @@ export class LinkForregComponent implements OnInit {
 
 
     this.languageid = localStorage.getItem("LanguageID");
+    this.countrymanagerid = localStorage.getItem("Commacountryid");
     this.getlanguage();
   }
   public GetTypeName(even) {
@@ -81,7 +83,8 @@ export class LinkForregComponent implements OnInit {
           'AddressLink': this.address,
           'Notes': this.notes,
           'UserName': this.username,
-          'Password': this.password
+          'Password': this.password,
+          'CountryManagerID': this.countrymanagerid
         }
         this.docservice.InsertLinkForRegistrations(entity).subscribe(data => {
           if (data != 0) {

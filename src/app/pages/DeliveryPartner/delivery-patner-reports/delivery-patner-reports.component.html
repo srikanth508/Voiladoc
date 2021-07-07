@@ -1,0 +1,108 @@
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-10">
+      <h5 *ngIf="languageid=='1'">Delivery Company Charges Report</h5>
+      <h5 *ngIf="languageid=='6'">RAPPORT DE L'ENTREPRISE DE LIVRAISON</h5>
+    </div>
+    <div class="col-lg-2">
+      <button class="btn btncolor" *ngIf="languageid=='1'" (click)="getglmasterexcel()">
+        Export To Excel</button>
+
+      <button class="btn btncolor" *ngIf="languageid=='6'" (click)="getglmasterexcel()">
+        Exporter vers Excel</button>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+        </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetPaymentTypeID($event)" *ngIf="languageid=='1'">
+        <option value="0" >Select Payment Type</option>
+        <option value="1">Wallet</option>
+        <option value="2"> Credit/Debit Card</option>
+        <option value="3">COD</option>
+        <!-- <option value="4">Mobile Payment</option> -->
+      </select>
+      <select class="form-control" (change)="GetPaymentTypeID($event)" *ngIf="languageid=='6'">
+        <option value="0">Sélectionner type de paiement</option>
+        <option value="1">Portefeuille</option>
+        <option value="2">Carte de crédit/debit</option>
+        <option value="3">Cash au praticien</option>
+        <!-- <option value="4">Mobile Payment</option> -->
+      </select>
+    </div>
+    <div class="col-lg-2">
+      <b *ngIf="languageid=='1'">Total Amount : {{GrandTotal}}</b>
+
+      <b *ngIf="languageid=='6'">PAYER : {{GrandTotal}}</b>
+    </div>
+    <div class="col-lg-1">
+      <b *ngIf="languageid=='1'">Count : {{count}}</b>
+
+      <b *ngIf="languageid=='6'">Nombre : {{count}}</b>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Doc">
+        <thead>
+          <tr *ngIf="languageid=='1'">
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Patient Name</th>
+            <th>Mobile Number</th>
+            <th>Email ID</th>
+            <th>Pharmacy Name</th>
+            <th>Payment Type</th>
+
+            <th>Meridional Delivery Commission</th>
+            <th>Delivery Patner Charges</th>
+            <!-- <th>Actions</th> -->
+          </tr>
+
+          <tr *ngIf="languageid=='6'">
+            <th>Nô de commande </th>
+            <th>Date</th>
+            <th>Nom de patient</th>
+            <th>No de tél du patient</th>
+            <th>Email du patient</th>
+            <th>Nom de la Pharmacie</th>
+            <th>Type de paiement</th>
+            <th>Commission Voiladoc </th>
+            <th>Honoraires du partenaire</th>
+            <!-- <th>Actions</th> -->
+          </tr>
+          <tr *ngFor="let details of DiagnosticChargeslist|filter:term">
+            <td>{{details.medicineOrderID}}</td>
+            <td>{{details.orderDate}}</td>
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.pharmacyName}}</td>
+            <td>{{details.paymentType}}</td>
+            <!-- <td>{{details.paidAmount}}</td> -->
+            <td>{{details.meridionalCommission}}</td>
+            <td>{{details.deliveryCharges}}</td>
+            <!-- <td></td> -->
+          </tr>
+
+        </thead>
+      </table><br>
+    </div><br>
+  </div><br>
+</div><br><br><br>

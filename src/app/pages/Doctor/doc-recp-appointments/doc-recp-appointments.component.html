@@ -875,13 +875,12 @@
             </div>
           </div>
           <br>
-
           <div class="row">
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-                data-dismiss="modal" (click)="insertpaymentDetails()">Pay</button>
+              <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" style="width: 65px;"
+                data-dismiss="modal" (click)="insertpaymentDetails()">{{labels[0].pay}}</button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -890,7 +889,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
-          data-dismiss="modal">{{labels[0].close}}</button>
+         *ngIf="languageid=='1'" data-dismiss="modal">{{labels[0].close}}</button>
+         <button type="button" class="btn btn-secondary" style="background-color: #f18235; color: white;"
+         *ngIf="languageid=='6'" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

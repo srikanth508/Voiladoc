@@ -2,32 +2,37 @@
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <div class="col-lg-1">
+    <div class="col-lg-4">
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-6">
       <h5 *ngIf="languageid=='1'">Frequently Asked Questions </h5>
-      <h5 *ngIf="languageid=='6'">QUESTIONS FRÉQUEMMENT POSÉES      </h5>
+      <h5 *ngIf="languageid=='6'">QUESTIONS FRÉQUEMMENT POSÉES </h5>
     </div>
     <div class="col-lg-2">
-      <img src="assets/Images/logo.png" style="width: 50%;" >
+      <img src="assets/Images/logo.png" style="width: 50%;">
     </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="Search">
+    </div><br>
   </div>
   <hr>
-  <div class="row" *ngFor="let details of faqlist" >
-      <div class="col-lg-12">
-        <b>{{details.faq}}</b>
-      </div>&nbsp;&nbsp;
-      <div class="col-lg-12">
-        <p innerHTML="{{details.answers}}"></p>      
-      </div>
-      <div class="col-lg-10"></div>
-      <div class="col-lg-1" > 
-        <!-- <button (click)="GetImagesID(details.id)" data-toggle="modal" data-target="#exampleModalLong2" style="color:white">Images And Pdf</button> -->
-        <img src="assets/Images/imgicon.png" title="Images" 
-        (click)="GetImagesID(details.id)" *ngIf="details.imageExist==1" data-toggle="modal" data-target="#exampleModalLong2"
-          style="margin: 2%;width: 20px;" />&nbsp;
-       </div>&nbsp;&nbsp;
-   
+
+  <div class="row" *ngFor="let details of faqlist|filter:term">
+
+    <div class="col-lg-12">
+      <b>{{details.faq}}</b>
+    </div>&nbsp;&nbsp;
+    <div class="col-lg-12">
+      <p innerHTML="{{details.answers}}"></p>
+    </div>
+    <div class="col-lg-10"></div>
+    <div class="col-lg-1">
+      <!-- <button (click)="GetImagesID(details.id)" data-toggle="modal" data-target="#exampleModalLong2" style="color:white">Images And Pdf</button> -->
+      <img src="assets/Images/imgicon.png" title="Images" (click)="GetImagesID(details.id)"
+        *ngIf="details.imageExist==1" data-toggle="modal" data-target="#exampleModalLong2"
+        style="margin: 2%;width: 20px;" />&nbsp;
+    </div>&nbsp;&nbsp;
+
   </div><br>
 </div>
 
@@ -44,7 +49,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="row" >
+          <div class="row">
             <div class="col-lg-6" *ngFor="let showphoto of showimages">
               <br>
               <img src="{{showphoto.photoUrl}}" style="width: 100%;" />
@@ -53,14 +58,13 @@
             <br>
           </div>
           <br>
-        
+
           <br>
         </div>
       </div>
       <br>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;"
-          data-dismiss="modal">Close</button>
+        <button type="button" style="background-color: #f18235; color: white;" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

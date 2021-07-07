@@ -17,154 +17,166 @@
 </div>
 <div class="container-fluid card card:hover" style="margin-top:20px;">
   <form #companyForm="ngForm">
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].companyName}} :</label>
-      <span class="required">*</span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].companyName}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].companyName}}" required class="form-control"
+          [(ngModel)]="companyname" name="companyname">
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" placeholder="{{labels[0].companyName}}" required class="form-control" [(ngModel)]="companyname" name="companyname"
-       >
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].contactPerson}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" placeholder="{{labels[0].contactPerson}}" required class="form-control"
+          [(ngModel)]="contactname" name="contactname">
+      </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].contactPerson}} :</label>
-      <span class="required">*</span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].phoneNo}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
+          class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" placeholder="{{labels[0].contactPerson}}" required class="form-control" [(ngModel)]="contactname" name="contactname"
-       >
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].phoneNo}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
-        class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="dname_label">{{labels[0].emailD}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
-        name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailD}}">
-      <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
-        <div [hidden]="!emailref.errors?.pattern">
-          Please enter a valid Email ID
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">{{labels[0].emailD}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
+          name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailD}}">
+        <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
+          <div [hidden]="!emailref.errors?.pattern">
+          <label *ngIf="languageid=='1'">Please enter a valid Email ID</label>  
+          <label *ngIf="languageid=='6'">Veuillez saisir une adresse e-mail valide</label>  
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="Address_label">{{labels[0].address}} :</label>
-      <span class="required">*</span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="Address_label">{{labels[0].address}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <textarea class="form-control" rows="4" name="address" [(ngModel)]="address" required
+          placeholder="{{labels[0].address}}"></textarea>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <textarea class="form-control" rows="4" name="address" [(ngModel)]="address" required
-        placeholder="{{labels[0].address}}"></textarea>
-    </div>
-  </div>
-  <br>
+    <br>
 
 
 
 
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="Address_label">{{labels[0].deliveryType}} :</label>
-      <span class="required">*</span>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="Address_label">{{labels[0].deliveryType}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" required (change)="GetDeliveryTypeID($event)" [(ngModel)]="deliverytypeid"
+          name="deliverytypeid">
+          <option value="">{{labels[0].select}}</option>
+          <option value="1">{{labels[0].medicine}}</option>
+          <option value="2">{{labels[0].shopping}}</option>
+          <option value="3"> {{labels[0].both}}</option>
+        </select>
+      </div>
     </div>
-    <div class="col-lg-4">
-    <select class="form-control" required (change)="GetDeliveryTypeID($event)" [(ngModel)]="deliverytypeid" name="deliverytypeid">
-      <option value="">{{labels[0].select}}</option>
-      <option value="1">{{labels[0].medicine}}</option>
-      <option  value="2">{{labels[0].shopping}}</option>
-      <option  value="3"> {{labels[0].both}}</option>
-    </select>
-    </div>
-  </div>
-  <br>
+    <br>
 
-  <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].country}} : </label>
-      <span class="required">*</span>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].country}} : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="select" [data]="countrylist" [settings]="countrydd"
+          (onSelect)="GetCountryID($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">{{labels[0].province}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="select" [data]="citylist" [settings]="citydd"
+          (onSelect)="GetCityID($event)">
+        </ng-multiselect-dropdown>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="select" [data]="countrylist" [settings]="countrydd"
-        (onSelect)="GetCountryID($event)">
-      </ng-multiselect-dropdown>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">{{labels[0].city}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="select" [data]="arealist" [settings]="areadd"
+          (onSelect)="GetAreaID($event)">
+        </ng-multiselect-dropdown>
+      </div>
     </div>
-  </div><br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="City_label">{{labels[0].province}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="select" [data]="citylist" [settings]="citydd"
-        (onSelect)="GetCityID($event)" >
-      </ng-multiselect-dropdown>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label class="City_label">{{labels[0].city}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <ng-multiselect-dropdown [placeholder]="select" [data]="arealist" [settings]="areadd"
-        (onSelect)="GetAreaID($event)" >
-      </ng-multiselect-dropdown>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-3">
-      <label for="" class="reglabel">{{labels[0].photo}} :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
-        <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
-      </ngx-dropzone>
-      <span *ngFor="let pho of showphoto">
-        <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
-      </span>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="City_label">{{labels[0].pincode}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" [(ngModel)]="pincode" name="pincode" placeholder="{{labels[0].pincode}}">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label for="" class="reglabel">{{labels[0].photo}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+        </ngx-dropzone>
+        <span *ngFor="let pho of showphoto">
+          <img src="{{pho}}" style="height:50px;width:70px">&nbsp;
+        </span>
 
+      </div>
+      <div class="col-lg-5 specforimg">
+        <p>
+          {{labels[0].image}}
+        </p>
+      </div>
     </div>
-    <div class="col-lg-5 specforimg">
-      <p>
-        {{labels[0].image}}
-      </p>
+    <br>
+    <div class="row">
+      <div class="col-lg-5">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" (click)="insertdeliverycompany()"
+          class="btn btn-block btn-md allbtns btncolor" [disabled]="companyForm.form.invalid">
+          {{labels[0].save}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-lg-5">
-    </div>
-    <div class="col-lg-2">
-      <button type="button" text_align="center" (click)="insertdeliverycompany()"
-        class="btn btn-block btn-md allbtns btncolor" [disabled]="companyForm.form.invalid"> {{labels[0].save}}</button>
-    </div>
-    <div class="col-lg-5">
-    </div>
-  </div>
-  <br>
-</form>
+    <br>
+  </form>
 </div>
 <br><br><br>
