@@ -44,7 +44,7 @@ export class DocdashComponent implements OnInit {
   public salesrepresntiveid: any;
   public showeditbutton: any;
   meridionalid: any;
-  showdelete:any;
+  showdelete: any;
   ngOnInit() {
     this.departmentname = ""
     this.spinner.show();
@@ -66,17 +66,15 @@ export class DocdashComponent implements OnInit {
     else {
       this.showeditbutton = 0;
     }
-    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined) {
+    if (this.hospitalclinicid != undefined || this.countrymanaerid != undefined || this.meridionalid != undefined) {
       this.showexportbutton = 1;
     }
 
-    if(this.meridionalid==undefined)
-    {
-      this.showdelete=0;
+    if (this.meridionalid == undefined) {
+      this.showdelete = 0;
     }
-    else
-    {
-      this.showdelete=1;
+    else {
+      this.showdelete = 1;
     }
 
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
@@ -501,7 +499,7 @@ export class DocdashComponent implements OnInit {
 
   // public GetDoctorRating(even)
   // {
-    
+
   // }
-  
+
 }

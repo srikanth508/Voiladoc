@@ -94,19 +94,18 @@
           <td>
             <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
             <a [ngbTooltip]="tipcontent18" *ngIf="details.testsCount!=0">
-              <img src="assets/Images/test1.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;"
+              <img src="assets/Images/diapic.png" data-toggle="modal" data-target="#exampleModal2" style="height:17px;"
                 (click)="GetTestsID(details.id)">
             </a>&nbsp;
             <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
             <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
-              <img src="assets/Images/pack1.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;"
+              <img src="assets/Images/diapic.png" data-toggle="modal" data-target="#exampleModal3" style="height:17px;"
                 (click)="GetPackageID(details.id)">
             </a>
 
-
             <ng-template #tipcontent2045>Photo</ng-template>
             <a [ngbTooltip]="tipcontent2045" *ngIf="details.appointmentType=='2'">
-              <img src="assets/Images/phaprescripton.png" data-toggle="modal" data-target="#exampleModal6"
+              <img src="assets/Images/diapic.png" data-toggle="modal" data-target="#exampleModal6"
                 style="height:20px;" (click)="GetAttachments(details.id)"></a>
 
           </td>
@@ -114,7 +113,7 @@
           <td>
             <ng-template #tipcontent35>{{labels[0].reports}}</ng-template>
             <a [ngbTooltip]="tipcontent35">
-              <img src="assets/Images/imgicon.png" *ngIf="details.uploadedBit=='1'" style="height:17px;" (click)="GetReportID(details.id)">
+              <img src="assets/Images/reportsdia.png" *ngIf="details.uploadedBit=='1'" style="height:17px;" (click)="GetReportID(details.id)">
             </a>
           </td>
           <td>

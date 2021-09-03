@@ -342,7 +342,7 @@ export class PhysiotherapistComponent implements OnInit {
   }
 
   public insertphysiodetails() {
-    
+
     this.spinner.show();
     var entity = {
       'Name': this.name,
@@ -366,7 +366,7 @@ export class PhysiotherapistComponent implements OnInit {
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       let physioid = data;
-      
+
       if (data != 0) {
         for (let s = 0; s < this.serviceid.length; s++) {
           var serviceentity = {
@@ -402,10 +402,30 @@ export class PhysiotherapistComponent implements OnInit {
 
       }
       else {
-        Swal.fire('Error', 'Details Already Exists', 'success');
-        this.spinner.hide();
-        // location.href = '#/PhysiotherapistDashboard';
+        if (data == 0) {
+          if (this.languageid == 1) {
+            Swal.fire('Email address already exists. Please verify and use the correct email address.');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+            this.spinner.hide();
+          }
+
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('The phone number already exists. Please verify and use the correct number');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+            this.spinner.hide();
+          }
+        }
       }
+    }, error => {
+      Swal.fire("Exception While Saving.Please try after some time");
     })
 
   }

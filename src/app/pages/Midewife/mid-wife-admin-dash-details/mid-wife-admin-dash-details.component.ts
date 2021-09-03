@@ -97,6 +97,11 @@ this.getlanguage()
           this.appointmentreportlist = this.appointmentreportlist.filter(x => x.notVisited == 1);
           this.count = this.appointmentreportlist.length;
         }
+        if (this.id == 7) {
+          this.appointmentreportlist = data;
+          this.appointmentreportlist = this.appointmentreportlist.filter(x => x.isVisited == 1 && x.accepted == 1 && x.midwivesCancelled == 0 && x.notVisited == 0 && x.cancelled == 0);
+          this.count = this.appointmentreportlist.length;
+        }
       }, error => {
       }
     )

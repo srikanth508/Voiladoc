@@ -31,6 +31,7 @@ export class ArticleDashComponent implements OnInit {
       }
     )
   }
+  labels1:any;
 
   public GetArticles() {
     this.docservice.GetArticleForAdminForWeb().subscribe(
@@ -40,6 +41,13 @@ export class ArticleDashComponent implements OnInit {
       },
       error => { }
     );
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+      }, error => {
+      }
+    )
   }
 
 

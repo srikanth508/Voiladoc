@@ -226,6 +226,7 @@ export class HospitalClinicregistrationComponent implements OnInit {
 
   public insertdetails() {
 
+
     if (this.countryid == undefined || this.countryid.length == 0) {
 
       Swal.fire("Please Select Country");
@@ -273,30 +274,68 @@ export class HospitalClinicregistrationComponent implements OnInit {
         'Pincode': this.pincode,
         'CountryID': this.countryid,
         'MonthlySubscription': this.monthlysubription,
-        'Hospitalfulltimebit': 0
+        'Hospitalfulltimebit': 0,
+        'SubscriptionTypeID': this.subscriptiontype,
+        'AppointmentPercentage': this.appointmentpercentage
       }
       this.docservice.InsertHospitalClinicDetailsMaster(entity).subscribe(data => {
 
-        if (data != 0) {
+        if (data != 0 && data != 1) {
           this.hospitalclinicid = data;
           this.inserthspphotos();
           this.inserthspvideos();
           this.insertfacility();
           this.insertinsurance();
           this.InsertSubscriptionRevenue()
-          Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+          if (this.languageid == 1) {
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+          }
+          else {
+            Swal.fire('Inscription terminée', 'Détails enregistrés');
+          }
+
           this.clear();
           location.href = "#/HspClidash"
           this.spinner.hide();
         }
         else {
-          Swal.fire('Hospital Clinic Name', 'Already Exists');
-          // this.clear();
-          this.spinner.hide();
-          // location.href = "#/HspClidash"
+          if (data == 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Email address already exists. Please verify and use the correct email address.');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+              this.spinner.hide();
+            }
+          }
+          else {
+            if (this.languageid == 1) {
+              Swal.fire('The phone number already exists. Please verify and use the correct number');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+              this.spinner.hide();
+            }
+          }
         }
+      }, error => {
+        debugger
+        if (this.languageid == 1) {
+          Swal.fire("Exception While Saving. Please try after some time");
+          debugger
+          this.spinner.hide();
+        }
+        else {
+          Swal.fire("Il y a une erreur d'exception. Veuillez vous assurer que toutes les informations sont exactes.");
+          debugger
+          this.spinner.hide();
+        }
+
       })
     }
+
   }
 
 
@@ -394,15 +433,24 @@ export class HospitalClinicregistrationComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else{
+      Swal.fire('Ajoutée !');
+      abcd.length = 0;
+    }
+   
   }
 
 
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-
+      debugger
       this.attachmentsurl.push(res);
+      debugger
       this.dummshowsignatureurl.push(res);
       let a = this.dummshowsignatureurl[0].slice(2);
       let b = 'https://maroc.voiladoc.org' + a;

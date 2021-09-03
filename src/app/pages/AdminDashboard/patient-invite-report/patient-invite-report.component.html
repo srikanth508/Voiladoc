@@ -1,0 +1,70 @@
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace1">
+    <div class="col-lg-8">
+      <h5 *ngIf="languageid==1">Patient Referal Report</h5>
+      <h5 *ngIf="languageid==6">RAPPORT DE RÉFÉRENCE DU PATIENT</h5>
+      <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
+      <br>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-2">
+      <button class="btn btncolor" *ngIf="languageid==1" (click)="getglmasterexcel()">
+        Export To Excel</button>
+
+      <button class="btn btncolor" *ngIf="languageid==6" (click)="getglmasterexcel()">
+        Exporter vers excel</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="{{labels[0].search}}" [(ngModel)]="term" name="term">
+    </div>
+    <div class="col-lg-9">
+      <label style="float: right;">{{labels[0].count}} : {{count}}</label>
+    </div>
+  </div><br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Appointment">
+        <thead>
+          <tr>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileNumber}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>{{labels[0].address}}</th>
+            <th *ngIf="languageid==1">Number of referrals sent</th>
+            <th *ngIf="languageid==1">Number of downloads</th>
+            <th *ngIf="languageid==1">Amount earned</th>
+
+
+            <th *ngIf="languageid==6">No de réf envoyées</th>
+            <th *ngIf="languageid==6">No de télécharger</th>
+            <th *ngIf="languageid==6">Montant gagné</th>
+
+            <!-- <th>Referal Code</th>
+            <th>Status</th> -->
+          </tr>
+          <tr *ngFor="let ref of invitationslist|filter:term">
+
+            <td>{{ref.patientName}}</td>
+            <td>{{ref.referedMobileNumber}}</td>
+            <td>{{ref.referedEmailID}}</td>
+            <td>{{ref.address}}</td>
+            <td>{{ref.noofreferals}}</td>
+            <td>{{ref.numberofdownloads}}</td>
+            <td>{{ref.earnedAmount}}</td>
+
+          </tr>
+
+        </thead>
+      </table>
+    </div>
+  </div><br>
+</div>
+<br>

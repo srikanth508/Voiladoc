@@ -21,6 +21,7 @@ export class QuickguideComponent implements OnInit {
   diagnosticid: any;
   doctorid: any;
   hospitalid: any;
+  term: any;
 
 
   ngOnInit() {

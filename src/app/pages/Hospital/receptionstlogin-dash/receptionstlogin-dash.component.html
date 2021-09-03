@@ -108,12 +108,12 @@
       <div class="modal-body">
         <div class="row" *ngIf="Showpassword=='0'">
           <div class="col-lg-3">
-            <label>Enter Your Pin</label>
+            <label>{{labels[0].enteryourpin}}</label>
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
             <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
-              placeholder="Enter Your Pin No">
+              placeholder="{{labels[0].enteryourpin}}">
           </div>
           <!-- <div class="col-lg-2">
             <button class="btn btncolor" (click)="CheckPasswordvalidate()">Validate</button>

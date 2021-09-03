@@ -69,7 +69,8 @@
             <th id="imp">{{labels[0].appointmentDate}}</th>
             <th id="imp">{{labels[0].appointmentNumber}}</th>
             <th id="imp">Type</th>
-            <th >Provider</th>
+            <th *ngIf="languageid==1">Provider</th>
+            <th *ngIf="languageid==6">Prestataire</th>
             <th>{{labels[0].time}}</th>
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].mobileNo}}</th>

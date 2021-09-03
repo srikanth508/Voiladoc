@@ -1,9 +1,10 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
-    <div class="col-lg-3">
-      <h5>Orders Dashboard</h5>
+    <div class="col-lg-5">
+      <h5 *ngIf="languageid==1">Orders Dashboard</h5>
+      <h5 *ngIf="languageid==6">COMMANDE TABLEAU DE BORD</h5>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
     </div>
@@ -48,7 +49,7 @@
         <thead>
           <tr>
             <th>{{labels[0].orderedDate}} </th>
-            <th>{{labels[0].CustomerName}}</th>
+            <th>{{labels[0].customerName}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
             <th>{{labels[0].category}}</th>
@@ -62,7 +63,7 @@
             <!-- <th>Action </th> -->
           </tr>
           <tr *ngFor="let details of Orderslist|filter:term">
-            <td>{{details.modifiedDate|date}}</td>
+            <td>{{details.modifiedDate|date:'dd-MM-yyyy'}}</td>
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
             <td>{{details.emailID}}</td>
@@ -73,8 +74,8 @@
             <td>{{details.productPrice}}</td>
             <td>{{details.tax}}</td>
             <td>{{details.productTotalPrice}}</td>
-            <td *ngIf="details.ordered==0">Pending</td>
-            <td *ngIf="details.ordered==1">Delivered</td>
+            <td *ngIf="details.ordered==0">{{labels[0].pending}}</td>
+            <td *ngIf="details.ordered==1">{{labels[0].delivered}}</td>
             <!-- <td> -->
               <!-- <button type="button" class="acceptbtn"
                 (click)="acceptdelete(details.ordertypeid,details.medicalOrderID,1,details.id)">Delivered</button> -->

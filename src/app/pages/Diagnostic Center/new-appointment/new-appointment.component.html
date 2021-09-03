@@ -133,7 +133,9 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Select Slots</h5>
+                <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid==1">Select Slots</h5>
+                <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid==6">Sélectionner des plages horaires</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -168,7 +170,8 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.morningslotslist.length==0">
-                                <label>No Slots Available</label>
+                                <label *ngIf="languageid==1">No Slots Available</label>
+                                <label *ngIf="languageid==6">Non disponsible</label>
                             </div>
                         </div>
                     </div>
@@ -187,7 +190,8 @@
                         </div>
                         <div class="col-lg-12" style="margin-left: 5px;">
                             <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.afternoonslotslist.length==0">
-                                <label>No Slots Available</label>
+                                <label *ngIf="languageid==1">No Slots Available</label>
+                                <label *ngIf="languageid==6">Non disponsible</label>
                             </div>
                             <br>
                         </div>
@@ -208,7 +212,8 @@
                         </div>
                         <div class="col-lg-12" style="margin-left: 5px;">
                             <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.eveningslotslist.length==0">
-                                <label>No Slots Available</label>
+                                <label *ngIf="languageid==1">No Slots Available</label>
+                                <label *ngIf="languageid==6">Non disponsible</label>
                             </div>
                             <br>
                         </div>
@@ -228,7 +233,8 @@
                         </div>
                         <div class="col-lg-12" style="margin-left: 5px;">
                             <div class="col-lg-5" style="margin-left: 15px;" *ngIf="this.nigntslotslist.length==0">
-                                <label>No Slots Available</label>
+                                <label *ngIf="languageid==1">No Slots Available</label>
+                                <label *ngIf="languageid==6">Non disponsible</label>
                             </div>
                             <br>
                         </div>
@@ -236,7 +242,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="languageid=='1'">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="languageid=='6'">Fermer</button>
             </div>
         </div>
     </div>

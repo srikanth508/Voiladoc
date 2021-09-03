@@ -92,7 +92,12 @@ export class NurseAdminDashboardComponent implements OnInit {
           this.appointmentreportlist = this.appointmentreportlist.filter(x => x.nurseCancelled == 1 || x.cancelled == 1);
           this.count = this.appointmentreportlist.length
         }
+        if (this.id == 7) {
+          this.appointmentreportlist = data;
+          this.appointmentreportlist = this.appointmentreportlist.filter(x => x.isVisited == 1 && x.accepted == 1 && x.nurseCancelled == 0 && x.notVisited == 0 && x.cancelled == 0);
+          this.count = this.appointmentreportlist.length
 
+        }
 
       }, error => {
       }

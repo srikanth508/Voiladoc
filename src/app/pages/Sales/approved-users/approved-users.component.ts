@@ -65,22 +65,33 @@ export class ApprovedUsersComponent implements OnInit {
 
     this.typeid = 1
     this.GetRegistreedVoiladocusers()
+    this.GetAllRegisteredUsersCount()
     this.getlanguage()
   }
 
 
-  
+
   selectedDate(data) {
     this.startdate = this.docservice.GetDates(data[0])
     this.enddate = this.docservice.GetDates(data[1])
     this.GetRegistreedVoiladocusers()
   }
 
+  countlist: any;
+
+  public GetAllRegisteredUsersCount() {
+    this.docservice.GetAllRegisteredUsersCount(this.startdate, this.enddate).subscribe(data => {
+      // this.RegisteredList = data;
+      this.countlist = data;
+
+
+    })
+  }
 
   public dummreglist: any;
 
   public GetRegistreedVoiladocusers() {
-    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate,this.typeid,this.languageid).subscribe(data => {
+    this.docservice.GetVoiladocRegistrationsUsers(this.startdate, this.enddate, this.typeid, this.languageid).subscribe(data => {
       // this.RegisteredList = data;
       this.dummreglist = data;
       this.RegisteredList = this.dummreglist.filter(x => x.approved == 1)

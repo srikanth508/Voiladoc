@@ -28,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   public getlanguage() {
-    this.docservice.Getloginlabel(this.languageid, localStorage.getItem('WebUrl')).subscribe(
+    this.docservice.Getloginlabel(this.languageid).subscribe(
       data => {
 
         this.labels = data;

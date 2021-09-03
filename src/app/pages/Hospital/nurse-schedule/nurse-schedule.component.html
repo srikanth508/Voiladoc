@@ -12,9 +12,22 @@
   <br>
   <div class="row">
     <div class="col-lg-3">
-    {{labels[0].year}} : {{year}}<br>
-    
-     {{labels[0].month}} : {{showmonth}}
+      {{labels[0].year}} : {{year}}<br>
+
+      {{labels[0].month}} :
+      <span *ngIf="showmonth=='Jan'">{{labels[0].jan}}</span>
+      <span *ngIf="showmonth=='Feb'">{{labels[0].feb}}</span>
+      <span *ngIf="showmonth=='Mar'">{{labels[0].march}}</span>
+      <span *ngIf="showmonth=='Apr'">{{labels[0].april}}</span>
+      <span *ngIf="showmonth=='May'">{{labels[0].may}}</span>
+      <span *ngIf="showmonth=='jun'">{{labels[0].june}}</span>
+      <span *ngIf="showmonth=='Jul'">{{labels[0].july}}</span>
+      <span *ngIf="showmonth=='Aug'">{{labels[0].aug}}</span>
+      <span *ngIf="showmonth=='Sep'">{{labels[0].sept}}</span>
+      <span *ngIf="showmonth=='Oct'">{{labels[0].oct}}</span>
+      <span *ngIf="showmonth=='Nov'">{{labels[0].nov}}</span>
+      <span *ngIf="showmonth=='Dec'">{{labels[0].dec}}</span>
+     
     </div>
     <div class="col-lg-3">
       <!-- <select class="form-control" (change)="GetNurseID($event)">
@@ -22,14 +35,14 @@
         <option *ngFor="let nurse of nurselist" value={{nurse.id}}>{{nurse.nurseName}}</option>
       </select> -->
 
-      <ng-multiselect-dropdown [placeholder]="Select"  [data]="nurselist"
-      [settings]="nursedd" (onSelect)="GetNurseID($event)">
-    </ng-multiselect-dropdown>
+      <ng-multiselect-dropdown [placeholder]="Select" [data]="nurselist" [settings]="nursedd"
+        (onSelect)="GetNurseID($event)">
+      </ng-multiselect-dropdown>
 
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">
-        <option value="">{{labels[0].selectYear}}</option>s
+        <option value="">{{labels[0].selectYear}}</option>
         <option value="2019">2019</option>
         <option value="2020">2020</option>
         <option value="2021">2021</option>
@@ -69,21 +82,23 @@
               <th>{{labels[0].endTime}}</th>
               <th>{{labels[0].actions}}</th>
             </tr>
-            <tr *ngFor="let equi of timeSheetTablearray" >
-              <td  [style.background-color]="equi.colorcode">{{equi._date}}</td>
-              <td  [style.background-color]="equi.colorcode"> {{equi.dayOfTheWeek}} </td>
-              <td  [style.background-color]="equi.colorcode"> {{equi.nurseName}} </td>
-              <td  [style.background-color]="equi.colorcode"> {{equi.hospital_ClinicName}} </td>
-              <td  [style.background-color]="equi.colorcode"> {{equi.startime}} </td>
-              <td  [style.background-color]="equi.colorcode"> {{equi.endtime}} </td>
-              <td  [style.background-color]="equi.colorcode">
+            <tr *ngFor="let equi of timeSheetTablearray">
+              <td [style.background-color]="equi.colorcode">{{equi._date}}</td>
+              <td [style.background-color]="equi.colorcode"> {{equi.dayOfTheWeek}} </td>
+              <td [style.background-color]="equi.colorcode"> {{equi.nurseName}} </td>
+              <td [style.background-color]="equi.colorcode"> {{equi.hospital_ClinicName}} </td>
+              <td [style.background-color]="equi.colorcode"> {{equi.startime}} </td>
+              <td [style.background-color]="equi.colorcode"> {{equi.endtime}} </td>
+              <td [style.background-color]="equi.colorcode">
                 <ng-template #tipcontent6>{{labels[0].disable}}</ng-template>
                 <a [ngbTooltip]="tipcontent6">
-                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px" (click)="GetDisableDate(equi.nursehospitalid,equi._fulldate)">
+                  <img src="assets/Images/active.png" *ngIf="equi.disabled=='0'" title="Disable" style="width: 30px"
+                    (click)="GetDisableDate(equi.nursehospitalid,equi._fulldate)">
                 </a>
                 <ng-template #tipcontent7>{{labels[0].enable}}</ng-template>
                 <a [ngbTooltip]="tipcontent7">
-                  <img src="assets/Images/dactive.png" title="Enable" *ngIf="equi.disabled=='1'" (click)="GetDeleteSlots(equi._fulldate)" style="width: 30px">
+                  <img src="assets/Images/dactive.png" title="Enable" *ngIf="equi.disabled=='1'"
+                    (click)="GetDeleteSlots(equi._fulldate)" style="width: 30px">
                 </a>
               </td>
             </tr>

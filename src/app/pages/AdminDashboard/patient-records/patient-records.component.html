@@ -1,0 +1,102 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<br>
+<div class="container-fluid card card:hover headerrspace">
+  <div class="row headerspace">
+    <div class="col-lg-9">
+      <h5>Patient history</h5>
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+      <button class="btn btncolor" (click)="getglmasterexcel()">
+        Export To Excel</button>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="container-fluid card card:hover">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+        </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetAppointmenttype($event)">
+        <option value="0">Select</option>
+        <option value="1">In Clinic</option>
+        <option value="2">Video Call</option>
+        <option value="5">Home Visit</option>
+      </select>
+    </div>
+    <div class="col-lg-3" style="text-align: end;margin-left: -8px; ">
+      <label>
+        {{labels[0].count}} : {{count}}
+      </label>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Appointment">
+        <thead>
+          <tr>
+
+            <th>Appointment No</th>
+            <th>Appointment Date</th>
+            <th>Slot</th>
+
+            <th>Patient name</th>
+            <th>Principle name</th>
+            <th>Principle number</th>
+             <th>City</th>
+            <th>Type of Symptoms</th>
+            <th>Type of appointment</th>
+           
+          </tr>
+          <tr *ngFor="let details of appointmentlist|filter:term">
+            <td>{{details.appointmentID}}</td>
+            <td>{{details.appoinmentttdate}}</td>
+            <td>{{details.slots}}</td>
+            <td>{{details.pName}}</td>
+            <td>{{details.primarypatientname}}</td>
+            <td>{{details.primarymobileno}}</td>
+            <td>{{details.cityName}}</td>
+            <td>{{details.reasonForVisit}}</td>
+            <td>
+              <label *ngIf="details.appointmentTypeID=='1'">In Clinic</label>
+              <label *ngIf="details.appointmentTypeID=='2'">Video Call</label>
+              <label *ngIf="details.appointmentTypeID=='5'">Home Visit</label>
+            </td>
+            
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <br>
+
+  <br>
+  <br>
+</div>
+<br>
+<br>
+<br>

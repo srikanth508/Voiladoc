@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -41,89 +40,132 @@
 
 
 
-  <!-- <script>
-    debugger
-    var urlstring = (window.location.href)
-    debugger
-    if (urlstring == 'http://localhost:4200/#/Vediocall') {
-      debugger
-    }
-    else {
-      debugger
-      window.addEventListener('storage', () => {
-        window.alert('Voiladoc is opened in another tab. Please logout from that tab to login here');
-        sessionStorage.clear();
-        localStorage.clear();
-        location.href = "#/login";
-        // location.reload();
-
-      }, false)
-      localStorage.setItem('Sentinel', Math.random())
-    }
-
-  </script> -->
 
 
-  <!-- <script>
-    var urlstring = (window.location.href)
-    debugger
-    if (urlstring == 'http://localhost:4200/#/login') {
-      Swal.fire('Please Open Another tab');
-    }
-    var urlsss = new URL(urlstring);
 
-
-    debugger
-  </script> -->
-
+<!-- 
 
   <script type="text/javascript">
+    // Set timeout variables.
+    var timoutNow = 1800000; // Timeout of 30 mins - time in ms
+    // var logoutUrl = "<?php echo base_url('logout') ?>"; 
 
-    function idleTimer() {
-      var t;
+    // URL to logout page.
 
-      //window.onload = resetTimer;
-      window.onmousemove = resetTimer; // catches mouse movements
-      window.onmousedown = resetTimer; // catches mouse movements
-      window.onclick = resetTimer;     // catches mouse clicks
-      window.onscroll = resetTimer;    // catches scrolling
-      window.onkeypress = resetTimer;  //catches keyboard actions
+    var timeoutTimer;
 
-      function logout() {
+    // Start timer
+    function StartTimers() {
+      debugger
+      
+      
+      // timeoutTimer = setTimeout("IdleTimeout()", timoutNow);
+      timeoutTimer = setTimeout("", 0);
+      clearTimeout(timeoutTimer);
+      debugger
 
-
-        // window.location.href = '/action/logout';
-        sessionStorage.clear();
-        localStorage.clear();
-        location.href = "#/login";
-        location.reload();
-        this.setCookie("doc_id", "")
-        //Adapt to actual logout script
-      }
-
-      function reload() {
-
-        setTimeout(function () {
-
-          customnotify();
-        }, 5000); // 5000 milliseconds means 5 seconds.
-
-        window.location = self.location.href;  //Reloads the current page
-      }
-      function resetTimer() {
-
-        clearTimeout(t);
-        t = setTimeout(logout, 1800000);  // time is in milliseconds (1000 is 1 second)
-        t = setTimeout(reload, 300000);  // time is in milliseconds (1000 is 1 second)
-      }
     }
-    idleTimer();
+
+
+    function logout() {
+      debugger
+      // window.location.href = '/action/logout';
+      sessionStorage.clear();
+      localStorage.clear();
+      location.href = "#/login";
+      location.reload();
+      this.setCookie("doc_id", "")
+      //Adapt to actual logout script
+    }
+
+    // Reset timer
+    function ResetTimers() {
+      debugger
+      clearTimeout(timeoutTimer);
+      
+
+      StartTimers();
+      debugger
+    }
+
+    // Logout user
+    function IdleTimeout() {
+      debugger
+      // window.location = logout;
+      logout()
+    }
   </script>
 
+<body onload="StartTimers();" onmousemove="ResetTimers();">
 
 
 
-  <!-- 
+</body> -->
+
+
+
+
+<!-- 
+<script type="text/javascript">
+
+  function idleTimer() {
+    var t;
+    var timoutNow = 0
+    window.onload = resetTimer;
+    debugger
+    window.onmousemove = resetTimer; // catches mouse movements
+    window.onmousedown = resetTimer; // catches mouse movements
+    window.onclick = resetTimer;     // catches mouse clicks
+    debugger
+    window.onscroll = resetTimer;    // catches scrolling
+    window.onkeypress = resetTimer;  //catches keyboard actions
+    debugger
+    // function logout() {
+    //   debugger
+    //   // window.location.href = '/action/logout';
+    //   sessionStorage.clear();
+    //   localStorage.clear();
+    //   location.href = "#/login";
+    //   location.reload();
+    //   this.setCookie("doc_id", "")
+    //   //Adapt to actual logout script
+    // }
+
+
+
+    function reload() {
+      debugger
+      t = 0;
+      //   setTimeout(function () {
+      //     debugger
+      //     // customnotify();
+      //   }, 5000); // 5000 milliseconds means 5 seconds.
+      //   debugger
+      window.location = self.location.href;  //Reloads the current page
+    }
+
+    // function resetTimer() {
+    //   debugger
+
+    //   t = setTimeout(logout, 1800000);  // time is in milliseconds (1000 is 1 second)
+    //   t = setTimeout(reload, 30000);
+    //   debugger
+    //   setTimeout(t);
+    //   debugger
+    //   clearTimeout(t);
+    //   debugger
+
+    //   debugger
+
+    // }
+  }
+    // idleTimer();
+</script> -->
+
+
+
+
+<!-- 
 <script>
     setTimeout(function(){
       

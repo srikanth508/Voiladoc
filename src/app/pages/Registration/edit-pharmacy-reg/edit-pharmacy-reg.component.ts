@@ -65,9 +65,9 @@ export class EditPharmacyRegComponent implements OnInit {
       this.dropzonelable = "Télécharger des fichiers"
     }
 
-    this.countryid=""
-    this.areaid="";
-    this.cityid=""
+    this.countryid = ""
+    this.areaid = "";
+    this.cityid = ""
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
   public getcitymaster() {
@@ -94,6 +94,12 @@ export class EditPharmacyRegComponent implements OnInit {
       }
     )
   }
+
+
+
+  homedelivery: any;
+  nightpharmacy: any;
+
   public getpharmacydetailsforadmin() {
     this.docservice.GetPhamacyDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
@@ -115,7 +121,9 @@ export class EditPharmacyRegComponent implements OnInit {
           this.photoprofile = this.details.photoURL,
           this.areaid = this.details.areaID,
           this.pincode = this.details.pincode,
-          this.countryid = this.details.countryID
+          this.countryid = this.details.countryID,
+          this.homedelivery = this.details.homeDelivery,
+          this.nightpharmacy = this.details.nightPharmacy
         this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid()
@@ -129,7 +137,7 @@ export class EditPharmacyRegComponent implements OnInit {
 
   public GetPharmacyRevenue() {
     this.docservice.GetPharmacySubscriptions_Revenue(this.id).subscribe(data => {
-      
+
       this.pharmacyrevenuelist = data;
     })
   }
@@ -154,7 +162,7 @@ export class EditPharmacyRegComponent implements OnInit {
     this.getcitymaster()
   }
   public updatedetails() {
-
+    debugger
     var entity = {
       'LanguageID': this.languageid,
       'PharmacyID': this.id,
@@ -171,9 +179,12 @@ export class EditPharmacyRegComponent implements OnInit {
       'Description': this.description,
       'AreaID': this.areaid,
       'Pincode': this.zipcode,
-      'CountryID': this.countryid
+      'CountryID': this.countryid,
+      'NightPharmacy': this.nightpharmacy,
+      'HomeDelivery': this.homedelivery
     }
     this.docservice.UpdatePharmacyProfile(entity).subscribe(res => {
+      debugger
       let test = res;
       this.getpharmacydetailsforadmin();
       Swal.fire(' Updated Successfully');
@@ -232,11 +243,22 @@ export class EditPharmacyRegComponent implements OnInit {
     }
     this.docservice.UpdatePharmacyPhotos(entity).subscribe(res => {
       let test = res;
-      this.getpharmacydetailsforadmin();
-      Swal.fire(' Updated Successfully');
-      this.GetPhotos();
-      this.pffbit = 0;
-      this.showphoto.length = 0;
+      if (this.languageid == 1) {
+        this.getpharmacydetailsforadmin();
+
+        Swal.fire(' Updated Successfully');
+        this.GetPhotos();
+        this.pffbit = 0;
+        this.showphoto.length = 0;
+      }
+      else {
+        this.getpharmacydetailsforadmin();
+        Swal.fire('Mis à jour avec succès');
+        this.GetPhotos();
+        this.pffbit = 0;
+        this.showphoto.length = 0;
+      }
+
     })
 
   }
@@ -294,7 +316,7 @@ export class EditPharmacyRegComponent implements OnInit {
         this.GetPharmacyRevenue();
       }
       else if (this.languageid == 6) {
-        Swal.fire('Updated Successfully');
+        Swal.fire('Mis à jour avec succès');
         this.GetPharmacyRevenue();
       }
 
@@ -318,19 +340,29 @@ export class EditPharmacyRegComponent implements OnInit {
     this.docservice.InsertPharmacySubscriptions_Revenue(entity).subscribe(data => {
 
       if (data != 0) {
-        Swal.fire('Success','Data added Successfully');
-        this.GetPharmacyRevenue();
-        this.addmonthlysubscription="";
-        this.contractstartdateeee="";
-        this.contractenddateeeee="";
+        if (this.languageid == 1) {
+          Swal.fire('Success', 'Data added Successfully');
+          this.GetPharmacyRevenue();
+          this.addmonthlysubscription = "";
+          this.contractstartdateeee = "";
+          this.contractenddateeeee = "";
+        }
+        else {
+          Swal.fire('Mis à jour avec succès');
+          this.GetPharmacyRevenue();
+          this.addmonthlysubscription = "";
+          this.contractstartdateeee = "";
+          this.contractenddateeeee = "";
+        }
+
 
       }
-      else{
-        Swal.fire('Error','Contract Dates Already Exists');
+      else {
+        Swal.fire('Error', 'Contract Dates Already Exists');
         this.GetPharmacyRevenue();
-        this.addmonthlysubscription="";
-        this.contractstartdateeee="";
-        this.contractenddateeeee="";
+        this.addmonthlysubscription = "";
+        this.contractstartdateeee = "";
+        this.contractenddateeeee = "";
       }
     })
 

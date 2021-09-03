@@ -32,7 +32,7 @@ export class EditHospitalClinicComponent implements OnInit {
   public validEmail: any;
   public showdrop: any;
   public id: any;
-  public showphoto=[];
+  public showphoto = [];
   public multiplephotos: any;
   public mulphoto: any;
   public multipleid: any;
@@ -69,7 +69,7 @@ export class EditHospitalClinicComponent implements OnInit {
     this.gethospitalclinicdetailsbyid();
     this.GetMultiplePhotos();
     this.GetCountryMaster()
-    this.GetHospitalRevenuesubscriptions()
+    // this.GetHospitalRevenuesubscriptions()
 
 
     this.docservice.GetAdmin_HospitalClinicRegistration_Lables(this.languageid).subscribe(
@@ -90,9 +90,9 @@ export class EditHospitalClinicComponent implements OnInit {
     this.GetSubscriptionrevenue();
 
 
-    this.countryid=""
-    this.cityid=""
-    this.areaid=""
+    this.countryid = ""
+    this.cityid = ""
+    this.areaid = ""
 
   }
   onChange(newValue) { const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; if (validEmailRegEx.test(newValue)) { this.validEmail = true; } else { this.validEmail = false; } }
@@ -217,17 +217,17 @@ export class EditHospitalClinicComponent implements OnInit {
   public appointmentpercentage: any;
 
 
-  public GetHospitalRevenuesubscriptions() {
+  // public GetHospitalRevenuesubscriptions() {
 
-    this.docservice.GetHospitalClinic_RevenueSubscriptions(this.id).subscribe(data => {
-      this.subscriptionslist = data;
-      this.subscriptiontype = this.subscriptionslist[0].subscriptionTypeID,
-        this.monthlysubription = this.subscriptionslist[0].monthlySubscription,
-        this.appointmentpercentage = this.subscriptionslist[0].appointmentPercentage,
-        this.contractstartdate = this.subscriptionslist[0].contractStartdate,
-        this.contractenddate = this.subscriptionslist[0].contractEnddate
-    })
-  }
+  //   this.docservice.GetHospitalClinic_RevenueSubscriptions(this.id).subscribe(data => {
+  //     this.subscriptionslist = data;
+  //     this.subscriptiontype = this.subscriptionslist[0].subscriptionTypeID,
+  //       this.monthlysubription = this.subscriptionslist[0].monthlySubscription,
+  //       this.appointmentpercentage = this.subscriptionslist[0].appointmentPercentage,
+  //       this.contractstartdate = this.subscriptionslist[0].contractStartdate,
+  //       this.contractenddate = this.subscriptionslist[0].contractEnddate
+  //   })
+  // }
 
 
   public subscrilist: any;
@@ -259,15 +259,15 @@ export class EditHospitalClinicComponent implements OnInit {
 
 
   }
-  
+
   public uploadattachments() {
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-      
+
       let b = 'https://maroc.voiladoc.org' + a;
-      
+
       this.showphoto.push(b);
 
       this.attachments.length = 0;
@@ -368,20 +368,20 @@ export class EditHospitalClinicComponent implements OnInit {
       if (data != 0) {
         if (this.languageid == 1) {
           Swal.fire('Updated Successfully');
-          this.GetHospitalRevenuesubscriptions();
+          // this.GetHospitalRevenuesubscriptions();
           this.GetSubscriptionrevenue()
           location.href = "#/HspClidash"
         }
         else if (this.languageid == 6) {
           Swal.fire('Mis à jour avec succés');
-          this.GetHospitalRevenuesubscriptions();
+          // this.GetHospitalRevenuesubscriptions();
           this.GetSubscriptionrevenue();
           location.href = "#/HspClidash"
         }
       }
       else {
         Swal.fire('This Contrat Dates Already Exists');
-        this.GetHospitalRevenuesubscriptions();
+        // this.GetHospitalRevenuesubscriptions();
       }
     })
   }
@@ -392,6 +392,43 @@ export class EditHospitalClinicComponent implements OnInit {
     this.monthlysubription = 0
   }
 
+  revenueupdateid: any;
+  subscriptiontypeedit:any;
+
+  public GetContractSubscriptions(subscriptions) {
+    this.subscriptiontypeedit = subscriptions.subscriptionTypeID,
+      this.monthlysubription = subscriptions.monthlySubscription,
+      this.appointmentpercentage = subscriptions.appointmentPercentage,
+      this.contractstartdate = subscriptions.editContractStartdate,
+      this.contractenddate = subscriptions.editContractEnddate,
+      this.revenueupdateid = subscriptions.id
+  }
+
+
+
+  public updatedetailss() {
+    debugger
+    var entity = {
+      'ID': this.revenueupdateid,
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
+    }
+    this.docservice.UpdateHospitalClinic_RevenueSubscriptions(entity).subscribe(data => {
+      if (this.languageid == 1) {
+        Swal.fire("Updated Successfully");
+        this.GetSubscriptionrevenue()
+      }
+      else {
+        Swal.fire("Mis à jour avec succés");
+        this.GetSubscriptionrevenue()
+      }
+    },error=>{
+      
+    })
+  }
 }
 
 

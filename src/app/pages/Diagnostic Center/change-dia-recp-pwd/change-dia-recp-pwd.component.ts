@@ -13,16 +13,32 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
   term: any;
   count: any;
   recpid: any;
+  currentpwd: any;
+  labels1: any;
   constructor(public docservice: HelloDoctorService) { }
 
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
-    this.recpid = localStorage.getItem("Receptionstid")
+    this.recpid = localStorage.getItem("Receptionstid");
+    this.currentpwd = localStorage.getItem('Password');
     this.GetLables();
     this.GetReceptionistlogin();
+    this.getlanguage()
   }
+
+  public getlanguage() {
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels1 = data;
+      }, error => {
+      }
+    )
+  }
+
+
   public GetLables() {
     this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
       data => {
@@ -57,10 +73,11 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
   public mypinno: any;
   public Showpassword: any;
   public pinno: any;
-  public diagnosticid:any;
+  public diagnosticid: any;
+  public oldpassword:any;
 
   public getpassword(details) {
-    this.password = details.password,
+    this.oldpassword = details.password,
       this.mypinno = details.pinno,
       this.name = details.name,
       this.phoneno = details.phoneNo,
@@ -68,7 +85,7 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
       this.address = details.address,
       this.username = details.userName,
       this.id = details.id,
-      this.diagnosticid=details.diagnosticID
+      this.diagnosticid = details.diagnosticID
 
 
     this.Showpassword = 0;
@@ -79,28 +96,76 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
   public Enteredpinno: any;
 
 
+
+
+
+
+
+
+  // public CheckPasswordvalidate() {
+
+  //   if (this.Enteredpinno == "") {
+
+  //     Swal.fire('Please Enter Your Pin No')
+
+  //   }
+  //   else {
+
+  //     if (this.pinno == this.Enteredpinno) {
+  //       this.Showpassword = 1;
+  //       this.Enteredpinno = ""
+  //     }
+  //     else {
+
+  //       Swal.fire('You Entered Pin no is invalid')
+  //       this.Enteredpinno = ""
+  //     }
+  //   }
+  // }
+
+  entercurrentpwd: any;
+
+
   public CheckPasswordvalidate() {
-    
-    if (this.Enteredpinno == "") {
-      
-      Swal.fire('Please Enter Your Pin No')
+
+    if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
+
+      if (this.languageid == 1) {
+        Swal.fire('Please Enter Your Pin No && Current password')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+      else {
+        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        this.entercurrentpwd = "";
+        this.Enteredpinno = "";
+      }
+
 
     }
     else {
-      
-      if (this.pinno == this.Enteredpinno) {
+
+      if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
+        this.entercurrentpwd = "";
       }
       else {
-        
-        Swal.fire('You Entered Pin no is invalid')
-        this.Enteredpinno = ""
+
+        if (this.languageid == 1) {
+          Swal.fire('Please enter valid Pinno and valid password')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+        else {
+          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          this.Enteredpinno = ""
+          this.currentpwd = ""
+        }
+
       }
     }
   }
-
-
   id: any;
 
   public UpdateDetailes() {
@@ -118,7 +183,7 @@ export class ChangeDiaRecpPwdComponent implements OnInit {
     this.docservice.UpdateDiagnosticReceptionistLogin(entity).subscribe(res => {
       if (this.languageid == 1) {
 
-        
+
         Swal.fire('Success', 'Updated successfully')
         // location.href = "#/ReceptionistLoginDashboard"
       }

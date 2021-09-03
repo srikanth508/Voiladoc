@@ -21,7 +21,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
   public nurseid: any;
   public nursename: any;
-  public dayid: any;
+  public dayid = []
   public day: any;
   public worktypeid: any;
   public hsp_clinicID: any;
@@ -45,7 +45,6 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.getnurselist();
     this.GetDaysMaster();
     this.GetTimings();
-    this.dayid = 0;
     this.idcount = 1;
     this.table = 0;
     this.active = 0;
@@ -79,15 +78,21 @@ export class NurseWorkingDetailsComponent implements OnInit {
     )
 
   }
+  search: any;
+  select:any;
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
 
         this.labels = data;
+        this.search = this.labels[0].search
+        this.select=this.labels[0].select
       }, error => {
       }
     )
   }
+  nursedd = {};
+
   public getnurselist() {
     if (this.hsp_clinicID == undefined) {
       this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
@@ -95,6 +100,19 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
           this.dummnurselist = data;
           this.nurselist = data;
+
+          this.nursedd = {
+            singleSelection: false,
+            idField: 'id',
+            textField: 'nurseName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            enableCheckAll: false,
+            searchPlaceholderText: this.search,
+          };
+
         }, error => {
         }
       )
@@ -104,15 +122,27 @@ export class NurseWorkingDetailsComponent implements OnInit {
         data => {
 
           this.dummnurselist = data;
-          this.nurselist = this.dummnurselist.filter(x => x.hospitalClinicID == this.hsp_clinicID)
+          this.nurselist = this.dummnurselist.filter(x => x.hospitalClinicID == this.hsp_clinicID);
+
+          this.nursedd = {
+            singleSelection: false,
+            idField: 'id',
+            textField: 'nurseName',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            enableCheckAll: false,
+            searchPlaceholderText: this.search,
+          };
         }, error => {
         }
       )
     }
   }
 
-  public getnurseid(even) {
-    this.nurseid = even.target.value;
+  public getnurseid(item: any) {
+    this.nurseid = item.id;
 
     var list = this.dummnurselist.filter(x => x.id == this.nurseid)
     this.hsp_clinicID = list[0].hospitalClinicID,
@@ -147,12 +177,25 @@ export class NurseWorkingDetailsComponent implements OnInit {
       }
     )
   }
+  daysdd = {};
 
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
       data => {
 
         this.dayslist = data;
+
+        this.daysdd = {
+          singleSelection: false,
+          idField: 'id',
+          textField: 'dayOfTheWeek',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
+        };
       }, error => {
       }
     )
@@ -168,15 +211,9 @@ export class NurseWorkingDetailsComponent implements OnInit {
     )
   }
 
-  public GetDaysID(even) {
-
-    this.dayid = even.target.value;
-
-    for (let i = 0; i < this.dayslist.length; i++) {
-      if (this.dayslist[i].id == this.dayid) {
-        this.day = this.dayslist[i].dayOfTheWeek;
-      }
-    }
+  public GetDaysID(item: any) {
+    debugger
+    this.dayid.push(item);
   }
 
 
@@ -188,16 +225,15 @@ export class NurseWorkingDetailsComponent implements OnInit {
       'NurseID': this.nurseid,
       'Fees': this.fees,
       'Hospital_ClinicID': this.hsp_clinicID,
-      'DayID': this.dayid,
+      // 'DayID': this.dayid,
       'StartTime': this.starttime,
       'EndTime': this.endtime,
       'hospitalname': this.hospital_ClinicName,
-      'Day': this.day
+      // 'Day': this.day
     }
     this.detailsarray.push(detailsentity);
     this.starttime = '';
     this.endtime = '';
-    this.dayid = 0;
     this.idcount = this.idcount + 1;
   }
 
@@ -215,9 +251,10 @@ export class NurseWorkingDetailsComponent implements OnInit {
     }
 
   }
+  nursehosid: any;
 
   public InsertNurseHospitalDetailsAdmin() {
-    
+    debugger
     var entity = {
       'NurseID': this.detailsarray[0].NurseID,
       'Fees': this.detailsarray[0].Fees,
@@ -225,15 +262,47 @@ export class NurseWorkingDetailsComponent implements OnInit {
       'LanguageID': 1
     }
     this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
+      debugger
+      this.nursehosid = data;
+      this.InsertNurseworking();
 
-      let qqqq = data;
+      if (this.languageid == 1) {
+        // this.detailsarray = [];
+        Swal.fire('Completed', 'Saved successfully', 'success');
+        location.href = "#/Nurseworkingdash"
+        // this.table = 0;
+        // this.starttime = '';
+        // this.endtime = '';
+        // this.dayid.length = 0
+        // this.idcount = 1;
+        // this.fees = '';
+      }
+      else {
+        // this.detailsarray = [];
+        Swal.fire('Enregistré');
+        location.href = "#/Nurseworkingdash"
+        // this.table = 0;
+        // this.starttime = '';
+        // this.endtime = '';
+        // this.dayid.length = 0
+        // this.idcount = 1;
+        // this.fees = '';
+      }
+    })
 
+  }
+
+
+
+  public InsertNurseworking() {
+    for (let j = 0; j < this.dayid.length; j++) {
+      debugger
       for (let i = 0; i < this.detailsarray.length; i++) {
-
+        debugger
         var entity1 = {
-          'NurseHospitalDetailsID': qqqq,
+          'NurseHospitalDetailsID': this.nursehosid,
           'NurseID': this.detailsarray[i].NurseID,
-          'DayID': this.detailsarray[i].DayID,
+          'DayID': this.dayid[j].id,
           'StartTimee': this.detailsarray[i].StartTime,
           'EndTimee': this.detailsarray[i].EndTime
         }
@@ -241,82 +310,64 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
         })
       }
-      if (this.languageid == 1) {
-        this.detailsarray = [];
-        Swal.fire('Completed', 'Saved successfully', 'success');
-        location.href = "#/Nurseworkingdash"
-        this.table = 0;
-        this.starttime = '';
-        this.endtime = '';
-        this.dayid = 0;
-        this.idcount = 1;
-        this.fees = '';
-      }
-      else {
-        this.detailsarray = [];
-        Swal.fire('Enregistré');
-        location.href = "#/Nurseworkingdash"
-        this.table = 0;
-        this.starttime = '';
-        this.endtime = '';
-        this.dayid = 0;
-        this.idcount = 1;
-        this.fees = '';
-      }
-    })
-
-  }
-
-  public InsertNurseHospitalDetailsAdmindash() {
-
-    var entity = {
-      'NurseID': this.detailsarray[0].NurseID,
-      'Fees': this.detailsarray[0].Fees,
-      'Hospital_ClinicID': this.detailsarray[0].Hospital_ClinicID,
-      'LanguageID': 1
     }
-    this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
-
-      let qqqq = data;
-
-      for (let i = 0; i < this.detailsarray.length; i++) {
-
-        var entity1 = {
-          'NurseHospitalDetailsID': qqqq,
-          'NurseID': this.detailsarray[i].NurseID,
-          'DayID': this.detailsarray[i].DayID,
-          'StartTimee': this.detailsarray[i].StartTime,
-          'EndTimee': this.detailsarray[i].EndTime
-        }
-        this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
-
-        })
-      }
-      if (this.languageid == 1) {
-        this.detailsarray = [];
-        Swal.fire('Completed', 'Saved successfully', 'success');
-        location.href = "#/Nurseworkingdash"
-        this.table = 0;
-        this.starttime = '';
-        this.endtime = '';
-        this.dayid = 0;
-        this.idcount = 1;
-        this.fees = '';
-      }
-      else {
-        this.detailsarray = [];
-        Swal.fire('Enregistré');
-        location.href = "#/Nurseworkingdash"
-        this.table = 0;
-        this.starttime = '';
-        this.endtime = '';
-        this.dayid = 0;
-        this.idcount = 1;
-        this.fees = '';
-      }
-
-    })
 
   }
+
+
+
+
+
+  // public InsertNurseHospitalDetailsAdmindash() {
+
+  //   var entity = {
+  //     'NurseID': this.detailsarray[0].NurseID,
+  //     'Fees': this.detailsarray[0].Fees,
+  //     'Hospital_ClinicID': this.detailsarray[0].Hospital_ClinicID,
+  //     'LanguageID': 1
+  //   }
+  //   this.docservice.InsertNurseHospitalDetailsAdmin(entity).subscribe(data => {
+
+  //     let qqqq = data;
+
+  //     for (let i = 0; i < this.detailsarray.length; i++) {
+
+  //       var entity1 = {
+  //         'NurseHospitalDetailsID': qqqq,
+  //         'NurseID': this.detailsarray[i].NurseID,
+  //         'DayID': this.detailsarray[i].DayID,
+  //         'StartTimee': this.detailsarray[i].StartTime,
+  //         'EndTimee': this.detailsarray[i].EndTime
+  //       }
+  //       this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
+
+  //       })
+  //     }
+  //     if (this.languageid == 1) {
+  //       this.detailsarray = [];
+  //       Swal.fire('Completed', 'Saved successfully', 'success');
+  //       location.href = "#/Nurseworkingdash"
+  //       this.table = 0;
+  //       this.starttime = '';
+  //       this.endtime = '';
+  //       this.dayid = []
+  //       this.idcount = 1;
+  //       this.fees = '';
+  //     }
+  //     else {
+  //       this.detailsarray = [];
+  //       Swal.fire('Enregistré');
+  //       location.href = "#/Nurseworkingdash"
+  //       this.table = 0;
+  //       this.starttime = '';
+  //       this.endtime = '';
+  //       this.dayid = []
+  //       this.idcount = 1;
+  //       this.fees = '';
+  //     }
+
+  //   })
+
+  // }
 
 }

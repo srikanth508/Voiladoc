@@ -217,8 +217,8 @@ export class DeliveryPartnerComponent implements OnInit {
       debugger
       this.citssid = this.cityidss;
       this.multiplecityid = this.citssid.join(',');
-      
-      var mulpin=this.multipincodes;
+
+      var mulpin = this.multipincodes;
       this.multipincode = mulpin.join(',');
       debugger
       var entity = {
@@ -234,13 +234,16 @@ export class DeliveryPartnerComponent implements OnInit {
         'Pincode': this.pincode,
         'DeliveryType': this.deliverytypeid,
         'CityIDs': this.multiplecityid,
-        'CityPincodes':this.multipincode
+        'CityPincodes': this.multipincode
       }
       this.docservice.InsertDeliveryCompany(entity).subscribe(data => {
 
         Swal.fire('Registration Completed', 'Details saved successfully', 'success');
         this.spinner.hide();
         location.href = '#/DeliveryPartnerDashboard';
+      }, error => {
+        Swal.fire("Exception while saving. Please try again after some time");
+        this.spinner.hide();
       })
     }
   }

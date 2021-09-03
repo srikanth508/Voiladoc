@@ -451,6 +451,8 @@ export class AdminSiderevenueComponent implements OnInit {
   public GetAllSubScriptionRevenueID(item: any) {
 
     this.subHospitalID = item.id;
+    localStorage.setItem('SubhospitalID', this.subHospitalID);
+    
     this.GetAllHospitalSubscriptions()
   }
 
@@ -656,10 +658,10 @@ export class AdminSiderevenueComponent implements OnInit {
 
 
   public GetDiaPharmacCounts() {
-    
+
     this.docservice.GetDiaPharmacCounts(this.monthstartdate, this.monthenddate, this.languageid).subscribe(
       data => {
-        
+
         this.diaphacounts = data;
 
       }, error => {

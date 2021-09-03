@@ -12,6 +12,8 @@ export class SidebarComponent implements OnInit {
   display: any;
   faq: any;
   sponsred: any;
+  patientinvitations: any;
+  invitaionsreport: any;
 
 
   constructor(public docservice: HelloDoctorService) { }
@@ -126,8 +128,9 @@ export class SidebarComponent implements OnInit {
   refundticketsmenu: any;
   hospitalididd: any;
   deliveryreports: any;
+  userrole: any;
+  patientrefaral: any;
   ngOnInit() {
-
     this.display = "none";
     this.roleid = localStorage.getItem('roleid');
     this.languageid = localStorage.getItem('LanguageID')
@@ -459,7 +462,20 @@ export class SidebarComponent implements OnInit {
             if (this.menulist[s].subMenuName == 'Delivery Reports') {
               this.deliveryreports = 1;
             }
+            if (this.menulist[s].subMenuName == 'User Role Menu Mapping') {
+              this.userrole = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Patient Referal Invitations') {
+              this.patientrefaral = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Patient Invitations') {
+              this.patientinvitations = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Patient Invitations Report') {
+              this.invitaionsreport = 1;
+            }
           }
+
         })
     }
   }

@@ -44,8 +44,8 @@
             *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.diagnosticCenterName}}</td>
             <!-- <td>{{details.address}}</td> -->
-            <td>{{details.sDate}}</td>
-            <td>{{details.eDate}}</td>
+            <td>{{details.sDate|date:'dd-MM-yyyy'}}</td>
+            <td>{{details.eDate|date:'dd-MM-yyyy'}}</td>
             <td>{{details.fees}}</td>
             <td>
              

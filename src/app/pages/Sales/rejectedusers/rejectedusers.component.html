@@ -44,6 +44,30 @@
       <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
   </div>
+
+  <div class="row" *ngFor="let det of countlist">
+    <div class="col-lg-3">
+      <label><b>{{labels[0].hospitlal}} : {{det.rejectHospitalsCount}}</b></label><br>
+      <label><b>{{labels[0].clinic}} : {{det.rejectClinicsCount}} </b></label>
+
+    </div>
+    <div class="col-lg-3">
+      <label><b>{{labels[0].inddoctor}} : {{det.rejectDoctorsCount}}</b></label><br>
+      <label><b>{{labels[0].indnurse}} :  {{det.rejectNurseCount}}</b></label>
+
+    </div>
+    <div class="col-lg-3">
+      <label><b>{{labels[0].indphysio}} : {{det.rejectPhysioCount}}</b></label><br>
+      <label><b>{{labels[0].indmidiwfe}} : {{det.rejectMidwifeCount}}</b></label>
+
+    </div>
+    <div class="col-lg-3">
+      <label><b>{{labels[0].pharmcy}} : {{det.rejectPharmacyCount}}</b></label><br>
+      <label><b>{{labels[0].diagnosticenter}} : {{det.rejectDiagnosticCount}}</b></label>
+
+    </div>
+  </div>
+
   <br />
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">

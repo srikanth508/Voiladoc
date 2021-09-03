@@ -51,7 +51,7 @@
             <!-- <td>{{details.password}}</td> -->
             <td>
 
-              <ng-template #tipcontent1>Edit</ng-template>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 24px" data-toggle="modal" data-target="#exampleModal"
                   (click)="GetDeatsils(details)">
@@ -88,7 +88,7 @@
     >
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          {{labels[0].editPassword}}</h5>
+          {{labels[0].editownpwd}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -97,12 +97,12 @@
 
         <div class="row" *ngIf="Showpassword=='0'">
           <div class="col-lg-3">
-            <label>Enter Your Pin</label>
+            <label>{{labels[0].enteryourpin}}</label>
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
             <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"
-              placeholder="Enter Your Pin No">
+              placeholder="{{labels[0].enteryourpin}}">
           </div>
           <!-- <div class="col-lg-2">
             <button class="btn btncolor" (click)="CheckPasswordvalidate()">Validate</button>
@@ -126,7 +126,7 @@
         <form #doctorForm="ngForm">
           <div class="row">
             <div class="col-lg-4">
-              <label>Pin No :</label>
+              <label>{{labels[0].pinno}} :</label>
               <span class="required">*</span>
             </div>
             <div class="col-lg-6">

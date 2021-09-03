@@ -37,19 +37,19 @@
             <th>{{labels[0].address}}</th>
             <th id="imp">{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].reason}}</th>
-            <th>Payment type</th>
+            <th>{{labels[0].paymentType}}</th>
             <th>{{labels[0].status}}</th>
            
             <th>{{labels[0].action}}</th>
           </tr>
           <tr *ngFor="let app of appointmentist|filter:term">
-            <td>{{app.apptDate}}</td>
+            <td>{{app.apptDate|date:'dd-MM-yyyy'}}</td>
             <td>{{app.id}}</td>
             <td>{{app.patientName}}</td>
             <td>{{app.mobileNumber}}</td>
             <td>{{app.emailID}}</td>
             <td>
-              {{app.dateofbirth}}
+              {{app.dateofbirth|date:'dd-MM-yyyy'}}
             </td>
             <!-- <td>
               {{app.nationalIdeficationID}}

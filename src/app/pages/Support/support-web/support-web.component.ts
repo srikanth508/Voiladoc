@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 import * as FileSaver from 'file-saver';
+import { concat } from 'rxjs';
 @Component({
   selector: 'app-support-web',
   templateUrl: './support-web.component.html',
@@ -56,8 +57,8 @@ export class SupportWebComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 5);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 100);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 100);
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
@@ -88,7 +89,7 @@ export class SupportWebComponent implements OnInit {
       this.dropzonelable = "Télécharger des fichiers"
     }
   }
-  labels1:any;
+  labels1: any;
 
 
 
@@ -101,7 +102,6 @@ export class SupportWebComponent implements OnInit {
       error => { }
     );
   }
-
 
 
   public GetSupportIssues() {
@@ -187,8 +187,7 @@ export class SupportWebComponent implements OnInit {
 
   public UpdateSupportForWebAcceptedbit(id) {
 
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You Want To Accept This Issue!",
@@ -214,8 +213,7 @@ export class SupportWebComponent implements OnInit {
         }
       })
     }
-    else
-    {
+    else {
       Swal.fire({
         // title: 'Êtes-vous sûr ?',
         // text: "You Want To Accept This Issue!",
@@ -241,16 +239,20 @@ export class SupportWebComponent implements OnInit {
         }
       })
     }
- 
+
   }
   resolveid: any;
   useremail: any;
+  smsmoibilno: any;
 
-  public GetSupportResolveID(id, useremail) {
+  public GetSupportResolveID(id, useremail, usermobile) {
 
     this.resolveid = id
     this.useremail = useremail
-
+    this.smsmoibilno = usermobile
+    debugger
+    this.smsmoibilno = "212" + this.smsmoibilno
+    debugger
   }
   description: any;
   removetgdescription: any;
@@ -268,9 +270,11 @@ export class SupportWebComponent implements OnInit {
     this.docservice.UpdateSupportForWebResolvedbit(entity).subscribe(data => {
       let res = data;
 
-      if(this.languageid==1)
-      {
-        this.insertazurenotification()
+      if (this.languageid == 1) {
+        this.insertazurenotification();
+        this.sendmail1()
+        var smsdesc = "Your Support Ticket has been Resolved"
+        this.SendTwiliSms(smsdesc, this.smsmoibilno)
         Swal.fire('Issue Resolved Successfully')
         this.description = ""
         this.issuephotourl = [];
@@ -278,14 +282,56 @@ export class SupportWebComponent implements OnInit {
         this.showidentityproof = [];
         this.GetSupportIssues();
       }
-      else{
+      else {
         this.insertazurenotification()
+        this.sendmail1()
+        var smsdesc = "Your Support Ticket has been Resolved"
+        this.SendTwiliSms(smsdesc, this.smsmoibilno)
         Swal.fire('Problème résolu et réponse au prestataire.')
         this.description = ""
         this.issuephotourl = [];
         this.identityattachmentsurlssss = [];
         this.showidentityproof = [];
         this.GetSupportIssues();
+      }
+    })
+  }
+
+
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+
+    })
+  }
+
+
+
+  emailattchementurl = []
+  cclist: any;
+  bcclist: any;
+
+  public sendmail1() {
+
+    var entity = {
+      'emailto': this.useremail,
+      'emailsubject': "Your Support Ticket Resolved",
+      'emailbody': "Your Support Ticket Resolved",
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+
+    this.docservice.sendemail(entity).subscribe(data => {
+
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
       }
     })
   }
@@ -319,15 +365,14 @@ export class SupportWebComponent implements OnInit {
     this.uploadid();
     // }
 
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-   else{
-    Swal.fire('Photo ajoutée');
-    abcd.length = 0;
-   }
+    else {
+      Swal.fire('Photo ajoutée');
+      abcd.length = 0;
+    }
   }
 
   public uploadid() {
@@ -382,10 +427,10 @@ export class SupportWebComponent implements OnInit {
   }
 
 
-  public id:any;
+  public id: any;
 
   public assignMeridiobal(id) {
-    this.id=id;
+    this.id = id;
   }
 
 

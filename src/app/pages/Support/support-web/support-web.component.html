@@ -7,8 +7,8 @@
     <div class="col-lg-5">
     </div>
     <div class="col-lg-2">
-      <button  class="btn btncolor" 
-        (click)="getglmasterexcel()" *ngIf="showexportbutton=='1'">{{labels[0].exportExcel}}</button>
+      <button class="btn btncolor" (click)="getglmasterexcel()"
+        *ngIf="showexportbutton=='1'">{{labels[0].exportExcel}}</button>
     </div>
   </div>
 </div><br>
@@ -45,15 +45,15 @@
   </div><br>
   <div class="row" style="overflow: auto;">
     <div class="col-lg-12" style="overflow: auto;">
-      <table 
-      id="Appointment" >
+      <table id="Appointment">
         <thead>
           <tr>
             <th>{{labels1[0].ticketno}}</th>
             <th>{{labels[0].raisedDate}}</th>
+            <th>{{labels1[0].time}}</th>
             <th>{{labels[0].type}}</th>
             <th>{{labels[0].name}}</th>
-            <th>Phone No</th>
+            <th>{{labels[0].mobileno}}</th>
             <th>Email</th>
             <th>{{labels[0].issue}}</th>
             <th>{{labels[0].description}}</th>
@@ -64,6 +64,7 @@
           <tr *ngFor="let issue of issuelist|filter:term">
             <td>{{issue.id}}</td>
             <td>{{issue.raiseddate}}</td>
+            <td>{{issue.time}}</td>
             <td>{{issue.typename}}</td>
             <td>{{issue.userName}}</td>
             <td>{{issue.usermobile}}</td>
@@ -78,11 +79,17 @@
             </td>
             <td>
               <!-- <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'&&issue.assignMeridional=='0'" style="color:red">{{labels1[0].pending}}</label> -->
-              <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="color:green">{{labels1[0].pending}}</label>
-              <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'" style="color:green">{{labels1[0].assignmeridional}}</label>
+              <label *ngIf="issue.resolved=='0'&&issue.accepted=='0'&&issue.assignMeridional=='0'"
+                style="color:red">{{labels1[0].pending}}</label>
+
+                <label *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'"
+                style="color:green">{{labels[0].accepted}}</label>
+
+              <label *ngIf="issue.resolved=='0'&&issue.assignMeridional=='1'"
+                style="color:green">{{labels1[0].assignmeridional}}</label>
               <!-- <label *ngIf="issue.resolved=='1'" style="color:green">{{labels[0].resolved}}</label> -->
             </td>
-            <td>  
+            <td>
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
                 <img src="assets/Images/acc.png" *ngIf="issue.resolved=='0'&&issue.accepted=='0'" style="height: 20px;"
@@ -91,14 +98,17 @@
 
               <ng-template #tipcontent65>{{labels1[0].assignmeridional}}</ng-template>
               <a [ngbTooltip]="tipcontent65">
-                <img src="assets/Images/staff.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="height: 20px;"
-                data-toggle="modal"    data-target="#exampleModalLong4"    (click)="assignMeridiobal(issue.id)" />
+                <img src="assets/Images/staff.png"
+                  *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="height: 20px;"
+                  data-toggle="modal" data-target="#exampleModalLong4" (click)="assignMeridiobal(issue.id)" />
               </a>&nbsp;
 
               <ng-template #tipcontent4>{{labels[0].resolved}}</ng-template>
               <a [ngbTooltip]="tipcontent4">
-                <img src="assets/Images/edit.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" data-toggle="modal"
-                  data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(issue.id,issue.useremail)" />
+                <img src="assets/Images/edit.png"
+                  *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" data-toggle="modal"
+                  data-target="#exampleModalLong3" style="height: 20px;"
+                  (click)="GetSupportResolveID(issue.id,issue.useremail,issue.usermobile)" />
               </a>
             </td>
           </tr>
@@ -162,8 +172,7 @@
                 <label>{{labels[0].photo}} :</label>
               </div>
               <div class="col-lg-4">
-                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
-                  class="dropzone_vendorinvoice">
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
                   <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
               </div>
@@ -208,7 +217,7 @@
   </div>
 </div>
 <div id="qwerty" style="display: none;">
-</div>	
+</div>
 
 
 
@@ -233,8 +242,7 @@
                 <label>{{labels[0].photo}} :</label>
               </div>
               <div class="col-lg-4">
-                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
-                  class="dropzone_vendorinvoice">
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
                   <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
               </div>
@@ -279,4 +287,4 @@
   </div>
 </div>
 <div id="qwerty" style="display: none;">
-</div>	
+</div>

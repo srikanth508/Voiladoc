@@ -44,13 +44,15 @@ export class MidwiferevenueComponent implements OnInit {
     };
     this.miwifeid = localStorage.getItem('midwifeid');
     this.languageid = localStorage.getItem('LanguageID');
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 0);
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 12);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 12);
    
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
    
+    localStorage.setItem("startdate", this.startdate);
+    localStorage.setItem("enddate", this.enddate);
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -103,6 +105,9 @@ export class MidwiferevenueComponent implements OnInit {
     // this.enddate = sdate[1]
     this.startdate = this.docservice.GetDates(data[0])
     this.enddate = this.docservice.GetDates(data[1])
+
+    localStorage.setItem("startdate", this.startdate);
+    localStorage.setItem("enddate", this.enddate);
 
     this.GetAllMidWIfeCount();
     this.GetTotalCommissions()

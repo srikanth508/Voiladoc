@@ -43,7 +43,7 @@ export class BookappmentsComponent implements OnInit {
   hospitalid: any;
   homevisit: boolean;
   ngOnInit() {
-    
+
     this.user = localStorage.getItem('user');
 
     this.showback = localStorage.getItem('Showbutton');
@@ -147,10 +147,10 @@ export class BookappmentsComponent implements OnInit {
   public GetPatients() {
 
     if (this.showback == 1) {
-      
+
       this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
         data => {
-          
+
           // this.patientslist = 
           // this.dummlist.filter(x => x.doctorID == this.doctorid)
           this.patientslist = data;
@@ -172,7 +172,7 @@ export class BookappmentsComponent implements OnInit {
     else if (this.showback == 2) {
       this.docservice.GetBookAppointmentByHospitalPatients(this.hospitalid, '2020-01-01', '2060-01-01').subscribe(
         data => {
-          
+
           this.dummlist = data;
           this.patientslist = this.dummlist.filter(x => x.doctorID == this.doctorid)
           // this.patientslist = data;
@@ -211,6 +211,7 @@ export class BookappmentsComponent implements OnInit {
     // );
   }
 
+  public smsmobileno: any;
 
   public GetPatientID(item: any) {
 
@@ -219,7 +220,8 @@ export class BookappmentsComponent implements OnInit {
     this.patientname = list[0].patientName
     this.mobileno = list[0].mobileNumber
     this.address = list[0].address
-    this.email = list[0].emailID
+    this.email = list[0].emailID,
+      this.smsmobileno = list[0].smsmobileno
   }
   NurseID
   public GetNurseID(event) {
@@ -259,25 +261,35 @@ export class BookappmentsComponent implements OnInit {
           this.InsertNotifiaction();
           this.InsertDocNotification()
           this.SendNotification();
+
           // this.insertpaymentDetails()
           //this.sendmail();
 
           if (this.showback == 1) {
             if (this.languageid == 1) {
+              var smsdesc = "Thank you.Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname + ", At" + this.user
+              this.SendTwiliSms(smsdesc, this.smsmobileno);
+
               Swal.fire('Success', 'Appointment Booked Successfully');
               location.href = "#/Appointments"
             }
             else if (this.languageid == 6) {
+              var smsdesc = "Vous avez une nouvelle demande de rendez-vous pour une consultation " + this.combinationvalue + " par  " + this.doctorname + " est confirmé.Date et heure :" + this.appdate + ", " + this.slotname
+              this.SendTwiliSms(smsdesc, this.smsmobileno);
               Swal.fire('Rendez-vous est réservé');
               location.href = "#/Appointments"
             }
           }
           else {
             if (this.languageid == 1) {
+              var smsdesc = "Thank you.Your appointment with  " + this.doctorname + " is scheduled for " + this.appdate + ", " + this.slotname + ", At" + this.user
+              this.SendTwiliSms(smsdesc, this.smsmobileno);
               Swal.fire('Success', 'Appointment Booked Successfully');
               location.href = "#/DocRecpAppointments"
             }
             else if (this.languageid == 6) {
+              var smsdesc = "Vous avez une nouvelle demande de rendez-vous pour une consultation " + this.combinationvalue + " par  " + this.doctorname + " est confirmé.Date et heure :" + this.appdate + ", " + this.slotname
+              this.SendTwiliSms(smsdesc, this.smsmobileno);
               Swal.fire('Rendez-vous est réservé');
               location.href = "#/DocRecpAppointments"
             }
@@ -409,6 +421,15 @@ export class BookappmentsComponent implements OnInit {
   }
 
 
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      debugger
+
+    })
+  }
 
 
 

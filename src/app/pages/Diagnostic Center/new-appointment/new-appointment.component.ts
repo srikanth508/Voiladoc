@@ -43,7 +43,7 @@ export class NewAppointmentComponent implements OnInit {
     allselectedtestandpakages = [];
     table: number;
     totalamount: any;
-    homesample:boolean;
+    homesample: boolean;
     diagnosticslotid: any;
     slotname: any;
     ngOnInit() {
@@ -91,8 +91,9 @@ export class NewAppointmentComponent implements OnInit {
             this.testlist = data;
         })
         //  document.getElementById("def_open").click();
-        this.GetPatients();
         this.Getlanagage();
+        this.GetPatients();
+      
         var gsDayNames = [
             'Sunday',
             'Monday',
@@ -139,7 +140,7 @@ export class NewAppointmentComponent implements OnInit {
             )
         })
     }
-
+    search: any;
 
     public Getlanagage() {
         this.docservice.GetAdmin_Doctorregistration_LabelsByLanguageID(this.languageid).subscribe(
@@ -147,6 +148,7 @@ export class NewAppointmentComponent implements OnInit {
 
                 this.labels = data;
                 this.SelectLabel = this.labels[0].select;
+                this.search = this.labels[0].search
 
             }, error => {
             }
@@ -161,19 +163,20 @@ export class NewAppointmentComponent implements OnInit {
         )
     }
     public GetPatients() {
-        this.docservice.GetPatientRegistrationBook().subscribe(
+        this.docservice.GetDiagnosticpatients(this.diagnosticid).subscribe(
             data => {
 
                 this.patientslist = data;
 
                 this.patientdd = {
                     singleSelection: true,
-                    idField: 'id',
+                    idField: 'patientID',
                     textField: 'patientName',
                     selectAllText: 'Select All',
                     unSelectAllText: 'UnSelect All',
                     itemsShowLimit: 3,
-                    allowSearchFilter: true
+                    allowSearchFilter: true,
+                    searchPlaceholderText: this.search,
                 };
             },
             error => { }
@@ -313,7 +316,7 @@ export class NewAppointmentComponent implements OnInit {
     public slottime: any;
 
     public BookAppointment() {
-        
+
         var entity = {
             PatientID: this.patientid,
             DiagnosticCenterID: this.diagnosticid,
@@ -324,10 +327,10 @@ export class NewAppointmentComponent implements OnInit {
             DiagnopatientNmae: this.patientname,
             SlotTime: this.slotname
         }
-        
+
         this.docservice.InsertDiagnosticAppointments(entity).subscribe(data => {
             this.appointmentid = data;
-            
+
             ;
             if (data != undefined) {
                 for (let k = 0; k < this.allselectedtestandpakages.length; k++) {
@@ -366,7 +369,7 @@ export class NewAppointmentComponent implements OnInit {
 
         this.selecteddate = even.toLocaleString().split(',')[0];
         if (this.homesample == true) {
-           
+
             var gsDayNames = [
                 'Sunday',
                 'Monday',

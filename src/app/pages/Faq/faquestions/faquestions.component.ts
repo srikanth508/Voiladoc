@@ -3,6 +3,7 @@ import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-faquestions',
   templateUrl: './faquestions.component.html',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FAQuestionsComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute, private spinner: NgxSpinnerService) { }
   public languageid: any;
   public faq: any;
   public id: any;
@@ -23,10 +24,11 @@ export class FAQuestionsComponent implements OnInit {
   public diagnosticid: any;
   public doctorid: any;
   public hospitalid: any;
-  term:any;
+  term: any;
 
   ngOnInit() {
 
+    this.spinner.show()
     this.languageid = localStorage.getItem('LanguageID');
 
     this.pharmacyid = localStorage.getItem('pharmacyid');
@@ -43,16 +45,18 @@ export class FAQuestionsComponent implements OnInit {
 
           this.dummfaqlist = data;
           this.faqlist = this.dummfaqlist.filter(x => x.typeID == 2);
+          this.spinner.hide();
         }, error => {
         }
       )
-    
+
     }
     else if (this.nurseid != undefined || this.midwifeid != undefined || this.physioid != undefined) {
       this.docservice.GetFrequentlyAskedQuestions(this.languageid).subscribe(
         data => {
           this.dummfaqlist = data;
           this.faqlist = this.dummfaqlist.filter(x => x.typeID == 3);
+          this.spinner.hide();
 
 
         }, error => {
@@ -65,6 +69,7 @@ export class FAQuestionsComponent implements OnInit {
 
           this.dummfaqlist = data;
           this.faqlist = this.dummfaqlist.filter(x => x.typeID == 4);
+          this.spinner.hide();
 
 
         }, error => {
@@ -78,6 +83,7 @@ export class FAQuestionsComponent implements OnInit {
 
           this.dummfaqlist = data;
           this.faqlist = this.dummfaqlist.filter(x => x.typeID == 5);
+          this.spinner.hide();
 
         }, error => {
         }
@@ -89,7 +95,7 @@ export class FAQuestionsComponent implements OnInit {
 
           this.dummfaqlist = data;
           this.faqlist = this.dummfaqlist.filter(x => x.typeID == 6);
-
+          this.spinner.hide();
 
         }, error => {
         }
@@ -131,6 +137,13 @@ export class FAQuestionsComponent implements OnInit {
       }, error => {
       }
     )
+  }
+
+  answers: any;
+
+  GetID(data) {
+    debugger
+    this.answers = data.answers;
   }
 
 }

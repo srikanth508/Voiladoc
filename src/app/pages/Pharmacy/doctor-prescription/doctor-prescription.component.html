@@ -43,12 +43,14 @@
             <th>{{labels[0].phoneNo}} </th> -->
             <th>{{labels[0].mailId}}</th>
             <th>{{labels[0].deliveryAddress}}</th>
+            <th>{{labels[0].paymentType}}</th>
+            <th>{{labels[0].price}}</th>
             <th>{{labels[0].medicines}}</th>
             <th>{{labels[0].status}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let details of orderlist|filter:term">
-            <td>{{details.date}}</td>
+            <td>{{details.date|date:'dd-MM-yyyy'}}</td>
             <td>{{details.referenceNumber}}</td>
             <td>{{details.id}}</td>
             <td>
@@ -70,6 +72,8 @@
             <td>{{details.relationmobileno}}</td>
             <td>{{details.relationemailid}}</td>
             <td>{{details.address}}</td>
+            <td>{{details.paymentType}}</td>
+            <td>{{details.paidAmount}}</td>
             <td>
               <ng-template #tipcontent12>{{labels[0].medicines}}</ng-template>
               <a [ngbTooltip]="tipcontent12">
@@ -84,7 +88,7 @@
             </td>
             <td>
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'&&details.readyfordelivery=='0'">{{labels[0].accepted}}</label>
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'&&details.readyfordelivery=='0'&&details.showUpdate=='0'">{{labels[0].accepted}}</label>
               <label style="color:red"
                 *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
               <label style="color:green"
@@ -114,6 +118,10 @@
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='1'&&details.delivered=='0'">
                 Paid</label>
+
+                <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='0'&&details.showUpdate=='1'">
+               {{labels[0].pricesenttopatient}}</label>
             </td>
             <td>
               <table style="box-shadow:none">
@@ -208,148 +216,153 @@
         </button>
       </div>
       <div class="modal-body">
-        <div id="content">
-          <div class="row">
-            <!-- <div class="col-lg-5">
+        <form #MedicineForm="ngForm">
+          <div id="content">
+            <div class="row">
+              <!-- <div class="col-lg-5">
             </div> -->
-            <div class="col-lg-12">
-              <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+              <div class="col-lg-12">
+                <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+              </div>
             </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-lg-12">
-              <aside id="info-block">
-                <section class="file-marker">
-                  <div>
-                    <div class="box-title1">
-                      <label *ngIf="languageid=='1'">Doctor</label>
-                      <label *ngIf="languageid=='6'">Médecins</label>
-                    </div>
-                    <div class="box-contents">
-                      <div id="audit-trail">
-                        <label>{{doctorname}}</label><br>
-                        <div *ngIf="hospitalid!=590">
-                          <label>{{hospitalname}}</label><br>
+            <br>
+            <div class="row">
+              <div class="col-lg-12">
+                <aside id="info-block">
+                  <section class="file-marker">
+                    <div>
+                      <div class="box-title1">
+                        <label *ngIf="languageid=='1'">Doctor</label>
+                        <label *ngIf="languageid=='6'">Médecins</label>
+                      </div>
+                      <div class="box-contents">
+                        <div id="audit-trail">
+                          <label>{{doctorname}}</label><br>
+                          <div *ngIf="hospitalid!=590">
+                            <label>{{hospitalname}}</label><br>
+                          </div>
+                          <div style="width: 150px;"> <label>{{docaddress}}</label><br> </div>
+                          <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
+                          <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
+                          <label>{{labels[0].mailId}} : {{email}} </label><br>
+                          <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
                         </div>
-                        <div style="width: 150px;"> <label>{{docaddress}}</label><br> </div>
-                        <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
-                        <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
-                        <label>{{labels[0].mailId}} : {{email}} </label><br>
-                        <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
                       </div>
                     </div>
-                  </div>
-                </section>
-              </aside>
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-lg-12">
-              <aside id="info-block">
-                <section class="file-marker">
-                  <div>
-                    <div class="box-title">
-                      {{labels[0].patientDetails}}
-                    </div>
-                    <div class="box-contents">
-                      <div id="audit-trail">
-                        <label> Reference No : {{referencenumber}} </label><br>
-                        <label> {{labels[0].patientname}} : {{patientname}} </label><br>
-                        <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
-                        <label> {{labels[0].address}} : {{address}}</label><br>
-                        <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
+                  </section>
+                </aside>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <aside id="info-block">
+                  <section class="file-marker">
+                    <div>
+                      <div class="box-title">
+                        {{labels[0].patientDetails}}
+                      </div>
+                      <div class="box-contents">
+                        <div id="audit-trail">
+                          <label> Reference No : {{referencenumber}} </label><br>
+                          <label> {{labels[0].patientname}} : {{patientname}} </label><br>
+                          <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
+                          <label> {{labels[0].address}} : {{address}}</label><br>
+                          <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </section>
-              </aside>
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-lg-12">
-              <aside id="info-block">
-                <section class="file-marker">
-                  <div>
-                    <div class="box-title">
-                      {{labels[0].medicinedetails}}
-                    </div>
-                    <div class="box-contents">
-                      <div id="audit-trail">
-                        <table>
-                          <thead>
-                            <tr>
-                              <!-- <th>{{labels[0].medicineType}}</th> -->
-                              <th style="border: 2px solid black; background-color:#FFD300;
+                  </section>
+                </aside>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-12">
+
+
+                <aside id="info-block">
+                  <section class="file-marker">
+                    <div>
+                      <div class="box-title">
+                        {{labels[0].medicinedetails}}
+                      </div>
+                      <div class="box-contents">
+                        <div id="audit-trail">
+                          <table>
+                            <thead>
+                              <tr>
+                                <!-- <th>{{labels[0].medicineType}}</th> -->
+                                <th style="border: 2px solid black; background-color:#FFD300;
                               color:black;">{{labels[0].medicines}}</th>
-                              <th style="border: 2px solid black; background-color:#FFD300; color:black;">
-                                {{labels[0].sig}}</th>
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                {{labels[0].quantity}}</th>
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                {{labels[0].howmanyrefills}}</th>
+                                <th style="border: 2px solid black; background-color:#FFD300; color:black;">
+                                  {{labels[0].sig}}</th>
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                  {{labels[0].quantity}}</th>
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                  {{labels[0].howmanyrefills}}</th>
 
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                {{labels[0].substitablenotpermitedd}}</th>
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                  {{labels[0].substitablenotpermitedd}}</th>
 
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                {{labels[0].notetoPharmsict}}</th>
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">
-                                {{labels[0].amount}}</th>
-                              <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                  {{labels[0].notetoPharmsict}}</th>
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">
+                                  {{labels[0].amount}}</th>
+                                <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].notetoPharmsict}}</th> -->
-                              <th style="border: 2px solid black;background-color:#FFD300; color:black;">Actions</th>
-                            </tr>
-                            <tr *ngFor="let medicinelist of orderedmedicinelist">
-                              <!-- <td>{{medicinelist.Medicinetype}}</td> -->
-                              <td style="border: 2px solid black;">{{medicinelist.medicineName}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.sig}}</td>
-                              <td style="border: 2px solid black;">
-                                <!-- {{medicinelist.quantity}} -->
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">Actions</th>
+                              </tr>
+                              <tr *ngFor="let medicinelist of orderedmedicinelist">
+                                <!-- <td>{{medicinelist.Medicinetype}}</td> -->
+                                <td style="border: 2px solid black;">{{medicinelist.medicineName}}</td>
+                                <td style="border: 2px solid black;">{{medicinelist.sig}}</td>
+                                <td style="border: 2px solid black;">
+                                  <!-- {{medicinelist.quantity}} -->
 
-                                <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
-                                  style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
-                              </td>
-                              <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
-                              <td style="border: 2px solid black;">{{medicinelist.noteToPharmacist}}</td>
-                              <td style="border: 2px solid black;">
-                                <input type="text" [(ngModel)]="medicinelist.amount" name="medicinelist.amount"
-                                  class="form-control" placeholder="Amount">
-                              </td>
-                              <td style="border: 2px solid black;">
-                                <input type="checkbox" [(ngModel)]="medicinelist.availableBit">
-                              </td>
-                              <!-- <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td> -->
-                            </tr>
-                          </thead>
-                        </table>
+                                  <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
+                                    style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
+                                </td>
+                                <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
+                                <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
+                                <td style="border: 2px solid black;">{{medicinelist.noteToPharmacist}}</td>
+                                <td style="border: 2px solid black;">
+                                  <input type="text" [(ngModel)]="medicinelist.amount"  required
+                                    name="medicinelist.amount" class="form-control" minlength="2" onkeypress='return(event.charCode>=48&&event.charCode<=57)'  placeholder="Amount">
+                                </td>
+                                <td style="border: 2px solid black;">
+                                  <input type="checkbox" [(ngModel)]="medicinelist.availableBit">
+                                </td>
+                                <!-- <td style="border: 2px solid black;">{{medicinelist.NoteToPharmacist}}</td> -->
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </section>
-              </aside>
+                  </section>
+                </aside>
+
+              </div>
             </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-lg-4">
-            </div>
-            <div class="col-lg-4">
-              <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-                *ngIf="showedit=='0'" data-dismiss="modal" (click)="Updateavailablemedicines()">
-                {{labels[0].update}}</button>
-            </div>
-            <div class="col-lg-4">
-              <!-- <img src="{{docsignatureurl}}"> -->
-              <span style="text-align:center;margin-left: 61px;">(Signature)</span>
-              <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
-              <div style="margin-top: -13px;">
-                <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{registrationno}}</span>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+              </div>
+              <div class="col-lg-4">
+                <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+                  *ngIf="showedit=='0'" data-dismiss="modal" [disabled]="MedicineForm.form.invalid" (click)="Updateavailablemedicines()">
+                  {{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-4">
+                <!-- <img src="{{docsignatureurl}}"> -->
+                <span style="text-align:center;margin-left: 61px;">(Signature)</span>
+                <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 3px;">
+                <div style="margin-top: -13px;">
+                  <span>{{doctorname}}</span>&nbsp;&nbsp; <span>{{registrationno}}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
         <div class="modal-footer">
           <button type="button" style="background-color: #322b6b; color: white;margin-right: 529px;"
             class="btn btn-default" data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
@@ -397,8 +410,7 @@
           </div>
           <div class="col-lg-7">
             <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-              (click)="updateamount()"  style="width: 246px;"
-              data-dismiss="modal">{{labels[0].update}}</button>
+              (click)="updateamount()" style="width: 246px;" data-dismiss="modal">{{labels[0].update}}</button>
           </div>
           <!-- <div class="col-lg-5">
           </div> -->

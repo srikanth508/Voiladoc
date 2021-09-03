@@ -114,6 +114,9 @@ export class DoctorPrescriptionComponent implements OnInit {
       }, error => {
       }
     )
+
+
+   
   }
 
 
@@ -1039,7 +1042,15 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public dosendmsg() {
     this.getChat();
-    var smsdesc = this.user + " is trying to contact you on the Voiladoc chatline."
+    if(this.languageid==1)
+    {
+      var smsdesc = this.user + " is trying to contact on the chatline. Please open the Voiladoc application to respond."
+    }
+    else
+    {
+      var smsdesc = this.user + " essaie de vous contacter sur la chatline. Veuillez ouvrir l'application Voiladoc pour répondre."
+    }
+    
     this.SendTwiliSms(smsdesc, this.smsmobleno)
 
   }
@@ -1077,7 +1088,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     if (this.languageid == 1) {
       var entity = {
-        'Description': this.user + " is trying to contact you on the Voiladoc chatline.",
+        'Description': this.user + " is trying to contact on the chatline. Please open the Voiladoc application to respond.",
         'ToUser': this.patientemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -1089,7 +1100,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     else {
       var entity = {
-        'Description': this.user + " La pharmacie Apollo essaie de vous contacter sur la messagerie Voiladoc.",
+        'Description': this.user + " essaie de vous contacter sur la chatline. Veuillez ouvrir l'application Voiladoc pour répondre.",
         'ToUser': this.patientemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -1287,7 +1298,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
     }
     else {
-      var smsdesc = "La" + this.user + " Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc";
+      var smsdesc = "La " + this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
     }
     this.SendTwiliSms(smsdesc, this.smsmobleno);
     this.GetPharmacyOrders()

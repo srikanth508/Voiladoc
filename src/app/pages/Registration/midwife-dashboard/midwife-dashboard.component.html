@@ -60,6 +60,7 @@
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].address}}</th>
+            <th>Pincode</th>
             <th>{{labels[0].action}}</th>
           </tr>
           <tr *ngFor="let mid of midwifelist|filter:term">
@@ -71,6 +72,7 @@
             <td>{{mid.city}}</td>
             <td>{{mid.areaName}}</td>
             <td>{{mid.address}}</td>
+            <td>{{mid.pincode}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">

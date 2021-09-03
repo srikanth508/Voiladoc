@@ -19,7 +19,7 @@ export class PharmacyregistrationComponent implements OnInit {
   public licensevalidtil: any;
   public phno: any;
   public email: any;
-  public address: any;q
+  public address: any; q
   public zipcode: any;
   public timings: any;
   public website: any;
@@ -54,8 +54,8 @@ export class PharmacyregistrationComponent implements OnInit {
   SelectLabel
   dropzonelable: any;
   public contractstartdate: any;
-  public contractenddate:any;
-  
+  public contractenddate: any;
+
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
     this.languageid = localStorage.getItem('LanguageID');
@@ -162,15 +162,13 @@ export class PharmacyregistrationComponent implements OnInit {
 
       this.timings = this.tone + ' TO ' + this.toampm;
 
-      if(this.hspwebsite==undefined)
-      {
+      if (this.hspwebsite == undefined) {
 
       }
-      else
-      {
+      else {
         this.hspwebsite = 'http://' + '' + this.website
       }
-     
+
 
       var entity = {
         'PharmacyName': this.pharmacyname,
@@ -211,6 +209,9 @@ export class PharmacyregistrationComponent implements OnInit {
           this.spinner.hide();
           location.href = "#/Pharmacydashboard"
         }
+      }, error => {
+        Swal.fire("Exception while saving. please try after some time");
+        this.spinner.hide();
       })
 
     }
@@ -236,7 +237,7 @@ export class PharmacyregistrationComponent implements OnInit {
 
   }
 
-  public dummshowsignatureurl=[]
+  public dummshowsignatureurl = []
 
 
 
@@ -291,16 +292,16 @@ export class PharmacyregistrationComponent implements OnInit {
     var entity = {
       'PharmacyID': this.pharmacyid,
       'SubscriptionAmount': this.monthlysubription,
-      'ContractStartdate':this.contractstartdate,
-      'ContractEnddate':this.contractenddate
+      'ContractStartdate': this.contractstartdate,
+      'ContractEnddate': this.contractenddate
     }
     this.docservice.InsertPharmacySubscriptions_Revenue(entity).subscribe(data => {
-     
+
       if (data != 0) {
       }
     })
-  
-}
+
+  }
 
 
 

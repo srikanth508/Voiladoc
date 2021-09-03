@@ -1,22 +1,94 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 <br>
 <div class="container-fluid card card-hover">
   <br>
   <div class="row">
-    <div class="col-lg-4">
-    </div>
+
     <div class="col-lg-6">
       <h5 *ngIf="languageid=='1'">Frequently Asked Questions </h5>
       <h5 *ngIf="languageid=='6'">QUESTIONS FRÉQUEMMENT POSÉES </h5>
+    </div>
+    <div class="col-lg-4">
     </div>
     <div class="col-lg-2">
       <img src="assets/Images/logo.png" style="width: 50%;">
     </div>
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="Search">
+      <input type="text" class="form-control" [(ngModel)]="term" *ngIf="languageid==1" name="term" placeholder="Search">
+      <input type="text" class="form-control" [(ngModel)]="term" *ngIf="languageid==6" name="term"
+        placeholder="Rechercher">
     </div><br>
   </div>
   <hr>
 
+
+  <div class="row">
+    <div class="col-lg-12" *ngFor="let data of faqlist|filter:term">
+      <div class="panel-heading" role="tab" [id]="'heading'+data.id">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+data.id"
+            (click)="GetID(data)" aria-expanded="true" [attr.aria-controls]="'collapse'+data.id">
+            <h6 style="color:#303577;font-size: 22px;">{{data.faq}}</h6>
+          </a>
+        </h4>
+      </div><br>
+      <!-- (click)="GetData(sub)" -->
+      <div [id]="'collapse'+data.id" class="panel-collapse collapse" role="tabpanel"
+        [attr.aria-labelledby]="'heading'+data.id">
+        <div class="panel-body">
+          <div>
+            <div class="row">
+              <div class="col-lg-12">
+                <p innerHTML="{{answers}}"></p>
+              </div>
+              <!-- <div class="col-lg-1">
+     
+                <img src="assets/Images/imgicon.png" title="Images" (click)="GetImagesID(details.id)"
+                  *ngIf="details.imageExist==1" data-toggle="modal" data-target="#exampleModalLong2"
+                  style="margin: 2%;width: 20px;" />&nbsp;
+              </div>&nbsp;&nbsp; -->
+              <!-- <div class="col-lg-6">
+                <img src="{{sub.photoUrl}}" *ngIf="sub.photo!='0'" style="width: 100%;height: auto;"><br>
+              </div>
+              <div class="col-lg-6">
+                <div class="video">
+                  <video controls id="videoPlayer" *ngIf="sub.video!='0'" autoplay style="height:auto; width: 100%;">
+                    <source src="{{sub.videoUrl}}" type="video/mp4" /> Browser not
+                    supported
+                  </video>
+                </div> -->
+
+              </div>
+
+            </div>
+
+
+          </div><br>
+          <div>
+            <!-- <span> {{description}}</span> -->
+          </div>
+        </div>
+      </div>
+      <!-- <div [id]="'collapse'+data.id" class="panel-collapse collapse" role="tabpanel"
+        [attr.aria-labelledby]="'heading'+data.id">
+        <div class="panel-body">
+          <div *ngFor="let sub of subchapterlist">
+            <label (click)="GetData(sub)">{{sub.subTopicName}}</label>
+          </div><br>
+          <div>
+            {{description}}
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+
+  </div>
+
+<!-- 
   <div class="row" *ngFor="let details of faqlist|filter:term">
 
     <div class="col-lg-12">
@@ -27,14 +99,14 @@
     </div>
     <div class="col-lg-10"></div>
     <div class="col-lg-1">
-      <!-- <button (click)="GetImagesID(details.id)" data-toggle="modal" data-target="#exampleModalLong2" style="color:white">Images And Pdf</button> -->
+     
       <img src="assets/Images/imgicon.png" title="Images" (click)="GetImagesID(details.id)"
         *ngIf="details.imageExist==1" data-toggle="modal" data-target="#exampleModalLong2"
         style="margin: 2%;width: 20px;" />&nbsp;
     </div>&nbsp;&nbsp;
 
-  </div><br>
-</div>
+  </div><br> -->
+<!-- </div> -->
 
 
 <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"

@@ -1,5 +1,6 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
 </ngx-spinner>
 <div class="container-fluid card card:hover headerrspace">
   <div class="row headerspace">
@@ -49,7 +50,7 @@
             <th id="imp">{{labels[0].appointmentNumber}}</th>
             <th>{{labels[0].primarypatientname}}</th>
             <th>{{labels[0].phoneNoo}}</th>
-            <th>{{labels[0].bookedPatientname}}</th>
+            <th id="imp">{{labels[0].bookedPatientname}}</th>
             <th>Relation</th>
             <th>{{labels[0].bookedpatientphno}}</th>
             <!-- <th>{{labels[0].patientName}}</th>
@@ -137,16 +138,27 @@
               <a [ngbTooltip]="tipcontent2004">
                 <img src="assets/Images/pdf.png" style="height:20px;" *ngIf="details.uploadrepornotexist!='0'"
                   title="Diagnostic Report" (click)="GetReportsssss(details.illnesspdf)"></a>
+
+
+
+              <ng-template #tipcontent2094>Vitals</ng-template>
+              <a [ngbTooltip]="tipcontent2094">
+                <img src="assets/Images/heart.png" style="height:20px;" data-toggle="modal" data-target="#Vitaldetals"
+                  title="Diagnostic Report" (click)="getvitaldetails(details.appointmentID)"></a>
+
+
+
             </td>
             <td>
               <table style="box-shadow:none">
 
-               
+
                 <tr>
                   <td style="border:none">
                     <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+                    <!-- &&details.doctorCancelvalidation=='1' -->
                     <a [ngbTooltip]="tipcontent3"
-                      *ngIf="details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.doctorCancelvalidation=='1'&&details.bookingTypeID!='1'">
+                      *ngIf="details.cancelled=='0'&&details.docCancelled=='0'&&details.isVisited=='0'&&details.bookingTypeID!='1'&&details.doctorCancelvalidation=='1'">
                       <img src="assets/Images/can.png" style="height:20px;" data-toggle="modal"
                         data-target="#exampleModal"
                         (click)="cancelappoinement(details.appointmentID,details.patientID,details.notificationdate,details.doctorName,details.hospital_ClinicName,details.pEmail,details.paidAmount,details.walletAmount,details.pMobileNo,details,details.smsmobileno,details.appointmentTypeText)" />
@@ -180,14 +192,15 @@
                   <td style="border:none">
                     <ng-template #tipcontent4>{{labels[0].notvisited}}</ng-template>
                     <a [ngbTooltip]="tipcontent4"
-                      *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'">
+                      *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.appointmentTypeID!='5'">
                       <img src="assets/Images/notvisit.png" style="height:25px;"
                         (click)="UpdateBookAppointmentNoShow(details.appointmentID,details.appdate,details.slots)" />
                     </a>
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent201>{{labels[0].followup}}</ng-template>
-                    <a [ngbTooltip]="tipcontent201" *ngIf="details.isVisited=='1'&&details.followUpVisit=='0'&&details.followApp=='0'">
+                    <a [ngbTooltip]="tipcontent201"
+                      *ngIf="details.isVisited=='1'&&details.followUpVisit=='0'&&details.followApp=='0'">
                       <img src="assets/Images/followup.png" style="height:25px;"
                         (click)="GetFolloupVistID(details.appointmentID)" />
                     </a>
@@ -349,10 +362,25 @@
             </td>
             <td>
               <label *ngIf="details.followApp=='1'" style="color:red;font-size: 5px;">{{labels[0].followup}}</label>
-             
+
               <label *ngIf=" details.accepted=='1' &&details.cancelled=='0' &&details.docCancelled=='0'
-                    &&details.isVisited=='0' &&details.noShow=='0'"
+                    &&details.isVisited=='0' &&details.noShow=='0'&&details.earlycall=='0'"
                 style=" color: green;">{{labels[0].accepted}}</label>
+
+              <label *ngIf="details.earlycall=='1'&&details.isVisited=='0'" style="color: red;">
+                {{labels[0].waitforresponce}}</label>
+
+              <label *ngIf="details.earlycall=='2'&&details.isVisited=='0'"
+                style="color: red;">{{labels[0].earlycallaccpeted}}
+              </label>
+
+              <label *ngIf="details.earlycall=='3'&&details.isVisited=='0'"
+                style="color: red;">{{labels[0].earlycallrejeted}}
+              </label>
+
+              <label *ngIf="details.cancelled=='1'" style="color: red;">{{labels[0].patientCancelled}}</label>
+
+
               <label *ngIf="details.cancelled=='1'" style="color: red;">{{labels[0].patientCancelled}}</label>
               <label *ngIf="details.docCancelled=='1'" style="color: red;">{{labels[0].doctorCancelled}}</label>
 
@@ -471,6 +499,12 @@
               <label *ngIf="languageid=='6'">Test de laboratoire</label>
             </div>
 
+
+            <div class="col-lg-6">
+              <input type="checkbox" [(ngModel)]="medical" name="medical">&nbsp;
+              <label *ngIf="languageid=='6'">Evaluation médicale</label>
+              <label *ngIf="languageid=='1'">Medical questionnaire</label>
+            </div>
           </div><br>
           <div class="row">
             <div class="col-lg-3">
@@ -517,24 +551,25 @@
             <hr style="color:#333;background-color:#333;">
             <div class="row">
               <div class="col-lg-5">
-                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                <label><b>Address</b> : {{alldetails.address}}</label><br>
-                <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
+                <label><b> Email</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
-                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
               <div class="col-lg-3">
-                <h6><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                 <span><b>{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
-                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                <label><b>{{labels[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>{{labels[0].department}}</b> : {{alldetails.departmentname}}</label>
+                <label><b>{{labels[0].address}}</b> : {{alldetails.doctorAddress}}</label>
               </div>
               <br>
             </div><br><br>
@@ -596,7 +631,7 @@
           </div>
           <!-- soapnotes -->
 
-          <div *ngIf="alldetails.soapNotesExist!='0'&&Test==true">
+          <div *ngIf="alldetails.soapNotesExist!='0'&&soappdf==true">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
@@ -608,24 +643,25 @@
             <hr style="color:#333;background-color:#333;">
             <div class="row">
               <div class="col-lg-5">
-                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                <label><b>Address</b> : {{alldetails.address}}</label><br>
-                <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
+                <label><b> Email</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
-                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
               <div class="col-lg-3">
-                <h6><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                 <span><b>{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
-                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                <label><b>{{labels[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>{{labels[0].department}}</b> : {{alldetails.departmentname}}</label>
+                <label><b>{{labels[0].address}}</b> : {{alldetails.doctorAddress}}</label>
               </div>
               <br>
             </div><br><br>
@@ -712,24 +748,25 @@
             <hr style="color:#333;background-color:#333;">
             <div class="row">
               <div class="col-lg-5">
-                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                <label><b>Address</b> : {{alldetails.address}}</label><br>
-                <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
+                <label><b> Email</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
-                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
               <div class="col-lg-3">
-                <h6><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                 <span><b>{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
-                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                <label><b>{{labels[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>{{labels[0].department}}</b> : {{alldetails.departmentname}}</label>
+                <label><b>{{labels[0].address}}</b> : {{alldetails.doctorAddress}}</label>
               </div>
               <br>
             </div><br><br>
@@ -785,37 +822,39 @@
             </div>
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           </div>
-          <div>
+          <div *ngIf="medical==true">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h5><b>Medical Questionare</b></h5>
+                <h5 *ngIf="languageid==6"><b>Rapport de consultation</b></h5>
+                <h5 *ngIf="languageid==1"><b>Consulatation Report</b></h5>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
             <div>
               <div class="row">
                 <div class="col-lg-5">
-                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                  <label><b>Address</b> : {{alldetails.address}}</label><br>
-                  <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
+                  <label><b> Email</b> : {{alldetails.emailID}}</label><br>
                   <label><b>Age</b> : {{alldetails.age}}</label><br>
-                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
                 <div class="col-lg-3">
-                  <h6><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                   <span><b>{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
-                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                  <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                  <label><b>{{labels[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>{{labels[0].department}}</b> : {{alldetails.departmentname}}</label>
+                  <label><b>{{labels[0].address}}</b> : {{alldetails.doctorAddress}}</label>
                 </div>
                 <br>
               </div>
@@ -837,54 +876,58 @@
                   </div> -->
                 </div><br><br>
                 <div class="row">
-                  <h5 style="text-align: center;"><b>Medical Questionare</b></h5><br>
+                  <h5 style="text-align: center;" *ngIf="languageid==1"><b>Medical Questionare</b></h5>
+                  <h5 style="text-align: center;" *ngIf="languageid==6"><b>Evaluation médicale</b></h5>
+                  <br>
                 </div>
                 <div class="row" *ngFor="let medical of alldetails.medicalquestion">
                   <div class="col-lg-4">
-                    <label>National Identity No : <b>{{medical.nationalidno}}</b></label>
+                    <label>{{labels[0].nationalidentityno}} : <b>{{medical.nationalidno}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Attending Doctor : <b>{{medical.attendingdoctor}}</b></label>
+                    <label>{{labels[0].attendingDoctor}} : <b>{{medical.attendingdoctor}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Medical History : <b>{{medical.medicalHistory}}</b></label>
+                    <label>{{labels[0].medicalhistory}} : <b>{{medical.medicalHistory}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Surgery History : <b>{{medical.surgeryHistory}}</b></label>
+                    <label>{{labels[0].surgeryhistory}} : <b>{{medical.surgeryHistory}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Long Term Treatement : <b>{{medical.longtermTreatment}}</b></label>
+                    <label>{{labels[0].longtermtreatment}} : <b>{{medical.longtermTreatment}}</b></label>
                   </div>
 
                   <div class="col-lg-4">
-                    <label>Dietary Issues : <b>{{medical.dietaryIssues}}</b></label>
+                    <label>{{labels[0].dietaryissues}} : <b>{{medical.dietaryIssues}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Alcohol : <span *ngIf="medical.alcohol=='1'"> <b>Yes</b></span></label>
+                    <label>{{labels[0].doyoudrinkalcohol}} : <span *ngIf="medical.alcohol=='1'">
+                        <b>Yes</b></span></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Smoke : <span *ngIf="medical.smoker=='1'"> <b>Yes</b></span></label>
+                    <label>{{labels[0].areyoasmoker}} : <span *ngIf="medical.smoker=='1'"> <b>Yes</b></span></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Medical Insurence : <span *ngIf="medical.medicalinsurance=='1'"> <b>Yes</b></span></label>
+                    <label>{{labels[0].medicalinsurance}} : <span *ngIf="medical.medicalinsurance=='1'">
+                        <b>Yes</b></span></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Exercise : <span *ngIf="medical.exercise=='1'"> <b>Yes</b></span></label>
+                    <label>{{labels[0].doyouecescise}} : <span *ngIf="medical.exercise=='1'"> <b>Yes</b></span></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Height : <b>{{medical.height}}</b></label>
+                    <label>{{labels[0].height}} : <b>{{medical.height}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Weight : <b>{{medical.weight}}</b></label>
+                    <label>{{labels[0].weight}} : <b>{{medical.weight}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>BMI : <b>{{medical.bmi}}</b></label>
+                    <label>{{labels[0].bmi}} : <b>{{medical.bmi}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Vaccination Status : <b>{{medical.vaccinationStatus}}</b></label>
+                    <label>{{labels[0].statutvaccinal}} : <b>{{medical.vaccinationStatus}}</b></label>
                   </div>
                   <div class="col-lg-4">
-                    <label>Allergies : <b>{{medical.knownAllergies}}</b></label>
+                    <label>{{labels[0].allergies}} : <b>{{medical.knownAllergies}}</b></label>
                   </div>
                 </div>
               </div>
@@ -914,24 +957,25 @@
             <div>
               <div class="row">
                 <div class="col-lg-5">
-                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                  <label><b>Address</b> : {{alldetails.address}}</label><br>
-                  <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
+                  <label><b> Email</b> : {{alldetails.emailID}}</label><br>
                   <label><b>Age</b> : {{alldetails.age}}</label><br>
-                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
                 <div class="col-lg-3">
-                  <h6><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                   <span><b>{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
-                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                  <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                  <label><b>{{labels[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>{{labels[0].department}}</b> : {{alldetails.departmentname}}</label>
+                  <label><b>{{labels[0].address}}</b> : {{alldetails.doctorAddress}}</label>
                 </div>
                 <br>
               </div>
@@ -971,24 +1015,25 @@
             <div>
               <div class="row">
                 <div class="col-lg-5">
-                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                  <label><b>Address</b> : {{alldetails.address}}</label><br>
-                  <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
+                  <label><b> Email</b> : {{alldetails.emailID}}</label><br>
                   <label><b>Age</b> : {{alldetails.age}}</label><br>
-                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
                 <div class="col-lg-3">
-                  <h6><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                   <span><b>{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
-                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                  <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                  <label><b>{{labels[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>{{labels[0].department}}</b> : {{alldetails.departmentname}}</label>
+                  <label><b>{{labels[0].address}}</b> : {{alldetails.doctorAddress}}</label>
                 </div>
                 <br>
               </div>
@@ -1018,11 +1063,11 @@
       </div>
       <div class="modal-footer" style="margin-top: -24px;">
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
-          data-dismiss="modal" (click)="SavePdf()">Send To Patient</button>
+          data-dismiss="modal" (click)="SavePdf()">{{labels[0].sendtopatient}}</button>
 
 
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
-          data-dismiss="modal" (click)="DownloadPDf()">Download</button>
+          data-dismiss="modal" (click)="DownloadPDf()">{{labels[0].download}}</button>
 
 
       </div>
@@ -1337,11 +1382,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">{{labels[0].close}}</button>
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">{{labels[0].close}}</button>
 
-          <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;" class="btn btn-default"
-          data-dismiss="modal">Fermer</button>
+        <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -1786,6 +1831,7 @@
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testType}} :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-7">
                 <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
@@ -1798,6 +1844,7 @@
             <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testName}} :</label>
+                <span class="required">*</span>
               </div>
               <div class="col-lg-7">
                 <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
@@ -1812,6 +1859,7 @@
               <div class="row">
                 <div class="col-lg-5">
                   <label>{{labels[0].testName}} :</label>
+                  <span class="required">*</span>
                 </div>
                 <div class="col-lg-7">
                   <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
@@ -2893,8 +2941,8 @@
         <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
           (click)="sendmail()" data-dismiss="modal">{{labels[0].send}}
         </button>
-        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-          data-dismiss="modal">{{labels[0].close}}</button>
+        <!-- <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button> -->
       </div>
     </div>
   </div>
@@ -3154,6 +3202,7 @@
                 <thead>
                   <tr>
                     <th>Type</th>
+                    <th>Date</th>
                     <th>{{ labels2[0].patientID }}</th>
                     <th>{{ labels[0].patientName }}</th>
                     <th>{{ labels2[0].mobileNumber }}</th>
@@ -3174,6 +3223,7 @@
                       <label *ngIf="ref.referalTypeID=='2'">{{labels[0].external}}</label>
                       <label *ngIf="ref.referalTypeID=='3'">{{labels[0].genaralRef}}</label>
                     </td>
+                    <td>{{ref.date}}</td>
                     <td>{{ref.patientID}}</td>
                     <td>{{ref.patientName}}</td>
                     <td>{{ref.pMobileNo}}</td>
@@ -3606,7 +3656,20 @@
               name="diasoaptypeid">&nbsp;{{labels[0].soapnotess}}
           </div>
         </div><br>
-        <div *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='3'">
+
+        <div class="row">
+          <div class="col-lg-4">
+            <input type="radio" value="4" [(ngModel)]="diasoaptypeid"
+              name="diasoaptypeid">&nbsp;{{labels[0].medcalCertificate}}
+          </div>
+          <div class="col-lg-5">
+            <input type="radio" value="5" [(ngModel)]="diasoaptypeid"
+              name="diasoaptypeid">&nbsp;{{labels[0].refeletter}}
+          </div>
+        </div>
+
+
+        <div *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='3'||diasoaptypeid=='4'||diasoaptypeid=='5'">
           <div class="row">
             <!-- <label>Upload Photo</label> -->
 
@@ -3759,6 +3822,7 @@
             <div class="col-lg-12">
               <table style="font-size: 16px;">
                 <tr>
+                  <th>{{labels[0].appointmentDate}}</th>
                   <th>{{labels[0].department}}</th>
                   <th>{{labels[0].doctorName}}</th>
                   <th style="width: 113px;">{{labels[0].subjective}}</th>
@@ -3768,11 +3832,12 @@
                   <th>{{labels[0].diagnposticCode}}</th>
                   <th>{{labels[0].diagnosticDescription}}</th>
                   <th>{{labels[0].followUpPlan}}</th>
-                  <th>{{labels[0].signature}}</th>
+                  <!-- <th>{{labels[0].signature}}</th> -->
                   <th>{{labels[0].notes}} </th>
                   <!-- <th>Actions</th> -->
                 </tr>
                 <tr *ngFor="let soap of soaplist1">
+                  <td>{{soap.appointmentdate}}</td>
                   <td>{{soap.departmentname}}</td>
                   <td>{{soap.doctorName}}</td>
                   <td>{{soap.subjective}}</td>
@@ -3782,7 +3847,7 @@
                   <td>{{soap.icrDescription}}</td>
                   <td>{{soap.diagnosisCode}}</td>
                   <td>{{soap.followUpPlan}}</td>
-                  <td>{{soap.signature}}</td>
+                  <!-- <td>{{soap.signature}}</td> -->
                   <td>{{soap.notes}}</td>
                   <!-- <td>
                     <ng-template #tipcontent9504>Edit</ng-template>
@@ -4015,7 +4080,7 @@
                   <th>Actions</th>
                 </tr>
                 <tr *ngFor="let ss of previousmedicallist|filter:term">
-                  <td>{{ss.sickslipdatesss}}</td>
+                  <td>{{ss.sdate}}</td>
                   <td>{{ss.doctorName}}</td>
                   <td>{{ss.patientName}}</td>
                   <td>{{ss.mobileNumber}}</td>
@@ -4071,8 +4136,8 @@
 
         <!-- <button type="button" (click)="GetSickSlipID()" data-toggle="modal" data-target="#exampleModalCenterSickSlip"
           style="background-color: #f18235; color: white;" class="btn btn-default">{{labels1[0].edit}}</button> -->
-        <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-          data-dismiss="modal">{{labels[0].close}}</button>
+        <!-- <button id="close" type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal">{{labels[0].close}}</button> -->
       </div>
     </div>
   </div>
@@ -4379,6 +4444,82 @@
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="Vitaldetals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" style="float: right;">
+  <div class="modal-dialog modal-xl" style="float: right;">
+    <div class="modal-content" style="width:751px;margin-left: 140px;">
+      <div class="modal-header modal-xl">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].vitalDetals}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" stylw="width:1100px">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>BPM : </label>
+            </div>
+            <div class="col-lg-4">
+              {{bpm}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>CPM : </label>
+            </div>
+            <div class="col-lg-4">
+              {{cpm}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].oxygen}} : </label>
+            </div>
+            <div class="col-lg-4">
+              {{oxygen}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].stress}} : </label>
+            </div>
+            <div class="col-lg-4">
+              {{stress}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].bloodpressure}} : </label>
+            </div>
+            <div class="col-lg-4">
+              {{bloodpressure}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-3">
+              <!-- <img src="assets/Images/arrowleft.jpg"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="languageid=='1'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">{{labels[0].close}}</button>
+
+        <button type="button" *ngIf="languageid=='6'" style="background-color: #f18235;color: white;"
+          class="btn btn-default" data-dismiss="modal">Fermer </button>
+
       </div>
     </div>
   </div>

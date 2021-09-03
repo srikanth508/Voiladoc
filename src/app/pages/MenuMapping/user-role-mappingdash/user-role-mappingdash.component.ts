@@ -16,13 +16,23 @@ export class UserRoleMappingdashComponent implements OnInit {
   public pinno: any;
   public currentpwd: any;
   public labels: any;
-
+  countryid: any;
 
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
     this.currentpwd = localStorage.getItem('Password');
+    this.countryid = localStorage.getItem('Commacountryid');
+    if(this.countryid==undefined)
+    {
+      this.showadd = 1;
+    }
+    else
+    {
+      this.showadd = 2;
+    }
+
     this.GetUserRoleList();
     this.getlanguage()
 
@@ -38,15 +48,29 @@ export class UserRoleMappingdashComponent implements OnInit {
       }
     )
   }
-
+  showadd: any;
 
   public GetUserRoleList() {
-    this.docservice.GetUsers_RoleMapping(this.languageid).subscribe(
-      data => {
-        this.userlist = data;
-      }, error => {
-      }
-    )
+    if (this.countryid == undefined) {
+    
+      this.docservice.GetUsers_RoleMapping(this.languageid).subscribe(
+        data => {
+          this.userlist = data;
+        }, error => {
+        }
+      )
+    }
+    else {
+     
+      this.docservice.GetUsers_RoleMapping(this.languageid).subscribe(
+        data => {
+          var list = data;
+          this.userlist = list.filter(x => x.id == this.countryid)
+        }, error => {
+        }
+      )
+    }
+
   }
 
   public password: any;

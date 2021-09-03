@@ -62,8 +62,8 @@ export class SupportDashComponent implements OnInit {
       outputFormat: 'YYYY/MM/DD',
       startOfWeek: 1
     };
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 20);
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 100);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 100);
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
@@ -94,7 +94,7 @@ export class SupportDashComponent implements OnInit {
 
 
   }
-
+  labels1: any;
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
@@ -103,16 +103,31 @@ export class SupportDashComponent implements OnInit {
       },
       error => { }
     );
+
+    this.docservice.GetAdmin_SupportForWeb_Labels(this.languageid).subscribe(res => {
+
+      this.labels1 = res;
+
+    })
   }
+
+  photourl: any;
+
+  public GetImage(photo) {
+    this.photourl = photo;
+  }
+
+
+
 
   public getsupport() {
     this.docservice.GetSupport(this.startdate, this.enddate).subscribe(
       data => {
-
-        this.supportlist = data;
+        this.supportlist = data.filter(x => x.resolve == 0 && x.meridionalBit == 0);
         this.dummlist = this.supportlist
         this.count = this.supportlist.length
       }, error => {
+        this.spinner.hide();
       }
     )
   }
@@ -288,14 +303,45 @@ export class SupportDashComponent implements OnInit {
   }
 
 
+  useremail: any;
+  emailattchementurl = []
+  cclist = [];
+  bcclist = [];
+
+  public sendmail1() {
+
+    var entity = {
+      'emailto': this.useremail,
+      'emailsubject': "Your Support Ticket Resolved",
+      'emailbody': "Your Support Ticket Resolved",
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+
+    this.docservice.sendemail(entity).subscribe(data => {
+
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
+    })
+  }
 
   public removetgdescription: any;
   public description: any;
   public resolveid: any;
+  smsmobileno: any;
+  typeid: any;
 
-
-  public GetSupportResolveID(id) {
+  public GetSupportResolveID(id, email, smsmoibileno, typeid) {
     this.resolveid = id;
+    this.useremail = email;
+    this.smsmobileno = smsmoibileno;
+    this.typeid = typeid;
   }
 
   public insertdetails() {
@@ -307,29 +353,47 @@ export class SupportDashComponent implements OnInit {
       'ID': this.resolveid,
       'Comments': this.removetgdescription,
       'IssuePhotoUrl': this.issuephotourl[0],
+      'TypeID': this.typeid
     }
     this.docservice.UpdateSupport(entity).subscribe(data => {
       let res = data;
       if (this.languageid == 1) {
         Swal.fire('Issue Resolved Successfully')
+        var smsdesc = "Your Support Ticket has been Resolved"
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
         this.description = ""
         this.issuephotourl = [];
         this.identityattachmentsurlssss = [];
         this.showidentityproof = [];
         this.getsupport();
+        this.sendmail1()
       }
-      else
-      {
-        Swal.fire('Problème résolu et réponse au patient')
+      else {
+        Swal.fire('Problème résolu et réponse au patient');
+        var smsdesc = "Your Support Ticket has been Resolved"
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
         this.description = ""
         this.issuephotourl = [];
         this.identityattachmentsurlssss = [];
         this.showidentityproof = [];
         this.getsupport();
+        this.sendmail1()
       }
-    
+
 
     })
   }
+
+
+
+
+
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+
+    })
+  }
+
 
 }

@@ -3,9 +3,10 @@
     <div class="col-lg-8">
       <h5>{{labels[0].diagnosticDashboard}}</h5>
     </div>
+    <!-- *ngIf="showexportbutton=='1'" -->
     <div class="col-lg-4" style="text-align: end;
     margin-top: -12px;">
-      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()">
+      <button class="btn btncolor"  (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
       <button *ngIf="languageid==1" style="margin-left: 10px;" type="button" routerLink="/Diagnosticsregistration"
         class="btn btncolor">
@@ -67,10 +68,11 @@
             <th *ngIf="showeditbutton!=1">Contract start date</th>
             <th *ngIf="showeditbutton!=1">Contract end date</th> -->
             <th>{{labels[0].address}}</th>
+            <th>Pincode</th>
             <th>{{labels[0].action}}</th>
           </tr>
           <tr
-            *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            *ngFor="let details of diagnosticlist|filter:term">
             <td><img src="{{details.photoURL}}" style=" height: 50px;width: 50px;" /></td>
             <td>{{details.diagnosticCenterName}}</td>
             <td>{{details.phoneNo}}</td>
@@ -83,6 +85,7 @@
             <td *ngIf="showeditbutton!=1">{{details.contractstartdate}}</td>
             <td *ngIf="showeditbutton!=1">{{details.contractenddate}}</td> -->
             <td>{{details.address}}</td>
+            <td>{{details.pincode}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
@@ -106,11 +109,11 @@
       </table>
     </div><br>
   </div><br><br>
-  <div class="col-lg-12" style="text-align: center">
+  <!-- <div class="col-lg-12" style="text-align: center">
     <br>
     <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
       responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
       screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div><br><br>
+  </div><br><br> -->
 </div><br><br><br>

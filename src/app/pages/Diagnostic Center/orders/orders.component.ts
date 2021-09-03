@@ -56,6 +56,7 @@ export class OrdersComponent implements OnInit {
   dropzonelable: any;
   labels4: any;
   amount: any;
+  recpid: any;
   ngOnInit() {
     this.options = {
       theme: 'default',
@@ -88,6 +89,7 @@ export class OrdersComponent implements OnInit {
 
     this.user = localStorage.getItem('user');
     this.diagnosticid = localStorage.getItem('diagnosticid');
+    this.recpid = localStorage.getItem('Receptionstid')
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
     this.languageid = localStorage.getItem('LanguageID');
@@ -176,24 +178,28 @@ export class OrdersComponent implements OnInit {
       }
     )
   }
+  notificationdate: any;
+  appointmentext: any;
 
 
-
-  public cancelmedicine(id, patientID, diagnosticCenterName, slotName, emailID) {
+  public cancelmedicine(id, patientID, diagnosticCenterName, slotName, emailID, appdate, notificationdate) {
 
     this.cancelid = id;
     this.canpatientid = patientID;
     this.candiagnostic = diagnosticCenterName;
     this.canslot = slotName;
     this.canemail = emailID;
+    this.appdate = appdate
+    this.notificationdate = notificationdate
   }
 
-  public Appointmentstatus(appointmentID, patientID, diagnosticCenterName, slotName, emailID, smsmobileno) {
+  public Appointmentstatus(appointmentID, patientID, diagnosticCenterName, slotName, emailID, smsmobileno, appointmentext) {
 
     this.accpatientid = patientID;
     this.acceptcenter = diagnosticCenterName;
     this.accslot = slotName;
     this.acpaemail = emailID;
+    this.appointmentext = appointmentext;
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
@@ -212,7 +218,7 @@ export class OrdersComponent implements OnInit {
             this.InsertAccptNotification()
             this.InsertNotiFicationAccpt()
 
-            var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.Type : Diagnostic center. Please arrive 10 minutes before your schedule time. "
+            var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.Type : " + this.appointmentext
 
             this.SendTwiliSms(smsmobileno, smsdesc)
 
@@ -248,7 +254,7 @@ export class OrdersComponent implements OnInit {
             this.InsertAccptNotification()
             this.InsertNotiFicationAccpt()
 
-            var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. Type : Au laboratoire. Veuillez arriver 10 minutes avant l'heure prévue. "
+            var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. Type :" + this.appointmentext
             this.SendTwiliSms(smsmobileno, smsdesc)
           })
           Swal.fire(
@@ -422,13 +428,15 @@ export class OrdersComponent implements OnInit {
         this.InsertNotiFicationCancel();
 
         if (this.languageid == 1) {
-          var smsdesc = "We regret but your appointment with " + this.candiagnostic + " on " + this.canslot + "  as not been confirmed."
+          var smsdesc = "We regret but your appointment with " + this.candiagnostic + " on " + this.notificationdate + "  has not been accepted. Type : Home sample collection. "
           this.SendTwiliSms(this.smsmobileno, smsdesc)
         }
         else {
-          var smsdesc = "Nous regrettons mais votre demande de RDV avec  " + this.candiagnostic + " le " + this.canslot + "  n'a pas été confirmée. "
+          var smsdesc = "Nous regrettons mais votre demande de RDV avec  " + this.candiagnostic + " le " + this.notificationdate + "  n'a pas été confirmée.Type : Prélèvements à domicile"
           this.SendTwiliSms(this.smsmobileno, smsdesc)
         }
+
+        document.getElementById('Close').click();
 
       }, error => {
       }
@@ -544,7 +552,7 @@ export class OrdersComponent implements OnInit {
             this.getdiagnosticAppointment();
             this.Insertnotificationsoapnotesazuere();
 
-            var smsdesc = "Diagnostic Center has uploaded your report. please open voiladoc app and check ";
+            var smsdesc = "The lab has sent your test report. Please open Voiladoc app and book with your doctor if you require further consultation.";
 
             this.SendTwiliSms(this.smsmobileno, smsdesc)
             this.notes = ""
@@ -557,7 +565,7 @@ export class OrdersComponent implements OnInit {
             this.getdiagnosticAppointmentsbyid();
             this.getdiagnosticAppointment();
             this.Insertnotificationsoapnotesazuere();
-            var smsdesc = "Diagnostic Center has uploaded your report. please open voiladoc app and check ";
+            var smsdesc = "Le laboratoire a envoyé votre rapport de test. Veuillez ouvrir l'application Voiladoc et réserver avec votre médecin si vous avez besoin d'une consultation supplémentaire";
 
             this.SendTwiliSms(this.smsmobileno, smsdesc)
             this.notes = ""
@@ -916,11 +924,19 @@ export class OrdersComponent implements OnInit {
 
   public homesamplelist: any;
   public orderid: any;
+  public patientname: any;
+  public address: any;
+  public slottime: any;
+  public appdate: any;
 
   public GetAssaignOrderdetails(details) {
 
     this.orderid = details.id;
     this.patientid = details.patientID
+    this.patientname = details.patientName
+    this.address = details.address
+    this.slottime = details.slotTime
+    this.appdate = details.appdate
     this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
       this.homesamplelist = data;
     })
@@ -938,7 +954,7 @@ export class OrdersComponent implements OnInit {
     this.docservice.InsertDiagnostic_HomeSampleOrders(entity).subscribe(data => {
       if (this.languageid == 1) {
         Swal.fire('Success', 'Order Assigned Successfully');
-        var smsdesc = "Diagnostic Center assigned a new order to you. Please Open Your Delivery App And Check"
+        var smsdesc = "A new appointment has been assigned to you with " + this.patientname + ", " + this.address + " at " + this.slottime + this.appdate + ". Please open your app and check the details."
         this.SendTwiliSms(list.smsmobileno, smsdesc)
         this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
           this.homesamplelist = data;
@@ -947,7 +963,7 @@ export class OrdersComponent implements OnInit {
       }
       else if (this.languageid == 6) {
         Swal.fire('', 'Commande assignée');
-        var smsdesc = "Diagnostic Center assigned a new order to you. Please Open Your Delivery App And Check"
+        var smsdesc = "Un nouveau rendez-vous a été attribué avec " + this.patientname + ", " + this.address + " à " + this.slottime + this.appdate + " . Veuillez ouvrir votre application et vérifier les détails."
         this.SendTwiliSms(list.smsmobileno, smsdesc)
         this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
           this.homesamplelist = data;
@@ -1187,13 +1203,14 @@ export class OrdersComponent implements OnInit {
 
   smsmobileno: any;
 
-  public GetAppointmentAcceptBit(appointmentID, patientID, diagnosticCenterName, slotName, emailID, smsmobileno) {
+  public GetAppointmentAcceptBit(appointmentID, patientID, diagnosticCenterName, slotName, emailID, smsmobileno, homeTypeText) {
     this.appointmentsid = appointmentID;
     this.accpatientid = patientID;
     this.acceptcenter = diagnosticCenterName;
     this.accslot = slotName;
     this.acpaemail = emailID;
     this.smsmobileno = smsmobileno;
+    this.appointmentext = homeTypeText;
   }
 
 
@@ -1208,14 +1225,14 @@ export class OrdersComponent implements OnInit {
       this.InsertNotiFicationAccpt()
       if (this.languageid == 1) {
         Swal.fire('Accepted', 'Order has been Accepted.');
-        var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted."
+        var smsdesc = "Your Appointment with " + this.acceptcenter + " scheduled for " + this.accslot + "  has been Accepted.Type : " + this.appointmentext
 
         this.SendTwiliSms(this.smsmobileno, smsdesc)
 
       }
       else {
         Swal.fire('Enregistré !.', 'Commande acceptée')
-        var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. "
+        var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé. Type : " + this.appointmentext
         this.SendTwiliSms(this.smsmobileno, smsdesc)
       }
     })

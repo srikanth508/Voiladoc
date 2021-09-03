@@ -34,7 +34,7 @@
 
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control" required placeholder="{{labels[0].mobile}}" [(ngModel)]="mobileno"
+        <input type="text" class="form-control" [disabled]="showbit=='1'" required placeholder="{{labels[0].mobile}}" [(ngModel)]="mobileno"
           name="mobileno">
 
       </div>
@@ -45,7 +45,7 @@
         <!-- <span class="required">*</span> -->
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control"  placeholder="Email" [(ngModel)]="email" name="email">
+        <input type="text" class="form-control" [disabled]="showbit=='1'" placeholder="Email" [(ngModel)]="email" name="email">
       </div>
     </div><br>
 
@@ -53,7 +53,7 @@
       <div class="col-lg-3">
         <label>{{labels[0].nationalidentityno}} : </label>
         <span class="required">*</span>
-       
+
       </div>
       <div class="col-lg-4">
         <input type="text" class="form-control" required placeholder="{{labels[0].nationalidentityno}} "
@@ -65,6 +65,73 @@
         </span>
       </div>
     </div><br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label for="" class="reglabel">{{labels[0].nationalidentityproof}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (change)="onidUpload($event)" style="height: 100%;"
+          class="dropzone_vendorinvoice">
+
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+        </ngx-dropzone>
+      
+      </div>
+
+      <div class="col-lg-5 ">
+        <!-- specforimg -->
+        <img src="{{showidproof}}" style="width: 10%;">
+        <!-- <p *ngIf="languageid=='1'">
+          NOTE :Image size should be less than <b>1MB</b> and accepted only in <b>JPG , PNG and JPEG</b> formats.
+        </p>
+        <p *ngIf="languageid=='6'">
+          REMARQUE: la taille de l'image doit être inférieure à <b> 1 Mo </b> et acceptée uniquement aux formats <b>
+            JPG,
+            PNG et JPEG </b>.
+        </p> -->
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].insurancename}} : </label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control"  placeholder="{{labels[0].insurancename}}" [(ngModel)]="insurancename"
+          name="insurancename">
+      </div>
+
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <label for="" class="reglabel">{{labels[0].insurancephoto}} :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" style="height: 100%;"
+          class="dropzone_vendorinvoice">
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+        </ngx-dropzone>
+       
+      </div>
+      <div class="col-lg-5 ">
+        <!-- specforimg -->
+        <img src="{{showphoto}}" style="width: 10%;">
+        <!-- <p *ngIf="languageid=='1'">
+          NOTE :Image size should be less than <b>1MB</b> and accepted only in <b>JPG , PNG and JPEG</b> formats.
+        </p>
+        <p *ngIf="languageid=='6'">
+          REMARQUE: la taille de l'image doit être inférieure à <b> 1 Mo </b> et acceptée uniquement aux formats <b>
+            JPG,
+            PNG et JPEG </b>.
+        </p> -->
+      </div>
+    </div>
+    <br>
+
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].address}} : </label>
@@ -76,14 +143,7 @@
 
       </div>
     </div><br>
-    <!-- <div class="row">
-      <div class="col-lg-3">
-        <label>Notes : </label>
-      </div>
-      <div class="col-lg-4">
-        <textarea rows="4" class="form-control" placeholder="Notes"></textarea>
-      </div>
-    </div><br>  -->
+    
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].dateofbirth}} : </label>
@@ -91,8 +151,8 @@
       </div>
       <div class="col-lg-4">
         <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }" required
-          placeholder="{{labels[0].dateofbirth}} " required name="dateofbirth" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-          [(ngModel)]="dateofbirth" bsDatepicker>
+          placeholder="{{labels[0].dateofbirth}} " required name="dateofbirth"
+          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="dateofbirth" bsDatepicker>
       </div>
     </div><br>
     <div class="row">
@@ -105,94 +165,63 @@
       </div>
     </div><br>
 
-    <!-- <div class="row">
-      <div class="col-lg-3">
-        <label>Age : </label>
-      </div>
-      <div class="col-lg-4">
-        <input type="text" class="form-control" placeholder="Age" [(ngModel)]="age" name="age">
-      </div>
-    </div><br> -->
-    <!-- <div class="row">
-      <div class="col-lg-3">
-        <label>Blood Group : </label>
-      </div>
-      <div class="col-lg-4">
-        <select class="form-control">
-          <option>Select</option>
-        </select>
-      </div>
-    </div><br> -->
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].gender}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="radio" name="gender" required [(ngModel)]="gender" value="1"> {{labels[0].male}} &nbsp;
-        <input type="radio" name="gender"  required [(ngModel)]="gender" value="2"> {{labels[0].female}}
+        <input type="radio" name="gender" required [(ngModel)]="gender" [value]="1"> {{labels[0].male}} &nbsp;
+        <input type="radio" name="gender" required [(ngModel)]="gender" [value]="2"> {{labels[0].female}}
       </div>
     </div><br>
-    <!-- <div *ngIf="languageid=='6'" class="row">
-      <div class="col-lg-3">
-        <label *ngIf="languageid=='6'">Sexe : </label>
-      </div>
-      <div class="col-lg-4">
-        <input type="radio" name="gender" [(ngModel)]="gender" value="1"> Masculin &nbsp;
-        <input type="radio" name="gender" [(ngModel)]="gender" value="2"> Feminin
-      </div>
-    </div><br> -->
-    <!-- <div class="row">
-      <div class="col-lg-3">
-        <label>Marital Status : </label>
-      </div>
-      <div class="col-lg-4">
-        <select class="form-control">
-          <option>Select</option>
-        </select>
-      </div>
-    </div><br> -->
-    <div class="row">
-      <div class="col-lg-3">
-        <label>{{labels[0].country}} : </label>
+    <div *ngIf="showbit=='0'">
+      <div class="row">
+        <div class="col-lg-3">
+          <label>{{labels[0].country}} : </label>
 
-        <span class="required">*</span>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
+            (onSelect)="GetCountryID($event)">
+          </ng-multiselect-dropdown>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="City_label">{{labels[0].province}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
+            (onSelect)="GetCityID($event)">
+          </ng-multiselect-dropdown>
+        </div>
       </div>
-      <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="countrylist" [settings]="countrydd"
-          (onSelect)="GetCountryID($event)">
-        </ng-multiselect-dropdown>
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-lg-3">
-        <label class="City_label">Province :</label>
-        <span class="required">*</span>
-      </div>
-      <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="citylist" [settings]="citydd"
-          (onSelect)="GetCityID($event)">
-        </ng-multiselect-dropdown>
-      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="City_label">{{labels[0].city}} :</label>
+          <span class="required">*</span>
+        </div>
+        <div class="col-lg-4">
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
+            (onSelect)="GetAreaID($event)">
+          </ng-multiselect-dropdown>
+        </div>
+      </div><br>
     </div>
-    <br>
-    <div class="row">
-      <div class="col-lg-3">
-        <label class="City_label">{{labels[0].province}} :</label>
-        <span class="required">*</span>
-      </div>
-      <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="arealist" [settings]="areadd"
-          (onSelect)="GetAreaID($event)">
-        </ng-multiselect-dropdown>
-      </div>
-    </div><br>
     <div class="row">
       <div class="col-lg-5">
       </div>
       <div class="col-lg-2">
         <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-         [disabled]="hospitalForm.form.invalid" (click)="insertdetails()">{{labels[0].save}}</button>
+          [disabled]="hospitalForm.form.invalid" *ngIf="showbit=='0'" (click)="insertdetails()">{{labels[0].save}}</button>
+
+          <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          [disabled]="hospitalForm.form.invalid" *ngIf="showbit=='1'" (click)="updatedetails()">Update</button>
+
       </div>
       <div class="col-lg-5">
       </div>

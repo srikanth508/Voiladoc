@@ -1,5 +1,6 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
 </ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
@@ -27,7 +28,7 @@
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="text" name="diagnosticcentername" required
-              [(ngModel)]="diagnosticcentername" placeholder="{{labels[0].diacenter}}"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)'>
+            oncopy="return false" onpaste="return false"  [(ngModel)]="diagnosticcentername" placeholder="{{labels[0].diacenter}}"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)'>
           </div>
         </div>
         <br>
@@ -39,7 +40,7 @@
           <div class="col-lg-4">
             <input class="form-control" type="text" maxlength="13" name="diagnosticphno" [(ngModel)]="diagnosticphno"
             required  placeholder="{{labels[0].diagnosticCenterPhoneNo}}"
-              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            oncopy="return false" onpaste="return false"   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
         <br>
@@ -50,7 +51,7 @@
           </div>
           <div class="col-lg-4">
             <input class="form-control" required type="text" name="contactpersonname" [(ngModel)]="contactpersonname"
-              placeholder="{{labels[0].contactPersonName}}">
+            oncopy="return false" onpaste="return false" placeholder="{{labels[0].contactPersonName}}">
           </div>
         </div>
         <br>
@@ -62,7 +63,7 @@
           <div class="col-lg-4">
             <input class="form-control" type="text" maxlength="13" name="contactpersonphno"
            required   [(ngModel)]="contactpersonphno" placeholder="{{labels[0].phno}}"
-              onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+           oncopy="return false" onpaste="return false"  onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
           </div>
         </div>
         <br>
@@ -74,7 +75,7 @@
           <div class="col-lg-4">
             <input class="form-control" maxlength="15" type="text" [(ngModel)]="licenseno" name="licenseno"
             required  placeholder="{{labels[0].licenseNumber}}"
-              onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
+            oncopy="return false" onpaste="return false"      onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode>=48&&event.charCode<=57'>
           </div>
         </div>
         <br>
@@ -98,7 +99,7 @@
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="email" required (ngModelChange)="onChange($event)" name="email" [(ngModel)]="email"
-              placeholder="{{labels[0].email}}">
+            oncopy="return false" onpaste="return false"  placeholder="{{labels[0].email}}">
           </div>
         </div>
         <br>
@@ -159,7 +160,7 @@
           </div>
           <div class="col-lg-4">
             <input class="form-control" type="text" maxlength="6" name="zipcode" [(ngModel)]="zipcode"
-              placeholder="{{labels[0].zipCode}}" onkeypress='return(event.charCode>=47&&event.charCode<=58)'>
+            oncopy="return false" onpaste="return false"  placeholder="{{labels[0].zipCode}}" onkeypress='return(event.charCode>=47&&event.charCode<=58)'>
           </div>
         </div>
         <br>

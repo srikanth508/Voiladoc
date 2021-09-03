@@ -1,5 +1,6 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
 </ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
@@ -8,8 +9,9 @@
       <h5 *ngIf="languageid=='1'">Doctors</h5>
       <h5 *ngIf="languageid=='6'">Médecins</h5>
     </div>
+    <!-- *ngIf="showexportbutton=='1'" -->
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()">
+      <button class="btn btncolor" (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
       <button style="margin-left: 10px;" *ngIf="languageid==1" type="button" routerLink="/Doctorregistration"
         class="btn btncolor">{{labels[0].adddoctor}}
@@ -67,10 +69,12 @@
             <th>Type</th>
             <th>{{labels[0].doctorrating}}</th>
             <th>{{labels[0].apprating}}</th>
+            <th>Pincode</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr
-            *ngFor="let details of doctorlist|filter:term|filter:departmentname| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+            *ngFor="let details of doctorlist|filter:term|filter:departmentname">
+            <!-- | paginate: { id: 'foo', itemsPerPage: 10, currentPage: p} -->
             <td><img src="{{details.photoURL}}" style="height: 50px;width: 50px;" /></td>
             <td>{{details.doctorName}}</td>
             <td>{{details.mobileNumber}}</td>
@@ -85,6 +89,8 @@
             <td>{{details.hospital_ClinicName}}</td>
             <td>{{details.doctorRating}}</td>
             <td>{{details.appRating}}</td>
+            <td>{{details.pincode}}</td>
+
             <td style="width: 100px;">
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
@@ -107,11 +113,11 @@
       </table>
     </div>
   </div><br><br>
-  <div class="col-lg-12" style="text-align: center">
+  <!-- <div class="col-lg-12" style="text-align: center">
     <br>
     <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
       responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
       screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div><br><br>
+  </div><br><br> -->
 </div><br><br><br>

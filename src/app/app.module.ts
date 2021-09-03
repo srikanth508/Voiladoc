@@ -365,6 +365,17 @@ import { PatientPdfsComponent } from './pages/GenaratePDFs/patient-pdfs/patient-
 import { PatientPdfComponent } from './pages/GenaratePDFs/patient-pdf/patient-pdf.component';
 import { DeliveryRevenueComponent } from './pages/DeliveryPartner/delivery-revenue/delivery-revenue.component';
 import { DeliveryPatnerReportsComponent } from './pages/DeliveryPartner/delivery-patner-reports/delivery-patner-reports.component';
+import { PatientsregComponent } from './pages/Sales/patientsreg/patientsreg.component';
+import { NoshowAppointmentsComponent } from './pages/Doctor/noshow-appointments/noshow-appointments.component';
+import { AllAdminReportsComponent } from './pages/AdminDashboard/all-admin-reports/all-admin-reports.component';
+import { PatientInviteReportComponent } from './pages/AdminDashboard/patient-invite-report/patient-invite-report.component';
+import { PatientRecordsComponent } from './pages/AdminDashboard/patient-records/patient-records.component';
+import { AdminReportsComponent } from './pages/adminsReports/admin-reports/admin-reports.component';
+import { AllProviderPaymentsComponent } from './pages/adminsReports/all-provider-payments/all-provider-payments.component';
+import { ResolvedPatientTicketsComponent } from './pages/Support/resolved-patient-tickets/resolved-patient-tickets.component';
+import { PatientEscalatesTicketsComponent } from './pages/Support/patient-escalates-tickets/patient-escalates-tickets.component';
+import { PaidReportsComponent } from './pages/adminsReports/paid-reports/paid-reports.component';
+
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
@@ -719,7 +730,18 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PatientPdfsComponent,
     PatientPdfComponent,
     DeliveryRevenueComponent,
-    DeliveryPatnerReportsComponent
+    DeliveryPatnerReportsComponent,
+    PatientsregComponent,
+    NoshowAppointmentsComponent,
+    AllAdminReportsComponent,
+    PatientInviteReportComponent,
+    PatientRecordsComponent,
+    AdminReportsComponent,
+    AllProviderPaymentsComponent,
+    ResolvedPatientTicketsComponent,
+    PatientEscalatesTicketsComponent,
+    PaidReportsComponent,
+    
    
   ],
   imports: [
@@ -742,7 +764,7 @@ const DEFAULT_VAMSI_DROPZONE_CONFIG: DropzoneConfigInterface = {
     [BrowserModule, NgxPaginationModule],
     CKEditorModule,
     NgxTagsInputModule,
-    UserIdleModule.forRoot({idle: 60, timeout: 60, ping: 120}),
+    // UserIdleModule.forRoot({idle: 60, timeout: 60, ping: 120}),
     TranslatorModule.forRoot({
       providedLanguages: ['en', 'fr'],
       defaultLanguage: 'en'

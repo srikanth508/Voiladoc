@@ -203,7 +203,7 @@ export class VediocallComponent implements OnInit {
 
     this.minutes = 0;
     this.seconds = 0;
-    
+
     this.testid = 0;
     this.testssid = 0;
     // document.getElementById('def_op').click();
@@ -216,7 +216,7 @@ export class VediocallComponent implements OnInit {
     document.getElementById("vidiv").classList.add("col-lg-12");
     document.getElementById("vidpagehead").style.display = "none";
 
-    
+
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -258,7 +258,7 @@ export class VediocallComponent implements OnInit {
     this.sidate = formatDate(sigdate, llll, locales);
 
     this.docname = localStorage.getItem('user');
-    
+
 
     this.languageid = localStorage.getItem('LanguageID');
     this.user = localStorage.getItem('user');
@@ -271,7 +271,7 @@ export class VediocallComponent implements OnInit {
     }
 
     document.getElementById('stoprecoring').style.display = 'none';
-   
+
     this.activatedroute.params.subscribe(params => {
       this.patientid = localStorage.getItem('patientID');
       this.appointmentid = localStorage.getItem('appointmentID');
@@ -305,18 +305,22 @@ export class VediocallComponent implements OnInit {
     // tok bok vamsi  start
 
     this.opentokService.getsessionandtoken().subscribe(res => {
-      
+
       config.SESSION_ID = res['sessionid'];
       config.TOKEN = res['token'];
-      
+
       this.insertvedioeconferencedetails();
-      
+
       this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
         data => {
-          
+
         }, error => {
         }
       )
+    }, error => {
+      Swal.fire("Can not start video. Please contact Administrator");
+      this.InsertVidoeCallExceptions();
+      debugger
     })
 
 
@@ -349,9 +353,9 @@ export class VediocallComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
-        
+
         this.labels = data;
-        
+
         this.endsession = this.labels[0].endsession
       }, error => {
       }
@@ -372,7 +376,7 @@ export class VediocallComponent implements OnInit {
 
 
   public insertvedioeconferencedetails() {
-    
+
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -394,27 +398,27 @@ export class VediocallComponent implements OnInit {
             document.getElementById('stoprecoring').style.display = 'block';
 
             // document.getElementById('stoprecoring_forshow').style.display = 'none';
-            
+
             this.startarchive();
             this.changeDetectorRef.detectChanges();
           });
           this.session.on('streamDestroyed', (event) => {
             this.stoparchive();
             const idx = this.streams.indexOf(event.stream);
-            
+
             if (idx > -1) {
               this.streams.splice(idx, 1);
               this.changeDetectorRef.detectChanges();
             }
           });
           this.session.on('archiveStarted', (event) => {
-            
+
             this.archiveID = event.id;
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
             ;
-            
+
             this.archiveID = event.id;
 
           });
@@ -427,7 +431,7 @@ export class VediocallComponent implements OnInit {
       }
       else {
         this.updatearchiveid('notyet')
-        
+
         this.opentokService.initSession().then((session: OT.Session) => {
           this.session = session;
           this.session.on('streamCreated', (event) => {
@@ -443,7 +447,7 @@ export class VediocallComponent implements OnInit {
             ;
             this.stoparchive();
 
-            
+
             const idx = this.streams.indexOf(event.stream);
             if (idx > -1) {
               this.streams.splice(idx, 1);
@@ -456,13 +460,13 @@ export class VediocallComponent implements OnInit {
             this.updatearchiveid(this.archiveID);
           });
           this.session.on('archiveStopped', (event) => {
-            
+
             this.archiveID = event.id;
           });
         })
           .then(() => this.opentokService.connect())
           .catch((err) => {
-            
+
             console.error(err);
             alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
           });
@@ -472,7 +476,7 @@ export class VediocallComponent implements OnInit {
   }
 
   public updatearchiveid(archiveID) {
-    
+
     var entity = {
       'DoctorID': this.doctorid,
       'PatientID': this.patientid,
@@ -614,7 +618,7 @@ export class VediocallComponent implements OnInit {
 
         this.docservice.UpdateAlertbit(this.appointmentid).subscribe(
           data => {
-            
+
           }, error => {
           }
         )
@@ -637,7 +641,7 @@ export class VediocallComponent implements OnInit {
 
 
 
-  smsmobileno:any;
+  smsmobileno: any;
 
 
 
@@ -651,10 +655,10 @@ export class VediocallComponent implements OnInit {
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
 
         if (data != 0) {
-         
-            var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. "
-       
-      
+
+          var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. "
+
+
           this.SendTwiliSms(smsdesc, this.smsmobileno)
         }
       })
@@ -668,7 +672,7 @@ export class VediocallComponent implements OnInit {
 
         if (data != 0) {
           var smsdesc = "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel."
-      
+
           this.SendTwiliSms(smsdesc, this.smsmobileno)
 
         }
@@ -680,9 +684,9 @@ export class VediocallComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    
+
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      
+
     })
   }
 
@@ -733,8 +737,8 @@ export class VediocallComponent implements OnInit {
   oxygen: any;
   bpm: any;
   bloodpressure: any;
-  cpm:any;
-  stress:any;
+  cpm: any;
+  stress: any;
   public getvitaldetails() {
 
     this.docservice.GetPatient_VitalDetailsWeb(this.appointmentid, 1).subscribe(
@@ -746,7 +750,7 @@ export class VediocallComponent implements OnInit {
           this.stress = this.vitalslist[0].streeLevel,
           this.bloodpressure = this.vitalslist[0].bloodPressureStatus
       }, error => {
-    }
+      }
     )
   }
 
@@ -2374,14 +2378,14 @@ export class VediocallComponent implements OnInit {
   attachmentsurl1 = []
 
   public UploadSoapAttchments(abcd) {
-    
+
     this.dummprescriptionphotourl = []
-    
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadSoAPattachmentss();
     // }
-    
+
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -2399,14 +2403,14 @@ export class VediocallComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      
+
       let b = 'https://maroc.voiladoc.org' + a;
       if (this.attachments1[0].type == 'image/jpeg') {
-        
+
         this.shoprescphoto.push(b)
       }
       else if (this.attachments1[0].type == 'application/pdf') {
-        
+
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
 
@@ -2470,27 +2474,27 @@ export class VediocallComponent implements OnInit {
 
   public GetTestTemplateID(even) {
     if (even.target.value != 0) {
-      
+
       this.templateid = even.target.value;
       var list = this.TestTemplateList.filter(x => x.id == this.templateid)
       this.testid = list[0].testTypeID
       this.testssid = list[0].testID
       this.clinicalinfo = list[0].clinicalInfo,
         this.testtemplatename = list[0].templateName
-      
+
       this.getdiagnostictests()
       // this.getdiagnosticcentertests()
-      
+
       var list1 = this.testslist.filter(x => x.id == this.testid)
       this.diagnostictesttypename = list1[0].name
-      
+
       this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
         data => {
-          
+
           this.tsetssslist = data;
           var list2 = this.tsetssslist.filter(x => x.id == this.testssid)
           this.diagnostictestname = list2[0].short
-          
+
         }, error => {
         }
       )
@@ -2501,6 +2505,20 @@ export class VediocallComponent implements OnInit {
       this.testid = 0
       this.testssid = 0
     }
+  }
+
+
+
+
+  public InsertVidoeCallExceptions() {
+    var entity = {
+      'DoctorID': this.doctorid,
+      'AppointmentID': this.appointmentid,
+      'Message': "Can not genarate token"
+    }
+    this.docservice.InsertVideoCall_Exceptions(entity).subscribe(data => {
+
+    })
   }
 }
 

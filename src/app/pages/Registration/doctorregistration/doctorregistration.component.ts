@@ -323,7 +323,7 @@ export class DoctorregistrationComponent implements OnInit {
   typeofdoctor: any;
 
   public GetTypeofdoctor(even) {
-    
+
 
     this.typeofdoctor = even.target.value;
     if (this.typeofdoctor == '1') {
@@ -331,6 +331,10 @@ export class DoctorregistrationComponent implements OnInit {
     }
     else if (this.typeofdoctor == '2') {
       this.hospitalclinicid = 590;
+
+    }
+    else if (this.typeofdoctor == '3') {
+      this.hospitalclinicid = 778;
 
     }
   }
@@ -357,17 +361,29 @@ export class DoctorregistrationComponent implements OnInit {
       Swal.fire("Please Select Department");
     }
     else if (this.slotid == undefined || this.slotid == 0) {
-      Swal.fire("Please Select Slot Duration");
+      if (this.languageid == 1) {
+        Swal.fire("Please Select Slot Duration");
+      }
+      else {
+        Swal.fire("Veuillez sélectionner la durée de la consultation.");
+      }
     }
     else if (this.hospitalclinicid == undefined || this.hospitalclinicid == 0) {
       Swal.fire("Please Select Hospital/Clinic");
     }
     else if (this.doctypeid == undefined || this.doctypeid == 0) {
-      Swal.fire("Please Select Doctor type");
+      if(this.languageid==1)
+      {
+        Swal.fire("Please Select Doctor type");
+      }
+      else
+      {
+        Swal.fire("Veuillez sélectionner le type de docteur.");
+      } 
     }
     else {
       if (this.attachmentsurl1.length == 0) {
-        this.attachmentsurl1[0] = 'C:\\MarocAPI\\Images\\DocPhoto\\Doctor.jpg'
+        this.attachmentsurl1[0] = 'C:\\MarocAPI\\Images\\DocPhoto\\doc1.png'
       }
       this.spinner.show();
       // var doc = 'Dr.' + '' + this.doctorname
@@ -402,7 +418,7 @@ export class DoctorregistrationComponent implements OnInit {
       }
       this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
 
-        if (data != 0) {
+        if (data != 0 && data != 1) {
           this.doctorid = data;
           this.insertdoctorspecilisation();
           this.insertdoctormedicalregistration();
@@ -412,7 +428,7 @@ export class DoctorregistrationComponent implements OnInit {
           this.insertdoctorexperience();
           this.insertdoctormembership();
           // this.getdoctorforadmin();
-          
+
           // this.sendmail();
           if (this.languageid == 1) {
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
@@ -429,29 +445,46 @@ export class DoctorregistrationComponent implements OnInit {
 
         }
         else {
-          if (this.languageid == 1) {
-            Swal.fire('Doctor Name', 'Already Exists');
-            this.spinner.hide();
+
+          if (data == 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Email address already exists. Please verify and use the correct email address.');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+              this.spinner.hide();
+            }
+
           }
           else {
-            Swal.fire('Le nom du médecin', 'existe déjà.');
-            this.spinner.hide();
+            if (this.languageid == 1) {
+              Swal.fire('The phone number already exists. Please verify and use the correct number');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+              this.spinner.hide();
+            }
           }
 
           // location.href = "#/Docdash";
         }
+      }, error => {
+        Swal.fire("Exception while saving.Please Try After Some Time");
+        this.spinner.hide();
       })
     }
   }
   doctorlist: any;
 
   public getdoctorforadmin() {
-    
+
     this.docservice.GetDoctorForAdminByLanguageID(this.languageid).subscribe(
       data => {
-        
+
         this.doctorlist = data;
-        
+
         var list = this.doctorlist.filter(x => x.id == this.doctorid)
         this.pinno = list[0].pinno
         this.sendmail()
@@ -465,7 +498,7 @@ export class DoctorregistrationComponent implements OnInit {
   emailattchementurl = [];
 
   public sendmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",
@@ -846,12 +879,12 @@ export class DoctorregistrationComponent implements OnInit {
     this.registrationcouncil = '';
   }
   public getareamasterbyid() {
-    
+
     this.docservice.GetAreaMasterByCityIDAndLanguageID(this.cityid, this.languageid).subscribe(
       data => {
-        
+
         this.arealist = data;
-        
+
         this.areadd = {
           singleSelection: true,
           idField: 'id',

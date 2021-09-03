@@ -1,5 +1,6 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
 </ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace headercolor">
@@ -23,7 +24,7 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" placeholder="{{labels[0].name}}" required class="form-control" [(ngModel)]="name"
+        <input type="text" oncopy="return false" onpaste="return false" placeholder="{{labels[0].name}}" required class="form-control" [(ngModel)]="name"
           name="name">
       </div>
     </div>
@@ -35,7 +36,7 @@
       </div>
       <div class="col-lg-4">
         <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
-          class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+        oncopy="return false" onpaste="return false"   class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div>
     <br>
@@ -46,7 +47,7 @@
       </div>
       <div class="col-lg-4">
         <input type="text" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
-          name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailID}}">
+        oncopy="return false" onpaste="return false"   name="email" [(ngModel)]="email" #emailref="ngModel" placeholder="{{labels[0].emailID}}">
         <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
           <div [hidden]="!emailref.errors?.pattern">
             Please enter a valid Gmail ID

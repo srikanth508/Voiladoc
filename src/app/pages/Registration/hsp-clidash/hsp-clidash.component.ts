@@ -99,10 +99,10 @@ export class HspClidashComponent implements OnInit {
           //  this.hospitalcliniclist = data;
           this.dummlist = data;
           //  this.hospitalcliniclist
-          
+
           this.hospitalcliniclist = this.dummlist.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
           this.hospitalcount = this.hospitalcliniclist.length;
-          
+
         }, error => {
         }
       )
@@ -126,18 +126,18 @@ export class HspClidashComponent implements OnInit {
 
     this.docservice.GetHospital_ClinicForAdminByAdmin(this.languageid).subscribe(
       data => {
-        
+
         this.dummlist = data;
-        this.dummlist1 = this.dummlist.filter(x => x.hospital_ClinicID == 1)
+        this.dummlist1 = this.dummlist.filter(x => x.hospital_ClinicID == 1 || x.hospital_ClinicID == 3)
         this.hospitalcliniclist = this.dummlist1.filter(x => x.id != 590 && x.id != 614 && x.id != 613 && x.id != 612)
-        
+
         this.hospitalcount = this.hospitalcliniclist.length;
-        
+
       }, error => {
       }
     )
   }
-  dummlist1:any;
+  dummlist1: any;
   // public deletehospitalclinic(id)
   // {
   //   this.docservice.DeleteHospital_Clinic(id).subscribe(

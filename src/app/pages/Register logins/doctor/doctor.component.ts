@@ -21,6 +21,7 @@ export class DoctorComponent implements OnInit {
   public languageid: any;
   public hospitalclinicid: any;
   public dummdoctorlist: any;
+  public search: any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -38,7 +39,8 @@ export class DoctorComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
@@ -58,15 +60,16 @@ export class DoctorComponent implements OnInit {
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
-            allowSearchFilter: true
+            allowSearchFilter: true,
+            searchPlaceholderText: this.search,
           };
         }, error => {
         }
       )
     }
-    
 
-    
+
+
 
   }
   public getlanguage() {
@@ -75,6 +78,7 @@ export class DoctorComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search=this.labels[0].search
       }, error => {
       }
     )
@@ -83,7 +87,7 @@ export class DoctorComponent implements OnInit {
   public GetDoctorID(item2: any) {
 
     this.doctorid = item2.id;
-    
+
 
   }
 
@@ -95,9 +99,9 @@ export class DoctorComponent implements OnInit {
 
 
   public insertdetails() {
-    
+
     this.password = Math.random().toString(36).slice(-8);
-    
+
     if (this.doctorid == undefined) {
       if (this.languageid == 1) {
         Swal.fire("please select Doctor");
@@ -107,7 +111,7 @@ export class DoctorComponent implements OnInit {
       }
     }
     else if (this.password != undefined) {
-      
+
       // this.password = this.docservice.strongpassword(this.password);
       // if (valpassword == false) {
 
@@ -165,7 +169,7 @@ export class DoctorComponent implements OnInit {
 
     this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
       data => {
-        
+
         this.doctorloginlist = data;
         var list = this.doctorloginlist.filter(x => x.doctorID == this.doctorid)
         this.pinno = list[0].pinno,
@@ -187,7 +191,7 @@ export class DoctorComponent implements OnInit {
   public doctorname: any;
 
   public sendmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

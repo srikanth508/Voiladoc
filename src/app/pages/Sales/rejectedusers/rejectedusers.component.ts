@@ -67,7 +67,8 @@ export class RejectedusersComponent implements OnInit {
 
     this.typeid = 1
     this.GetRegistreedVoiladocusers()
-    this.getlanguage()
+    this.getlanguage();
+    this.GetAllRegisteredUsersCount()
   }
 
   selectedDate(data) {
@@ -76,6 +77,16 @@ export class RejectedusersComponent implements OnInit {
     this.GetRegistreedVoiladocusers()
   }
 
+  countlist:any;
+
+  public GetAllRegisteredUsersCount() {
+    this.docservice.GetAllRegisteredUsersCount(this.startdate, this.enddate).subscribe(data => {
+      // this.RegisteredList = data;
+      this.countlist = data;
+    
+
+    })
+  }
 
 
   public dummreglist: any;

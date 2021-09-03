@@ -10,12 +10,16 @@
       <h5 *ngIf='id==5 && languageid==1'>Cancelled</h5>
       <h5 *ngIf='id==6 && languageid==1'>
         Patient no show</h5>
+
+        <h5 *ngIf='id==7 && languageid==1'>
+          Revenues</h5>
       <h5 *ngIf='id==1 && languageid==6'>RENDEZ-VOUS (TOTAL)</h5>
       <h5 *ngIf='id==2 && languageid==6'>EN ATTENTE D'ACCEPTATION</h5>
       <h5 *ngIf='id==3 && languageid==6'>RV ACCEPTÉ (NON EFFECTUÉ)</h5>
       <h5 *ngIf='id==4 && languageid==6'>PATIENTS VUS</h5>
       <h5 *ngIf='id==6 && languageid==6'>PATIENTS NE S'EST PAS PRÉSENTÉ</h5>
       <h5 *ngIf='id==5 && languageid==6'>RV ANNULÉ</h5>
+      <h5 *ngIf='id==7 && languageid==6'>REVENUS</h5>
     </div>
   </div>
 </div>
@@ -49,6 +53,7 @@
             <th>{{labels[0].address}}</th>
             <th id="imp">{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].reason}}</th>
+            <th *ngIf="id=='7'">{{labels[0].paidAmount}}</th>
             <th>{{labels[0].status}}</th>
           </tr>
           <tr *ngFor="let app of appointmentreportlist|filter:term">
@@ -60,6 +65,7 @@
             <td>{{app.address}}</td>
             <td>{{app.bookedTime}}</td>
             <td>{{app.reasonForVisit}}</td>
+            <td *ngIf="id=='7'">{{app.physiorevenue}}</td>
             <td>
               <label *ngIf="app.isVisited=='1'" style="color:yellowgreen">{{labels[0].visited}}</label>
               <label *ngIf="app.physioCancelled=='1'||app.cancelled=='1'" style="color:red">{{labels[0].cancelled}}</label>

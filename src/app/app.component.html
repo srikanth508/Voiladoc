@@ -1,7 +1,7 @@
 <div class="container-fluid" *ngIf="temp=='1'" style="height:100vh;overflow: hidden;">
     <div class="row" style="height: 10vh;" *ngIf="isDescktopResolution==true">
         <div class="col-lg-2">
-            <img src="assets/Images/logo1.png" >
+            <img src="assets/Images/logo1.png">
             <!-- 
             <img src="assets/Images/ham.png" *ngIf="showsidebar1==0" (click)="openNav1()"
             style="margin-left: 1%;float: right;height:30px;margin-top: 21px;">
@@ -28,7 +28,7 @@
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-lg-10" style="overflow-y: auto;height: 90vh;background-color: #f3f3f3;" id="vidiv">
-            <router-outlet (activate)="onActivate($event)"></router-outlet>    
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
         </div>
 
     </div>
@@ -778,11 +778,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <!-- <h5> -->
-                    {{labels[0].notifications}}
+                {{labels[0].notifications}}
                 <!-- </h5> -->
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-          
+
             <div class="modal-body">
                 <div class="row card card-hover newcard" *ngFor="let docnoti of doctorNotifications"
                     style="overflow: auto;">
@@ -793,13 +793,12 @@
                         <p style="float:right"><b>{{docnoti.date}}</b></p>
                         <p style="float:left"><b>{{docnoti.notificationtime}}</b></p><br>
                         <br>
-                        <div *ngIf="doctorid!=undefined">
+                        <div *ngIf="doctorid!=undefined&&recpid==undefined">
                             <!-- <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updateseenbit(docnoti.id)">{{labels[0].seen}}</button> -->
                             <button class="chatnow" data-dismiss="modal" style="float: right;"
-                                (click)="UpdateDoctorSeenAll(docnoti.doctorID)" *ngIf="docnoti.notificationTypeID!=17">{{labels[0].seenAll}}</button><br>
-
-                           
+                                (click)="updateseenbit(docnoti.id)"
+                                *ngIf="docnoti.notificationTypeID!=17">{{labels[0].seenAll}}</button><br>
 
                         </div>
 
@@ -816,7 +815,7 @@
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
                                 (click)="updatecountrynoti(docnoti.id)">{{labels[0].seen}}</button>
                         </div>
-                     
+
                         <br>
                         <div *ngIf="pharmacyid!=undefined">
                             <button class="chatnow1" data-toggle="modal" data-target="#Medicines"
@@ -872,17 +871,17 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <table>
-                                <tr>    
+                                <tr>
                                     <th>{{labels10[0].medicines}}</th>
                                     <th>{{labels10[0].sig}}</th>
                                     <th>{{labels10[0].quantity}}</th>
-                                   
+
                                 </tr>
                                 <tr *ngFor="let ss of orderedmedicinelist">
                                     <td>{{ss.medicineName}}</td>
                                     <td>{{ss.sig}}</td>
                                     <td>{{ss.quantity}}</td>
-                                  
+
                                 </tr>
                             </table>
                         </div>
@@ -894,7 +893,7 @@
                         </div>
                         <div class="col-lg-6">
                             <button class="chatnow" data-dismiss="modal" style="float: left;"
-                                (click)="RejectPhrmacyOrder()"  data-dismiss="modal">{{labels[0].reject}}</button>
+                                (click)="RejectPhrmacyOrder()" data-dismiss="modal">{{labels[0].reject}}</button>
                         </div>
                     </div>
                 </div>
@@ -907,16 +906,17 @@
     </div>
 </div>
 
- <div  class="smalchat" id="Myformsss" style="overflow: auto;">
-<div class="w3-card-4 " *ngFor="let chat of chatlist" style="overflow: auto;">
-    <div class="w3-container cardss card-hover" (click)="GetChatIDForseen(chat.chatID)">
-      <p>1 new message from : <b>{{chat.patientName}}</b></p>
-      <hr>
-      <p>{{chat.mobileMessage}}</p>
+<div class="smalchat" id="Myformsss" style="overflow: auto;">
+    <div class="w3-card-4 " *ngFor="let chat of chatlist" style="overflow: auto;">
+        <div class="w3-container cardss card-hover" (click)="GetChatIDForseen(chat.chatID)">
+            <p>1 new message from : <b>{{chat.patientName}}</b></p>
+            <hr>
+            <p>{{chat.mobileMessage}}</p>
+        </div>
+        <button class="w3-button w3-block" style="background-color: #1dbfd2;color:white"
+            (click)="GetChatShowID(chat.patientID,chat.appointmentID)">Chat</button>
     </div>
-    <button class="w3-button w3-block" style="background-color: #1dbfd2;color:white" (click)="GetChatShowID(chat.patientID,chat.appointmentID)">Chat</button>
-    </div>
-</div> 
+</div>
 
 
 <div class="chat-popup" id="myFormsssss">
@@ -934,7 +934,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">
-                   
+
                 </div>
             </div>
             <!-- id="chatboxdiv" -->
@@ -987,7 +987,7 @@
             <div class="container-fluid" style="border: 1px solid #bcbcbc;  padding-top: 2%;  padding-bottom: 1.5%;">
                 <div class="row">
                     <div class="col-lg-9">
-                     
+
                         <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
                             class="form-control" style=" border-style:none;" placeholder="{{labels[0].typeamessage}}" />
                     </div>
@@ -997,7 +997,7 @@
                             <!-- <img src="assets/Images/send.png" alt="Avatar" class="right"  style="width:50%;"> -->
                         </button>
                     </div>
-                
+
                 </div>
             </div>
             <br>
@@ -1005,14 +1005,3 @@
         <br>
     </form>
 </div>
-
-
-
-
-
-
-
-
-
-
-

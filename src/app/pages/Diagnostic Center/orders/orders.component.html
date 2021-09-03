@@ -3,6 +3,14 @@
     <div class="col-lg-3">
       <h5>{{labels1[0].digorders}}</h5>
     </div>
+    <div class="col-lg-7">
+    </div>
+
+    <div class="col-lg-2">
+      <button type="button" routerLink="/NewAppointment" style="float: right;background-color:  #f18235;color: white;"
+        *ngIf="recpid!=undefined" class="btn btncolor">{{labels[0].newAppointment}}</button>
+    </div>
+
   </div>
 </div><br>
 <div class="container-fluid card card:hover">
@@ -41,6 +49,7 @@
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].homeSample}}</th>
             <th>{{labels[0].assignedname}}</th>
+            <th>{{labels[0].paidAmount}}</th>
             <th>{{labels[0].details}}</th>
             <th>{{labels[0].status}}</th>
             <th>{{labels[0].actions}}</th>
@@ -71,10 +80,14 @@
               {{details.assinedname}}
             </td>
             <td>
+              {{details.paidAmount}}
+            </td>
+            <td>
               <ng-template #tipcontent18>{{labels[0].tests}}</ng-template>
               <a [ngbTooltip]="tipcontent18">
                 <img src="assets/Images/test1.png" *ngIf="details.testsCount!=0" data-toggle="modal"
-                  data-target="#exampleModal2" style="height:20px;" (click)="GetTestsID(details.id,details.hideupdate,details)">
+                  data-target="#exampleModal2" style="height:20px;"
+                  (click)="GetTestsID(details.id,details.hideupdate,details)">
               </a>&nbsp;
               <ng-template #tipcontent20>{{labels[0].packages}}</ng-template>
               <a [ngbTooltip]="tipcontent20" *ngIf="details.packageCount!=0">
@@ -82,9 +95,10 @@
                   (click)="GetPackageID(details.id)">&nbsp;
               </a>
               <ng-template #tipcontent2045>Photo</ng-template>
-              <a [ngbTooltip]="tipcontent2045" >
-                <img src="assets/Images/phaprescripton.png" *ngIf="details.appointmentType=='2'&&details.photoexist=='1'" data-toggle="modal" data-target="#exampleModal6"
-                  style="height:20px;" (click)="GetAttachments(details.id)"></a>
+              <a [ngbTooltip]="tipcontent2045">
+                <img src="assets/Images/phaprescripton.png"
+                  *ngIf="details.appointmentType=='2'&&details.photoexist=='1'" data-toggle="modal"
+                  data-target="#exampleModal6" style="height:20px;" (click)="GetAttachments(details.id)"></a>
 
               <ng-template #tipcontent2094>Pdf</ng-template>
               <a [ngbTooltip]="tipcontent2094" *ngIf="details.appointmentType=='2'&&details.fileAvailableBit=='1'">
@@ -94,32 +108,40 @@
 
             <td>
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType=='0'&&details.hideupdate=='0'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType=='0'&&details.hideupdate=='0'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].accepted}}</label>
               <label
-                *ngIf="details.diagnosticCancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
+                *ngIf="details.diagnosticCancelled=='1'||details.rejected=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
                 style="color: red;">{{labels[0].cancelled}}</label>
-                <label
-                *ngIf="details.cancelled=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
+              <label
+                *ngIf="details.cancelled=='1'||details.rejected=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
                 style="color: red;">{{labels[0].patientCancelled}}</label>
+                <label
+                *ngIf="details.rejected=='1'"
+                style="color: red;">Rejected</label>
 
-              <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'"
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'&&details.rejected=='0'"
                 style="color: yellowgreen;">{{labels[0].visited}}</label>
-              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'"
+              <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'&&details.rejected=='0'"
                 style="color: yellowgreen;">{{labels[0].reportdelivered}}</label>
 
               <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
 
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType=='0'&&details.deliverPatnerAssigned=='0'&&details.hideupdate=='1'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType=='0'&&details.deliverPatnerAssigned=='0'&&details.hideupdate=='1'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].pricesenttopatient}}</label>
 
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType!='3'&&details.rejected=='0'"
+                style="color: green;">{{labels[0].codPayment}}</label>
+
+
+                <label
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType=='3'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].readyfordelivery}}</label>
 
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].assigned}}</label>
             </td>
             <td>
@@ -130,7 +152,7 @@
                     <a [ngbTooltip]="tipcontent10"
                       *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'">
                       <img src="assets/Images/can.png" data-toggle="modal" data-target="#exampleModal"
-                        (click)="cancelmedicine(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno)"
+                        (click)="cancelmedicine(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno,details.appdate,details.notificationdate)"
                         style="height:19px;">
                     </a>
                   </td>
@@ -139,16 +161,14 @@
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.appointmentType=='1'">
                       <img src="assets/Images/acc.png"
-                        (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno)"
+                        (click)="Appointmentstatus(details.id,details.patientID,details.diagnosticCenterName,details.notificationdate,details.emailID,details.smsmobileno,details.homeTypeText)"
                         style="height:19px;">
                     </a>
-
-
                     <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="details.acceptedBit=='0'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.appointmentType=='2'">
                       <img src="assets/Images/acc.png" data-toggle="modal" data-target="#AcceptModal"
-                        (click)="GetAppointmentAcceptBit(details.id,details.patientID,details.diagnosticCenterName,details.slotName,details.emailID,details.smsmobileno)"
+                        (click)="GetAppointmentAcceptBit(details.id,details.patientID,details.diagnosticCenterName,details.notificationdate,details.emailID,details.smsmobileno,details.homeTypeText)"
                         style="height:19px;">
                     </a>
                   </td>
@@ -249,7 +269,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;border:none"
-          data-dismiss="modal">{{labels[0].close}}</button>
+          data-dismiss="modal" id="Close">{{labels[0].close}}</button>
       </div>
     </div>
   </div>
@@ -384,12 +404,14 @@
                     <th>{{labels[0].packageName}}</th>
                     <th>{{labels[0].tests}}</th>
                     <th>Description</th>
+                    <th>Price</th>
                     <th>Actions</th>
                   </tr>
                   <tr *ngFor="let listsssss of packagelist">
                     <td>{{listsssss.packageName}}</td>
                     <td>{{listsssss.testNames}}</td>
                     <td>{{listsssss.description}}</td>
+                    <td>{{listsssss.price}}</td>
                     <td></td>
                   </tr>
                 </thead>

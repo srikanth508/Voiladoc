@@ -1,0 +1,287 @@
+<br>
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#eb0000" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace headercolor">
+    <div class="col-lg-3">
+      <h5>Reports</h5>
+    </div>
+    <div class="col-lg-7">
+    </div>
+    <div class="col-lg-2">
+      <button class="btn btncolor" (click)="getglmasterexcel()">
+        Export to excel</button>
+    </div>
+    <!-- <div class="col-lg-2">
+      <button type="button" routerLink="/AnnounseDash" class="btn btncolor">{{labels[0].dashboard}}</button>
+    </div> -->
+  </div>
+</div><br>
+
+
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="term" name="term">
+    </div>
+
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetTypeID($event)" [(ngModel)]="typeid" name="typeid">
+        <option value="0">Select</option>
+        <option value="1">Hospital</option>
+        <option value="2">Clinic</option>
+        <option value="3">Independent Doctor</option>
+        <option value="4">Independent Nurse</option>
+        <option value="5">Independent Physiotherapist</option>
+        <option value="6">Independent Midwife</option>
+        <option value="7">Pharmacy</option>
+        <option value="8">Diagnostic Center</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetYear($event)" [(ngModel)]="year" name="year">
+        <option value="0">Select</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+      </select>
+    </div>
+    <div class="col-lg-3">
+      <select class="form-control" (change)="GetMonth($event)" [(ngModel)]="month" name="month">
+        <option value="0">Select</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-8">
+    </div>
+    <div class="col-lg-2">
+      <label style="float: right;"><b>Grand Total : {{GrandTotal}} </b></label>&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="col-lg-2">
+      <label style="float: right;"><b>Count : {{count}} </b></label>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 5px;height: 400px;overflow: auto;overflow-y: auto;">
+    <div class="col-lg-12" style="overflow: auto;overflow-y: auto;height: 400px;">
+      <table id="Doc">
+        <thead>
+          <tr>
+            <th>Actions</th>
+            <th>Name</th>
+            <th>Total Revenue</th>
+            <th>Voiladoc Revenue</th>
+            <th>Payment Due</th>
+            <th *ngIf="typeid=='1'||typeid=='2'">Contact Person Name</th>
+            <th>Phone No</th>
+            <th>Email</th>
+            <th>Month</th>
+            <!-- <th>Subscription</th> -->
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">In Clinic Appointments</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">In Clinic Revenue</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">In Clinic Commission</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">Video Call Appointments</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">Video Call Revenue</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">Video Call Commission</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">Home Visit Appointments</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">Home Visit Revenue</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">Home Visit Commission</th>
+
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='4'">Nurse Appointments</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='4'">Nurse Revenue</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='4'">Nurse Commission</th>
+
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='5'">Physiotherapist Appointments</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='5'">Physiotherapist Revenue</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='5'">Physiotherapist Commission</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='6'">Midwife Appointments</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='6'">Midwife Revenue</th>
+            <th *ngIf="typeid=='1'||typeid=='2'||typeid=='6'">Midwife Commission</th>
+            <th *ngIf="typeid=='7'||typeid=='8'">Total Orders</th>
+            <th *ngIf="typeid=='7'||typeid=='8'">Total Amount</th>
+            <th *ngIf="typeid=='7'||typeid=='8'">Voiladoc Commission</th>
+            <th *ngIf="typeid=='7'||typeid=='8'">Delivery Commission</th>
+          </tr>
+          <tr *ngFor="let details of alldetails|filter:term">
+            <td>
+              <button class="btn btn-primary" (click)="GetList(details)" data-toggle="modal"
+                data-target="#invoiceModal">Pay</button>
+            </td>
+            <td>{{details.providername}}</td>
+            <td>{{details.grandTotalAmount| number:'1.2-2'}}</td>
+            <td>{{details.totalCommissionsAmount| number:'1.2-2'}}</td>
+            <td>{{details.grandTotalAmount - details.totalCommissionsAmount }}</td>
+
+            <td *ngIf="typeid=='1'||typeid=='2'">{{details.contactPersonName}}</td>
+            <td>{{details.contactPersonPhNo}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.month}}</td>
+            <!-- <td>{{details.subscription}}</td> -->
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.inClinicAppointmentCount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.inclincRevenue}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.inclinicCommissionAmount| number:'1.2-2'}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.videoCallAppointmentsCount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.totalVideoCallRevenue}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.videoCallCommissionAmount| number:'1.2-2'}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.homeVisitAppointmentCount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.homeVisitRevenue}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='3'">{{details.homeVisitCommissionAmount| number:'1.2-2'}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='4'">{{details.nurseAppintmentCount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='4'">{{details.totalNurseAmount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='4'">{{details.nurseCommissionAmount| number:'1.2-2'}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='5'">{{details.physioAppointmentCount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='5'">{{details.totalPhysioAmount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='5'">{{details.physioCommissionAmount| number:'1.2-2'}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='6'">{{details.midwifeAppointmentCount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='6'">{{details.totalMidwifeAmount}}</td>
+            <td *ngIf="typeid=='1'||typeid=='2'||typeid=='6'">{{details.midwifeCommissionAmount| number:'1.2-2'}}</td>
+            <td *ngIf="typeid=='7'||typeid=='8'">{{details.totalOrders}}</td>
+            <td *ngIf="typeid=='7'||typeid=='8'">{{details.totalAmount}}</td>
+            <td *ngIf="typeid=='7'||typeid=='8'">{{details.voiladocCommission}}</td>
+            <td *ngIf="typeid=='7'||typeid=='8'">{{details.deliveryCharges}}</td>
+
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+  </div><br>
+
+</div><br>
+
+
+
+
+<div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Payment Due</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Total Revenue :</label>
+
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" disabled [(ngModel)]="totrevenue" name="totrevenue">
+          </div>
+
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Voiladoc Revenue : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" disabled [(ngModel)]="totalcommission" name="totalcommission">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Payment Due : </label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" disabled [(ngModel)]="paymentdue" name="paymentdue">
+          </div>
+        </div><br>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Payment Type :</label>
+          </div>
+          <div class="col-lg-5">
+            <select class="form-control" (change)="GetPaymentID($event)">
+              <option value="0">Select</option>
+              <option value="1">Bank Transfer</option>
+              <option value="2">Cheque</option>
+            </select>
+          </div>
+        </div><br>
+        <div *ngIf="paymenttypeid=='1'">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>TransctionID</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" [(ngModel)]="transctionid" name="transctionid"
+                placeholder="TransctionID">
+            </div>
+          </div><br>
+        </div>
+        <div *ngIf="paymenttypeid=='2'">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Cheque No</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" [(ngModel)]="chequeno" name="chequeno" placeholder="Cheque No">
+            </div>
+          </div><br>
+        </div>
+        <div class="row" *ngIf="paymenttypeid=='2'||paymenttypeid=='1'">
+          <div class="col-lg-3">
+            <label *ngIf="paymenttypeid=='1'">Transction Photo : </label>
+            <label *ngIf="paymenttypeid=='2'">Cheque Photo : </label>
+          </div>
+          <div class="col-lg-5">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone>
+            <span *ngFor="let showphoto of showidentityproof">
+              <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+            </span>
+          </div>
+
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Comments : </label>
+          </div>
+
+          <div class="col-lg-5">
+            <textarea rows="4" class="form-control" placeholder="Comments" [(ngModel)]="comments"
+              name="comments"></textarea>
+          </div>
+        </div><br>
+
+        <div class="row">
+          <div class="col-lg-5">
+
+          </div>
+          <div class="col-lg-2">
+            <button (click)="InsertPayments()" class="btn btn-primary" data-toggle="modal"
+              data-target="#invoiceModal">Pay</button>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" data-dismiss="modal">Send Invoice</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -118,7 +118,7 @@ export class RoleMenuMappingComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: false,
+          allowSearchFilter: true,
           enableCheckAll: false
         };
       }, error => {

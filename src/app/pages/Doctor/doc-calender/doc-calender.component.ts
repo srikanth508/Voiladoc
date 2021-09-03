@@ -213,9 +213,9 @@ export class DocCalenderComponent implements OnInit {
 
 
   public insertdetails() {
-   
+
     this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
-    
+
       if (data1.length != 0) {
 
         var list = data1[0];
@@ -226,9 +226,9 @@ export class DocCalenderComponent implements OnInit {
           this.notificationdate = list.notificationdate,
           this.appointmentid = list.id,
           this.patientname = list.pName
-        
+
         this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotID, this.appointmentdate).subscribe(data => {
-         
+
         })
         this.Insertnotificatiacceptforcansel();
         this.insercancelnotoification();
@@ -656,56 +656,69 @@ export class DocCalenderComponent implements OnInit {
   public getmrngfrom(even) {
     this.mrngfromid = even.target.value;
     debugger
-    if (this.timewiseappointmentid == 4) {
+    // if (this.timewiseappointmentid == 4 || this.timewiseappointmentid == 6) {
       var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
       this.mrngfromslot = qwerty[0].slots;
       this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
       this.mrngtoid = "";
-    }
-    else {
-      this.docservice.GetDoctorSlotsGap(this.mrngfromid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 1).subscribe(data => {
-        debugger
-        let data1 = data;
-        if (data.length == 0) {
-          var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
-          this.mrngfromslot = qwerty[0].slots;
-          this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
-          this.mrngtoid = "";
-        }
-        else {
-          Swal.fire("Can not block this time as it is insufficient time to complete the appointment");
-          this.mrngfromid = "";
-        }
-      })
-    }
+    // }
+    // else {
+    //   this.docservice.GetDoctorSlotsGap(this.mrngfromid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 1).subscribe(data => {
+    //     debugger
+    //     let data1 = data;
+    //     if (data.length == 0) {
+    //       var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+    //       this.mrngfromslot = qwerty[0].slots;
+    //       this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+    //       this.mrngtoid = "";
+    //     }
+    //     else {
+    //       if (this.languageid == 1) {
+    //         Swal.fire({ text: "We are sorry. This action cannot be initiated. Voiladoc tries to optimize your schedule and tasks so that you spend quality time with your patients. Therefore, please allow an interval of 30 minutes between two types of" });
+    //         this.mrngfromid = "";
+    //       }
+    //       else {
+    //         Swal.fire({ text: "Nous sommes désolés. Cette action ne peut pas être initiée. Voiladoc essaie d'optimiser votre emploi du temps et vos tâches afin que vous passiez du temps de qualité avec vos patients. Par conséquent, veuillez prévoir un intervalle de 30 minutes entre deux types de RDV. Veuillez revenir en arrière et réviser votre sélection. Merci !" });
+    //         this.mrngfromid = "";
+    //       }
+
+    //     }
+    //   })
+    // }
   }
 
   public getmrngto(even) {
     this.mrngtoid = even.target.value;
     debugger
-    if (this.timewiseappointmentid == 4) {
+    // if (this.timewiseappointmentid == 4 || this.timewiseappointmentid == 6) {
       var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
       this.mrngtoslot = qwerty[0].slots;
       this.GetGetSlotsByIDPlanning();
-    }
-    else {
+    // }
+    // else {
 
 
-      this.docservice.GetDoctorSlotsGap(this.mrngtoid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 2).subscribe(data => {
-        if (data.length == 0) {
-          debugger
-          var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
-          this.mrngtoslot = qwerty[0].slots;
-          this.GetGetSlotsByIDPlanning();
-        }
-        else {
-          debugger
-          Swal.fire("Can not block this time as it is insufficient time to complete the appointment");
-          this.mrngtoid = "";
+    //   this.docservice.GetDoctorSlotsGap(this.mrngtoid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 2).subscribe(data => {
+    //     if (data.length == 0) {
+    //       debugger
+    //       var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+    //       this.mrngtoslot = qwerty[0].slots;
+    //       this.GetGetSlotsByIDPlanning();
+    //     }
+    //     else {
+    //       debugger
+    //       if (this.languageid == 1) {
+    //         Swal.fire({ text: "We are sorry. This action cannot be initiated. Voiladoc tries to optimize your schedule and tasks so that you spend quality time with your patients. Therefore, please allow an interval of 30 minutes between two types of" });
+    //         this.mrngtoid = "";
+    //       }
+    //       else {
+    //         Swal.fire({ text: "Nous sommes désolés. Cette action ne peut pas être initiée. Voiladoc essaie d'optimiser votre emploi du temps et vos tâches afin que vous passiez du temps de qualité avec vos patients. Par conséquent, veuillez prévoir un intervalle de 30 minutes entre deux types de RDV. Veuillez revenir en arrière et réviser votre sélection. Merci !" });
+    //         this.mrngtoid = "";
+    //       }
 
-        }
-      })
-    }
+    //     }
+    //   })
+    // }
     debugger
   }
 

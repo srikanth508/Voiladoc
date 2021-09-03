@@ -4,8 +4,8 @@
       <h5>{{labels[0].hospital_Clinc}}</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
-      <button *ngIf="languageid==1" type="button" routerLink="/HospitalClinic" class="btn btncolor">ADD</button>
-      <button *ngIf="languageid==6" type="button" routerLink="/HospitalClinic" class="btn btncolor">Ajouter</button>
+      <button *ngIf="languageid==1&&sowadd=='1'" type="button"  routerLink="/HospitalClinic" class="btn btncolor">ADD</button>
+      <button *ngIf="languageid==6&&sowadd=='1'" type="button"  routerLink="/HospitalClinic" class="btn btncolor">Ajouter</button>
     </div>
   </div>
 </div><br>
@@ -33,11 +33,11 @@
             <td>{{details.userName}}</td>
             <td>l3fs2NeQspUktW32ROvdu8A37DJ54zahx10MWAVq96M=</td>
             <ng-template #tipcontent3>{{labels[0].disable}}</ng-template>
-            <td> <a [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0' and ">
+            <td> <a [ngbTooltip]="tipcontent3" *ngIf="details.hidden=='0'&&sowadd=='1'">
                 <button (click)="disablehospital(details.hospital_ClinicID)"
                   style="background-color: green;color: aliceblue;border: none;">{{labels[0].disable}}</button>
               </a>
-              <a [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'">
+              <a [ngbTooltip]="tipcontent2" *ngIf="details.hidden=='1'&&sowadd=='1'">
                 <button (click)="enablehospital(details.hospital_ClinicID)"
                   style="background-color: red;color: aliceblue;border: none;">{{labels[0].enable}}</button>
               </a>
@@ -66,7 +66,7 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="    width: 700px;">
+    <div class="modal-content" style="    width: 740px;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Edit Password</h5>
         <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'">Changer le mot de passe</h5>
@@ -77,7 +77,7 @@
       <div class="modal-body">
        <div class="row" *ngIf="Showpassword=='0'">
         <div class="col-lg-3">
-          <label>{{labels[0].enteryourpin}}</label>
+          <label>{{labels[0].enteryourpin}} :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-6">

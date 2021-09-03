@@ -3,8 +3,9 @@
     <div class="col-lg-8" style="margin-top: -2px;">
       <h5>{{labels2[0].physiotherapistreg}}</h5>
     </div>
+    <!-- *ngIf="showexportbutton=='1'" -->
     <div class="col-lg-4" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()">
+      <button class="btn btncolor"  (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
       <button *ngIf="languageid==1" style="margin-left: 10px;" type="button" routerLink="/Physiotherapist" class="btn btncolor">
         Add Physiotherapist
@@ -43,6 +44,7 @@
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].address}}</th>
+            <th>Pincode</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let nurse of physioist|filter:term">
@@ -54,6 +56,7 @@
             <td>{{nurse.city}}</td>
             <td>{{nurse.areaName}}</td>
             <td>{{nurse.address}}</td>
+            <td>{{nurse.pincode}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">

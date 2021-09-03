@@ -3,8 +3,9 @@
     <div class="col-lg-9" style="    margin-top: -2px;">
       <h5>{{labels[0].hospitalOrclinicdashboard}}</h5>
     </div>
+    <!-- *ngIf="showexportbutton=='1'" -->
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" *ngIf="showexportbutton=='1'" (click)="getglmasterexcel()" style="margin-right: 10px;">
+      <button class="btn btncolor"  (click)="getglmasterexcel()" style="margin-right: 10px;">
         {{labels1[0].exportExcel}}</button>
       <button *ngIf="languageid==1" type="button" routerLink="/HospitalClinicregistration" class="btn btncolor">Add Hospital
       </button>
@@ -64,9 +65,10 @@
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].website}}</th>
             <th>{{labels[0].address}}</th>
+            <th>Pincode</th>
             <th>{{labels[0].action}}</th>
           </tr>
-          <tr *ngFor="let details of hospitalcliniclist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+          <tr *ngFor="let details of hospitalcliniclist|filter:term">
             <td>
               <img src="{{details.photoURL}}" style=" height: 50px;width: 50px;" />
             </td>
@@ -78,6 +80,7 @@
             <td>{{details.areaName}}</td>
             <td>{{details.website}}</td>
             <td>{{details.address}}</td>
+            <td>{{details.pincodes}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">
@@ -99,12 +102,12 @@
   </div>
   <br>
   <br>
-  <div class="col-lg-12" style="text-align: center">
+  <!-- <div class="col-lg-12" style="text-align: center">
     <br>
     <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true" responsive="true"
       previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div>
+  </div> -->
   <br>
 </div>
 <br>

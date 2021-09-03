@@ -288,7 +288,7 @@
             <td>{{soap.appointmentID}}</td>
             <td>{{soap.doctorName}}</td>
             <td>{{soap.departmentname}}</td>
-            <td>{{soap.pMobileNo}}</td>
+            <td>{{soap.mobileNumber}}</td>
             <!-- <td>{{soap.reasonForVisit}}</td> -->
             <td>
               <a [ngbTooltip]="tipcontent10">
@@ -371,6 +371,9 @@
         <thead>
           <tr>
             <th id="imp" [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
+            <th id="imp" [style.background-color]="color">{{labels1[0].date}}</th>
+            <th id="imp" [style.background-color]="color">Time</th>
+            
             <th  id="imp" [style.background-color]="color">BPM</th>
            
             <th  id="imp" [style.background-color]="color">CPM</th>
@@ -383,6 +386,8 @@
           <tr *ngFor="let vital of vitalslist">
         
             <td>{{vital.appointmentID}}</td>
+            <td>{{vital.date}}</td>
+            <td>{{vital.presentTime}}</td>
             <td>{{vital.bpm}}</td>
             <td>{{vital.rr}}</td>
             <td>{{vital.oxygenSaturation}}</td>

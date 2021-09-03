@@ -142,6 +142,17 @@
 
             <div class="row">
               <div class="col-lg-4">
+                <label>{{labels[0].homeSamplePicUp}} </label>
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="1"> {{labels[0].yes}} &nbsp;
+                <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="0">{{labels[0].no}}
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-4">
                 <label>{{labels[0].webSite}} :</label>
 
               </div>
@@ -212,7 +223,8 @@
         </div><br><br>
         <div class="row">
           <div class="col-lg-12">
-            <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button><br>
+            <button type="button" style="float: right" class="btn dashbtn btncolor"
+              awNextStep>{{labels[0].next}}</button><br>
           </div>
         </div>
         <div class="row">
@@ -299,8 +311,8 @@
                 <th>Actions</th>
               </tr>
               <tr *ngFor="let subscriptions of Diagnosticrevenuelist">
-                <td>{{subscriptions.contractstartdate}}</td>
-                <td>{{subscriptions.contractenddate}}</td>
+                <td>{{subscriptions.contractstartdate|date:'dd-MM-yyyy'}}</td>
+                <td>{{subscriptions.contractenddate|date:'dd-MM-yyyy'}}</td>
                 <td>{{subscriptions.monthlySubscription}}</td>
                 <td>
                   <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
@@ -316,7 +328,8 @@
       </div>
     </div><br>
     <br>
-    <button type="button" style="float: left;margin-left: 21px;" class="btn btncolor dashbtn nextbtncolor" awPreviousStep>{{labels[0].previous}}</button>
+    <button type="button" style="float: left;margin-left: 21px;" class="btn btncolor dashbtn nextbtncolor"
+      awPreviousStep>{{labels[0].previous}}</button>
     <br>
     <br>
   </aw-wizard-step><br>
@@ -335,7 +348,7 @@
     <div class="modal-content ">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='1'">Edit Subscriptions</h5>
-        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='6'">Éditer        </h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='6'">Éditer </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -371,8 +384,8 @@
             </div>
             <div class="col-lg-4">
               <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractenddate" bsDatepicker>
+                placeholder="{{labels[0].contractenddate}}" name="contractenddate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="contractenddate" bsDatepicker>
             </div>
           </div>
           <br />
@@ -391,11 +404,11 @@
       </div>
       <br>
       <div class="modal-footer">
-        <button id="close1" *ngIf="languageid=='1'" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
-          data-dismiss="modal">Close</button>
+        <button id="close1" *ngIf="languageid=='1'" type="button" style="background-color: #f18235; color: white;"
+          class="btn  btn-default" data-dismiss="modal">Close</button>
 
-          <button id="close1" *ngIf="languageid=='6'" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
-          data-dismiss="modal">Fermer        </button>
+        <button id="close1" *ngIf="languageid=='6'" type="button" style="background-color: #f18235; color: white;"
+          class="btn  btn-default" data-dismiss="modal">Fermer </button>
       </div>
     </div>
   </div>

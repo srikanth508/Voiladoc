@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-diagnosticsregistration',
@@ -60,7 +61,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
   dropzonelable: any;
   public contractstartdate: any;
   public contractenddate: any;
-  public search:any;
+  public search: any;
   ngOnInit() {
 
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -92,7 +93,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
     )
   }
   SelectLabel
-  
+
   public getinsurancemaster() {
 
     this.docservice.GetInsuranceMasterByLanguageID(this.languageid).subscribe(
@@ -251,43 +252,51 @@ export class DiagnosticsregistrationComponent implements OnInit {
       }
       this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
 
-        if (data != 0) {
+        if (data != 0 && data != 1) {
           this.diagnosticid = data;
           this.inserthspphotos();
           this.insertinsurance();
           this.insertDiagnosticRevenue()
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
             this.spinner.hide();
           }
-         else
-         {
-          Swal.fire('Inscription terminée');
-          this.spinner.hide();
-         }
+          else {
+            Swal.fire('Inscription terminée');
+            this.spinner.hide();
+          }
           this.clear();
 
           location.href = "#/DiagnesticDashboard"
 
         }
         else {
-          if(this.languageid==1)
-          {
-            Swal.fire('Diagnostic Center Name', 'Already Exists');
-            // this.clear();
-            this.spinner.hide();
-            // location.href="#/DiagnesticDashboard"
+          if (data == 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Email address already exists. Please verify and use the correct email address.');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+              this.spinner.hide();
+            }
+
           }
-          else
-          {
-            Swal.fire('Nom du centre de diagnostic', 'Existe déjà');
-            // this.clear();
-            this.spinner.hide();
-            // location.href="#/DiagnesticDashboard"
+          else {
+            if (this.languageid == 1) {
+              Swal.fire('The phone number already exists. Please verify and use the correct number');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+              this.spinner.hide();
+            }
           }
-       
+
         }
+      }, error => {
+        Swal.fire("Exception While Saving.Please try After some time");
+        this.spinner.hide();
       })
 
     }
@@ -351,17 +360,15 @@ export class DiagnosticsregistrationComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else
-    {
+    else {
       Swal.fire('Mis à jour avec succès');
       abcd.length = 0;
     }
- 
+
   }
 
   public uploadattachments() {

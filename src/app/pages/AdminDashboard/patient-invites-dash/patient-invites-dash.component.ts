@@ -11,7 +11,9 @@ export class PatientInvitesDashComponent implements OnInit {
   constructor(public docservice: HelloDoctorService) { }
   languageid: any;
   labels: any;
+  term: any;
   invitationslist: any;
+  count: any;
   ngOnInit() {
 
     this.languageid = localStorage.getItem('LanguageID');
@@ -31,16 +33,41 @@ export class PatientInvitesDashComponent implements OnInit {
     );
   }
 
+  message: any;
 
   public getpatientinvitations() {
     this.docservice.GetPatient_Referal_InvitationsWeb(this.languageid).subscribe(
       data => {
 
         this.invitationslist = data;
+        this.count = this.invitationslist.length;
 
       },
       error => { }
     );
+  }
+
+  smsmobileno: any;
+
+  public GetSmsmobileno(smsmobileno) {
+    this.smsmobileno = smsmobileno;
+  }
+
+
+  public SendTwiliSms() {
+    debugger
+    this.docservice.SendTwillioSMS(this.smsmobileno, this.message).subscribe(data => {
+      if(this.languageid==1)
+      {
+        Swal.fire("SMS sent Successfully");
+      }
+      else
+      {
+        Swal.fire("SMS envoyé");
+      }
+      
+
+    })
   }
 
 

@@ -58,6 +58,7 @@ export class AppComponent {
   labels10: any;
   countrymanagersid: any;
   countrynotifications: any;
+  recpid: any;
 
   ngOnInit() {
     this.show = 1;
@@ -92,6 +93,7 @@ export class AppComponent {
     this.physioid = localStorage.getItem('physioid');
     this.supportid = localStorage.getItem('supportid');
     this.countrymanagersid = localStorage.getItem('Commacountryid');
+    this.recpid = localStorage.getItem('recpid');
     this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
@@ -241,10 +243,10 @@ export class AppComponent {
           this.notificationcount = Number(this.pharmcunoti[0].notifycount);
           if (this.pharmcunoti.length > 0) {
             if (this.languageid == 1) {
-              Swal.fire('You have a new medicine order request.');
+              Swal.fire('Please click the notification icons above to view the order and take action.');
             }
             else if (this.languageid == 6) {
-              Swal.fire('Vous avez une nouvelle demande pour des médicaments ');
+              Swal.fire('Veuillez cliquer sur les icônes de notification ci-dessus pour afficher la commande à accepter ou à rejeter.');
             }
 
           }
@@ -359,11 +361,10 @@ export class AppComponent {
 
     const source = timer(1000, 20000);
     const abc = source.subscribe(val => {
-      if (this.doctorid != null || this.doctorid != undefined)
-      {
+      if (this.doctorid != null || this.doctorid != undefined) {
         this.GetDocnoti()
       }
-      
+
     });
   }
 
@@ -445,9 +446,10 @@ export class AppComponent {
 
 
   public updateseenbit(id) {
+    debugger
     this.docservice.UpdateNotifications_DoctorSeenBit(id).subscribe(
       data => {
-
+        debugger
         // Swal.fire('Completed', 'Visited Successfully');
 
         //  this.InservisitNotification()

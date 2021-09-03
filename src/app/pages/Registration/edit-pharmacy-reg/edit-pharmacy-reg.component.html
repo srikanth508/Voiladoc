@@ -151,6 +151,28 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
+                <label>{{labels[0].homeDelivery}} :</label>
+        
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="homedelivery" [(ngModel)]="homedelivery" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="homedelivery" [(ngModel)]="homedelivery" [value]="false">{{labels[0].no}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].nightPharmacy}} :</label>
+        
+              </div>
+              <div class="col-lg-6">
+                <input type="radio" name="nightpharmacy" [(ngModel)]="nightpharmacy" [value]="true">{{labels[0].yes}} &nbsp;
+                <input type="radio" name="nightpharmacy" [(ngModel)]="nightpharmacy" [value]="false">{{labels[0].no}}
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
                 <label>{{labels[0].description}} :</label>
 
               </div>
@@ -271,8 +293,8 @@
                 <th>Actions</th>
               </tr>
               <tr *ngFor="let subscriptions of pharmacyrevenuelist">
-                <td>{{subscriptions.contractstartdate}}</td>
-                <td>{{subscriptions.contractenddate}}</td>
+                <td>{{subscriptions.contractstartdate|date:'dd-MM-yyyy'}}</td>
+                <td>{{subscriptions.contractenddate|date:'dd-MM-yyyy'}}</td>
                 <td>{{subscriptions.subscriptionAmount}}</td>
                 <td>
                   <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>

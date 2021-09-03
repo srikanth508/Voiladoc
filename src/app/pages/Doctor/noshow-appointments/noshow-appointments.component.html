@@ -1,0 +1,128 @@
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-10" style="margin-top: -2px;">
+      <h5>{{labels[0].appointmentReport}}</h5>
+    
+    </div>
+    <div class="col-lg-2" style="margin-top: -12px;">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        (click)="getglmasterexcel()">{{labels[0].exportToExcel}}</button>
+
+      <!-- <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        data-toggle="modal" data-target="#importexcel">import excel</button> -->
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card-hover">
+  <br>
+  <div class="row">
+    <div class="col-lg-3" >
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="search" placeholder="{{labels[0].search}}" [(ngModel)]="term" class="form-control">
+    </div>
+    <div class="col-lg-3" *ngIf="diffid=='1'||diffid=='2'">
+      <!-- <select class="form-control" (change)="GetHospitalID($event)">
+        <option value="0">{{labels[0].selecthospitalclinic}}</option>
+        <option *ngFor="let hos of hospitallist" value="{{hos.id}}">{{hos.hospital_ClinicName}}</option>
+      </select> -->
+    </div>
+    <div class="col-lg-3" >
+      <!-- <select class="form-control" (change)="getget($event)">
+        <option selected value="0">{{labels[0].selectStatus}}</option>
+        <option value="1">{{labels[0].visited}}</option>
+        <option value="2">{{labels[0].notVisited}}</option>
+        <option value="3"> {{labels[0].pending}}</option>
+        <option value="4">{{labels[0].accepted}}</option>
+        <option value="5">{{labels[0].patientCancelled}}</option>
+        <option value="6">{{labels[0].docCancelled}}</option>
+      </select> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+    </div>
+    <div class="col-lg-2" style="text-align: end;
+    margin-left: -5px;">
+
+      <label>{{labels[0].count}} : {{count}}</label>
+      <!-- <label style="margin-left: -8px;">
+        <b>{{labels[0].count}}:</b>
+        <b>{{count}}</b>
+      </label> -->
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table" id="Appointment" style="overflow: auto;">
+        <thead>
+          <tr style="height: 20px">
+            <th>{{labels[0].appointmentDate}}</th>
+            <th>{{labels[0].appointmentNumber}}</th>
+            <th>{{labels[0].appointmentTime}}</th>
+            <!-- <th *ngIf="diffid=='1'||diffid=='2'">{{labels[0].hospitalName}}</th>
+            <th *ngIf="diffid=='1'||diffid=='2'">{{labels[0].doctorName}}</th> -->
+            <th>{{labels[0].appointmentType}}</th>
+            <!-- <th>{{labels[0].ailment}}</th> -->
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileNo}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <!-- <th  *ngIf="showreason=='1'&&languageid=='1'">Refund amount</th>
+            <th  *ngIf="showreason=='1'&&languageid=='6'">Montant remboursé   </th> -->
+            <!-- <th *ngIf="showreason=='1'">{{labels[0].reason}}</th> -->
+            <th>{{labels[0].status}}</th>
+          </tr>
+          <tr *ngFor="let details of cancelledlist|filter:term">
+            <td>{{details.appdate}}</td>
+            <td>{{details.id}}</td>
+            <td>{{details.slots}}</td>
+            <!-- <td *ngIf="diffid=='1'||diffid=='2'">{{details.hospital_ClinicName}}</td>
+            <td *ngIf="diffid=='1'||diffid=='2'">{{details.doctorName}}</td> -->
+            <td>{{details.appointmenText}}</td>
+            <!-- <td>{{details.reasonForVisit}}</td> -->
+            <td>{{details.pName}}</td>
+            
+            <td>{{details.pEmail}}</td>
+            <td>{{details.pMobileNo}}</td>
+            <!-- <td  *ngIf="showreason=='1'">{{details.paidAmount}}</td>
+            <td  *ngIf="showreason=='1'">{{details.refundComments}}</td>
+            <td *ngIf="showreason=='1'">{{labels[0].refunded}}</td> -->
+            <td >
+              <label
+                *ngIf="details.accepted=='1'&&details.isVisited=='0'&&details.docCancelled=='0'&&details.cancelled=='0'&&details.noShow=='0'"
+                style="color: green;">{{labels[0].accepted}}</label>
+              <label *ngIf="details.cancelled=='1'" style="color: orange;">{{labels[0].patientCancelled}}</label>
+              <label *ngIf="details.isVisited=='1'&&details.accepted=='1'"
+                style="color: orange;">{{labels[0].visited}}</label>
+              <label *ngIf="details.docCancelled=='1'" style="color: red;">{{labels[0].docCancelled}}</label>
+              <label
+                *ngIf="details.isVisited=='0'&&details.accepted=='0'&&details.cancelled=='0'&&details.docCancelled=='0'"
+                style="color: rgb(255, 0, 149);">{{labels[0].pending}}</label>
+              <label *ngIf="details.accepted=='1'&&details.noShow=='1'"
+                style="color: red;">{{labels[0].notVisited}}</label>
+            </td>
+          </tr>
+        </thead>
+      </table>
+      <br>
+      <br>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+

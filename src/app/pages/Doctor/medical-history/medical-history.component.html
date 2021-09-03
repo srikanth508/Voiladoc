@@ -11,6 +11,12 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
+    <div class="col-lg-7">
+
+    </div>
+    <div class="col-lg-2">
+      <label>Count : {{count}}</label>
+    </div>
   </div><br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
@@ -30,7 +36,7 @@
             <td>{{details.address}}</td>
             <td>
               <ng-template #tipcontent11>{{labels[0].pmr}}</ng-template>
-              <a [ngbTooltip]="tipcontent11" >
+              <a [ngbTooltip]="tipcontent11">
                 <img src="assets/Images/pmr.png" style="height:25px;"
                   [routerLink]="['/NewPatientHistory',details.patientID]" />
               </a>

@@ -18,10 +18,15 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" [disabled]="table=='1'" (change)="getnurseid($event)">
+        <!-- <select class="form-control" [disabled]="table=='1'" (change)="getnurseid($event)">
           <option>{{labels[0].select}}</option>
           <option *ngFor="let nurse of nurselist" value="{{nurse.id}}">{{nurse.nurseName}}</option>
-        </select>
+        </select> -->
+        <ng-multiselect-dropdown [placeholder]="select" [disabled]="table=='1'"  [data]="nurselist"
+        [settings]="nursedd" (onSelect)="getnurseid($event)">
+      </ng-multiselect-dropdown>
+
+
       </div>
     </div>
     <br>
@@ -48,37 +53,42 @@
       </div>
   
     <br>
-    <!-- <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].fees}} : </label>
-    </div>
-    <div class="col-lg-4">
-      <input class="form-control" type="text"  name="fees" [(ngModel)]="fees" placeholder="{{labels[0].fees}}"
-        [disabled]="table=='1'" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-    </div>
-  </div>
-  <br> -->
+  
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].day}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required (change)="GetDaysID($event)" [(ngModel)]="dayid" name="dayid">
+        <!-- <select class="form-control" required (change)="GetDaysID($event)" [(ngModel)]="dayid" name="dayid">
           <option value="0" selected>{{labels[0].select}}</option>
           <option *ngFor="let day of dayslist" value={{day.id}}>{{day.dayOfTheWeek}}
           </option>
-        </select>
+        </select> -->
+
+        <ng-multiselect-dropdown [placeholder]="'Select'"  [data]="dayslist"
+        [settings]="daysdd" (onSelect)="GetDaysID($event)">
+      </ng-multiselect-dropdown>
       </div>
     </div>
     <br>
+    <!-- <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].fees}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <input class="form-control" type="text"  name="fees" [(ngModel)]="fees" placeholder="{{labels[0].fees}}"
+          [disabled]="table=='1'" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+      </div>
+    </div>
+    <br> -->
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].startTime}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required [(ngModel)]="starttime" name="starttime">
+        <select class="form-control" required [(ngModel)]="starttime" name="starttime" [disabled]="table=='1'">
           <option value="0">{{labels[0].startTime}}</option>
           <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
           </option>
@@ -93,7 +103,7 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required [(ngModel)]="endtime" name="endtime">
+        <select class="form-control" required [(ngModel)]="endtime" name="endtime" [disabled]="table=='1'">
           <option value="0">{{labels[0].endTime}}</option>
           <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
           </option>
@@ -117,17 +127,19 @@
       <div class="col-lg-12">
         <table>
           <tr>
-            <th>{{labels[0].day}}</th>
+            <!-- <th>{{labels[0].day}}</th> -->
             <th>{{labels[0].hospitalClinic}}</th>
             <th>{{labels[0].startTime}}</th>
             <th>{{labels[0].endTime}}</th>
+            <th>{{labels[0].fees}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let det of detailsarray">
-            <td>{{det.Day}}</td>
+            <!-- <td>{{det.Day}}</td> -->
             <td>{{det.hospitalname}}</td>
             <td>{{det.StartTime}}</td>
             <td>{{det.EndTime}}</td>
+            <td>{{det.Fees}}</td>
             <td>
               <img src="assets/Images/dell.png" (click)="delete(det.Sno)">
             </td>
@@ -139,14 +151,14 @@
     <div class="row" *ngIf="table=='1'">
       <div class="col-lg-5">
       </div>
-      <div *ngIf="active==0" class="col-lg-2">
-        <button type="button" class="btn btn-block btn-md allbtns btncolor"
-          (click)="InsertNurseHospitalDetailsAdmindash()">{{labels[0].save}}</button>
-      </div>
-      <div *ngIf="active==1" class="col-lg-2">
+      <div  class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor"
           (click)="InsertNurseHospitalDetailsAdmin()">{{labels[0].save}}</button>
       </div>
+      <!-- <div *ngIf="active==1" class="col-lg-2">
+        <button type="button" class="btn btn-block btn-md allbtns btncolor"
+          (click)="InsertNurseHospitalDetailsAdmin()">{{labels[0].save}}</button>
+      </div> -->
       <div class="col-lg-5">
       </div>
     </div>

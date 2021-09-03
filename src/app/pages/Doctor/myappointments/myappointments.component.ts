@@ -267,10 +267,10 @@ export class MyappointmentsComponent implements OnInit {
 
 
     if (this.languageid == 1) {
-      this.earlycallnotes = this.user + " is available at this moment. Do you want to start the call now ?"
+      this.earlycallnotes = this.user + " is available at this moment. Do you want to start the call now ?Type : Video call."
     }
     else if (this.languageid == 6) {
-      this.earlycallnotes = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Type : téléconsultation "
+      this.earlycallnotes = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Type : téléconsultation"
     }
 
 
@@ -435,13 +435,15 @@ export class MyappointmentsComponent implements OnInit {
     });
   }
 
+  dummappointmentlist: any;
 
   public getbookappointmentbydoctorid() {
 
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
 
-        this.appointmentlist = data;
+        this.dummappointmentlist = data;
+        this.appointmentlist = this.dummappointmentlist.filter(x => x.noShow != 1 && x.docCancelled != 1 && x.cancelled != 1)
         this.count = this.appointmentlist.length
         this.dummlist = this.appointmentlist;
         if (this.appointmentlist.length == 0) {
@@ -479,8 +481,8 @@ export class MyappointmentsComponent implements OnInit {
   public getbookappointmentbydocid() {
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
-        this.appointmentlist = data;
+        this.dummappointmentlist = data;
+        this.appointmentlist = this.dummappointmentlist.filter(x => x.noShow != 1 && x.docCancelled != 1 && x.cancelled != 1)
         this.count = this.appointmentlist.length
         this.dummlist = this.appointmentlist;
         if (this.appointmentlist.length == 0) {
@@ -1685,7 +1687,7 @@ export class MyappointmentsComponent implements OnInit {
           this.testdisplay = "none";
         }
         else if (this.languageid == 6) {
-          Swal.fire('Alert', 'Il n est pas encore temps d ajouter un test de diagnostic');
+          Swal.fire('Alerte', 'Vous ne pouvez prescrire des tests qu’une fois la consultation commencée');
           this.testdisplay = "none";
         }
       }
@@ -1696,7 +1698,7 @@ export class MyappointmentsComponent implements OnInit {
         this.testdisplay = "none";
       }
       else if (this.languageid == 6) {
-        Swal.fire('Alert', "Vous ne pouvez pas créer de prescription de test de laboratoire, le rendez-vous n'a pas commencé.  ");
+        Swal.fire('Alerte', "Vous ne pouvez pas créer de prescription de test de laboratoire, le rendez-vous n'a pas commencé.  ");
         this.testdisplay = "none";
       }
 
@@ -1819,7 +1821,13 @@ export class MyappointmentsComponent implements OnInit {
   public adddetails() {
     if (this.testid == undefined || this.testid == 0 || this.testssid == 0 || this.testssid == undefined) {
 
-      Swal.fire('Please Fill Manadatory Fields');
+      if (this.languageid == 1) {
+        Swal.fire('Please Fill Manadatory Fields');
+      }
+      else {
+        Swal.fire('Veuillez remplir les champs obligatoires*');
+      }
+
     }
     else {
 
@@ -3063,18 +3071,27 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public InsertSickSlipGenarator() {
-    const qwer = 'dd-MM-yyyy';
+    const qwer = 'dd-MMM-yyyy';
     const pljdjf = 'en-US';
     const frdat = this.fromdate;
     this.fromdate = formatDate(frdat, qwer, pljdjf);
     const todat = this.todate;
     this.todate = formatDate(todat, qwer, pljdjf);
 
+
+    const qwert = 'dd-MM-yyyy';
+    const prrrfd = 'en-US';
+    const frdatds = this.fromdate;
+    this.fromdatehtml = formatDate(frdatds, qwert, prrrfd);
+    const todathjf = this.todate;
+    this.todatehtml = formatDate(todathjf, qwert, prrrfd);
+
+
     if (this.languageid == 1) {
-      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate.toLocaleString() + '<br>End Date: ' + this.todate.toLocaleString() + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>RE : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdatehtml + '<br>End Date: ' + this.todatehtml + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     else {
-      this.desc = '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> Registration no :" + this.docregno + "<br>"
+      this.desc = '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdatehtml + ',<br><br>Date de fin : ' + this.todatehtml + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> Registration no :" + this.docregno + "<br>"
     }
 
     if (this.languageid == 1) {
@@ -3085,7 +3102,7 @@ export class MyappointmentsComponent implements OnInit {
       document.getElementById("qwerty").innerHTML = this.desc
       this.mobiledescription = document.getElementById("qwerty").innerText;
     }
-
+    debugger
     if (this.languageid == 1) {
       var entity = {
         'PatientID': this.patientid,
@@ -3137,13 +3154,14 @@ export class MyappointmentsComponent implements OnInit {
       })
     }
     else {
+      debugger
       var entity = {
         'PatientID': this.patientid,
         'Ailment': this.ailment,
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdate.toLocaleString() + ',<br><br>Date de fin : ' + this.todate.toLocaleString() + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> Registration no : " + this.docregno + "<br>",
+        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Re : ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdatehtml + ',<br><br>Date de fin : ' + this.todatehtml + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> Registration no : " + this.docregno + "<br>",
         // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>OBJET: ' + this.leavefor + ' Je vous référe le patient </b></p><p> ' + this.patientname + ' </p><p style="text-align: center !important;">Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.wwwwXrr</p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
         'AppointmentID': this.appointmentid,
         'DoctorID': this.doctorid,
@@ -3152,6 +3170,7 @@ export class MyappointmentsComponent implements OnInit {
         'LanguageID': this.languageid
       }
       this.docservice.InsertSickSlipGenarator(entity).subscribe(res => {
+        debugger
         if (res != 0) {
 
           this.doctorid = localStorage.getItem('userid');
@@ -3326,7 +3345,7 @@ export class MyappointmentsComponent implements OnInit {
           this.referalnotes = " DATE: " + this.todaydate + " <p>SUBJECT : Referral To " + this.doctorname + "</p > <p>RE: Mr. " + this.patientname + "<p>i am referring my patient " + this.patientname + " for review of his new onset.<p>&nbsp;</p > <p>Thank you In advance for attending to the patients's health needs</p><p>" + this.user + "<br>" + this.MobileNumber + "</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;Consultation Summary<p><strong>Patient Name </strong>: &nbsp;" + this.patientname + "</p><p><strong>Date of Consult : &nbsp;</strong> &nbsp;" + this.todaydate + "</p><p><strong>Provider </strong>: &nbsp;  " + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
         }
         else {
-          this.referalnotes = " DATE :" + this.todaydate + "<p>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "</p><p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<p>Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+          this.referalnotes = " DATE :" + this.todaydate + "<p>OBJET : Lettre de recommandation <br> Cher(e) confrère (consœur), Je vous réfère le patient  " + this.patientname + "</p><p>Pour le(s) motif(s) et diagnostic(s) suivant(s) : " + "<br><br>" + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
         }
 
       }, error => {
@@ -3354,7 +3373,10 @@ export class MyappointmentsComponent implements OnInit {
 
   referaltypeid: any
   doctoremail: any
-  docphoneno: any
+  docphoneno: any;
+
+
+
   public GetReferencetypeID(even) {
 
     this.referaltypeid = even.target.value;
@@ -4124,10 +4146,10 @@ export class MyappointmentsComponent implements OnInit {
   public InsertDiagnostictestAndSoap() {
     if (this.attachmentsurl1.length == 0 || (this.attachmentsurl1 == null)) {
       if (this.languageid == 1) {
-        Swal.fire('Please Add Test or Soap')
+        Swal.fire('','Please upload photo')
       }
       else if (this.languageid == 6) {
-        Swal.fire('Please Add Test or Soap')
+        Swal.fire('','Veuillez télécharger une photo')
       }
     }
     else {
@@ -4924,7 +4946,8 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-
+  fromdatehtml: any;
+  todatehtml: any;
 
   public UpdateSickSlip() {
 
@@ -4935,6 +4958,12 @@ export class MyappointmentsComponent implements OnInit {
     const todat = this.todate;
     this.todate = formatDate(todat, qwer, pljdjf);
 
+
+    const frdatf = this.fromdate;
+    this.fromdatehtml = formatDate(frdatf, qwer, pljdjf);
+    const todatd = this.todate;
+    this.todatehtml = formatDate(todatd, qwer, pljdjf);
+
     if (this.languageid == 1) {
       var entity = {
         'ID': this.sickslipid,
@@ -4942,7 +4971,7 @@ export class MyappointmentsComponent implements OnInit {
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'LeaveFor': this.leavefor,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdatehtml + '<br>End Date: ' + this.todatehtml + '<br>Notes:' + this.ailment + '<br>' + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
       }
 
       this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
@@ -4970,7 +4999,7 @@ export class MyappointmentsComponent implements OnInit {
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'LeaveFor': this.leavefor,
-        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + ' Arrêt maladie(' + this.leavefor + ')' + '</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement :' + this.fromdate + ',<br><br>Date de fin :' + this.todate + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+        'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>Objet: ' + ' Arrêt maladie(' + this.leavefor + ')' + '</b></p><p>Re: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + 'Je soussigné(e), certifie avoir examiné le patient et prescrit un arrêt de travail.<br><br>' + 'Date de commencement :' + this.fromdatehtml + ',<br><br>Date de fin :' + this.todatehtml + ',<br><br>Notes complémentaires  :' + this.ailment + '<br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
         //'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.leavefor + ' Sick Slip / Medical Note</b></p><p>RE: ' + this.patientname + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>",
       }
       this.docservice.UpdateSickSlipGenarator(entity).subscribe(data => {
@@ -5147,7 +5176,7 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         // title: 'Êtes-vous sûr ?',
-        text: "Souhaitez-vous accorder une consultation gratuite àce patient ?",
+        html: "Souhaitez-vous accorder une      <br>" + "      " + " consultation gratuite àce patient ?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -5462,6 +5491,7 @@ export class MyappointmentsComponent implements OnInit {
   soappdf: boolean;
   medicalcertificate: boolean;
   referals: boolean;
+  medical: boolean;
   pdfprslist: any;
 
   public GetAllPrescription(appointmentid, email) {
@@ -5509,11 +5539,11 @@ export class MyappointmentsComponent implements OnInit {
         doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      
+
       doc.deletePage(1)
-    
+
       this.spinner.hide()
-       doc.save('Reports.pdf');
+      doc.save('Reports.pdf');
     });
   }
 
@@ -5551,18 +5581,18 @@ export class MyappointmentsComponent implements OnInit {
         doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      
+
       doc.deletePage(1)
       var pdf = doc.output('blob');
       var file = new File([pdf], "Report" + ".pdf");
       let body = new FormData();
       body.append('Dan', file);
-      
+
       this.docservice.DoctorPdfreports(file).subscribe(res => {
         ;
         // ReceiptUpload
         // DoctorPdfreports
-        
+
         this.sendattchmenturl.push(res);
         let a = this.sendattchmenturl[0].slice(2);
 
@@ -5583,7 +5613,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public updateReport() {
-    
+
     var entity = {
       'ApointmentID': this.appointmentid,
       'ReportPdfsUrl': this.sendattchmenturl[0]
@@ -5597,17 +5627,24 @@ export class MyappointmentsComponent implements OnInit {
   public noattachments = []
 
   public SendMailReport() {
-    
+
+    if (this.languageid == 1) {
+      var emaildesc = "As you requested, " + this.user + " sent a medical report. Please click on the link below." + this.emailurl + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team'
+    }
+    else {
+      var emaildesc = "Comme vous l'avez demandé, le " + this.user + " a envoyé un rapport médical. Veuillez cliquer sur le lien ci-dessous." + this.emailurl + "<br><br>" + 'Cordialement,' + "<br>" + 'Voiladoc Team'
+    }
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Medical report",
-      'emailbody': "Doctor Sent a Medical report. Please click below link <br><br>" + this.emailurl + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'emailbody': emaildesc,
       'attachmenturl': this.noattachments,
       'cclist': this.cclist,
       'bcclist': this.bcclist
     }
     this.docservice.sendemail(entity).subscribe(data => {
-      
+
       let res = data;
       if (this.languageid == 1) {
         Swal.fire('Mail sent successfully.');
@@ -5620,5 +5657,32 @@ export class MyappointmentsComponent implements OnInit {
   }
 
 
-  
+
+
+  vitalslist: any;
+  oxygen: any;
+  bpm: any;
+  cpm: any;
+  stress: any;
+  bloodpressure: any;
+
+
+
+  public getvitaldetails(appointmentid) {
+
+    this.docservice.GetPatient_VitalDetailsWeb(appointmentid, 1).subscribe(
+      data => {
+        this.vitalslist = data;
+        this.oxygen = this.vitalslist[0].oxygenSaturation,
+          this.bpm = this.vitalslist[0].bpm,
+          this.cpm = this.vitalslist[0].rr,
+          this.stress = this.vitalslist[0].streeLevel,
+          this.bloodpressure = this.vitalslist[0].bloodPressureStatus
+      }, error => {
+      }
+    )
+  }
+
+
+
 }

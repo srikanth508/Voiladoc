@@ -117,8 +117,8 @@ export class NurserevenueComponent implements OnInit {
     // this.enddate = data[1].toLocaleString().split(',')[0];
 
 
-    localStorage.setItem('StartDate',this.startdate);
-    localStorage.setItem('EndDate',this.enddate);
+    localStorage.setItem('startdate',this.startdate);
+    localStorage.setItem('enddate',this.enddate);
 
     this.GetAllNurseAmount();
     this.GetTotalCommissions()

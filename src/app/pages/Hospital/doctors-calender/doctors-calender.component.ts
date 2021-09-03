@@ -29,34 +29,34 @@ export class DoctorsCalenderComponent implements OnInit {
   public search: any;
   public today = new Date();
   public todaydate: any;
-  public daychangedate1:any;
-  public timechangedate1:any;
-  public term:any;
+  public daychangedate1: any;
+  public timechangedate1: any;
+  public term: any;
 
   myDateValue: Date;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.hospitalid = localStorage.getItem('hospitalid');
-    
+
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    
+
 
     this.getlanguage()
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-        
+
         this.labels = data;
         this.Select = this.labels[0].selectDoctor;
         this.search = this.labels[0].search;
       }, error => {
       }
     )
-    
 
-    
+
+
     this.gethospitaldoctors();
 
     this.mrngfromid = "";
@@ -135,11 +135,11 @@ export class DoctorsCalenderComponent implements OnInit {
   public day7: any;
 
   public GetMyDoctorWorkingDetails() {
-    
+
     this.docservice.GetDoctorcalenderSlotsByDoctorID(this.doctorid, this.slottypeid, this.todaydate, this.languageid).subscribe(
       data => {
         this.spinner.hide();
-        
+
         //this.workingdetails = data;
         this.DayDatelist = data[0];
 
@@ -166,7 +166,7 @@ export class DoctorsCalenderComponent implements OnInit {
         // let sfdsfd=this.DayDatelist.map("date");
         // this.head1=sfdsfd[0];
         this.workingdetails = data[1];
-        
+
 
       }, error => {
       }
@@ -179,7 +179,7 @@ export class DoctorsCalenderComponent implements OnInit {
   public GetDoctorID(item: any) {
     this.doctorid = ""
     this.showtable = 1;
-    
+
     this.doctorid = item.doctorID
     this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
       data => {
@@ -216,10 +216,10 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetDoctorDates(newDate: Date) {
     this.spinner.show();
-    
+
     // this.todaydate = even.toLocaleString().split(',')[0];
-    this.todaydate=this.docservice.GetDates(newDate)
-    
+    this.todaydate = this.docservice.GetDates(newDate)
+
     this.GetMyDoctorWorkingDetails();
   }
 
@@ -254,13 +254,13 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetDay1List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.day1DayID
     this.slotID = details.day1SlotID
     this.appointmentypeid = details.day1AppointmentTypeID,
       this.appointmentdate = details.day1AppointmentDate,
       this.fees = details.mondayFees;
-    
+
 
   }
 
@@ -268,74 +268,74 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetDay2List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.day2DayID
     this.slotID = details.day2SlotID
     this.appointmentypeid = details.day2AppointmentTypeID,
       this.appointmentdate = details.day2AppointmentDate,
       this.fees = details.tuesdayFees;
 
-    
+
 
   }
 
 
   public GetDay3List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.day3DayID
     this.slotID = details.day3SlotID
     this.appointmentypeid = details.day3AppointmentTypeID,
       this.appointmentdate = details.day3AppointmentDate,
       this.fees = details.wednessdayFees;
-    
+
 
   }
 
 
   public GetDay4List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.day4DayID
     this.slotID = details.day4SlotID
     this.appointmentypeid = details.day4AppointmentTypeID,
       this.appointmentdate = details.day4AppointmentDate
     this.fees = details.thursdayFees;
-    
+
   }
 
   public GetDay5List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.dayID
     this.slotID = details.day5SlotID
     this.appointmentypeid = details.day5AppointmentTypeID,
       this.appointmentdate = details.day5AppointmentDate,
       this.fees = details.fridayFees;
-    
+
   }
 
   public GetDay6List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.day6DayID
     this.slotID = details.day6SlotID
     this.appointmentypeid = details.day6AppointmentTypeID,
       this.appointmentdate = details.day6AppointmentDate,
       this.fees = details.satdayFees;
-    
+
   }
 
 
   public GetDay7List(details) {
     this.appointmentypeid = '';
-    
+
     this.dayid = details.day7DayID
     this.slotID = details.day7SlotID
     this.appointmentypeid = details.day7AppointmentTypeID,
       this.appointmentdate = details.day7AppointmentDate,
       this.fees = details.sundayFees;
-    
+
 
   }
 
@@ -343,9 +343,9 @@ export class DoctorsCalenderComponent implements OnInit {
   public insertdetails() {
 
     this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
-      
+
       if (data1.length != 0) {
-        
+
         var list = data1[0];
         this.patientid = list.relationPatientID,
           this.email = list.pEmail,
@@ -360,7 +360,7 @@ export class DoctorsCalenderComponent implements OnInit {
       }
     })
     this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotID, this.appointmentdate).subscribe(data => {
-     
+
     })
 
 
@@ -375,18 +375,18 @@ export class DoctorsCalenderComponent implements OnInit {
       'DoctorFees': this.fees
     }
     this.docservice.InsertDoctorSlots_DateWiseAvailable(entity).subscribe(data => {
-  
- 
-        if (this.languageid == 1) {
-          Swal.fire('Updated Successfully');
-        }
-        else {
-          Swal.fire('Mis à jour avec succés');
-        }
-        this.insertbookappointmenttype();
-        this.GetMyDoctorWorkingDetails();
-        this.spinner.show();
-      })
+
+
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+      }
+      else {
+        Swal.fire('Mis à jour avec succés');
+      }
+      this.insertbookappointmenttype();
+      this.GetMyDoctorWorkingDetails();
+      this.spinner.show();
+    })
 
 
   }
@@ -451,7 +451,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public SendCancelPatientmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Your Doctor " + this.doctorname + " Has Cancelled Your Appointment At Time " + this.notificationdate,
@@ -528,32 +528,32 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public GetdaychangeDate(newDate: Date) {
-    
+
     // this.daychangedate = even.toLocaleString().split(',')[0];
     var d = new Date(newDate),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-  
-  if (month.length < 2) 
-    month = '0' + month;
-  if (day.length < 2) 
-    day = '0' + day;
-  
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
     this.daychangedate = month + "-" + day + "-" + year;
-    
+
     this.Getdays()
   }
 
 
 
   public Getdays() {
-    
+
     this.docservice.GetDaysHomecare(this.daychangedate).subscribe(data => {
-      
+
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      
+
       this.Getdayssid();
     }, error => {
     })
@@ -561,7 +561,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public Getdayssid() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      
+
       this.dayidslist = data;
       this.datechangedayid = this.dayidslist[0].dayID;
 
@@ -576,7 +576,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
     this.docservice.GetSlotsMasterByID(1, this.slottypeid).subscribe(
       data => {
-        
+
         this.slotslist = data;
         this.mrngfromlist = data;
       }, error => {
@@ -586,80 +586,76 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   applist: any;
-  appcount: any;s
+  appcount: any; s
 
 
   public InsertDayWiseAlert() {
 
     if (this.daychangedate == undefined || this.daychangedate == null) {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Please Select Date')
       }
-      else
-      {
+      else {
         Swal.fire('Sélectionnez une date')
       }
     }
     else if (this.Daywiseappointmentid == undefined || this.Daywiseappointmentid == null) {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Please Select Type')
       }
-     else
-     {
-      Swal.fire('Veuillez sélectionner le type')
-     }
-    }
-    else{
-    
-    if (this.languageid == 1) {
-      this.docservice.GetBookAppointmentByDateWiseAppointmentCount(this.daychangedate, this.doctorid).subscribe(data => {
-        this.applist = data[0];
-        this.appcount = this.applist.appcount
-        
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You have " + this.appcount + " bookings. The patient(s) will be notified of the cancellation and offered the choice to reschedule or get a refund.",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, proceed.                                                '
-
-        }).then((result) => {
-          if (result.value) {
-            this.InsertDayWiseSlots();
-          }
-          else {
-          }
-        })
-      })
+      else {
+        Swal.fire('Veuillez sélectionner le type')
+      }
     }
     else {
-      this.docservice.GetBookAppointmentByDateWiseAppointmentCount(this.daychangedate, this.doctorid).subscribe(data => {
-        this.applist = data[0];
-        this.appcount = this.applist.appcount
-        
-        Swal.fire({
-          title: 'Êtes-vous sûr?',
-          text: "Vous avez " + this.appcount + " rendez-vous. Le(s) patient(s) sera/seront notifié(s) de l'annulation et pourra/pourront choisir entre replanifier ou un remboursement.",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Oui continuer',
-          cancelButtonText: 'Non'
-        }).then((result) => {
-          if (result.value) {
-            this.InsertDayWiseSlots();
-          }
-          else {
-          }
+
+      if (this.languageid == 1) {
+        this.docservice.GetBookAppointmentByDateWiseAppointmentCount(this.daychangedate, this.doctorid).subscribe(data => {
+          this.applist = data[0];
+          this.appcount = this.applist.appcount
+
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You have " + this.appcount + " bookings. The patient(s) will be notified of the cancellation and offered the choice to reschedule or get a refund.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, proceed.                                                '
+
+          }).then((result) => {
+            if (result.value) {
+              this.InsertDayWiseSlots();
+            }
+            else {
+            }
+          })
         })
-      })
+      }
+      else {
+        this.docservice.GetBookAppointmentByDateWiseAppointmentCount(this.daychangedate, this.doctorid).subscribe(data => {
+          this.applist = data[0];
+          this.appcount = this.applist.appcount
+
+          Swal.fire({
+            title: 'Êtes-vous sûr?',
+            text: "Vous avez " + this.appcount + " rendez-vous. Le(s) patient(s) sera/seront notifié(s) de l'annulation et pourra/pourront choisir entre replanifier ou un remboursement.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui continuer',
+            cancelButtonText: 'Non'
+          }).then((result) => {
+            if (result.value) {
+              this.InsertDayWiseSlots();
+            }
+            else {
+            }
+          })
+        })
+      }
     }
-  }
 
   }
 
@@ -669,7 +665,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
 
   public InsertDayWiseSlots() {
-    
+
     if (this.daychangedate == undefined || this.daychangedate == null) {
       Swal.fire('Please Select Date')
     }
@@ -677,13 +673,13 @@ export class DoctorsCalenderComponent implements OnInit {
       Swal.fire('Please Select Type')
     }
     else {
-      
+
       for (let j = 0; j < this.slotslist.length; j++) {
 
         this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data1 => {
-          
+
           if (data1.length != 0) {
-            
+
             var list = data1[0];
             this.patientid = list.relationPatientID,
               this.email = list.pEmail,
@@ -700,7 +696,7 @@ export class DoctorsCalenderComponent implements OnInit {
         })
 
         this.docservice.GetDoctorCancelledAppointmentByDateWise(this.doctorid, this.slotslist[j].id, this.daychangedate).subscribe(data => {
-          
+
         })
 
         var entity = {
@@ -729,9 +725,9 @@ export class DoctorsCalenderComponent implements OnInit {
       }
       this.Daywiseappointmentid = "";
       this.daychangedate = ""
-      this.fees=""
-      this.daychangedate1=""
-      
+      this.fees = ""
+      this.daychangedate1 = ""
+
     }
   }
 
@@ -744,21 +740,21 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetTimewisechangedate(newDate: Date) {
     // this.timechangedate = even.toLocaleString().split(',')[0];
-    
-    this.timechangedate=this.docservice.GetDates(newDate)
-    
+
+    this.timechangedate = this.docservice.GetDates(newDate)
+
     this.Getdaystime()
 
   }
 
 
   public Getdaystime() {
-    
+
     this.docservice.GetDaysHomecare(this.timechangedate).subscribe(data => {
-      
+
       this.dayslist = data[0];
       this.dayname = this.dayslist.dayName
-      
+
       this.Getdayssidbytime();
     }, error => {
     })
@@ -766,7 +762,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public Getdayssidbytime() {
     this.docservice.GetDayID(this.dayname).subscribe(data => {
-      
+
       this.dayidslist = data;
       this.timechangedayid = this.dayidslist[0].dayID;
 
@@ -802,56 +798,70 @@ export class DoctorsCalenderComponent implements OnInit {
   public getmrngfrom(even) {
     this.mrngfromid = even.target.value;
     debugger
-    if (this.timewiseappointmentid == 4) {
+    // if (this.timewiseappointmentid == 4 || this.timewiseappointmentid == 6) {
       var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
       this.mrngfromslot = qwerty[0].slots;
       this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
       this.mrngtoid = "";
-    }
-    else {
-      this.docservice.GetDoctorSlotsGap(this.mrngfromid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 1).subscribe(data => {
-        debugger
-        let data1 = data;
-        if (data.length == 0) {
-          var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
-          this.mrngfromslot = qwerty[0].slots;
-          this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
-          this.mrngtoid = "";
-        }
-        else {
-          Swal.fire("Can not block this time as it is insufficient time to complete the appointment");
-          this.mrngfromid = "";
-        }
-      })
-    }
+    // }
+    // else {
+    //   this.docservice.GetDoctorSlotsGap(this.mrngfromid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 1).subscribe(data => {
+    //     debugger
+    //     let data1 = data;
+    //     if (data.length == 0) {
+    //       var qwerty = this.mrngfromlist.filter(x => x.id == this.mrngfromid);
+    //       this.mrngfromslot = qwerty[0].slots;
+    //       this.mrngtolist = this.mrngfromlist.filter(x => x.id > this.mrngfromid);
+    //       this.mrngtoid = "";
+    //     }
+    //     else {
+    //       if (this.languageid == 1) {
+    //         Swal.fire({ text: "We are sorry. This action cannot be initiated. Voiladoc tries to optimize your schedule and tasks so that you spend quality time with your patients. Therefore, please allow an interval of 30 minutes between two types of" });
+    //         this.mrngfromid = "";
+    //       }
+    //       else {
+    //         Swal.fire({ text: "Nous sommes désolés. Cette action ne peut pas être initiée. Voiladoc essaie d'optimiser votre emploi du temps et vos tâches afin que vous passiez du temps de qualité avec vos patients. Par conséquent, veuillez prévoir un intervalle de 30 minutes entre deux types de RDV. Veuillez revenir en arrière et réviser votre sélection. Merci !" });
+    //         this.mrngfromid = "";
+    //       }
+
+    //     }
+    //   })
+    // }
   }
 
   public getmrngto(even) {
     this.mrngtoid = even.target.value;
     debugger
-    if (this.timewiseappointmentid == 4) {
+    // if (this.timewiseappointmentid == 4 || this.timewiseappointmentid == 6) {
       var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
       this.mrngtoslot = qwerty[0].slots;
       this.GetGetSlotsByIDPlanning();
-    }
-    else {
+    // }
+    // else {
 
 
-      this.docservice.GetDoctorSlotsGap(this.mrngtoid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 2).subscribe(data => {
-        if (data.length == 0) {
-          debugger
-          var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
-          this.mrngtoslot = qwerty[0].slots;
-          this.GetGetSlotsByIDPlanning();
-        }
-        else {
-          debugger
-          Swal.fire("Can not block this time as it is insufficient time to complete the appointment");
-          this.mrngtoid = "";
+    //   this.docservice.GetDoctorSlotsGap(this.mrngtoid, this.timechangedate, 1, this.doctorid, this.timechangedayid, 2).subscribe(data => {
+    //     if (data.length == 0) {
+    //       debugger
+    //       var qwerty = this.mrngtolist.filter(x => x.id == this.mrngtoid);
+    //       this.mrngtoslot = qwerty[0].slots;
+    //       this.GetGetSlotsByIDPlanning();
+    //     }
+    //     else {
+    //       debugger
+    //       if (this.languageid == 1) {
+    //         Swal.fire({ text: "We are sorry. This action cannot be initiated. Voiladoc tries to optimize your schedule and tasks so that you spend quality time with your patients. Therefore, please allow an interval of 30 minutes between two types of" });
+    //         this.mrngtoid = "";
+    //       }
+    //       else {
+    //         Swal.fire({ text: "Nous sommes désolés. Cette action ne peut pas être initiée. Voiladoc essaie d'optimiser votre emploi du temps et vos tâches afin que vous passiez du temps de qualité avec vos patients. Par conséquent, veuillez prévoir un intervalle de 30 minutes entre deux types de RDV. Veuillez revenir en arrière et réviser votre sélection. Merci !" });
+    //         this.mrngtoid = "";
+    //       }
 
-        }
-      })
-    }
+
+    //     }
+    //   })
+    // }
     debugger
   }
 
@@ -876,7 +886,7 @@ export class DoctorsCalenderComponent implements OnInit {
   //     }
   //   })
 
-   
+
   // }
 
   // public getmrngto(even) {
@@ -897,7 +907,7 @@ export class DoctorsCalenderComponent implements OnInit {
 
   //     }
   //   })
-  
+
   // }
 
   public timewisechangeslotlist: any;
@@ -906,11 +916,11 @@ export class DoctorsCalenderComponent implements OnInit {
 
   public GetGetSlotsByIDPlanning() {
     this.docservice.GetSlotsByIDPlanning(this.mrngfromid, this.mrngtoid).subscribe(data => {
-      
+
       this.timewisechangeslotlist = data;
       this.totalappcount = 0;
       for (let K = 0; K < this.timewisechangeslotlist.length; K++) {
-        
+
         this.docservice.GetBookAppointmentByDateWiseAndSlotWiseAppointmentCount(this.timechangedate, this.doctorid, this.timewisechangeslotlist[K].id).subscribe(data => {
           this.applist = data[0];
           this.applist = data[1];
@@ -952,52 +962,52 @@ export class DoctorsCalenderComponent implements OnInit {
         Swal.fire("Veuillez sélectionner l'heure")
       }
     }
-    else{
+    else {
 
 
-    
-    if (this.languageid == 1) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You have " + this.totalappcount + "bookings. The patient(s) will be notified of the cancellation and offered the choice to reschedule or get a refund.",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, proceed.'
-      }).then((result) => {
-        if (result.value) {
-          this.InsertTimeWiseSlots();
-        }
-        else {
-        }
-      })
+
+      if (this.languageid == 1) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You have " + this.totalappcount + "bookings. The patient(s) will be notified of the cancellation and offered the choice to reschedule or get a refund.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, proceed.'
+        }).then((result) => {
+          if (result.value) {
+            this.InsertTimeWiseSlots();
+          }
+          else {
+          }
+        })
+      }
+      else if (this.languageid == 6) {
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          text: "Vous avez " + this.totalappcount + " rendez-vous. Le(s) patient(s) sera/seront notifié(s) de l'annulation et pourra/pourront choisir entre replanifier ou un remboursement.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Oui continuer',
+          cancelButtonText: 'Non'
+        }).then((result) => {
+          if (result.value) {
+            this.InsertTimeWiseSlots();
+          }
+          else {
+          }
+        })
+      }
     }
-    else if (this.languageid == 6) {
-      Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: "Vous avez " + this.totalappcount + " rendez-vous. Le(s) patient(s) sera/seront notifié(s) de l'annulation et pourra/pourront choisir entre replanifier ou un remboursement.",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui continuer',
-        cancelButtonText: 'Non'
-      }).then((result) => {
-        if (result.value) {
-          this.InsertTimeWiseSlots();
-        }
-        else {
-        }
-      })
-    }
-  }
   }
 
 
 
   public InsertTimeWiseSlots() {
-    
+
     if (this.timechangedate == undefined || this.timechangedate == null) {
       Swal.fire('Please Select Date')
     }
@@ -1008,13 +1018,13 @@ export class DoctorsCalenderComponent implements OnInit {
       Swal.fire('Please Select Time')
     }
     else {
-      
+
       for (let j = 0; j < this.timewisechangeslotlist.length; j++) {
 
         this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data1 => {
-          
+
           if (data1.length != 0) {
-            
+
             var list = data1[0];
             this.patientid = list.relationPatientID,
               this.email = list.pEmail,
@@ -1056,8 +1066,8 @@ export class DoctorsCalenderComponent implements OnInit {
         this.timechangedate = "";
         this.mrngtoid = "";
         this.mrngfromid = "";
-        this.fees=""
-        this.timechangedate1="";
+        this.fees = ""
+        this.timechangedate1 = "";
       }
       else {
         Swal.fire('Mis à jour avec succés');
@@ -1065,16 +1075,16 @@ export class DoctorsCalenderComponent implements OnInit {
         this.timechangedate = "";
         this.mrngtoid = "";
         this.mrngfromid = "";
-        this.fees=""
-        this.timechangedate1="";
+        this.fees = ""
+        this.timechangedate1 = "";
       }
       this.timewiseappointmentid = "";
       this.timechangedate = "";
       this.mrngtoid = "";
       this.mrngfromid = "";
-      this.fees=""
-      this.timechangedate1="";
-      
+      this.fees = ""
+      this.timechangedate1 = "";
+
     }
   }
 
@@ -1091,5 +1101,5 @@ export class DoctorsCalenderComponent implements OnInit {
   }
 
 
-  
+
 }

@@ -3,7 +3,7 @@ import { HelloDoctorService } from "../../../hello-doctor.service";
 import Swal from "sweetalert2";
 import { formatDate } from "@angular/common";
 import { NgDateRangePickerOptions } from "ng-daterangepicker";
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-patient-reg',
   templateUrl: './patient-reg.component.html',
@@ -47,16 +47,35 @@ export class PatientRegComponent implements OnInit {
   hospitalid: any;
   knownalrregies: any;
   lastname: any;
-  constructor(public docservice: HelloDoctorService) { }
+  dropzonelable: any;
+  id: any;
+  showbit: any;
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   ngOnInit() {
     this.languageid = localStorage.getItem("LanguageID");
     this.doctorid = localStorage.getItem('userid');
 
+    this.activatedroute.params.subscribe(params => {
+      this.id = params['id'];
+      if (this.id == undefined) {
+        this.showbit = 0;
+      } else {
+        this.showbit = 1;
+        this.Getregisterdpatients()
+      }
+    })
+
     this.hospitalid = localStorage.getItem('hospitalid');
     this.getlanguage();
     this.Getregisterdpatients();
     this.GetCountryMaster();
+    if (this.languageid == 1) {
+      this.dropzonelable = "Upload file"
+    }
+    else if (this.languageid == 6) {
+      this.dropzonelable = "Télécharger des fichiers"
+    }
   }
 
   public getlanguage() {
@@ -72,12 +91,26 @@ export class PatientRegComponent implements OnInit {
   }
   SelectLabel: any
   public Getregisterdpatients() {
-    this.docservice.GetPatientRegistration(this.startdate, this.enddate).subscribe(
+    this.docservice.GetPatientRegistration('2021-01-01', '2090-01-01').subscribe(
       data => {
-
+        debugger
         this.patientslist = data;
-        this.dummlist = this.patientslist
-        this.count = this.patientslist.length
+        var list = this.patientslist.filter(x => x.id == this.id)
+        this.patientname = list[0].patientName,
+          this.mobileno = list[0].mobileNumber,
+          this.gender = list[0].genderID,
+          this.dateofbirth = list[0].dateOfBirth,
+          this.nationalidentitycardno = list[0].nationalIdentityNo,
+          this.insurancename = list[0].insuranceName,
+          this.showidproof = list[0].nationIDPhoto,
+          this.showphoto = list[0].insurancePhoto
+        this.attachmentsurl[0] = list[0].insurancePhotoUrl,
+          this.idproofurl[0] = list[0].nationIDPhotoUrl,
+          this.email = list[0].emailID,
+          this.lastname = list[0].lastName,
+          this.address = list[0].address,
+          this.knownalrregies = list[0].knownAllergies
+        debugger
       },
       error => { }
     );
@@ -193,8 +226,91 @@ export class PatientRegComponent implements OnInit {
 
 
 
+
+
+
+  public onattachmentUpload(abcd) {
+
+    // for (let i = 0; i < abcd.length; i++) {
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
+    // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
+
+  }
+
+
+
+
+
+  attachments = [];
+  attachmentsurl = [];
+  photo: any;
+  showphoto: any;
+
+
+  public uploadattachments() {
+
+    this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
+      this.attachmentsurl = [];
+      this.attachmentsurl.push(res);
+      let a = this.attachmentsurl[0].slice(2);
+
+      let b = 'https://maroc.voiladoc.org' + a;
+      this.photo = 1;
+      this.showphoto = b;
+      this.attachments.length = 0;
+
+    })
+    // this.sendattachment();
+  }
+
+  public onidUpload(abcd) {
+
+    // for (let i = 0; i < abcd.length; i++) {
+    this.idproof.push(abcd.addedFiles[0]);
+    this.uploadid();
+    // }
+    if (this.languageid == 1) {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else {
+      Swal.fire('Ajouté avec succès');
+      abcd.length = 0;
+    }
+  }
+  idproof = []
+  idproofurl = [];
+  idprof: any;
+  showidproof: any;
+  public uploadid() {
+    this.docservice.pharmacyphoto(this.idproof).subscribe(res => {
+      this.idproofurl = [];
+      this.idproofurl.push(res);
+      let a = this.idproofurl[0].slice(2);
+
+      let b = 'https://maroc.voiladoc.org' + a;
+      this.idprof = 1;
+      this.showidproof = b;
+      this.idproof.length = 0;
+
+    })
+    // this.sendattachment();
+  }
+
+
+  insurancename: any;
+
   public insertdetails() {
-    
+
     var entity = {
       'PatientName': this.patientname,
       'MobileNumber': this.mobileno,
@@ -211,7 +327,10 @@ export class PatientRegComponent implements OnInit {
       'HospitalID': this.hospitalid,
       'LastName': this.lastname,
       'DateOfBirth': this.dateofbirth,
-      'KnownAllergies': this.knownalrregies
+      'KnownAllergies': this.knownalrregies,
+      'InsurancePhotoUrl': this.attachmentsurl[0],
+      'NationIDPhotoUrl': this.idproofurl[0],
+      'InsuranceName': this.insurancename
     }
     this.docservice.InsertPatientRegistration(entity).subscribe(data => {
       this.patientid = data;
@@ -255,7 +374,7 @@ export class PatientRegComponent implements OnInit {
 
 
   public Insertfamilytredetail() {
-    
+
     var entity = {
       'PatientRelationTypeID': 1,
       'PatientID': this.patientid,
@@ -274,8 +393,45 @@ export class PatientRegComponent implements OnInit {
       'PR_BMI': 0
     }
     this.docservice.InsertPatientRelation_FamilyTree_Web(entity).subscribe(data => {
-      
+
     })
 
   }
+
+
+
+
+
+  public updatedetails() {
+    var entity = {
+      'ID': this.id,
+      'PatientName': this.patientname,
+      'MobileNumber': this.mobileno,
+      'EmailID': this.email,
+      'Password': 123,
+      'OTP': 123,
+      'GenderID': this.gender,
+      'Address': this.address,
+      'CountryID': this.countryid,
+      'CityID': this.cityid,
+      'AreaID': this.areaid,
+      'NationalIdentityNo': this.nationalidentitycardno,
+      'DoctorID': this.doctorid,
+      'HospitalID': this.hospitalid,
+      'LastName': this.lastname,
+      'DateOfBirth': this.dateofbirth,
+      'KnownAllergies': this.knownalrregies,
+      'InsurancePhotoUrl': this.attachmentsurl[0],
+      'NationIDPhotoUrl': this.idproofurl[0],
+      'InsuranceName': this.insurancename
+    }
+    this.docservice.UpdatePatientRegistrationForWeb(entity).subscribe(data => {
+      this.patientid = data;
+      Swal.fire("updated Successfully");
+      location.href = "#/Ptientregdash"
+    })
+  }
+
+
+
 }

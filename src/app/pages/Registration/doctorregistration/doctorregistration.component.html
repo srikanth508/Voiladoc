@@ -1,5 +1,6 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
 </ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
@@ -9,7 +10,7 @@
   </div>
 </div>
 <br>
-<div class="container-fluid card card:hover" >
+<div class="container-fluid card card:hover">
   <br>
   <form #doctorForm="ngForm">
     <aw-wizard navBarLocation="top" navBarLayout="small" navBarDirection="left-to-right" navigationMode="strict">
@@ -23,7 +24,8 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].doctorName}}" name="doctorname" required
-                [(ngModel)]="doctorname" class="form-control"  onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'>
+                [(ngModel)]="doctorname" class="form-control"
+                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'>
             </div>
           </div>
           <br>
@@ -34,7 +36,8 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].phoneNo}}" required maxlength="13" name="phoneno"
-                [(ngModel)]="phoneno" class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                oncopy="return false" onpaste="return false" [(ngModel)]="phoneno" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
           <br>
@@ -45,7 +48,7 @@
             </div>
             <div class="col-lg-4">
               <input type="email" required placeholder="{{labels[0].email}}" name="email" [(ngModel)]="email"
-                class="form-control" (ngModelChange)="onChange($event)">
+                class="form-control" oncopy="return false" onpaste="return false" (ngModelChange)="onChange($event)">
             </div>
           </div>
           <br>
@@ -54,8 +57,8 @@
               <label class="Email_label">{{labels[0].speaklanguages}} :</label>
             </div>
             <div class="col-lg-4">
-              <input type="email" placeholder="{{labels[0].speaklanguages}}" name="speaklanguages"
-                [(ngModel)]="speaklanguages" class="form-control">
+              <input type="email" placeholder="{{labels[0].speaklanguages}}" oncopy="return false"
+                onpaste="return false" name="speaklanguages" [(ngModel)]="speaklanguages" class="form-control">
             </div>
           </div>
           <br>
@@ -185,7 +188,8 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].experience}}" name="experience" [(ngModel)]="experience"
-                class="form-control" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+                class="form-control" oncopy="return false" onpaste="return false"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
           <br>
@@ -264,37 +268,40 @@
             </div>
           </div>
           <br>
-          <div  *ngIf="dummid==null">
-          <div class="row">
-            <div class="col-lg-3">
-              <label>Type Of Doctor :</label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-5">
-              <input type="radio" value="1"  [(ngModel)]="typeofdoctor"
-             required   name="typeofdoctor" (click)="GetTypeofdoctor($event)">&nbsp;
-              Hospital/Clinic Doctor
-              <input type="radio" value="2"  [(ngModel)]="typeofdoctor"
+          <div *ngIf="dummid==null">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>Type Of Doctor :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="radio" value="1" [(ngModel)]="typeofdoctor" required name="typeofdoctor"
+                  (click)="GetTypeofdoctor($event)">&nbsp;
+                Hospital/Clinic Doctor
+                <input type="radio" value="2" [(ngModel)]="typeofdoctor" required name="typeofdoctor"
+                  (click)="GetTypeofdoctor($event)">&nbsp;
+                Independent Doctor
+                <!-- <input type="radio" value="3"  [(ngModel)]="typeofdoctor"
               required  name="typeofdoctor" (click)="GetTypeofdoctor($event)">&nbsp;
-              Independent Doctor
-            </div>
-          </div><br>
-        </div>
-        <div *ngIf="typeofdoctor=='1'">
-          <div class="row" >
-            <div class="col-lg-3">
-              <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
-              <label id="imp" *ngIf="languageid=='6'">Hôpital / Clinique : </label>
-              <span class="required">*</span>
-            </div>
-            <div class="col-lg-4">
-              <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist"
-                [settings]="hospitadd" (onSelect)="GetHospitalID($event)">
-              </ng-multiselect-dropdown>
-            </div>
+              {{labels[0].groupofdoctors}} -->
+              </div>
+            </div><br>
           </div>
-          <br>
-        </div>
+          <div *ngIf="typeofdoctor=='1'">
+            <div class="row">
+              <div class="col-lg-3">
+                <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
+                <label id="imp" *ngIf="languageid=='6'">Hôpital / Clinique : </label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-4">
+                <ng-multiselect-dropdown [placeholder]="SelectLabel" required [data]="hospitalcliniclist"
+                  [settings]="hospitadd" (onSelect)="GetHospitalID($event)">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <br>
+          </div>
           <div class="row">
             <div class="col-lg-3">
               <label for="" class="reglabel">{{labels[0].identityProof}} :</label>
@@ -387,9 +394,9 @@
             </div>
             <div class="col-lg-4">
 
-              <input type="text"  placeholder="{{labels[0].registrationNo}}" name="registrationno"
-                [(ngModel)]="registrationno" class="form-control"
-                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode>=48&&event.charCode<=57)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'/>
+              <input type="text" placeholder="{{labels[0].registrationNo}}" name="registrationno"
+                [(ngModel)]="registrationno" class="form-control" oncopy="return false" onpaste="return false"
+                onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode>=48&&event.charCode<=57)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)' />
             </div>
           </div>
           <br>
@@ -401,7 +408,7 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].registrationCouncil}}" name="registrationcouncil"
-                [(ngModel)]="registrationcouncil" class="form-control"
+                [(ngModel)]="registrationcouncil" class="form-control" oncopy="return false" onpaste="return false"
                 onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||(event.charCode>=48&&event.charCode<=57)||(event.charCode<=32)||(event.charCode<=45)||(event.charCode==47)'>
             </div>
 
@@ -415,7 +422,7 @@
             <div class="col-lg-4">
 
               <input type="text" maxlength="4" placeholder="{{labels[0].registrationYear}}" name="registrationyear"
-                [(ngModel)]="registrationyear" class="form-control"
+                oncopy="return false" onpaste="return false" [(ngModel)]="registrationyear" class="form-control"
                 onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
           </div>
@@ -480,7 +487,7 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].college}}" name="colleagename" [(ngModel)]="colleagename"
-                class="form-control">
+                oncopy="return false" onpaste="return false" class="form-control">
             </div>
           </div>
           <br>
@@ -550,11 +557,15 @@
               </span>
             </div>
             <div class="col-lg-5 specforimg">
-              <p>
+              <p *ngIf="languageid=='1'">
                 <!-- {{labels[0].images}} -->
-
                 NOTE :Please Upload Pdf/Document Format
               </p>
+              <p *ngIf="languageid=='6'">
+                <!-- {{labels[0].images}} -->
+                Noter : Veuillez télécharger le format de document pdf.
+              </p>
+
             </div>
           </div>
         </div>

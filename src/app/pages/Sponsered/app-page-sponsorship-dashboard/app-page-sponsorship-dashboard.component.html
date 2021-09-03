@@ -45,8 +45,8 @@
           <tr *ngFor="let details of ApppageSponsrships|filter:term">
             <td>{{details.clientName}}</td>
             <td>{{details.description}}</td>
-            <td>{{details.startDate|date}}</td>
-            <td>{{details.endDate|date}}</td>
+            <td>{{details.startDate|date:'dd-MM-yyyy'}}</td>
+            <td>{{details.endDate|date:'dd-MM-yyyy'}}</td>
             <td>{{details.linkURL}}</td>
             <td>{{details.fees}}</td>
             <td>

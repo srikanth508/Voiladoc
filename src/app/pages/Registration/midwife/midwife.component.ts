@@ -313,7 +313,7 @@ export class MidwifeComponent implements OnInit {
       'SpokenLanguages': this.spokenlanguages
     }
     this.docservice.InsertMidWivesRegistration(entity).subscribe(data => {
-      if (data != 0) {
+      if (data != 0 && data != 1) {
         if (this.languageid == 1) {
           Swal.fire('Registration Completed', 'Midwife saved successfully', 'success');
           this.spinner.hide();
@@ -327,18 +327,32 @@ export class MidwifeComponent implements OnInit {
 
       }
       else {
-        if(this.languageid==1)
-        {
-          Swal.fire('Error', 'User details already exists', 'success');
-          this.spinner.hide();
+        if (data == 0) {
+          if (this.languageid == 1) {
+            Swal.fire('Email address already exists. Please verify and use the correct email address.');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+            this.spinner.hide();
+          }
+
         }
-        else
-        {
-          Swal.fire('Erreur', 'Ce courriel existe déjà. Un autre utilisateur.', 'success');
-          this.spinner.hide();
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('The phone number already exists. Please verify and use the correct number');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+            this.spinner.hide();
+          }
         }
         // location.href = '#/MidwifeDashboard';
       }
+    }, error => {
+      Swal.fire("Exception while saving.Please try after some time");
+      this.spinner.hide();
     })
   }
 

@@ -46,14 +46,23 @@
             <th>{{ labels[0].emailID }}</th>
             <!-- <th>{{ labels[0].password }}</th> -->
             <!-- <th *ngIf="roleid!='14' || roleid!='3'">{{labels[0].patientWallet }}</th> -->
-            <!-- <th>{{ labels[0].actions }}</th> -->
+            <th>{{ labels[0].actions }}</th>
           </tr>
           <tr *ngFor="let list of patientslist|filter:search">
             <td>{{list.id}}</td>
             <td>{{list.patientName}}</td>
-            <td>{{list.registereddate}}</td>
+            <td>{{list.registereddate|date:'dd-MM-yyyy'}}</td>
             <td>{{list.mobileNumber}}</td>
             <td>{{list.emailID}}</td>
+            <td>
+
+              <ng-template #tipcontent1>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent1" 
+                [routerLink]="['/PatientReg',list.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 18px">
+              </a>
+
+            </td>
             <!-- <td>{{list.password}}</td> -->
             <!-- <td *ngIf="roleid!=14 || roleid!=3">{{list.walletAmount}}</td> -->
           </tr>

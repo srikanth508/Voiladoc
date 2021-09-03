@@ -2,7 +2,7 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid=='1'">{{labels[0].doctor}}</h5>
-      <h5 *ngIf="languageid=='6'">ACCES MEDECINS  </h5>
+      <h5 *ngIf="languageid=='6'">MEDECINS</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button type="button" routerLink="/Doctor" class="btn btncolor"
@@ -29,7 +29,7 @@
       <table>
         <thead>
           <tr>
-            <th>{{labels[0].doctor}}</th>
+            <th>{{labels[0].name}}</th>
             <th>{{labels[0].userName}}</th>
             <th>{{labels[0].password}}</th>
             <!-- <th>{{labels[0].disable}}</th>
@@ -79,7 +79,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="    width: 700px;">
+    <div class="modal-content" style="    width: 740px;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{labels[0].editPassword}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -89,7 +89,7 @@
       <div class="modal-body">
         <div class="row" *ngIf="Showpassword=='0'">
           <div class="col-lg-3">
-            <label>{{labels[0].enteryourpin}}</label>
+            <label>{{labels[0].enteryourpin}} :</label>
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">

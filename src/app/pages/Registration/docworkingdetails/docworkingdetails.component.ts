@@ -116,6 +116,7 @@ export class DocworkingdetailsComponent implements OnInit {
   nightcolorcode: any;
   cleardropdown5 = []
   public search: any;
+  booktyAppointmentid = []
 
   ngOnInit() {
 
@@ -129,6 +130,8 @@ export class DocworkingdetailsComponent implements OnInit {
     this.nighttoid = ""
     this.mrngAppointmenttype = 0;
     this.booktypeid = [{ id: 1 }, { id: 2 }]
+    this.booktyAppointmentid = [{ id: 1 }, { id: 2 }, { id: 5 }]
+
     this.dummid = localStorage.getItem('hospitalid');
     this.hosipitalidd = localStorage.getItem('hospitalid');
 
@@ -322,10 +325,10 @@ export class DocworkingdetailsComponent implements OnInit {
 
 
   public insertbookappointmenttype() {
-    for (let j = 0; j < this.appontmenttypeid.length; j++) {
+    for (let k = 0; k < this.booktyAppointmentid.length; k++) {
       var entity = {
         'DoctorHospitalID': this.docid,
-        'AppointmentTypeID': this.appontmenttypeid[j]
+        'AppointmentTypeID': this.booktyAppointmentid[k].id
       }
       this.docservice.InsertBookAppointmentType(entity).subscribe(data => {
         if (data != undefined) {
@@ -360,7 +363,7 @@ export class DocworkingdetailsComponent implements OnInit {
 
 
   public GetDaysID(item10: any) {
-    
+
     // this.dayid = item10.id;
     this.dayid.push(item10)
   }

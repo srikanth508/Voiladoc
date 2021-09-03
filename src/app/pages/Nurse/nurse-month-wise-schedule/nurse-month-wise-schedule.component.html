@@ -15,7 +15,19 @@
   <div class="row">
     <div class="col-lg-2">
       {{labels[0].year}} : {{year}}<br>
-      {{labels[0].month}} : {{showmonth}}
+      {{labels[0].month}} : 
+      <span *ngIf="showmonth=='Jan'">{{labels[0].jan}}</span>
+      <span *ngIf="showmonth=='Feb'">{{labels[0].feb}}</span>
+      <span *ngIf="showmonth=='Mar'">{{labels[0].march}}</span>
+      <span *ngIf="showmonth=='Apr'">{{labels[0].april}}</span>
+      <span *ngIf="showmonth=='May'">{{labels[0].may}}</span>
+      <span *ngIf="showmonth=='jun'">{{labels[0].june}}</span>
+      <span *ngIf="showmonth=='Jul'">{{labels[0].july}}</span>
+      <span *ngIf="showmonth=='Aug'">{{labels[0].aug}}</span>
+      <span *ngIf="showmonth=='Sep'">{{labels[0].sept}}</span>
+      <span *ngIf="showmonth=='Oct'">{{labels[0].oct}}</span>
+      <span *ngIf="showmonth=='Nov'">{{labels[0].nov}}</span>
+      <span *ngIf="showmonth=='Dec'">{{labels[0].dec}}</span>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="ChangeYear($event)" [(ngModel)]="year" name="year">

@@ -178,7 +178,7 @@ export class DeliveryCompanyLoginDashboardComponent implements OnInit {
         this.Enteredpinno = "";
       }
       else {
-        Swal.fire('Veuillez entrer votre NIP && mot de passe actuel')
+        Swal.fire('Votre code PIN et votre mot de passe ne correspondent pas.')
         this.entercurrentpwd = "";
         this.Enteredpinno = "";
       }

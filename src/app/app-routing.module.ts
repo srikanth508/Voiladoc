@@ -340,6 +340,17 @@ import { PatientPdfsComponent } from './pages/GenaratePDFs/patient-pdfs/patient-
 import { PatientPdfComponent } from './pages/GenaratePDFs/patient-pdf/patient-pdf.component';
 import { DeliveryRevenueComponent } from './pages/DeliveryPartner/delivery-revenue/delivery-revenue.component';
 import { DeliveryPatnerReportsComponent } from './pages/DeliveryPartner/delivery-patner-reports/delivery-patner-reports.component';
+import { PatientsregComponent } from './pages/Sales/patientsreg/patientsreg.component';
+import { NoshowAppointmentsComponent } from './pages/Doctor/noshow-appointments/noshow-appointments.component';
+import { AllAdminReportsComponent } from './pages/AdminDashboard/all-admin-reports/all-admin-reports.component';
+import { PatientInviteReportComponent } from './pages/AdminDashboard/patient-invite-report/patient-invite-report.component';
+import { PatientRecordsComponent } from './pages/AdminDashboard/patient-records/patient-records.component';
+import { AdminReportsComponent } from './pages/adminsReports/admin-reports/admin-reports.component';
+import { AllProviderPaymentsComponent } from './pages/adminsReports/all-provider-payments/all-provider-payments.component';
+import { ResolvedPatientTicketsComponent } from './pages/Support/resolved-patient-tickets/resolved-patient-tickets.component';
+import { PatientEscalatesTicketsComponent } from './pages/Support/patient-escalates-tickets/patient-escalates-tickets.component';
+import { PaidReportsComponent } from './pages/adminsReports/paid-reports/paid-reports.component';
+
 
 
 
@@ -562,6 +573,8 @@ const routes: Routes = [
   { path: 'ReferredPatients', component: ReferredPatientsComponent },
   { path: 'PatientReg', component: PatientRegComponent },
   { path: 'Ptientregdash', component: PtientregdashComponent },
+  { path: 'PatientReg/:id', component: PatientRegComponent },
+
   { path: 'ArticleDash', component: ArticleDashComponent },
   { path: 'HospitalRevenue', component: HospitalRevenueComponent },
   { path: 'RevenueDetails/:id', component: RevenueDetailsComponent },
@@ -745,6 +758,16 @@ const routes: Routes = [
   { path: 'PatientPdf', component:  PatientPdfComponent},
   { path: 'DeliveryRevenue', component:  DeliveryRevenueComponent},
   { path: 'DeliveryPatnerReports', component:  DeliveryPatnerReportsComponent},
+  { path: 'Patientsreg', component:  PatientsregComponent},
+  { path: 'NoshowAppointments', component:  NoshowAppointmentsComponent},
+  { path: 'AllAdminReports/:id', component:  AllAdminReportsComponent},
+  { path: 'PatientInviteReport', component:  PatientInviteReportComponent},
+  { path: 'PatientRecords', component:  PatientRecordsComponent},
+  { path: 'AdminReports', component:  AdminReportsComponent},
+  { path: 'AllProviderPayments', component:  AllProviderPaymentsComponent},
+  { path: 'ResolvedPatientTickets', component:  ResolvedPatientTicketsComponent},
+  { path: 'PatientEscalatesTickets', component:  PatientEscalatesTicketsComponent},
+  { path: 'PaidReports', component:  PaidReportsComponent},
 
 ];
 

@@ -15,6 +15,7 @@ export class MedicalHistoryComponent implements OnInit {
   public term:any;
   public languageid: any;
   public labels: any;
+  count:any;
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
     this.getbookappointmentbydoctorid();
@@ -27,6 +28,7 @@ export class MedicalHistoryComponent implements OnInit {
       data => {
        
         this.appointmentlist = data;
+        this.count= this.appointmentlist.length;
        
       }, error => {
       }

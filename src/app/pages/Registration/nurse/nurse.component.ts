@@ -416,16 +416,32 @@ export class NurseComponent implements OnInit {
 
       }
       else {
-        if (this.languageid == 1) {
-          Swal.fire('Error', 'Details Already Exists', 'success');
-          this.spinner.hide();
+        if (data == 0) {
+          if (this.languageid == 1) {
+            Swal.fire('Email address already exists. Please verify and use the correct email address.');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+            this.spinner.hide();
+          }
+
         }
         else {
-          Swal.fire('Erreur', 'Les détails existent déjà');
-          this.spinner.hide();
+          if (this.languageid == 1) {
+            Swal.fire('The phone number already exists. Please verify and use the correct number');
+            this.spinner.hide();
+          }
+          else {
+            Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+            this.spinner.hide();
+          }
         }
         // location.href = '#/NurseDashboard';
       }
+    }, error => {
+      Swal.fire("Exception While Saving.Please try after some time");
+      this.spinner.hide();
     })
   }
 
@@ -454,7 +470,7 @@ export class NurseComponent implements OnInit {
   emailattchementurl = [];
 
   public sendmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

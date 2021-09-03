@@ -47,6 +47,10 @@ export class PhysioRevenueComponent implements OnInit {
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
    
+
+    localStorage.setItem("startdate", this.startdate);
+    localStorage.setItem("enddate", this.enddate);
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -100,6 +104,9 @@ export class PhysioRevenueComponent implements OnInit {
 
     this.startdate = this.docservice.GetDates(data[0])
     this.enddate = this.docservice.GetDates(data[1])
+    
+    localStorage.setItem("startdate", this.startdate);
+    localStorage.setItem("enddate", this.enddate);
     
     this.GetAllMidWIfeCount();
     this.GetTotalCommissions()

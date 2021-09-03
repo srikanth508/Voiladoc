@@ -1,0 +1,275 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-6">
+      <h5 *ngIf="languageid=='6'">TICKET DE SUPPORT RÉSOLUS (PATIENTS)</h5>
+      <h5 *ngIf="languageid=='1'"> RESOLVED TICKETS (PATIENTS)</h5>
+    </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">
+      <button class="btn btncolor" (click)="getglmasterexcel()"
+        *ngIf="showexportbutton=='1'">{{labels[0].exportExcel}}</button>
+    </div>
+    <!-- <div class="col-lg-3"></div> -->
+  </div>
+
+  <br />
+</div>
+<br />
+<div class="container-fluid card card:hover ">
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
+      </ng-daterangepicker> -->
+
+      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
+      <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" [(ngModel)]="term" class="form-control" placeholder="{{labels[0].search}}">
+    </div>
+    <!-- <div class="col-lg-3">
+      <select class="form-control" (change)="GetResolvedStatus($event)">
+        <option value="0">{{labels[0].select}}</option>
+        <option value="1">{{labels[0].resolved}}</option>
+        <option value="2">{{labels[0].unresolved}}</option>
+      </select>
+    </div> -->
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Appointment">
+        <thead>
+          <tr>
+            <th>{{labels[0].ticketno}}</th>
+            <th>{{labels[0].supportdate}}</th>
+            <th>{{labels[0].time}}</th>
+            <th>{{labels[0].patientID}}</th>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileNumber}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>{{labels[0].message}}</th>
+            <th>{{labels[0].photo}}</th>
+
+
+            <th>{{labels1[0].resolveDescription}}</th>
+            <th>{{labels1[0].resolvePhoto}}</th>
+
+            <th>{{labels[0].status}}</th>
+            <!-- <th>{{labels[0].actions}}</th> -->
+          </tr>
+          <tr *ngFor="let details of supportlist|filter:term">
+            <td>{{details.id}}</td>
+            <td>{{details.date}}</td>
+            <td>{{details.time}}</td>
+            <td>{{details.patientID}}</td>
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.message}}</td>
+
+
+
+            <td>
+              <a [ngbTooltip]="tipcontent4">
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#exampleModalLong2"
+                  style="height: 20px;" (click)="GetImage(details.photoURL)" />
+              </a>
+            </td>
+
+            <td>{{details.comments}}</td>
+            <td>
+              <img src="assets/Images/imgicon.png" title="Resolve Photo"
+                (click)="GetResolvePhotoUrl(issue.resolvePhotoURL)" data-toggle="modal" data-target="#exampleModalLong6"
+                style="margin: 2%;width: 20px;" />&nbsp;
+            </td>
+            <td>
+              <label *ngIf="details.accepted=='1'&&details.resolve=='0'" style="color:red">{{labels[0].pending}}</label>
+              <label *ngIf="details.accepted=='1'&&details.resolve=='1'"
+                style="color:green">{{labels[0].resolved}}</label>
+            </td>
+            <!-- <td>
+              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+              <a [ngbTooltip]="tipcontent2">
+                <img src="assets/Images/acc.png" *ngIf="details.accepted=='0'"
+                  (click)="GetSupportResolvedBit(details.id)" style="height:30px;" />
+              </a>&nbsp;
+
+              <ng-template #tipcontent4>{{labels[0].resolve}}</ng-template>
+              <a [ngbTooltip]="tipcontent4">
+                <img src="assets/Images/edit.png" *ngIf="details.accepted=='1'&&details.resolve=='0'" data-toggle="modal"
+                  data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(details.id)" />
+              </a>
+            </td> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br />
+    <br />
+  </div>
+  <br />
+  <br />
+  <br />
+</div>
+<br />
+<br />
+<br />
+<br />
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels1[0].issuePhoto}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <br>
+              <img src="{{photourl}}" style="height: auto;width:100%" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].uploaddocuments}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #supportForm="ngForm">
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].photo}} :</label>
+              </div>
+              <div class="col-lg-4">
+                <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+                  <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+                </ngx-dropzone>
+              </div>
+              <div class="col-lg-2">
+                <span *ngFor="let showsigphoto of showidentityproof">
+                  <img src="{{showsigphoto}}" style="height:50px;width:70px">&nbsp;
+                </span>
+              </div>
+              <br>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+                <label>{{labels[0].description}} :</label>
+                <span style="color:red">*</span>
+              </div>
+              <div class="col-lg-6">
+                <ckeditor [editor]="Editor" [(ngModel)]="description" required name="description" data=""></ckeditor>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-2">
+                <button type="button" text_align="center" (click)="insertdetails()"
+                  class="btn btn-block btn-md allbtns btncolor" [disabled]="supportForm.form.invalid"
+                  data-dismiss="modal">{{labels[0].update}}</button>
+              </div>
+              <div class="col-lg-5">
+              </div>
+            </div>
+            <br>
+            <br>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="qwerty" style="display: none;">
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModalLong6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels1[0].resolvePhoto}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <br>
+              <img src="{{resolvephotourl}}" style="height: auto;width:100%" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235; color: white;"
+          data-dismiss="modal">{{labels[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>

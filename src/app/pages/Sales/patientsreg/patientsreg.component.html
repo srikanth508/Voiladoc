@@ -1,0 +1,123 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-8">
+      <h5>Imports Patients</h5>
+      <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
+      <br>
+    </div>
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+      <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
+        data-toggle="modal" data-target="#importexcel" (click)="importexcel()">import excel</button>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="container-fluid card card:hover ">
+  <br>
+  <div class="row" style="overflow: auto;">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table id="Appointment">
+        <thead>
+          <tr>
+            <th>{{labels[0].patientName}}</th>
+            <th>{{labels[0].mobileNumber}}</th>
+            <th>{{labels[0].emailID}}</th>
+            <th>Exception Message</th>
+
+          </tr>
+          <tr *ngFor="let details of exceptionlist">
+            <td>{{details.patientName}}</td>
+            <td>{{details.mobileNumber}}</td>
+            <td>{{details.emailID}}</td>
+            <td>{{details.message}}</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div><br>
+</div>
+<br>
+
+
+
+
+<div id="importexcel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content" style="width: 700px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Import Excel</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-2">
+            <input type="radio" value="1" [(ngModel)]="typeid" name="typeid">Hospital
+          </div>
+          <div class="col-lg-2">
+            <input type="radio" value="2" [(ngModel)]="typeid" name="typeid">Clinic
+          </div>
+          <div class="col-lg-2">
+            <input type="radio" value="3" [(ngModel)]="typeid" name="typeid">Doctor
+          </div>
+
+        </div><br>
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-6" *ngIf="typeid=='3'">
+            <ng-multiselect-dropdown [placeholder]="select" [data]="doctorlist" [settings]="docdd"
+              (onSelect)="GetDoctorName($event)">
+            </ng-multiselect-dropdown>
+
+          </div>
+          <div class="col-lg-6" *ngIf="typeid=='1'">
+            <ng-multiselect-dropdown [placeholder]="select" [data]="hospitalcliniclist" [settings]="hosdd"
+              (onSelect)="GetHosptilaname($event)">
+            </ng-multiselect-dropdown>
+
+          </div>
+          <div class="col-lg-6" *ngIf="typeid=='2'">
+            <ng-multiselect-dropdown [placeholder]="select" [data]="cliiclist" [settings]="clinidd"
+              (onSelect)="GetClinic($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-6">
+            <input type="file" accept=".xls,.xlsx" style="display: inline-block;" (change)="incomingfile($event)"
+              placeholder="Upload file" accept=".xlsx" />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <button type="button" class="btn btn-primary" (click)="Upload_file()" data-dismiss="modal">
+                Import Excel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

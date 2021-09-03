@@ -248,33 +248,33 @@
       </ng-multiselect-dropdown>
     </div>
     <div class="col-lg-3">
-      {{monthstartdate|date}} to {{monthenddate|date}}
+      {{monthstartdate|date:'dd-MM-yyyy'}} to {{monthenddate|date|date:'dd-MM-yyyy'}}
     </div>
   </div><br>
   <div class="row">
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
-        *ngFor="let cou of hospitalSubscriptionslist">
+        *ngFor="let cou of hospitalSubscriptionslist" >
         <br />
-        <label style="color: black;font-size: 30px;color: white;">
+        <label style="color: black;font-size: 30px;color: white;" >
           <b style="font-size: 15px;">
             {{labels[0].revenue}}<br>
-           {{labels[0].hospitalsubrevenue}}</b>
+            {{labels[0].hospitalsubrevenue}}</b>
         </label>
         <br />
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
-            <u style="font-size: 20px;">{{cou.hospitalMonthlySubscription}}</u>
+            <u style="font-size: 20px;" >{{cou.hospitalMonthlySubscription}}</u>
           </b>
         </label>
       </div>
       <br />
- 
+
     </div>
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
-        *ngFor="let cou of hospitalSubscriptionslist">
+        *ngFor="let cou of hospitalSubscriptionslist" [routerLink]="['/AllAdminReports',4]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
@@ -283,7 +283,7 @@
             {{labels[0].docApprevenue}}</b>
         </label>
         <br />
-      
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.doctorsHospitalrevenue}}</u>
@@ -295,13 +295,13 @@
     </div>
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
-        *ngFor="let cou of hospitalSubscriptionslist">
+        *ngFor="let cou of hospitalSubscriptionslist"  [routerLink]="['/AllAdminReports',1]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
             {{labels[0].revenue}}<br>
             {{labels[0].commission}}<br>
-          {{labels[0].nurseApprevenue}}
+            {{labels[0].nurseApprevenue}}
           </b>
         </label>
         <br />
@@ -316,15 +316,15 @@
     </div>
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
-        *ngFor="let cou of hospitalSubscriptionslist">
+        *ngFor="let cou of hospitalSubscriptionslist"  [routerLink]="['/AllAdminReports',3]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
             {{labels[0].revenue}}<br>
             {{labels[0].commission}}<br>
-          {{labels[0].midwifeApprevenue}}</b>
+            {{labels[0].midwifeApprevenue}}</b>
         </label>
-  
+
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
@@ -340,19 +340,19 @@
   <div class="row">
     <div class="col-lg-3">
       <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"
-        *ngFor="let cou of hospitalSubscriptionslist">
+        *ngFor="let cou of hospitalSubscriptionslist" [routerLink]="['/AllAdminReports',2]">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
             {{labels[0].revenue}}<br>
             {{labels[0].commission}}<br>
-          {{labels[0].physioApprevenue}}</b>
+            {{labels[0].physioApprevenue}}</b>
         </label>
         <br />
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.physiohospitlrevenue
-            }}</u>
+              }}</u>
           </b>
         </label>
       </div>
@@ -370,21 +370,19 @@
 <!-- Independent People Revenue -->
 
 <div class="container-fluid card card-hover">
- 
+
   <br>
   <h3 style="text-align: center;">{{labels[0].independentsubfees}}</h3>
   <br>
-  
-    {{monthstartdate|date}} to {{monthenddate|date}}
+
+  {{monthstartdate|date:'dd-MM-yyyy'}} to {{monthenddate|date|date:'dd-MM-yyyy'}}
 
   <div class="row">
     <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value1" (ngModelChange)="ChangAllIndependentPeople($event)"
-        bsDaterangepicker>
+        class="form-control" [(ngModel)]="value1" (ngModelChange)="ChangAllIndependentPeople($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value1" (bsValueChange)="ChangAllIndependentPeople($event)"
-        bsDaterangepicker>
+        class="form-control" [(ngModel)]="value1" (bsValueChange)="ChangAllIndependentPeople($event)" bsDaterangepicker>
     </div>
     <div class="col-lg-3">
       <select class="form-control" (change)="GetTypeID($event)">
@@ -426,15 +424,15 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             {{labels[0].revenue}}<br>
-             {{labels[0].appointments}}<br>
-             {{labels[0].docApprevenue}}
-             
-            
-            </b>
+            {{labels[0].revenue}}<br>
+            {{labels[0].appointments}}<br>
+            {{labels[0].docApprevenue}}
+
+
+          </b>
         </label>
         <br />
-     
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.doctorsMonthlySubscription}}</u>
@@ -451,12 +449,12 @@
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
             {{labels[0].revenue}}<br>
-             {{labels[0].appointments}}<br>
-             {{labels[0].nurseApprevenue}}
-             </b>
+            {{labels[0].appointments}}<br>
+            {{labels[0].nurseApprevenue}}
+          </b>
         </label>
         <br />
-      
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.nurseMonthlySubscription}}</u>
@@ -493,7 +491,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            
+
             {{labels[0].revenue}}<br>
             {{labels[0].appointments}}<br>
             {{labels[0].physioApprevenue}}
@@ -538,7 +536,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            
+
             {{labels[0].revenue}}<br>
             {{labels[0].commission}}<br>
             {{labels[0].nurseApprevenue}}
@@ -560,7 +558,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-             
+
             {{labels[0].revenue}}<br>
             {{labels[0].commission}}<br>
             {{labels[0].midwifeApprevenue}}
@@ -582,7 +580,7 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-          
+
             {{labels[0].revenue}}<br>
             {{labels[0].commission}}<br>
             {{labels[0].physioApprevenue}}
@@ -650,23 +648,22 @@
 
 
 <div class="container-fluid card card-hover">
- 
+
   <br>
-  <h3 style="text-align: center;">Pharmacy Home Delivery Charges</h3>
+  <h3 style="text-align: center;" *ngIf="languageid==1">Pharmacy Home Delivery Charges</h3>
+  <h3 style="text-align: center;" *ngIf="languageid==6">Pharmacies (Livraisons) transactions</h3>
   <br>
   <div class="row">
 
     <div class="col-lg-3">
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="GetHomeChargesSelectDate($event)"
-        bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (ngModelChange)="GetHomeChargesSelectDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (ngModelChange)="GetHomeChargesSelectDate($event)"
-        bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (ngModelChange)="GetHomeChargesSelectDate($event)" bsDaterangepicker>
     </div>
-   
+
     <div class="col-lg-3">
-      {{monthstartdate|date}} to {{monthenddate|date}}
+      {{monthstartdate|date:'dd-MM-yyyy'}} to {{monthenddate|date|date:'dd-MM-yyyy'}}
     </div>
   </div><br>
   <div class="row">
@@ -674,17 +671,17 @@
 
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/PharmacyReport']"
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/PharmacyReport']"
         *ngFor="let cou of diaphacounts">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-           Total Amount Collected
-            
-            </b>
+            {{labels[0].totalaountcollected}}
+
+          </b>
         </label>
         <br />
-     
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.pharmapaidamount}}</u>
@@ -700,11 +697,11 @@
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Meridional Delivery Commission
-             </b>
+            {{labels[0].meridionalcommission}}
+          </b>
         </label>
         <br />
-      
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.pharmacmeridionalcoommission}}</u>
@@ -715,12 +712,12 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/PharmacyReport']"
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/PharmacyReport']"
         *ngFor="let cou of diaphacounts">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-           Delivery Patner Fees
+            {{labels[0].deliverypatnerfees}}
           </b>
         </label>
         <br />
@@ -733,12 +730,13 @@
       <br />
       <br />
     </div>
-   
+
   </div>
-  
+
 
   <br>
-  <h3 style="text-align: center;">Diagnostic Home Delivery Charges</h3>
+  <h3 style="text-align: center;" *ngIf="languageid==1">Diagnostic Home Delivery Charges</h3>
+  <h3 style="text-align: center;" *ngIf="languageid==6">Analyses et Imagerie (Frais) transactions</h3>
   <br>
 
   <div class="row">
@@ -746,17 +744,17 @@
 
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DiagnosticHomeReport']"
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/DiagnosticHomeReport']"
         *ngFor="let cou of diaphacounts">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-           Total Amount Collected
-            
-            </b>
+           {{labels[0].totalaountcollected}}
+
+          </b>
         </label>
         <br />
-     
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.diagnosticpadiamount}}</u>
@@ -767,16 +765,16 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DiagnosticHomeReport']"
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/DiagnosticHomeReport']"
         *ngFor="let cou of diaphacounts">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-            Meridional Delivery Commission
-             </b>
+            {{labels[0].meridionalcommission}}
+          </b>
         </label>
         <br />
-      
+
         <label style="color: black;font-size: 30px;color: #f17e2d;">
           <b>
             <u style="font-size: 20px;">{{cou.diagnosticmeridionalcommission}}</u>
@@ -787,12 +785,12 @@
       <br />
     </div>
     <div class="col-lg-3">
-      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;"  [routerLink]="['/DiagnosticHomeReport']"
+      <div class="optionsboxdown" style="cursor: pointer;border-radius: 10px;" [routerLink]="['/DiagnosticHomeReport']"
         *ngFor="let cou of diaphacounts">
         <br />
         <label style="color: black;font-size: 30px;color: white;">
           <b style="font-size: 15px;">
-           Delivery Patner Fees
+            {{labels[0].deliverypatnerfees}}
           </b>
         </label>
         <br />
@@ -805,7 +803,7 @@
       <br />
       <br />
     </div>
-   
+
   </div>
- 
+
 </div><br><br>
