@@ -107,12 +107,13 @@ export class DoctorregistrationComponent implements OnInit {
     this.getlanguage();
     this.GetDoctorType();
     // this.getspecilicationmaster();
-    this.getdepartmentmaster();
+    // this.getdepartmentmaster();
     this.getdegreemaster();
     this.GetCountryMaster();
 
     this.gethosptilclinicforadmin()
     this.departmentid = 0;
+    this.categoryid = ""
     this.mallprcise = 1;
     this.chat = 1;
 
@@ -231,16 +232,7 @@ export class DoctorregistrationComponent implements OnInit {
     this.hospitalclinicid = item.id;
   }
 
-  public getdepartmentmaster() {
 
-    this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
-      data => {
-
-        this.departmentlist = data;
-      }, error => {
-      }
-    )
-  }
 
   public getdegreemaster() {
 
@@ -297,6 +289,29 @@ export class DoctorregistrationComponent implements OnInit {
     this.specilisationid.push(item);
 
   }
+
+  categoryid: any;
+
+  public GetCategoryID(even) {
+    this.categoryid = even.target.value;
+    this.getdepartmentmaster()
+  }
+
+
+  public getdepartmentmaster() {
+
+    this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.departmentlist = data.filter(x => x.categoryID == this.categoryid);
+
+      }, error => {
+      }
+    )
+  }
+
+
+
   public GetDegreeID(even) {
 
     this.degreeid = even.target.value;
@@ -372,14 +387,12 @@ export class DoctorregistrationComponent implements OnInit {
       Swal.fire("Please Select Hospital/Clinic");
     }
     else if (this.doctypeid == undefined || this.doctypeid == 0) {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire("Please Select Doctor type");
       }
-      else
-      {
+      else {
         Swal.fire("Veuillez sélectionner le type de docteur.");
-      } 
+      }
     }
     else {
       if (this.attachmentsurl1.length == 0) {
@@ -414,7 +427,8 @@ export class DoctorregistrationComponent implements OnInit {
         'HospitalClinicID': this.hospitalclinicid,
         'SpokenLanguages': this.speaklanguages,
         'SignatureURL': this.signatureurl[0],
-        'SlotDurationID': this.slotid
+        'SlotDurationID': this.slotid,
+        'CategoryID': this.categoryid
       }
       this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
 

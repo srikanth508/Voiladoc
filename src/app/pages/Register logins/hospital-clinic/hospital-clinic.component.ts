@@ -19,6 +19,7 @@ export class HospitalClinicComponent implements OnInit {
   public pp: any;
   public labels: any;
   public languageid: any;
+  search: any;
 
 
   ngOnInit() {
@@ -35,7 +36,8 @@ export class HospitalClinicComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -49,6 +51,7 @@ export class HospitalClinicComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -59,7 +62,7 @@ export class HospitalClinicComponent implements OnInit {
     this.hospitalid = item2.id;
   }
   public insertdetails() {
-    
+
     this.password = Math.random().toString(36).slice(-8);
 
     if (this.hospitalid == undefined) {
@@ -80,42 +83,42 @@ export class HospitalClinicComponent implements OnInit {
 
       // }
       // else {
-        var entity = {
-          'Hospital_ClinicID': this.hospitalid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        // this.username = '';
-        // this.password = '';
-        this.docservice.InsertHospitalClinicAdminRegistration(entity).subscribe(data => {
+      var entity = {
+        'Hospital_ClinicID': this.hospitalid,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      // this.username = '';
+      // this.password = '';
+      this.docservice.InsertHospitalClinicAdminRegistration(entity).subscribe(data => {
 
-          if (data != 0) {
-            
-            if (this.languageid == 1) {
-              this.gethospitalclinicfordash()
-              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              location.href = "#/Hspdash"
-              this.pp = 0;
-            }
-            else {
-              this.gethospitalclinicfordash()
-              Swal.fire('', 'Mis à jour avec succés', 'success');
-              location.href = "#/Hspdash"
-              this.pp = 0;
-            }
+        if (data != 0) {
+
+          if (this.languageid == 1) {
+            this.gethospitalclinicfordash()
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href = "#/Hspdash"
+            this.pp = 0;
           }
           else {
-            if (this.languageid == 1) {
-              Swal.fire('Error', 'Hospital Login Already Exists', 'success');
-              location.href = "#/Hspdash"
-            }
-            else {
-              Swal.fire('Erreur', "La connexion à l'hôpital existe déjà", 'success');
-              location.href = "#/Hspdash"
-            }
-
+            this.gethospitalclinicfordash()
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href = "#/Hspdash"
+            this.pp = 0;
           }
-        })
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Error', 'Hospital Login Already Exists', 'success');
+            location.href = "#/Hspdash"
+          }
+          else {
+            Swal.fire('Erreur', "La connexion à l'hôpital existe déjà", 'success');
+            location.href = "#/Hspdash"
+          }
+
+        }
+      })
       // }
     }
   }
@@ -147,7 +150,7 @@ export class HospitalClinicComponent implements OnInit {
 
 
   public sendmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

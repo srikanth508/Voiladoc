@@ -50,20 +50,20 @@
       </div>
     </div>
     <br>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].licenseValidTill}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <!-- <input type="date" [(ngModel)]="licensevalidtil" required name="licensevalidtil" class="form-control"> -->
+      
         <input type="text" placeholder="{{labels[0].licenseValidTill}}" class="form-control" required
           [bsConfig]="{ showWeekNumbers:false }" name="licensevalidtil" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
           [(ngModel)]="licensevalidtil" bsDatepicker>
 
       </div>
     </div>
-    <br>
+    <br> -->
 
     <div class="row">
       <div class="col-lg-3">
@@ -168,26 +168,36 @@
         <input type="time" class="form-control" name="tone" required [(ngModel)]="tone"
           placeholder="{{labels[0].timing}}">
       </div>
-      <!-- <div class="col-lg-2">
-        <select class="form-control" (change)="getfromampm($event)">
-          <option value="">{{SelectLabel}}</option>
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </select>
-      </div> -->
+ 
       <div class="col-lg-2">
         <input type="time" class="form-control" name="ttwo" required [(ngModel)]="ttwo"
           placeholder="{{labels[0].timing}}">
       </div>
-      <!-- <div class="col-lg-2">
-        <select class="form-control" (change)="gettoampm($event)">
-          <option value="">{{SelectLabel}}</option>
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </select>
-      </div> -->
     </div>
     <br>
+
+
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].evngTimings}} :</label>
+        <!-- <span class="required">*</span> -->
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-2">
+        <input type="time" class="form-control" name="evengtime1" required [(ngModel)]="evengtime1"
+          placeholder="{{labels[0].timing}}">
+      </div>
+ 
+      <div class="col-lg-2">
+        <input type="time" class="form-control" name="evengtime2" required [(ngModel)]="evengtime2"
+          placeholder="{{labels[0].timing}}">
+      </div>
+    </div>
+    <br>
+
+
+
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].monthlysubscription}} :</label>

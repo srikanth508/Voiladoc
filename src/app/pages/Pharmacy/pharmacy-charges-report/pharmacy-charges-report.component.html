@@ -3,7 +3,7 @@
   <div class="row headerspace">
     <div class="col-lg-10">
       <h5 *ngIf="languageid=='1'">Pharmacy Home Delivery Charges Report</h5>
-      <h5 *ngIf="languageid=='6'">REVENUS PORTAGE DE MÉDICAMENT À DOMICILE</h5>
+      <h5 *ngIf="languageid=='6'">REVENUS</h5>
     </div>
     <div class="col-lg-2">
       <button class="btn btncolor" *ngIf="languageid=='1'" (click)="getglmasterexcel()">
@@ -42,7 +42,7 @@
         <option value="0">Sélectionner type de paiement</option>
         <option value="1">Portefeuille</option>
         <option value="2">Carte de crédit/debit</option>
-        <option value="3">Cash au praticien</option>
+        <option value="3">En espèces</option>
         <!-- <option value="4">Mobile Payment</option> -->
       </select>
     </div>
@@ -83,7 +83,7 @@
             <th>No de tel     </th>
             <th>Email</th>
             <!-- <th>Pharmacy Name</th> -->
-            <th>Payment Type</th>
+            <th>Type de paiement</th>
             <!-- <th>Total Amount</th>
             <th>Meridional Delivery Commission</th>
             <th>Delivery Patner Charges</th> -->

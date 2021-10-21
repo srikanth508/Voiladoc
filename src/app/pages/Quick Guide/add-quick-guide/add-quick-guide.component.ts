@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 @Component({
   selector: 'app-add-quick-guide',
   templateUrl: './add-quick-guide.component.html',
@@ -81,12 +82,12 @@ export class AddQuickGuideComponent implements OnInit {
 
   public uploadattachments() {
 
-    
+
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      
+
       this.attachmentsurl.push(res);
       this.dummshowsignatureurl.push(res);
-      
+
       let a = this.dummshowsignatureurl[0].slice(2);
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto = b;
@@ -113,15 +114,15 @@ export class AddQuickGuideComponent implements OnInit {
 
   public Videoattachmenturl = [];
   public showvideo: any;
-  public videoattachmentsss=[]
+  public videoattachmentsss = []
 
   public onAttchamneVideoupload(abcd) {
-    
-    this.dummshowsignatureurl=[];
+
+    this.dummshowsignatureurl = [];
     this.videoattachmentsss.push(abcd.addedFiles[0]);
-    
+
     this.uploadvideoattchments();
-    
+
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -130,24 +131,26 @@ export class AddQuickGuideComponent implements OnInit {
 
 
   public uploadvideoattchments() {
-    
+    this.spinner.show()
+
     this.docservice.HospitalClinicPhotos(this.videoattachmentsss).subscribe(res => {
-      
+
       this.Videoattachmenturl.push(res);
       this.dummshowsignatureurl.push(res);
-      
+
       let a = this.dummshowsignatureurl[0].slice(2);
-      
+
       let b = 'https://maroc.voiladoc.org' + a;
       this.showvideo = b;
       this.videoattachmentsss.length = 0;
+      this.spinner.hide();
     })
     // this.sendattachment();
   }
 
 
 
- 
+
 
 
   public qwerty = [];
@@ -174,8 +177,8 @@ export class AddQuickGuideComponent implements OnInit {
     this.Videoattachmenturl.length = 0;
     this.showvideo = 0;
     this.showphoto = 0;
-    this.subchapter="",
-    this.description="";
+    this.subchapter = "",
+      this.description = "";
   }
 
   public chapterid: any;
@@ -190,7 +193,7 @@ export class AddQuickGuideComponent implements OnInit {
     }
     this.docservice.InsertChapterMaster(entity1).subscribe(data => {
       this.chapterid = data;
-      
+
       this.InsertSubChapters();
       Swal.fire('Saved Successfully');
       location.href = "#/QuickGuideDash"
@@ -199,7 +202,7 @@ export class AddQuickGuideComponent implements OnInit {
 
 
   public InsertSubChapters() {
-    
+
     for (let i = 0; i < this.qwerty.length; i++) {
       var entity1 = {
         'ChapterID': this.chapterid,

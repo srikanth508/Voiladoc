@@ -70,17 +70,18 @@
             <td>{{details.message}}</td>
             <td>
               <a [ngbTooltip]="tipcontent4">
-                <img src="assets/Images/imgicon.png" 
-                  data-toggle="modal" data-target="#exampleModalLong2" style="height: 20px;"
-                  (click)="GetImage(details.photoURL)" />
+                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#exampleModalLong2"
+                  style="height: 20px;" (click)="GetImage(details.photoURL)" />
               </a>
             </td>
             <td>
               <label *ngIf="details.accepted=='0'&&details.resolve=='0'" style="color:red">{{labels[0].pending}}</label>
 
-              <label *ngIf="details.accepted=='1'&&details.resolve=='0'&&details.meridionalBit=='0'" style="color:green">{{labels[0].accept}}</label>
+              <label *ngIf="details.accepted=='1'&&details.resolve=='0'&&details.meridionalBit=='0'"
+                style="color:green">{{labels[0].accept}}</label>
 
-              <label *ngIf="details.accepted=='1'&&details.resolve=='0'&&details.meridionalBit=='1'" style="color:green">{{labels1[0].assignmeridional}}</label>
+              <label *ngIf="details.accepted=='1'&&details.resolve=='0'&&details.meridionalBit=='1'"
+                style="color:green">{{labels[0].assignmeridional}}</label>
 
               <label *ngIf="details.accepted=='1'&&details.resolve=='1'"
                 style="color:green">{{labels[0].resolved}}</label>
@@ -96,13 +97,15 @@
               <a [ngbTooltip]="tipcontent65">
                 <img src="assets/Images/staff.png"
                   *ngIf="details.resolve=='0'&&details.accepted=='1'&&details.meridionalBit=='0'" style="height: 20px;"
-                  data-toggle="modal" data-target="#exampleModalLong3" (click)="GetSupportResolveID(details.id,details.emailID,details.smsmobileno,2)" />
+                  data-toggle="modal" data-target="#exampleModalLong3"
+                  (click)="GetSupportResolveID(details.id,details.emailID,details.smsmobileno,2)" />
               </a>&nbsp;&nbsp;
 
               <ng-template #tipcontent4>{{labels[0].resolve}}</ng-template>
               <a [ngbTooltip]="tipcontent4">
-                <img src="assets/Images/edit.png" *ngIf="details.accepted=='1'&&details.resolve=='0'&&details.meridionalBit=='0'"
-                  data-toggle="modal" data-target="#exampleModalLong3" style="height: 20px;"
+                <img src="assets/Images/edit.png"
+                  *ngIf="details.accepted=='1'&&details.resolve=='0'&&details.meridionalBit=='0'" data-toggle="modal"
+                  data-target="#exampleModalLong3" style="height: 20px;"
                   (click)="GetSupportResolveID(details.id,details.emailID,details.smsmobileno,1)" />
               </a>
             </td>

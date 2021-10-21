@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';import { HelloDoctorService } from '../../../hello-doctor.service';
+import { Component, OnInit } from '@angular/core'; import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -300,7 +300,15 @@ export class PatientEscalatesTicketsComponent implements OnInit {
       let a = this.identityattachmentsurlssss[0].slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
-      this.showidentityproof.push(b)
+      if (this.issuephoto[0].type == 'image/jpeg') {
+
+        this.showidentityproof.push(b)
+      }
+      else if (this.issuephoto[0].type == 'application/pdf') {
+
+        this.showidentityproof.push('assets/Images/pdf.png')
+      }
+      // this.showidentityproof.push(b)
 
     })
     // this.sendattachment();
@@ -311,14 +319,20 @@ export class PatientEscalatesTicketsComponent implements OnInit {
   emailattchementurl = []
   cclist = [];
   bcclist = [];
+  emailsubject:any;
 
   public sendmail1() {
-
+    if (this.languageid = 1) {
+      this.emailsubject = "Support ticket no. " + this.resolveid + ",  resolution."
+    }
+    else {
+      this.emailsubject = "Ticket d'assistance n° " + this.resolveid + ", résolution"
+    }
     var entity = {
       'emailto': this.useremail,
-      'emailsubject': "Your Support Ticket Resolved",
-      'emailbody': "Your Support Ticket Resolved",
-      'attachmenturl': this.emailattchementurl,
+      'emailsubject': this.emailsubject,
+      'emailbody': this.description,
+      'attachmenturl': this.issuephotourl,
       'cclist': this.cclist,
       'bcclist': this.bcclist
     }
@@ -362,7 +376,7 @@ export class PatientEscalatesTicketsComponent implements OnInit {
       let res = data;
       if (this.languageid == 1) {
         Swal.fire('Issue Resolved Successfully')
-        var smsdesc = "Your Support Ticket has been Resolved"
+        var smsdesc = "We have resolved your issue with reference to support ticket no." + this.resolveid + ". Please check your email for details."
         this.SendTwiliSms(smsdesc, this.smsmobileno)
         this.description = ""
         this.issuephotourl = [];
@@ -373,7 +387,7 @@ export class PatientEscalatesTicketsComponent implements OnInit {
       }
       else {
         Swal.fire('Problème résolu et réponse au patient');
-        var smsdesc = "Your Support Ticket has been Resolved"
+        var smsdesc = "Nous avons résolu votre problème en référence au ticket d'assistance n° " + this.resolveid + ". Veuillez vérifier votre email pour plus de détails."
         this.SendTwiliSms(smsdesc, this.smsmobileno)
         this.description = ""
         this.issuephotourl = [];

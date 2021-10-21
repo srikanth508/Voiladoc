@@ -75,12 +75,12 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
-        text: "You Want to Delete This!",
+        text: "You Want to Deactivate This!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes!'
       }).then((result) => {
         if (result.value) {
           this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
@@ -88,8 +88,8 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
             this.GetReceptionistlogin();
           })
           Swal.fire(
-            'Deleted!',
-            'Deleted Successfully".',
+            'Activated!',
+            'Deactivated Successfully".',
             'success'
           )
         }
@@ -101,12 +101,12 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
-        // text: "You Want to Delete This Doctor!",
+         text: "Désactiver",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, supprimer !',
+        confirmButtonText: 'Oui,',
         cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {
@@ -115,8 +115,8 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
             this.GetReceptionistlogin();
           })
           Swal.fire(
-            'Supprimé!',
-            'Supprimé avec Succès ',
+            'Désactiver!',
+            'Désactiver avec Succès ',
             'success'
           )
         }
@@ -127,6 +127,67 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
     }
   }
 
+
+
+
+
+
+  
+  public Enable(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Activate This!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+            let test = res;
+            this.GetReceptionistlogin();
+          })
+          Swal.fire(
+            'Activated!',
+            'Activated Successfully".',
+            'success'
+          )
+        }
+        else {
+          this.GetReceptionistlogin();
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+         text: "Activer",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui,',
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+            let test = res;
+            this.GetReceptionistlogin();
+          })
+          Swal.fire(
+            'Activer!',
+            'Activer avec Succès ',
+            'success'
+          )
+        }
+        else {
+          this.GetReceptionistlogin();
+        }
+      })
+    }
+  }
 
 
   public password: any;

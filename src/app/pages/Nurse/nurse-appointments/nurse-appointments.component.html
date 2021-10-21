@@ -15,7 +15,8 @@
       <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
       <input *ngIf="languageid==6" type="text" placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
-        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue" bsDaterangepicker>
+        class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" [(bsValue)]="myDateValue"
+        bsDaterangepicker>
 
     </div>
     <div class="col-lg-3">
@@ -114,23 +115,26 @@
                 <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
               </a>&nbsp;
 
-              <!-- <ng-template #tipcontent9>Illness Photos</ng-template>
-              <a [ngbTooltip]="tipcontent9">
+              <ng-template #tipcontent30>Services</ng-template>
+              <a [ngbTooltip]="tipcontent30">
                 <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
-                  style="height:30px;" (click)="GetIllnessPhotos(app.id)" />
+                  style="height:30px;" (click)="getNurseServices(app.id)" />
               </a>
-              &nbsp; -->
+              &nbsp;
 
               <ng-template #tipcontent8>SOAP Notes</ng-template>
               <a [ngbTooltip]="tipcontent8"
                 *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)"  data-toggle="modal"  data-target="#Soapnotes" />
+                <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)" data-toggle="modal"
+                  data-target="#Soapnotes" />
               </a>&nbsp;
 
 
               <ng-template #tipcontent93>Receipts</ng-template>
               <a [ngbTooltip]="tipcontent93" *ngIf="app.isVisited=='1'">
-                <img src="assets/Images/Receipts.png" style="height:19px;"   (click)="GetRecept(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)" data-toggle="modal" data-target="#Reciept" />
+                <img src="assets/Images/Receipts.png" style="height:19px;"
+                  (click)="GetRecept(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)"
+                  data-toggle="modal" data-target="#Reciept" />
               </a>&nbsp;
 
               <ng-template #tipcontent9>{{labels[0].patientdetails}}</ng-template>
@@ -256,15 +260,35 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 *ngIf="languageid==6" class="modal-title" id="exampleModalLongTitle"> Photos</h5>
-        <h5 *ngIf="languageid==1" class="modal-title" id="exampleModalLongTitle"> Photos</h5>
+        <h5 *ngIf="languageid==6" class="modal-title" id="exampleModalLongTitle"> Services</h5>
+        <h5 *ngIf="languageid==1" class="modal-title" id="exampleModalLongTitle"> Services</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="row" *ngIf="nophoto=='0'">
+
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Amount</th>
+                  </tr>
+                  <tr *ngFor="let ser of Services">
+                    <td>{{ser.serviceName}}</td>
+                    <td>{{ser.serviceCharges}}</td>
+                  </tr>
+                </thead>
+
+              </table>
+            </div>
+          </div>
+
+
+          <!-- <div class="row" *ngIf="nophoto=='0'">
             <div class="col-lg-6" *ngFor="let showphoto of showimages">
               <br>
               <img src="{{showphoto.photoUrl}}" style="height: 300px;width:300px" />
@@ -280,7 +304,7 @@
             </div>
             <br>
           </div>
-          <br>
+          <br> -->
         </div>
       </div>
       <br>
@@ -425,8 +449,8 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
-        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()"
-          data-dismiss="modal">Send to patient</button>
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()" data-dismiss="modal">Send to
+          patient</button>
       </div>
     </div>
   </div>
@@ -642,14 +666,16 @@
                 <label for="" class="reglabel">Attachment :</label>
               </div>
               <div class="col-lg-7">
-                <ngx-dropzone [multiple]="false" style="height: 50px;" (change)="UploadSoapAttchments($event)" class="dropzone_vendorinvoice">
+                <ngx-dropzone [multiple]="false" style="height: 50px;" (change)="UploadSoapAttchments($event)"
+                  class="dropzone_vendorinvoice">
                   <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
                 </ngx-dropzone>
                 <span *ngFor="let showphoto of shoprescphoto">
                   <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
                 </span>
-                <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session*        </span>
-                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par session*   </span>
+                <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session* </span>
+                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par
+                  session* </span>
               </div>
               <div>
               </div>
@@ -681,7 +707,7 @@
               </div>
             </div>
             <br> -->
-         
+
             <div class="row">
               <div class="col-lg-5">
               </div>

@@ -72,6 +72,4 @@ input::placeholder
  input::placeholder::first-letter
   { text-transform: uppercase; }
 
-.textarea{
-  text-transform: lowercase; 
-}
+

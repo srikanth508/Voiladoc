@@ -59,6 +59,7 @@ export class AppComponent {
   countrymanagersid: any;
   countrynotifications: any;
   recpid: any;
+  diagnosticcenterid:any;
 
   ngOnInit() {
     this.show = 1;
@@ -94,6 +95,7 @@ export class AppComponent {
     this.supportid = localStorage.getItem('supportid');
     this.countrymanagersid = localStorage.getItem('Commacountryid');
     this.recpid = localStorage.getItem('recpid');
+    this.diagnosticcenterid=localStorage.getItem('diagnosticid');
     this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
@@ -198,15 +200,24 @@ export class AppComponent {
             this.notificationcount = Number(this.doctorNotifications[0].notifycount);
           })
       }
-      else if (this.pharmacyid != null && this.pharmacyid != undefined) {
-        this.docservice.GetNotification_Pharmacy(this.pharmacyid).subscribe
+      else if (this.diagnosticcenterid != null && this.diagnosticcenterid != undefined) {
+        
+        this.docservice.GetNotificationssss(this.diagnosticcenterid).subscribe
           (datas => {
-            this.notificationcount = 0;
+            
             this.doctorNotifications = datas;
-            this.notificationcount = Number(this.pharmcunoti[0].notifycount);
-            // Swal.fire('New Notifications');
+            this.notificationcount = Number(this.doctorNotifications[0].notifycount);
           })
       }
+      // else if (this.pharmacyid != null && this.pharmacyid != undefined) {
+      //   this.docservice.GetNotification_Pharmacy(this.pharmacyid).subscribe
+      //     (datas => {
+      //       this.notificationcount = 0;
+      //       this.doctorNotifications = datas;
+      //       this.notificationcount = Number(this.pharmcunoti[0].notifycount);
+      //       // Swal.fire('New Notifications');
+      //     })
+      // }
       else if (this.countrymanagersid != null && this.countrymanagersid != undefined) {
         this.docservice.GetNotifications(this.countrymanagersid, this.languageid).subscribe
           (datas => {
@@ -243,10 +254,10 @@ export class AppComponent {
           this.notificationcount = Number(this.pharmcunoti[0].notifycount);
           if (this.pharmcunoti.length > 0) {
             if (this.languageid == 1) {
-              Swal.fire('Please click the notification icons above to view the order and take action.');
+              Swal.fire({ html: 'Please click the notification icons above to view the order and take action.' });
             }
             else if (this.languageid == 6) {
-              Swal.fire('Veuillez cliquer sur les icônes de notification ci-dessus pour afficher la commande à accepter ou à rejeter.');
+              Swal.fire({ html: 'Veuillez cliquer sur les icônes de notification ci-dessus pour afficher la commande à accepter ou à rejeter.' });
             }
 
           }

@@ -100,7 +100,7 @@
               <a [ngbTooltip]="tipcontent65">
                 <img src="assets/Images/staff.png"
                   *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='0'" style="height: 20px;"
-                  data-toggle="modal" data-target="#exampleModalLong4" (click)="assignMeridiobal(issue.id)" />
+                  data-toggle="modal" data-target="#exampleModalLong4" (click)="assignMeridiobal(issue.id,issue.useremail,issue.usermobile)" />
               </a>&nbsp;
 
               <ng-template #tipcontent4>{{labels[0].resolved}}</ng-template>

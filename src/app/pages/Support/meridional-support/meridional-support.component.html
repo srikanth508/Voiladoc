@@ -104,7 +104,7 @@
               <ng-template #tipcontent4>{{labels[0].resolved}}</ng-template>
               <a [ngbTooltip]="tipcontent4">
                 <img src="assets/Images/edit.png" *ngIf="issue.resolved=='0'&&issue.accepted=='1'&&issue.assignMeridional=='1'" data-toggle="modal"
-                  data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(issue.id,issue.useremail)" />
+                  data-target="#exampleModalLong3" style="height: 20px;" (click)="GetSupportResolveID(issue.id,issue.useremail,details.smsmobileno)" />
               </a>
             </td>
           </tr>

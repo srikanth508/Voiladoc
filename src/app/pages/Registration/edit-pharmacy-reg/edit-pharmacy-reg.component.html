@@ -149,6 +149,21 @@
                 event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58||event.charCode==46'>
               </div>
             </div><br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].evngTimings}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" required [(ngModel)]="eveningtimings" name="eveningtimings"
+                  onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
+                event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58||event.charCode==46'>
+              </div>
+            </div><br>
+
+
+
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].homeDelivery}} :</label>
@@ -320,7 +335,9 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Edit Subscriptions</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='1'">Edit Subscriptions</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='6'">Éditer</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -332,7 +349,7 @@
               <label>{{labels[0].monthlysubscription}} :</label>
             </div>
             <div class="col-lg-4">
-              <input type="text" placeholder="Monthly subscription" name="monthlysubription"
+              <input type="text" placeholder="{{labels[0].monthlysubscription}}" name="monthlysubription"
                 [(ngModel)]="monthlysubription" class="form-control"
                 onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
             </div>
@@ -377,7 +394,10 @@
       <br>
       <div class="modal-footer">
         <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
-          data-dismiss="modal">Close</button>
+        *ngIf="languageid=='1'"  data-dismiss="modal">Close</button>
+
+        <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+        *ngIf="languageid=='6'"  data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

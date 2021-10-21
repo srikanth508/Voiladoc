@@ -180,7 +180,7 @@ export class MyTeamDashboardComponent implements OnInit {
     if (this.languageid == 1) {
       Swal.fire({
         title: 'Are you sure?',
-        text: "You Want to Delete This!",
+        text: "You Want to Deactivate This!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -206,12 +206,73 @@ export class MyTeamDashboardComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
-        // text: "You Want to Delete This Doctor!",
+         text: "Désactiver",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, supprimer !',
+        confirmButtonText: 'Oui ',
+        cancelButtonText: 'Non'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteMyTeam(id).subscribe(res => {
+            let test = res;
+            this.GetMyTeam();
+          })
+          Swal.fire(
+            'Supprimé!',
+            'Supprimé avec succès ',
+            'success'
+          )
+        }
+        else {
+          this.GetMyTeam();
+        }
+      })
+    }
+
+  }
+
+
+
+
+
+  public Enable(id) {
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want to Activer This!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.DeleteMyTeam(id).subscribe(res => {
+            let test = res;
+            this.GetMyTeam();
+          })
+          Swal.fire(
+            'Deleted!',
+            'Deleted Successfully".',
+            'success'
+          )
+        }
+        else {
+          this.GetMyTeam();
+        }
+      })
+    }
+    else if (this.languageid == 6) {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+         text: "Activer",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui ',
         cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {

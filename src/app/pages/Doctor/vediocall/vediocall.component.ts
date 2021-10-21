@@ -565,6 +565,7 @@ export class VediocallComponent implements OnInit {
           this.patientidd = this.details.patientID,
           this.appointmentno = this.details.appointmentID,
           this.appointmentdate = this.details.apptDateTime,
+          this.smsmobileno = this.details.smsmobileno,
           // this.mobileno = this.details.mobileNumber,
           this.email = this.details.pEmail,
           this.reasonforappointment = this.details.reasonForVisit,
@@ -600,7 +601,7 @@ export class VediocallComponent implements OnInit {
           this.showdrugname = this.details.drugName,
           this.showdosage = this.details.dosage,
           this.showfrequency = this.details.frequency,
-          this.smsmobileno = this.details.smsmobileno,
+          
 
 
 
@@ -644,10 +645,11 @@ export class VediocallComponent implements OnInit {
   smsmobileno: any;
 
 
-
   public SendNotification() {
-
     if (this.languageid == 1) {
+      var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. "
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+
       var entity = {
         'Description': "The doctor has started the call. Please open Voiladoc app and accept the call now. ",
         'ToUser': this.email,
@@ -656,14 +658,13 @@ export class VediocallComponent implements OnInit {
 
         if (data != 0) {
 
-          var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. "
-
-
-          this.SendTwiliSms(smsdesc, this.smsmobileno)
+        
         }
       })
     }
     else if (this.languageid == 6) {
+      var smsdesc = "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel."
+      this.SendTwiliSms(smsdesc, this.smsmobileno);
       var entity = {
         'Description': "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel.",
         'ToUser': this.email,
@@ -671,9 +672,7 @@ export class VediocallComponent implements OnInit {
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
 
         if (data != 0) {
-          var smsdesc = "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel."
-
-          this.SendTwiliSms(smsdesc, this.smsmobileno)
+         
 
         }
       })
@@ -1140,6 +1139,8 @@ export class VediocallComponent implements OnInit {
     this.followupplan = "";
     this.notes = "";
     this.neurological = "";
+    this.icdcode = "";
+    this.icddesc = "";
 
   }
 

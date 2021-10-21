@@ -35,18 +35,18 @@ export class EditQuickGuideComponent implements OnInit {
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
 
-    
+
     this.activatedroute.params.subscribe(params => {
 
       this.id = params['id'];
-      
+
       this.docservice.GetQuickGuide(this.languageid).subscribe(
         data => {
 
           this.quicklist = data;
-          
+
           var list = this.quicklist.filter(x => x.id == this.id)
-          
+
           this.typeid = list[0].typeID,
             this.topicid = list[0].topicID,
             this.chpterid = list[0].chapterID,
@@ -54,8 +54,11 @@ export class EditQuickGuideComponent implements OnInit {
             this.subchapter = list[0].subTopicName,
             this.description = list[0].description,
             this.typeid = list[0].typeID,
-            this.attachmentsurl[0] = list[0].photo,
-            this.Videoattachmenturl[0] = list[0].video
+            this.attachmentsurl = list[0].photo,
+            this.Videoattachmenturl = list[0].video,
+            this.showvideo = list[0].videoUrl,
+            this.showphoto = list[0].photoUrl
+
           this.docservice.GetTopicMaster().subscribe(
             data => {
 
@@ -100,7 +103,7 @@ export class EditQuickGuideComponent implements OnInit {
 
   public dummshowsignatureurl = []
   public attachments = [];
-  public attachmentsurl = [];
+  public attachmentsurl: any;
 
 
   public onattachmentUpload(abcd) {
@@ -115,12 +118,12 @@ export class EditQuickGuideComponent implements OnInit {
 
   public uploadattachments() {
 
-    
+
     this.docservice.HospitalClinicPhotos(this.attachments).subscribe(res => {
-      
-      this.attachmentsurl.push(res);
+
+      this.attachmentsurl = res;
       this.dummshowsignatureurl.push(res);
-      
+
       let a = this.dummshowsignatureurl[0].slice(2);
       let b = 'https://maroc.voiladoc.org' + a;
       this.showphoto = b;
@@ -142,17 +145,17 @@ export class EditQuickGuideComponent implements OnInit {
   }
 
 
-  public Videoattachmenturl = [];
+  public Videoattachmenturl: any;
 
   public videoattachmentsss = []
 
   public onAttchamneVideoupload(abcd) {
-    
+    this.spinner.show()
     this.dummshowsignatureurl = [];
     this.videoattachmentsss.push(abcd.addedFiles[0]);
-    
+
     this.uploadvideoattchments();
-    
+
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
@@ -161,17 +164,19 @@ export class EditQuickGuideComponent implements OnInit {
 
 
   public uploadvideoattchments() {
-    
+
     this.docservice.HospitalClinicPhotos(this.videoattachmentsss).subscribe(res => {
-      
-      this.Videoattachmenturl.push(res);
+      debugger
+      this.Videoattachmenturl = res;
       this.dummshowsignatureurl.push(res);
-      
+
       let a = this.dummshowsignatureurl[0].slice(2);
-      
+      debugger
       let b = 'https://maroc.voiladoc.org' + a;
       this.showvideo = b;
+      debugger
       this.videoattachmentsss.length = 0;
+      this.spinner.hide();
     })
     // this.sendattachment();
   }
@@ -180,22 +185,22 @@ export class EditQuickGuideComponent implements OnInit {
   public chpterid: any;
 
   public UpdateDetails() {
-    
+    debugger
     var entity = {
       'ID': this.id,
       'ChapterID': this.chpterid,
       'SubTopicName': this.subchapter,
       'Description': this.description,
-      'Photo': this.attachmentsurl[0],
-      'VideoUrl': this.Videoattachmenturl[0],
-      'TypeID':this.typeid,
-      'ChapterName':this.chaptername
+      'Photo': this.attachmentsurl,
+      'VideoUrl': this.Videoattachmenturl,
+      'TypeID': this.typeid,
+      'ChapterName': this.chaptername
     }
     this.docservice.UpdateQuickGuide(entity).subscribe(data => {
       let res = data;
-      
+      debugger
       Swal.fire('Updated Successfully');
-      location.href="#/QuickGuideDash"
+      location.href = "#/QuickGuideDash"
     })
   }
 

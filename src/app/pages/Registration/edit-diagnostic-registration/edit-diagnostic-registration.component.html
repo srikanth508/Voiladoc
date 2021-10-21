@@ -47,7 +47,6 @@
               <div class="col-lg-4">
                 <label>{{labels[0].phno}} : </label>
                 <span class="required">*</span>
-
               </div>
               <div class="col-lg-6">
                 <input type="text" [(ngModel)]="contactpersonphno" maxlength="13" name="contactpersonphno" required
@@ -63,16 +62,16 @@
                 <input type="text" [(ngModel)]="licenseno" required name="licenseno" class="form-control">
               </div>
             </div><br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].licenceValidTill}} :</label>
                 <span class="required">*</span>
-                <!-- datetime-local -->
+              
               </div>
               <div class="col-lg-6">
                 <input type="date" required [(ngModel)]="licensevalidtill" name="licensevalidtill" class="form-control">
               </div>
-            </div><br>
+            </div><br> -->
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].email}} :</label>
@@ -139,14 +138,13 @@
                   onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
               </div>
             </div><br>
-
             <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].homeSamplePicUp}} </label>
               </div>
               <div class="col-lg-6">
-                <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="1"> {{labels[0].yes}} &nbsp;
-                <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="0">{{labels[0].no}}
+                <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="true"> {{labels[0].yes}} &nbsp;
+                <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="false">{{labels[0].no}}
               </div>
             </div>
             <br>
@@ -192,6 +190,16 @@
               </div>
               <div class="col-lg-6">
                 <input type="text" [(ngModel)]="timings" required name="timings" class="form-control" onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
+                event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58'>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>{{labels[0].evngTimings}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <input type="text" [(ngModel)]="evngtimings" required name="evngtimings" class="form-control" onkeypress='return(event.charCode>=48 && event.charCode<=57)||(event.charCode>=65 && event.charCode<=90) ||(event.charCode>=97 && 
                 event.charCode<=122 )||event.charCode==32||event.charCode==47||event.charCode==44||event.charCode==58'>
               </div>
             </div><br>

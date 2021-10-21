@@ -204,14 +204,16 @@ export class MeridionalSupportComponent implements OnInit {
   resolveid: any;
   useremail: any;
 
-  public GetSupportResolveID(id, useremail) {
+  public GetSupportResolveID(id, useremail,smsmobileno) {
    
     this.resolveid = id
     this.useremail = useremail
+    this.smsmobileno=smsmobileno
    
   }
   description: any;
   removetgdescription: any;
+  smsmobileno:any;
 
   public insertdetails() {
 
@@ -225,16 +227,42 @@ export class MeridionalSupportComponent implements OnInit {
     }
     this.docservice.UpdateSupportForWebResolvedbit(entity).subscribe(data => {
       let res = data;
-      this.insertazurenotification()
-      Swal.fire('Issue Resolved Successfully')
-      this.description = ""
-      this.issuephotourl = [];
-      this.identityattachmentsurlssss=[];
-      this.showidentityproof=[];
-      this.GetSupportIssues();
+      if(this.languageid==1)
+      {
+        var smsdesc = "We have resolved your issue with reference to support ticket no." + this.resolveid + ". Please check your email for details."
+        this.SendTwiliSms(smsdesc, this.smsmobileno);
+        this.sendmail1()
+        this.insertazurenotification()
+        Swal.fire('Issue Resolved Successfully')
+        this.description = ""
+        this.issuephotourl = [];
+        this.identityattachmentsurlssss=[];
+        this.showidentityproof=[];
+        this.GetSupportIssues();
+      }
+      else{
+        var smsdesc = "Nous avons résolu votre problème en référence au ticket d'assistance n° " + this.resolveid + ". Veuillez vérifier votre email pour plus de détails."
+        this.SendTwiliSms(smsdesc, this.smsmobileno);
+        this.sendmail1()
+        this.insertazurenotification()
+        Swal.fire('Issue Resolved Successfully')
+        this.description = ""
+        this.issuephotourl = [];
+        this.identityattachmentsurlssss=[];
+        this.showidentityproof=[];
+        this.GetSupportIssues();
+
+      }
+    
     })
   }
 
+  public SendTwiliSms(smsdesc, smsmobileno) {
+    debugger
+    this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+
+    })
+  }
 
 
   public insertazurenotification() {
@@ -358,5 +386,39 @@ export class MeridionalSupportComponent implements OnInit {
     this.meridionalPhotoUrl=meridionalPhotoUrl;
   }
   
+
+
+  emailsubject:any;
+  cclist = [];
+  bcclist = [];
+
+  public sendmail1() {
+    if (this.languageid = 1) {
+      this.emailsubject = "Support ticket no. " + this.resolveid + ",  resolution."
+    }
+    else {
+      this.emailsubject = "Ticket d'assistance n° " + this.resolveid + ", résolution"
+    }
+    var entity = {
+      'emailto': this.useremail,
+      'emailsubject': this.emailsubject,
+      'emailbody': this.description,
+      'attachmenturl': this.issuephotourl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+
+    this.docservice.sendemail(entity).subscribe(data => {
+
+      if (this.languageid == 1) {
+        Swal.fire('Mail sent successfully.');
+      }
+
+      else if (this.languageid == 6) {
+        Swal.fire('Email envoyé avec succès');
+      }
+    })
+  }
+
 }
   

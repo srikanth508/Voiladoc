@@ -46,6 +46,7 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
   diagnosticappointmentperslot: any;
   homesampleordersperslot: any;
   homesample: any;
+  evngtimings: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -79,7 +80,7 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
       data => {
 
         this.details = data[0];
-
+        debugger
         this.diagnosticcentername = this.details.diagnosticCenterName,
           this.phno = this.details.phoneNo,
           this.contactperson = this.details.contactPerson,
@@ -99,8 +100,10 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
           this.pincode = this.details.pincode,
           this.diagnosticappointmentperslot = this.details.diagnosticAppointmentPerSlot,
           this.homesampleordersperslot = this.details.homeSampleOrdersPerSlot,
-          this.homesample=this.details.homeSample
-          this.GetCountryMaster();
+          this.homesample = this.details.homeSample,
+          this.evngtimings = this.details.eveningTimings
+        debugger
+        this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid();
 
@@ -174,7 +177,8 @@ export class EditDiagnosticRegistrationComponent implements OnInit {
       'CountryID': this.countryid,
       'DiagnosticAppointmentPerSlot': this.diagnosticappointmentperslot,
       'HomeSampleOrdersPerSlot': this.homesampleordersperslot,
-      'HomeSample': this.homesample
+      'HomeSample': this.homesample,
+      'EveningTimings': this.evngtimings
     }
     this.docservice.UpdateDiagnosticCenterProfile(entity).subscribe(res => {
       let test = res;

@@ -108,7 +108,8 @@ export class PharmacyprofileComponent implements OnInit {
           this.photoprofile = this.details.photoURL,
           this.areaid = this.details.areaID,
           this.pincode = this.details.pincode,
-          this.countryid = this.details.countryID
+          this.countryid = this.details.countryID,
+          this.eveningtimings=this.details.eveningTimings
         this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid()
@@ -129,6 +130,7 @@ export class PharmacyprofileComponent implements OnInit {
       }
     )
   }
+  eveningtimings:any;
 
 
   public GetCountryID(even) {
@@ -154,7 +156,8 @@ export class PharmacyprofileComponent implements OnInit {
       'Description': this.description,
       'AreaID': this.areaid,
       'Pincode': this.pincode,
-      'CountryID': this.countryid
+      'CountryID': this.countryid,
+      'EveningTimings':this.eveningtimings
     }
     this.docservice.UpdatePharmacyProfile(entity).subscribe(res => {
       let test = res;

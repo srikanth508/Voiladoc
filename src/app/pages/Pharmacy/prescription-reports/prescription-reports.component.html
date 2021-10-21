@@ -112,11 +112,11 @@
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='0'&&details.partialBit=='0'">{{labels[0].accepted}}</label>
               <label style="color:red"
-                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.cancelled=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
+                *ngIf="details.approved=='0'&&details.pharmacyCancelled=='1'||details.rejected=='1'&&details.delivered=='0'">{{labels[0].cancelled}}</label>
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='1'">{{labels[0].delivered}}</label>
 
-              <label style="color:green"
+              <!-- <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.fullyAvailableBit=='1'&&details.partialBit=='0'&&details.readyfordelivery=='0'">Fully
                 Available
               </label>
@@ -128,7 +128,7 @@
 
               <label style="color:green"
                 *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'">
-                Ready For Delivery</label>
+                Ready For Delivery</label> -->
             </td>
           </tr>
         </thead>

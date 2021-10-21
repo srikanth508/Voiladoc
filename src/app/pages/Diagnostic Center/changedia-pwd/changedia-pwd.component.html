@@ -83,6 +83,7 @@
         <div class="row" *ngIf="Showpassword=='0'">
           <div class="col-lg-3">
             <label>{{labels[0].enteryourpin}}</label>
+            <span class="required">*</span>
           </div>
           <div class="col-lg-6">
             <input type="text" class="form-control" [(ngModel)]="Enteredpinno" name="Enteredpinno"

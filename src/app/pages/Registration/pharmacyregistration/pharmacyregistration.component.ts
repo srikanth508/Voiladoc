@@ -55,6 +55,9 @@ export class PharmacyregistrationComponent implements OnInit {
   dropzonelable: any;
   public contractstartdate: any;
   public contractenddate: any;
+  evengtime1: any;
+  evengtime2: any;
+  evngtimings: any;
 
   ngOnInit() {
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -162,6 +165,8 @@ export class PharmacyregistrationComponent implements OnInit {
 
       this.timings = this.tone + ' TO ' + this.toampm;
 
+      this.evngtimings = this.tone + ' TO ' + this.toampm;
+
       if (this.hspwebsite == undefined) {
 
       }
@@ -196,7 +201,8 @@ export class PharmacyregistrationComponent implements OnInit {
         'HospitalClinicID': this.hospitalclinicid,
         'Hospitalfulltimebit': this.hospitalfulltimebit,
         'ContartStartDate': this.contractstartdate,
-        'ContractEndDate': this.contractenddate
+        'ContractEndDate': this.contractenddate,
+        'EveningTimings': this.evngtimings
       }
       this.docservice.InsertPharmacyRegistration(entity).subscribe(data => {
 

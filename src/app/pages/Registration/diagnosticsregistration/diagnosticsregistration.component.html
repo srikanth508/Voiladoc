@@ -79,7 +79,7 @@
           </div>
         </div>
         <br>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].licenceValidTill}} : </label>
             <span class="requird">*</span>
@@ -88,10 +88,10 @@
             <input type="text" placeholder="{{labels[0].licenceValidTill}}" class="form-control"
               [bsConfig]="{ showWeekNumbers:false }" name="licensevalidtill"
               [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="licensevalidtill" bsDatepicker>
-            <!-- <input type="date" [(ngModel)]="licensevalidtill" required name="licensevalidtill" class="form-control"> -->
+            
           </div>
         </div>
-        <br>
+        <br> -->
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].email}} : </label>
@@ -260,25 +260,32 @@
             <input type="time" class="form-control" name="tone" required [(ngModel)]="tone"
               placeholder="{{labels[0].timings}}">
           </div>
-          <!-- <div class="col-lg-2">
-            <select class="form-control" (change)="getfromampm($event)">
-              <option value="">{{SelectLabel}}</option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div> -->
+         
           <div class="col-lg-2">
             <input type="time" class="form-control" name="ttwo" required [(ngModel)]="ttwo" placeholder="Timings">
           </div>
-          <!-- <div class="col-lg-2">
-            <select class="form-control" (change)="gettoampm($event)">
-              <option value="">{{SelectLabel}}</option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div> -->
+         
         </div>
         <br>
+
+
+        <div class="row">
+          <div class="col-lg-3">
+            <label>{{labels[0].evngTimings}} : </label>
+            <span class="requird">*</span>
+          </div>
+          <div class="col-lg-2">
+            <input type="time" class="form-control" name="evngtime1" required [(ngModel)]="evngtime1"
+              placeholder="{{labels[0].timings}}">
+          </div>
+         
+          <div class="col-lg-2">
+            <input type="time" class="form-control" name="evngtime2" required [(ngModel)]="evngtime2" placeholder="Timings">
+          </div>
+         
+        </div>
+        <br>
+
         <div class="row">
           <div class="col-lg-3">
             <label>{{labels[0].homeSamplePicUp}}  </label>

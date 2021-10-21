@@ -47,7 +47,7 @@
       <div class="col-lg-2" *ngIf="typeidss=='2'">
         <span style="margin-left: 56px;">{{labelsss[0].changeSchedule}} </span>
       </div>
-      <div class="col-lg-3" *ngIf="typeidss=='2'">
+      <div class="col-lg-4" *ngIf="typeidss=='2'">
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
           (click)="GetTypeID($event)" value="1"> {{labelsss[0].daywise}} &nbsp;
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"
@@ -263,7 +263,7 @@
       <div class="col-lg-2" *ngIf="typeidss=='1'">
         <span style="margin-left: 56px;">{{labelsss[0].changeSchedule}} </span>
       </div>
-      <div class="col-lg-3" *ngIf="typeidss=='1'">
+      <div class="col-lg-4" *ngIf="typeidss=='1'">
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
           (click)="GetTypeID($event)" value="1"> {{labelsss[0].daywise}} &nbsp;
         <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"

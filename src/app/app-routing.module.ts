@@ -350,6 +350,10 @@ import { AllProviderPaymentsComponent } from './pages/adminsReports/all-provider
 import { ResolvedPatientTicketsComponent } from './pages/Support/resolved-patient-tickets/resolved-patient-tickets.component';
 import { PatientEscalatesTicketsComponent } from './pages/Support/patient-escalates-tickets/patient-escalates-tickets.component';
 import { PaidReportsComponent } from './pages/adminsReports/paid-reports/paid-reports.component';
+import { NurseServicesComponent } from './pages/Nurse/nurse-services/nurse-services.component';
+import { NurseServicesDashComponent } from './pages/Nurse/nurse-services-dash/nurse-services-dash.component';
+import { PhysioServicesComponent } from './pages/physiotherapist/physio-services/physio-services.component';
+import { PhysioServicesDashComponent } from './pages/physiotherapist/physio-services-dash/physio-services-dash.component';
 
 
 
@@ -768,7 +772,13 @@ const routes: Routes = [
   { path: 'ResolvedPatientTickets', component:  ResolvedPatientTicketsComponent},
   { path: 'PatientEscalatesTickets', component:  PatientEscalatesTicketsComponent},
   { path: 'PaidReports', component:  PaidReportsComponent},
-
+  { path: 'NurseServices', component:  NurseServicesComponent},
+  { path: 'NurseServicesDash', component:  NurseServicesDashComponent},
+  { path: 'PhysioServices', component:  PhysioServicesComponent},
+  { path: 'PhysioServices/:id', component:  PhysioServicesComponent},
+  { path: 'PhysioServicesDash', component:  PhysioServicesDashComponent},
+  { path: 'NurseServices/:id', component:  NurseServicesComponent},
+  
 ];
 
 @NgModule({

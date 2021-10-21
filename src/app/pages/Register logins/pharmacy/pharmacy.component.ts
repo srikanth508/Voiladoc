@@ -19,6 +19,7 @@ export class PharmacyComponent implements OnInit {
   public password1: any;
   public labels: any;
   public languageid: any;
+  search: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.getlanguage();
@@ -33,7 +34,8 @@ export class PharmacyComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -47,6 +49,7 @@ export class PharmacyComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -68,55 +71,55 @@ export class PharmacyComponent implements OnInit {
       }
     }
     else if (this.password != undefined) {
-    
+
       // var valpassword = this.docservice.strongpassword(this.password);
       // if (valpassword == false) {
 
       //   this.password1 = 1;
       // }
       // else {
-        var entity = {
-          'PharmacyID': this.pharmacyid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        this.docservice.InsertPharmacyAdminRegistration(entity).subscribe(data => {
+      var entity = {
+        'PharmacyID': this.pharmacyid,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      this.docservice.InsertPharmacyAdminRegistration(entity).subscribe(data => {
 
-          if (data != 0) {
-            if (this.languageid == 1) {
-              this.getpharmacyloginfordash();
-              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              location.href = "#/Pharmacydash"
-              this.clear();
-              this.password1 = 0;
-            }
-            else {
-              this.getpharmacyloginfordash();
-              Swal.fire('', 'Mis à jour avec succés', 'success');
-              location.href = "#/Pharmacydash"
-              this.clear();
-              this.password1 = 0;
-            }
-
-
+        if (data != 0) {
+          if (this.languageid == 1) {
+            this.getpharmacyloginfordash();
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href = "#/Pharmacydash"
+            this.clear();
+            this.password1 = 0;
           }
           else {
-            if (this.languageid == 1) {
-              Swal.fire('Error', 'Pharmacy Login Already Exists', 'success');
-              location.href = "#/Pharmacydash"
-              this.clear();
-              this.password1 = 0;
-            }
-            else {
-              Swal.fire('Erreur Cet identifiant existe déjà');
-              location.href = "#/Pharmacydash"
-              this.clear();
-              this.password1 = 0;
-            }
-
+            this.getpharmacyloginfordash();
+            Swal.fire('', 'Mis à jour avec succés', 'success');
+            location.href = "#/Pharmacydash"
+            this.clear();
+            this.password1 = 0;
           }
-        })
-      }
+
+
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Error', 'Pharmacy Login Already Exists', 'success');
+            location.href = "#/Pharmacydash"
+            this.clear();
+            this.password1 = 0;
+          }
+          else {
+            Swal.fire('Erreur Cet identifiant existe déjà');
+            location.href = "#/Pharmacydash"
+            this.clear();
+            this.password1 = 0;
+          }
+
+        }
+      })
+    }
     // }
   }
 
@@ -142,7 +145,7 @@ export class PharmacyComponent implements OnInit {
 
 
   public sendmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

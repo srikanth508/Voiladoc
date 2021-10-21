@@ -19,6 +19,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
   public pp: any;
   public labels: any;
   public languageid: any;
+  search: any;
 
 
   ngOnInit() {
@@ -36,7 +37,8 @@ export class DeliveryCompanyLoginComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -50,6 +52,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
+        this.search = this.labels[0].search
       }, error => {
       }
     )
@@ -78,39 +81,39 @@ export class DeliveryCompanyLoginComponent implements OnInit {
       //   this.pp = 1;
       // }
       // else {
-        var entity = {
-          'DeliveryCompanyID': this.dcid,
-          'UserName': this.username,
-          'Password': this.password
-        }
-        // this.username = '';
-        // this.password = '';
-        this.docservice.InsertDeliveryCompanyLogin(entity).subscribe(data => {
+      var entity = {
+        'DeliveryCompanyID': this.dcid,
+        'UserName': this.username,
+        'Password': this.password
+      }
+      // this.username = '';
+      // this.password = '';
+      this.docservice.InsertDeliveryCompanyLogin(entity).subscribe(data => {
 
-          if (data != 0) {
-            if (this.languageid == 1) {
-              this.GetDeliveryCompanyLoginAdmin()
-              Swal.fire('Registration Completed', 'Details saved successfully', 'success');
-              location.href="#/DeliveryCompanyLoginDashboard"
-              this.pp = 0;
-            }
-            else {
-              this.GetDeliveryCompanyLoginAdmin()
-              Swal.fire('Enregistré avec succès');
-              this.pp = 0;
-              location.href="#/DeliveryCompanyLoginDashboard"
-            }
-
-
+        if (data != 0) {
+          if (this.languageid == 1) {
+            this.GetDeliveryCompanyLoginAdmin()
+            Swal.fire('Registration Completed', 'Details saved successfully', 'success');
+            location.href = "#/DeliveryCompanyLoginDashboard"
+            this.pp = 0;
           }
           else {
             this.GetDeliveryCompanyLoginAdmin()
-            Swal.fire('Success', 'Delivery Company Login Already Exists', 'success');
+            Swal.fire('Enregistré avec succès');
             this.pp = 0;
-
+            location.href = "#/DeliveryCompanyLoginDashboard"
           }
-        })
-      }
+
+
+        }
+        else {
+          this.GetDeliveryCompanyLoginAdmin()
+          Swal.fire('Success', 'Delivery Company Login Already Exists', 'success');
+          this.pp = 0;
+
+        }
+      })
+    }
     // }
   }
 
@@ -145,7 +148,7 @@ export class DeliveryCompanyLoginComponent implements OnInit {
 
 
   public sendmail() {
-    
+
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",

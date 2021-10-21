@@ -244,7 +244,7 @@
 
                     <ng-template #tipcontent5>{{labels[0].addPrescription}}</ng-template>
                     <a [ngbTooltip]="tipcontent5"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
                       <img src="assets/Images/pre.png" data-toggle="modal" data-target="#exampleModalLong"
                         style="height:25px;"
                         (click)="GetEarlyprescription(details.patientID,details.appointmentID,details.appointmentTypeID,details.countryID,details.cityID,details.areaID,details.slots,details.appdate,details.pEmail,details.smsmobileno)" />
@@ -254,7 +254,7 @@
 
                     <ng-template #tipcontent5345>{{labels[0].addPrescription}}</ng-template>
                     <a [ngbTooltip]="tipcontent5345"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'&&details.categoryID=='1'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/pre.png" data-toggle="modal" data-target="#exampleModalLong"
                         style="height:25px;"
                         (click)="GetPatientid(details.patientID,details.appointmentID,details.appointmentTypeID,details.countryID,details.cityID,details.areaID,details.slots,details.appdate,details.pEmail,details.smsmobileno)" />
@@ -264,43 +264,43 @@
                     <!-- early test -->
                     <ng-template #tipcontent7>{{labels[0].addTest}}</ng-template>
                     <a [ngbTooltip]="tipcontent7"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
                       <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
                         style="height:25px;"
-                        (click)="GetEarlyDiaTest(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                        (click)="GetEarlyDiaTest(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
                     </a>
                     <!-- normal test -->
                     <ng-template #tipcontent7566>{{labels[0].addTest}}</ng-template>
                     <a [ngbTooltip]="tipcontent7566"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
                         style="height:25px;"
-                        (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                        (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
                     </a>
                   </td>
                   <td style="border:none">
                     <!-- early soap -->
                     <ng-template #tipcontent10>{{labels[0].addSoapNotes}}</ng-template>
                     <a [ngbTooltip]="tipcontent10"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
-                        (click)="GetEarlySoap(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                        (click)="GetEarlySoap(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
                     </a>
 
                     <!-- normal soap -->
                     <ng-template #tipcontent905>{{labels[0].addSoapNotes}}</ng-template>
                     <a [ngbTooltip]="tipcontent905"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
-                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail)" />
+                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
                     </a>
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent88>{{labels[0].refertodoctor}}</ng-template>
                     <a [ngbTooltip]="tipcontent88"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'">
                       <img src="assets/Images/refer.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleModalCenterRefferal" (click)="GetReferralID(details)" />
                     </a>
@@ -308,10 +308,10 @@
                   <td style="border:none">
                     <ng-template #tipcontent89>{{labels[0].generateSickSlip}}</ng-template>
                     <a [ngbTooltip]="tipcontent89"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&& details.noShow=='0'&&details.disableall=='1'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&& details.noShow=='0'&&details.disableall=='1'">
                       <img src="assets/Images/medical.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleModalCenterSickSlip"
-                        (click)="GetSickSlipID(details.patientID,details.appointmentID,details.pEmail)" />
+                        (click)="GetSickSlipID(details.patientID,details.appointmentID,details.pEmail,details.smsmobileno)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -320,7 +320,7 @@
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.appointmentTypeID=='2'&&details.earlycall=='0'&&details.earlycallvalidation=='0'&&details.bookingTypeID=='2'">
                       <img src="assets/Images/earlycall.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleealycall"
-                        (click)="GetEarlycallPatientID(details.patientID,details.pEmail,details.appointmentID)" />
+                        (click)="GetEarlycallPatientID(details.patientID,details.pEmail,details.appointmentID,details.smsmobileno)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -328,7 +328,7 @@
                     <a [ngbTooltip]="tipcontent84943"
                       *ngIf="details.isVisited=='1' && details.completed=='2'&&details.videoCallReJoin=='0'||details.disableall=='0'&&details.cancelled=='0'&&details.docCancelled=='0'">
                       <img src="assets/Images/rejoin.png" style="height:25px;"
-                        (click)="GetRejointhecall(details.appointmentID,details.pEmail)" />
+                        (click)="GetRejointhecall(details.appointmentID,details.pEmail,details.smsmobileno)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -545,7 +545,8 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h3>Prescription</h3>
+                <h3 *ngIf="languageid=='1'">Prescription</h3>
+                <h3 *ngIf="languageid=='6'">Ordonnance</h3>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
@@ -578,12 +579,12 @@
                 <table>
                   <thead>
                     <tr>
-                      <th id="imp">Date</th>
-                      <th id="imp">Drug Name </th>
-                      <th id="imp">Sig </th>
-                      <th id="imp">Dispence Quantity </th>
-                      <th id="imp">How Many Refills </th>
-                      <th id="imp">Note to Pharmacist </th>
+                      <th id="imp">{{labels[0].date}}</th>
+                      <th id="imp">{{labels[0].drugName}} </th>
+                      <th id="imp">{{labels[0].sig}} </th>
+                      <th id="imp">{{labels[0].dispenseQuantity}} </th>
+                      <th id="imp">{{labels[0].howmanyRefills}} </th>
+                      <th id="imp">{{labels[0].noteToPharmasist}} </th>
                     </tr>
                     <tr *ngFor="let medicines of alldetails.medicines">
                       <td style="    width: 13%;">{{medicines.date}}</td>
@@ -599,7 +600,7 @@
             </div><br><br><br><br><br><br>
             <div class="row">
               <div class="col-lg-12">
-                <p style="justify-content: center;">
+                <!-- <p style="justify-content: center;">
                   Prescriptions in the USA often have a box. When checked, the pharmacist is instructed to
                   label the medication and provide information about the prescription itself is given in addition to
                   instructions on taking the medication. Otherwise, the patient is simply given the instructions. Some
@@ -610,8 +611,8 @@
                   many "repeats" or "refills" are allowed; that is whether the patient may obtain more of the same
                   medication without getting a new prescription from the medical practitioner. Regulations may restrict
                   some types of drugs from being refilled.
-                </p>
-              </div>
+                </p> -->
+              </div><br><br><br><br><br><br><br>
               <!-- <div cl ass="col-lg-4">s
             <img src="assets/Images/sign.png" style="width: 39%;"><br>
             <label>Prescription provided by doctor</label>
@@ -624,7 +625,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Prescription provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
 
             </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -637,7 +638,7 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h3>SOAP Notes</h3>
+                <h3>{{labels[0].soapnotess}}</h3>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
@@ -646,8 +647,8 @@
                 <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
-                <label><b> Email</b> : {{alldetails.emailID}}</label><br>
-                <label><b>Age</b> : {{alldetails.age}}</label><br>
+                <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
@@ -665,44 +666,44 @@
               </div>
               <br>
             </div><br><br>
-            <h5>SOAP</h5>
+            <h5>{{labels[0].soap}}</h5>
             <div class="row" *ngFor="let soap of alldetails.soaplist">
               <div class="col-lg-6">
 
-                <label><b>Date : </b> {{soap.appointmentDate}}</label>
+                <label><b>{{labels[0].date}} : </b> {{soap.appointmentDate}}</label>
 
               </div><br>
               <div class="col-lg-6">
-                <label><b>Subjective : </b> {{soap.subjective}}</label>
+                <label><b>{{labels[0].subjective}} : </b> {{soap.subjective}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Objective : </b>{{soap.objective}}</label>
+                <label><b>{{labels[0].objective}} : </b>{{soap.objective}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Assessment : </b>{{soap.assessment}}</label>
+                <label><b>{{labels[0].assessment}} : </b>{{soap.assessment}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Plan : </b> {{soap.plan}}</label>
+                <label><b>{{labels[0].plan}} : </b> {{soap.plan}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Diagnostic : </b> {{soap.diagnostic}}</label>
+                <label><b>{{labels[0].diagnosis}} : </b> {{soap.diagnostic}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Diagnostic Code : </b> {{soap.diagnoticCode}}</label>
+                <label><b>{{labels[0].diagnosisCode}} : </b> {{soap.diagnoticCode}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Followup Plan : </b>{{soap.followUpPlan}}</label>
+                <label><b>{{labels[0].followUpPlan}} : </b>{{soap.followUpPlan}}</label>
               </div>
             </div><br><br>
             <div class="row">
               <div class="col-lg-3">
-                <label><b>Allergies : </b> {{alldetails.knownAllergies}}</label>
+                <label><b>{{labels[0].allergies}} : </b> {{alldetails.knownAllergies}}</label>
               </div>
               <div class="col-lg-3">
-                <label><b>Vaccination Status : </b> {{alldetails.vaccinationStatus}}</label>
+                <label><b>{{labels[0].statutvaccinal}} : </b> {{alldetails.vaccinationStatus}}</label>
               </div>
             </div><br>
-            <h5>Vitals </h5><br>
+            <h5>{{labels[0].vitalDetals}} </h5><br>
             <div class="row">
               <div class="col-lg-4">
                 <label><b>BPM : </b> {{alldetails.bpm}}</label>
@@ -712,13 +713,13 @@
                 <label><b>RR : </b> {{alldetails.rr}}</label>
               </div>
               <div class="col-lg-4">
-                <label><b>Oxygen : </b>{{alldetails.bpm}}</label>
+                <label><b>{{labels[0].oxygen}} : </b>{{alldetails.bpm}}</label>
               </div>
               <div class="col-lg-4">
-                <label><b>Stress : </b>{{alldetails.streeLevel}}</label>
+                <label><b>{{labels[0].stress}} : </b>{{alldetails.streeLevel}}</label>
               </div>
               <div class="col-lg-4">
-                <label><b>Blood Pressure : </b> {{alldetails.bloodPressureStatus}}</label>
+                <label><b>{{labels[0].bloodpressure}} : </b> {{alldetails.bloodPressureStatus}}</label>
               </div>
             </div>
             <br><br><br>
@@ -729,7 +730,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>SOAP Notes provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
 
             </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -741,8 +742,9 @@
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
-              <div class="col-lg-4">
-                <h3>Diagnostic Test</h3>
+              <div class="col-lg-6">
+                <h3 *ngIf="languageid=='1'">Diagnostic Test</h3>
+                <h3 *ngIf="languageid=='6'">Test diagnostique/imagerie</h3>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
@@ -751,8 +753,8 @@
                 <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
-                <label><b> Email</b> : {{alldetails.emailID}}</label><br>
-                <label><b>Age</b> : {{alldetails.age}}</label><br>
+                <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
@@ -775,10 +777,10 @@
                 <table>
                   <thead>
                     <tr>
-                      <th id="imp">Date</th>
-                      <th id="imp">Test Type </th>
-                      <th id="imp">Test Name </th>
-                      <th id="imp">Clinical Info </th>
+                      <th id="imp">{{labels[0].date}}</th>
+                      <th id="imp">{{labels[0].testType}} </th>
+                      <th id="imp">{{labels[0].testName}} </th>
+                      <th id="imp">{{labels[0].clinicalInfo}} </th>
                     </tr>
                     <tr *ngFor="let test of alldetails.diagnosticTest">
                       <td style="    width: 13%;">{{test.appdate}}</td>
@@ -792,7 +794,7 @@
             </div><br><br><br><br>
             <div class="row">
               <div class="col-lg-12">
-                <p style="justify-content: center;">
+                <!-- <p style="justify-content: center;">
                   Prescriptions in the USA often have a box. When checked, the pharmacist is instructed to
                   label the medication and provide information about the prescription itself is given in addition to
                   instructions on taking the medication. Otherwise, the patient is simply given the instructions. Some
@@ -803,8 +805,8 @@
                   many "repeats" or "refills" are allowed; that is whether the patient may obtain more of the same
                   medication without getting a new prescription from the medical practitioner. Regulations may restrict
                   some types of drugs from being refilled.
-                </p>
-              </div>
+                </p> -->
+              </div><br><br><br><br><br><br><br><br>
               <!-- <div cl ass="col-lg-4">s
   <img src="assets/Images/sign.png" style="width: 39%;"><br>
   <label>Prescription provided by doctor</label>
@@ -817,7 +819,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Diagnostic Test provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div>
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -839,8 +841,8 @@
                   <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
-                  <label><b> Email</b> : {{alldetails.emailID}}</label><br>
-                  <label><b>Age</b> : {{alldetails.age}}</label><br>
+                  <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
@@ -939,7 +941,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Medical Questionare</label> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           </div>
@@ -950,7 +952,7 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h5><b>Medical Certificate</b></h5>
+                <h5><b>{{labels[0].medicalcertficate}}</b></h5>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
@@ -960,8 +962,8 @@
                   <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
-                  <label><b> Email</b> : {{alldetails.emailID}}</label><br>
-                  <label><b>Age</b> : {{alldetails.age}}</label><br>
+                  <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                  <label><b> {{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
@@ -997,7 +999,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Medical certificate provided by doctor</label> -->
                 <b>{{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div><br><br><br><br><br><br><br><br>
           </div>
@@ -1008,7 +1010,8 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h5><b>Doctor Referals</b></h5>
+                <h5 *ngIf="languageid=='1'"><b>Doctor Referals</b></h5>
+                <h5 *ngIf="languageid=='6'"><b>Références de médecins</b></h5>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
@@ -1018,8 +1021,8 @@
                   <label><b>{{labels[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
-                  <label><b> Email</b> : {{alldetails.emailID}}</label><br>
-                  <label><b>Age</b> : {{alldetails.age}}</label><br>
+                  <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                  <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
@@ -1054,7 +1057,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Doctor Referals provided by doctor</label> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div><br><br><br><br><br><br><br><br><br><br>
           </div>
@@ -2181,8 +2184,8 @@
                   <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
                 </span>
                 <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session* </span>
-                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par
-                  session* </span>
+                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul type de document à la fois*
+                   </span>
               </div>
               <div>
               </div>

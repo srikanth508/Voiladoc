@@ -1,0 +1,110 @@
+<br>
+<div class="container-fluid card card:hover">
+  <div class="row headerspace">
+    <div class="col-lg-3">
+      <h5>Services</h5>
+    </div>
+  </div>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <br>
+  <form #countryForm="ngForm">
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Nurse :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <div *ngIf="dummid=='undefined'">
+          <select class="form-control" (change)="GetPhysioID($event)" [(ngModel)]="physioid" name="physioid">
+            <option value="">Select</option>
+            <option *ngFor="let phsio of nurselist" value="{{phsio.id}}">{{phsio.nurseName}}</option>
+
+          </select>
+        </div>
+
+        <div *ngIf="dummid!='undefined'">
+          <input type="text" disabled class="form-control" [(ngModel)]="user" name="user">
+        </div>
+
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Service Name :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="Service Name" [(ngModel)]="servicename" name="servicename">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Charges :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" placeholder="Charges" [(ngModel)]="charges" name="charges">
+      </div>
+    </div><br>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">{{labels[0].description}} :</label>
+
+      </div>
+      <div class="col-lg-4">
+        <textarea class="form-control" rows="4" placeholder="{{labels[0].description}}" [(ngModel)]="description"
+          name="description"></textarea>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" *ngIf="showbit==0" [disabled]="countryForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()">Add</button>
+
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div><br>
+    <div class="row" *ngIf="tablecount=='1'">
+      <div class="col-lg-12">
+        <table>
+          <tr>
+            <th>Service Name</th>
+            <th>Description</th>
+            <th>Charges</th>
+
+            <th>{{labels[0].actions}}</th>
+          </tr>
+          <tr *ngFor="let det of qwerty">
+            <td>{{det.ServiceName}}</td>
+            <td>{{det.ServiceDescription}}</td>
+            <td>{{det.ServiceCharges}}</td>
+            <td>
+              <img src="assets/Images/dell.png" (click)="delete(det.Sno)">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" *ngIf="showbit==0&&tablecount=='1'"
+          [disabled]="countryForm.form.invalid" class="btn btn-block btn-md allbtns btncolor"
+          (click)="SaveDetails()">{{labels[0].save}}</button>
+
+        <button type="button" text_align="center" *ngIf="showbit==1" [disabled]="countryForm.form.invalid"
+          class="btn btn-block btn-md allbtns btncolor" (click)="updatedetails()">{{labels[0].update}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
+    </div>
+    <br>
+  </form>
+</div>

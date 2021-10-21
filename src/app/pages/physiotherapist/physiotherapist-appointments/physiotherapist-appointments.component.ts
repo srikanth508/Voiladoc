@@ -1013,6 +1013,17 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     // this.sendattachment();
   }
 
+  Services:any;
 
+  getNurseServices(Appointmentid) {
+    debugger
+    this.docservice.GetBookAppointment_PhysioServices(Appointmentid).subscribe(
+      data => {
+        debugger
+        this.Services = data;
+      }, error => {
+      }
+    )
+  }
 
 }

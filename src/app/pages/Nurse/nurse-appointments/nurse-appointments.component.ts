@@ -356,7 +356,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
   public insertAcceptNursenotoification() {
-    
+
     if (this.languageid == '1') {
       var entity = {
         'PatientID': this.acceppatientid,
@@ -394,7 +394,7 @@ export class NurseAppointmentsComponent implements OnInit {
   }
   public InsertNotificationFORAccept() {
     if (this.languageid == '1') {
-      
+
       var entity = {
         'Description': "Your appoinment with the nurse " + this.acceptnursename + " on " + this.aaceptslots + " has been accepted.",
         'ToUser': this.accemail,
@@ -407,7 +407,7 @@ export class NurseAppointmentsComponent implements OnInit {
       })
     }
     else if (this.languageid == '6') {
-      
+
       var entity = {
 
         'Description': "Votre RDV avec l'infirmier/ère " + this.acceptnursename + " le " + this.aaceptslots + " a été confirmé. ",
@@ -425,9 +425,9 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    
+
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      
+
     })
   }
 
@@ -624,7 +624,7 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public InsertNotiFicationCancel() {
-    
+
     if (this.languageid == '1') {
       var entity = {
         'Description': "Your appoinment with the nurse " + this.cannursename + " on " + this.canslots + " has not been confirmed. ",
@@ -638,7 +638,7 @@ export class NurseAppointmentsComponent implements OnInit {
       })
     }
     else if (this.languageid == '6') {
-      
+
       var entity = {
         'Description': "Votre RDV avec l'infirmier/ère " + this.cannursename + " le " + this.canslots + " n'a pas été confirmé.",
         'ToUser': this.canemail,
@@ -795,10 +795,10 @@ export class NurseAppointmentsComponent implements OnInit {
 
   public SavePDF() {
     ;
-    
+
     let pdfContent = window.document.getElementById("pdfcontent");
     var doc = new jsPDF('p', 'mm', "a4");
-    
+
     html2canvas(pdfContent).then(canvas => {
       ;
       var imgData = canvas.toDataURL('image/jpeg', 1.0);
@@ -811,21 +811,21 @@ export class NurseAppointmentsComponent implements OnInit {
       var file = new File([pdf], "NurseReceipts" + ".pdf");
 
       let body = new FormData();
-      
+
       body.append('Dan', file);
 
       this.docservice.ReceiptUpload(file).subscribe(res => {
         ;
         this.pdfurl = res;
         this.UpdateReceipt();
-        
+
       });
     });
   }
 
 
   public UpdateReceipt() {
-    
+
     var entity = {
       'AppointmentID': this.visitappid,
       'ReceiptURL': this.pdfurl
@@ -931,7 +931,7 @@ export class NurseAppointmentsComponent implements OnInit {
   signature: any;
 
   public insertsoapnotes1() {
-    
+
     var entity = {
       'NPMID': this.nurseid,
       'PatientID': this.patientid,
@@ -953,9 +953,9 @@ export class NurseAppointmentsComponent implements OnInit {
       'TypeID': 1
     }
     this.docservice.InsertNPM_PatientSoapNotesWeb(entity).subscribe(data => {
-      
+
       if (data != 0) {
-        
+
         if (this.languageid == 1) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
         }
@@ -972,14 +972,14 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   public UploadSoapAttchments(abcd) {
-    
+
     this.dummprescriptionphotourl = []
-    
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadSoAPattachmentss();
     // }
-    
+
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -998,14 +998,14 @@ export class NurseAppointmentsComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      
+
       let b = 'https://maroc.voiladoc.org' + a;
       if (this.attachments1[0].type == 'image/jpeg') {
-        
+
         this.shoprescphoto.push(b)
       }
       else if (this.attachments1[0].type == 'application/pdf') {
-        
+
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
 
@@ -1016,6 +1016,20 @@ export class NurseAppointmentsComponent implements OnInit {
   }
 
 
+  Services: any;
+
+
+
+  getNurseServices(Appointmentid) {
+    debugger
+    this.docservice.GetBookAppointment_NurseServices(Appointmentid).subscribe(
+      data => {
+        debugger
+        this.Services = data;
+      }, error => {
+      }
+    )
+  }
 }
 
 

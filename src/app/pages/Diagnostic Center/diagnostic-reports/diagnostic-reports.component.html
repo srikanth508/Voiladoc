@@ -119,8 +119,10 @@
           <td>
             <label *ngIf="details.approved=='1'" style="color:green">{{labels[0].visited}}</label>
             <label *ngIf="details.notVisited=='1'" style="color:yellowgreen">{{labels[0].notVisited}}</label>
-            <label *ngIf="details.cancelled=='1'||details.diagnosticCancelled=='1'"
+            <label *ngIf="details.diagnosticCancelled=='1'"
               style="color:red">{{labels[0].cancelled}}</label>
+              <label *ngIf="details.cancelled=='1'"
+              style="color:red">{{labels[0].patientCancelled}}</label>
           </td>
 
         </tr>

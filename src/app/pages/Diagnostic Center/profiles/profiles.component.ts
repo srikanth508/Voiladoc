@@ -91,6 +91,7 @@ export class ProfilesComponent implements OnInit {
           this.pincode = this.details.pincode,
           this.diagnosticappointmentperslot = this.details.diagnosticAppointmentPerSlot,
           this.homesampleordersperslot = this.details.homeSampleOrdersPerSlot,
+          this.evngtimings=this.details.eveningTimings
           this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid();
@@ -138,6 +139,7 @@ export class ProfilesComponent implements OnInit {
       }
     )
   }
+  evngtimings: any;
   public GetcityID(even) {
 
     this.cityid = even.target.value;
@@ -164,20 +166,19 @@ export class ProfilesComponent implements OnInit {
       'Pincode': this.pincode,
       'CountryID': this.countryid,
       'DiagnosticAppointmentPerSlot': this.diagnosticappointmentperslot,
-      'HomeSampleOrdersPerSlot': this.homesampleordersperslot
+      'HomeSampleOrdersPerSlot': this.homesampleordersperslot,
+      'EveningTimings': this.evngtimings
     }
     this.docservice.UpdateDiagnosticCenterProfile(entity).subscribe(res => {
       let test = res;
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         this.getdiagnosticdetailsforadmin();
         Swal.fire(' Updated Successfully');
       }
-    else
-    {
-      this.getdiagnosticdetailsforadmin();
-      Swal.fire('Mis à jour avec Succés');
-    }
+      else {
+        this.getdiagnosticdetailsforadmin();
+        Swal.fire('Mis à jour avec Succés');
+      }
     })
 
   }

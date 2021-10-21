@@ -15,6 +15,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import { debug } from 'console';
 @Component({
   selector: 'app-myappointments',
   templateUrl: './myappointments.component.html',
@@ -767,7 +768,7 @@ export class MyappointmentsComponent implements OnInit {
   smsdesc: any;
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-
+    debugger
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
 
     })
@@ -1062,7 +1063,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate
     this.prepatientemail = pemail;
     this.smsmobileno = smsmobileno;
-
+    debugger
     this.patientiddd = patientID,
       this.preappointmentid = appointmentID;
     this.apptypeid = appointmentTypeID;
@@ -1111,6 +1112,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate
     this.prepatientemail = pemail;
     this.smsmobileno = smsmobileno;
+    debugger
     this.getserverdateandtime();
     if (this.serverdate == this.appdate) {
 
@@ -1420,7 +1422,7 @@ export class MyappointmentsComponent implements OnInit {
       this.endorse = 1;
     }
     for (let i = 0; this.qwerty2.length; i++) {
-
+      debugger
       var entity = {
         // 'MedicineTypeID': this.qwerty2[i].MedicineTypeID,
         'DoctorID': this.qwerty2[i].DoctorID,
@@ -1452,6 +1454,11 @@ export class MyappointmentsComponent implements OnInit {
             Swal.fire('Completed', 'Prescription saved successfully', 'success');
             this.tablecuont1 = 0;
             this.VisitDoctorAppointmentStatus(this.preappointmentid);
+            debugger
+
+            var smsdesc = "Following your consultation with Dr " + this.user + " added prescription for you"
+
+
             // this.InsertPrscriptionNotifications()
             // this.InsertNotificationPrescription()
             this.GetDoctorPrescrptionTemplates()
@@ -1467,6 +1474,12 @@ export class MyappointmentsComponent implements OnInit {
             Swal.fire('L’ordonnance a bien été sauvegardée');
             this.tablecuont1 = 0;
             this.VisitDoctorAppointmentStatus(this.preappointmentid);
+            debugger
+
+            var smsdesc = "Suite à votre consultation avec le Dr " + this.user + "  votre ordonnance pour vos médicaments est maintant disponible dans Accueil"
+            this.SendTwiliSms(smsdesc, this.smsmobileno)
+            debugger
+            debugger
 
             this.GetDoctorPrescrptionTemplates()
             this.qwerty2 = []
@@ -1484,14 +1497,7 @@ export class MyappointmentsComponent implements OnInit {
     this.InsertPrscriptionNotifications()
     this.InsertNotificationPrescription()
 
-    if (this.languageid == 1) {
-      var smsdesc = "Following your consultation with Dr " + this.user + " added prescription for you"
-    }
-    else {
-      var smsdesc = "Suite à votre consultation avec le Dr " + this.user + "  votre ordonnance pour vos médicaments est maintant disponible dans Accueil"
-    }
 
-    this.SendTwiliSms(smsdesc, this.smsmobileno)
   }
 
   public InsertNotificationPrescription() {
@@ -1644,7 +1650,7 @@ export class MyappointmentsComponent implements OnInit {
   //getearlyprescription
 
 
-  public GetEarlyDiaTest(patientID, appointmentID, appdate, slots, pemail) {
+  public GetEarlyDiaTest(patientID, appointmentID, appdate, slots, pemail, smsmobileno) {
     this.diapatientid = patientID;
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
@@ -1655,6 +1661,7 @@ export class MyappointmentsComponent implements OnInit {
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
     this.slots = slots
+    this.smsmobileno = smsmobileno
     this.GetDiagnpsticDoctorTemplates();
   }
 
@@ -1664,7 +1671,7 @@ export class MyappointmentsComponent implements OnInit {
   testpatientemail: any;
 
 
-  public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail) {
+  public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail, smsmobileno) {
 
     this.diapatientid = patientID;
     this.diaappointmentID = appointmentID;
@@ -1678,6 +1685,7 @@ export class MyappointmentsComponent implements OnInit {
         this.diaappointmentID = appointmentID;
         this.appdate = appdate
         this.slots = slots
+        this.smsmobileno = smsmobileno
 
         this.GetDiagnpsticDoctorTemplates()
       }
@@ -1923,6 +1931,7 @@ export class MyappointmentsComponent implements OnInit {
             this.testssid = 0;
             this.testdisplay = "none";
 
+
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -1932,6 +1941,7 @@ export class MyappointmentsComponent implements OnInit {
           }
           else if (this.languageid == 6) {
             Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
+
             this.qwerty = [];
             this.qwerty.length = 0
             this.VisitDoctorAppointmentStatus(this.diaappointmentID);
@@ -1942,6 +1952,7 @@ export class MyappointmentsComponent implements OnInit {
             this.tsetssslist = 0;
             this.testssid = 0;
             this.testdisplay = "none";
+
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -1952,6 +1963,17 @@ export class MyappointmentsComponent implements OnInit {
 
         }
       })
+    }
+
+    if (this.languageid == 1) {
+      var smsdesc = "Following your consultation with Dr " + this.user + " your prescription for lab tests is now available in homepage."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    else {
+      debugger
+      var smsdesc = "Suite à votre consultation avec le Dr " + this.user + ", votre ordonnance pour vos examens médicaux est maintant disponible dans Accueil."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+
     }
   }
 
@@ -2312,13 +2334,14 @@ export class MyappointmentsComponent implements OnInit {
   pemailsoap: any;
 
 
-  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail) {
+  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno) {
     this.patientid = patientID;
     this.appointmentdatetime = adate;
     this.appointmentid = appointmentID;
     this.appdate = appdate;
     this.pemailsoap = pemail;
     this.slots = slots
+    this.smsmobileno = smsmobileno
 
     this.soapdisplay = "block"
 
@@ -2341,7 +2364,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail) {
+  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno) {
 
     this.patientid = patientID;
     this.appointmentdatetime = adate;
@@ -2349,6 +2372,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate;
     this.pemailsoap = pemail;
     this.slots = slots
+    this.smsmobileno = smsmobileno
     if (this.serverdate == this.appdate) {
       if (this.servertime > this.slots) {
         this.soapdisplay = "block"
@@ -2630,6 +2654,16 @@ export class MyappointmentsComponent implements OnInit {
         // this.insertsoapnotes4();
         this.Insertnotificationsoapnotesazuere()
         this.InsertNotificationSoapnotes()
+
+        if (this.languageid == 1) {
+          var smsdesc = this.user + " has added SOAP notes for you. "
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
+        }
+        else {
+          var smsdesc = this.user + "Votre rapport de consultation est maintenant disponible dans Mon dossier médical."
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
+        }
+
         this.VisitDoctorAppointmentStatus(this.appointmentid);
         if (this.savetemplate == 1) {
           this.InsertDoctorSoapNoteTemplate()
@@ -3009,11 +3043,12 @@ export class MyappointmentsComponent implements OnInit {
   patientlist: any
   docregno: any;
   pEmail: any;
-  public GetSickSlipID(patientID, appid, pEmail) {
+  public GetSickSlipID(patientID, appid, pEmail, smsmobileno) {
 
     this.sickslippatientid = patientID;
     this.appointmentid = appid;
     this.pEmail = pEmail;
+    this.smsmobileno = smsmobileno;
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
       data => {
 
@@ -3122,6 +3157,10 @@ export class MyappointmentsComponent implements OnInit {
 
           this.doctorid = localStorage.getItem('userid');
           this.InsertMedicalAzure()
+
+          var smsdesc = this.user + " has sent you a medical certificate. Please check your home page."
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
+
           this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid, this.languageid, this.doctorid).subscribe(data => {
             this.premedicallist = data;
 
@@ -3175,6 +3214,9 @@ export class MyappointmentsComponent implements OnInit {
 
           this.doctorid = localStorage.getItem('userid');
           this.InsertMedicalAzure()
+
+          var smsdesc = this.user + " vous a envoyé un certificat médical. Veuillez vérifier votre page d'accueil."
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
 
           this.docservice.GetSickSlipGenaratorByPatientIDWeb(this.patientid, this.languageid, this.doctorid).subscribe(data => {
             this.premedicallist = data;
@@ -3317,6 +3359,7 @@ export class MyappointmentsComponent implements OnInit {
 
     this.patientid = details.patientID;
     this.appointmentid = details.appointmentID;
+    this.smsmobileno = details.smsmobileno
     if (this.languageid == 1) {
       const format = 'yyyy-MM-dd';
       const myDate = new Date();
@@ -3544,7 +3587,14 @@ export class MyappointmentsComponent implements OnInit {
         this.docservice.InsertDoctorReferals(entity).subscribe(data => {
           if (data != 0) {
             this.InsertDoctorRefererlas();
-
+            if (this.languageid == 1) {
+              var smsdesc = "Dr" + this.doctorname + " has sent you a referral letter. Please check your home page to make an appointment."
+              this.SendTwiliSms(smsdesc, this.smsmobileno)
+            }
+            else {
+              var smsdesc = "Vous avez été référé au Dr " + this.doctorname + "  Cliquez sur la notification pour prendre rendez-vous. "
+              this.SendTwiliSms(smsdesc, this.smsmobileno)
+            }
             this.SendNotification();
             this.InsertReferalLeterNotification()
             // this.senmailToPatient();
@@ -3591,7 +3641,14 @@ export class MyappointmentsComponent implements OnInit {
         if (data != 0) {
           this.InsertDoctorRefererlas();
           this.InsertReferalLeterNotification()
-
+          if (this.languageid == 1) {
+            var smsdesc = "Dr" + this.doctorname + " has sent you a referral letter. Please check your home page to make an appointment."
+            this.SendTwiliSms(smsdesc, this.smsmobileno)
+          }
+          else {
+            var smsdesc = "Vous avez été référé au Dr " + this.doctorname + "  Cliquez sur la notification pour prendre rendez-vous. "
+            this.SendTwiliSms(smsdesc, this.smsmobileno)
+          }
           this.SendNotification();
 
           // Swal.fire('Success', 'Referral Sent To Doctor Successfully');
@@ -4146,10 +4203,10 @@ export class MyappointmentsComponent implements OnInit {
   public InsertDiagnostictestAndSoap() {
     if (this.attachmentsurl1.length == 0 || (this.attachmentsurl1 == null)) {
       if (this.languageid == 1) {
-        Swal.fire('','Please upload photo')
+        Swal.fire('', 'Please upload photo')
       }
       else if (this.languageid == 6) {
-        Swal.fire('','Veuillez télécharger une photo')
+        Swal.fire('', 'Veuillez télécharger une photo')
       }
     }
     else {
@@ -4489,10 +4546,12 @@ export class MyappointmentsComponent implements OnInit {
   earlypatientemail: any;
   earlyappointmentid: any;
 
-  public GetEarlycallPatientID(patientID, pEmail, id) {
+  public GetEarlycallPatientID(patientID, pEmail, id, smsmobileno) {
+    debugger
     this.earlycallpatientid = patientID,
       this.earlypatientemail = pEmail,
       this.earlyappointmentid = id
+    this.smsmobileno = smsmobileno
 
   }
 
@@ -4523,15 +4582,23 @@ export class MyappointmentsComponent implements OnInit {
         'AppointmentID': this.earlyappointmentid
       }
       this.docservice.InsertNotificationsWebLatest(entity).subscribe(data => {
-
+        debugger
         if (data != 0) {
           this.InsertnotificationForEarlyCall()
           this.docservice.GetBookAppointmentEarlyCallbit(this.earlyappointmentid).subscribe(data => {
             Swal.fire(
               'success', 'Details registered Successfully')
             this.getbookappointmentbydoctorid()
+
+            var smsdesc = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Type : téléconsultation"
+            this.SendTwiliSms(smsdesc, this.smsmobileno)
+
+            debugger
+
           })
         }
+
+
       })
     }
     else if (this.languageid == '6') {
@@ -4551,6 +4618,10 @@ export class MyappointmentsComponent implements OnInit {
           this.docservice.GetBookAppointmentEarlyCallbit(this.earlyappointmentid).subscribe(data => {
             Swal.fire('Succès', 'Détails enregistrés avec succès')
             this.getbookappointmentbydoctorid()
+
+            var smsdesc = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Type : téléconsultation"
+            this.SendTwiliSms(smsdesc, this.smsmobileno)
+
           })
         }
 
@@ -5145,7 +5216,8 @@ export class MyappointmentsComponent implements OnInit {
 
 
   // Re Join the call
-  public GetRejointhecall(appointmentID, pEmail) {
+  public GetRejointhecall(appointmentID, pEmail, smsmobileno) {
+    this.smsmobileno = smsmobileno;
     if (this.languageid == 1) {
       Swal.fire({
         // title: 'Are you sure?',
@@ -5167,6 +5239,8 @@ export class MyappointmentsComponent implements OnInit {
             'Offer for a free call has been sent to patient. ',
             'success'
           )
+          var smsdesc = "The consultation was unsuccessful due to technical reasons. The doctor has activated a free call. Please schedule as call on your homepage."
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
         }
         else {
           this.getbookappointmentbydoctorid()
@@ -5195,6 +5269,8 @@ export class MyappointmentsComponent implements OnInit {
             "Une notification informant le patient a été envoyée",
             'success'
           )
+          var smsdesc = "La consultation n'a pu aboutir. Merci de prendre un nouveau RDV (non payant) pour poursuivre la téléconsultation."
+          this.SendTwiliSms(smsdesc, this.smsmobileno)
         }
         else {
           this.getbookappointmentbydoctorid()
@@ -5300,6 +5376,7 @@ export class MyappointmentsComponent implements OnInit {
       this.patientID = details.primarypatientid,
       this.paidamount = details.paidAmount,
       this.email = details.pEmail
+    this.smsmobileno = details.smsmobileno
 
   }
 
@@ -5318,6 +5395,15 @@ export class MyappointmentsComponent implements OnInit {
       this.updateWalletdetails()
       this.InserWlletlog()
       this.insertWalletnotification()
+      if (this.languageid == 1) {
+        var smsdesc = this.user + " has Refunded amount in your wallet " + this.paidamount + ". Please use Voiladoc for further bookings  "
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
+      }
+      else {
+        var smsdesc = this.user + "a le montant remboursé dans votre portefeuille " + this.paidamount + ". Veuillez utiliser Voiladoc pour d'autres réservations  "
+        this.SendTwiliSms(smsdesc, this.smsmobileno)
+      }
+
 
       if (this.languageid == 1) {
         Swal.fire('Amount Refunded Successfully');

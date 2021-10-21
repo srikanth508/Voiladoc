@@ -1,3 +1,7 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#eb0000" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 <br>
 <div class="container-fluid card card:hover">
   <div class="row headerspace">
@@ -17,13 +21,18 @@
       <div class="col-lg-4">
         <select class="form-control"  (change)="GetTypeID($event)" [(ngModel)]="typeid"
           name="typeid">
+         
           <option value="0">Select</option>
           <option value="1">Patient</option>
-          <option value="2">Provider</option>
+          <option value="2">Doctors</option>
+          <option value="3">Home Care</option>
+          <option value="4">Hospitals / Clinics</option>
+          <option value="5">Pharmacy</option>
+          <option value="6">Lab</option>
         </select>
       </div>
     </div><br>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-2">
         <label class="REGISTRATION NO:">Topic name :</label>
         <span class="required">*</span>
@@ -35,7 +44,7 @@
           <option *ngFor="let topic of topiclist"  value="{{topic.id}}">{{topic.topicName}}</option>
         </select>
       </div>
-    </div><br>
+    </div><br> -->
     <div class="row">
       <div class="col-lg-2">
         <label class="REGISTRATION NO:">Chapter name :</label>
@@ -45,7 +54,7 @@
           [(ngModel)]="chaptername" name="chaptername">
       </div>
     </div><br>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-2">
         <label class="REGISTRATION NO:">Sub Chapter name :</label>
       </div>
@@ -53,10 +62,10 @@
         <input type="text" class="form-control" placeholder="Sub Chapter name" [(ngModel)]="subchapter"
           name="subchapter">
       </div>
-    </div><br>
+    </div><br> -->
     <div class="row">
       <div class="col-lg-2">
-        <label class="REGISTRATION NO:">Description :</label>
+        <label class="REGISTRATION NO:">Steps :</label>
       </div>
       <div class="col-lg-4">
         <!-- <textarea class="form-control" rows="4" [(ngModel)]="description" name="description" placeholder="Description"></textarea> -->
@@ -96,10 +105,10 @@
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
       </div>
-      <div>
+      <div class="col-lg-2">
         <span *ngIf="showvideo!='0'">
           <div class="video">
-            <video controls id="videoPlayer" autoplay style="width: 226px; height: auto;">
+            <video controls id="videoPlayer"  style="width: 226px; height: 170px;">
               <source src="{{showvideo}}" type="video/mp4" style="width: 226px; height: auto;" /> Browser not
               supported
             </video>
@@ -107,9 +116,12 @@
           <!-- <img src="{{showvideo}}" style="height:70px;width:50px">&nbsp; -->
         </span>
       </div>
-      <div class="col-lg-5 specforimg">
+      <div class="col-lg-1">
+
+      </div>
+      <div class="col-lg-3 specforimg">
         <p>
-          Upload Video Less Than 20MB
+          Upload Video Less Than 50MB
         </p>&nbsp;
       </div>
     </div>

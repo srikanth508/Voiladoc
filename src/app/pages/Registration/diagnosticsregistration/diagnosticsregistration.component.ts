@@ -193,7 +193,9 @@ export class DiagnosticsregistrationComponent implements OnInit {
   public gettoampm(even) {
     this.toampm = even.target.value;
   }
-
+  evngtime1: any;
+  evngtime2: any;
+  evngtimings: any;
   public insertdetails() {
 
     // if (this.attachmentsurl.length == 0) {
@@ -214,6 +216,9 @@ export class DiagnosticsregistrationComponent implements OnInit {
 
       this.spinner.show();
       this.timings = this.tone + ' ' + ' TO ' + this.ttwo + ' ';
+
+      this.evngtimings = this.evngtime1 + ' ' + ' TO ' + this.evngtime2 + ' ';
+
       if (this.hspwebsite == undefined) {
 
       }
@@ -248,7 +253,8 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'ContractStartDate': this.contractstartdate,
         'ContractEndDate': this.contractenddate,
         'DiagnosticAppointmentPerSlot': this.diagnosticappointmentperslot,
-        'HomeSampleOrdersPerSlot': this.homesampleordersperslot
+        'HomeSampleOrdersPerSlot': this.homesampleordersperslot,
+        'EveningTimings':this.evngtimings
       }
       this.docservice.InsertDiagnosticCenterRegistration(entity).subscribe(data => {
 

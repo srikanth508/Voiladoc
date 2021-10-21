@@ -112,6 +112,21 @@
             </div><br>
             <div class="row">
               <div class="col-lg-4">
+                <label class="DEPARTMENT_label">Category :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <select class="form-control" (change)="GetCategoryID($event)" required [(ngModel)]="categoryid"
+                  name="categoryid">
+                  <option value="" selected>{{labels[0].select}}</option>
+                  <option value="1">{{labels[0].doctors}}</option>
+                <option value="2">{{labels[0].nonDoctors}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
                 <label>{{labels[0].department}} :</label>
                 <span class="required">*</span>
               </div>

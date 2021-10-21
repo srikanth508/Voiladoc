@@ -49,6 +49,7 @@
             <th>{{labels[0].address}}</th>
             <th>{{labels[0].homeSample}}</th>
             <th>{{labels[0].assignedname}}</th>
+            <th>{{labels[0].paymentType}}</th>
             <th>{{labels[0].paidAmount}}</th>
             <th>{{labels[0].details}}</th>
             <th>{{labels[0].status}}</th>
@@ -79,6 +80,12 @@
             <td>
               {{details.assinedname}}
             </td>
+
+
+            <td>
+              {{details.paymentName}}
+            </td>
+
             <td>
               {{details.paidAmount}}
             </td>
@@ -116,32 +123,33 @@
               <label
                 *ngIf="details.cancelled=='1'||details.rejected=='1'&&details.approved=='0'&&details.acceptedBit=='0'&&details.notVisited=='0'"
                 style="color: red;">{{labels[0].patientCancelled}}</label>
-                <label
-                *ngIf="details.rejected=='1'"
-                style="color: red;">Rejected</label>
+              <label *ngIf="details.rejected=='1'&&details.samplesCollected=='0'" style="color: red;">{{labels[0].labtechrejected}}</label>
 
+              <label *ngIf="details.accepted=='1'&&details.approved=='0'&&details.samplesCollected=='0'&&details.uploadedBit=='0'" style="color: green;">{{labels[0].technitianAccepted}}</label>
+
+
+              <label *ngIf="details.accepted=='1'&&details.approved=='0'&&details.samplesCollected=='1'&&details.uploadedBit=='0'" style="color: green;">{{labels[0].samplesCollected}}</label>
               <label *ngIf="details.approved=='1'&&details.uploadedBit=='0'&&details.rejected=='0'"
                 style="color: yellowgreen;">{{labels[0].visited}}</label>
               <label *ngIf="details.approved=='1'&&details.uploadedBit=='1'&&details.rejected=='0'"
                 style="color: yellowgreen;">{{labels[0].reportdelivered}}</label>
 
-              <label *ngIf="details.notVisited=='1'" style="color: yellowgreen;">{{labels[0].notVisited}}</label>
+              <label *ngIf="details.notVisited=='1'" style="color: rgba(153, 205, 50, 0);">{{labels[0].notVisited}}</label>
 
               <label
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType=='0'&&details.deliverPatnerAssigned=='0'&&details.hideupdate=='1'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].pricesenttopatient}}</label>
 
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType!='3'&&details.rejected=='0'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType=='3'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].codPayment}}</label>
 
-
-                <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType=='3'&&details.rejected=='0'"
+              <label
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.paymentType!='0'&&details.deliverPatnerAssigned=='0'&&details.paymentType!='3'&&details.rejected=='0'"
                 style="color: green;">{{labels[0].readyfordelivery}}</label>
 
               <label
-                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'&&details.rejected=='0'"
+                *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'&&details.rejected=='0'&&details.accepted=='0'"
                 style="color: green;">{{labels[0].assigned}}</label>
             </td>
             <td>
@@ -194,6 +202,15 @@
                 </tr>
                 <tr>
                   <td style="border:none">
+                    <ng-template #tipcontent984>{{labels[0].assign}}</ng-template>
+                    <a [ngbTooltip]="tipcontent984"
+                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'&&details.homeSampleBit=='1'&&details.deliverPatnerAssigned=='0'">
+                      <!-- &&details.deliverPatnerAssigned=='0' -->
+                      <img src="assets/Images/staff.png" data-toggle="modal" data-target="#AssignPatners"
+                        style="height:19px;" (click)="GetAssaignOrderdetails(details)">
+                    </a>
+                  </td>
+                  <td style="border:none">
                     <ng-template #tipcontent8>{{labels[0].uploadreport}}</ng-template>
                     <a [ngbTooltip]="tipcontent8"
                       *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'&&details.uploadedBit=='0'">
@@ -202,14 +219,7 @@
                         (click)="GetUploadReportID(details.id,details.patientID,details.diagnosticCenterID,details.emailID,details.diagnosticCenterName,details.smsmobileno)">
                     </a>
                   </td>
-                  <td style="border:none">
-                    <ng-template #tipcontent984>{{labels[0].assign}}</ng-template>
-                    <a [ngbTooltip]="tipcontent984"
-                      *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.notVisited=='0'&&details.homeSampleBit=='1'&&details.deliverPatnerAssigned=='0'">
-                      <img src="assets/Images/staff.png" data-toggle="modal" data-target="#AssignPatners"
-                        style="height:19px;" (click)="GetAssaignOrderdetails(details)">
-                    </a>
-                  </td>
+                  
                   <td style="border:none">
                     <ng-template #tipcontent9867>{{labels[0].chat}}</ng-template>
                     <span style="color: green;position: absolute;margin-left: 22px;"

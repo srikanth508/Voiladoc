@@ -102,7 +102,7 @@ export class SupportWebComponent implements OnInit {
       error => { }
     );
   }
-
+  // && x.assignMeridional == 0
 
   public GetSupportIssues() {
     this.docservice.GetSupportForWebForSupportLogin(this.languageid, this.startdate, this.enddate).subscribe(res => {
@@ -110,7 +110,7 @@ export class SupportWebComponent implements OnInit {
       this.issuelist = res;
       this.dummissuelist = res;
 
-      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0 && x.assignMeridional == 0)
+      this.issuelist = this.dummissuelist.filter(x => x.resolved == 0)
       this.count = this.issuelist.length;
 
     })
@@ -273,7 +273,7 @@ export class SupportWebComponent implements OnInit {
       if (this.languageid == 1) {
         this.insertazurenotification();
         this.sendmail1()
-        var smsdesc = "Your Support Ticket has been Resolved"
+        var smsdesc = "We have resolved your issue with reference to support ticket no." + this.resolveid + ". Please check your email for details."
         this.SendTwiliSms(smsdesc, this.smsmoibilno)
         Swal.fire('Issue Resolved Successfully')
         this.description = ""
@@ -285,7 +285,7 @@ export class SupportWebComponent implements OnInit {
       else {
         this.insertazurenotification()
         this.sendmail1()
-        var smsdesc = "Your Support Ticket has been Resolved"
+        var smsdesc = "Nous avons résolu votre problème en référence au ticket d'assistance n° " + this.resolveid + ". Veuillez vérifier votre email pour plus de détails."
         this.SendTwiliSms(smsdesc, this.smsmoibilno)
         Swal.fire('Problème résolu et réponse au prestataire.')
         this.description = ""
@@ -312,18 +312,26 @@ export class SupportWebComponent implements OnInit {
   emailattchementurl = []
   cclist: any;
   bcclist: any;
+  emailsubject: any;
 
+  // this.useremail
   public sendmail1() {
-
+    debugger
+    if (this.languageid = 1) {
+      this.emailsubject = "Support ticket no. " + this.resolveid + ",  resolution."
+    }
+    else {
+      this.emailsubject = "Ticket d'assistance n° " + this.resolveid + ", résolution"
+    }
     var entity = {
       'emailto': this.useremail,
-      'emailsubject': "Your Support Ticket Resolved",
-      'emailbody': "Your Support Ticket Resolved",
-      'attachmenturl': this.emailattchementurl,
+      'emailsubject': this.emailsubject,
+      'emailbody': this.description,
+      'attachmenturl': this.issuephotourl,
       'cclist': this.cclist,
       'bcclist': this.bcclist
     }
-
+    debugger
     this.docservice.sendemail(entity).subscribe(data => {
 
       if (this.languageid == 1) {
@@ -383,7 +391,15 @@ export class SupportWebComponent implements OnInit {
       let a = this.identityattachmentsurlssss[0].slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
-      this.showidentityproof.push(b)
+
+      if (this.issuephoto[0].type == 'image/jpeg') {
+
+        this.showidentityproof.push(b)
+      }
+      else if (this.issuephoto[0].type == 'application/pdf') {
+
+        this.showidentityproof.push('assets/Images/pdf.png')
+      }
 
     })
     // this.sendattachment();
@@ -429,8 +445,12 @@ export class SupportWebComponent implements OnInit {
 
   public id: any;
 
-  public assignMeridiobal(id) {
+  public assignMeridiobal(id, useremail, usermobile) {
     this.id = id;
+    this.useremail = useremail
+    this.smsmoibilno = usermobile
+    debugger
+    this.smsmoibilno = "212" + this.smsmoibilno
   }
 
 
@@ -449,11 +469,15 @@ export class SupportWebComponent implements OnInit {
     this.docservice.UpdateSupportForWebMeridionalCommetnts(entity).subscribe(data => {
       let res = data;
       this.insertazurenotification()
-      Swal.fire('Issue Assigned Meridional Successfully')
+      Swal.fire('Issue Assigned Meridional Successfully');
+      this.sendmail1()
+      var smsdesc = "Your Support Ticket has been Resolved"
+      this.SendTwiliSms(smsdesc, this.smsmoibilno)
       this.description = ""
       this.issuephotourl = [];
       this.identityattachmentsurlssss = [];
       this.showidentityproof = [];
+
       this.GetSupportIssues();
     })
   }

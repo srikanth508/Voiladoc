@@ -163,22 +163,30 @@ export class EditDoctorRegistrationComponent implements OnInit {
     this.getcitymaster()
   }
 
-  public getdepartmentmaster() {
 
-    this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
-      data => {
-
-        this.departmentlist = data;
-      }, error => {
-      }
-    )
-  }
   public getdegreemaster() {
 
     this.docservice.GetDegreeMasterBylanguageID(this.languageid).subscribe(
       data => {
 
         this.degreelist = data;
+      }, error => {
+      }
+    )
+  }
+
+
+  public GetCategoryID(even) {
+    this.categoryid = even.target.value;
+    this.getdepartmentmaster()
+  }
+
+  public getdepartmentmaster() {
+
+    this.docservice.GetDepartmentMasterByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.departmentlist = data.filter(x => x.categoryID == this.categoryid);
       }, error => {
       }
     )
@@ -219,12 +227,14 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.hospitalid = this.details.hospitalClinicID,
           this.signatureurl = this.details.signatureURL,
           this.referbit = this.details.referealBit,
+          this.categoryid=this.details.categoryID
 
           this.GetCountryMaster()
         this.getcitymaster();
         this.getareamasterbyid();
         this.getservicemaster()
         this.GetDoctorType()
+        this.getdepartmentmaster()
       }, error => {
       }
     )
@@ -259,9 +269,10 @@ export class EditDoctorRegistrationComponent implements OnInit {
   hospitalid: any;
   signatureurl: any;
   referbit: any;
+  categoryid: any;
 
   public updatedetails() {
-    
+
     var entity = {
       'LanguageID': this.languageid,
       'DoctorID': this.id,
@@ -285,11 +296,12 @@ export class EditDoctorRegistrationComponent implements OnInit {
       'DoctorType': this.doctypeid,
       'HospitalClinicID': this.hospitalid,
       'SignatureURL': this.signatureurl,
-      'ReferealBit': this.referbit
+      'ReferealBit': this.referbit,
+      'CategoryID': this.categoryid
     }
     this.docservice.UpdateDoctorPersonelInfo(entity).subscribe(res => {
       let test = res;
-      
+
       if (this.languageid == 1) {
         this.getdoctordetailsbyid();
         Swal.fire('Updated Successfully');

@@ -5862,5 +5862,55 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertVideoCall_Exceptions';
     return this.http.post(this.url, data)
   }
+  public GetNotificationssss(id) {
 
+    return this.http.get<any[]>(this.host + '/Doctor/GetNotificationssss?DiagnosticID=' + id);
+  }
+
+
+  public UpdateOrderReadyBit(id) {
+    return this.http.get<any[]>(this.host + '/Doctor/UpdateOrderReadyBit?ID=' + id);
+  }
+
+
+
+  public GetNurseServicesByIDWeb(lid, nurseid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetNurseServicesByIDWeb?LanguageID=' + lid + "&NurseID=" + nurseid);
+  }
+
+  public GetPhysioServicesByIDWeb(lid, physioid) {
+    return this.http.get<any[]>(this.host + '/Doctor/GetPhysioServicesByIDWeb?LanguageID=' + lid + "&PhysiotherapyID=" + physioid);
+  }
+  
+  public InsertPhysioServicesMobileWeb(data) {
+    this.url = this.host + '/Doctor/InsertPhysioServicesMobileWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public UpdatePhysioServicesMobileWeb(data) {
+    this.url = this.host + '/Doctor/UpdatePhysioServicesMobileWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public InsertNurseServicesWeb(data) {
+    this.url = this.host + '/Doctor/InsertNurseServicesWeb';
+    return this.http.post(this.url, data)
+  }
+
+
+  public UpdateNurseServicesWeb(data) {
+    this.url = this.host + '/Doctor/UpdateNurseServicesWeb';
+    return this.http.post(this.url, data)
+  }
+
+
+  public GetBookAppointment_NurseServices(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointment_NurseServices?AppointmtntID=' + id);
+  }
+
+  public GetBookAppointment_PhysioServices(id) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointment_PhysioServices?AppointmtntID=' + id);
+  }
 }

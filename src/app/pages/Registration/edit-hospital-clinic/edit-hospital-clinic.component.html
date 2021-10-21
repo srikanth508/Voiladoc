@@ -426,7 +426,8 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Edit Subscriptions</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='1'">Edit Subscriptions</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="languageid=='6'">Éditer</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -579,7 +580,10 @@
       <br>
       <div class="modal-footer">
         <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
-          data-dismiss="modal">Close</button>
+         *ngIf="languageid=='1'" data-dismiss="modal">Close</button>
+
+         <button id="close1" type="button" style="background-color: #f18235; color: white;" class="btn  btn-default"
+         *ngIf="languageid=='6'" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

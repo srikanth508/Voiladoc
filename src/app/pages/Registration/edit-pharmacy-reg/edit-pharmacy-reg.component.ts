@@ -123,7 +123,8 @@ export class EditPharmacyRegComponent implements OnInit {
           this.pincode = this.details.pincode,
           this.countryid = this.details.countryID,
           this.homedelivery = this.details.homeDelivery,
-          this.nightpharmacy = this.details.nightPharmacy
+          this.nightpharmacy = this.details.nightPharmacy,
+          this.eveningtimings=this.details.eveningTimings
         this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid()
@@ -155,6 +156,7 @@ export class EditPharmacyRegComponent implements OnInit {
     )
   }
 
+  eveningtimings:any;
 
   public GetCountryID(even) {
 
@@ -181,7 +183,8 @@ export class EditPharmacyRegComponent implements OnInit {
       'Pincode': this.zipcode,
       'CountryID': this.countryid,
       'NightPharmacy': this.nightpharmacy,
-      'HomeDelivery': this.homedelivery
+      'HomeDelivery': this.homedelivery,
+      'EveningTimings':this.eveningtimings
     }
     this.docservice.UpdatePharmacyProfile(entity).subscribe(res => {
       debugger

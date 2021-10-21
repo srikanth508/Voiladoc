@@ -3,7 +3,7 @@
   <div class="row headerspace">
     <div class="col-lg-10">
       <h5 *ngIf="languageid=='1'">HOME SERVICE REVENUES REPORT </h5>
-      <h5 *ngIf="languageid=='6'">RAPPORT DE REVENUS DES SERVICES À DOMICILE </h5>
+      <h5 *ngIf="languageid=='6'">RAPPORT DE REVENUS </h5>
     </div>
     <div class="col-lg-2">
       <button class="btn btncolor" *ngIf="languageid=='1'" (click)="getglmasterexcel()">
@@ -42,7 +42,7 @@
         <option value="0">Sélectionner type de paiement</option>
         <option value="1">Portefeuille</option>
         <option value="2">Carte de crédit/debit</option>
-        <option value="3">Cash au praticien</option>
+        <option value="3">En espèces</option>
         <!-- <option value="4">Mobile Payment</option> -->
       </select>
     </div>

@@ -106,22 +106,41 @@
                 
                 
                 {{labels[0].partailAvailable}}</label> -->
-
+              <!-- {{labels[0].deliveryCompany}} -->
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='1'">
-                {{labels[0].deliveryCompany}}</label>
-
-              <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='0'">
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.paidStatus=='1'&&details.partialBit=='1'">
                 {{labels[0].readyfordelivery}}</label>
 
               <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='1'&&details.delivered=='0'">
-                Paid</label>
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.partialBit=='0'&&details.orderRedy=='1'">
+                {{labels[0].orderbeingprepared}}</label>
+
 
                 <label style="color:green"
-                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='0'&&details.showUpdate=='1'">
-               {{labels[0].pricesenttopatient}}</label>
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.partialBit=='1'&&details.selfPickUP=='0'">
+                {{labels[0].deliveryCompany}}</label>
+
+
+              <!-- <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='0'">
+                {{labels[0].readyfordelivery}}</label> -->
+
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='0'&&details.paymentTypeID==1||details.paymentTypeID==2&&details.orderRedy=='0'">
+                {{labels[0].creditPayment}}</label>
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.paidStatus=='1'&&details.partialBit=='0'&&details.paymentTypeID==3&&details.orderRedy=='0'">
+                {{labels[0].codPayment}}</label>
+
+              <!-- <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='1'&&details.delivered=='0'">
+                Paid</label> -->
+
+              <label style="color:green"
+                *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='0'&&details.paidStatus=='0'&&details.showUpdate=='1'&&details.orderRedy=='0'&&details.partialBit=='0'">
+                {{labels[0].pricesenttopatient}}</label>
             </td>
             <td>
               <table style="box-shadow:none">
@@ -157,22 +176,31 @@
                   </td>
                 </tr>
                 <tr>
+                  
+                  <td style="border:none">
+                    <ng-template #tipcontent51>{{labels[0].orderready}}</ng-template>
+                    <a [ngbTooltip]="tipcontent51"
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.orderRedy=='0'&&details.paidStatus=='1'">
+                      <img src="assets/Images/ready.png" style="height:30px;"
+                        (click)="OrderReady(details.id,details.patientID,details.pharmacyName,details.date,details.emailID,details.smsmobileno)" />
+                    </a>
+                  </td>
                   <td style="border:none">
                     <ng-template #tipcontent899>{{labels[0].deliveryCompany}}</ng-template>
                     <a [ngbTooltip]="tipcontent899"
-                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.readyfordelivery=='1'&&details.partialBit=='0'&&details.selfPickUP=='0'">
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.partialBit=='0'&&details.selfPickUP=='0'">
                       <img src="assets/Images/readyfordel.png" style="height:20px;"
                         (click)="GetReadyForDelivery(details.id)" /></a>
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent5>{{labels[0].delivered}}</ng-template>
                     <a [ngbTooltip]="tipcontent5"
-                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'">
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='0'">
                       <img src="assets/Images/deli.jpg" style="height:30px;"
                         (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID,details.smsmobileno)" />
                     </a>
                   </td>
-
+                 
                   <td style="border:none">
                     <!-- <span style="float: right;cursor: pointer;color: green;color: aliceblue;
                     margin-left: 0%;">{{details.chatcount}}</span> -->
@@ -182,7 +210,7 @@
                         *ngIf="details.approved=='1'&&details.delivered=='0'">{{details.chatcount}}</span>
                       <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'"
                         data-toggle="modal" data-target="#asssignss" style="margin: 2%;width: 30px;"
-                        (click)="GetPharmacyPatientID(details.patientID,details.patientemail,details.id,details.smsmobileno)" />
+                        (click)="GetPharmacyPatientID(details.primaryPatientID,details.patientemail,details.id,details.smsmobileno)" />
 
                     </a>
                   </td>
@@ -219,10 +247,16 @@
         <form #MedicineForm="ngForm">
           <div id="content">
             <div class="row">
-              <!-- <div class="col-lg-5">
-            </div> -->
-              <div class="col-lg-12">
+              <div class="col-lg-5">
+              </div>
+              <div class="col-lg-6">
                 <!-- <h5 style="color:#1dbfd2">{{labels[0].doctorDetails}}</h5> -->
+                <img src="assets/Images/voilalogo.jpg" style="width: 35%;">
+
+              </div>
+              <div class="col-lg-12">
+                <label style="float: right;">{{labels[0].dateofPrescription}} :
+                  {{prescriptiondate}}</label><br>
               </div>
             </div>
             <br>
@@ -245,7 +279,7 @@
                           <label>{{labels[0].registrationno}} : {{registrationno}}</label><br>
                           <label>{{labels[0].telephoneno}} : {{docmobile}} </label><br>
                           <label>{{labels[0].mailId}} : {{email}} </label><br>
-                          <label>{{labels[0].dateofPrescription}} : {{prescriptiondate}}</label><br>
+
                         </div>
                       </div>
                     </div>
@@ -267,7 +301,9 @@
                           <label> {{labels[0].patientname}} : {{patientname}} </label><br>
                           <label> {{labels[0].telephoneno}} : {{mobilernumber}}</label><br>
                           <label> {{labels[0].address}} : {{address}}</label><br>
-                          <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label>
+                          <label> {{labels[0].dateofbirth}} : {{dateofbirth}}</label><br>
+                          <label> {{labels[0].gender}} : {{gender}}</label><br>
+                          <label> {{labels[0].age}} : {{age}}</label>
                         </div>
                       </div>
                     </div>
@@ -325,8 +361,13 @@
                                 <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
                                 <td style="border: 2px solid black;">{{medicinelist.noteToPharmacist}}</td>
                                 <td style="border: 2px solid black;">
-                                  <input type="text" [(ngModel)]="medicinelist.amount"  required
-                                    name="medicinelist.amount" class="form-control" minlength="2" onkeypress='return(event.charCode>=48&&event.charCode<=57)'  placeholder="Amount">
+                                  <input type="text" [(ngModel)]="medicinelist.amount" required
+                                    name="medicinelist.amount" class="form-control"
+                                    onkeypress='return(event.charCode>=48&&event.charCode<=57)' placeholder="Amount"
+                                    (ngModelChange)="onChange($event)">
+
+
+
                                 </td>
                                 <td style="border: 2px solid black;">
                                   <input type="checkbox" [(ngModel)]="medicinelist.availableBit">
@@ -340,7 +381,6 @@
                     </div>
                   </section>
                 </aside>
-
               </div>
             </div>
             <br>
@@ -349,7 +389,8 @@
               </div>
               <div class="col-lg-4">
                 <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-                  *ngIf="showedit=='0'" data-dismiss="modal" [disabled]="MedicineForm.form.invalid" (click)="Updateavailablemedicines()">
+                  *ngIf="showedit=='0'" data-dismiss="modal" [disabled]="MedicineForm.form.invalid"
+                  (click)="Updateavailablemedicines()">
                   {{labels[0].update}}</button>
               </div>
               <div class="col-lg-4">
@@ -869,7 +910,8 @@
                 style=" border-style:none;" placeholder="  {{labels[0].typeamessage}}" />
             </div>
             <div class="col-lg-4">
-              <button type="submit" class="form-control chat" [disabled]="loginForm.form.invalid" (click)="dosendmsg()">
+              <button type="submit" class="form-control chat" [disabled]="loginForm.form.invalid"
+                (click)="InsertChatDetails()">
                 {{labels[0].send}}
               </button>
             </div>

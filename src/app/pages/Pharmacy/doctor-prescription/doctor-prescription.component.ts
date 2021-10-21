@@ -116,7 +116,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     )
 
 
-   
+
   }
 
 
@@ -174,6 +174,8 @@ export class DoctorPrescriptionComponent implements OnInit {
   public orderedmedicinelist: any;
   public showedit: any;
   smsmobleno: any;
+  gender: any;
+  age: any;
 
   public GetMedicines(id, details) {
     debugger
@@ -201,7 +203,9 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.showedit = this.list[0].showUpdate,
       this.patientemail = this.list[0].patientemail,
 
-      this.email = details.relationemailid
+      this.email = details.relationemailid,
+      this.gender = details.gender,
+      this.age = details.age
 
 
     this.docservice.GetPatientOrderedMedicines(this.listid, this.languageid).subscribe(
@@ -299,7 +303,7 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.InsertAccptNotification();
             this.InsertNotiFicationAccpt();
 
-            var smsdesc = "La " + this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement."
+            var smsdesc = this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement."
             this.SendTwiliSms(smsdesc, smsmobileno)
           })
           Swal.fire(
@@ -377,7 +381,7 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.getpharmacyorders();
             this.InsertNotiFicationcancel();
             this.InsertCancelNotification()
-            var smsdesc = "La " + this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie."
+            var smsdesc = this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie."
             this.SendTwiliSms(smsdesc, smsmobileno)
           })
           Swal.fire(
@@ -503,7 +507,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       var entity = {
         'PatientID': this.accpatientid,
         'Notification': "Commande est confirmée",
-        'Description': "La " + this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement.",
+        'Description': this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement.",
         'NotificationTypeID': 13,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -536,7 +540,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "La " + this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement.",
+        'Description': this.accpharmacyname + " a accepté votre commande de médicaments qui est en cours de traitement.",
         'ToUser': this.accemail,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -589,7 +593,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       var entity = {
         'PatientID': this.canpatientid,
         'Notification': "Commande non confirmé",
-        'Description': "La " + this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
+        'Description': this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
         'NotificationTypeID': 14,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -622,7 +626,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     }
     else if (this.languageid == '6') {
       var entity = {
-        'Description': "La " + this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
+        'Description': this.canpharmacyname + " n'a pas accepté votre commande de médicaments. Merci de sélectionner une autre pharmacie.",
         'ToUser': this.canemailID,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -723,6 +727,10 @@ export class DoctorPrescriptionComponent implements OnInit {
   id: any;
   amounttopay: any;
 
+
+  ValidateAmount() {
+
+  }
 
   public GetFullyOrderDetails(details) {
     this.id = details.id
@@ -1025,6 +1033,8 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.chatID = res[0].chatID;
       this.getPreviousChat();
     })
+
+    this.dosendmsg()
   }
 
   public getserverdateandtime() {
@@ -1042,15 +1052,13 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public dosendmsg() {
     this.getChat();
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       var smsdesc = this.user + " is trying to contact on the chatline. Please open the Voiladoc application to respond."
     }
-    else
-    {
+    else {
       var smsdesc = this.user + " essaie de vous contacter sur la chatline. Veuillez ouvrir l'application Voiladoc pour répondre."
     }
-    
+
     this.SendTwiliSms(smsdesc, this.smsmobleno)
 
   }
@@ -1298,7 +1306,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
     }
     else {
-      var smsdesc = "La " + this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
+      var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
     }
     this.SendTwiliSms(smsdesc, this.smsmobleno);
     this.GetPharmacyOrders()
@@ -1332,6 +1340,97 @@ export class DoctorPrescriptionComponent implements OnInit {
 
     })
   }
+
+  amount: any;
+
+  onChange(newValue) { const validEmailRegEx = /(^0$)|(^[1-9]\d{0,8}$)/; if (validEmailRegEx.test(newValue)) { this.amount = true; } else { this.amount = false; } }
+
+
+
+ 
+
+
+
+  public OrderReady(id, patientID, pharmacyName, date, emailID, smsmobileno) {
+    this.delipatientid = patientID;
+    this.delipharmacyname = pharmacyName;
+    this.deliemail = emailID;
+    this.smsmobleno = smsmobileno;
+    if (this.languageid == 1) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Is the order ready for collection?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateOrderReadyBit(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+
+
+            var smsdesc = " Your medicine is ready for collection at" + this.user
+            this.SendTwiliSms(smsdesc, this.smsmobleno)
+
+          })
+          Swal.fire(
+            'Success!',
+            'Order sent to delivery Delivery.',
+            'success'
+          )
+        }
+        else {
+          this.GetPharmacyOrders();
+          this.getpharmacyorders();
+        }
+      })
+    }
+    else {
+
+      Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: "La commande est-elle prête à être récupérée ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui!',
+        cancelButtonText: 'NON'
+      }).then((result) => {
+        if (result.value) {
+          this.docservice.UpdateOrderReadyBit(id).subscribe(res => {
+            let test = res;
+            this.GetPharmacyOrders();
+            this.getpharmacyorders();
+
+
+            var smsdesc = " Votre commande de médicaments est prête pour votre collecte à " + this.user
+
+
+            this.SendTwiliSms(smsdesc, this.smsmobleno)
+          })
+          Swal.fire(
+            'Succès!',
+            'La commande est prête pour la livraison.',
+            'success'
+          )
+        }
+        else {
+          this.GetPharmacyOrders();
+          this.getpharmacyorders();
+        }
+      })
+
+    }
+
+  }
+
+
+
 }
 
 

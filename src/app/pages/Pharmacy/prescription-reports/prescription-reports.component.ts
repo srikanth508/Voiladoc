@@ -79,7 +79,7 @@ export class PrescriptionReportsComponent implements OnInit {
     minutes = minutes < 10 ? 0 + minutes : minutes;
 
     var kkk = this.SDate.setDate(this.SDate.getDate() - 0);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 10);
 
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
@@ -328,11 +328,10 @@ export class PrescriptionReportsComponent implements OnInit {
     }
     if (even.target.value == 3) {
 
-      let dfsfd = this.dummlist.filter(x => x.cancelled == 1);
+      let dfsfd = this.dummlist.filter(x => x.rejected == 1);
 
       this.reportlist = dfsfd;
       this.count = this.reportlist.length
-
     }
     if (even.target.value == 1) {
       this.GetReports();
