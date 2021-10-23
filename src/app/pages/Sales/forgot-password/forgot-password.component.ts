@@ -57,12 +57,13 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   name: any;
+  smsmobileno: any;
 
 
 
   public login() {
     if (this.roleid == null || this.roleid == undefined || this.roleid == "") {
-      
+
       if (this.languageid == 1) {
         Swal.fire('Error', 'Please select role!');
       }
@@ -74,32 +75,36 @@ export class ForgotPasswordComponent implements OnInit {
       Swal.fire('Error', 'Please Enter Pinno and Email!');
     }
     else {
-      
+
       if (this.roleid == "2") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 1).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
+
                   this.sendmail(1)
                   // location.reload();
                 } else {
@@ -125,29 +130,31 @@ export class ForgotPasswordComponent implements OnInit {
       }
       if (this.roleid == "3") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 8).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.sendmail(8)
                   // location.reload();
                 } else {
@@ -173,29 +180,31 @@ export class ForgotPasswordComponent implements OnInit {
 
       if (this.roleid == "4") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 6).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
-                  this.name = this.result[0].name
+                  this.name = this.result[0].name,
+                    this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.sendmail(6)
                   // location.reload();
                 } else {
@@ -221,29 +230,31 @@ export class ForgotPasswordComponent implements OnInit {
       }
       if (this.roleid == "5") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 5).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.sendmail(5)
                   // location.reload();
                 } else {
@@ -270,29 +281,32 @@ export class ForgotPasswordComponent implements OnInit {
 
       if (this.roleid == "7") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 2).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
+
                   this.sendmail(2)
                   // location.reload();
                 } else {
@@ -318,29 +332,31 @@ export class ForgotPasswordComponent implements OnInit {
 
       if (this.roleid == "8") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 4).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                   var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.sendmail(4)
                   // location.reload();
                 } else {
@@ -367,29 +383,31 @@ export class ForgotPasswordComponent implements OnInit {
 
       if (this.roleid == "9") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 3).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.sendmail(3)
                   // location.reload();
                 } else {
@@ -415,29 +433,31 @@ export class ForgotPasswordComponent implements OnInit {
 
       if (this.roleid == "10") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 7).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.sendmail(7)
                   // location.reload();
                 } else {
@@ -462,29 +482,31 @@ export class ForgotPasswordComponent implements OnInit {
       }
       if (this.roleid == "14") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 9).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
-                  
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
                   this.recpsendmail(1)
                   // location.reload();
                 } else {
@@ -510,30 +532,32 @@ export class ForgotPasswordComponent implements OnInit {
       }
       if (this.roleid == "24") {
         this.spinner.show()
-        
+
         var entity = {
           'username': 'HelloDoc@gmail.com',
           'Password': 'HelloDoc',
           'RoleID': 1
         }
         this.docservice.Authenicate(entity).subscribe(data => {
-          
+
           if (data['requestMessage'] != undefined || null) {
-            
+
             localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
-            
+
             this.docservice.GetAllProvidersByPinAndUname(this.pinno, this.uname, 10).subscribe(
               data => {
-                
+
                 this.result = data;
-                
+
                 if (this.result.length != '0') {
                   this.id = this.result[0].id,
                     this.emailid = this.result[0].emailID
                   this.name = this.result[0].name
+                  this.smsmobileno = this.result[0].smsmobileno
                   this.password = Math.random().toString(36).slice(-8);
+                  var smsdesc = "Your New Password is : " + this.password
+                  this.SendTwiliSms(smsdesc)
 
-                  
                   this.recpsendmail(2)
                   // location.reload();
                 } else {
@@ -562,14 +586,14 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   public updatepssword(typeid) {
-    
+
     var entity = {
       'ID': this.id,
       'Password': this.password,
       'TypeID': typeid
     }
     this.docservice.UpdateForgotPsswords(entity).subscribe(data => {
-      
+
       if (this.languageid == 1) {
         Swal.fire('Success', 'Password Reset Successfully');
         location.href = '#/login';
@@ -590,7 +614,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   public sendmail(typeid) {
-    
+
     if (this.languageid == 1) {
       var entity = {
         'emailto': this.emailid,
@@ -601,9 +625,9 @@ export class ForgotPasswordComponent implements OnInit {
         'bcclist': 0
       }
       this.docservice.sendemail(entity).subscribe(data => {
-        
+
         if (data == 'Success') {
-          
+
           this.updatepssword(typeid)
         }
         else {
@@ -622,9 +646,9 @@ export class ForgotPasswordComponent implements OnInit {
         'bcclist': 0
       }
       this.docservice.sendemail(entity).subscribe(data => {
-        
+
         if (data == 'Success') {
-          
+
           this.updatepssword(typeid)
         }
         else {
@@ -652,9 +676,9 @@ export class ForgotPasswordComponent implements OnInit {
         'bcclist': 0
       }
       this.docservice.sendemail(entity).subscribe(data => {
-        
+
         if (data == 'Success') {
-          
+
           this.updatepssword(typeid)
         }
         else {
@@ -673,9 +697,9 @@ export class ForgotPasswordComponent implements OnInit {
         'bcclist': 0
       }
       this.docservice.sendemail(entity).subscribe(data => {
-        
+
         if (data == 'Success') {
-          
+
           this.updatepssword(typeid)
         }
         else {
@@ -689,16 +713,23 @@ export class ForgotPasswordComponent implements OnInit {
 
 
 
+  public SendTwiliSms(smsdesc) {
+    debugger
+    this.docservice.SendTwillioSMS(this.smsmobileno, smsdesc).subscribe(data => {
+
+    })
+  }
+
 
   public updaterecppwd(typeid) {
-    
+
     var entity = {
       'ID': this.id,
       'Password': this.password,
       'TypeID': typeid
     }
     this.docservice.UpdateRecpPsswords(entity).subscribe(data => {
-      
+
       if (this.languageid == 1) {
         Swal.fire('Success', 'Password Reset Successfully');
         location.href = '#/login';

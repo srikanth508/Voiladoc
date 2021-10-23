@@ -19,13 +19,13 @@ export class NurseServicesComponent implements OnInit {
   dummnurselist: any;
   nurselist: any;
   physiolist: any;
-  term:any;
-  user:any;
-  dummid:any;
+  term: any;
+  user: any;
+  dummid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.physioid = localStorage.getItem('nurseid');
-    this.dummid=localStorage.getItem('nurseid');
+    this.dummid = localStorage.getItem('nurseid');
     this.user = localStorage.getItem('user');
     this.activatedroute.params.subscribe(params => {
 
@@ -42,14 +42,28 @@ export class NurseServicesComponent implements OnInit {
       }
     }
     )
-
+    this.getlanguage1()
     this.getlanguage();
+   
 
     this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
       data => {
 
         this.nurselist = data;
-       
+
+      }, error => {
+      }
+    )
+  }
+
+  labels1: any;
+
+  public getlanguage1() {
+    debugger
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
       }, error => {
       }
     )
@@ -70,7 +84,7 @@ export class NurseServicesComponent implements OnInit {
     this.physioid = even.target.value;
   }
 
- 
+
 
   public GetPhysioServices() {
     debugger
@@ -164,5 +178,5 @@ export class NurseServicesComponent implements OnInit {
 
   }
 
-  
+
 }

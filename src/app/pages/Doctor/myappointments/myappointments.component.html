@@ -285,7 +285,7 @@
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='2'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
-                        (click)="GetEarlySoap(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
+                        (click)="GetEarlySoap(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno,details.categoryID)" />
                     </a>
 
                     <!-- normal soap -->
@@ -294,7 +294,7 @@
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
-                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
+                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno,details.categoryID)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -2184,8 +2184,9 @@
                   <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
                 </span>
                 <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session* </span>
-                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul type de document à la fois*
-                   </span>
+                <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul type de document à
+                  la fois*
+                </span>
               </div>
               <div>
               </div>
@@ -3941,6 +3942,7 @@
               </div>
             </div>
             <br>
+            <div *ngIf="categoryid=='1'">
             <div class="row">
               <div class="col-lg-3">
                 <label>
@@ -3957,41 +3959,43 @@
               </div>
             </div>
             <br>
-            <div class="row" *ngIf="showsearchsoap=='1'">
-              <!-- <div class="col-lg-1">
+           
+              <div class="row" *ngIf="showsearchsoap=='1'">
+                <!-- <div class="col-lg-1">
               </div> -->
-              <div class="col-lg-12" style="overflow-y:auto;height:300px">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{{labels[0].diagnposticCode}}</th>
-                      <th>Actions</th>
-                    </tr>
-                    <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
-                      <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
-                        {{code.description}}</td>
-                      <td>
-                        <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
-                      </td>
-                    </tr>
-                  </thead>
-                </table>
+                <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>{{labels[0].diagnposticCode}}</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr *ngFor="let code of icdcodelist|filter:icddesc| slice:0:100; let i=index">
+                        <td (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                          {{code.description}}</td>
+                        <td>
+                          <input type="checkbox" (click)="GetIcrCodeID(code.id,code.description,code.icdCode)">
+                        </td>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <br>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <label>
+                    <b>{{labels[0].diagnosticDescription}}</b> :</label>
+                </div>
+                <div class="col-lg-7">
+                  <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
+                    name="icdcode" [(ngModel)]="icdcode"></textarea> -->
+                  <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
+                    placeholder="{{labels[0].diagnosticDescription}}" name="icdcode" [(ngModel)]="icdcode">
+                </div>
               </div>
               <br>
             </div>
-            <div class="row">
-              <div class="col-lg-3">
-                <label>
-                  <b>{{labels[0].diagnosticDescription}}</b> :</label>
-              </div>
-              <div class="col-lg-7">
-                <!-- <textarea rows="4" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="ICD Code"
-                    name="icdcode" [(ngModel)]="icdcode"></textarea> -->
-                <input type="text" class="form-control" disabled [ngModelOptions]="{standalone: true}"
-                  placeholder="{{labels[0].diagnosticDescription}}" name="icdcode" [(ngModel)]="icdcode">
-              </div>
-            </div>
-            <br>
             <div class="row">
               <div class="col-lg-3">
                 <label>

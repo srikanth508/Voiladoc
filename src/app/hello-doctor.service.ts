@@ -5913,4 +5913,42 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointment_PhysioServices?AppointmtntID=' + id);
   }
+
+
+
+    public DisableNurseService(lid) {
+
+    return this.http.get<any[]>(this.host + '/PatientRegistration/DisableNurseService?ID=' + lid);
+  }
+
+  public EnableNurseService(lid) {
+
+    return this.http.get<any[]>(this.host + '/PatientRegistration/EnableNurseService?ID=' + lid);
+  }
+
+  public EnableMidWifeService(lid) {
+
+    return this.http.get<any[]>(this.host + '/PatientRegistration/EnableMidWifeService?ID=' + lid);
+  }
+
+  public DisableMidWifeService(lid) {
+
+    return this.http.get<any[]>(this.host + '/PatientRegistration/DisableMidWifeService?ID=' + lid);
+  }
+
+
+  
+  public UpdateMidWifeServicesWeb(data) {
+    this.url = this.host + '/Doctor/UpdateMidWifeServicesWeb';
+    return this.http.post(this.url, data)
+  }
+
+  public GetMidWifeServicesWeb(MidWifeID,lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetMidWifeServicesWeb?MidWifeID=' + lid+'&LanguageID='+lid);
+  }
+  public InsertMidWifeServicesWeb(data) {
+    this.url = this.host + '/Doctor/InsertMidWifeServicesWeb';
+    return this.http.post(this.url, data)
+  }
 }

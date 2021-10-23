@@ -2334,14 +2334,15 @@ export class MyappointmentsComponent implements OnInit {
   pemailsoap: any;
 
 
-  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno) {
+  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno,categoryid) {
     this.patientid = patientID;
     this.appointmentdatetime = adate;
     this.appointmentid = appointmentID;
     this.appdate = appdate;
     this.pemailsoap = pemail;
     this.slots = slots
-    this.smsmobileno = smsmobileno
+    this.smsmobileno = smsmobileno;
+    this.categoryid=categoryid;
 
     this.soapdisplay = "block"
 
@@ -2362,9 +2363,9 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
+  categoryid:any;
 
-
-  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno) {
+  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno,categoryid) {
 
     this.patientid = patientID;
     this.appointmentdatetime = adate;
@@ -2372,6 +2373,7 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate;
     this.pemailsoap = pemail;
     this.slots = slots
+    this.categoryid=categoryid;
     this.smsmobileno = smsmobileno
     if (this.serverdate == this.appdate) {
       if (this.servertime > this.slots) {

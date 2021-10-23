@@ -1,0 +1,62 @@
+<br>
+<div class="container-fluid card card:hover">
+  <br>
+  <div class="row ">
+    <div class="col-lg-3">
+      <h5>{{labels1[0].services}}</h5>
+    </div>
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-4">
+      <button type="button" routerLink="/Midwifeservices"
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels1[0].addservice}}</button>
+    </div>
+  </div>
+  <br>
+</div><br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th *ngIf="dummid=='undefined'">{{labels1[0].nurseName}} </th>
+            <th>{{labels1[0].servicename}} </th>
+            <!-- <th>Description </th> -->
+            <th>{{labels1[0].charges}} </th>
+            <th>{{labels[0].actions}}</th>
+            <!-- <th>{{labels[0].description}}</th> -->
+          </tr>
+          <tr *ngFor="let list of nurseServicesList|filter:term">
+            <td *ngIf="dummid=='undefined'">{{list.name}}</td>
+            <td>{{list.serviceName}}</td>
+            <!-- <td>{{list.serviceDescription }}</td> -->
+            <td>{{list.serviceCharges}}</td>
+            <td>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
+              <a [ngbTooltip]="tipcontent1" [routerLink]="['/Midwifeservices',list.id]" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 20px">
+              </a>
+              <ng-template #tipcontent2>{{labels1[0].disable}}</ng-template>
+              <a [ngbTooltip]="tipcontent3">
+                  <img src="assets/Images/active.png" *ngIf="list.hidden=='0'" style="width: 25px;margin-left: 10px;" (click)="Delete(list.id)">
+              </a>&nbsp;
+
+              <ng-template #tipcontent2>{{labels1[0].enable}}</ng-template>
+              <a [ngbTooltip]="tipcontent3">
+                  <img src="assets/Images/dactive.png" *ngIf="list.hidden=='1'" style="width: 25px;margin-left: 10px;" (click)="Enable(list.id)">
+              </a>&nbsp;
+
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div><br><br>
+  </div><br><br>
+  <br>
+</div><br><br><br><br>

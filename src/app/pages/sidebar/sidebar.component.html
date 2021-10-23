@@ -790,13 +790,13 @@
                 <img src="assets/Images/dt.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].homeDeliveryCharges}}
             </a>
-            
+
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiagnosticTestDash">
                 <img src="assets/Images/dt.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticTest}}
             </a>
 
 
-          
+
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiagnosticPackageDash">
                 <img src="assets/Images/diapack.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticpackage}}
             </a>
@@ -1003,13 +1003,13 @@
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].quickGuide}}
             </a>
-            
+
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='7'" routerLink="/NurseServicesDash">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 Services
             </a>
-            
-         
+
+
             <!-- PHYSIOTHERAPIST -->
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='8'" routerLink="/PhysioAdminDash">
@@ -1132,6 +1132,13 @@
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].quickGuide}}
             </a>
+
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='9'" routerLink="/MidwifeservicesDash">
+                <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
+                Services
+            </a>
+
 
             <!-- DELIVERY -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='10'" routerLink="/PharmacyOrders">
@@ -1353,7 +1360,8 @@
                         *ngIf="nurseworking=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;Planning
                     </a>
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/NurseServicesDash" *ngIf="nursefees=='1'">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/NurseServicesDash"
+                        *ngIf="nursefees=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].nurseFees}}
                     </a>
                     <a class="tablinks" (click)="highlight($event)" *ngIf="nurseagenda=='1'"
@@ -1371,7 +1379,8 @@
                         &nbsp;Planning
                         <!-- {{labels[0].physiotherapist}} -->
                     </a>
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash" *ngIf="physiofees=='1'">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash"
+                        *ngIf="physiofees=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
                         {{labels[0].physitherapistFees}}
                     </a>
