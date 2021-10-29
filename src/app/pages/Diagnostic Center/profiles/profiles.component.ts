@@ -91,7 +91,8 @@ export class ProfilesComponent implements OnInit {
           this.pincode = this.details.pincode,
           this.diagnosticappointmentperslot = this.details.diagnosticAppointmentPerSlot,
           this.homesampleordersperslot = this.details.homeSampleOrdersPerSlot,
-          this.evngtimings=this.details.eveningTimings
+          this.evngtimings = this.details.eveningTimings,
+          this.homesample = this.details.homeSample,
           this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid();
@@ -140,6 +141,7 @@ export class ProfilesComponent implements OnInit {
     )
   }
   evngtimings: any;
+  homesample: any;
   public GetcityID(even) {
 
     this.cityid = even.target.value;
@@ -167,7 +169,9 @@ export class ProfilesComponent implements OnInit {
       'CountryID': this.countryid,
       'DiagnosticAppointmentPerSlot': this.diagnosticappointmentperslot,
       'HomeSampleOrdersPerSlot': this.homesampleordersperslot,
+      'HomeSample': this.homesample,
       'EveningTimings': this.evngtimings
+
     }
     this.docservice.UpdateDiagnosticCenterProfile(entity).subscribe(res => {
       let test = res;

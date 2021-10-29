@@ -66,18 +66,18 @@
           </div>
         </div>
         <br>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].licenceValidTill}} :</label>
             <span class="required">*</span>
           </div>
           <div class="col-lg-6">
-            <!-- <input type="text" required [(ngModel)]="licensevalidtill" name="licensevalidtill" class="form-control"> -->
+          
             <input type="datetime-local" required [(ngModel)]="licensevalidtill" name="licensevalidtill"
               class="form-control">
           </div>
         </div>
-        <br>
+        <br> -->
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].email}} :</label>
@@ -156,6 +156,17 @@
           <div class="col-lg-6">
             <input type="text" [(ngModel)]="website" name="website" class="form-control"
               onkeypress='return(event.charCode>=65&&event.charCode<=90)||(event.charCode>=97&&event.charCode<=122)||event.charCode==32||event.charCode==46'>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].homeSamplePicUp}} </label>
+          </div>
+          <div class="col-lg-6">
+            <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="true"> {{labels[0].yes}} &nbsp;
+            <input type="radio" name="homesample" [(ngModel)]="homesample" [value]="false">{{labels[0].no}}
           </div>
         </div>
         <br>

@@ -40,7 +40,7 @@
           </div>
         </div>
         <br>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].licenseValidTill}} : </label>
 
@@ -49,7 +49,7 @@
             <input type="datetime-local" class="form-control" [(ngModel)]="licensevalidtill" name="licensevalidtill" disabled>
           </div>
         </div>
-        <br>
+        <br> -->
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].phoneNo}} : </label>
@@ -139,6 +139,30 @@
           </div>
         </div>
         <br>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].homeDelivery}} :</label>
+    
+          </div>
+          <div class="col-lg-6">
+            <input type="radio" name="homedelivery" [(ngModel)]="homedelivery" [value]="true">{{labels[0].yes}} &nbsp;
+            <input type="radio" name="homedelivery" [(ngModel)]="homedelivery" [value]="false">{{labels[0].no}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>{{labels[0].nightPharmacy}} :</label>
+    
+          </div>
+          <div class="col-lg-6">
+            <input type="radio" name="nightpharmacy" [(ngModel)]="nightpharmacy" [value]="true">{{labels[0].yes}} &nbsp;
+            <input type="radio" name="nightpharmacy" [(ngModel)]="nightpharmacy" [value]="false">{{labels[0].no}}
+          </div>
+        </div>
+        <br>
+
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].timing}} : </label>

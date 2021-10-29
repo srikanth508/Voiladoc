@@ -87,6 +87,9 @@ export class PharmacyprofileComponent implements OnInit {
     this.cityid = even.target.value;
     this.getareamasterbyid()
   }
+  homedelivery: any;
+  nightpharmacy: any;
+
   public getpharmacydetailsforadmin() {
     this.docservice.GetPhamacyDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
       data => {
@@ -109,8 +112,10 @@ export class PharmacyprofileComponent implements OnInit {
           this.areaid = this.details.areaID,
           this.pincode = this.details.pincode,
           this.countryid = this.details.countryID,
-          this.eveningtimings=this.details.eveningTimings
-        this.GetCountryMaster();
+          this.eveningtimings = this.details.eveningTimings,
+          this.homedelivery = this.details.homeDelivery,
+          this.nightpharmacy = this.details.nightPharmacy,
+          this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid()
       }, error => {
@@ -130,7 +135,7 @@ export class PharmacyprofileComponent implements OnInit {
       }
     )
   }
-  eveningtimings:any;
+  eveningtimings: any;
 
 
   public GetCountryID(even) {
@@ -157,7 +162,9 @@ export class PharmacyprofileComponent implements OnInit {
       'AreaID': this.areaid,
       'Pincode': this.pincode,
       'CountryID': this.countryid,
-      'EveningTimings':this.eveningtimings
+      'NightPharmacy': this.nightpharmacy,
+      'HomeDelivery': this.homedelivery,
+      'EveningTimings': this.eveningtimings
     }
     this.docservice.UpdatePharmacyProfile(entity).subscribe(res => {
       let test = res;
@@ -188,7 +195,7 @@ export class PharmacyprofileComponent implements OnInit {
     this.photoid = id;
     this.pffbit = 1
   }
-  public dummattachmenturl=[];
+  public dummattachmenturl = [];
 
   public onattachmentUpload(abcd) {
     this.dummattachmenturl = []
