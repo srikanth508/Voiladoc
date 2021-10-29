@@ -162,7 +162,7 @@ export class ForgotPasswordComponent implements OnInit {
                     Swal.fire('Error', 'Email or Pinno is not valid!');
                     this.uname = "";
                     this.pinno = "";
-                    this.spinner.hide()
+                    this.spinner.hide();
                   }
                   else if (this.languageid == 6) {
                     Swal.fire('Erreur', "Adresse e-mail ou code pin incorrecte. Veuillez réessayer.");

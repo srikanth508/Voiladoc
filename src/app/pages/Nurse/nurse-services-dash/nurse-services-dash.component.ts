@@ -14,12 +14,21 @@ export class NurseServicesDashComponent implements OnInit {
   nurseServicesList: any;
   term: any;
   nurseid: any;
-  labels1:any;
-  dummid:any;
+  labels1: any;
+  dummid: any;
+  showdropdown: any;
+  hospitalclinicid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.nurseid = localStorage.getItem('nurseid');
-    this.dummid = localStorage.getItem('nurseid');
+    this.hospitalclinicid = localStorage.getItem('hospitalid');
+
+    if (this.nurseid == undefined) {
+      this.showdropdown = 1;
+    }
+    else {
+      this.showdropdown = 0;
+    }
     this.getlanguage();
     this.getlanguage1()
     this.GetNurseServices()
@@ -50,16 +59,7 @@ export class NurseServicesDashComponent implements OnInit {
 
 
   public GetNurseServices() {
-    if (this.nurseid == undefined) {
-      this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
-        data => {
-
-          this.nurseServicesList = data;
-        }, error => {
-        }
-      )
-    }
-    else {
+    if (this.nurseid != undefined) {
       this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
         data => {
 
@@ -67,6 +67,27 @@ export class NurseServicesDashComponent implements OnInit {
         }, error => {
         }
       )
+    }
+    if (this.hospitalclinicid != undefined) {
+
+      this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
+        data => {
+
+          this.nurseServicesList = data.filter(x => x.hospitalClinicID == this.hospitalclinicid);
+        }, error => {
+        }
+      )
+    }
+    else {
+
+      this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
+        data => {
+
+          this.nurseServicesList = data;
+        }, error => {
+        }
+      )
+
     }
 
   }
@@ -105,7 +126,7 @@ export class NurseServicesDashComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
-         text: "Activer",
+        text: "Activer",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -165,7 +186,7 @@ export class NurseServicesDashComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
-         text: "Désactiver",
+        text: "Désactiver",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

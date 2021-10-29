@@ -9,7 +9,8 @@
     </div>
     <div class="col-lg-4">
       <button type="button" routerLink="/NurseServices"
-        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels1[0].addservice}}</button>
+        style="float: right;background-color:  #f18235;width: 49%;color: white;"
+        class="btn btncolor">{{labels1[0].addservice}}</button>
     </div>
   </div>
   <br>
@@ -25,7 +26,7 @@
       <table>
         <thead>
           <tr>
-            <th *ngIf="dummid=='undefined'">{{labels1[0].nurseName}} </th>
+            <th *ngIf="showdropdown=='1'">{{labels1[0].nurseName}} </th>
             <th>{{labels1[0].servicename}} </th>
             <!-- <th>Description </th> -->
             <th>{{labels1[0].charges}} </th>
@@ -33,7 +34,7 @@
             <!-- <th>{{labels[0].description}}</th> -->
           </tr>
           <tr *ngFor="let list of nurseServicesList|filter:term">
-            <td *ngIf="dummid=='undefined'">{{list.nurseName}}</td>
+            <td *ngIf="showdropdown=='1'">{{list.nurseName}}</td>
             <td>{{list.serviceName}}</td>
             <!-- <td>{{list.serviceDescription }}</td> -->
             <td>{{list.serviceCharges}}</td>
@@ -44,12 +45,14 @@
               </a>
               <ng-template #tipcontent2>{{labels1[0].disable}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
-                  <img src="assets/Images/active.png" *ngIf="list.hidden=='0'" style="width: 25px;margin-left: 10px;" (click)="Delete(list.id)">
+                <img src="assets/Images/active.png" *ngIf="list.hidden=='0'" style="width: 25px;margin-left: 10px;"
+                  (click)="Delete(list.id)">
               </a>&nbsp;
 
               <ng-template #tipcontent2>{{labels1[0].enable}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
-                  <img src="assets/Images/dactive.png" *ngIf="list.hidden=='1'" style="width: 25px;margin-left: 10px;" (click)="Enable(list.id)">
+                <img src="assets/Images/dactive.png" *ngIf="list.hidden=='1'" style="width: 25px;margin-left: 10px;"
+                  (click)="Enable(list.id)">
               </a>&nbsp;
 
             </td>

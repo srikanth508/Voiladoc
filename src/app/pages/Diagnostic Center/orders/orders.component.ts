@@ -283,6 +283,7 @@ export class OrdersComponent implements OnInit {
   public SendTwiliSms(smsmobileno, smsdesc) {
     debugger
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
+      console.log(data);
 
     })
   }
@@ -979,11 +980,14 @@ export class OrdersComponent implements OnInit {
         this.getdiagnosticAppointment()
       }
       else if (this.languageid == 6) {
+        debugger
         Swal.fire('', 'Commande assignée');
-        var smsdesc = "Un nouveau rendez-vous a été attribué avec " + this.patientname + ", " + this.address + " à " + this.slottime + this.appdate + " . Veuillez ouvrir votre application et vérifier les détails."
+        var smsdesc = "Un nouveau rendez-vous a été attribué avec " + this.patientname + ", " + this.address + " à " + this.slottime + " , " + this.appdate + " . Veuillez ouvrir votre application et vérifier les détails."
         var smsdesc1 = this.user + " a attribué le technicien de laboratoire " + list.name + " d'arriver à votre domicile pour prélever votre échantillon. Veuillez attendre d'autres mises à jour."
+        debugger
         this.SendTwiliSms(list.smsmobileno, smsdesc)
         this.SendTwiliSms(this.patientsmsmoblile, smsdesc1)
+        debugger
         this.docservice.GetMyTeamAssainOrders(this.diagnosticid).subscribe(data => {
           this.homesamplelist = data;
         })
@@ -1013,12 +1017,12 @@ export class OrdersComponent implements OnInit {
       })
     }
     if (this.languageid == 1) {
-      var smsdesc = "The lab responded with price for the test. Please accept or decline."
+      var smsdesc = "The lab has responded with price. Please open the Voiladoc app to view and confirm."
       this.SendTwiliSms(this.smsmobileno, smsdesc,)
       this.notiazure();
     }
     else {
-      var smsdesc = "Le laboratoire a répondu avec des prix. Veuillez accepter ou refuser."
+      var smsdesc = "-	Le laboratoire a répondu avec des prix. Veuillez ouvrir l'application Voiladoc pour voir et confirmer."
       this.SendTwiliSms(this.smsmobileno, smsdesc)
       this.notiazure()
     }
@@ -1027,7 +1031,7 @@ export class OrdersComponent implements OnInit {
 
   public notiazure() {
     var entity = {
-      'Description': "Le laboratoire a répondu avec des prix. Veuillez accepter ou refuser.",
+      'Description': "Le laboratoire a répondu avec des prix. Veuillez ouvrir l'application Voiladoc pour voir et confirmer.",
       'ToUser': this.email,
     }
     this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -1250,13 +1254,13 @@ export class OrdersComponent implements OnInit {
       this.InsertNotiFicationAccpt()
       if (this.languageid == 1) {
         Swal.fire('Accepted', 'Order has been Accepted.');
-        var smsdesc = "Your appointment with " + this.acceptcenter + " on " + this.accslot + "  has been confirmed and is being processed. You will receive an update soon."
+        var smsdesc = "The lab has responded with price. Please open the Voiladoc app to view and confirm."
         this.SendTwiliSms(this.smsmobileno, smsdesc)
 
       }
       else {
         Swal.fire('Enregistré !.', 'Commande acceptée')
-        var smsdesc = "Votre RDV avec " + this.acceptcenter + " le " + this.accslot + "  a été confirmé et est en cours de traitement. Vous recevrez bientôt une mise à jour."
+        var smsdesc = "Le laboratoire a répondu avec des prix. Veuillez ouvrir l'application Voiladoc pour voir et confirmer."
         this.SendTwiliSms(this.smsmobileno, smsdesc)
       }
     })

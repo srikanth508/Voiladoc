@@ -22,10 +22,18 @@ export class NurseServicesComponent implements OnInit {
   term: any;
   user: any;
   dummid: any;
+  showdropdown: any;
+  hospitalclinicid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.physioid = localStorage.getItem('nurseid');
-    this.dummid = localStorage.getItem('nurseid');
+    this.hospitalclinicid = localStorage.getItem('hospitalid');
+    if (this.physioid == undefined) {
+      this.showdropdown = 1;
+    }
+    else {
+      this.showdropdown = 0;
+    }
     this.user = localStorage.getItem('user');
     this.activatedroute.params.subscribe(params => {
 
@@ -44,16 +52,28 @@ export class NurseServicesComponent implements OnInit {
     )
     this.getlanguage1()
     this.getlanguage();
-   
 
-    this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
-      data => {
+    if (this.hospitalclinicid != undefined) {
+      this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
+        data => {
 
-        this.nurselist = data;
+          this.nurselist = data.filter(x => x.hospitalClinicID == this.hospitalclinicid)
 
-      }, error => {
-      }
-    )
+        }, error => {
+        }
+      )
+    }
+    else {
+      this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
+        data => {
+
+          this.nurselist = data;
+
+        }, error => {
+        }
+      )
+    }
+
   }
 
   labels1: any;
@@ -121,6 +141,9 @@ export class NurseServicesComponent implements OnInit {
     this.qwerty.push(entity);
     this.idcount = this.idcount + 1;
     this.tablecount = 1;
+    this.servicename="";
+    this.description="";
+    this.charges="";
   }
 
 

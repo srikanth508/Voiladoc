@@ -150,7 +150,7 @@
 
               <label
                 *ngIf="details.acceptedBit=='1'&&details.cancelled=='0'&&details.diagnosticCancelled=='0'&&details.approved=='0'&&details.notVisited=='0'&&details.deliverPatnerAssigned=='1'&&details.rejected=='0'&&details.accepted=='0'"
-                style="color: green;">{{labels[0].assigned}}</label>
+                style="color: green;">({{labels[0].assigned}}{{details.assinedname}})</label>
             </td>
             <td>
               <table style="box-shadow:none">

@@ -15,15 +15,15 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <div *ngIf="dummid=='undefined'">
-          <select class="form-control" (change)="GetPhysioID($event)" [(ngModel)]="physioid" name="physioid">
-            <option value="">{{labels1[0].select}}</option>
-            <option *ngFor="let phsio of nurselist" value="{{phsio.id}}">{{phsio.nurseName}}</option>
+        <div *ngIf="showDropdown=='1'">
+          <select class="form-control" (change)="GetPhysioID($event)" [(ngModel)]="midWifeID" name="midWifeID">
+            <option value="0">{{labels1[0].select}}</option>
+            <option *ngFor="let phsio of nurselist" value="{{phsio.id}}">{{phsio.name}}</option>
 
           </select>
         </div>
 
-        <div *ngIf="dummid!='undefined'">
+        <div *ngIf="showDropdown=='0'">
           <input type="text" disabled class="form-control" [(ngModel)]="user" name="user">
         </div>
 

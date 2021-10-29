@@ -979,5 +979,20 @@ export class MidwifeAppointmentsComponent implements OnInit {
     }
   
 
+    Services:any;
+
+    getNurseServices(Appointmentid) {
+      debugger
+      this.docservice.GetBookAppointment_MidwifeServices(Appointmentid).subscribe(
+        data => {
+          debugger
+          this.Services = data;
+        }, error => {
+        }
+      )
+    }
+
+    
+
 
 }

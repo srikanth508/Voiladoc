@@ -14,12 +14,21 @@ export class MidwifeservicesdashComponent implements OnInit {
   nurseServicesList: any;
   term: any;
   midwifeid: any;
-  labels1:any;
-  dummid:any;
+  labels1: any;
+  dummid: any;
+  showDropdown: any;
+  hospitalclinicid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.midwifeid = localStorage.getItem('midwifeid');
-    this.dummid = localStorage.getItem('midwifeid');
+    this.hospitalclinicid = localStorage.getItem('hospitalid');
+    if (this.midwifeid == undefined) {
+      this.showDropdown = 1;
+    }
+    else {
+      this.showDropdown = 0;
+    }
+
     this.getlanguage();
     this.getlanguage1()
     this.GetNurseServices()
@@ -49,20 +58,32 @@ export class MidwifeservicesdashComponent implements OnInit {
 
   public GetNurseServices() {
     debugger
-    if (this.midwifeid == undefined) {
-      this.docservice.GetMidWifeServicesWeb(this.midwifeid, this.languageid).subscribe(
-        data => {
-          debugger
-          this.nurseServicesList = data;
-        }, error => {
-        }
-      )
-    }
-    else {
+    if (this.midwifeid != undefined) {
       this.docservice.GetMidWifeServicesWeb(this.midwifeid, this.languageid).subscribe(
         data => {
           debugger
           this.nurseServicesList = data.filter(x => x.midWifeID == this.midwifeid);
+        }, error => {
+        }
+      )
+
+    }
+    if (this.hospitalclinicid != undefined) {
+      this.docservice.GetMidWifeServicesWeb(this.midwifeid, this.languageid).subscribe(
+        data => {
+          debugger
+          this.nurseServicesList = data.filter(x => x.hospitalClinicID == this.hospitalclinicid);
+        }, error => {
+        }
+      )
+
+    }
+
+    else {
+      this.docservice.GetMidWifeServicesWeb(this.midwifeid, this.languageid).subscribe(
+        data => {
+          debugger
+          this.nurseServicesList = data;
         }, error => {
         }
       )
@@ -104,7 +125,7 @@ export class MidwifeservicesdashComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
-         text: "Activer",
+        text: "Activer",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -164,7 +185,7 @@ export class MidwifeservicesdashComponent implements OnInit {
     else if (this.languageid == 6) {
       Swal.fire({
         title: 'Êtes-vous sûr ?',
-         text: "Désactiver",
+        text: "Désactiver",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

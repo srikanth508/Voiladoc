@@ -675,7 +675,7 @@
                 </a>
                 <div id="NurseWork" class="collapse">
 
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/NurseFeeDash">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/NurseServicesDash">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].nurseFees}}
                     </a>
                     <a class="tablinks" (click)="highlight($event)" routerLink="/NurseSchedule">
@@ -704,7 +704,7 @@
                 <!-- <label style="color:white"></label> -->
                 <div id="midwifework" class="collapse">
 
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeFeesDash">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeservicesDash">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].midwifefee}}
                     </a>
                     <a class="tablinks" (click)="highlight($event)" routerLink="/MidWifeMonthWiseSch">
@@ -1379,7 +1379,7 @@
                         &nbsp;Planning
                         <!-- {{labels[0].physiotherapist}} -->
                     </a>
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash"
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysiFeedash"
                         *ngIf="physiofees=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
                         {{labels[0].physitherapistFees}}
@@ -1397,7 +1397,7 @@
                         *ngIf="midwifeworking=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;Planning
                     </a>
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeFeesDash"
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeservicesDash"
                         *ngIf="midwifefees=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].midwifefee}}
                     </a>

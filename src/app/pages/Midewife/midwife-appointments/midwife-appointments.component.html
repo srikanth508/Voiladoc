@@ -118,6 +118,12 @@
                     <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal" data-target="#Patientdetails"
                       style="height:30px;" (click)="GetPatientPragnentornot(app.isPatientPragnent,app.isPatientBrestfeeding)" />
                   </a>
+
+                  <ng-template #tipcontent30>Services</ng-template>
+                  <a [ngbTooltip]="tipcontent30">
+                    <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
+                      style="height:30px;" (click)="getNurseServices(app.id)" />
+                  </a>
                   &nbsp;
             </td>
           </tr>
@@ -621,6 +627,69 @@
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels4[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="IllnessPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 *ngIf="languageid==6" class="modal-title" id="exampleModalLongTitle"> Services</h5>
+        <h5 *ngIf="languageid==1" class="modal-title" id="exampleModalLongTitle"> Services</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Amount</th>
+                  </tr>
+                  <tr *ngFor="let ser of Services">
+                    <td>{{ser.serviceName}}</td>
+                    <td>{{ser.serviceCharges}}</td>
+                  </tr>
+                </thead>
+
+              </table>
+            </div>
+          </div>
+
+
+          <!-- <div class="row" *ngIf="nophoto=='0'">
+            <div class="col-lg-6" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoUrl}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="nophoto=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+            </div>
+            <br>
+          </div>
+          <br> -->
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

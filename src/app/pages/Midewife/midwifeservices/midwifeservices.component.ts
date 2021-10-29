@@ -20,13 +20,22 @@ export class MidwifeservicesComponent implements OnInit {
   term: any;
   user: any;
   dummid: any;
-  midwifeid:any;
+  midwifeid: any;
+  showDropdown: any;
+  hospitalclinicid: any;
   constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.midwifeid = localStorage.getItem('midwifeid');
-    this.dummid = localStorage.getItem('midwifeid');
+    this.hospitalclinicid = localStorage.getItem('hospitalid');
+    if (this.midwifeid == undefined) {
+      this.showDropdown = 1;
+    }
+    else {
+      this.showDropdown = 0;
+    }
+
     this.user = localStorage.getItem('user');
     this.activatedroute.params.subscribe(params => {
 
@@ -45,16 +54,28 @@ export class MidwifeservicesComponent implements OnInit {
     )
     this.getlanguage1()
     this.getlanguage();
-   
 
-    this.docservice.GetNurseListForRegisteringLogin(this.languageid).subscribe(
-      data => {
+    if (this.hospitalclinicid != undefined) {
+      this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
+        data => {
 
-        this.nurselist = data;
+          this.nurselist = data.filter(x => x.hospitalClinicID == this.hospitalclinicid);
 
-      }, error => {
-      }
-    )
+        }, error => {
+        }
+      )
+    }
+    else {
+      this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
+        data => {
+
+          this.nurselist = data;
+
+        }, error => {
+        }
+      )
+    }
+
   }
 
 
@@ -126,6 +147,10 @@ export class MidwifeservicesComponent implements OnInit {
     this.qwerty.push(entity);
     this.idcount = this.idcount + 1;
     this.tablecount = 1;
+    this.servicename="";
+    this.description="";
+    this.charges="";
+
   }
 
 
@@ -140,17 +165,15 @@ export class MidwifeservicesComponent implements OnInit {
       }
       this.docservice.InsertMidWifeServicesWeb(entity).subscribe(data => {
         if (data != 0) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire("Saved Successfully");
             location.href = "#/MidwifeservicesDash"
           }
-          else
-          {
+          else {
             Swal.fire("Enregistré");
             location.href = "#/MidwifeservicesDash"
           }
-         
+
         }
 
       })
@@ -185,16 +208,14 @@ export class MidwifeservicesComponent implements OnInit {
     }
     this.docservice.UpdateMidWifeServicesWeb(entity).subscribe(data => {
 
-      if(this.languageid==1)
-          {
-            Swal.fire("Updated Successfully");
-            location.href = "#/MidwifeservicesDash"
-          }
-          else
-          {
-            Swal.fire("Enregistré");
-            location.href = "#/MidwifeservicesDash"
-          }
+      if (this.languageid == 1) {
+        Swal.fire("Updated Successfully");
+        location.href = "#/MidwifeservicesDash"
+      }
+      else {
+        Swal.fire("Enregistré");
+        location.href = "#/MidwifeservicesDash"
+      }
     })
 
 

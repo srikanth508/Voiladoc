@@ -5951,4 +5951,10 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertMidWifeServicesWeb';
     return this.http.post(this.url, data)
   }
+
+    public GetBookAppointment_MidwifeServices(lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointment_MidwifeServices?AppointmtntID=' + lid);
+  }
+
 }
