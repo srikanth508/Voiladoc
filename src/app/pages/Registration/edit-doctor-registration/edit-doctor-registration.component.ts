@@ -227,9 +227,9 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.hospitalid = this.details.hospitalClinicID,
           this.signatureurl = this.details.signatureURL,
           this.referbit = this.details.referealBit,
-          this.categoryid=this.details.categoryID
+          this.categoryid = this.details.categoryID
 
-          this.GetCountryMaster()
+        this.GetCountryMaster()
         this.getcitymaster();
         this.getareamasterbyid();
         this.getservicemaster()
@@ -316,7 +316,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
   }
 
   public updatemedicalregistration() {
-
+    debugger
     var entity = {
       'LanguageID': this.languageid,
       'DoctorID': this.docmedicalid,
@@ -327,7 +327,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
     }
     this.docservice.UpdateDoctorMedicalRegistration(entity).subscribe(res => {
       let test = res;
-
+      debugger
       if (this.languageid == 1) {
         this.getdoctordetailsbyid();
         Swal.fire('Updated Successfully');

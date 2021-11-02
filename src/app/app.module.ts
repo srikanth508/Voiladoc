@@ -381,6 +381,7 @@ import { PhysioServicesComponent } from './pages/physiotherapist/physio-services
 import { PhysioServicesDashComponent } from './pages/physiotherapist/physio-services-dash/physio-services-dash.component';
 import { MidwifeservicesComponent } from './pages/Midewife/midwifeservices/midwifeservices.component';
 import { MidwifeservicesdashComponent } from './pages/Midewife/midwifeservicesdash/midwifeservicesdash.component';
+import { HomedeliverMasterComponent } from './pages/Masters/homedeliver-master/homedeliver-master.component';
 
 
 // const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -760,6 +761,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PhysioServicesDashComponent,
     MidwifeservicesComponent,
     MidwifeservicesdashComponent,
+    HomedeliverMasterComponent,
     
    
   ],

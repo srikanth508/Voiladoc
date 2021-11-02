@@ -19,7 +19,7 @@ export class HelloDoctorService {
 
   //public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
-  // private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
+   //private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
 
   private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";

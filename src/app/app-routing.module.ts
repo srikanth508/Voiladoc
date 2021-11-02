@@ -356,6 +356,7 @@ import { PhysioServicesComponent } from './pages/physiotherapist/physio-services
 import { PhysioServicesDashComponent } from './pages/physiotherapist/physio-services-dash/physio-services-dash.component';
 import { MidwifeservicesComponent } from './pages/Midewife/midwifeservices/midwifeservices.component';
 import { MidwifeservicesdashComponent } from './pages/Midewife/midwifeservicesdash/midwifeservicesdash.component';
+import { HomedeliverMasterComponent } from './pages/Masters/homedeliver-master/homedeliver-master.component';
 
 
 
@@ -780,10 +781,10 @@ const routes: Routes = [
   { path: 'PhysioServices/:id', component:  PhysioServicesComponent},
   { path: 'PhysioServicesDash', component:  PhysioServicesDashComponent},
   { path: 'NurseServices/:id', component:  NurseServicesComponent},
-
   { path: 'Midwifeservices', component:  MidwifeservicesComponent},
   { path: 'Midwifeservices/:id', component:  MidwifeservicesComponent},
   { path: 'MidwifeservicesDash', component:  MidwifeservicesdashComponent},
+  { path: 'HomedeliverMaster', component:  HomedeliverMasterComponent},
   
 ];
 
