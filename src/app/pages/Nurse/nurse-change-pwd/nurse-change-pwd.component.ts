@@ -169,7 +169,7 @@ export class NurseChangePwdComponent implements OnInit {
           this.currentpwd = ""
         }
         else {
-          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          Swal.fire('Veuillez saisir un numéro PIN et un mot de passe valides.')
           this.Enteredpinno = ""
           this.currentpwd = ""
         }

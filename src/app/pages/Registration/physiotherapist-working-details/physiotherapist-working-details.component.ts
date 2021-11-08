@@ -96,7 +96,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
           this.physiolist = data;
 
           this.physiodd = {
-            singleSelection: false,
+            singleSelection: true,
             idField: 'id',
             textField: 'name',
             selectAllText: 'Select All',
@@ -119,7 +119,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
           this.physiolist = this.dummlist.filter(x => x.hospitalClinicID == this.hsp_clinicID);
 
           this.physiodd = {
-            singleSelection: false,
+            singleSelection: true,
             idField: 'id',
             textField: 'name',
             selectAllText: 'Select All',

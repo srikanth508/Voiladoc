@@ -45,6 +45,7 @@
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].address}}</th>
             <th>Pincode</th>
+            <th>{{labels2[0].hospitalClinic}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let nurse of physioist|filter:term">
@@ -57,6 +58,7 @@
             <td>{{nurse.areaName}}</td>
             <td>{{nurse.address}}</td>
             <td>{{nurse.pincode}}</td>
+            <td>{{nurse.hospital_ClinicName}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">

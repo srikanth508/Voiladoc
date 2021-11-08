@@ -42,7 +42,8 @@
             <th id="imp">{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].reason}}</th>
             <th>{{labels[0].status}}</th>
-            <th>Notes</th>
+            <th *ngIf="languageid=='1'">Remarks </th>
+            <th *ngIf="languageid=='6'">Remarques</th>
             <th>{{labels[0].paymentType}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
@@ -117,7 +118,7 @@
 
               <ng-template #tipcontent30>Services</ng-template>
               <a [ngbTooltip]="tipcontent30">
-                <img src="assets/Images/imgicon.png" data-toggle="modal" data-target="#IllnessPhotos"
+                <img src="assets/Images/serviceicon.png" data-toggle="modal" data-target="#IllnessPhotos"
                   style="height:30px;" (click)="getNurseServices(app.id)" />
               </a>
               &nbsp;

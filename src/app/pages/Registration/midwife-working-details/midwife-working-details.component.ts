@@ -109,7 +109,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
           
         this.middd = {
-          singleSelection: false,
+          singleSelection: true,
           idField: 'id',
           textField: 'name',
           selectAllText: 'Select All',
@@ -132,7 +132,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
           this.midwifelist = this.dummlist.filter(x => x.hospitalClinicID == this.hsp_clinicID);
 
           this.middd = {
-            singleSelection: false,
+            singleSelection: true,
             idField: 'id',
             textField: 'name',
             selectAllText: 'Select All',

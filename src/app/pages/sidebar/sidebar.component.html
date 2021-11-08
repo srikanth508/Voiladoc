@@ -845,7 +845,7 @@
                 {{labels[0].patient_Registration}}
             </a>
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/DiagfnosticCalender">
-                <img src="assets/Images/diaslot.png" style="width: 15px;">&nbsp; &nbsp; Planning
+                <img src="assets/Images/diaslot.png" style="width: 15px;">&nbsp; &nbsp; Agenda
             </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/ChangeDiaRecpPwd">
@@ -966,7 +966,7 @@
             <div class="collapse" id="Nursereports">
                 <a class="tablinks" (click)="highlight($event)" routerLink="/NurseReports">
                     <img src="assets/Images/appreport.png" style="width: 15px; margin-left: 15px;">&nbsp; &nbsp;
-                    {{labels[0].reports}}
+                    {{labels[0].completedAppointments}}
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/NurseCancelledApp">
                     <img src="assets/Images/appreport.png" style="width: 15px; margin-left: 15px;">&nbsp; &nbsp;

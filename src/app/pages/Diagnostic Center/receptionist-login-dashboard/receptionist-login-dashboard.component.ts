@@ -83,7 +83,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
         confirmButtonText: 'Yes!'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+          this.docservice.DeleteDiagnosticReceptionistLogin(id,1).subscribe(res => {
             let test = res;
             this.GetReceptionistlogin();
           })
@@ -110,7 +110,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
         cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+          this.docservice.DeleteDiagnosticReceptionistLogin(id,1).subscribe(res => {
             let test = res;
             this.GetReceptionistlogin();
           })
@@ -145,7 +145,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
         confirmButtonText: 'Yes!'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+          this.docservice.DeleteDiagnosticReceptionistLogin(id,2).subscribe(res => {
             let test = res;
             this.GetReceptionistlogin();
           })
@@ -172,7 +172,7 @@ export class ReceptionistLoginDashboardComponent implements OnInit {
         cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteDiagnosticReceptionistLogin(id).subscribe(res => {
+          this.docservice.DeleteDiagnosticReceptionistLogin(id,2).subscribe(res => {
             let test = res;
             this.GetReceptionistlogin();
           })

@@ -5,7 +5,7 @@
       <h5 *ngIf="languageid=='6'">INFIRMIER(E)S </h5>
     </div>
     <div class="col-lg-1" style="text-align: end;margin-top: -12px;">
-      <button class="btn btncolor" *ngIf="showexportbutton=='1'" style="margin-left: 41px;" (click)="getglmasterexcel()">
+      <button class="btn btncolor" *ngIf="showexportbutton=='1'"  (click)="getglmasterexcel()">
         {{labels1[0].exportExcel}}</button>
     </div>
     <div class="col-lg-2" style="text-align: end;margin-top: -12px;">
@@ -60,6 +60,7 @@
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].address}}</th>
             <th>Pincode</th>
+            <th>{{labels2[0].hospitalClinic}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
           <tr *ngFor="let nurse of nurselist|filter:term">
@@ -72,6 +73,7 @@
             <td>{{nurse.areaName}}</td>
             <td>{{nurse.address}}</td>
             <td>{{nurse.pincode}}</td>
+            <td>{{nurse.hospital_ClinicName}}</td>
             <td>
               <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
               <a [ngbTooltip]="tipcontent2">

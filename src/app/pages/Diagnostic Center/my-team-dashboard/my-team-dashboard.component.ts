@@ -188,7 +188,7 @@ export class MyTeamDashboardComponent implements OnInit {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteMyTeam(id).subscribe(res => {
+          this.docservice.DeleteMyTeam(id,1).subscribe(res => {
             let test = res;
             this.GetMyTeam();
           })
@@ -215,7 +215,7 @@ export class MyTeamDashboardComponent implements OnInit {
         cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteMyTeam(id).subscribe(res => {
+          this.docservice.DeleteMyTeam(id,1).subscribe(res => {
             let test = res;
             this.GetMyTeam();
           })
@@ -249,7 +249,7 @@ export class MyTeamDashboardComponent implements OnInit {
         confirmButtonText: 'Yes!'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteMyTeam(id).subscribe(res => {
+          this.docservice.DeleteMyTeam(id,2).subscribe(res => {
             let test = res;
             this.GetMyTeam();
           })
@@ -276,7 +276,7 @@ export class MyTeamDashboardComponent implements OnInit {
         cancelButtonText: 'Non'
       }).then((result) => {
         if (result.value) {
-          this.docservice.DeleteMyTeam(id).subscribe(res => {
+          this.docservice.DeleteMyTeam(id,2).subscribe(res => {
             let test = res;
             this.GetMyTeam();
           })

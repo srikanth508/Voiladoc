@@ -1114,63 +1114,97 @@ export class MyappointmentsComponent implements OnInit {
     this.smsmobileno = smsmobileno;
     debugger
     this.getserverdateandtime();
-    if (this.serverdate == this.appdate) {
+    if (this.apptypeid == 1) {
+      this.patientiddd = patientID,
+        this.preappointmentid = appointmentID;
+      this.apptypeid = appointmentTypeID;
+      this.countryid = countryID;
+      this.cityid = cityID;
+      this.areaid = areaID
+      this.preslots = slots
+      this.appdate = appdate
+      this.medicinename = "";
+      this.unitofmeasure = "";
+      this.dosage = "";
+      this.sig = "";
+      this.duration = "";
+      this.dispensequantity = "";
+      this.notetopharmacist = "";
+      this.diagnosis = '';
+      this.howmanyrefills = '';
+      this.medicinetemplatename = "",
+        this.medicinetemplate = 2;
+      this.display = "block";
+      this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
+        data => {
 
-      if (this.servertime > this.preslots) {
+          this.localdoclist = data;
 
-        this.patientiddd = patientID,
-          this.preappointmentid = appointmentID;
-        this.apptypeid = appointmentTypeID;
-        this.countryid = countryID;
-        this.cityid = cityID;
-        this.areaid = areaID
-        this.preslots = slots
-        this.appdate = appdate
-        this.medicinename = "";
-        this.unitofmeasure = "";
-        this.dosage = "";
-        this.sig = "";
-        this.duration = "";
-        this.dispensequantity = "";
-        this.notetopharmacist = "";
-        this.diagnosis = '';
-        this.howmanyrefills = '';
-        this.medicinetemplatename = "",
-          this.medicinetemplate = 2;
-        this.display = "block";
-        this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
-          data => {
+          this.localdocid = this.localdoclist[0].id
+        }, error => {
+        }
+      )
+    }
+    else {
 
-            this.localdoclist = data;
+      if (this.serverdate == this.appdate) {
 
-            this.localdocid = this.localdoclist[0].id
-          }, error => {
+        if (this.servertime > this.preslots) {
+
+          this.patientiddd = patientID,
+            this.preappointmentid = appointmentID;
+          this.apptypeid = appointmentTypeID;
+          this.countryid = countryID;
+          this.cityid = cityID;
+          this.areaid = areaID
+          this.preslots = slots
+          this.appdate = appdate
+          this.medicinename = "";
+          this.unitofmeasure = "";
+          this.dosage = "";
+          this.sig = "";
+          this.duration = "";
+          this.dispensequantity = "";
+          this.notetopharmacist = "";
+          this.diagnosis = '';
+          this.howmanyrefills = '';
+          this.medicinetemplatename = "",
+            this.medicinetemplate = 2;
+          this.display = "block";
+          this.docservice.GetLocalDoctorRegistrationByCityID(0, this.cityid, 0).subscribe(
+            data => {
+
+              this.localdoclist = data;
+
+              this.localdocid = this.localdoclist[0].id
+            }, error => {
+            }
+          )
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'It is still not yet time to add a prescription.');
+            this.display = "none";
           }
-        )
+          else if (this.languageid == 6) {
+            Swal.fire('Alert', 'Vous ne pouvez pas faire une ordonnance avant la consultation.');
+            this.display = "none";
+          }
+        }
       }
       else {
         if (this.languageid == 1) {
-          Swal.fire('Alert', 'It is still not yet time to add a prescription.');
+          Swal.fire('Alert', 'This appointment date is Over. you can not add prescription .');
           this.display = "none";
         }
         else if (this.languageid == 6) {
-          Swal.fire('Alert', 'Vous ne pouvez pas faire une ordonnance avant la consultation.');
+          Swal.fire('Alert', "Vous ne pouvez pas créer d' ordonnance, le rendez-vous n'a pas commencé. ");
           this.display = "none";
         }
-      }
-    }
-    else {
-      if (this.languageid == 1) {
-        Swal.fire('Alert', 'This appointment date is Over. you can not add prescription .');
-        this.display = "none";
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Alert', "Vous ne pouvez pas créer d' ordonnance, le rendez-vous n'a pas commencé. ");
-        this.display = "none";
+
       }
 
     }
-
   }
 
   public GetDoctorPatientid(patientID) {
@@ -1671,47 +1705,63 @@ export class MyappointmentsComponent implements OnInit {
   testpatientemail: any;
 
 
-  public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail, smsmobileno) {
+  public GetDiatestPatientid(patientID, appointmentID, appdate, slots, pemail, smsmobileno, appointmentTypeID) {
 
     this.diapatientid = patientID;
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
     this.slots = slots,
       this.testpatientemail = pemail
-    if (this.serverdate == this.appdate) {
-      if (this.servertime > this.slots) {
-        this.testdisplay = "block";
-        this.diapatientid = patientID;
-        this.diaappointmentID = appointmentID;
-        this.appdate = appdate
-        this.slots = slots
-        this.smsmobileno = smsmobileno
 
-        this.GetDiagnpsticDoctorTemplates()
+    if (appointmentTypeID == 1) {
+      this.testdisplay = "block";
+      this.diapatientid = patientID;
+      this.diaappointmentID = appointmentID;
+      this.appdate = appdate
+      this.slots = slots
+      this.smsmobileno = smsmobileno
+
+      this.GetDiagnpsticDoctorTemplates()
+    }
+    else {
+
+
+
+
+      if (this.serverdate == this.appdate) {
+        if (this.servertime > this.slots) {
+          this.testdisplay = "block";
+          this.diapatientid = patientID;
+          this.diaappointmentID = appointmentID;
+          this.appdate = appdate
+          this.slots = slots
+          this.smsmobileno = smsmobileno
+
+          this.GetDiagnpsticDoctorTemplates()
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'It is still not yet time to add a diagnostic test.');
+            this.testdisplay = "none";
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Alerte', 'Vous ne pouvez prescrire des tests qu’une fois la consultation commencée');
+            this.testdisplay = "none";
+          }
+        }
       }
       else {
         if (this.languageid == 1) {
-          Swal.fire('Alert', 'It is still not yet time to add a diagnostic test.');
+          Swal.fire('Alert', 'This appointment date is Over. you can not add diagnostic test.');
           this.testdisplay = "none";
         }
         else if (this.languageid == 6) {
-          Swal.fire('Alerte', 'Vous ne pouvez prescrire des tests qu’une fois la consultation commencée');
+          Swal.fire('Alerte', "Vous ne pouvez pas créer de prescription de test de laboratoire, le rendez-vous n'a pas commencé.  ");
           this.testdisplay = "none";
         }
+
       }
     }
-    else {
-      if (this.languageid == 1) {
-        Swal.fire('Alert', 'This appointment date is Over. you can not add diagnostic test.');
-        this.testdisplay = "none";
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Alerte', "Vous ne pouvez pas créer de prescription de test de laboratoire, le rendez-vous n'a pas commencé.  ");
-        this.testdisplay = "none";
-      }
-
-    }
-
   }
 
   public getdiagnosticcentertests() {
@@ -2334,7 +2384,7 @@ export class MyappointmentsComponent implements OnInit {
   pemailsoap: any;
 
 
-  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno,categoryid) {
+  public GetEarlySoap(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno, categoryid) {
     this.patientid = patientID;
     this.appointmentdatetime = adate;
     this.appointmentid = appointmentID;
@@ -2342,7 +2392,7 @@ export class MyappointmentsComponent implements OnInit {
     this.pemailsoap = pemail;
     this.slots = slots
     this.smsmobileno = smsmobileno;
-    this.categoryid=categoryid;
+    this.categoryid = categoryid;
 
     this.soapdisplay = "block"
 
@@ -2363,9 +2413,9 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-  categoryid:any;
+  categoryid: any;
 
-  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno,categoryid) {
+  public GetSoapID(patientID, adate, appointmentID, appdate, slots, pemail, smsmobileno, categoryid, appointmentTypeID) {
 
     this.patientid = patientID;
     this.appointmentdatetime = adate;
@@ -2373,47 +2423,66 @@ export class MyappointmentsComponent implements OnInit {
     this.appdate = appdate;
     this.pemailsoap = pemail;
     this.slots = slots
-    this.categoryid=categoryid;
+    this.categoryid = categoryid;
     this.smsmobileno = smsmobileno
-    if (this.serverdate == this.appdate) {
-      if (this.servertime > this.slots) {
-        this.soapdisplay = "block"
+    if (appointmentTypeID == 1) {
+      this.soapdisplay = "block"
 
-        this.objective = "",
-          this.subjective = "",
-          this.assessment = "",
-          this.diagnosiscode = "",
-          this.followupplan = "",
-          this.notes = ""
-        this.plan = ""
+      this.objective = "",
+        this.subjective = "",
+        this.assessment = "",
+        this.diagnosiscode = "",
+        this.followupplan = "",
+        this.notes = ""
+      this.plan = ""
 
-        this.savetemplate = 2
-        let list = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
+      this.savetemplate = 2
+      let list = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
 
-        this.patientname = list[0].patientName
-        this.ailment = list[0].reasonForVisit
+      this.patientname = list[0].patientName
+      this.ailment = list[0].reasonForVisit
+    }
+    else {
+      if (this.serverdate == this.appdate) {
+        if (this.servertime > this.slots) {
+          this.soapdisplay = "block"
+
+          this.objective = "",
+            this.subjective = "",
+            this.assessment = "",
+            this.diagnosiscode = "",
+            this.followupplan = "",
+            this.notes = ""
+          this.plan = ""
+
+          this.savetemplate = 2
+          let list = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
+
+          this.patientname = list[0].patientName
+          this.ailment = list[0].reasonForVisit
+        }
+        else {
+          if (this.languageid == 1) {
+            Swal.fire('Alert', 'It is still not yet time to add a soap notes.');
+            this.soapdisplay = "none"
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('', 'Vous ne pouvez renseigner les notes SOAP  qu un fois la consultation commencée');
+            this.soapdisplay = "none"
+          }
+        }
       }
       else {
         if (this.languageid == 1) {
-          Swal.fire('Alert', 'It is still not yet time to add a soap notes.');
+          Swal.fire('Alert', 'This appointment date is over. you can not add soap notes');
           this.soapdisplay = "none"
         }
         else if (this.languageid == 6) {
-          Swal.fire('', 'Vous ne pouvez renseigner les notes SOAP  qu un fois la consultation commencée');
+          Swal.fire('Alert', "Vous ne pouvez pas créer de notes SOAP, le rendez-vous n'a pas commencé.");
           this.soapdisplay = "none"
         }
-      }
-    }
-    else {
-      if (this.languageid == 1) {
-        Swal.fire('Alert', 'This appointment date is over. you can not add soap notes');
-        this.soapdisplay = "none"
-      }
-      else if (this.languageid == 6) {
-        Swal.fire('Alert', "Vous ne pouvez pas créer de notes SOAP, le rendez-vous n'a pas commencé.");
-        this.soapdisplay = "none"
-      }
 
+      }
     }
     // for(let i=0;i<this.appointmentlist.length;i++)
     // {

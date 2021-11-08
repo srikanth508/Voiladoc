@@ -49,7 +49,7 @@
     <div class="col-lg-2">
       <b *ngIf="languageid=='1'">Total Amount : {{GrandTotal}} MAD</b>
 
-      <b *ngIf="languageid=='6'">PAYER  : {{GrandTotal}} MAD</b>
+      <b *ngIf="languageid=='6'">Total   : {{GrandTotal}} MAD</b>
     </div>
     <div class="col-lg-1">
       <b *ngIf="languageid=='1'" style="margin-left: -24px;">Count : {{count}}</b>
@@ -69,13 +69,11 @@
             <th>Email ID</th>
             <!-- <th>Pharmacy Name</th> -->
             <th>Payment Type</th>
-            <!-- <th>Total Amount</th>
-            <th>Meridional Delivery Commission</th>
+             <th>Amount</th>
+            <!-- <th>Meridional Delivery Commission</th>
             <th>Delivery Patner Charges</th> -->
             <!-- <th>Actions</th> -->
           </tr>
-
-
           <tr *ngIf="languageid=='6'">
             <th>Nô de commande </th>
             <th>Date</th>
@@ -84,9 +82,9 @@
             <th>Email</th>
             <!-- <th>Pharmacy Name</th> -->
             <th>Type de paiement</th>
-            <!-- <th>Total Amount</th>
-            <th>Meridional Delivery Commission</th>
-            <th>Delivery Patner Charges</th> -->
+             <th>Montant payé</th>
+            <!-- <th>Meridional Delivery Commission</th>
+            <th>Delivery Patner Charges</th>  -->
             <!-- <th>Actions</th> -->
           </tr>
           <tr *ngFor="let details of DiagnosticChargeslist|filter:term">
@@ -97,9 +95,9 @@
             <td>{{details.emailID}}</td>
             <!-- <td>{{details.pharmacyName}}</td> -->
             <td>{{details.paymentType}}</td>
-            <!-- <td>{{details.paidAmount}}</td>
-            <td>{{details.meridionalCommission}}</td>
-            <td>{{details.deliveryCharges}}</td> -->
+             <td>{{details.paidAmount}}</td>
+            <!-- <td>{{details.meridionalCommission}}</td>
+            <td>{{details.deliveryCharges}}</td>  -->
             <!-- <td></td> -->
           </tr>
 

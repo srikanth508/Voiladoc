@@ -275,7 +275,7 @@
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/test.png" data-toggle="modal" data-target="#exampleModalLong1"
                         style="height:25px;"
-                        (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno)" />
+                        (click)="GetDiatestPatientid(details.patientID,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno,details.appointmentTypeID)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -294,7 +294,7 @@
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&&details.noShow=='0'&&details.disableall=='1'&&details.earlycall=='0'||details.earlycall=='1'||details.earlycall=='3'">
                       <img src="assets/Images/soap.png" data-toggle="modal" data-target="#exampleModal5"
                         style="height:25px;"
-                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno,details.categoryID)" />
+                        (click)="GetSoapID(details.patientID,details.adate,details.appointmentID,details.appdate,details.slots,details.pEmail,details.smsmobileno,details.categoryID,details.appointmentTypeID)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -316,8 +316,9 @@
                   </td>
                   <td style="border:none">
                     <ng-template #tipcontent293>{{labels[0].earlyCallReminder}}</ng-template>
+                    <!-- &&details.appointmentTypeID=='2' -->
                     <a [ngbTooltip]="tipcontent293"
-                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.appointmentTypeID=='2'&&details.earlycall=='0'&&details.earlycallvalidation=='0'&&details.bookingTypeID=='2'">
+                      *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.noShow=='0'&&details.isVisited=='0'&&details.earlycall=='0'&&details.earlycallvalidation=='0'&&details.bookingTypeID=='2'">
                       <img src="assets/Images/earlycall.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleealycall"
                         (click)="GetEarlycallPatientID(details.patientID,details.pEmail,details.appointmentID,details.smsmobileno)" />

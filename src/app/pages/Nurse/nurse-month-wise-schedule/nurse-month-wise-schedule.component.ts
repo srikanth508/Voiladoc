@@ -24,7 +24,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
 
   ngOnInit() {
 
-    
+
     this.nurseid = localStorage.getItem('nurseid');
     this.languageid = localStorage.getItem('LanguageID');
 
@@ -37,14 +37,14 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     this.month = date.getMonth();
     this.year = date.getFullYear();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-   
+
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
 
@@ -86,7 +86,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
         this.Select = this.labels[0].selectt;
       }, error => {
@@ -145,14 +145,12 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
       'Date': this.date
     }
     this.docservice.InsertNurseDisabledSlots(entity).subscribe(data => {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Disabled Successfully');
         this.GetNurseTimings()
         this.GetNurseDisabledList()
       }
-      else
-      {
+      else {
         Swal.fire('Désactivé avec succès');
         this.GetNurseTimings()
         this.GetNurseDisabledList()
@@ -172,40 +170,38 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
       this.disablelist = data;
 
       for (let t = 0; t < this.timeSheetTablearray.length; t++) {
-       
+
 
         let kkk = this.timeSheetTablearray[t]._fulldate;
         let validatedate = kkk.substring(0, 10);
-       
+
         this.timeSheetTablearray[t]["_fulldate"] = validatedate;
 
         let zz = this.disablelist.filter(x => x.date == validatedate && x.nurseID == this.nurseid);
-       
-       
+
+
         if (zz.length > 0) {
           this.timeSheetTablearray[t]["disabled"] = 1
-
         }
         else {
           this.timeSheetTablearray[t]["disabled"] = 0
 
         }
       }
+      console.log("djjd" + this.timeSheetTablearray)
     })
   }
 
 
   public GetDeleteSlots(date) {
-   
+
     this.docservice.DeleteNurseDisabledSlots(this.nurseid, date).subscribe(data => {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Enabled Successfully')
         this.GetNurseTimings()
         this.GetNurseDisabledList()
       }
-      else
-      {
+      else {
         Swal.fire('Activer avec succès')
         this.GetNurseTimings()
         this.GetNurseDisabledList()
@@ -215,10 +211,10 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
   }
 
 
-  
+
 
   public ChangeMonth(even) {
-   
+
     this.month = even.target.value;
 
     this.timeSheetTablearray = [];
@@ -231,13 +227,13 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(date.getFullYear(), this.month, 1);
     var Lastdate;
     var firstDay = new Date(date.getFullYear(), this.month, 1).getDate();
-   
+
     var lastDay = new Date(date.getFullYear(), this.month + 1, 0).getDate();
 
     this.showmonth = new Date(startdate).toDateString().substring(4, 7);
@@ -256,7 +252,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
       }
 
       let date = startdate.getDate();
-     
+
 
       let month = new Date(startdate).toDateString().substring(4, 7);
 
@@ -279,7 +275,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
   public ChangeYear(even) {
     this.year = even.target.value;
 
-  
+
     this.timeSheetTablearray = [];
     this.TodatDate = new Date();
     var date = new Date();
@@ -290,13 +286,13 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     //
     // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-   
+
     // this.month = date.getMonth();
 
     var startdate = new Date(this.year, this.month, 1);
     var Lastdate;
     var firstDay = new Date(this.year, this.month, 1).getDate();
-   
+
     var lastDay = new Date(this.year, this.month + 1, 0).getDate();
 
 
@@ -316,7 +312,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
 
 
       let date = startdate.getDate();
-     
+
       this.showmonth = new Date(startdate).toDateString().substring(4, 7);
       let month = new Date(startdate).toDateString().substring(4, 7);
 

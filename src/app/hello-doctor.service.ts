@@ -4878,9 +4878,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Master/GetMyTeam?DiagnosticID=' + did);
   }
 
-  public DeleteMyTeam(id) {
+  public DeleteMyTeam(id,typeid) {
 
-    return this.http.get<any[]>(this.host + '/Master/DeleteMyTeam?ID=' + id);
+    return this.http.get<any[]>(this.host + '/Master/DeleteMyTeam?ID=' + id+'&TypeID='+typeid);
   }
 
   public InsertDoctorSlots_DateWiseAvailable(data) {
@@ -4957,9 +4957,9 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Master/GetDiagnosticReceptionistLogin?DiagnosticID=' + did);
   }
-  public DeleteDiagnosticReceptionistLogin(id) {
+  public DeleteDiagnosticReceptionistLogin(id,typeid) {
 
-    return this.http.get<any[]>(this.host + '/Master/DeleteDiagnosticReceptionistLogin?ID=' + id);
+    return this.http.get<any[]>(this.host + '/Master/DeleteDiagnosticReceptionistLogin?ID=' + id+'&TypeID='+typeid);
   }
   public GetDiagnosticCenterTestsByID(did, lid) {
 

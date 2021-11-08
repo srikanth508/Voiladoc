@@ -102,7 +102,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
           this.nurselist = data;
 
           this.nursedd = {
-            singleSelection: false,
+            singleSelection: true,
             idField: 'id',
             textField: 'nurseName',
             selectAllText: 'Select All',
@@ -125,7 +125,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
           this.nurselist = this.dummnurselist.filter(x => x.hospitalClinicID == this.hsp_clinicID);
 
           this.nursedd = {
-            singleSelection: false,
+            singleSelection: true,
             idField: 'id',
             textField: 'nurseName',
             selectAllText: 'Select All',
@@ -143,10 +143,11 @@ export class NurseWorkingDetailsComponent implements OnInit {
 
   public getnurseid(item: any) {
     this.nurseid = item.id;
-
+debugger
     var list = this.dummnurselist.filter(x => x.id == this.nurseid)
     this.hsp_clinicID = list[0].hospitalClinicID,
       this.hospital_ClinicName = list[0].hospital_ClinicName
+      debugger
   }
 
   public Getworktypeid(even) {
