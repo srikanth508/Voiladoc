@@ -116,12 +116,7 @@
                 <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
               </a>&nbsp;
 
-              <ng-template #tipcontent30>Services</ng-template>
-              <a [ngbTooltip]="tipcontent30">
-                <img src="assets/Images/serviceicon.png" data-toggle="modal" data-target="#IllnessPhotos"
-                  style="height:30px;" (click)="getNurseServices(app.id)" />
-              </a>
-              &nbsp;
+            
 
               <ng-template #tipcontent8>SOAP Notes</ng-template>
               <a [ngbTooltip]="tipcontent8"
@@ -129,7 +124,13 @@
                 <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)" data-toggle="modal"
                   data-target="#Soapnotes" />
               </a>&nbsp;
-
+              
+              <ng-template #tipcontent30>Services</ng-template>
+              <a [ngbTooltip]="tipcontent30">
+                <img src="assets/Images/serviceicon.png" data-toggle="modal" data-target="#IllnessPhotos"
+                  style="height:30px;" (click)="getNurseServices(app.id)" />
+              </a>
+              &nbsp;
 
               <ng-template #tipcontent93>Receipts</ng-template>
               <a [ngbTooltip]="tipcontent93" *ngIf="app.isVisited=='1'">
@@ -402,6 +403,7 @@
 
               <div>{{nursename}}</div>
               <div>{{visithospital}}</div>
+              <div>{{phoneno}}</div>
               <div>{{nurseaddress}}</div>
 
 
@@ -450,17 +452,12 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
-        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()" data-dismiss="modal">Send to
-          patient</button>
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()" data-dismiss="modal">{{labels[0].sendtopatient}}
+          </button>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
 
 
 

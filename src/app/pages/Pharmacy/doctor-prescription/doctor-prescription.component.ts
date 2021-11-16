@@ -207,11 +207,11 @@ export class DoctorPrescriptionComponent implements OnInit {
       this.gender = details.gender,
       this.age = details.age
 
-
     this.docservice.GetPatientOrderedMedicines(this.listid, this.languageid).subscribe(
       data => {
 
         this.orderedmedicinelist = data;
+        console.log('medicines', this.orderedmedicinelist);
       }, error => {
       }
     )
@@ -1280,36 +1280,48 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public Updateavailablemedicines() {
-    for (let i = 0; i < this.orderedmedicinelist.length; i++) {
-
-      var entity = {
-        'ID': this.orderedmedicinelist[i].id,
-        'Amount': this.orderedmedicinelist[i].amount,
-        'AvailableBit': this.orderedmedicinelist[i].availableBit,
-        'Quantity': this.orderedmedicinelist[i].quantity,
+    debugger
+    var amount = this.orderedmedicinelist.filter(x => x.amount == 0 && x.availableBit == true)
+    if (amount.length != 0) {
+      if (this.languageid == 1) {
+        Swal.fire("For available drugs, please make sure you have entered the price and ticked the box in the corresponding line.");
       }
-      this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(entity).subscribe(data => {
-
-      })
-    }
-    if (this.languageid == 1) {
-      Swal.fire('Updated Successfully');
-    }
-    else if (this.languageid == 6) {
-      Swal.fire('Mis à jour avec succès !');
-    }
-    this.docservice.UpdatePatient_TextMedicineDetails(this.listid).subscribe(data => {
-
-    })
-    this.Notification()
-    if (this.languageid == 1) {
-      var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
+      else {
+        Swal.fire("Pour les médicaments disponibles veuillez-vous assurer d'avoir renseigné le prix et coché la case de la ligne correspondante.");
+      }
     }
     else {
-      var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
+      for (let i = 0; i < this.orderedmedicinelist.length; i++) {
+
+        var entity = {
+          'ID': this.orderedmedicinelist[i].id,
+          'Amount': this.orderedmedicinelist[i].amount,
+          'AvailableBit': this.orderedmedicinelist[i].availableBit,
+          'Quantity': this.orderedmedicinelist[i].quantity,
+        }
+        this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(entity).subscribe(data => {
+
+        })
+      }
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec succès !');
+      }
+      this.docservice.UpdatePatient_TextMedicineDetails(this.listid).subscribe(data => {
+
+      })
+      this.Notification()
+      if (this.languageid == 1) {
+        var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
+      }
+      else {
+        var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
+      }
+      this.SendTwiliSms(smsdesc, this.smsmobleno);
+      this.GetPharmacyOrders()
     }
-    this.SendTwiliSms(smsdesc, this.smsmobleno);
-    this.GetPharmacyOrders()
   }
 
 
@@ -1347,7 +1359,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
 
- 
+
 
 
 

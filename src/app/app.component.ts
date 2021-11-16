@@ -233,7 +233,7 @@ export class AppComponent {
 
   obseravablepharmacyno() {
 
-    const source = timer(1000, 20000);
+    const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
 
       this.GetPharmacyNotifications()

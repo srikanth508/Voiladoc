@@ -446,6 +446,7 @@ export class OrdersComponent implements OnInit {
           debugger
           this.SendTwiliSms(this.smsmobileno, smsdesc)
         }
+        this.SendCancelPatientmail()
 
         document.getElementById('Close').click();
 
@@ -1270,6 +1271,32 @@ export class OrdersComponent implements OnInit {
 
   public GetPdf(pdf) {
     window.open(pdf, "_blank");
+  }
+
+ emailattchementurl=[]
+ cclist
+ bcclist
+  public SendCancelPatientmail() {
+
+    if (this.languageid == 1) {
+      var emailsubject = 'The lab has refused your appointment'
+      var body = 'Dear ' + this.patientname + ',' + "<br><br>" +' We regret but your request for an appointment with ' + this.user +  " on " + this.notificationdate +'has not been accepted.Please wait for further updates from the lab. Type: Home sample pickup' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
+    }
+    else {
+      var emailsubject = 'Le laboratoire a refusé votre RDV'
+      var body =  'Dear ' + this.patientname + ',' + "<br><br>" +' Nous regrettons mais votre demande de RDV avec ' + this.user +  " le " + this.notificationdate +" n'a pas été confirmée. Veuillez attendre d'autres mises à jour du laboratoire. Type : Collecte à domicile" + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
+    }
+
+    var entity = {
+      'emailto': this.canemail,
+      'emailsubject': emailsubject,
+      'emailbody': body,
+      'attachmenturl': this.emailattchementurl,
+      'cclist': this.cclist,
+      'bcclist': this.bcclist
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+    })
   }
 }
 

@@ -1,7 +1,8 @@
-<!-- <ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
   [fullScreen]="true">
   <p style="color: white"> Loading... </p>
 </ngx-spinner>
+<br>
 <div class="container-fluid card card:hover">
   <div class="row headerspace">
     <div class="col-lg-3">
@@ -12,44 +13,90 @@
 <div class="container-fluid card card:hover ">
   <br>
   <form #facilityForm="ngForm">
-  <div class="row">
-    <div class="col-lg-2">
-      <label class="REGISTRATION NO:">Delivery Charges :</label>
-      <span class="required">*</span>
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Type :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+       <input type="radio" value="1" [(ngModel)]="typeid" name="typeid">&nbsp; Pharmacy
+       <input type="radio" value="2" [(ngModel)]="typeid" name="typeid"> Diagnostic center
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" required [(ngModel)]="deliverycharges" name="deliverycharges" placeholder="Delivery Charges">
+    <div class="row" *ngIf="typeid==1">
+      <div class="col-lg-2">
+        <label>Pharmacy :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="pharmacylist" [settings]="pharmacydd"
+          (onSelect)="GetPharmacyID($event)">
+        </ng-multiselect-dropdown>
+      </div>
     </div>
-  </div><br>
-  <div class="row">
-    <div class="col-lg-2">
-      <label class="REGISTRATION NO:">Meridional Commission :</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" required [(ngModel)]="meridionalcommission" name="meridionalcommission" placeholder="Meridional Commission">
-    </div>
-  </div><br>
+    <div class="row" *ngIf="typeid==2">
+      <div class="col-lg-2">
+      <label>Diagnostic Center :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <!--<input type="text" placeholder="Name" class="form-control"> -->
+        <!-- <select class="dropdown form-control" (change)="GetDiagnosticID($event)">
+          <option value="" selected>Select</option>
+          <option *ngFor="let diagnostic of diagnosticlist" value={{diagnostic.id}}>{{diagnostic.diagnosticCenterName}}
+          </option>
+        </select> -->
 
-  <div class="row">
-    <div class="col-lg-2">
-      <label class="REGISTRATION NO:">Delivery Patner Fees :</label>
-      <span class="required">*</span>
+        <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="diagnosticlist" [settings]="diadd"
+          (onSelect)="GetDiagnosticID($event)">
+        </ng-multiselect-dropdown>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" required [(ngModel)]="deliverypatnerfees" name="deliverypatnerfees" placeholder="Delivery Patner Fees">
+    <br>
+
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Delivery Charges :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" required [(ngModel)]="deliverycharges" name="deliverycharges"
+          placeholder="Delivery Charges">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Meridional Commission :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" required [(ngModel)]="meridionalcommission" name="meridionalcommission"
+          placeholder="Meridional Commission" >
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Delivery Patner Fees :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" required [(ngModel)]="deliverypatnerfees" name="deliverypatnerfees"
+          placeholder="Delivery Patner Fees">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          [disabled]="facilityForm.form.invalid" 
+          (click)="insertdetails()">{{labels[0].save}}</button>
+      
+      </div>
+      <div class="col-lg-5">
+      </div>
     </div>
-  </div><br>
-  <div class="row">
-    <div class="col-lg-3">
-    </div>
-    <div class="col-lg-2">
-      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"  [disabled]="facilityForm.form.invalid" *ngIf="showbit=='0'" (click)="insertdetails()">{{labels[0].save}}</button>
-      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" [disabled]="facilityForm.form.invalid" *ngIf="showbit=='1'" (click)="updatedetails()">{{labels[0].update}}</button>
-    </div>
-    <div class="col-lg-5">
-    </div>
-  </div>
-  <br>
-</form>
-</div> -->
+    <br>
+  </form>
+</div>

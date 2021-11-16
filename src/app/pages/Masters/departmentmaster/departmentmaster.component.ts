@@ -77,12 +77,12 @@ export class DepartmentmasterComponent implements OnInit {
     this.attachmentsurl = []
     this.attachmentsurl.length = 0;
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-      
+
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
 
       let b = 'https://maroc.voiladoc.org' + a;
-      
+
       this.showphoto.push(b)
       this.attachments.length = 0;
 
@@ -90,6 +90,11 @@ export class DepartmentmasterComponent implements OnInit {
     // this.sendattachment();
   }
 
+  categoryid: any;
+
+  GetCategoryID(even) {
+    this.categoryid = even.target.value;
+  }
 
   public insertdetails() {
 
@@ -101,7 +106,8 @@ export class DepartmentmasterComponent implements OnInit {
       var entity = {
         'Departmentname': this.departmentname,
         'Description': this.description,
-        'DepartmentImage': this.attachmentsurl[0]
+        'DepartmentImage': this.attachmentsurl[0],
+        'CategoryID':this.categoryid
       }
       this.docservice.InsertDepartmentMasterWeb(entity).subscribe(data => {
         if (data != 0) {
@@ -123,7 +129,8 @@ export class DepartmentmasterComponent implements OnInit {
         this.departmentname = list[0].departmentname,
           this.description = list[0].description,
           this.attachmentsurl[0] = list[0].departmentImage,
-          this.departmentimage = list[0].deptphoto
+          this.departmentimage = list[0].deptphoto,
+          this.categoryid=list[0].categoryID
 
       }, error => {
       }
@@ -133,17 +140,18 @@ export class DepartmentmasterComponent implements OnInit {
 
   public Updatedetails() {
     // this.spinner.show();
-    
+
     var entity = {
       'ID': this.id,
       'Departmentname': this.departmentname,
       'Description': this.description,
       'DepartmentImage': this.attachmentsurl[0],
-      'LanguageID': this.languageid
+      'LanguageID': this.languageid,
+      'CategoryID':this.categoryid
     }
     this.docservice.UpdateDepartmentMaster_Web(entity).subscribe(data => {
       let res = data;
-      
+
       Swal.fire('Success', 'Details Saved Successfully');
       this.spinner.hide();
       location.href = "#/DepartmentDash"

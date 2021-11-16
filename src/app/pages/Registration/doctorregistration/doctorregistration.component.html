@@ -295,10 +295,10 @@
               <div class="col-lg-8">
                 <input type="radio" value="1" [(ngModel)]="typeofdoctor" required name="typeofdoctor"
                   (click)="GetTypeofdoctor($event)">&nbsp;
-                Hospital/Clinic Doctor
+                {{labels[0].hospitaldoctor}}
                 <input type="radio" value="2" [(ngModel)]="typeofdoctor" required name="typeofdoctor"
                   (click)="GetTypeofdoctor($event)">&nbsp;
-                Independent Doctor
+                  {{labels[0].independentdoctor}}
                 <!-- <input type="radio" value="3"  [(ngModel)]="typeofdoctor"
               required  name="typeofdoctor" (click)="GetTypeofdoctor($event)">&nbsp;
               {{labels[0].groupofdoctors}} -->

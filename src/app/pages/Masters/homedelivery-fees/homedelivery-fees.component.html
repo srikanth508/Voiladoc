@@ -9,8 +9,8 @@
     <div class="col-lg-6">
     </div>
     <div class="col-lg-3">
-      <!-- <button type="button" routerLink="/HomedeliverMaster"
-        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].add}}</button> -->
+      <button type="button" routerLink="/HomedeliverMaster"
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels[0].add}}</button>
     </div>
   </div>
   <br>
@@ -27,6 +27,7 @@
         <thead>
           <tr *ngIf="languageid=='1'">
             <th>Type</th>
+            <th>Name</th>
             <th>Delivery Charges </th>
             <th>Meridional Commission</th>
             <th>Delivery Patner Fees</th>
@@ -34,6 +35,7 @@
           </tr>
           <tr *ngIf="languageid=='6'">
             <th>Type</th>
+            <th>Name</th>
             <th>Frais </th>
             <th>Commission Voiladoc</th>
             <th>Honoraires du partenaire</th>
@@ -41,6 +43,7 @@
           </tr>
           <tr *ngFor="let list of charges|filter:term">
             <td>{{list.typeName}}</td>
+            <td>{{list.name}}</td>
             <td>{{list.deliveryCharges}}</td>
             <td>{{list.meridionalCommision}}</td>
             <td>{{list.deliveryPatnerFees}}</td>
@@ -123,7 +126,7 @@
             <label *ngIf="languageid=='6'">Frais de partenaire de livraison :</label>
           </div>
           <div class="col-lg-5">
-            <input type="text" class="form-control" disabled [(ngModel)]="deliveryPatnerFees" name="deliveryPatnerFees"  />
+            <input type="text" class="form-control" disabled  [(ngModel)]="deliveryPatnerFees" name="deliveryPatnerFees"  />
           </div>
         </div><br>
         <div class="row">

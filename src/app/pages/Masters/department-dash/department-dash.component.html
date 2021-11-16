@@ -26,12 +26,14 @@
         <thead>
           <tr>
             <th>{{labels[0].department}}</th>
+            <th>Category</th>
             <th style="    width: 900px;">{{labels[0].description}}</th>
             <th>{{labels[0].image}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr *ngFor="let list of departmentlist|filter:term">
             <td>{{list.departmentname}}</td>
+            <td>{{list.categoryname}}</td>
             <td>{{list.description}}</td>
             <td><img src="{{list.deptphoto}}" style="height: 50px;
               width: 50px;"></td>

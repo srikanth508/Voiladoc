@@ -869,10 +869,19 @@ export class MyappointmentsComponent implements OnInit {
 
   public SendCancelPatientmail() {
 
+    if (this.languageid == 1) {
+      var emailsubject = 'Appointment cancelled by doctor'
+      var body = 'Dear ' + this.canparientname + ',' + "<br><br>" + this.candoctorname + ' regrets to cancel the appointment on ' + this.canslots + '. Please open the Voiladoc app to reschedule or get a refund. Do contact our support team if you need any help.' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
+    }
+    else {
+      var emailsubject = 'RDV est annulé par le médecin'
+      var body = 'Dear ' + this.canparientname + ',' + "<br><br>" + this.candoctorname + ' regrette de devoir annuler votre RDV le ' + this.canslots + ". Veuillez ouvrir l'app Voiladoc pour reprogrammer ou obtenir un remboursement. Contactez notre équipe d'assistance si vous avez besoin d'aide." + "<br><br>" + 'Meilleures salutations,' + "<br>" + 'Voiladoc'
+    }
+
     var entity = {
       'emailto': this.canemail,
-      'emailsubject': "Your Doctor " + this.candoctorname + " Has Cancelled Your Appointment At Time " + this.canslots,
-      'emailbody': 'Dear ' + this.canparientname + ',' + "<br><br>" + 'We regret to inform that your Doctor ' + this.candoctorname + ' has cancelled your appointment of ' + this.canslots + '. Please use voiladoc app to reschedule or ask for refund. For any further help. Please contact our support clients' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'emailsubject': emailsubject,
+      'emailbody': body,
       'attachmenturl': this.emailattchementurl,
       'cclist': this.cclist,
       'bcclist': this.bcclist
@@ -3262,6 +3271,7 @@ export class MyappointmentsComponent implements OnInit {
           this.ailment = "";
         }
       })
+      document.getElementById('close').click();
     }
     else {
       debugger
@@ -3307,7 +3317,7 @@ export class MyappointmentsComponent implements OnInit {
 
           })
           this.ailment = "";
-
+          document.getElementById('close').click();
           // this.SaveMedicalCertificatePdf();
         }
       })

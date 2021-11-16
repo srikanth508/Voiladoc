@@ -186,7 +186,7 @@ export class PharmacyregistrationComponent implements OnInit {
         'Timings': this.timings,
         'LanguageID': '1',
         'LicenseNo': this.licenseno,
-        'LicenseValidTill': this.licensevalidtil,
+        'LicenseValidTill': new Date(),
         'HomeDelivery': this.homedelivery,
         'Website': this.hspwebsite,
         'NightPharmacy': this.nightpharmacy,
@@ -205,7 +205,7 @@ export class PharmacyregistrationComponent implements OnInit {
         'EveningTimings': this.evngtimings
       }
       this.docservice.InsertPharmacyRegistration(entity).subscribe(data => {
-
+        debugger
         if (data != 0) {
           this.pharmacyid = data;
           this.insertphoto();
@@ -216,6 +216,7 @@ export class PharmacyregistrationComponent implements OnInit {
           location.href = "#/Pharmacydashboard"
         }
       }, error => {
+        debugger
         Swal.fire("Exception while saving. please try after some time");
         this.spinner.hide();
       })

@@ -12,54 +12,70 @@
 <div class="container-fluid card card:hover ">
   <br>
   <form #deptForm="ngForm">
-  <div class="row">
-    <div class="col-lg-2">
-      <label class="REGISTRATION NO:">{{labels[0].departmentName}}:</label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <input type="text" class="form-control" required [(ngModel)]="departmentname" name="departmentname"
-        placeholder="{{labels[0].departmentName}}">
-    </div>
-  </div>
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-lg-2">
-      <label class="REGISTRATION NO:">{{labels[0].description}} :</label>
 
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">Category :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" (change)="GetCategoryID($event)">
+          <option value="1">Doctor</option>
+          <option value="2">Other Professionals</option>
+        </select>
+      </div>
+    </div><br>
+
+
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">{{labels[0].departmentName}}:</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" required [(ngModel)]="departmentname" name="departmentname"
+          placeholder="{{labels[0].departmentName}}">
+      </div>
     </div>
-    <div class="col-lg-4">
-      <textarea class="form-control" rows="4" required [(ngModel)]="description" name="description"
-        placeholder="{{labels[0].description}}"></textarea>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">{{labels[0].description}} :</label>
+
+      </div>
+      <div class="col-lg-4">
+        <textarea class="form-control" rows="4" required [(ngModel)]="description" name="description"
+          placeholder="{{labels[0].description}}"></textarea>
+      </div>
     </div>
-  </div>
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-lg-2">
-      <label class="REGISTRATION NO:">{{labels[0].image}} :</label>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-lg-2">
+        <label class="REGISTRATION NO:">{{labels[0].image}} :</label>
+      </div>
+      <div class="col-lg-4">
+        <ngx-dropzone [multiple]="false" required (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+          <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+        </ngx-dropzone>
+        <span *ngFor="let showphoto of showphoto">
+          <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
+        </span>
+      </div>
+      <div class="col-lg-3" *ngIf="showbit=='1'">
+        <img src="{{departmentimage}}" style="height:100px;width:100px" />
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()" *ngIf="showbit=='0'" [disabled]="deptForm.form.invalid">{{labels[0].save}}</button>
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="Updatedetails()" *ngIf="showbit=='1'"
+          [disabled]="deptForm.form.invalid">{{labels[0].update}}</button>
+      </div>
+      <div class="col-lg-5">
+      </div>
     </div>
-    <div class="col-lg-4">
-      <ngx-dropzone [multiple]="false" required (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
-        <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
-      </ngx-dropzone>
-      <span *ngFor="let showphoto of showphoto">
-        <img src="{{showphoto}}" style="height:50px;width:70px">&nbsp;
-      </span>
-    </div>
-    <div class="col-lg-3" *ngIf="showbit=='1'">
-      <img src="{{departmentimage}}"  style="height:100px;width:100px" />
-    </div>
-  </div><br>
-  <div class="row">
-    <div class="col-lg-3">
-    </div>
-    <div class="col-lg-2">
-      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="insertdetails()"
-        *ngIf="showbit=='0'" [disabled]="deptForm.form.invalid">{{labels[0].save}}</button>
-      <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor" (click)="Updatedetails()"
-        *ngIf="showbit=='1'"  [disabled]="deptForm.form.invalid">{{labels[0].update}}</button>
-    </div>
-    <div class="col-lg-5">
-    </div>
-  </div>
-  <br>
-</form>
+    <br>
+  </form>
 </div>

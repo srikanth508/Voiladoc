@@ -414,7 +414,7 @@
                     <th>{{labels[0].packageName}}</th>
                     <th>{{labels[0].tests}}</th>
                     <th>Description</th>
-                    <th>Price</th>
+                    <th>{{labels[0].price}}</th>
                     <th>Actions</th>
                   </tr>
                   <tr *ngFor="let listsssss of packagelist">
@@ -422,7 +422,7 @@
                     <td>{{listsssss.testNames}}</td>
                     <td>{{listsssss.description}}</td>
                     <td>{{listsssss.price}}</td>
-                    <td></td>
+                    <td><input type="checkbox" [(ngModel)]="listsssss.available"></td>
                   </tr>
                 </thead>
               </table>

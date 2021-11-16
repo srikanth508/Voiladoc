@@ -17,7 +17,7 @@ export class HelloDoctorService {
 
   //test1
 
- // public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
+  // public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
   // private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
 
@@ -4878,9 +4878,9 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Master/GetMyTeam?DiagnosticID=' + did);
   }
 
-  public DeleteMyTeam(id,typeid) {
+  public DeleteMyTeam(id, typeid) {
 
-    return this.http.get<any[]>(this.host + '/Master/DeleteMyTeam?ID=' + id+'&TypeID='+typeid);
+    return this.http.get<any[]>(this.host + '/Master/DeleteMyTeam?ID=' + id + '&TypeID=' + typeid);
   }
 
   public InsertDoctorSlots_DateWiseAvailable(data) {
@@ -4957,9 +4957,9 @@ export class HelloDoctorService {
 
     return this.http.get<any[]>(this.host + '/Master/GetDiagnosticReceptionistLogin?DiagnosticID=' + did);
   }
-  public DeleteDiagnosticReceptionistLogin(id,typeid) {
+  public DeleteDiagnosticReceptionistLogin(id, typeid) {
 
-    return this.http.get<any[]>(this.host + '/Master/DeleteDiagnosticReceptionistLogin?ID=' + id+'&TypeID='+typeid);
+    return this.http.get<any[]>(this.host + '/Master/DeleteDiagnosticReceptionistLogin?ID=' + id + '&TypeID=' + typeid);
   }
   public GetDiagnosticCenterTestsByID(did, lid) {
 
@@ -5881,7 +5881,7 @@ export class HelloDoctorService {
   public GetPhysioServicesByIDWeb(lid, physioid) {
     return this.http.get<any[]>(this.host + '/Doctor/GetPhysioServicesByIDWeb?LanguageID=' + lid + "&PhysiotherapyID=" + physioid);
   }
-  
+
   public InsertPhysioServicesMobileWeb(data) {
     this.url = this.host + '/Doctor/InsertPhysioServicesMobileWeb';
     return this.http.post(this.url, data)
@@ -5916,7 +5916,7 @@ export class HelloDoctorService {
 
 
 
-    public DisableNurseService(lid) {
+  public DisableNurseService(lid) {
 
     return this.http.get<any[]>(this.host + '/PatientRegistration/DisableNurseService?ID=' + lid);
   }
@@ -5937,24 +5937,29 @@ export class HelloDoctorService {
   }
 
 
-  
+
   public UpdateMidWifeServicesWeb(data) {
     this.url = this.host + '/Doctor/UpdateMidWifeServicesWeb';
     return this.http.post(this.url, data)
   }
 
-  public GetMidWifeServicesWeb(MidWifeID,lid) {
+  public GetMidWifeServicesWeb(MidWifeID, lid) {
 
-    return this.http.get<any[]>(this.host + '/Doctor/GetMidWifeServicesWeb?MidWifeID=' + lid+'&LanguageID='+lid);
+    return this.http.get<any[]>(this.host + '/Doctor/GetMidWifeServicesWeb?MidWifeID=' + lid + '&LanguageID=' + lid);
   }
   public InsertMidWifeServicesWeb(data) {
     this.url = this.host + '/Doctor/InsertMidWifeServicesWeb';
     return this.http.post(this.url, data)
   }
 
-    public GetBookAppointment_MidwifeServices(lid) {
+  public GetBookAppointment_MidwifeServices(lid) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetBookAppointment_MidwifeServices?AppointmtntID=' + lid);
   }
 
+  public InsertHomeVisitDeliveryChargesMaster(data) {
+    this.url = this.host + '/Doctor/InsertHomeVisitDeliveryChargesMaster';
+    return this.http.post(this.url, data)
+  }
+  
 }
