@@ -79,6 +79,7 @@ export class NurseEmrComponent implements OnInit {
       data => {
         
         this.soaplist1 = data;
+        console.log("soap",this.soaplist1)
       }, error => {
       }
     )
@@ -169,6 +170,32 @@ export class NurseEmrComponent implements OnInit {
       }, error => {
       }
     )
+  }
+
+
+
+  
+  AppointmentID;
+  showimages;
+  public nophoto: any;
+  public GetIllnessPhotos(even) {
+    this.AppointmentID = even;
+
+    this.docservice.GetPatient_Nurse_Illnessphotos(this.AppointmentID).subscribe(
+      data => {
+
+        this.showimages = data;
+        if (this.showimages.length == 0) {
+          this.nophoto = 1
+        }
+        else if (this.showimages.length != 0) {
+          this.nophoto = 0
+        }
+
+      }, error => {
+      }
+    )
+
   }
 
 }

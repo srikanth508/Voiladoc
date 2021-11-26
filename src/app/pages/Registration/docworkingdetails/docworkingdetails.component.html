@@ -28,7 +28,7 @@
     <div *ngIf="dummid==null">
       <div class="row">
         <div class="col-lg-2">
-          <label>Doctor Name : </label>
+          <label>{{labels[0].doctor}} : </label>
           <span class="requird">*</span>
         </div>
         <div class="col-lg-4">
@@ -40,7 +40,7 @@
       <br>
       <div class="row">
         <div class="col-lg-2">
-          <label>Hospital Name : </label>
+          <label>{{labels[0].hospitalName}} : </label>
         </div>
         <div class="col-lg-4">
           <input class="form-control" type="text" [(ngModel)]="hospital_ClinicName" id="hospital_ClinicName"

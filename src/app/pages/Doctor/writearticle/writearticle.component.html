@@ -1,5 +1,5 @@
 <div class="container-fluid card card:hover headerspace">
-  <div class="row headerspace">
+  <div class="row" style="margin-top: 5px;">
     <div class="col-lg-3">
       <h5>{{labels[0].articles}}</h5>
     </div>
@@ -44,9 +44,10 @@
     </div><br>
     <div class="row">
       <div class="col-lg-3">
-        <label>{{labels[0].tags}}:</label>
-        <span class="required">*</span><br>
-        <label>({{labels[0].seperatetagswithSemicolon}})</label>
+        <!-- <label>{{labels[0].tags}}:</label> -->
+        <label>Site Internet :</label>
+        <!-- <span class="required">*</span><br> -->
+        <!-- <label>({{labels[0].seperatetagswithSemicolon}})</label> -->
       </div>
       <div class="col-lg-4">
         <textarea rows="4" [(ngModel)]="tags" name="tags" class="form-control" required cols="45"
@@ -57,7 +58,8 @@
 
     <div class="row">
       <div class="col-lg-3">
-        <label>Banner Photo :</label>
+        <label *ngIf="languageid==1">Banner Photo :</label>
+        <label *ngIf="languageid==6">Bannière photo :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
@@ -85,7 +87,7 @@
         &nbsp;
         <input type="radio" [(ngModel)]="typeid" name="typeid" [value]="2" >&nbsp;&nbsp;Image
         &nbsp;
-        <input type="radio" [(ngModel)]="typeid" name="typeid" [value]="3" >&nbsp;&nbsp;Text
+        <input type="radio" [(ngModel)]="typeid" name="typeid" [value]="3" >&nbsp;&nbsp;Texte
         &nbsp;
 
       </div>
@@ -161,7 +163,7 @@
         <button type="button" class="btn btn-block   allbtns btncolor" *ngIf="showicon=='0'"
           [disabled]="articleForm.form.invalid" (click)="insertdetails()"> {{labels[0].publish}}</button>
         <button type="button" class="btn btn-block   allbtns btncolor" *ngIf="showicon=='1'"
-          [disabled]="articleForm.form.invalid" (click)="UpdateDetails()"> Update</button>
+          [disabled]="articleForm.form.invalid" (click)="UpdateDetails()">Mise à jour</button>
       </div>
       <div class="col-lg-5">
 

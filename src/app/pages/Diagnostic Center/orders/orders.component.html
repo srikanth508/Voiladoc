@@ -55,7 +55,7 @@
             <th>{{labels[0].status}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>
-          <tr *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}
+          <tr [style.background-color]="details.appointmentColorCode" *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}
           ">
             <td>{{details.appdate}}</td>
             <td>{{details.appointmentTypeText}}</td>
@@ -368,7 +368,7 @@
                         placeholder="{{labels[0].price}}">
 
                     </td>
-                    <td><input type="checkbox" [(ngModel)]="listss.available" (click)="GetAvailableBit"></td>
+                    <td><input type="checkbox" disabled [(ngModel)]="listss.available" (click)="GetAvailableBit"></td>
                   </tr>
                 </thead>
               </table>

@@ -9,7 +9,7 @@ import { pipeDef } from '@angular/core/src/view';
 
 export class HelloDoctorService {
   //live
-  public host = "https://maroc.voiladoc.org/MarocAPI";
+   public host = "https://maroc.voiladoc.org/MarocAPI";
 
   private host1 = "https://maroc.voiladoc.org/MarocAPI";
 
@@ -17,9 +17,9 @@ export class HelloDoctorService {
 
   //test1
 
-  // public host = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
+   //public host = "https://madagascar.voiladoc.org/MadagascarWebAPI";
 
-  // private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI/";
+   //private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI";
 
 
   private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";

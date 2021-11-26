@@ -84,68 +84,102 @@
                 style="color:rgb(4, 107, 43)">{{labels[0].notVisited}}</label>
             </td>
             <td>
-              {{app.completedNotes}}
+              {{app.patientNotes}}
             </td>
             <td>
               {{app.paymentType}}
             </td>
             <td>
-              <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
-              <a [ngbTooltip]="tipcontent2"
-                *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
-                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
-                  (click)="GetAcceptAppointmentID(app.id,app.nurseID,app.bookedTime,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.smsmobileno)"
-                  style="height:19px;" />
-              </a>&nbsp;
-              <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
-              <a [ngbTooltip]="tipcontent3"
-                *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'&&app.nurseCancelValidation=='1'">
-                <img src="assets/Images/can.png" style="height:19px;" data-toggle="modal" data-target="#exampleModal"
-                  (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.paidAmount,app.walletAmount,app.mobileNumber,app.smsmobileno)" />
-              </a>&nbsp;
-              <ng-template #tipcontent4>{{labels[0].visited}}</ng-template>
-              <a [ngbTooltip]="tipcontent4"
-                *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/Visit.png" style="height:19px;"
-                  (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)" />
-              </a>&nbsp;
 
-              <ng-template #tipcontent8>{{labels[0].notVisited}}</ng-template>
-              <a [ngbTooltip]="tipcontent8"
-                *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
-              </a>&nbsp;
 
-            
+              <table>
+                <tr>
+                  <td style="border: none;">
+                    <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
+                    <a [ngbTooltip]="tipcontent2"
+                      *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
+                      <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
+                        (click)="GetAcceptAppointmentID(app.id,app.nurseID,app.bookedTime,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.smsmobileno)"
+                        style="height:19px;" />
+                    </a>&nbsp;
+                  </td>
+                  <td style="border: none;">
+                    <ng-template #tipcontent3>{{labels[0].cancel}}</ng-template>
+                    <a [ngbTooltip]="tipcontent3"
+                      *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'&&app.nurseCancelValidation=='1'">
+                      <img src="assets/Images/can.png" style="height:19px;" data-toggle="modal"
+                        data-target="#exampleModal"
+                        (click)="GetCancelAppointmentID(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.paidAmount,app.walletAmount,app.mobileNumber,app.smsmobileno)" />
+                    </a>&nbsp;
+                  </td>
+                  <td style="border: none;">
+                    <ng-template #tipcontent30>Services</ng-template>
+                    <a [ngbTooltip]="tipcontent30">
+                      <img src="assets/Images/serviceicon.png" data-toggle="modal" data-target="#IllnessPhotos"
+                        style="height:30px;" (click)="getNurseServices(app.id)" />
+                    </a>
+                    &nbsp;
+                  </td>
 
-              <ng-template #tipcontent8>SOAP Notes</ng-template>
-              <a [ngbTooltip]="tipcontent8"
-                *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)" data-toggle="modal"
-                  data-target="#Soapnotes" />
-              </a>&nbsp;
-              
-              <ng-template #tipcontent30>Services</ng-template>
-              <a [ngbTooltip]="tipcontent30">
-                <img src="assets/Images/serviceicon.png" data-toggle="modal" data-target="#IllnessPhotos"
-                  style="height:30px;" (click)="getNurseServices(app.id)" />
-              </a>
-              &nbsp;
+                  <td style="border: none;">  
+                    <ng-template #tipcontent93>Receipts</ng-template>
+                    <a [ngbTooltip]="tipcontent93" *ngIf="app.isVisited=='1'">
+                      <img src="assets/Images/Receipts.png" style="height:19px;"
+                        (click)="GetRecept(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)"
+                        data-toggle="modal" data-target="#Reciept" />
+                    </a>&nbsp;
+                  </td>
 
-              <ng-template #tipcontent93>Receipts</ng-template>
-              <a [ngbTooltip]="tipcontent93" *ngIf="app.isVisited=='1'">
-                <img src="assets/Images/Receipts.png" style="height:19px;"
-                  (click)="GetRecept(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)"
-                  data-toggle="modal" data-target="#Reciept" />
-              </a>&nbsp;
+                  <td style="border: none;">
+                    <ng-template #tipcontent100>Photos</ng-template>
+                    <a [ngbTooltip]="tipcontent100">
+                      <img src="assets/Images/imgicon.png"  data-toggle="modal"
+                        data-target="#photos" style="height:30px;"
+                        (click)="GetIllnessPhotos(app.id)" />
+                    </a>
+                    &nbsp;
+                  </td>
+                </tr>
 
-              <ng-template #tipcontent9>{{labels[0].patientdetails}}</ng-template>
-              <a [ngbTooltip]="tipcontent9">
-                <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal"
-                  data-target="#Patientdetails" style="height:30px;"
-                  (click)="GetPatientPragnentornot(app.isPatientPragnent,app.ispatientbrestfeeding)" />
-              </a>
-              &nbsp;
+                <tr>
+                  <td style="border: none;"> 
+
+                    <ng-template #tipcontent4>{{labels[0].visited}}</ng-template>
+                    <a [ngbTooltip]="tipcontent4"
+                      *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
+                      <img src="assets/Images/Visit.png" style="height:19px;"
+                        (click)="UpdateVisitedbit(app.id,app.bookedTime,app.appdate,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app)" />
+                    </a>&nbsp;
+                  </td>
+                  <td style="border: none;">
+                    <ng-template #tipcontent8>{{labels[0].notVisited}}</ng-template>
+                    <a [ngbTooltip]="tipcontent8"
+                      *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
+                      <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
+                    </a>&nbsp;
+                  </td>
+                  <td style="border: none;">
+                    <ng-template #tipcontent8>SOAP Notes</ng-template>
+                    <a [ngbTooltip]="tipcontent8"
+                      *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
+                      <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)"
+                        data-toggle="modal" data-target="#Soapnotes" />
+                    </a>&nbsp;
+                  </td>
+                  
+                  <td style="border: none;">
+                    <ng-template #tipcontent9>{{labels[0].patientdetails}}</ng-template>
+                    <a [ngbTooltip]="tipcontent9">
+                      <img src="assets/Images/patientdetails.png" *ngIf="app.genderID=='2'" data-toggle="modal"
+                        data-target="#Patientdetails" style="height:30px;"
+                        (click)="GetPatientPragnentornot(app.isPatientPragnent,app.ispatientbrestfeeding)" />
+                    </a>
+                    &nbsp;
+                  </td>
+
+                </tr>
+              </table>
+
             </td>
           </tr>
         </thead>
@@ -452,8 +486,9 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels1[0].close}}</button>
-        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()" data-dismiss="modal">{{labels[0].sendtopatient}}
-          </button>
+        <button type="button" class="btn btn-md allbtns btncolor" (click)="SavePDF()"
+          data-dismiss="modal">{{labels[0].sendtopatient}}
+        </button>
       </div>
     </div>
   </div>
@@ -722,6 +757,58 @@
       <div class="modal-footer">
         <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels4[0].close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="photos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 *ngIf="languageid==6" class="modal-title" id="exampleModalLongTitle"> Services</h5>
+        <h5 *ngIf="languageid==1" class="modal-title" id="exampleModalLongTitle"> Services</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+
+
+          <div class="row" *ngIf="nophoto=='0'">
+            <div class="col-lg-6" *ngFor="let showphoto of showimages">
+              <br>
+              <img src="{{showphoto.photoUrl}}" style="height: 300px;width:300px" />
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" *ngIf="nophoto=='1'">
+            <div class="col-lg-6">
+              <br>
+              <img src="assets/Images/noimage.jpg" style="height:300px;width:100%" />
+            </div>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+          data-dismiss="modal">{{labels[0].close}}</button>
       </div>
     </div>
   </div>

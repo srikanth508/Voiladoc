@@ -13,21 +13,21 @@
 <div class="container-fluid card card:hover divspacee">
   <form #testForm="ngForm">
     <div *ngIf="dummdiagnosticid=='undefined'">
-    <div class="row" style="margin-top:20px;">
-      <div class="col-lg-3">
-        <label>{{labels[0].diagnosticCenter}} : </label>
-      </div>
-      <div class="col-lg-4">
-        <!-- <select class="form-control"  (change)="GetDiagnosticID($event)" [disabled]="tablecount=='1'">
+      <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3">
+          <label>{{labels[0].diagnosticCenter}} : </label>
+        </div>
+        <div class="col-lg-4">
+          <!-- <select class="form-control"  (change)="GetDiagnosticID($event)" [disabled]="tablecount=='1'">
         <option valu="" selected>Select</option>
         <option *ngFor="let diagnostic of diagnosticlist" value={{diagnostic.id}}>{{diagnostic.diagnosticCenterName}}</option>
       </select> -->
-        <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
-          [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
-        </ng-multiselect-dropdown>
-      </div>
-    </div><br>
-  </div>
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
+            [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
+          </ng-multiselect-dropdown>
+        </div>
+      </div><br>
+    </div>
     <div *ngIf="dummdiagnosticid!='undefined'">
       <div class="row" style="margin-top:20px;">
         <div class="col-lg-3">
@@ -37,17 +37,63 @@
           <input type="text" class="form-control" disabled [(ngModel)]="diagnosticname" name="diagnosticname">
         </div>
       </div><br>
-    </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-3">
+        <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="Search">
+      </div>
+      <div class="col-lg-7">
 
+      </div>
+      <div class="col-lg-2">
+        <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
+          (click)="insertdetails()">{{labels[0].save}}</button>
+      </div>
+    </div> <br>
+    <div class="row">
+
+      <div class="col-lg-12">
+        <table>
+          <thead>
+            <tr>
+              <!-- <th>{{labels[0].diagnosticCenter}} </th> -->
+              <th>{{labels[0].test}}</th>
+
+              <th style="width: 67%;">{{labels[0].testDescription}}</th>
+              <th>{{labels[0].testPrice}}</th>
+              <th>{{labels[0].actions}}</th>
+            </tr>
+            <tr *ngFor="let details of testlist|filter:term">
+              <td>{{details.short}}</td>
+              <td>{{details.description}}</td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="details.amount" name="details.amount">
+              </td>
+              <td>
+                <!-- <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                <a [ngbTooltip]="tipcontent2">
+                  <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
+                    (click)="delete(details.Sno)">
+                </a> -->
+                <input type="checkbox" [(ngModel)]="details.checked" name="details.checked">
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div><br>
+
+
+
+
+
+    <!-- 
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].test}} :</label>
       </div>
       <div class="col-lg-4">
-        <!-- <select class="form-control" (change)="GetTestID($event)">
-          <option value="" selected>{{labels[0].select}} </option>
-          <option *ngFor="let test of testlist" value={{test.id}}>{{test.short}}</option>
-        </select> -->
+       
         <ng-multiselect-dropdown [placeholder]="SelectLabel"  [data]="testlist"
         [settings]="diatestdd" (onSelect)="GetTestID($event)">
       </ng-multiselect-dropdown>
@@ -119,7 +165,7 @@
       </div>
       <div class="col-lg-5">
       </div>
-    </div><br>
-    
+    </div><br> -->
+
   </form>
 </div><br><br>

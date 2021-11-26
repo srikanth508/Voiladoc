@@ -59,7 +59,7 @@ export class AppComponent {
   countrymanagersid: any;
   countrynotifications: any;
   recpid: any;
-  diagnosticcenterid:any;
+  diagnosticcenterid: any;
 
   ngOnInit() {
     this.show = 1;
@@ -95,7 +95,7 @@ export class AppComponent {
     this.supportid = localStorage.getItem('supportid');
     this.countrymanagersid = localStorage.getItem('Commacountryid');
     this.recpid = localStorage.getItem('recpid');
-    this.diagnosticcenterid=localStorage.getItem('diagnosticid');
+    this.diagnosticcenterid = localStorage.getItem('diagnosticid');
     this.oberserableTimer();
     this.user = localStorage.getItem('user');
     this.getlanguage();
@@ -201,10 +201,10 @@ export class AppComponent {
           })
       }
       else if (this.diagnosticcenterid != null && this.diagnosticcenterid != undefined) {
-        
+
         this.docservice.GetNotificationssss(this.diagnosticcenterid).subscribe
           (datas => {
-            
+
             this.doctorNotifications = datas;
             this.notificationcount = Number(this.doctorNotifications[0].notifycount);
           })
@@ -233,7 +233,7 @@ export class AppComponent {
 
   obseravablepharmacyno() {
 
-    const source = timer(1000, 2000);
+    const source = timer(1000, 20000);
     const abc = source.subscribe(val => {
 
       this.GetPharmacyNotifications()
@@ -734,6 +734,7 @@ export class AppComponent {
 
         this.InsertRejectNotification();
         this.InsertPharmcyRejectedNotification();
+        this.GetPharmacyNotifications()
         if (this.details.sendnotification == 2) {
 
           this.InsertAllPhrmacyrejectedOrder();
@@ -797,8 +798,7 @@ export class AppComponent {
       data => {
         this.InsertAcceptedNotification()
         this.InsertPharmacyAcceptNotifications()
-
-
+        this.GetPharmacyNotifications()
         if (this.languageid == 1) {
           Swal.fire('Success', 'Order Accepted Successfully');
           var smsdesc = this.details.pharmacyName + " accepted your medicine order which is being processed. "

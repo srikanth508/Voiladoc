@@ -48,21 +48,23 @@
               <p innerHTML="{{article.writeup}}"></p>
             </td>
             <td>
-              <ng-template #tipcontent1>Edit</ng-template>
+              <ng-template #tipcontent1>{{labels1[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1" [routerLink]="['/Writearticle',article.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 22px">
               </a>&nbsp;
-              <ng-template #tipcontent1>Delete</ng-template>
-              <a [ngbTooltip]="tipcontent1" style="color:black">
+              <ng-template #tipcontent34>Supprimer</ng-template>
+              <a [ngbTooltip]="tipcontent34" style="color:black">
                 <img src="assets/Images/dell.png" style="width: 22px" (click)="DeleteArticle(article.id)">
               </a>&nbsp;&nbsp;
 
-              <ng-template #tipcontent8>Photo</ng-template>
+              <ng-template #tipcontent8>Attachement</ng-template>
               <a [ngbTooltip]="tipcontent8">
                 <img src="assets/Images/att.png" style="width: 20px;margin-left: 10px;"
                   *ngIf="article.typeID=='1'||article.typeID=='2'"
                   (click)="GetPhotoUrl(article.subPhotoUrl,article.typeID)" data-toggle="modal" data-target="#myModal">
-              </a>
+              </a>&nbsp;
+
+              
               <ng-template #tipcontent3>{{labels1[0].disable}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
                 <button *ngIf="article.enable=='0'" style="background-color: red;color: aliceblue;border: none;"

@@ -355,6 +355,20 @@ export class NurseComponent implements OnInit {
   public nurseid: any;
 
   public insertnursedetails() {
+    if(this.hospitalclinicid==undefined||this.hospitalclinicid=="")
+    {
+      if(this.languageid==1)
+      {
+        Swal.fire("Exceptional error. Please try again after completing all mandatory fields");
+      }
+      else{
+        Swal.fire("Erreur exceptionnelle.  Veuillez réessayer après avoir rempli tous les champs obligatoires");
+      }
+    }
+    else
+    {
+
+    
     this.spinner.show();
     var entity = {
       'NurseName': this.name,
@@ -440,10 +454,17 @@ export class NurseComponent implements OnInit {
         // location.href = '#/NurseDashboard';
       }
     }, error => {
-      Swal.fire("Exception While Saving.Please try after some time");
+      if(this.languageid==1)
+      {
+        Swal.fire("Exceptional error. Please try again after completing all mandatory fields");
+      }
+      else{
+        Swal.fire("Erreur exceptionnelle.  Veuillez réessayer après avoir rempli tous les champs obligatoires");
+      }
       this.spinner.hide();
     })
   }
+}
 
 
 

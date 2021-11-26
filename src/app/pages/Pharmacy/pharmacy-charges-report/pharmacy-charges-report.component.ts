@@ -57,8 +57,8 @@ export class PharmacyChargesReportComponent implements OnInit {
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
 
-    var kkk = this.SDate.setDate(this.SDate.getDate() - 7);
-    var lll = this.EDate.setDate(this.EDate.getDate() + 7);
+    var kkk = this.SDate.setDate(this.SDate.getDate() - 100);
+    var lll = this.EDate.setDate(this.EDate.getDate() + 100);
 
     this.startdate = formatDate(kkk, format, locale);
     this.enddate = formatDate(lll, format, locale);
@@ -95,12 +95,12 @@ export class PharmacyChargesReportComponent implements OnInit {
   public GetPharmacyHomeCareList() {
     this.docservice.GetPharmcyOrders_PaymentsReport(this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
+        debugger
         this.dummchargelist = data;
         this.DiagnosticChargeslist = this.dummchargelist.filter(x => x.pharmacyID == this.pharmacyid)
         this.dummchargelist1 = this.DiagnosticChargeslist;
         this.count = this.DiagnosticChargeslist.length;
-
+        debugger
         this.GrandTotal = 0;
         for (let i = 0; i < this.DiagnosticChargeslist.length; i++) {
           this.GrandTotal = this.GrandTotal + this.DiagnosticChargeslist[i].paidAmount;
@@ -127,12 +127,12 @@ export class PharmacyChargesReportComponent implements OnInit {
 
   public GetPaymentTypeID(even) {
     if (even.target.value != 0) {
-      
+
       this.paymenttypeid = even.target.value;
       this.DiagnosticChargeslist = this.dummchargelist1.filter(x => x.paymentTypeID == this.paymenttypeid);
       this.count = this.DiagnosticChargeslist.length;
       this.GrandTotal = 0;
-      
+
       for (let i = 0; i < this.DiagnosticChargeslist.length; i++) {
         this.GrandTotal = this.GrandTotal + this.DiagnosticChargeslist[i].paidAmount;
       }
@@ -144,7 +144,7 @@ export class PharmacyChargesReportComponent implements OnInit {
   }
 
 
-  
+
   public getglmasterexcel() {
     let hhh = this.tableToJson(document.getElementById('Doc'));
     this.exportAsExcelFile(hhh, "Delivery Reports");

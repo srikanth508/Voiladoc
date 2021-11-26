@@ -34,6 +34,7 @@ export class DiagnostictestComponent implements OnInit {
   dummdiagnosticid: any;
   public searchlable: any;
   diatestdd = {};
+  term: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -86,7 +87,8 @@ export class DiagnostictestComponent implements OnInit {
       data => {
 
         this.testlist = data;
-
+        this.testlist[0]["checked"] = false;
+        console.log("testlist", this.testlist)
         this.diatestdd = {
           singleSelection: true,
           idField: 'id',
@@ -161,46 +163,54 @@ export class DiagnostictestComponent implements OnInit {
     this.price = "";
   }
   public insertdetails() {
+    let testarry = this.testlist.filter(x => x.checked == true)
 
-    this.spinner.show();
-    for (let i = 0; i < this.qwerty.length; i++) {
-      var entity = {
-        'DiagnosticCenterID': this.qwerty[i].DiagnosticCenterID,
-        'DiagnosticTestID': this.qwerty[i].DiagnosticTestID,
-        'Description': this.qwerty[i].Description,
-        'Price': this.qwerty[i].Price,
+    let validate = this.testlist.filter(x => x.checked == true && (x.amount == 0 || x.amount == ''))
+
+    if (testarry.length == 0 || validate.length != 0) {
+      Swal.fire("Please add atleast one test or enter amount")
+    }
+    else {
+      this.spinner.show();
+      for (let i = 0; i < testarry.length; i++) {
+        var entity = {
+          'DiagnosticCenterID': this.diagnosticid,
+          'DiagnosticTestID': testarry[i].id,
+          'Description': testarry[i].description,
+          'Price': testarry[i].amount,
+        }
+        this.docservice.InsertDiagnosticCenterTests(entity).subscribe(data => {
+
+          if (data != 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Completed', 'Details saved successfully', 'success');
+              this.tablecount = 0;
+              this.spinner.hide();
+              location.href = "#/DiagnosticTestDash"
+            }
+            else if (this.languageid == 6) {
+              Swal.fire('Terminé', 'Détails enregistrés avec succès !', 'success');
+              this.tablecount = 0;
+              this.spinner.hide();
+              location.href = "#/DiagnosticTestDash"
+            }
+
+          }
+          else {
+            if (this.languageid == 1) {
+              Swal.fire("Service Already Exists");
+              this.spinner.hide();
+              location.href = "#/DiagnosticTestDash"
+            }
+            else if (this.languageid == 6) {
+              Swal.fire("Le service existe déjà");
+              this.spinner.hide();
+              location.href = "#/DiagnosticTestDash"
+            }
+
+          }
+        })
       }
-      this.docservice.InsertDiagnosticCenterTests(entity).subscribe(data => {
-
-        if (data != 0) {
-          if (this.languageid == 1) {
-            Swal.fire('Completed', 'Details saved successfully', 'success');
-            this.tablecount = 0;
-            this.spinner.hide();
-            location.href = "#/DiagnosticTestDash"
-          }
-          else if (this.languageid == 6) {
-            Swal.fire('Terminé', 'Détails enregistrés avec succès !', 'success');
-            this.tablecount = 0;
-            this.spinner.hide();
-            location.href = "#/DiagnosticTestDash"
-          }
-
-        }
-        else {
-          if (this.languageid == 1) {
-            Swal.fire("Service Already Exists");
-            this.spinner.hide();
-            location.href = "#/DiagnosticTestDash"
-          }
-          else if (this.languageid == 6) {
-            Swal.fire("Le service existe déjà");
-            this.spinner.hide();
-            location.href = "#/DiagnosticTestDash"
-          }
-
-        }
-      })
     }
   }
   public delete(sno) {

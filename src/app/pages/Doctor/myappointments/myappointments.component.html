@@ -63,7 +63,7 @@
             <th id="imp">{{labels[0].previousvisitdocument}}</th>
           </tr>
           <tr
-            *ngFor="let details of appointmentlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+          [style.background-color]="details.appointmentColorCode"  *ngFor="let details of appointmentlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.appoinmentttdate}}</td>
             <td>{{details.slots}}</td>
             <td>

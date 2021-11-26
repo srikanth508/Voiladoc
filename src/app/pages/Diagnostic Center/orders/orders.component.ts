@@ -1000,22 +1000,33 @@ export class OrdersComponent implements OnInit {
 
 
   public InsertAvailabletest() {
-    for (let i = 0; i < this.testslist.length; i++) {
-      var entity = {
-        'ID': this.testslist[i].bookediid,
-        'Available': this.testslist[i].available,
-        'AppointmentID': this.diatestid,
-        'Fees': this.testslist[i].fees
+    var txtAmount = this.testslist.filter(x => x.fees == 0);
+    if (txtAmount.length != 0) {
+      if (this.languageid == 1) {
+        Swal.fire("For available drugs, please make sure you have entered the price and ticked the box in the corresponding action column.");
       }
-      this.docservice.UpdateDiagnosticBookedTests(entity).subscribe(data => {
-        if (this.languageid == 1) {
-          Swal.fire('Updated Successfully');
+      else {
+        Swal.fire("Pour les médicaments disponibles veuillez-vous assurer d'avoir renseigné le prix et coché la case dans la colonne d'action correspondante.");
+      }
+    }
+    else {
+      for (let i = 0; i < this.testslist.length; i++) {
+        var entity = {
+          'ID': this.testslist[i].bookediid,
+          'Available': this.testslist[i].available,
+          'AppointmentID': this.diatestid,
+          'Fees': this.testslist[i].fees
         }
-        else if (this.languageid == 6) {
-          Swal.fire('Mis à jour avec Succés');
-        }
+        this.docservice.UpdateDiagnosticBookedTests(entity).subscribe(data => {
+          if (this.languageid == 1) {
+            Swal.fire('Updated Successfully');
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Mis à jour avec Succés');
+          }
 
-      })
+        })
+      }
     }
     if (this.languageid == 1) {
       var smsdesc = "The lab has responded with price. Please open the Voiladoc app to view and confirm."
@@ -1273,18 +1284,18 @@ export class OrdersComponent implements OnInit {
     window.open(pdf, "_blank");
   }
 
- emailattchementurl=[]
- cclist
- bcclist
+  emailattchementurl = []
+  cclist
+  bcclist
   public SendCancelPatientmail() {
 
     if (this.languageid == 1) {
       var emailsubject = 'The lab has refused your appointment'
-      var body = 'Dear ' + this.patientname + ',' + "<br><br>" +' We regret but your request for an appointment with ' + this.user +  " on " + this.notificationdate +'has not been accepted.Please wait for further updates from the lab. Type: Home sample pickup' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
+      var body = 'Dear ' + this.patientname + ',' + "<br><br>" + ' We regret but your request for an appointment with ' + this.user + " on " + this.notificationdate + 'has not been accepted.Please wait for further updates from the lab. Type: Home sample pickup' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
     }
     else {
       var emailsubject = 'Le laboratoire a refusé votre RDV'
-      var body =  'Dear ' + this.patientname + ',' + "<br><br>" +' Nous regrettons mais votre demande de RDV avec ' + this.user +  " le " + this.notificationdate +" n'a pas été confirmée. Veuillez attendre d'autres mises à jour du laboratoire. Type : Collecte à domicile" + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
+      var body = 'Dear ' + this.patientname + ',' + "<br><br>" + ' Nous regrettons mais votre demande de RDV avec ' + this.user + " le " + this.notificationdate + " n'a pas été confirmée. Veuillez attendre d'autres mises à jour du laboratoire. Type : Collecte à domicile" + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc'
     }
 
     var entity = {

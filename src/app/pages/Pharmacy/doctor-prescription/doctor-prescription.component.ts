@@ -121,20 +121,22 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   oberserableTimerpresription() {
-    const source = timer(1000, 2000);
+    const source = timer(1000, 20000);
     const abc = source.subscribe(val => {
 
       this.GetPharmacyOrders();
 
     });
   }
-  public GetPharmacyOrders() {
-
+  public async GetPharmacyOrders() {
+    debugger
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
+        debugger
         this.orderlist = data;
+        console.log("orders",this.orderlist);
       }, error => {
+        console.log("Error",error);
       }
     )
   }
@@ -177,6 +179,7 @@ export class DoctorPrescriptionComponent implements OnInit {
   gender: any;
   age: any;
 
+
   public GetMedicines(id, details) {
     debugger
     this.myarray.length = 0;
@@ -211,6 +214,7 @@ export class DoctorPrescriptionComponent implements OnInit {
       data => {
 
         this.orderedmedicinelist = data;
+        this.dummorderlist = data;
         console.log('medicines', this.orderedmedicinelist);
       }, error => {
       }
@@ -219,6 +223,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   }
+  dummorderlist: any;
 
   selectedDate(data) {
 
@@ -1069,7 +1074,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
       if (res.length > 0) {
         this.chatID = res[0].chatID;
-        this.InsertChatDetails();
+        // this.InsertChatDetails();
         this.getPreviousChat();
       }
       else {
@@ -1082,7 +1087,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
           if (data != 0) {
             this.chatID = data;
-            this.InsertChatDetails();
+            // this.InsertChatDetails();
             this.getPreviousChat();
           }
         })
@@ -1281,15 +1286,24 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   public Updateavailablemedicines() {
     debugger
-    var amount = this.orderedmedicinelist.filter(x => x.amount == 0 && x.availableBit == true)
-    if (amount.length != 0) {
+    var txtAmount = this.orderedmedicinelist.filter(x => x.amount == 0 && (x.availableBit == true || x.availableBit == 1));
+    var mandatoryOne = this.orderedmedicinelist.filter(x => (x.availableBit == true || x.availableBit == 1))
+    if (txtAmount.length != 0 || mandatoryOne.length == 0) {
       if (this.languageid == 1) {
-        Swal.fire("For available drugs, please make sure you have entered the price and ticked the box in the corresponding line.");
+        Swal.fire("For available drugs, please make sure you have entered the price and ticked the box in the corresponding action column.");
       }
       else {
-        Swal.fire("Pour les médicaments disponibles veuillez-vous assurer d'avoir renseigné le prix et coché la case de la ligne correspondante.");
+        Swal.fire("Pour les médicaments disponibles veuillez-vous assurer d'avoir renseigné le prix et coché la case dans la colonne d'action correspondante.");
       }
     }
+    // else if (mandatoryOne.length == 0) {
+    //   if (this.languageid == 1) {
+    //     Swal.fire("For available drugs, please make sure you have entered the price and ticked the box in the corresponding action column.");
+    //   }
+    //   else {
+    //     Swal.fire("Pour les médicaments disponibles veuillez-vous assurer d'avoir renseigné le prix et coché la case dans la colonne d'action correspondante.")
+    //   }
+    // }
     else {
       for (let i = 0; i < this.orderedmedicinelist.length; i++) {
 
@@ -1355,7 +1369,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
   amount: any;
 
-  onChange(newValue) { const validEmailRegEx = /(^0$)|(^[1-9]\d{0,8}$)/; if (validEmailRegEx.test(newValue)) { this.amount = true; } else { this.amount = false; } }
+
 
 
 

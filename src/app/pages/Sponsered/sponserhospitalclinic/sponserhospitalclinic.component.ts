@@ -118,7 +118,7 @@ export class SponserhospitalclinicComponent implements OnInit {
   //     }, error => {
   //     }
   //   )
-  // }
+  // }z
 
 
   public GetHospitalID(item3: any) {

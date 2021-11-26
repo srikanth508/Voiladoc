@@ -632,14 +632,14 @@ export class LoginComponent implements OnInit {
         'RoleID': 1
       }
       this.docservice.Authenicate(entity).subscribe(data => {
-
+        debugger
         if (data['requestMessage'] != undefined || null) {
           localStorage.setItem('token', data['requestMessage'].headers[0].value[0]);
           this.docservice.GetMeridionalAdmin_LoginUnameAndPwd(this.uname, this.pwd, this.pinno).subscribe(
             data => {
 
               this.result = data;
-
+              debugger
               if (this.result.length != '0') {
                 localStorage.setItem('user', 'Manny')
                 localStorage.setItem('roleid', '12');

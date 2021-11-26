@@ -217,8 +217,6 @@ export class EditMidwifeComponent implements OnInit {
 
 
 
-
-
   public dummnursephoto = []
   public onattachmentUpload(abcd) {
     this.attachmentsurl = [];
@@ -240,11 +238,12 @@ export class EditMidwifeComponent implements OnInit {
   public showphoto = [];
   public attachments = [];
   public uploadattachments() {
+    debugger
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
       this.attachmentsurl.push(res);
       this.dummnursephoto.push(res);
       let a = this.dummnursephoto[0].slice(2);
-
+      debugger
       let b = 'https://maroc.voiladoc.org' + a;
 
       this.showphoto.push(b)
@@ -261,7 +260,7 @@ export class EditMidwifeComponent implements OnInit {
   }
 
   public updatephoto() {
-
+    debugger
     var entity = {
       'ID': this.id,
       'PhotoUrl': this.attachmentsurl[0]

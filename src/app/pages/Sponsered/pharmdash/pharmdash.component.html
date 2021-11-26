@@ -54,7 +54,7 @@
               <button *ngIf="details.hidden=='1'" (click)="enablePharmacy(details.id)"
                 style="background-color: red;color: aliceblue;border: none;">{{labels[0].enable}}</button>
               &nbsp;
-              <ng-template #tipcontent1>Edit</ng-template>
+              <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1"  [routerLink]="['/Sponserpharmacy',details.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 25px">
               </a>
