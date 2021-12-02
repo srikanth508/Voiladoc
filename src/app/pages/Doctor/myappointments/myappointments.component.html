@@ -62,8 +62,8 @@
             <th>{{labels[0].status}}</th>
             <th id="imp">{{labels[0].previousvisitdocument}}</th>
           </tr>
-          <tr
-          [style.background-color]="details.appointmentColorCode"  *ngFor="let details of appointmentlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
+          <tr [style.background-color]="details.appointmentColorCode"
+            *ngFor="let details of appointmentlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.appoinmentttdate}}</td>
             <td>{{details.slots}}</td>
             <td>
@@ -1798,7 +1798,7 @@
         <div class="container-fluid">
           <form #diaForm="ngForm">
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-5">
                 <h6>{{labels[0].chooseFromtemplate}} </h6>
               </div>
@@ -1817,7 +1817,7 @@
                 <h6>{{labels[0].fillAllDetails}}</h6>
               </div>
             </div>
-            <br>
+            <br> -->
 
             <!-- <div class="row">
               <div class="col-lg-5">
@@ -1832,7 +1832,7 @@
             </div><br> -->
 
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testType}} :</label>
                 <span class="required">*</span>
@@ -1844,8 +1844,47 @@
                 </select>
               </div>
             </div>
-            <br>
-            <div class="row">
+            <br> -->
+
+            <div>
+              <div class=row>
+                <div class="col-lg-4">
+                  <label>{{labels[0].testName}} :</label>
+                  <span class="required">*</span>
+                </div>
+                <div class="col-lg-6">
+                  <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
+                    [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
+                    (ngModelChange)="GetDrugNameID()" /> -->
+                  <input type="text" [(ngModel)]="testsname" name="testsname" class="form-control"
+                    placeholder="{{labels[0].testName}}" (ngModelChange)="SearchTestname(testsname)">
+                </div>
+              </div><br>
+            </div>
+            <div class="row" *ngIf="SerachtestOn=='1'">
+              <!-- <div class="col-lg-4">
+              </div> -->
+              <div class="col-lg-12" style="overflow-y:auto;height:300px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{labels[0].testName}}</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let code of tsetssslist|filter:testsname | slice:0:100; let i=index">
+                      <td>
+                        <input type="text" class="form-control" [(ngModel)]="code.short" name="code.short" [ngModelOptions]="{standalone: true}" >
+                      </td>
+                      <td>
+                        <input type="checkbox" [(ngModel)]="code.checked" name="code.checked">
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <br>
+            </div><br>
+            <!-- <div class="row">
               <div class="col-lg-5">
                 <label>{{labels[0].testName}} :</label>
                 <span class="required">*</span>
@@ -1870,9 +1909,9 @@
                     [(ngModel)]="diagnostictestname" name="diagnostictestname">
                 </div>
               </div> <br>
-            </div>
+            </div> -->
             <!-- *ngIf="testid==2" -->
-            <div>
+            <!-- <div>
               <div class="row">
                 <div class="col-lg-5">
                   <label>{{labels[0].clinicalInfo}} :</label>
@@ -1943,15 +1982,15 @@
                 </table>
               </div>
             </div>
-            <br>
-            <div class="row" *ngIf="tablecount=='1'">
+            <br> -->
+            <div class="row" *ngIf="SerachtestOn=='1'">
               <div class="col-lg-5">
               </div>
-              <div class="col-lg-2">
+              <div class="col-lg-5">
                 <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
                   (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
               </div>
-              <div class="col-lg-5">
+              <div class="col-lg-2">
               </div>
             </div>
             <br>
@@ -3944,23 +3983,23 @@
             </div>
             <br>
             <div *ngIf="categoryid=='1'">
-            <div class="row">
-              <div class="col-lg-3">
-                <label>
-                  <b>{{labels[0].diagnposticCode}}</b> :</label>
-              </div>
-              <div class="col-lg-7">
-                <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
-                  placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
-                  (ngModelChange)="SearchIcrCode()"></textarea>
+              <div class="row">
+                <div class="col-lg-3">
+                  <label>
+                    <b>{{labels[0].diagnposticCode}}</b> :</label>
+                </div>
+                <div class="col-lg-7">
+                  <textarea rows="4" class="form-control" [(ngModel)]="icddesc"
+                    placeholder="{{labels[0].diagnposticCode}}" name="icddesc"
+                    (ngModelChange)="SearchIcrCode()"></textarea>
 
-                <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].diagnposticCode}}"
+                  <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].diagnposticCode}}"
                   [(ngModel)]="icddesc" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search"
                   (ngModelChange)="getid()" /> -->
+                </div>
               </div>
-            </div>
-            <br>
-           
+              <br>
+
               <div class="row" *ngIf="showsearchsoap=='1'">
                 <!-- <div class="col-lg-1">
               </div> -->

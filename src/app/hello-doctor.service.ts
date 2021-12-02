@@ -5961,5 +5961,8 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertHomeVisitDeliveryChargesMaster';
     return this.http.post(this.url, data)
   }
-  
+  public GetDiagnosticTestMasterTests(lid,DiagnosticID) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTestMasterTests?LanguageID=' + lid+'&DiagnosticID='+DiagnosticID);
+  }
 }

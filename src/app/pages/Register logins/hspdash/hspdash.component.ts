@@ -245,12 +245,12 @@ export class HspdashComponent implements OnInit {
       else {
 
         if (this.languageid == 1) {
-          Swal.fire('Please enter valid Pinno and valid password')
+          Swal.fire('Please enter valid Pin and valid password')
           this.Enteredpinno = ""
           this.currentpwd = ""
         }
         else {
-          Swal.fire('Veuillez saisir un Pinno valide et un mot de passe valide')
+          Swal.fire('Veuillez saisir un Pin valide et un mot de passe valide')
           this.Enteredpinno = ""
           this.currentpwd = ""
         }

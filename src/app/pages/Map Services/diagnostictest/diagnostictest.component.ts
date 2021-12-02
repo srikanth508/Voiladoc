@@ -82,23 +82,23 @@ export class DiagnostictestComponent implements OnInit {
 
 
   public getdiagnostictestmaster() {
-
-    this.docservice.GetDiagnosticTestMasterByLanguageID(this.languageid).subscribe(
+    debugger
+    this.docservice.GetDiagnosticTestMasterTests(this.languageid,this.diagnosticid).subscribe(
       data => {
-
+debugger
         this.testlist = data;
         this.testlist[0]["checked"] = false;
         console.log("testlist", this.testlist)
-        this.diatestdd = {
-          singleSelection: true,
-          idField: 'id',
-          textField: 'short',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          //  itemsShowLimit: 3,
-          allowSearchFilter: true,
-          searchPlaceholderText: this.searchlable,
-        };
+        // this.diatestdd = {
+        //   singleSelection: true,
+        //   idField: 'id',
+        //   textField: 'short',
+        //   selectAllText: 'Select All',
+        //   unSelectAllText: 'UnSelect All',
+        //   //  itemsShowLimit: 3,
+        //   allowSearchFilter: true,
+        //   searchPlaceholderText: this.searchlable,
+        // };
 
       }, error => {
       }

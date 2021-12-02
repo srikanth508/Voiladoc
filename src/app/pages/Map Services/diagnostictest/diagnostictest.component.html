@@ -57,6 +57,7 @@
           <thead>
             <tr>
               <!-- <th>{{labels[0].diagnosticCenter}} </th> -->
+              <th>Test type</th>
               <th>{{labels[0].test}}</th>
 
               <th style="width: 67%;">{{labels[0].testDescription}}</th>
@@ -64,6 +65,7 @@
               <th>{{labels[0].actions}}</th>
             </tr>
             <tr *ngFor="let details of testlist|filter:term">
+              <td>{{details.name}}</td>
               <td>{{details.short}}</td>
               <td>{{details.description}}</td>
               <td>

@@ -338,6 +338,7 @@ export class MyappointmentsComponent implements OnInit {
     this.GetDrugnamemaster()
     this.oberserableTimerBookDocAppoinment()
     this.observableDoctorAutoCancelledAppointments();
+    this.getdiagnostictests();
 
     // document.getElementById('Scheduled').style.display = "block";
 
@@ -1304,6 +1305,23 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
+  SerachtestOn: any;
+  testsname: any;
+  public SearchTestname(medicinename) {
+
+    if (medicinename == "") {
+      this.SerachtestOn = 0
+    }
+    else {
+      this.SerachtestOn = 1;
+      //  this.drugnamelist = this.dummdrugnamelist.filter((x) => x.medicinename.contains(medicinename))
+      //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+    }
+  }
+
+
+
+
 
   public GetDrugID(medicinename) {
 
@@ -1793,14 +1811,16 @@ export class MyappointmentsComponent implements OnInit {
         this.diagnostictesttypename = this.testslist[i].name
       }
     }
-    this.getdiagnostictests();
+
   }
 
   public getdiagnostictests() {
-    this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
+    this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(1, this.languageid).subscribe(
       data => {
 
         this.tsetssslist = data;
+        this.tsetssslist[0]["checked"] = false;
+        console.log("testsss",this.tsetssslist)
       }, error => {
       }
     )
@@ -1960,37 +1980,38 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-
-
   public insertDiagnostictestdetails() {
-    for (let i = 0; i < this.qwerty.length; i++) {
+    debugger
+    var checktestlist = this.tsetssslist.filter(x => x.checked == true)
+    debugger
+    for (let i = 0; i < checktestlist.length; i++) {
+      debugger
       var entity = {
         'DoctorID': this.doctorid,
         'PateintID': this.diapatientid,
-        'DiagnosticTestTypeID': this.qwerty[i].DiagnosticTestTypeID,
-        'DiagnosticTestName': this.qwerty[i].TestName,
+        'DiagnosticTestTypeID': 1,
+        'DiagnosticTestName': checktestlist[i].short,
         'LanguageID': this.languageid,
         'AppointmentID': this.diaappointmentID,
-        'TestsID': this.qwerty[i].TestID,
-        'ClinicalInfo': this.qwerty[i].ClinicalInfo
+        'TestsID': checktestlist[i].id,
+        'ClinicalInfo': 0
       }
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
 
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
-            this.qwerty = [];
-            this.qwerty.length = 0
+            checktestlist = [];
+            checktestlist = 0
             this.VisitDoctorAppointmentStatus(this.diaappointmentID);
             this.Insertnotificationtestazure()
             this.Insertnotificationtest()
             this.tablecount = 0;
             this.testid.length = 0;
-            this.tsetssslist = 0;
+            // this.tsetssslist = 0;
             this.testssid = 0;
             this.testdisplay = "none";
-
-
+            this.tsetssslist[0]["checked"] = false;
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -2011,6 +2032,7 @@ export class MyappointmentsComponent implements OnInit {
             this.tsetssslist = 0;
             this.testssid = 0;
             this.testdisplay = "none";
+            this.tsetssslist[0]["checked"] = false;
 
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
