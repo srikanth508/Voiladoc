@@ -49,10 +49,10 @@
             <td>{{details.fees}}</td>
             <td>
               <button *ngIf="details.hidden=='0'" (click)="diasblePharmacy(details.id)"
-                style="background-color: green;color: aliceblue;border: none;">{{labels[0].disable}}</button>
+                style="background-color: green;color: aliceblue;border: none;">{{labels[0].enable}}</button>
 
               <button *ngIf="details.hidden=='1'" (click)="enablePharmacy(details.id)"
-                style="background-color: red;color: aliceblue;border: none;">{{labels[0].enable}}</button>
+                style="background-color: red;color: aliceblue;border: none;"> {{labels[0].disable}}</button>
               &nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent1"  [routerLink]="['/Sponserpharmacy',details.id]" style="color:black">

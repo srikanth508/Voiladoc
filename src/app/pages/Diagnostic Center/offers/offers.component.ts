@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
 import { formatDate } from "@angular/common";
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
@@ -9,7 +10,7 @@ import { formatDate } from "@angular/common";
 })
 export class OffersComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private activatedroute: ActivatedRoute) { }
 
   public diagnosticid: any;
   public offername: any;
@@ -31,7 +32,7 @@ export class OffersComponent implements OnInit {
   diadd = {}
   searchlable: any;
   SelectLabel: any;
-
+  showbit: any;
   ngOnInit() {
 
     const format = 'yyyy-MM-dd';
@@ -53,6 +54,29 @@ export class OffersComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+
+    this.activatedroute.params.subscribe(params => {
+
+      this.id = params['id'];
+      if (this.id == undefined) {
+        this.showbit = 0;
+      }
+      else if (this.id != undefined) {
+        this.showbit = 1;
+        this.docservice.GetDiagnosticOfferByDiagnosticID(this.diagnosticid).subscribe(data => {
+          var offers = data;
+          var list = offers.filter(x => x.id == this.id);
+          this.descripton = list[0].description,
+            this.offer = list[0].offer,
+            this.offername = list[0].offerName,
+            this.sdate = list[0].sdate,
+            this.edate = list[0].edate,
+            this.attachmentsurl[0] = list[0].photo
+
+        })
+      }
+    }
+    )
   }
 
 
@@ -120,13 +144,13 @@ export class OffersComponent implements OnInit {
 
               if (this.languageid == 1) {
                 Swal.fire('Added Successfully');
-              
+
                 this.clear();
                 this.attachmentsurl.length = 0;
               }
               else if (this.languageid == 6) {
                 Swal.fire('Mis à jour avec Succés');
-              
+
                 this.attachmentsurl.length = 0;
                 this.clear();
               }
@@ -169,6 +193,7 @@ export class OffersComponent implements OnInit {
 
 
   public uploadattachments() {
+    this.attachmentsurl.length = 0;
     this.docservice.DiagnosticPhotosUpload(this.attachments).subscribe(res => {
 
       this.attachmentsurl.push(res);
@@ -193,5 +218,66 @@ export class OffersComponent implements OnInit {
   }
   public GetClearDate() {
     this.edate = "";
+  }
+
+
+
+
+
+  id: any;
+
+
+  public updatedetails() {
+debugger
+    var sdate = this.docservice.Getyearmonthformat(this.sdate);
+    var edate = this.docservice.Getyearmonthformat(this.edate);
+    debugger
+    var entity = {
+      'ID': this.id,
+      'OfferName': this.offername,
+      'Description': this.descripton,
+      'TestID': this.testid,
+      'SDate': sdate,
+      'EDate': edate,
+      'Offer': this.offer
+    }
+    this.docservice.UpdateDiagnosticCenterOffers(entity).subscribe(data => {
+      var entity = {
+        'DiagnosticCenterID': this.diagnosticid,
+        'DiagnosticOfferID': this.id,
+        'PhotoURL': this.attachmentsurl[0]
+      }
+      this.docservice.UpdateDiagnosticCenterOfferPhotos(entity).subscribe(data => {
+
+        if (data != 0) {
+
+          if (this.languageid == 1) {
+            Swal.fire('Added Successfully');
+
+            this.clear();
+            this.attachmentsurl.length = 0;
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Mis à jour avec Succés');
+
+            this.attachmentsurl.length = 0;
+            this.clear();
+          }
+        }
+      })
+
+      if (this.languageid == 1) {
+        Swal.fire('Updated Successfully');
+        location.href = "#/Offersdash"
+        this.clear();
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Mis à jour avec Succés');
+        location.href = "#/Offersdash"
+        this.clear();
+      }
+
+
+    })
   }
 }

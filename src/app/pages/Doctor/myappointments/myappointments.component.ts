@@ -464,7 +464,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-
+showothertest:any;
 
 
 
@@ -1307,9 +1307,9 @@ export class MyappointmentsComponent implements OnInit {
 
   SerachtestOn: any;
   testsname: any;
-  public SearchTestname(medicinename) {
+  public SearchTestname(testsname) {
 
-    if (medicinename == "") {
+    if (testsname == "") {
       this.SerachtestOn = 0
     }
     else {
@@ -1997,21 +1997,27 @@ export class MyappointmentsComponent implements OnInit {
         'ClinicalInfo': 0
       }
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
-
+      
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
             checktestlist = [];
-            checktestlist = 0
+            checktestlist = 0;
+            this.testdisplay = "none";
+            document.getElementById("close").click();
+            this.getdiagnostictests();
+            this.SerachtestOn=0;
+            this.testsname="";
             this.VisitDoctorAppointmentStatus(this.diaappointmentID);
-            this.Insertnotificationtestazure()
+            this.Insertnotificationtestazure();
             this.Insertnotificationtest()
             this.tablecount = 0;
             this.testid.length = 0;
             // this.tsetssslist = 0;
             this.testssid = 0;
-            this.testdisplay = "none";
-            this.tsetssslist[0]["checked"] = false;
+          
+            
+ 
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -2021,9 +2027,13 @@ export class MyappointmentsComponent implements OnInit {
           }
           else if (this.languageid == 6) {
             Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
-
+            this.testdisplay = "none";
+            document.getElementById("close").click();
             this.qwerty = [];
-            this.qwerty.length = 0
+            this.qwerty.length = 0;
+            this.getdiagnostictests();
+            this.SerachtestOn=0;
+            this.testsname="";
             this.VisitDoctorAppointmentStatus(this.diaappointmentID);
             this.Insertnotificationtestazure()
             this.Insertnotificationtest()
@@ -2031,9 +2041,9 @@ export class MyappointmentsComponent implements OnInit {
             this.testid.length = 0;
             this.tsetssslist = 0;
             this.testssid = 0;
-            this.testdisplay = "none";
-            this.tsetssslist[0]["checked"] = false;
-
+            this.SerachtestOn=0;
+           
+          
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -2085,6 +2095,82 @@ export class MyappointmentsComponent implements OnInit {
     }
 
   }
+
+
+  public insertDiagnostictest()
+  {
+    debugger
+    var entity = {
+      'DoctorID': this.doctorid,
+      'PateintID': this.diapatientid,
+      'DiagnosticTestTypeID': 1,
+      'DiagnosticTestName': this.diagnostictestname,
+      'LanguageID': this.languageid,
+      'AppointmentID': this.diaappointmentID,
+      'TestsID':59,
+      'ClinicalInfo': 0
+    }
+    this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+        if (this.languageid == 1) {
+          Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+          debugger
+          this.testdisplay = "none";
+          document.getElementById("close").click();
+          this.getdiagnostictests();
+          this.SerachtestOn=0;
+          this.testsname="";
+          this.VisitDoctorAppointmentStatus(this.diaappointmentID);
+          this.Insertnotificationtestazure();
+          this.Insertnotificationtest()
+          this.tablecount = 0;
+          this.testid.length = 0;
+          // this.tsetssslist = 0;
+          this.testssid = 0;
+          this.diagnostictestname=""
+        
+          
+
+          if (this.followupvisit == 1) {
+            this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
+            })
+
+          }
+          this.followupvisit = 0;
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
+          this.testdisplay = "none";
+          document.getElementById("close").click();
+          this.qwerty = [];
+          this.qwerty.length = 0;
+          this.getdiagnostictests();
+          this.SerachtestOn=0;
+          this.testsname="";
+          this.VisitDoctorAppointmentStatus(this.diaappointmentID);
+          this.Insertnotificationtestazure()
+          this.Insertnotificationtest()
+          this.tablecount = 0;
+          this.testid.length = 0;
+          this.tsetssslist = 0;
+          this.testssid = 0;
+          this.SerachtestOn=0;
+          this.diagnostictestname=""
+         
+        
+          if (this.followupvisit == 1) {
+            this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
+            })
+
+          }
+          this.followupvisit = 0;
+        }
+
+      }
+    })
+  }
+  
 
 
 

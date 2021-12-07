@@ -22,7 +22,7 @@ export class EditDiagnosticTestComponent implements OnInit {
   public id: any;
   public price: any;
   public description: any;
-
+  testtype:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
@@ -64,6 +64,7 @@ export class EditDiagnosticTestComponent implements OnInit {
           this.price = list[0].price,
           this.description = list[0].description,
           this.diagnosticid = list[0].diagnosticCenterID
+          this.testtype=list[0].name
 
       }, error => {
       }

@@ -44,18 +44,18 @@
             *ngFor="let details of diagnosticlist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <td>{{details.diagnosticCenterName}}</td>
             <!-- <td>{{details.address}}</td> -->
-            <td>{{details.sDate|date:'dd-MM-yyyy'}}</td>
-            <td>{{details.eDate|date:'dd-MM-yyyy'}}</td>
+            <td>{{details.startdate|date:'dd-MM-yyyy'}}</td>
+            <td>{{details.enddate|date:'dd-MM-yyyy'}}</td>
             <td>{{details.fees}}</td>
             <td>
              
                 <button (click)="disablediagnostic(details.id)"
                   style="background-color: green;color: aliceblue;border: none;"
-                  *ngIf="details.hidden=='0'">{{labels[0].disable}}</button>
+                  *ngIf="details.hidden=='0'">{{labels[0].enable}}</button>
 
                   <button (click)="enablediagnostic(details.id)"
                   style="background-color: red;color: aliceblue;border: none;"
-                  *ngIf="details.hidden=='1'">{{labels[0].enable}}</button>
+                  *ngIf="details.hidden=='1'"> {{labels[0].disable}}</button>
                   &nbsp;
 
                   <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>

@@ -94,7 +94,8 @@
         <span class="required"> *</span>
       </div>
       <div class="col-lg-4">
-        <input type="text" [(ngModel)]="offer" name="offer" required placeholder="{{labels[0].offer}}" class="form-control">
+        <input type="text" [(ngModel)]="offer" name="offer" required placeholder="{{labels[0].offer}}"
+          class="form-control">
       </div>
     </div>
     <br>
@@ -112,7 +113,7 @@
           <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
         </span>
       </div>
-      <div class="col-lg-5 specforimg" >
+      <div class="col-lg-5 specforimg">
         <p>
           {{labels[0].image}}
         </p>
@@ -124,8 +125,12 @@
       </div>
       <div class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="offersForm.form.invalid"
-          (click)="insertdetails()">
+          *ngIf="showbit=='0'" (click)="insertdetails()">
           {{labels[0].save}}</button>
+
+        <button type="button" class="btn btn-block btn-md allbtns btncolor" *ngIf="showbit=='1'"
+          (click)="updatedetails()">
+          {{labels[0].update}}</button>
       </div>
       <div class="col-lg-5">
 

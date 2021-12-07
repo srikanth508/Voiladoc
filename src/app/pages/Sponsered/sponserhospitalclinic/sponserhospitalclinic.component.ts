@@ -131,10 +131,14 @@ export class SponserhospitalclinicComponent implements OnInit {
       Swal.fire("Please Select Hospital/Clinic")
     }
     else {
+      debugger
+     var sdate= this.docservice.Getyearmonthformat(this.startdate);
+     var edate= this.docservice.Getyearmonthformat(this.startdate);
+      debugger
       var entity = {
         'Hospital_ClinicID': this.hospitalid,
-        'SDate': this.startdate,
-        'EDate': this.enddate,
+        'SDate': sdate,
+        'EDate': edate,
         'Fees': this.fees
       }
       this.docservice.InsertSponsoredHospitals(entity).subscribe(data => {

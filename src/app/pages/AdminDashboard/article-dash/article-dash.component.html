@@ -65,15 +65,22 @@
               </a>&nbsp;
 
               
-              <ng-template #tipcontent3>{{labels1[0].disable}}</ng-template>
+              <ng-template #tipcontent3> {{labels1[0].enable}}</ng-template>
               <a [ngbTooltip]="tipcontent3">
-                <button *ngIf="article.enable=='0'" style="background-color: red;color: aliceblue;border: none;"
-                  (click)="GetDisableArticle(article.id)">{{labels1[0].disable}}</button>
+
+                <img *ngIf="article.enable=='0'" src="assets/Images/active.png"   (click)="GetDisableArticle(article.id)"
+                style="width: 50px;" />
+            
+                <!-- <button *ngIf="article.enable=='0'" style="background-color: red;color: aliceblue;border: none;"
+                  (click)="GetDisableArticle(article.id)">{{labels1[0].disable}}</button> -->
               </a>&nbsp;
-              <ng-template #tipcontent2>{{labels1[0].enable}}</ng-template>
-              <a [ngbTooltip]="tipcontent2" *ngIf="article.enable=='1'">
-                <button *ngIf="article.enable=='1'" style="background-color: green;color: aliceblue;border: none;"
-                  (click)="GetEnableArticle(article.id)">{{labels1[0].enable}}</button>
+              <ng-template #tipcontent2>{{labels1[0].disable}}</ng-template>
+              <a [ngbTooltip]="tipcontent2" >
+
+                <img *ngIf="article.enable=='1'" (click)="GetEnableArticle(article.id)"  src="assets/Images/dactive.png" 
+                style="width: 50px;" />
+                <!-- <button *ngIf="article.enable=='1'" style="background-color: green;color: aliceblue;border: none;"
+                  (click)="GetEnableArticle(article.id)">{{labels1[0].enable}}</button> -->
               </a>
             </td>
           </tr>

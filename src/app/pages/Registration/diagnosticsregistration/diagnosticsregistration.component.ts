@@ -238,7 +238,7 @@ export class DiagnosticsregistrationComponent implements OnInit {
         'ContactPerson': this.contactpersonname,
         'ContactPersonPhNo': this.contactpersonphno,
         'LicenseNo': this.licenseno,
-        'LicenseValidTill': this.licensevalidtill,
+        'LicenseValidTill': new Date(),
         'HomeSample': this.samplepickup,
         'Preffered': this.prefered,
         'Website': this.hspwebsite,

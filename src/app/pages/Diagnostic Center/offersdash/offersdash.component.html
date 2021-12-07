@@ -47,6 +47,9 @@
                 <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
                   (click)="deletediagnosticoffers(details.id)">
               </a>
+              <ng-template #tipcontent95585>Edit</ng-template>
+              <a [ngbTooltip]="tipcontent95585" style="color:black">
+                <img src="assets/Images/edit.png" style="width: 18px" [routerLink]="['/Offers',details.id]"></a>
             </td>
           </tr>
         </thead>

@@ -67,7 +67,7 @@ export class DiagnosticcenterComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        this.search=this.labels[0].search;
+        this.search = this.labels[0].search;
       }, error => {
       }
     )
@@ -108,28 +108,29 @@ export class DiagnosticcenterComponent implements OnInit {
 
     }
     else {
+      debugger
+      var sdate = this.docservice.Getyearmonthformat(this.startdate);
+      var edate = this.docservice.Getyearmonthformat(this.enddate);
       var entity = {
         'DiagnosticID': this.diagnosticid,
-        'SDate': this.startdate,
-        'EDate': this.enddate,
+        'SDate': sdate,
+        'EDate': edate,
         'Fees': this.fees
       }
       this.docservice.InsertSponsoredDiagnosticCenter(entity).subscribe(data => {
 
         if (data != 0) {
-          if(this.languageid==1)
-          {
+          if (this.languageid == 1) {
             Swal.fire('Completed', 'Published successfully', 'success');
             location.href = "#/Diagdash";
             this.clear();
           }
-          else
-          {
-            Swal.fire('','Publié avec succès', 'success');
+          else {
+            Swal.fire('', 'Publié avec succès', 'success');
             location.href = "#/Diagdash";
             this.clear();
           }
-         
+
 
         }
       })

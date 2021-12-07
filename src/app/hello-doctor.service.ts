@@ -5525,6 +5525,21 @@ export class HelloDoctorService {
 
   }
 
+  public Getyearmonthformat(newDate) {
+    var d = new Date(newDate),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+    var date = month + "-" + day + "-" + year;
+    return date = year + "-" + month + "-" + day;
+
+  }
+
 
   public UpdatePharmacyOffers(data) {
 
@@ -5964,5 +5979,14 @@ export class HelloDoctorService {
   public GetDiagnosticTestMasterTests(lid,DiagnosticID) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTestMasterTests?LanguageID=' + lid+'&DiagnosticID='+DiagnosticID);
+  }
+
+  public UpdateDiagnosticCenterOffers(data) {
+    this.url = this.host + '/Diagnostic/UpdateDiagnosticCenterOffers';
+    return this.http.post(this.url, data)
+  }
+  public UpdateDiagnosticCenterOfferPhotos(data) {
+    this.url = this.host + '/Diagnostic/UpdateDiagnosticCenterOfferPhotos';
+    return this.http.post(this.url, data)
   }
 }

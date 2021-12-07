@@ -412,6 +412,7 @@ const routes: Routes = [
   { path: 'Profiles', component: ProfilesComponent },
   { path: 'Orders', component: OrdersComponent },
   { path: 'Offers', component: OffersComponent },
+  { path: 'Offers/:id', component: OffersComponent },
   { path: 'Pharmacyprofile', component: PharmacyprofileComponent },
   { path: 'Pharmacyoffers', component: PharmacyoffersComponent },
   { path: 'Writearticle', component: WritearticleComponent },
