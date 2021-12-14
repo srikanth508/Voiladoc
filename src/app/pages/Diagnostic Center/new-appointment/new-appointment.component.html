@@ -24,9 +24,9 @@
             <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open" 
                 *ngIf="languageid=='1'">Tests</button>
             <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='1'">Packages</button>
-            <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open" *ngIf="languageid=='6'">Des
-                tests</button>
-            <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='6'">Paquets</button>
+            <button class="tablinks" (click)="openCity($event, 'Tests')" id="def_open" *ngIf="languageid=='6'">
+                Tests</button>
+            <button class="tablinks" (click)="openCity($event, 'Packages')" *ngIf="languageid=='6'">Forfaits</button>
         </div>
     </div>
     <br>
@@ -242,8 +242,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="languageid=='1'">Close</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="languageid=='6'">Fermer</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #f18235;" data-dismiss="modal" *ngIf="languageid=='1'">Close</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #f18235;" data-dismiss="modal" *ngIf="languageid=='6'">Fermer</button>
             </div>
         </div>
     </div>

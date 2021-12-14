@@ -5989,4 +5989,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Diagnostic/UpdateDiagnosticCenterOfferPhotos';
     return this.http.post(this.url, data)
   }
+
+    public GetPharmacyAppointmentPhotos(orderid) {
+
+    return this.http.get<any[]>(this.host + '/Pharmacy/GetPharmacyAppointmentPhotos?OrderID=' + orderid);
+  }
 }

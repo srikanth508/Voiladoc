@@ -129,14 +129,14 @@ export class DoctorPrescriptionComponent implements OnInit {
     });
   }
   public async GetPharmacyOrders() {
-    debugger
+
     this.docservice.GetPatient_TextMedicineDetails(this.pharmacyid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-        debugger
+
         this.orderlist = data;
-        console.log("orders",this.orderlist);
+        console.log("orders", this.orderlist);
       }, error => {
-        console.log("Error",error);
+        console.log("Error", error);
       }
     )
   }
@@ -181,7 +181,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public GetMedicines(id, details) {
-    debugger
+
     this.myarray.length = 0;
     this.smsmobleno = details.smsmobileno
 
@@ -559,7 +559,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    debugger
+
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
 
     })
@@ -728,6 +728,23 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   }
+
+
+  uploadephotos: any;
+  typeid: number;
+
+  public async getPrescriptionsdetails(details) {
+
+    this.showedit = details.showUpdate,
+      this.id = details.id
+    this.docservice.GetPharmacyAppointmentPhotos(this.id).subscribe(data => {
+
+      this.uploadephotos = data;
+      this.typeid = data[0].typeID
+    })
+  }
+
+
 
   id: any;
   amounttopay: any;
@@ -1285,7 +1302,7 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public Updateavailablemedicines() {
-    debugger
+
     var txtAmount = this.orderedmedicinelist.filter(x => x.amount == 0 && (x.availableBit == true || x.availableBit == 1));
     var mandatoryOne = this.orderedmedicinelist.filter(x => (x.availableBit == true || x.availableBit == 1))
     if (txtAmount.length != 0 || mandatoryOne.length == 0) {

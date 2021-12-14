@@ -168,7 +168,15 @@ debugger
     let validate = this.testlist.filter(x => x.checked == true && (x.amount == 0 || x.amount == ''))
 
     if (testarry.length == 0 || validate.length != 0) {
-      Swal.fire("Please add atleast one test or enter amount")
+      if(this.languageid==1)
+      {
+        Swal.fire("Some items have “0” value. Please review and update.")
+      }
+      else
+      {
+        Swal.fire("Certains éléments ont une valeur '0'. Veuillez réviser et mettre à jour.")
+      }
+     
     }
     else {
       this.spinner.show();

@@ -39,6 +39,7 @@ export class DiagnosticpackageComponent implements OnInit {
   public dummdiagnosticid: any;
   public searchlable: any;
   public showdropdown: any;
+  testslist:any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -53,10 +54,24 @@ export class DiagnosticpackageComponent implements OnInit {
     this.getlanguage();
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();
+    this.getdiagnosticcentertests();
     this.tablecount = 0;
     this.idcount = 1
 
   }
+
+  public getdiagnosticcentertests() {
+
+    this.docservice.GetDiagnosticTestTypeMasterByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.testslist = data;
+      }, error => {
+      }
+    )
+  }
+
+
   public getlanguage() {
 
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(

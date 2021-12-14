@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-doctor',
@@ -78,7 +79,7 @@ export class DoctorComponent implements OnInit {
 
         this.labels = data;
         this.SelectLabel = this.labels[0].select;
-        this.search=this.labels[0].search
+        this.search = this.labels[0].search
       }, error => {
       }
     )
@@ -98,7 +99,7 @@ export class DoctorComponent implements OnInit {
 
 
 
-  public insertdetails() {
+  async insertdetails() {
 
     this.password = Math.random().toString(36).slice(-8);
 
@@ -126,19 +127,20 @@ export class DoctorComponent implements OnInit {
       }
       // this.username = '';
       // this.password = '';
-      this.docservice.InsertDoctorLogin(entity).subscribe(data => {
+      this.docservice.InsertDoctorLogin(entity).subscribe(async data => {
 
         if (data != 0) {
           // Swal.fire('Added Successfully.');
+          await this.getdoctorloginfordash();
           if (this.languageid == 1) {
-            this.getdoctorloginfordash()
+
             Swal.fire('Completed', 'Doctor saved successfully', 'success');
             location.href = "#/Doctordash"
             this.pp = 0;
             // this.sendmail();
           }
           else {
-            this.getdoctorloginfordash()
+
             Swal.fire('', 'Mis à jour avec succés', 'success');
             location.href = "#/Doctordash"
             this.pp = 0;
@@ -165,17 +167,18 @@ export class DoctorComponent implements OnInit {
 
   public doctorloginlist: any;
 
-  public getdoctorloginfordash() {
+  async getdoctorloginfordash() {
 
     this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
-      data => {
+      async data => {
 
         this.doctorloginlist = data;
         var list = this.doctorloginlist.filter(x => x.doctorID == this.doctorid)
         this.pinno = list[0].pinno,
           this.email = list[0].emailID,
           this.doctorname = list[0].doctorName
-        this.sendmail();
+          await this.sendmail();
+          return true;
       }, error => {
       }
     )
@@ -190,7 +193,7 @@ export class DoctorComponent implements OnInit {
   public email: any;
   public doctorname: any;
 
-  public sendmail() {
+  async sendmail() {
 
     var entity = {
       'emailto': this.email,
@@ -201,6 +204,7 @@ export class DoctorComponent implements OnInit {
       'bcclist': 0
     }
     this.docservice.sendemail(entity).subscribe(data => {
+      return true;
     })
   }
 

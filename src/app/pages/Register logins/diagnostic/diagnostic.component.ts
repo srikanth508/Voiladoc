@@ -84,6 +84,7 @@ export class DiagnosticComponent implements OnInit {
       //     this.pp=1;
       //   }
       // else {
+        debugger
       var entity = {
         'DiagnosticCenterID': this.diagnosticid,
         'UserName': this.username,
@@ -91,18 +92,19 @@ export class DiagnosticComponent implements OnInit {
       }
       this.docservice.InsertDiagnosticCenterAdminRegistration(entity).subscribe(data => {
         if (data != 0) {
+          this.getdiagnosticloginfordash()
           if (this.languageid == 1) {
-            this.getdiagnosticloginfordash()
+           
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
             location.href = "#/Diagnosticdash"
-            this.clear();
+           
             this.pp = 0;
           }
           else {
-            this.getdiagnosticloginfordash()
+            debugger
             Swal.fire('', 'Mis à jour avec succés', 'success');
             location.href = "#/Diagnosticdash"
-            this.clear();
+   
             this.pp = 0;
           }
         }
@@ -126,9 +128,10 @@ export class DiagnosticComponent implements OnInit {
   public diagnoticloginlist: any;
 
   public getdiagnosticloginfordash() {
+    debugger
     this.docservice.GetDiagnosticLoginForDash(this.languageid).subscribe(
       data => {
-
+        debugger
         this.diagnoticloginlist = data;
 
         var list = this.diagnoticloginlist.filter(x => x.diagnosticCenterID == this.diagnosticid)
@@ -136,7 +139,7 @@ export class DiagnosticComponent implements OnInit {
           this.pinno = list[0].pinno,
           this.email = list[0].emailID
 
-        this.sendmail();
+           this.sendmail();
 
       }, error => {
       }
@@ -152,8 +155,8 @@ export class DiagnosticComponent implements OnInit {
 
 
 
-  public sendmail() {
-    
+   sendmail() {
+    debugger
     var entity = {
       'emailto': this.email,
       'emailsubject': "Voiladoc",
@@ -163,14 +166,12 @@ export class DiagnosticComponent implements OnInit {
       'bcclist': 0
     }
     this.docservice.sendemail(entity).subscribe(data => {
+      debugger
     })
   }
 
 
 
-  public clear() {
-    this.username = '';
-    this.password = '';
-    this.diagnosticid = 0;
-  }
+ 
+  
 }

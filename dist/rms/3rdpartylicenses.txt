@@ -111,7 +111,7 @@ THE SOFTWARE.
 
 
 @opentok/client
-https://tokbox.com/support/sdk_license
+https://www.vonage.com/legal/communications-apis/terms-of-use/
 
 angular-archwizard
 MIT

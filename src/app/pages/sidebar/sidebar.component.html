@@ -279,7 +279,8 @@
                 <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioworkingDash">
                     <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].physiotherapist}}
                 </a>
-                <a class="tablinks" (click)="highlight($event)" routerLink="/PhysiFeedash">
+                <!-- PhysiFeedash -->
+                <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash">
                     <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
                     {{labels[0].physitherapistFees}}
                 </a>
@@ -689,7 +690,7 @@
                 </a>
                 <div id="PhysioWork" class="collapse">
 
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysiFeedash">
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
                         {{labels[0].physitherapistFees}}
                     </a>
@@ -852,6 +853,24 @@
                 <img src="assets/Images/diaslot.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].changepassword}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='4'" routerLink="/DiagnosticTestDash">
+                <img src="assets/Images/dt.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticTest}}
+            </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/DiagnosticPackageDash">
+                <img src="assets/Images/diapack.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticpackage}}
+            </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/Offersdash">
+                <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].offers}}
+            </a>
+
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/PaymentLinkDash">
+                <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].paymentLink}}
+            </a>
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/MyTeamDashboard">
+                <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myTeam}}
+            </a>
 
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='23'" routerLink="/DiagnosticSupportDash">
                 <img src="assets/Images/offers32x32.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].supportTickets}}
@@ -1379,7 +1398,7 @@
                         &nbsp;Planning
                         <!-- {{labels[0].physiotherapist}} -->
                     </a>
-                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysiFeedash"
+                    <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash"
                         *ngIf="physiofees=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
                         {{labels[0].physitherapistFees}}
@@ -1410,6 +1429,9 @@
                     Diagnostic
                 </a>
                 <div id="diagnosticmanage" class="collapse">
+                    <a class="tablinks" (click)="highlight($event)" *ngIf="diagnosticpackage=='1'"  routerLink="/DiagnosticTestDash">
+                        <img src="assets/Images/dt.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].diagnosticTest}}
+                    </a>
                     <a class="tablinks" (click)="highlight($event)" *ngIf="diagnosticpackage=='1'"
                         routerLink="/DiagnosticPackageDash">
                         <img src="assets/Images/diapack.png" style="width: 15px;">&nbsp; &nbsp;

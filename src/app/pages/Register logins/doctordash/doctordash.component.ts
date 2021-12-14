@@ -226,7 +226,7 @@ export class DoctordashComponent implements OnInit {
         }
         else
         {
-          Swal.fire('Veuillez saisir un Pin valide et un mot de passe valide')
+          Swal.fire('Veuilez saisir un PIN valide et un mot de passe valide.')
           this.Enteredpinno = ""
           this.currentpwd = ""
         }

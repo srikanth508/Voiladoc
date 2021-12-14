@@ -55,6 +55,18 @@
     </div><br>
     <div class="row">
       <div class="col-lg-3">
+        <label>Test type :</label>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control"  [(ngModel)]="testid" name="testid">
+          <option value="0" selected>{{labels[0].select}}</option>
+          <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
         <label >Test : </label>
       </div>
       <div class="col-lg-4">
