@@ -311,7 +311,7 @@
                       *ngIf="details.accepted=='1'&&details.cancelled=='0'&&details.categoryID=='1'&&details.docCancelled=='0'&& details.noShow=='0'&&details.disableall=='1'">
                       <img src="assets/Images/medical.png" style="height:25px;" data-toggle="modal"
                         data-target="#exampleModalCenterSickSlip"
-                        (click)="GetSickSlipID(details.patientID,details.appointmentID,details.pEmail,details.smsmobileno)" />
+                        (click)="GetSickSlipID(details.patientID,details.appointmentID,details.pEmail,details.smsmobileno,details.nationalIdentityNo)" />
                     </a>
                   </td>
                   <td style="border:none">
@@ -557,6 +557,7 @@
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> Email</b> : {{alldetails.emailID}}</label><br>
+                <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -649,6 +650,7 @@
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.emailID}}</label><br>
                 <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -755,6 +757,7 @@
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.emailID}}</label><br>
                 <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -843,6 +846,7 @@
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                  <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.emailID}}</label><br>
                   <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -964,6 +968,7 @@
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                  <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.emailID}}</label><br>
                   <label><b> {{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -1023,6 +1028,7 @@
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
+                  <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.emailID}}</label><br>
                   <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -2981,7 +2987,7 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button type="button" class="btn btncolor" style="background-color: #f18235;" data-toggle="modal"
+              <button type="button" class="btn btncolor" style="background-color: #f18235;" data-dismiss="modal" data-toggle="modal"
                 data-target="#mymedicalcertficate" (click)="InsertSickSlipGenarator()">{{labels1[0].generate}}</button>
             </div>
             <div class="col-lg-5">
@@ -4194,7 +4200,14 @@
 
 <div id="mymedicalcertficate" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
+   
     <div class="modal-content">
+      <div class="modal-header modal-xl card">
+        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="modal-body" id="medicalcontent">
         <div class="row">
           <div class="col-lg-9" style="margin-top:100px">

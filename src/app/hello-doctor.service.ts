@@ -9,7 +9,7 @@ import { pipeDef } from '@angular/core/src/view';
 
 export class HelloDoctorService {
   //live
-   public host = "https://maroc.voiladoc.org/MarocAPI";
+  public host = "https://maroc.voiladoc.org/MarocAPI";
 
   private host1 = "https://maroc.voiladoc.org/MarocAPI";
 
@@ -17,9 +17,9 @@ export class HelloDoctorService {
 
   //test1
 
-   //public host = "https://madagascar.voiladoc.org/MadagascarWebAPI";
+  //public host = "https://madagascar.voiladoc.org/MadagascarWebAPI";
 
-   //private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI";
+  //private host1 = "https://madagascar.voiladoc.org/MadagascarWebAPI";
 
 
   private host2 = "https://voiladoc.org/VoiladocRegistrationsWebApi";
@@ -1148,7 +1148,7 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
   public InsertNurseWorkingDetails(data) {
-
+    debugger
     this.url = this.host + '/Admin/InsertNurseWorkingDetails';
     return this.http.post(this.url, data)
   }
@@ -5976,9 +5976,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/InsertHomeVisitDeliveryChargesMaster';
     return this.http.post(this.url, data)
   }
-  public GetDiagnosticTestMasterTests(lid,DiagnosticID) {
+  public GetDiagnosticTestMasterTests(lid, DiagnosticID) {
 
-    return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTestMasterTests?LanguageID=' + lid+'&DiagnosticID='+DiagnosticID);
+    return this.http.get<any[]>(this.host + '/Doctor/GetDiagnosticTestMasterTests?LanguageID=' + lid + '&DiagnosticID=' + DiagnosticID);
   }
 
   public UpdateDiagnosticCenterOffers(data) {
@@ -5990,8 +5990,24 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-    public GetPharmacyAppointmentPhotos(orderid) {
+  public GetPharmacyAppointmentPhotos(orderid) {
 
     return this.http.get<any[]>(this.host + '/Pharmacy/GetPharmacyAppointmentPhotos?OrderID=' + orderid);
+  }
+
+  public GetNurseSlotsByNurseID(nurseid,slotypeid,lid) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetNurseSlotsByNurseID?NurseID=' + nurseid+'&SlotTypeID='+slotypeid+'&LanguageID='+lid);
+  }
+
+
+  public DeleteNurseWorkingDetailsBySlot(id) {
+
+    return this.http.get<any[]>(this.host + '/Admin/DeleteNurseWorkingDetailsBySlot?ID=' + id );
+  }
+
+  public InsertNurseWorkingDetailsSlots(data) {
+    this.url = this.host + '/Admin/InsertNurseWorkingDetailsSlots';
+    return this.http.post(this.url, data)
   }
 }

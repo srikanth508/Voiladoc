@@ -1,6 +1,6 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace headercolor">
-    <div class="col-lg-5">  
+    <div class="col-lg-5">
       <h5>{{labels[0].nurseworkinDetails}}</h5>
     </div>
     <div class="col-lg-5">
@@ -22,16 +22,16 @@
           <option>{{labels[0].select}}</option>
           <option *ngFor="let nurse of nurselist" value="{{nurse.id}}">{{nurse.nurseName}}</option>
         </select> -->
-        <ng-multiselect-dropdown [placeholder]="select" [disabled]="table=='1'"  [data]="nurselist"
-        [settings]="nursedd" (onSelect)="getnurseid($event)">
-      </ng-multiselect-dropdown>
+        <ng-multiselect-dropdown [placeholder]="select" [disabled]="table=='1'" [data]="nurselist" [settings]="nursedd"
+          (onSelect)="getnurseid($event)">
+        </ng-multiselect-dropdown>
 
 
       </div>
     </div>
     <br>
-  
-      <!-- <div class="row">
+
+    <!-- <div class="row">
         <div class="col-lg-3">
           <label>{{labels[0].nurseName}} : </label>
           <span class="required">*</span>
@@ -41,19 +41,19 @@
         </div>
       </div>
       <br> -->
-      <div class="row">
-        <div class="col-lg-3">
-          <label>{{labels[0].hospitalClinic}} : </label>
-          <span class="required">*</span>
-        </div>
-        <div class="col-lg-4">
-          <input type="text" [(ngModel)]="hospital_ClinicName" id="hospital_ClinicName" name="hospital_ClinicName"
-            class="form-control" disabled>
-        </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].hospitalClinic}} : </label>
+        <span class="required">*</span>
       </div>
-  
+      <div class="col-lg-4">
+        <input type="text" [(ngModel)]="hospital_ClinicName" id="hospital_ClinicName" name="hospital_ClinicName"
+          class="form-control" disabled>
+      </div>
+    </div>
+
     <br>
-  
+
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].day}} : </label>
@@ -66,31 +66,22 @@
           </option>
         </select> -->
 
-        <ng-multiselect-dropdown [placeholder]="select"  [data]="dayslist"
-        [settings]="daysdd" (onSelect)="GetDaysID($event)">
-      </ng-multiselect-dropdown>
+        <ng-multiselect-dropdown [placeholder]="select" [data]="dayslist" [settings]="daysdd"
+          (onSelect)="GetDaysID($event)">
+        </ng-multiselect-dropdown>
       </div>
     </div>
     <br>
-    <!-- <div class="row">
-      <div class="col-lg-3">
-        <label>{{labels[0].fees}} : </label>
-      </div>
-      <div class="col-lg-4">
-        <input class="form-control" type="text"  name="fees" [(ngModel)]="fees" placeholder="{{labels[0].fees}}"
-          [disabled]="table=='1'" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-      </div>
-    </div>
-    <br> -->
+   
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].startTime}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required [(ngModel)]="starttime" name="starttime" [disabled]="table=='1'">
+        <select class="form-control" required (change)="changeStarttime($event)">
           <option value="0">{{labels[0].startTime}}</option>
-          <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+          <option *ngFor="let day of Timeings" value={{day.id}}>{{day.slotName}}
           </option>
         </select>
         <!-- <input type="time" class="form-control" required [(ngModel)]="starttime" name="starttime"> -->
@@ -103,12 +94,22 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required [(ngModel)]="endtime" name="endtime" [disabled]="table=='1'">
+        <select class="form-control" required (change)="changeEndtime($event)">
           <option value="0">{{labels[0].endTime}}</option>
-          <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+          <option *ngFor="let day of endslotlist" value={{day.id}}>{{day.slotName}}
           </option>
         </select>
         <!-- <input type="time" class="form-control" required [(ngModel)]="endtime" name="endtime"> -->
+      </div>
+    </div>
+    <br>
+     <div class="row">
+      <div class="col-lg-3">
+        <label>{{labels[0].fees}} : </label>
+      </div>
+      <div class="col-lg-4">
+        <input class="form-control" type="text"  name="fees" [(ngModel)]="fees" placeholder="{{labels[0].fees}}"
+          [disabled]="table=='1'" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
       </div>
     </div>
     <br>
@@ -117,7 +118,7 @@
       </div>
       <div class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="nurseForm.form.invalid"
-          (click)="adddetails()">{{labels[0].add}}</button>
+          (click)="InsertNurseHospitalDetailsAdmin()">{{labels[0].save}}</button>
       </div>
       <div class="col-lg-5">
       </div>
@@ -151,7 +152,7 @@
     <div class="row" *ngIf="table=='1'">
       <div class="col-lg-5">
       </div>
-      <div  class="col-lg-2">
+      <div class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor"
           (click)="InsertNurseHospitalDetailsAdmin()">{{labels[0].save}}</button>
       </div>
