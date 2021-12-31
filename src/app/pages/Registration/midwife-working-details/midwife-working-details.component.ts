@@ -75,13 +75,14 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     }
     )
   }
-
+  select:any;
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
 
         this.labels = data;
         this.search=this.labels[0].search
+        this.select=this.labels[0].select
       }, error => {
       }
     )

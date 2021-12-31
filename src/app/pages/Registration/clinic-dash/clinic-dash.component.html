@@ -76,7 +76,8 @@
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].website}}</th>
             <th>{{labels[0].address}}</th>
-            <th>Pincode</th>
+            <th *ngIf="languageid=='1'">Pincode</th>
+            <th *ngIf="languageid=='6'">Code Postal</th>
             <th>{{labels[0].action}}</th>
           </tr>
           <tr

@@ -23,8 +23,8 @@
     </div>
   </div><br>
   <div class="row">
-    <div class="col-lg-12" style="overflow: auto;">
-      <table>
+    <div class="col-lg-12 table-responsive" style="overflow: auto;">
+      <table  class="table">
         <thead>
           <tr>
             <th>{{labels[0].orderDate}}</th>
@@ -56,6 +56,7 @@
             <td>
               <span *ngIf="details.orderType=='1'">{{labels[0].online}}</span>
               <span *ngIf="details.orderType=='2'">{{labels[0].photo}}</span>
+              <span *ngIf="details.orderType=='3'">{{labels[0].uploadfile}}</span>
             </td>
             <td>
               <span *ngIf="details.selfPickUP=='0'&&details.readyfordelivery=='1'">{{labels[0].homeDelivery}}</span>
@@ -202,7 +203,7 @@
                     <ng-template #tipcontent5>{{labels[0].delivered}}</ng-template>
                     <a [ngbTooltip]="tipcontent5"
                       *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.selfPickUP=='1'&&details.orderRedy=='1'">
-                      <img src="assets/Images/deli.jpg" style="height:30px;"
+                      <img src="assets/Images/deli.png" style="height:30px;"
                         (click)="GetDeliverOrder(details.id,details.patientID,details.pharmacyName,details.date,details.emailID,details.smsmobileno)" />
                     </a>
                   </td>
@@ -214,7 +215,7 @@
                     <a [ngbTooltip]="tipcontent36">
                       <span style="color: green;position: absolute;margin-left: 25px;"
                         *ngIf="details.approved=='1'&&details.delivered=='0'">{{details.chatcount}}</span>
-                      <img src="assets/Images/chat.jpg" *ngIf="details.approved=='1'&&details.delivered=='0'"
+                      <img src="assets/Images/chat.png" *ngIf="details.approved=='1'&&details.delivered=='0'"
                         data-toggle="modal" data-target="#asssignss" style="margin: 2%;width: 30px;"
                         (click)="GetPharmacyPatientID(details.primaryPatientID,details.patientemail,details.id,details.smsmobileno)" />
 
@@ -355,13 +356,19 @@
                               </tr>
                               <tr *ngFor="let medicinelist of orderedmedicinelist">
                                 <!-- <td>{{medicinelist.Medicinetype}}</td> -->
-                                <td style="border: 2px solid black;">{{medicinelist.medicineName}}</td>
-                                <td style="border: 2px solid black;">{{medicinelist.sig}}</td>
                                 <td style="border: 2px solid black;">
-                                  {{medicinelist.quantity}}
+                                  <!-- {{medicinelist.medicineName}} -->
+                                <input type="text" class="form-control" style="width: 167px;" [disabled]="medicinelist.subtute=='2'" [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.medicineName" name="medicinelist.medicineName" >
+                                </td>
+                                <td style="border: 2px solid black;">
+                                  
+                                  <input type="text" class="form-control"  [disabled]="medicinelist.subtute=='2'" [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.sig" name="medicinelist.sig">
+                                  </td>
+                                <td style="border: 2px solid black;">
+                                  <!-- {{medicinelist.quantity}} -->
 
-                                  <!-- <input type="text" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
-                                    style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}"> -->
+                                  <input type="text"  [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
+                                    style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
                                 </td>
                                 <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
                                 <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
@@ -438,7 +445,8 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-12" id="contentPhoto">
-            <img src="{{prescriptionurl}}" style="height: 100%;width: 100%;">
+            <img src="{{prescriptionurl}}" *ngIf="filetype=='2'" style="height: 100%;width: 100%;">
+            <img src="assets/Images/pdf.png" *ngIf="filetype=='1'" style="height: 100%;width: 20%;" (click)="openpdf()">
           </div>
         </div><br>
         <div class="row" *ngIf="showedit=='0'">
@@ -493,11 +501,11 @@
 
         <div class="row">
           <div class="col-lg-6" *ngFor="let photo of uploadephotos">
-            <a href="{{photo.photoUrl}}" download>
-              <img src="{{photo.photoUrl}}" *ngIf="typeid==1"  style="width: 350px;height: auto;"><br><br>
+            <a>
+              <img src="{{photo.photoUrl}}" (click)="openNewwindow(photo.photoUrl)" *ngIf="photo.typeID==1"  style="width: 350px;height: auto;"><br><br>
             </a>
-            <a href="{{photo.photoUrl}}" download>
-            <img src="assets/Images/pdf.png" *ngIf="typeid==2" style="width: 350px;height: auto;"><br><br>
+            <a >
+            <img src="assets/Images/pdf.png" (click)="openNewwindow(photo.photoUrl)" *ngIf="photo.typeID==2" style="width: 120px;height: auto;"><br><br>
             </a>
           </div><br><br>
         </div><br>

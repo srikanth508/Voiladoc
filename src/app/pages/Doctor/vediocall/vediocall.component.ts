@@ -142,6 +142,7 @@ export class VediocallComponent implements OnInit {
   public endorse: any;
   public showhistory: any;
   public age: any;
+  illnesspdf: any;
 
 
 
@@ -554,6 +555,7 @@ export class VediocallComponent implements OnInit {
   photoexist: any;
   public videoexist: any;
   genderid: any;
+  pdfexist: any;
   public getpatientdetails() {
     this.docservice.GetBookAppointmentByPatientID(this.patientid, this.appointmentid, this.languageid).subscribe(
       data => {
@@ -601,11 +603,13 @@ export class VediocallComponent implements OnInit {
           this.showdrugname = this.details.drugName,
           this.showdosage = this.details.dosage,
           this.showfrequency = this.details.frequency,
-          
+          this.pdfexist = this.details.uploadrepornotexist,
+          this.illnesspdf = this.details.illnesspdf
 
 
 
-          this.allergieslist = this.details.knownAllergies.split(',')
+
+        this.allergieslist = this.details.knownAllergies.split(',')
 
         this.allergies = []
         for (let i = 0; i < this.allergieslist.length; i++) {
@@ -658,7 +662,7 @@ export class VediocallComponent implements OnInit {
 
         if (data != 0) {
 
-        
+
         }
       })
     }
@@ -672,7 +676,7 @@ export class VediocallComponent implements OnInit {
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
 
         if (data != 0) {
-         
+
 
         }
       })
@@ -2521,6 +2525,14 @@ export class VediocallComponent implements OnInit {
 
     })
   }
+
+
+
+  public GetReportsssss() {
+
+    window.open(this.illnesspdf, "_blank");
+  }
+
 }
 
 

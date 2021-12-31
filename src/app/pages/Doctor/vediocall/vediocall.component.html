@@ -221,9 +221,15 @@
               {{labels[0].videoss}} : <img src="assets/Images/showvedio.png" *ngIf="videoexist=='1'" data-toggle="modal"
                 data-target="#exampleModalLong3" title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetVedioID()" />&nbsp;
-              <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
-                *ngIf="videoexist=='0'">{{labels[0].novideoes}}</span>
+                <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
+                *ngIf="videoexist=='0'">{{labels[0].novideoes}}</span><br>
 
+                {{labels[0].pdf}} : <img src="assets/Images/pdf.png" *ngIf="pdfexist=='1'" 
+                title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
+                (click)="GetReportsssss()" />&nbsp;
+                <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
+                *ngIf="pdfexist=='0'">No Pdf</span><br>
+          
             </td>
           </tr>
         </table>
@@ -257,11 +263,11 @@
           data-toggle="modal" data-target="#previoustest">
           {{labels[0].previoustest}}</button>
       </div>
-      <div class="col-lg-12">
+      <!-- <div class="col-lg-12">
         <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"
           data-toggle="modal" data-target="#Vitaldetals">
           {{labels[0].vitalDetals}}</button>
-      </div>
+      </div> -->
 
       <div class="col-lg-12">
         <button class="buttonclass" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseleave($event)"

@@ -310,7 +310,8 @@ export class NurseWorkingDetailsComponent implements OnInit {
           'NurseID': this.nurseid,
           'DayID': this.dayid[j].id,
           'SlotTimings': this.slotids,
-          'Fees':this.fees
+          'Fees':this.fees,
+          'AppointmentTypeID':1
         }
         this.docservice.InsertNurseWorkingDetails(entity1).subscribe(data => {
         })

@@ -141,10 +141,10 @@
 
 
 
-              <ng-template #tipcontent2094>Vitals</ng-template>
+              <!-- <ng-template #tipcontent2094>Vitals</ng-template>
               <a [ngbTooltip]="tipcontent2094">
                 <img src="assets/Images/heart.png" style="height:20px;" data-toggle="modal" data-target="#Vitaldetals"
-                  title="Diagnostic Report" (click)="getvitaldetails(details.appointmentID)"></a>
+                  title="Diagnostic Report" (click)="getvitaldetails(details.appointmentID)"></a> -->
 
 
 
@@ -471,38 +471,38 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-6">
-              <input type="checkbox" [(ngModel)]="soappdf" name="soappdf">&nbsp;
+              <input type="checkbox" value="1" [(ngModel)]="soappdf" name="soappdf">&nbsp;
               <label *ngIf="languageid=='1'">SOAP Notes</label>
               <label *ngIf="languageid=='6'">Notes SOAP </label>
 
             </div>
             <div class="col-lg-6">
-              <input type="checkbox" [(ngModel)]="referals" name="referals">&nbsp;
+              <input type="checkbox" value="1" [(ngModel)]="referals" name="referals">&nbsp;
               <label>{{labels[0].refertodoctor}}</label>
 
             </div> <br>
             <div class="col-lg-6">
 
-              <input type="checkbox" [(ngModel)]="Prescription" name="Prescription">&nbsp;
+              <input type="checkbox" value="1" [(ngModel)]="Prescription" name="Prescription">&nbsp;
               <label *ngIf="languageid=='1'">Prescription</label>
               <label *ngIf="languageid=='6'">Ordonnance </label>
             </div>
             <div class="col-lg-6">
-              <input type="checkbox" [(ngModel)]="medicalcertificate" name="medicalcertificate">&nbsp;
+              <input type="checkbox" value="1" [(ngModel)]="medicalcertificate" name="medicalcertificate">&nbsp;
               <label *ngIf="languageid=='1'">Medical Certificate</label>
               <label *ngIf="languageid=='6'">Certificat médical </label>
 
 
             </div><br>
             <div class="col-lg-6">
-              <input type="checkbox" [(ngModel)]="Test" name="Test">&nbsp;
+              <input type="checkbox" value="1" [(ngModel)]="Test" name="Test">&nbsp;
               <label *ngIf="languageid=='1'">Diagnostic Test</label>
               <label *ngIf="languageid=='6'">Test de laboratoire</label>
             </div>
 
 
             <div class="col-lg-6">
-              <input type="checkbox" [(ngModel)]="medical" name="medical">&nbsp;
+              <input type="checkbox" value="1" [(ngModel)]="medical" name="medical">&nbsp;
               <label *ngIf="languageid=='6'">Evaluation médicale</label>
               <label *ngIf="languageid=='1'">Medical questionnaire</label>
             </div>
@@ -513,8 +513,8 @@
             <div class="col-lg-7">
               <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
                 data-toggle="modal" data-target="#mymodalss" (click)="GenaratePdf()">
-                <label *ngIf="languageid=='1'">Send consultation report</label>
-                <label *ngIf="languageid=='6'">Envoyer un rapport de consultation
+                <label *ngIf="languageid=='1'">View</label>
+                <label *ngIf="languageid=='6'">Voir
                 </label>
               </button>
             </div>
@@ -538,9 +538,18 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="width: 900px;
       height: auto;">
+       <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Refund</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'"> Remboursement au patient</h5> -->
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
       <div class="modal-body" id="Prescriptions">
         <div class="container-fluid" *ngFor="let alldetails of pdfprslist">
-          <div *ngIf="alldetails.prescriptionExists!='0'&&Prescription==true">
+          <div *ngIf="alldetails.prescriptionExists!='0'&&Prescription==1">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
@@ -561,11 +570,12 @@
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels[0].appointmentNumber}}</b> : {{appointmentid}}</label><br>
               </div>
               <div class="col-lg-3">
                 <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
                 <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
-                <span><b>{{alldetails.appointmentdate}}</b></span>
+                <span><b style="margin-left: 20px;">{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
                 <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
@@ -634,7 +644,7 @@
           </div>
           <!-- soapnotes -->
 
-          <div *ngIf="alldetails.soapNotesExist!='0'&&soappdf==true">
+          <div *ngIf="alldetails.soapNotesExist!='0'&&soappdf==1">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
@@ -654,11 +664,12 @@
                 <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels[0].appointmentNumber}}</b> : {{appointmentid}}</label><br>
               </div>
               <div class="col-lg-3">
                 <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
                 <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
-                <span><b>{{alldetails.appointmentdate}}</b></span>
+                <span><b style="margin-left: 20px;">{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
                 <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
@@ -740,7 +751,7 @@
           </div>
           <!-- Test -->
 
-          <div *ngIf="alldetails.diagnosticTestExist!='0'&&soappdf==true">
+          <div *ngIf="alldetails.diagnosticTestExist!='0'&&soappdf==1">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
@@ -761,11 +772,12 @@
                 <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels[0].appointmentNumber}}</b> : {{appointmentid}}</label><br>
               </div>
               <div class="col-lg-3">
                 <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
                 <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
-                <span><b>{{alldetails.appointmentdate}}</b></span>
+                <span><b style="margin-left: 20px;">{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
                 <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
@@ -828,7 +840,7 @@
             </div>
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           </div>
-          <div *ngIf="medical==true">
+          <div *ngIf="medical==1">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
@@ -850,11 +862,12 @@
                   <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels[0].appointmentNumber}}</b> : {{appointmentid}}</label><br>
                 </div>
                 <div class="col-lg-3">
                   <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
                   <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
-                  <span><b>{{alldetails.appointmentdate}}</b></span>
+                  <span><b style="margin-left: 20px;">{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
                   <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
@@ -951,13 +964,14 @@
             </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           </div>
 
-          <div *ngIf="alldetails.sickslipcount!='0'&&medicalcertificate==true">
+          <div *ngIf="alldetails.sickslipcount!='0'&&medicalcertificate==1">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h5><b>{{labels[0].medicalcertficate}}</b></h5>
+                <h5><b *ngIf="languageid=='1'">Medical Certificate</b></h5>
+                <h5><b *ngIf="languageid=='6'">Certificat médical</b></h5>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
@@ -972,11 +986,12 @@
                   <label><b> {{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels[0].appointmentNumber}}</b> : {{appointmentid}}</label><br>
                 </div>
                 <div class="col-lg-3">
                   <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
                   <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
-                  <span><b>{{alldetails.appointmentdate}}</b></span>
+                  <span><b style="margin-left: 20px;">{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
                   <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
@@ -1010,7 +1025,7 @@
             </div><br><br><br><br><br><br><br><br>
           </div>
 
-          <div *ngIf="alldetails.referalsCount!='0'&&referals==true">
+          <div *ngIf="alldetails.referalsCount!='0'&&referals==1">
             <div class="row">
               <div class="col-lg-5">
                 <img src="assets/Images/logo.png" style="width: 26%;">
@@ -1032,11 +1047,12 @@
                   <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels[0].appointmentNumber}}</b> : {{appointmentid}}</label><br>
                 </div>
                 <div class="col-lg-3">
                   <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
                   <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
-                  <span><b>{{alldetails.appointmentdate}}</b></span>
+                  <span><b style="margin-left: 20px;">{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
                   <label><b>{{labels[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
@@ -1856,12 +1872,12 @@
 
               </div>
               <div class="col-lg-3">
-                <input type="radio" value="1" [(ngModel)]="showothertest" name="showothertest">&nbsp;Diagnostic Test
+                <input type="radio" value="1" [(ngModel)]="showothertest" name="showothertest">&nbsp;{{labels[0].testdtabase}}
 
               </div>
               <div class="col-lg-3">
 
-                <input type="radio" value="2" [(ngModel)]="showothertest" name="showothertest">&nbsp;Others
+                <input type="radio" value="2" [(ngModel)]="showothertest" name="showothertest">&nbsp;{{labels[0].manuallywritten}}
               </div>
             </div><br>
             <div *ngIf="showothertest==2">
@@ -1908,13 +1924,15 @@
                 <table>
                   <thead>
                     <tr>
+                      <th>{{labels[0].testType}}</th>
                       <th>{{labels[0].testName}}</th>
                       <th>Actions</th>
                     </tr>
                     <tr *ngFor="let code of tsetssslist|filter:testsname">
+                      <td>{{code.name}}</td>
                       <td>
                         <input type="text" class="form-control" [(ngModel)]="code.short" name="code.short"
-                          [ngModelOptions]="{standalone: true}">
+                         disabled [ngModelOptions]="{standalone: true}">
                       </td>
                       <td>
                         <input type="checkbox" [(ngModel)]="code.checked" name="code.checked">
@@ -3586,7 +3604,7 @@
             <div class="col-lg-4">
               <!-- <label>Video Call Reciept</label> -->
               <div>{{doctorName}}</div>
-              <div>{{regno}} </div>
+              <div>{{labels[0].registratinno}} : {{regno}} </div>
               <div>{{hospital_ClinicName}}</div>
               <div>{{docaddres}}</div>
 
@@ -3747,7 +3765,7 @@
             <input type="radio" value="4" [(ngModel)]="diasoaptypeid"
               name="diasoaptypeid">&nbsp;{{labels[0].medcalCertificate}}
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-6">
             <input type="radio" value="5" [(ngModel)]="diasoaptypeid"
               name="diasoaptypeid">&nbsp;{{labels[0].refeletter}}
           </div>
@@ -3767,20 +3785,19 @@
               </span>
             </div>
           </div>
-          <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
+          <button style="margin-top: 10px;margin-left: 126px;" type="button" class="btn btn-md allbtns btncolor"
             (click)="InsertDiagnostictestAndSoap()" *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='4'||diasoaptypeid=='5'"
             data-dismiss="modal">{{labels[0].save}}</button>
 
-          <button style="margin-top: 10px;margin-left: 173px;" type="button" class="btn btn-md allbtns btncolor"
+          <button style="margin-top: 10px;margin-left: 126px;" type="button" class="btn btn-md allbtns btncolor"
             (click)="InsertPrescrptionPhoto()" *ngIf="diasoaptypeid=='3'"
             data-dismiss="modal">{{labels[0].save}}</button>
-
         </div>
 
       </div>
       <div class="modal-footer">
-        <span *ngIf="languageid=='1'" style="color:red">You can only upload one document per session* </span>
-        <span *ngIf="languageid=='6'" style="color:red">Vous ne pouvez télécharger qu'un seul document par session*
+        <span *ngIf="languageid=='1'" style="color:gray;font-size: 14px;">You can only upload one document per session* </span>
+        <span *ngIf="languageid=='6'" style="color:gray;font-size: 14px;">Vous ne pouvez télécharger qu'un seul document par session*
         </span>
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
         <!-- <button type="button" class="btn btn-secondary" (click)="SendReciept()" data-dismiss="modal">Send Email</button> -->
@@ -4347,7 +4364,7 @@
             </div>
           </div>
           <br>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-3">
               <label>
@@ -4358,10 +4375,10 @@
             <div class="col-lg-4">
               <textarea rows="4" [(ngModel)]="ailment" placeholder="{{labels1[0].ailment}}" name="ailment"
                 class="form-control"></textarea>
-              <!-- <input type="text" [(ngModel)]="ailment" placeholder="Ailment" name="ailment" class="form-control"><br> -->
+             
             </div>
           </div>
-          <br>
+          <br> -->
           <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">

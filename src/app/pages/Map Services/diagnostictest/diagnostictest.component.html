@@ -12,7 +12,7 @@
 <br>
 <div class="container-fluid card card:hover divspacee">
   <form #testForm="ngForm">
-    <div *ngIf="dummdiagnosticid=='undefined'">
+    <div *ngIf="showdropdown=='1'">
       <div class="row" style="margin-top:20px;">
         <div class="col-lg-3">
           <label>{{labels[0].diagnosticCenter}} : </label>
@@ -22,13 +22,13 @@
         <option valu="" selected>Select</option>
         <option *ngFor="let diagnostic of diagnosticlist" value={{diagnostic.id}}>{{diagnostic.diagnosticCenterName}}</option>
       </select> -->
-          <ng-multiselect-dropdown [placeholder]="SelectLabel" [disabled]="tablecount=='1'" [data]="diagnosticlist"
+          <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="diagnosticlist"
             [settings]="diadd" (onSelect)="GetDiagnosticID($event)">
           </ng-multiselect-dropdown>
         </div>
       </div><br>
     </div>
-    <div *ngIf="dummdiagnosticid!='undefined'">
+    <div *ngIf="showdropdown=='2'">
       <div class="row" style="margin-top:20px;">
         <div class="col-lg-3">
           <label>{{labels[0].diagnosticCenter}} : </label>

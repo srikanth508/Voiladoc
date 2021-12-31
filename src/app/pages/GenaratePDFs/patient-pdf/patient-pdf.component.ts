@@ -17,6 +17,7 @@ export class PatientPdfComponent implements OnInit {
 
   languageid: any;
   labels: any;
+  labels1:any;
   patientslist: any;
   count: any;
   search: any;
@@ -36,6 +37,15 @@ export class PatientPdfComponent implements OnInit {
       },
       error => { }
     );
+ 
+      this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+        data => {
+  
+          this.labels1 = data;
+          
+        }, error => {
+        }
+      )
   }
 
   public Getregisterdpatients() {

@@ -20,7 +20,7 @@
           <option *ngFor="let mid of midwifelist" value="{{mid.id}}">{{mid.name}}</option>
         </select> -->
 
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="midwifelist" [settings]="middd"
+        <ng-multiselect-dropdown [placeholder]="select" [data]="midwifelist" [settings]="middd"
         (onSelect)="getmidwifeid($event)">
       </ng-multiselect-dropdown>
 
@@ -51,7 +51,8 @@
       <br> -->
       <div class="row">
         <div class="col-lg-3">
-          <label class="dname_label">Hospital / Clinic :</label>
+          <label class="dname_label" *ngIf="languageid=='1'">Hospital / Clinic :</label>
+          <label class="dname_label" *ngIf="languageid=='6'">Hôpital/Clinique :</label>
           <span class="required">*</span>
         </div>
         <div class="col-lg-4">

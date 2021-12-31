@@ -69,7 +69,7 @@
     <div class="row">
       <div class="col-lg-3">
         <label for="" class="reglabel">{{labels[0].nationalidentityproof}} :</label>
-        <span class="required">*</span>
+        <!-- <span class="required">*</span> -->
       </div>
       <div class="col-lg-4">
         <ngx-dropzone [multiple]="false" (change)="onidUpload($event)" style="height: 100%;"
@@ -97,7 +97,7 @@
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].insurancename}} : </label>
-        <span class="required">*</span>
+        <!-- <span class="required">*</span> -->
       </div>
       <div class="col-lg-4">
         <input type="text" class="form-control"  placeholder="{{labels[0].insurancename}}" [(ngModel)]="insurancename"
@@ -108,7 +108,7 @@
     <div class="row">
       <div class="col-lg-3">
         <label for="" class="reglabel">{{labels[0].insurancephoto}} :</label>
-        <span class="required">*</span>
+        <!-- <span class="required">*</span> -->
       </div>
       <div class="col-lg-4">
         <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" style="height: 100%;"

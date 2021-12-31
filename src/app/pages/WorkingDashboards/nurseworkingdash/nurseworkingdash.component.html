@@ -30,17 +30,24 @@
       [settings]="nursedd" (onSelect)="GetNurseID($event)">
     </ng-multiselect-dropdown>
     </div>
-    <!-- <div class="col-lg-3">
-      <select value="" selected class="form-control" [(ngModel)]="daysname" name="daysname">
-        <option value="">{{labels[0].selectDay}}</option>
-        <option *ngFor="let days of dayslist" value={{days.dayOfTheWeek}}>{{days.dayOfTheWeek}}</option>
-      </select>
-    </div>
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
-    </div> -->
+    </div>
+
+    <div class="col-lg-1" >
+      <div class="homecare"><span >{{labels1[0].homeVisit}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
+        <p style="margin-left:12px"> {{labels1[0].notAvailable}}</p>
+      </div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 42px;width: 127%;">
+        <p style="margin-left:12px"> {{labels1[0].meeting}}</p>
+      </div>
   </div>
-  <br>
+</div><br>
   <div class="row">
     <div class="col-lg-12" style="overflow: auto;">
       <table>
@@ -66,61 +73,61 @@
           </tr>
           <tr *ngFor="let details of Timings|filter:term">
             <td>{{details.slotname}}</td>
-            <td [style.background-color]="details.mondayColor" style="color:white">{{details.monday}}<br>
-              <span *ngIf="details.mondayappointmentID!=6&&details.mondayappointmentID!=4">{{details.mondayFees}}</span>
-              <br>
+            <td [style.background-color]="details.mondayColor" style="color:white">{{details.monday}}<br><br>
+              <!-- <span *ngIf="details.mondayappointmentID!=6&&details.mondayappointmentID!=4">{{details.mondayFees}}</span>
+              <br> -->
               <ng-template #tipcontent9503>{{labels[0].edit}}</ng-template>
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay1List(details)">
               </a>
             </td>
-            <td [style.background-color]="details.tuesdayColor" style="color:white">{{details.tuesday}}<br>
-              <label *ngIf="details.tuesdayAppointmentID!=6&&details.tuesdayAppointmentID!=4">
-                {{details.tuesdayFees}}</label> <br>
+            <td [style.background-color]="details.tuesdayColor" style="color:white">{{details.tuesday}}<br><br>
+              <!-- <label *ngIf="details.tuesdayAppointmentID!=6&&details.tuesdayAppointmentID!=4">
+                {{details.tuesdayFees}}</label> <br> -->
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay2List(details)">
               </a>
             </td>
-            <td [style.background-color]="details.wednesdayColor" style="color:white">{{details.wednesday}}<br>
-              <label *ngIf="details.wednesdayAppointmentID!=6&&details.wednesdayAppointmentID!=4">
-                {{details.wednessdayFees}}</label> <br>
+            <td [style.background-color]="details.wednesdayColor" style="color:white">{{details.wednesday}}<br><br>
+              <!-- <label *ngIf="details.wednesdayAppointmentID!=6&&details.wednesdayAppointmentID!=4">
+                {{details.wednessdayFees}}</label> <br> -->
               <a [ngbTooltip]="tipcontent9503" style="color:rgb(221, 15, 15)">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay3List(details)">
               </a>
             </td>
-            <td [style.background-color]="details.thursdayColor" style="color:white">{{details.thursday}}<br>
-              <label *ngIf="details.thursdayAppointmentID!=6&&details.thursdayAppointmentID!=4">{{details.thursdayFees
+            <td [style.background-color]="details.thursdayColor" style="color:white">{{details.thursday}}<br><br>
+              <!-- <label *ngIf="details.thursdayAppointmentID!=6&&details.thursdayAppointmentID!=4">{{details.thursdayFees
                 }}</label>
-              <br>
+              <br> -->
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay4List(details)">
               </a>
             </td>
-            <td [style.background-color]="details.fridayColor" style="color:white">{{details.friday}}<br>
-              <label
+            <td [style.background-color]="details.fridayColor" style="color:white">{{details.friday}}<br><br>
+              <!-- <label
                 *ngIf="details.fridayAppointmentID!=6&&details.fridayAppointmentID!=4">{{details.fridayFees}}</label>
-              <br>
+              <br> -->
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay5List(details)">
               </a>
             </td>
-            <td [style.background-color]="details.saturdayColor" style="color:white">{{details.saturday}}<br>
-              <label
+            <td [style.background-color]="details.saturdayColor" style="color:white">{{details.saturday}}<br><br>
+              <!-- <label
                 *ngIf="details.saturdayAppintmentID!=6&&details.saturdayAppintmentID!=4">{{details.satdayFees}}</label>
-              <br>
+              <br> -->
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay6List(details)">
               </a>
             </td>
-            <td [style.background-color]="details.sundayColor" style="color:white">{{details.sunday}}<br>
-              <label *ngIf="details.sundayAppointmentID!=6&&details.sundayAppointmentID!=4"> {{details.sundayFees
-                }}</label> <br>
+            <td [style.background-color]="details.sundayColor" style="color:white">{{details.sunday}}<br><br>
+              <!-- <label *ngIf="details.sundayAppointmentID!=6&&details.sundayAppointmentID!=4"> {{details.sundayFees
+                }}</label> <br> -->
               <a [ngbTooltip]="tipcontent9503" style="color:black">
                 <img src="assets/Images/edit.png" data-toggle="modal" data-target="#edittest" style="width: 18px"
                   (click)="GetDay7List(details)">
@@ -171,22 +178,22 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-12" style="margin-left: 125px;">
-            <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="1"> &nbsp;
-            {{labels[0].inclinic}} &nbsp;
-            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp;
-            {{labels[0].video}} &nbsp; -->
-            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="1"> &nbsp;
             {{labels1[0].homeVisit}}&nbsp;
+            <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="2"> &nbsp;
+            {{labels[0].video}} &nbsp;
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="5"> &nbsp;
+            {{labels1[0].homeVisit}}&nbsp; -->
             <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="4"> &nbsp;
             {{labels1[0].notAvailable}}&nbsp;
-            <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
-            {{labels[0].meeting}}&nbsp; -->
+            <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
+            {{labels1[0].meeting}}&nbsp;
             <!-- <input type="radio" [(ngModel)]="appointmentypeid" name="appointmentypeid" [value]="6"> &nbsp;
             {{labels[0].meeting}} -->
           </div>
         </div>
         <br>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-1">
           </div>
           <div class="col-lg-2">
@@ -199,7 +206,7 @@
           <div class="col-lg-1" *ngIf="appointmentypeid!=4&&appointmentypeid!=6">
             MAD
           </div>
-        </div><br>
+        </div><br> -->
         <div class="row">
           <div class="col-lg-4">
           </div>

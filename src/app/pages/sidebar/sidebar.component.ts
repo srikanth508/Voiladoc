@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit {
   public labels: any;
   public hospitalid: any;
   public menulist: any;
-
+  docmedicine:any;
   public masters: any;
   public registery: any;
   public workingdetails: any;
@@ -116,7 +116,7 @@ export class SidebarComponent implements OnInit {
   public RejectedDash: any;
   public subscriptions: any;
   public diagnosticplanning: any;
-
+  patientmedicine:any;
 
   public midwifeagenda: any;
   public doctoragenda: any;
@@ -473,6 +473,13 @@ export class SidebarComponent implements OnInit {
             }
             if (this.menulist[s].subMenuName == 'Patient Invitations Report') {
               this.invitaionsreport = 1;
+            }
+
+            if (this.menulist[s].subMenuName == 'Doctor Medicines') {
+              this.docmedicine = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Patient Medicines') {
+              this.patientmedicine = 1;
             }
           }
 

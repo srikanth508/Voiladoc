@@ -69,7 +69,8 @@
             <th>Type</th>
             <th>{{labels[0].doctorrating}}</th>
             <th>{{labels[0].apprating}}</th>
-            <th>Pincode</th>
+            <th *ngIf="languageid=='1'">Pincode</th>
+            <th *ngIf="languageid=='6'">Code Postal</th>
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr

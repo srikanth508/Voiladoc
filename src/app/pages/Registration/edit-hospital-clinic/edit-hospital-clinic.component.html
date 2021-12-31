@@ -547,7 +547,7 @@
               </div>
               <div class="col-lg-4">
                 <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="{{labels[0].contractstratdate}}" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                placeholder="{{labels[0].contractstratdate}}" [minDate]="date" name="contractstartdate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                 [(ngModel)]="contractstartdate" bsDatepicker>
               </div>
             </div>

@@ -15,29 +15,15 @@
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
-    <!-- <div class="col-lg-3">
-      <select class="form-control" (change)="GetCountryID($event)">
-        <option value="0">{{labels1[0].selectCountry}}</option>
-        <option *ngFor="let couu of countrylist" value={{couu.id}}>{{couu.short}}</option>
+    <div class="col-lg-3" >
+      <select class="form-control" *ngIf="showDrop=='1'" (change)="GetDiagnosticcenterID($event)">
+        <option value="0">{{labels[0].selectDiagmosticcenter}}</option>
+        <option *ngFor="let dia of diagnosticlist" value="{{dia.id}}">{{dia.diagnosticCenterName}}</option>
       </select>
     </div>
-    <div class="col-lg-3">
-      <select class="form-control" *ngIf="countryid!='0'" (change)="GetCityID($event)">
-        <option value="0">{{labels1[0].selectProvince}}</option>
-        <option *ngFor="let city of citylist" value={{city.id}}>{{city.short}}</option>
-      </select>
-    </div>
-    <div class="col-lg-3">
-      <select class="form-control" *ngIf="cityid!='0'" (change)="GetAreaID($event)">
-        <option value="0">{{labels1[0].selectCity}}</option>
-        <option *ngFor="let area of arealist" value={{area.id}}>{{area.areaName}}</option>
-      </select>
-    </div> -->
-    <div class="col-lg-7">
-    </div>
-    <div class="col-lg-2">
-      <label style="margin-left: 60px;" *ngIf="languageid=='1'">Count : {{count}}</label>
-      <label style="margin-left: 60px;" *ngIf="languageid=='6'">Nombre : {{count}}</label>
+    <div class="col-lg-6">
+      <label style="float: right;" *ngIf="languageid=='1'">Count : {{count}}</label>
+      <label style="float: right;" *ngIf="languageid=='6'">Nombre : {{count}}</label>
     </div>
 
   </div>

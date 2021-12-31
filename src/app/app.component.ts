@@ -252,15 +252,15 @@ export class AppComponent {
           this.notificationcount = 0;
           this.pharmcunoti = datas;
           this.notificationcount = Number(this.pharmcunoti[0].notifycount);
-          if (this.pharmcunoti.length > 0) {
-            if (this.languageid == 1) {
-              Swal.fire({ html: 'Please click the notification icons above to view the order and take action.' });
-            }
-            else if (this.languageid == 6) {
-              Swal.fire({ html: 'Veuillez cliquer sur les icônes de notification ci-dessus pour afficher la commande à accepter ou à rejeter.' });
-            }
+          // if (this.pharmcunoti.length > 0) {
+          //   if (this.languageid == 1) {
+          //     Swal.fire({ html: 'Please click the notification icons above to view the order and take action.' });
+          //   }
+          //   else if (this.languageid == 6) {
+          //     Swal.fire({ html: 'Veuillez cliquer sur les icônes de notification ci-dessus pour afficher la commande à accepter ou à rejeter.' });
+          //   }
 
-          }
+          // }
 
         })
     }

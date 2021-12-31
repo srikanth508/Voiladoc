@@ -362,8 +362,8 @@
             </div>
             <div class="col-lg-4">
               <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="{{labels[0].contractstartdate}}" name="contractstartdate"
-                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="contractstartdate" bsDatepicker>
+                placeholder="{{labels[0].contractstartdate}}"  [minDate]="date"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="contractstartdate" name="contractstartdate" bsDatepicker>
             </div>
           </div>
           <br />
@@ -373,8 +373,8 @@
             </div>
             <div class="col-lg-4">
               <input type="text" class="form-control" [bsConfig]="{ showWeekNumbers:false }"
-                placeholder="{{labels[0].contractenddate}}" name="contractenddate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                [(ngModel)]="contractenddate" bsDatepicker>
+                placeholder="{{labels[0].contractenddate}}"  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                [(ngModel)]="contractenddate" name="contractenddate" bsDatepicker>
             </div>
           </div>
           <br />

@@ -20,6 +20,7 @@ export class PatientPdfsComponent implements OnInit {
   patientslist: any;
   count: any;
   search: any;
+  labels2:any;
   ngOnInit() {
     this.languageid = localStorage.getItem("LanguageID");
     this.getlanguage();
@@ -53,6 +54,15 @@ export class PatientPdfsComponent implements OnInit {
       data => {
 
         this.labels1 = data;
+      }, error => {
+      }
+    )
+
+    this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels2 = data;
+        
       }, error => {
       }
     )

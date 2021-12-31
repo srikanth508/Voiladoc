@@ -26,13 +26,24 @@ export class DiagnosticTestDashComponent implements OnInit {
   public count: any;
   public labels2: any;
   diagnosticenterid: any;
+  diagnosticlist: any;
+  dummdiid:any;
+  showDrop:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
-    this.diagnosticenterid = localStorage.getItem('diagnosticid')
+    this.diagnosticenterid = localStorage.getItem('diagnosticid');
+    this.dummdiid = localStorage.getItem('diagnosticid');
+    if(this.dummdiid==undefined)
+    {
+      this.showDrop=1;
+    }
+    else{
+      this.showDrop=2;
+    }
 
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
-       
+
         this.labels1 = data;
       },
 
@@ -41,12 +52,20 @@ export class DiagnosticTestDashComponent implements OnInit {
 
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
-       
+
         this.labels2 = data;
       }, error => {
       }
     )
 
+    this.docservice.GetDiagnosticForAdminByLanguageID(this.languageid).subscribe(
+      data => {
+
+        this.diagnosticlist = data;
+
+      }, error => {
+      }
+    )
     this.GetDiagnosticServices();
 
     this.getlanguage();
@@ -56,24 +75,31 @@ export class DiagnosticTestDashComponent implements OnInit {
   }
 
   public getlanguage() {
-   
+
     this.docservice.GetAdmin_MapServiceDiagnostic_Label(this.languageid).subscribe(
       data => {
-       
+
         this.labels = data;
       }, error => {
       }
     )
   }
 
+
+  public GetDiagnosticcenterID(even) {
+
+    this.diagnosticenterid = even.target.value;
+    this.GetDiagnosticServices();
+  }
+
   public GetDiagnosticServices() {
-   
+
     if (this.diagnosticenterid != undefined) {
       this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
         data => {
-         
+
           this.dummlist = data;
-     
+
           this.servicelist = this.dummlist.filter(x => x.diagnosticCenterID == this.diagnosticenterid)
           this.count = this.servicelist.length
         }, error => {
@@ -83,11 +109,10 @@ export class DiagnosticTestDashComponent implements OnInit {
     else {
       this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
         data => {
-         
           this.servicelist = data;
           this.dummlist = this.servicelist
           this.count = this.servicelist.length
-      
+
         }, error => {
         }
       )
@@ -95,26 +120,24 @@ export class DiagnosticTestDashComponent implements OnInit {
 
   }
   public DeleteDiagnostocServces(id) {
-   
+
     this.docservice.DeleteDiagnosticCenterTestsForDash(id).subscribe(
       data => {
-       if(this.languageid==1)
-       {
-        Swal.fire("Deleted Successfully");
-        this.GetDiagnosticServices();
-       }
-       else if(this.languageid==6)
-       {
-        Swal.fire("Supprimé avec succès");
-        this.GetDiagnosticServices();
-       }
-       
+        if (this.languageid == 1) {
+          Swal.fire("Deleted Successfully");
+          this.GetDiagnosticServices();
+        }
+        else if (this.languageid == 6) {
+          Swal.fire("Supprimé avec succès");
+          this.GetDiagnosticServices();
+        }
+
       }, error => {
       }
     )
   }
   public pageChanged(even) {
-   
+
     let fgdgfgd = even;
     this.p = even;
   }

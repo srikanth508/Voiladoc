@@ -70,7 +70,7 @@ export class NewPatientHistoryComponent implements OnInit {
   dummvedioslist: any;
   age: any;
   color: any;
-  homecaresoaplist:any;
+  homecaresoaplist: any;
   ngOnInit() {
 
 
@@ -149,18 +149,21 @@ export class NewPatientHistoryComponent implements OnInit {
     }
 
     if (this.departmentid == 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid, this.doctorid).subscribe(
+      debugger
+      this.docservice.GetDoctor_PatientDiagosticApps(this.patientid, this.languageid).subscribe(
         data => {
-
+          debugger
           this.dialist = data;
         }, error => {
         }
       )
+
     }
     else if (this.departmentid! = 14) {
-      this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid, this.doctorid).subscribe(
+      debugger
+      this.docservice.GetDoctor_PatientDiagosticApps(this.patientid, this.languageid).subscribe(
         data => {
-
+          debugger
           this.dummdialist = data;
           this.dialist = this.dummdialist.filter(x => x.departmentID != 14);
         }, error => {
@@ -170,14 +173,14 @@ export class NewPatientHistoryComponent implements OnInit {
 
       this.docservice.GetAllHomeCareSoap(this.patientid, this.languageid).subscribe(
         data => {
-          
+
           this.homecaresoaplist = data;
         }, error => {
         }
       )
     }
 
-    
+
 
 
 
@@ -214,6 +217,20 @@ export class NewPatientHistoryComponent implements OnInit {
       this.color = "#f18235"
     }
 
+  }
+
+
+  appointmentDialist: any;
+
+  getDiaTests(appointmentID) {
+    debugger
+    this.docservice.GetDoctor_PatientDiagnosticsbypatientdeatils(this.patientid, this.languageid, this.doctorid).subscribe(
+      data => {
+        debugger
+        this.appointmentDialist = data.filter(x => x.appointmentID == appointmentID);
+      }, error => {
+      }
+    )
   }
   public getlanguage() {
     this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
@@ -323,14 +340,14 @@ export class NewPatientHistoryComponent implements OnInit {
 
 
   public GetPdfsss(attchments) {
-    
+
     // document.getElementById('closeview').click();
     window.open(attchments, '_blank');
   }
 
 
   public GetSoapPdf() {
-    
+
     // document.getElementById('closeview').click();
     window.open(this.attchment, '_blank');
   }
@@ -343,13 +360,13 @@ export class NewPatientHistoryComponent implements OnInit {
 
 
 
-  
+
   public GetSoapHomeCarelist(soapid) {
-    
+
     this.soapid = soapid;
     this.docservice.GetHomeCaeeSoapNotesByID(this.soapid, this.languageid).subscribe(
       data => {
-        
+
         this.soaplist = data;
         if (this.soaplist == null || this.soaplist.length == 0 || this.soaplist == undefined) {
           this.subjective = "";
@@ -366,7 +383,7 @@ export class NewPatientHistoryComponent implements OnInit {
           this.icrdescription = ""
         }
         else {
-          
+
           this.subjective = this.soaplist[0].subjective,
             this.assessment = this.soaplist[0].assessment,
             this.plan = this.soaplist[0].plan,
@@ -377,7 +394,7 @@ export class NewPatientHistoryComponent implements OnInit {
             this.subjective = this.soaplist[0].objective,
             this.icrdescription = this.soaplist[0].icrDescription,
             this.attchment = this.soaplist[0].attchment
-          
+
         }
 
       }, error => {

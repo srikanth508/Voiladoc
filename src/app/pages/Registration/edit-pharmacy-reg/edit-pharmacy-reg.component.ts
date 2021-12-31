@@ -43,6 +43,7 @@ export class EditPharmacyRegComponent implements OnInit {
   pharmacyrevenuelist: any;
   public languageid: any;
   public labels: any;
+  date=new Date();
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -124,7 +125,7 @@ export class EditPharmacyRegComponent implements OnInit {
           this.countryid = this.details.countryID,
           this.homedelivery = this.details.homeDelivery,
           this.nightpharmacy = this.details.nightPharmacy,
-          this.eveningtimings=this.details.eveningTimings
+          this.eveningtimings = this.details.eveningTimings
         this.GetCountryMaster();
         this.getcitymaster();
         this.getareamasterbyid()
@@ -156,7 +157,7 @@ export class EditPharmacyRegComponent implements OnInit {
     )
   }
 
-  eveningtimings:any;
+  eveningtimings: any;
 
   public GetCountryID(even) {
 
@@ -184,7 +185,7 @@ export class EditPharmacyRegComponent implements OnInit {
       'CountryID': this.countryid,
       'NightPharmacy': this.nightpharmacy,
       'HomeDelivery': this.homedelivery,
-      'EveningTimings':this.eveningtimings
+      'EveningTimings': this.eveningtimings
     }
     this.docservice.UpdatePharmacyProfile(entity).subscribe(res => {
       debugger
@@ -361,7 +362,14 @@ export class EditPharmacyRegComponent implements OnInit {
 
       }
       else {
-        Swal.fire('Error', 'Contract Dates Already Exists');
+        if (this.languageid == 1)
+        {
+          Swal.fire('The contract is still valid and has not expired');
+        }
+        else{
+          Swal.fire("Le contrat est toujours valable et n'a pas expiré.");
+        }
+        
         this.GetPharmacyRevenue();
         this.addmonthlysubscription = "";
         this.contractstartdateeee = "";

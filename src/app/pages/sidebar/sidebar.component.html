@@ -538,10 +538,10 @@
                 <img src="assets/Images/EMR.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].pmr}}
             </a>
 
-            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/ReferredPatients">
+            <!-- <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/ReferredPatients">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].patientReferrals}}
-            </a>
+            </a> -->
             <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/Appointmentsreport">
                 <img src="assets/Images/patientreferal.png" style="width: 15px;">&nbsp; &nbsp;
                 {{labels[0].refundReports}}
@@ -1496,6 +1496,14 @@
                 *ngIf="mergepatientdata=='1'">
                 <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].mergepatientdata}}
                 <!-- {{labels[0].howToUseVoilaDoc}} -->
+            </a>
+            <a class="tablinks" (click)="highlight($event)" routerLink="/PatientPdfs" *ngIf="docmedicine=='1'">
+                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Doctor Medicines
+                <!-- {{labels[0].patientWallet}} -->
+            </a>
+            <a class="tablinks" (click)="highlight($event)" routerLink="/PatientPdf" *ngIf="patientmedicine=='1'">
+                <img src="assets/Images/pharmacy.png"   style="width: 15px;">&nbsp; &nbsp; Patient Medicines
+                <!-- {{labels[0].patientWallet}} -->
             </a>
 
             <a class="tablinks" (click)="highlight($event)" routerLink="/AnnounseDash" *ngIf="announcements=='1'">

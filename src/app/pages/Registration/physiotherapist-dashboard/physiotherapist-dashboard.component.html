@@ -44,7 +44,8 @@
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].address}}</th>
-            <th>Pincode</th>
+            <th *ngIf="languageid=='1'">Pincode</th>
+            <th *ngIf="languageid=='6'">Code Postal</th>
             <th>{{labels2[0].hospitalClinic}}</th>
             <th>{{labels[0].actions}}</th>
           </tr>

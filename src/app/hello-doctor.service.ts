@@ -5995,19 +5995,44 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Pharmacy/GetPharmacyAppointmentPhotos?OrderID=' + orderid);
   }
 
-  public GetNurseSlotsByNurseID(nurseid,slotypeid,lid) {
+  public GetNurseSlotsByNurseID(nurseid, slotypeid, lid) {
 
-    return this.http.get<any[]>(this.host + '/Admin/GetNurseSlotsByNurseID?NurseID=' + nurseid+'&SlotTypeID='+slotypeid+'&LanguageID='+lid);
+    return this.http.get<any[]>(this.host + '/Admin/GetNurseSlotsByNurseID?NurseID=' + nurseid + '&SlotTypeID=' + slotypeid + '&LanguageID=' + lid);
   }
 
 
   public DeleteNurseWorkingDetailsBySlot(id) {
 
-    return this.http.get<any[]>(this.host + '/Admin/DeleteNurseWorkingDetailsBySlot?ID=' + id );
+    return this.http.get<any[]>(this.host + '/Admin/DeleteNurseWorkingDetailsBySlot?ID=' + id);
   }
 
   public InsertNurseWorkingDetailsSlots(data) {
     this.url = this.host + '/Admin/InsertNurseWorkingDetailsSlots';
     return this.http.post(this.url, data)
+  }
+
+  public GetNurseWorkingDetailsDyWise(nurseid, slotypeid, sdate, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Admin/GetNurseWorkingDetailsDyWise?NurseID=' + nurseid + '&SlotTypeID=' + slotypeid + '&StartDate=' + sdate + '&LanguageID=' + lid);
+  }
+
+  public GetNurseAppointmentdabySlot(nurseid, slot, appdtetime) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetNurseAppointmentdabySlot?NurseID=' + nurseid + '&DoctorSlotID=' + slot + '&ApptDatetime=' + appdtetime);
+  }
+  public GetNurseCancelledAppointmentByDateWise(nurseid, slot, appdtetime) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Admin/GetNurseCancelledAppointmentByDateWise?NurseID=' + nurseid + '&DoctorSlotID=' + slot + '&ApptDatetime=' + appdtetime);
+  }
+
+  public InsertNurseWorkingDetails_DateWise(data) {
+    this.url = this.host + '/Admin/InsertNurseWorkingDetails_DateWise';
+    return this.http.post(this.url, data)
+  }
+
+  
+  public GetDoctor_PatientDiagosticApps(patientid, lid) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctor_PatientDiagosticApps?PateintID=' + patientid + '&LanguageID=' + lid);
   }
 }

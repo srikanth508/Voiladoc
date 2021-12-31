@@ -35,12 +35,19 @@ export class DiagnostictestComponent implements OnInit {
   public searchlable: any;
   diatestdd = {};
   term: any;
+  showdropdown: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticid = localStorage.getItem('diagnosticid')
     this.dummdiagnosticid = localStorage.getItem('diagnosticid')
-    this.diagnosticname = localStorage.getItem('user')
+    this.diagnosticname = localStorage.getItem('user');
+    if (this.dummdiagnosticid == undefined) {
+      this.showdropdown = 1;
+    }
+    else {
+      this.showdropdown = 1;
+    }
     this.getlanguage();
     this.getdiagnosticforadmin();
     this.getdiagnostictestmaster();
@@ -83,9 +90,15 @@ export class DiagnostictestComponent implements OnInit {
 
   public getdiagnostictestmaster() {
     debugger
-    this.docservice.GetDiagnosticTestMasterTests(this.languageid,this.diagnosticid).subscribe(
+    if (this.diagnosticid == undefined || this.diagnosticid == null) {
+      this.diagnosticid = 0;
+    }
+    else{
+      this.diagnosticid=this.diagnosticid;
+    }
+    this.docservice.GetDiagnosticTestMasterTests(this.languageid, this.diagnosticid).subscribe(
       data => {
-debugger
+        debugger
         this.testlist = data;
         this.testlist[0]["checked"] = false;
         console.log("testlist", this.testlist)
@@ -168,15 +181,13 @@ debugger
     let validate = this.testlist.filter(x => x.checked == true && (x.amount == 0 || x.amount == ''))
 
     if (testarry.length == 0 || validate.length != 0) {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire("Some items have “0” value. Please review and update.")
       }
-      else
-      {
+      else {
         Swal.fire("Certains éléments ont une valeur '0'. Veuillez réviser et mettre à jour.")
       }
-     
+
     }
     else {
       this.spinner.show();

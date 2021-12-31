@@ -60,7 +60,8 @@
             <th>{{labels[0].contactPersonName}}</th>
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
-            <th>Pincode</th>
+            <th *ngIf="languageid=='1'">Pincode</th>
+            <th *ngIf="languageid=='6'">Code Postal</th>
             <!-- <th>{{labels[0].country}}</th>
             <th>{{labels[0].province}}</th>
             <th>{{labels[0].city}}</th> -->
@@ -73,7 +74,7 @@
           </tr>
           <tr
             *ngFor="let details of pharmacylist|filter:term| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
-            <td><img src="{{details.photoURL}}" style=" height: 50px;width: 50px;"/>
+            <td><img src="{{details.photoURL}}" style=" height: 50px;width: 50px;" />
             </td>
             <td>{{details.pharmacyName}}</td>
             <td>{{details.contactName}}</td>
@@ -83,7 +84,7 @@
             <!-- <td>{{details.short}}</td>
             <td>{{details.city}}</td>
             <td>{{details.areaName}}</td> -->
-            <td >{{details.licenseNo}}</td>
+            <td>{{details.licenseNo}}</td>
             <!-- <td *ngIf="showeditbutton!='1'">{{details.monthlySubscription}}</td>
             <td *ngIf="showeditbutton!='1'">{{details.contartStartDate}}</td>
             <td *ngIf="showeditbutton!='1'">{{details.contractEndDate}}</td>
@@ -96,11 +97,13 @@
                   (click)="deletepharmacy(details.id)">
               </a>&nbsp;
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
-              <a [ngbTooltip]="tipcontent1" *ngIf="details.editiconShow=='0'&&showeditbutton=='1'"  [routerLink]="['/EditPharmacyReg',details.id]" style="color:black">
+              <a [ngbTooltip]="tipcontent1" *ngIf="details.editiconShow=='0'&&showeditbutton=='1'"
+                [routerLink]="['/EditPharmacyReg',details.id]" style="color:black">
                 <img src="assets/Images/edit.png" style="width: 20px">
               </a>
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>
-              <a [ngbTooltip]="tipcontent1" *ngIf="showeditbutton=='0'"  [routerLink]="['/EditPharmacyReg',details.id]" style="color:black">
+              <a [ngbTooltip]="tipcontent1" *ngIf="showeditbutton=='0'" [routerLink]="['/EditPharmacyReg',details.id]"
+                style="color:black">
                 <img src="assets/Images/edit.png" style="width: 20px">
               </a>
             </td>

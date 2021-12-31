@@ -93,30 +93,32 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h3>Prescription</h3>
+                <h3 *ngIf="languageid=='1'">Prescription</h3>
+                <h3 *ngIf="languageid=='6'">Ordonnance</h3>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
             <div class="row">
               <div class="col-lg-5">
-                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                <label><b>Address</b> : {{alldetails.address}}</label><br>
+                <label><b>{{labels2[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>{{labels2[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
-                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels2[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> {{labels2[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
               <div class="col-lg-3">
-                <h6><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                 <span><b>{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
-                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                <label><b>{{labels2[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                  <label><b>{{labels2[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>{{labels2[0].department}}</b> : {{alldetails.departmentname}}</label>
+                  <label><b>{{labels2[0].address}}</b> : {{alldetails.doctorAddress}}</label>
               </div>
               <br>
             </div><br><br>
@@ -125,12 +127,12 @@
                 <table>
                   <thead>
                     <tr>
-                      <th id="imp">Date</th>
-                      <th id="imp">Drug Name </th>
-                      <th id="imp">Sig </th>
-                      <th id="imp">Dispence Quantity </th>
-                      <th id="imp">How Many Refills </th>
-                      <th id="imp">Note to Pharmacist </th>
+                      <th id="imp">{{labels2[0].date}}</th>
+                      <th id="imp">{{labels2[0].drugName}} </th>
+                      <th id="imp">{{labels2[0].sig}} </th>
+                      <th id="imp">{{labels2[0].dispenseQuantity}} </th>
+                      <th id="imp">{{labels2[0].howmanyRefills}} </th>
+                      <th id="imp">{{labels2[0].noteToPharmasist}} </th>
                     </tr>
                     <tr *ngFor="let medicines of alldetails.medicines">
                       <td style="    width: 13%;">{{medicines.date}}</td>
@@ -171,7 +173,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Prescription provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label>Reg no<b>{{alldetails.registrationNo}}</b></label>
+                <label>{{labels2[0].registratinno}}<b>{{alldetails.registrationNo}}</b></label>
               </div>
 
             </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -184,74 +186,75 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h3>SOAP Notes</h3>
+                <h3>{{labels2[0].soapnotess}}</h3>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
             <div class="row">
               <div class="col-lg-5">
-                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                <label><b>Address</b> : {{alldetails.address}}</label><br>
+                <label><b>{{labels2[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>{{labels2[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
-                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels2[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> {{labels2[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
               <div class="col-lg-3">
-                <h6><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                 <span><b>{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
-                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                <label><b>{{labels2[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                <label><b>{{labels2[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>{{labels2[0].department}}</b> : {{alldetails.departmentname}}</label>
+                <label><b>{{labels2[0].address}}</b> : {{alldetails.doctorAddress}}</label>
               </div>
               <br>
 
             </div><br><br>
 
 
-            <h5>SOAP</h5>
+            <h5>{{labels2[0].soap}}</h5>
             <div class="row" *ngFor="let soap of alldetails.soaplist">
               <div class="col-lg-6">
 
-                <label><b>Date : </b> {{soap.appointmentDate}}</label>
+                <label><b>{{labels2[0].date}} : </b> {{soap.appointmentDate}}</label>
 
               </div><br>
               <div class="col-lg-6">
-                <label><b>Subjective : </b> {{soap.subjective}}</label>
+                <label><b>{{labels2[0].subjective}} : </b> {{soap.subjective}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Objective : </b>{{soap.objective}}</label>
+                <label><b>{{labels2[0].objective}} : </b>{{soap.objective}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Assessment : </b>{{soap.assessment}}</label>
+                <label><b>{{labels2[0].assessment}} : </b>{{soap.assessment}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Plan : </b> {{soap.plan}}</label>
+                <label><b>{{labels2[0].plan}} : </b> {{soap.plan}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Diagnostic : </b> {{soap.diagnostic}}</label>
+                <label><b>{{labels2[0].diagnosis}} : </b> {{soap.diagnostic}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Diagnostic Code : </b> {{soap.diagnoticCode}}</label>
+                <label><b>{{labels2[0].diagnosisCode}} : </b> {{soap.diagnoticCode}}</label>
               </div>
               <div class="col-lg-6">
-                <label><b>Followup Plan : </b>{{soap.followUpPlan}}</label>
+                <label><b>{{labels2[0].followUpPlan}} : </b>{{soap.followUpPlan}}</label>
               </div>
             </div><br><br>
             <div class="row">
               <div class="col-lg-3">
-                <label><b>Allergies : </b> {{alldetails.knownAllergies}}</label>
+                <label><b>{{labels2[0].allergies}} : </b> {{alldetails.knownAllergies}}</label>
               </div>
               <div class="col-lg-3">
-                <label><b>Vaccination Status : </b> {{alldetails.vaccinationStatus}}</label>
+                <label><b>{{labels2[0].statutvaccinal}} : </b> {{alldetails.vaccinationStatus}}</label>
               </div>
             </div><br>
-            <h5 >Vitals </h5><br>
+            <h5 >{{labels2[0].vitalDetals}} </h5><br>
             <div class="row">
               <div class="col-lg-4">
                 <label><b>BPM : </b> {{alldetails.bpm}}</label>
@@ -261,13 +264,13 @@
                 <label><b>RR : </b> {{alldetails.rr}}</label>
               </div>
               <div class="col-lg-4">
-                <label><b>Oxygen : </b>{{alldetails.bpm}}</label>
+                <label><b>{{labels2[0].oxygen}} : </b>{{alldetails.bpm}}</label>
               </div>
               <div class="col-lg-4">
-                <label><b>Stress : </b>{{alldetails.streeLevel}}</label>
+                <label><b>{{labels2[0].stress}} : </b>{{alldetails.streeLevel}}</label>
               </div>
               <div class="col-lg-4">
-                <label><b>Blood Pressure : </b> {{alldetails.bloodPressureStatus}}</label>
+                <label><b>{{labels2[0].bloodpressure}} : </b> {{alldetails.bloodPressureStatus}}</label>
               </div>
             </div>
             <br><br><br>
@@ -279,7 +282,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>SOAP Notes provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels2[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
 
             </div><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -292,30 +295,32 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h3>Diagnostic Test</h3>
+                <h3 *ngIf="languageid=='1'">Diagnostic Test</h3>
+                <h3 *ngIf="languageid=='6'">Test diagnostique/imagerie</h3>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
             <div class="row">
               <div class="col-lg-5">
-                <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                <label><b>Address</b> : {{alldetails.address}}</label><br>
+                <label><b>{{labels2[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                <label><b>{{labels2[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
                 <label><b>Age</b> : {{alldetails.age}}</label><br>
-                <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                <label><b> {{labels2[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                <label><b> {{labels2[0].gender}}</b> : {{alldetails.gender}}</label><br>
               </div>
               <div class="col-lg-3">
-                <h6><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                 <span><b>{{alldetails.appointmentdate}}</b></span>
               </div>
               <div class="col-lg-4">
-                <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                <label><b>{{labels2[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                <label><b>{{labels2[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                <label><b>{{labels2[0].department}}</b> : {{alldetails.departmentname}}</label>
+                <label><b>{{labels2[0].address}}</b> : {{alldetails.doctorAddress}}</label>
               </div>
               <br>
             </div><br><br>
@@ -324,10 +329,10 @@
                 <table>
                   <thead>
                     <tr>
-                      <th id="imp">Date</th>
-                      <th id="imp">Test Type </th>
-                      <th id="imp">Test Name </th>
-                      <th id="imp">Clinical Info </th>
+                      <th id="imp">{{labels2[0].date}}</th>
+                          <th id="imp">{{labels2[0].testType}} </th>
+                          <th id="imp">{{labels2[0].testName}} </th>
+                          <th id="imp">{{labels2[0].clinicalInfo}} </th>
                     </tr>
                     <tr *ngFor="let test of alldetails.diagnosticTest">
                       <td style="  width: 13%;">{{test.appdate}}</td>
@@ -366,7 +371,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Diagnostic Test provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels2[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div>
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -377,31 +382,33 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h5><b>Medical Certificate</b></h5>
+                <h5><b *ngIf="languageid=='1'">Medical Certificate</b></h5>
+                <h5><b *ngIf="languageid=='6'">Certificat médical</b></h5>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
             <div>
               <div class="row">
                 <div class="col-lg-5">
-                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                  <label><b>Address</b> : {{alldetails.address}}</label><br>
+                  <label><b>{{labels2[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>{{labels2[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
                   <label><b>Age</b> : {{alldetails.age}}</label><br>
-                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels2[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> {{labels2[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
                 <div class="col-lg-3">
-                  <h6><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==1"><b>Appointment Date</b></h6>
+                  <h6 *ngIf="languageid==6"><b>Date de rendez-vous</b></h6>
                   <span><b>{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
-                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                  <label><b>{{labels2[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                  <label><b>{{labels2[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>{{labels2[0].department}}</b> : {{alldetails.departmentname}}</label>
+                  <label><b>{{labels2[0].address}}</b> : {{alldetails.doctorAddress}}</label>
                 </div>
                 <br>
               </div>
@@ -424,7 +431,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Medical certificate provided by doctor</label><br> -->
                 <b>{{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels2[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div><br><br><br><br><br><br><br><br><br><br>
           </div>
@@ -435,31 +442,32 @@
                 <img src="assets/Images/logo.png" style="width: 26%;">
               </div>
               <div class="col-lg-4">
-                <h5><b>Doctor Referals</b></h5>
+                <h5 *ngIf="languageid=='1'"><b>Doctor Referals</b></h5>
+                <h5 *ngIf="languageid=='6'"><b>Références de médecins</b></h5>
               </div>
             </div>
             <hr style="color:#333;background-color:#333;">
             <div>
               <div class="row">
                 <div class="col-lg-5">
-                  <label><b>Patient Name</b> : {{alldetails.patientName}}</label><br>
-                  <label><b>Mobile No</b> : {{alldetails.mobileNumber}}</label><br>
-                  <label><b>Address</b> : {{alldetails.address}}</label><br>
+                  <label><b>{{labels2[0].patientName}}</b> : {{alldetails.patientName}}</label><br>
+                  <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
+                  <label><b>{{labels2[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> Email ID</b> : {{alldetails.emailID}}</label><br>
                   <label><b>Age</b> : {{alldetails.age}}</label><br>
-                  <label><b> Date of birth</b> : {{alldetails.dateOfBirth}}</label><br>
-                  <label><b> Gender</b> : {{alldetails.gender}}</label><br>
+                  <label><b> {{labels2[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
+                  <label><b> {{labels2[0].gender}}</b> : {{alldetails.gender}}</label><br>
                 </div>
                 <div class="col-lg-3">
                   <h6><b>Appointment Date</b></h6>
                   <span><b>{{alldetails.appointmentdate}}</b></span>
                 </div>
                 <div class="col-lg-4">
-                  <label><b>Doctor Name</b> : {{alldetails.doctorName}}</label>
-                  <label><b>Registration No</b> : {{alldetails.registrationNo}}</label>
-                  <label><b>Mobile No</b> : {{alldetails.doctorMobileNo}}</label>
-                  <label><b>Department</b> : {{alldetails.departmentname}}</label>
-                  <label><b>Address</b> : {{alldetails.doctorAddress}}</label>
+                  <label><b>{{labels2[0].doctorName}}</b> : {{alldetails.doctorName}}</label>
+                  <label><b>{{labels2[0].registratinno}}</b> : {{alldetails.registrationNo}}</label>
+                  <label><b>{{labels2[0].phoneNo}}</b> : {{alldetails.doctorMobileNo}}</label>
+                  <label><b>{{labels2[0].department}}</b> : {{alldetails.departmentname}}</label>
+                  <label><b>{{labels2[0].address}}</b> : {{alldetails.doctorAddress}}</label>
                 </div>
                 <br>
               </div>
@@ -480,7 +488,7 @@
                 <img src="assets/Images/sign.png" style="width: 39%;"><br>
                 <!-- <label>Doctor Referals provided by doctor</label><br> -->
                 <b>Dr. {{alldetails.doctorName}}</b><br>
-                <label><b>Reg no : {{alldetails.registrationNo}}</b></label>
+                <label><b>{{labels2[0].registratinno}} : {{alldetails.registrationNo}}</b></label>
               </div>
             </div><br><br><br><br><br><br><br><br><br><br>
           </div>
@@ -489,10 +497,10 @@
       </div>
       <div class="modal-footer" style="margin-top: -24px;">
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
-          (click)="SavePdf()">Send Mail</button>
+          (click)="SavePdf()">{{labels2[0].sendtopatient}}</button>
 
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
-          (click)="DownloadPdf()">Download</button>
+          (click)="DownloadPdf()">{{labels2[0].download}}</button>
       </div>
     </div>
   </div>

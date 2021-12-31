@@ -45,7 +45,7 @@ export class NurseworkingdashComponent implements OnInit {
 
     if (this.hospitalclinicid == undefined) {
       // this.getnurselist();
-      this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
+      this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
         data => {
 
           this.dummlist = data;
@@ -54,7 +54,7 @@ export class NurseworkingdashComponent implements OnInit {
 
           this.nursedd = {
             singleSelection: true,
-            idField: 'id',
+            idField: 'nurseID',
             textField: 'nurseName',
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
@@ -68,7 +68,7 @@ export class NurseworkingdashComponent implements OnInit {
     }
 
     if (this.hospitalclinicid != undefined) {
-      this.docservice.GetNurseRegistrationAdminByLanguageID(this.languageid).subscribe(
+      this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
         data => {
 
           this.dummlist = data;
@@ -78,7 +78,7 @@ export class NurseworkingdashComponent implements OnInit {
 
           this.nursedd = {
             singleSelection: true,
-            idField: 'id',
+            idField: 'nurseID',
             textField: 'nurseName',
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
@@ -155,7 +155,10 @@ export class NurseworkingdashComponent implements OnInit {
 
   public GetNurseID(item: any) {
 
-    this.nurseid = item.id;
+    this.nurseid = item.nurseID;
+
+    var list = this.nurselist.filter(x => x.nurseID == this.nurseid);
+    this.nursehospitaldetilsid = list[0].nursehospitalid
     // this.getnurseesworkingdetails()
     this.GetNurseTimings()
   }
@@ -375,17 +378,19 @@ export class NurseworkingdashComponent implements OnInit {
 
   public Updateslots() {
     debugger
-    this.spinner.show();
+
     if (this.allappointmentid == 4 && this.appointmentypeid == 1) {
+      this.spinner.show();
       var entity1 = {
         'NurseHospitalDetailsID': this.nursehospitaldetilsid,
         'NurseID': this.nurseid,
         'DayID': this.dayid,
         'SlotID': this.docslotid,
         'LanguageID': this.languageid,
-        'Fees': this.appointmentypeid
+        'Fees': this.fees,
+        'AppointmentTypeID': this.appointmentypeid
       }
-      this.docservice.InsertDoctorSlotsWeb(entity1).subscribe(data => {
+      this.docservice.InsertNurseWorkingDetailsSlots(entity1).subscribe(data => {
         if (this.languageid == 1) {
           Swal.fire('Updated Successfully');
 
@@ -399,10 +404,35 @@ export class NurseworkingdashComponent implements OnInit {
 
       })
     }
+
+    
+    if (this.allappointmentid == 1 && this.appointmentypeid == 6) {
+      this.spinner.show();
+      var entity1 = {
+        'NurseHospitalDetailsID': this.nursehospitaldetilsid,
+        'NurseID': this.nurseid,
+        'DayID': this.dayid,
+        'SlotID': this.docslotid,
+        'LanguageID': this.languageid,
+        'Fees': this.fees,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.InsertNurseWorkingDetailsSlots(entity1).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+        this.GetNurseTimings();
+
+      })
+    }
+
     else if (this.allappointmentid == 1 && this.appointmentypeid == 4) {
       debugger
       this.spinner.show();
-
       this.docservice.DeleteNurseWorkingDetailsBySlot(this.slotid).subscribe(data => {
         if (this.languageid == 1) {
           Swal.fire('Deleted Successfully');
@@ -417,7 +447,23 @@ export class NurseworkingdashComponent implements OnInit {
 
       })
     }
+    else if (this.allappointmentid == 6 && this.appointmentypeid == 4) {
+      debugger
+      this.spinner.show();
+      this.docservice.DeleteNurseWorkingDetailsBySlot(this.slotid).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Deleted Successfully');
 
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+
+        this.GetNurseTimings();
+
+
+      })
+    }
   }
 
 }

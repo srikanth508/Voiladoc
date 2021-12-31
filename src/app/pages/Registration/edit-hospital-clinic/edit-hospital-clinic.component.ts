@@ -52,7 +52,7 @@ export class EditHospitalClinicComponent implements OnInit {
   public subscriptiontype: any;
   public contractstartdate: any;
   public contractenddate: any;
-
+  date = new Date();
 
 
 
@@ -393,7 +393,7 @@ export class EditHospitalClinicComponent implements OnInit {
   }
 
   revenueupdateid: any;
-  subscriptiontypeedit:any;
+  subscriptiontypeedit: any;
 
   public GetContractSubscriptions(subscriptions) {
     this.subscriptiontypeedit = subscriptions.subscriptionTypeID,
@@ -425,8 +425,8 @@ export class EditHospitalClinicComponent implements OnInit {
         Swal.fire("Mis à jour avec succés");
         this.GetSubscriptionrevenue()
       }
-    },error=>{
-      
+    }, error => {
+
     })
   }
 }
