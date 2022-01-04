@@ -15,7 +15,7 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <div *ngIf="dummid=='undefined'">
+        <div *ngIf="showDropdown=='1'">
           <select class="form-control" (change)="GetPhysioID($event)" [(ngModel)]="physioid" name="physioid">
             <option value="">Select</option>
             <option *ngFor="let phsio of physiolist" value="{{phsio.id}}">{{phsio.name}}</option>
@@ -23,7 +23,7 @@
           </select>
         </div>
 
-        <div *ngIf="dummid!='undefined'">
+        <div *ngIf="showDropdown=='2'">
           <input type="text" class="form-control" disabled [(ngModel)]="user" name="user">
         </div>
 

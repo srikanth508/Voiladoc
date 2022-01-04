@@ -132,63 +132,63 @@ export class MidWifeTimingsComponent implements OnInit {
 
   }
 
-  public DeleteMidWifeWorkingDetails(mid, dayid) {
-   if(this.languageid==1)
-   {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteMidWifeWorkingDetails(mid, dayid).subscribe(res => {
-          let test = res;
-          this.getmidwifelist()
-        })
-        Swal.fire(
-          'Deleted!',
-          'Day has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getmidwifelist()
-      }
-    })
-   }
-   else{
-    Swal.fire({
-      title: 'Êtes-vous sûr ?',
-      // text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, supprimer !',
-      cancelButtonText: 'Annuler'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteMidWifeWorkingDetails(mid, dayid).subscribe(res => {
-          let test = res;
-          this.getmidwifelist()
-        })
-        Swal.fire(
-          'Supprimé!',
-          'Le jour a été supprimé.',
-          'success'
-        )
-      }
-      else {
-        this.getmidwifelist()
-      }
-    })
-   }
+  // public DeleteMidWifeWorkingDetails(mid, dayid) {
+  //  if(this.languageid==1)
+  //  {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You Want to Delete This Day Slot!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this.docservice.DeleteMidWifeWorkingDetails(mid, dayid).subscribe(res => {
+  //         let test = res;
+  //         this.getmidwifelist()
+  //       })
+  //       Swal.fire(
+  //         'Deleted!',
+  //         'Day has been deleted.',
+  //         'success'
+  //       )
+  //     }
+  //     else {
+  //       this.getmidwifelist()
+  //     }
+  //   })
+  //  }
+  //  else{
+  //   Swal.fire({
+  //     title: 'Êtes-vous sûr ?',
+  //     // text: "You Want to Delete This Day Slot!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Oui, supprimer !',
+  //     cancelButtonText: 'Annuler'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this.docservice.DeleteMidWifeWorkingDetails(mid, dayid).subscribe(res => {
+  //         let test = res;
+  //         this.getmidwifelist()
+  //       })
+  //       Swal.fire(
+  //         'Supprimé!',
+  //         'Le jour a été supprimé.',
+  //         'success'
+  //       )
+  //     }
+  //     else {
+  //       this.getmidwifelist()
+  //     }
+  //   })
+  //  }
    
-  }
+  // }
 
   //Prashant 
   public addnew() {

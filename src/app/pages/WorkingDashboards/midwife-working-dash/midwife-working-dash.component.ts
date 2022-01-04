@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-midwife-working-dash',
   templateUrl: './midwife-working-dash.component.html',
@@ -8,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class MidwifeWorkingDashComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
 
   public languageid: any;
   public labels: any;
@@ -32,14 +33,14 @@ export class MidwifeWorkingDashComponent implements OnInit {
     this.daysname = ''
     // this.getmidwifelist();
     this.getlanguage();
-    this.GetDaysMaster();
+    // this.GetDaysMaster();
 
 
     if (this.hospitalclinicid == undefined) {
       this.GetMidWivesRegistration();
     }
     if (this.hospitalclinicid != undefined) {
-      this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
+      this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
         data => {
 
           this.dummlist = data;
@@ -48,7 +49,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
 
           this.middd = {
             singleSelection: true,
-            idField: 'id',
+            idField: 'midWifeID',
             textField: 'name',
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
@@ -60,24 +61,38 @@ export class MidwifeWorkingDashComponent implements OnInit {
         }
       )
     }
-    this.GetTimings()
+
   }
 
+  Timings: any;
 
 
-  Timeings: any
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
+  public GetMidwifeTimings() {
+    this.spinner.show();
+    this.docservice.GetMidwifeYearwiseCalender(this.midwifeid, 1, this.languageid).subscribe(
       data => {
-
-        this.Timeings = data;
+        debugger
+        this.Timings = data;
+        this.spinner.hide();
       }, error => {
       }
     )
   }
 
+
+  // Timeings: any
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
+
+  //       this.Timeings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
   public GetMidWivesRegistration() {
-    this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
+    this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
       data => {
 
         this.midwifelist = data;
@@ -86,7 +101,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
 
         this.middd = {
           singleSelection: true,
-          idField: 'id',
+          idField: 'midWifeID',
           textField: 'name',
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
@@ -99,16 +114,9 @@ export class MidwifeWorkingDashComponent implements OnInit {
     )
   }
 
-  public GetDaysMaster() {
-    this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
-      data => {
 
-        this.dayslist = data;
-      }, error => {
-      }
-    )
-  }
   public select: any;
+  labels1: any;
   public getlanguage() {
     this.docservice.GetAdmin_PhysiotherapistLoginsAppointmentsReportworkingDetails_Label(this.languageid).subscribe(
       data => {
@@ -119,49 +127,59 @@ export class MidwifeWorkingDashComponent implements OnInit {
       }, error => {
       }
     )
-  }
-  public getmidwifelist() {
-    if (this.hospitalclinicid == undefined) {
-      this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
-        data => {
-          this.dummworkinglist = data;
-          this.workinglist = data;
-        }, error => {
-        }
-      )
-    }
-    else if (this.hospitalclinicid != undefined) {
-      this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
-        data => {
-
-
-          this.workinglist = this.dummworkinglist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
-        }, error => {
-        }
-      )
-    }
-  }
-
-
-  midwifeid: any;
-
-  public GetmidwifeID(item:any) {
-
-    this.midwifeid = item.id;
-    this.getMidwifeworkingdetails()
-
-  }
-
-  public getMidwifeworkingdetails() {
-    this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
+    this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
 
-        this.dummworkinglist = data;
-        this.workinglist = this.dummworkinglist.filter(x => x.midWifeID == this.midwifeid)
+        this.labels1 = data;
+
       }, error => {
       }
     )
   }
+  // public getmidwifelist() {
+  //   if (this.hospitalclinicid == undefined) {
+  //     this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
+  //       data => {
+  //         this.dummworkinglist = data;
+  //         this.workinglist = data;
+  //       }, error => {
+  //       }
+  //     )
+  //   }
+  //   else if (this.hospitalclinicid != undefined) {
+  //     this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
+  //       data => {
+
+
+  //         this.workinglist = this.dummworkinglist.filter(x => x.hospitalClinicID == this.hospitalclinicid)
+  //       }, error => {
+  //       }
+  //     )
+  //   }
+  // }
+
+
+  midwifeid: any;
+
+  public GetmidwifeID(item: any) {
+
+    this.midwifeid = item.midWifeID;
+    var list=this.midwifelist.filter(x=>x.midWifeID==this.midwifeid);
+    this.midwifehospitalid=list[0].midwifehospitalid
+    this.GetMidwifeTimings()
+
+  }
+
+  // public getMidwifeworkingdetails() {
+  //   this.docservice.GetMidWifeWorkingDetails(this.languageid).subscribe(
+  //     data => {
+
+  //       this.dummworkinglist = data;
+  //       this.workinglist = this.dummworkinglist.filter(x => x.midWifeID == this.midwifeid)
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
 
 
@@ -173,76 +191,204 @@ export class MidwifeWorkingDashComponent implements OnInit {
   public enddatetime: any;
   public midid: any;
 
+  appointmentypeid: any;
+  slotid: any;
+  allappointmentid: any;
+  docslotid: any;
+  fees: any;
 
 
 
-  public GetDetsilsID(nurseHospitalDetailsID, dayID, startime, endtime, id) {
+  public GetDay1List(details) {
+    this.appointmentypeid = details.mondayappointmentID;
+    this.slotid = details.mondaySlotID;
+    this.allappointmentid = details.mondayappointmentID;
+    this.dayid = details.mondayDayID;
+    this.docslotid = details.docMondaySlotID;
+    this.fees = details.mondayFees;
+  }
 
-    this.midwifehospitalid = nurseHospitalDetailsID;
-    this.dayid = dayID,
-      this.startdatetime = startime,
-      this.enddatetime = endtime,
-      this.midid = id;
-    // this.startdatetime = 0;
-    // this.enddatetime = 0;
 
+
+  public GetDay2List(details) {
+    this.appointmentypeid = details.tuesdayAppointmentID;
+    this.slotid = details.tuesdaySlotID;
+    this.allappointmentid = details.tuesdayAppointmentID;
+    this.dayid = details.tuesDayID;
+    this.docslotid = details.docTuesDaySlotID;
+    this.fees = details.tuesdayFees;
+  }
+
+  public GetDay3List(details) {
+
+    this.appointmentypeid = details.wednesdayAppointmentID;
+    this.slotid = details.wednessdaySlotID;
+    this.allappointmentid = details.wednesdayAppointmentID;
+    this.dayid = details.wednessDayID;
+    this.docslotid = details.docWednessDaySlotID;
+    this.fees = details.wednessdayFees;
+  }
+
+  public GetDay4List(details) {
+
+    this.appointmentypeid = details.thursdayAppointmentID;
+    this.slotid = details.tursdaySlotID;
+    this.allappointmentid = details.thursdayAppointmentID;
+    this.dayid = details.thursDayID;
+    this.docslotid = details.docThursaDaySlotID;
+    this.fees = details.thursdayFees;
+  }
+
+  public GetDay5List(details) {
+
+    this.appointmentypeid = details.fridayAppointmentID;
+    this.slotid = details.fridaySlotID;
+    this.allappointmentid = details.fridayAppointmentID;
+    this.dayid = details.friDayID;
+    this.docslotid = details.docFridayDaySlotID;
+    this.fees = details.fridayFees;
+  }
+
+  public GetDay6List(details) {
+
+    this.appointmentypeid = details.saturdayAppintmentID;
+    this.slotid = details.saturdaySlotID;
+    this.allappointmentid = details.saturdayAppintmentID;
+    this.dayid = details.saturDayID;
+    this.docslotid = details.docSatDaySlotID;
+    this.fees = details.satdayFees;
+  }
+
+  public GetDay7List(details) {
+
+    this.appointmentypeid = details.sundayAppointmentID;
+    this.slotid = details.sundaySlotID;
+    this.allappointmentid = details.sundayAppointmentID;
+    this.dayid = details.sunDayID;
+    this.docslotid = details.doSunDaySlotID;
+    this.fees = details.sundayFees;
   }
 
 
 
 
-  public updatedetails() {
 
-    var entity = {
-      'ID': this.midid,
-      'MidWifeHospitalDetailsID': this.midwifehospitalid,
-      'DayID': this.dayid,
-      'StartTimee': this.startdatetime,
-      'EndTimee': this.enddatetime
+
+
+
+  public Updateslots() {
+    debugger
+
+    if (this.allappointmentid == 4 && this.appointmentypeid == 1) {
+      debugger
+      this.spinner.show();
+      var entity1 = {
+        'MidWifeHospitalDetailsID': this.midwifehospitalid,
+        'MidWifeID': this.midwifeid,
+        'DayID': this.dayid,
+        'SlotID': this.docslotid,
+        'LanguageID': this.languageid,
+        'Fees': this.fees,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.InsertMidWifeWorkingDetailsYearwise(entity1).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+        this.GetMidwifeTimings();
+
+      })
     }
 
-    this.docservice.UpdateMidWifeWorkingDetails(entity).subscribe(data => {
-      if (data != undefined) {
+
+  else if (this.allappointmentid == 1 && this.appointmentypeid == 6) {
+      debugger
+      this.spinner.show();
+      var entity1 = {
+        'MidWifeHospitalDetailsID': this.midwifehospitalid,
+        'MidWifeID': this.midwifeid,
+        'DayID': this.dayid,
+        'SlotID': this.docslotid,
+        'LanguageID': this.languageid,
+        'Fees': this.fees,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.InsertMidWifeWorkingDetailsYearwise(entity1).subscribe(data => {
         if (this.languageid == 1) {
-          Swal.fire("Updated Successfully");
-          this.getMidwifeworkingdetails();
-        }
-        else {
-          Swal.fire("Mis à jour avec succés");
-          this.getMidwifeworkingdetails();
-        }
+          Swal.fire('Updated Successfully');
 
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+        this.GetMidwifeTimings();
 
+      })
+    }
+    else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
+      debugger
+      this.spinner.show();
+      var entity1 = {
+        'MidWifeHospitalDetailsID': this.midwifehospitalid,
+        'MidWifeID': this.midwifeid,
+        'DayID': this.dayid,
+        'SlotID': this.docslotid,
+        'LanguageID': this.languageid,
+        'Fees': this.fees,
+        'AppointmentTypeID': this.appointmentypeid
       }
-    })
+      this.docservice.InsertMidWifeWorkingDetailsYearwise(entity1).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
 
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+        this.GetMidwifeTimings();
+
+      })
+    }
+
+    else if (this.allappointmentid == 1 && this.appointmentypeid == 4) {
+      debugger
+      this.spinner.show();
+      this.docservice.DeleteMidWifeWorkingDetails(this.slotid).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Deleted Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+
+        this.GetMidwifeTimings();
+      })
+    }
+    else if (this.allappointmentid == 6 && this.appointmentypeid == 4) {
+      debugger
+      this.spinner.show();
+      this.docservice.DeleteMidWifeWorkingDetails(this.slotid).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Deleted Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+
+        this.GetMidwifeTimings();
+
+
+      })
+    }
   }
 
-  public DeleteMidWifeWorkingDetails(mid, dayid) {
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeleteMidWifeWorkingDetails(mid, dayid).subscribe(res => {
-          let test = res;
-          this.getMidwifeworkingdetails();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Day has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getMidwifeworkingdetails();
-      }
-    })
-  }
+
+
 }

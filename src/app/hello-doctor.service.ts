@@ -1506,9 +1506,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Admin/UpdatePhysiotherapistWorkingDetails';
     return this.http.post(this.url, data)
   }
-  public DeletePhysiotherapistWorkingDetails(pid, dayid) {
+  public DeletePhysiotherapistWorkingDetails(id) {
 
-    return this.http.get<any[]>(this.host + '/Admin/DeletePhysiotherapistWorkingDetails?PhysiotherapyHospitalDetailsID=' + pid + '&DayID=' + dayid);
+    return this.http.get<any[]>(this.host + '/Admin/DeletePhysiotherapistWorkingDetails?ID='+id);
   }
 
   public GetMidWifeHospitalDetailsWeb(mid, lid) {
@@ -1519,9 +1519,9 @@ export class HelloDoctorService {
     this.url = this.host + '/Admin/UpdateMidWifeWorkingDetails';
     return this.http.post(this.url, data)
   }
-  public DeleteMidWifeWorkingDetails(mid, dayid) {
+  public DeleteMidWifeWorkingDetails(id) {
 
-    return this.http.get<any[]>(this.host + '/Admin/DeleteMidWifeWorkingDetails?MidWifeHospitalDetailsID=' + mid + '&DayID=' + dayid);
+    return this.http.get<any[]>(this.host + '/Admin/DeleteMidWifeWorkingDetails?ID=' + id);
   }
 
   public GetServicesDDforDoctorAdmin(mid) {
@@ -6034,5 +6034,57 @@ export class HelloDoctorService {
   public GetDoctor_PatientDiagosticApps(patientid, lid) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDoctor_PatientDiagosticApps?PateintID=' + patientid + '&LanguageID=' + lid);
+  }
+
+  //physio calender
+  public GetPhysioYearwiseCalender(nurseid, slotypeid, lid) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetPhysioYearwiseCalender?PhysioID=' + nurseid + '&SlotTypeID=' + slotypeid + '&LanguageID=' + lid);
+  }
+
+  public InsertPhysiotherapistWorkingDetailsByYearWise(data) {
+    this.url = this.host + '/Admin/InsertPhysiotherapistWorkingDetailsByYearWise';
+    return this.http.post(this.url, data)
+  }
+
+
+
+  //midwife
+
+  public GetMidwifeYearwiseCalender(nurseid, slotypeid, lid) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetMidwifeYearwiseCalender?MidwifeID=' + nurseid + '&SlotTypeID=' + slotypeid + '&LanguageID=' + lid);
+  }
+
+  public InsertMidWifeWorkingDetailsYearwise(data) {
+    this.url = this.host + '/Admin/InsertMidWifeWorkingDetailsYearwise';
+    return this.http.post(this.url, data)
+  }
+
+  public GetPhysioWorkingDetailsDyWise(PhysioID, slotypeid, sdate, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Admin/GetPhysioWorkingDetailsDyWise?PhysioID=' + PhysioID + '&SlotTypeID=' + slotypeid + '&StartDate=' + sdate + '&LanguageID=' + lid);
+  }
+
+  public InsertPhysioWorkingDetails_DateWise(data) {
+    this.url = this.host + '/Admin/InsertPhysioWorkingDetails_DateWise';
+    return this.http.post(this.url, data)
+  }
+
+
+  
+  public GetPhysioAppointmentdabySlot(physioid, slotid, appdate) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetPhysioAppointmentdabySlot?PhysioID=' + physioid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
+  }
+
+  public GetPhysioCancelledAppointmentByDateWise(physioid, slotid, appdate) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetPhysioCancelledAppointmentByDateWise?PhysioID=' + physioid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
+  }
+
+    public GetBook_Physio_AppointmentCount(appdate, physioid) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetBook_Physio_AppointmentCount?AppointmentDate=' + appdate + '&PhysioID=' + physioid);
   }
 }

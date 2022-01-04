@@ -121,63 +121,63 @@ export class PhysiotherapistTimingsComponent implements OnInit {
 
   }
 
-  public DeletePhysiotherapistWorkingDetails(nsid, dayid) {
-   if(this.languageid==1)
-   {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeletePhysiotherapistWorkingDetails(nsid, dayid).subscribe(res => {
-          let test = res;
-          this.getphysiolist();
-        })
-        Swal.fire(
-          'Deleted!',
-          'Day has been deleted.',
-          'success'
-        )
-      }
-      else {
-        this.getphysiolist();
-      }
-    })
-   }
-   else{
-    Swal.fire({
-      title: 'Êtes-vous sûr ?',
-      // text: "You Want to Delete This Day Slot!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, supprimer !',
-      cancelButtonText: 'Annuler'
+  // public DeletePhysiotherapistWorkingDetails(nsid, dayid) {
+  //  if(this.languageid==1)
+  //  {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You Want to Delete This Day Slot!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this.docservice.DeletePhysiotherapistWorkingDetails(nsid, dayid).subscribe(res => {
+  //         let test = res;
+  //         this.getphysiolist();
+  //       })
+  //       Swal.fire(
+  //         'Deleted!',
+  //         'Day has been deleted.',
+  //         'success'
+  //       )
+  //     }
+  //     else {
+  //       this.getphysiolist();
+  //     }
+  //   })
+  //  }
+  //  else{
+  //   Swal.fire({
+  //     title: 'Êtes-vous sûr ?',
+  //     // text: "You Want to Delete This Day Slot!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Oui, supprimer !',
+  //     cancelButtonText: 'Annuler'
 
-    }).then((result) => {
-      if (result.value) {
-        this.docservice.DeletePhysiotherapistWorkingDetails(nsid, dayid).subscribe(res => {
-          let test = res;
-          this.getphysiolist();
-        })
-        Swal.fire(
-          'Supprimé!',
-          'Le jour a été supprimé.',
-          'success'
-        )
-      }
-      else {
-        this.getphysiolist();
-      }
-    })
-   }
-  }
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this.docservice.DeletePhysiotherapistWorkingDetails(nsid, dayid).subscribe(res => {
+  //         let test = res;
+  //         this.getphysiolist();
+  //       })
+  //       Swal.fire(
+  //         'Supprimé!',
+  //         'Le jour a été supprimé.',
+  //         'success'
+  //       )
+  //     }
+  //     else {
+  //       this.getphysiolist();
+  //     }
+  //   })
+  //  }
+  // }
 
   public addnew() {
     location.href = '#/PhysiotherapistWorkingDetails/' + this.physioid;

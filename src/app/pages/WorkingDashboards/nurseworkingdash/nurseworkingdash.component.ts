@@ -405,8 +405,32 @@ export class NurseworkingdashComponent implements OnInit {
       })
     }
 
-    
-    if (this.allappointmentid == 1 && this.appointmentypeid == 6) {
+   else if (this.allappointmentid == 4 && this.appointmentypeid == 6) {
+      this.spinner.show();
+      var entity1 = {
+        'NurseHospitalDetailsID': this.nursehospitaldetilsid,
+        'NurseID': this.nurseid,
+        'DayID': this.dayid,
+        'SlotID': this.docslotid,
+        'LanguageID': this.languageid,
+        'Fees': this.fees,
+        'AppointmentTypeID': this.appointmentypeid
+      }
+      this.docservice.InsertNurseWorkingDetailsSlots(entity1).subscribe(data => {
+        if (this.languageid == 1) {
+          Swal.fire('Updated Successfully');
+
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Mis à jour avec succès');
+        }
+        this.GetNurseTimings();
+
+
+
+      })
+    }
+   else if (this.allappointmentid == 1 && this.appointmentypeid == 6) {
       this.spinner.show();
       var entity1 = {
         'NurseHospitalDetailsID': this.nursehospitaldetilsid,

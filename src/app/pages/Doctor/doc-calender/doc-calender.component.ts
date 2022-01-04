@@ -44,10 +44,11 @@ export class DocCalenderComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-
+    this.spinner.show();
+    this.getlanguage()
     this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
       data => {
-
+        this.spinner.show();
         this.doctorlist = data;
         var list = this.doctorlist.filter(x => x.id == this.doctorid)
         this.slottypeid = list[0].slotDurationID
@@ -72,13 +73,14 @@ export class DocCalenderComponent implements OnInit {
     this.mrngtoid = "";
     this.mrngfromid = "";
 
-    this.getlanguage()
+
 
 
   }
 
 
   public GetMyDoctorWorkingDetails() {
+    this.spinner.show();
     this.docservice.GetDoctorcalenderSlotsByDoctorID(this.doctorid, this.slottypeid, this.todaydate, this.languageid).subscribe(
       data => {
 
@@ -93,6 +95,7 @@ export class DocCalenderComponent implements OnInit {
   }
 
   public getlanguage() {
+    this.spinner.show();
     this.docservice.GetAdmin_DoctorLoginFeedbackWorkingDetails_Label(this.languageid).subscribe(
       data => {
 

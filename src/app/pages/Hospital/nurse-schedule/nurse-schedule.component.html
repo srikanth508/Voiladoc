@@ -106,9 +106,9 @@
             <tr *ngFor="let details of workingdetails|filter:term">
               <td>{{details.slotname}}</td>
               <td [style.background-color]="details.day1color" style="color:white">{{details.day1}}<br>
-                <span
+                <!-- <span
                   *ngIf="details.day1AppointmentTypeID!=6&&details.day1AppointmentTypeID!=4">{{details.mondayFees}}</span>
-                <br>
+                <br> -->
                 {{details.day1Availabilty}}<br>
                 <table>
                   <tr *ngFor="let det of details.day1patientdetails|filter:term">
@@ -122,8 +122,8 @@
                 </a>
               </td>
               <td [style.background-color]="details.day2color" style="color:white">{{details.day2}}<br>
-                <span *ngIf="details.day2AppointmentTypeID!=6&&details.day2AppointmentTypeID!=4">
-                  {{details.tuesdayFees}}</span> <br>
+                <!-- <span *ngIf="details.day2AppointmentTypeID!=6&&details.day2AppointmentTypeID!=4">
+                  {{details.tuesdayFees}}</span> <br> -->
                 {{details.day2Availabilty}}<br>
                 <table>
                   <tr *ngFor="let det of details.day2patientdetails|filter:term">
@@ -136,8 +136,8 @@
                 </a>
               </td>
               <td [style.background-color]="details.day3color" style="color:white">{{details.day3}}<br>
-                <span *ngIf="details.day3AppointmentTypeID!=6&&details.day3AppointmentTypeID!=4">
-                  {{details.wednessdayFees}}</span> <br>
+                <!-- <span *ngIf="details.day3AppointmentTypeID!=6&&details.day3AppointmentTypeID!=4">
+                  {{details.wednessdayFees}}</span> <br> -->
                 {{details.day3Availabilty}}<br>
                 <table>
                   <tr *ngFor="let det of details.day3patientdetails|filter:term">
@@ -150,8 +150,8 @@
                 </a>
               </td>
               <td [style.background-color]="details.day4color" style="color:white">{{details.day4}}<br>
-                <span *ngIf="details.day4AppointmentTypeID!=6&&details.day4AppointmentTypeID!=4">{{details.thursdayFees
-                  }}</span><br>
+                <!-- <span *ngIf="details.day4AppointmentTypeID!=6&&details.day4AppointmentTypeID!=4">{{details.thursdayFees
+                  }}</span><br> -->
                 {{details.day4Availabilty}}<br>
                 <table>
                   <tr *ngFor="let det of details.day4patientdetails|filter:term">
@@ -164,9 +164,9 @@
                 </a>
               </td>
               <td [style.background-color]="details.day5color" style="color:white">{{details.day5}}<br>
-                <span
+                <!-- <span
                   *ngIf="details.day5AppointmentTypeID!=6&&details.day5AppointmentTypeID!=4">{{details.fridayFees}}</span>
-                <br>
+                <br> -->
 
                 {{details.day5Availabilty}}<br>
                 <table>
@@ -180,9 +180,9 @@
                 </a>
               </td>
               <td [style.background-color]="details.day6color" style="color:white">{{details.day6}}<br>
-                <span
+                <!-- <span
                   *ngIf="details.day6AppointmentTypeID!=6&&details.day6AppointmentTypeID!=4">{{details.satdayFees}}</span>
-                <br>
+                <br> -->
                 {{details.day6Availabilty}}<br>
                 <table>
                   <tr *ngFor="let det of details.day6patientdetails|filter:term">
@@ -195,8 +195,8 @@
                 </a>
               </td>
               <td [style.background-color]="details.day7color" style="color:white">{{details.day7}}<br>
-                <span *ngIf="details.day7AppointmentTypeID!=6&&details.day7AppointmentTypeID!=4">
-                  {{details.sundayFees}}</span> <br>
+                <!-- <span *ngIf="details.day7AppointmentTypeID!=6&&details.day7AppointmentTypeID!=4">
+                  {{details.sundayFees}}</span> <br> -->
                 {{details.day7Availabilty}}<br>
                 <table>
                   <tr *ngFor="let det of details.day7patientdetails|filter:term">

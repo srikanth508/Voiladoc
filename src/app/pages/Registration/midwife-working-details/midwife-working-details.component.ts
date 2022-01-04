@@ -42,47 +42,18 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     this.widwifeid = localStorage.getItem('midwifeid');
     this.getlanguage();
     this.getmidwifelist();
-    this.GetDaysMaster();
     this.GetTimings();
-
-    this.active = 0;
-    this.idcount = 1;
-    this.table = 0;
-    this.starttime = 0
-    this.endtime = 0
-    this.docservice.GetMidWifeHospitalDetails(this.languageid).subscribe(
-      data => {
-
-        let temp: any = data;
-        let temp1: any = temp.filter(x => x.midWifeID == this.widwifeid);
-        this.hsp_clinicID = temp1[0].hospitalClinicID;
-        this.hospital_ClinicName = temp1[0].hospital_ClinicName;
-      }, error => {
-      }
-    )
-    this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
-      data => {
-
-        this.hospital_ClinicName = data[0].hospital_ClinicName
-      }, error => {
-      }
-    )
-    
-    this.activatedroute.params.subscribe(params => {
-
-      this.active = 1;
-      this.widwifeid = params['id'];
-    }
-    )
+    this.GetDaysMaster();
+    this.endid = 0;
   }
-  select:any;
+  select: any;
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
 
         this.labels = data;
-        this.search=this.labels[0].search
-        this.select=this.labels[0].select
+        this.search = this.labels[0].search
+        this.select = this.labels[0].select
       }, error => {
       }
     )
@@ -98,8 +69,8 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     )
   }
 
-  middd={};
-  search:any;
+  middd = {};
+  search: any;
   public getmidwifelist() {
     if (this.dummid == undefined) {
       this.docservice.GetMidWivesRegistrationByLanguageID(this.languageid).subscribe(
@@ -108,18 +79,18 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
           this.midwifelist = data;
 
 
-          
-        this.middd = {
-          singleSelection: true,
-          idField: 'id',
-          textField: 'name',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          //  itemsShowLimit: 3,
-          allowSearchFilter: true,
-          enableCheckAll: false,
-          searchPlaceholderText: this.search,
-        };
+
+          this.middd = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'name',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            //  itemsShowLimit: 3,
+            allowSearchFilter: true,
+            enableCheckAll: false,
+            searchPlaceholderText: this.search,
+          };
 
         }, error => {
         }
@@ -149,46 +120,8 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     }
   }
 
-  public getmidwifeid(item:any) {
-    this.widwifeid = item.id;
-
-    var list1 = this.dummlist.filter(x => x.id == this.widwifeid)
-    this.hsp_clinicID = list1[0].hospitalClinicID,
-      this.hospital_ClinicName = list1[0].hospital_ClinicName
-
-  }
-
-  public Getworktypeid(even) {
-
-    this.worktypeid = even.target.value;
-    this.GetAllHospitalclinicById();
-
-  }
-
-  public GetAllHospitalclinicById() {
-
-    this.docservice.GetAllHospital_ClinicListByID(this.worktypeid).subscribe(
-      data => {
-
-        this.hospitalcliniclist = data;
-      }, error => {
-      }
-    )
-  }
-
-  public Gethsp_clinicID(even) {
-    this.hsp_clinicID = even.target.value;
-    this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
-      data => {
-
-        this.hospital_ClinicName = data[0].hospital_ClinicName
-      }, error => {
-      }
-    )
-  }
 
 
-  daysdd = {};
 
   public GetDaysMaster() {
     this.docservice.GetDaysMasterByLanguageID(this.languageid).subscribe(
@@ -204,91 +137,88 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false,
-          searchPlaceholderText: this.search,
+          enableCheckAll: false
         };
+
       }, error => {
       }
     )
   }
 
+
+  public getmidwifeid(item: any) {
+    this.widwifeid = item.id;
+    var list1 = this.dummlist.filter(x => x.id == this.widwifeid)
+    this.hsp_clinicID = list1[0].hospitalClinicID,
+      this.hospital_ClinicName = list1[0].hospital_ClinicName
+
+  }
+
+  // public Getworktypeid(even) {
+
+  //   this.worktypeid = even.target.value;
+  //   this.GetAllHospitalclinicById();
+
+  // }
+
+  // public GetAllHospitalclinicById() {
+
+  //   this.docservice.GetAllHospital_ClinicListByID(this.worktypeid).subscribe(
+  //     data => {
+
+  //       this.hospitalcliniclist = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+  // public Gethsp_clinicID(even) {
+  //   this.hsp_clinicID = even.target.value;
+  //   this.docservice.GetHospital_ClinicDetailsForAdmin(this.hsp_clinicID).subscribe(
+  //     data => {
+
+  //       this.hospital_ClinicName = data[0].hospital_ClinicName
+  //     }, error => {
+  //     }
+  //   )
+  // }
+
+
+
   public GetDaysID(item: any) {
+    debugger
+    this.dayid.push(item);
+  }
 
-    this.dayid.push(item)
+  daysdd = {};
+  startid: any;
+  endslotlist: any;
+  endid: any;
+  slotids: any;
+  midwifehospitalid: any;
 
-    // for (let i = 0; i < this.dayslist.length; i++) {
-    //   if (this.dayslist[i].id == this.dayid) {
-    //     this.day = this.dayslist[i].dayOfTheWeek;
-    //   }
-    // }
+  public changeStarttime(even) {
+    this.startid = even.target.value;
+    this.endslotlist = this.Timeings.filter(x => x.id > this.startid);
+    this.endid = 0;
+  }
+
+  changeEndtime(even) {
+    this.endid = even.target.value;
+    this.slotids = this.startid + "," + this.endid
   }
 
 
-  public adddetails() {
-    this.table = 1;
-
-    var detailsentity = {
-      'Sno': this.idcount,
-      'MidwifeID': this.widwifeid,
-      'Fees': this.fees,
-      'Hospital_ClinicID': this.hsp_clinicID,
-      'DayID': this.dayid,
-      'StartTime': this.starttime,
-      'EndTime': this.endtime,
-      'hospitalname': this.hospital_ClinicName,
-      'Day': this.day
-
-    }
-    this.detailsarray.push(detailsentity);
-    this.starttime = '';
-    this.endtime = '';
-
-    this.idcount = this.idcount + 1;
-  }
-
-  physiohospitalid: any;
-
-  public delete(Sno) {
-
-    for (let i = 0; i < this.detailsarray.length; i++) {
-
-      if (Sno == this.detailsarray[i].Sno) {
-
-        this.detailsarray.splice(i, 1);
-      }
-    }
-    if (this.detailsarray.length == 0) {
-      this.table = 0;
-    }
-
-  }
   public InsertPhysiotherapyHospitalDetailsAdmin() {
-
     var entity = {
-      'MidWifeID': this.detailsarray[0].MidwifeID,
-      'Fees': this.detailsarray[0].Fees,
-      'HospitalClinicID': this.detailsarray[0].Hospital_ClinicID,
+      'MidWifeID': this.widwifeid,
+      'Fees': 0,
+      'HospitalClinicID': this.hsp_clinicID,
       'LanguageID': 1
     }
     this.docservice.InsertMidWifeHospitalDetails(entity).subscribe(data => {
-
-      this.physiohospitalid = data;
-
-      this.Physioworkingdetails()
-      // for (let i = 0; i < this.detailsarray.length; i++) {
-
-      //   var entity = {
-      //     'MidWifeHospitalDetailsID': this.physiohospitalid,
-      //     'MidWifeID': this.detailsarray[i].MidwifeID,
-      //     'DayID': this.detailsarray[i].DayID,
-      //     'StartTimee': this.detailsarray[i].StartTime,
-      //     'EndTimee': this.detailsarray[i].EndTime
-      //   }
-      //   this.docservice.InsertMidWifeWorkingDetails(entity).subscribe(data => {
-
-
-      //   })
-      // }
+      this.midwifehospitalid = data;
+      this.Physioworkingdetails();
       if (this.languageid == 1) {
         this.detailsarray = [];
         Swal.fire('Completed', 'Saved successfully', 'success');
@@ -321,20 +251,18 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
 
   public Physioworkingdetails() {
     for (let j = 0; j < this.dayid.length; j++) {
-      for (let i = 0; i < this.detailsarray.length; i++) {
-
-        var entity = {
-          'MidWifeHospitalDetailsID': this.physiohospitalid,
-          'MidWifeID': this.detailsarray[i].MidwifeID,
-          'DayID': this.dayid[j].id,
-          'StartTimee': this.detailsarray[i].StartTime,
-          'EndTimee': this.detailsarray[i].EndTime
-        }
-        this.docservice.InsertMidWifeWorkingDetails(entity).subscribe(data => {
-
-
-        })
+      debugger
+      var entity = {
+        'MidWifeHospitalDetailsID': this.midwifehospitalid,
+        'MidWifeID': this.widwifeid,
+        'DayID': this.dayid[j].id,
+        'SlotTimings': this.slotids,
+        'Fees': this.fees,
+        'AppointmentTypeID': 1
       }
+      this.docservice.InsertMidWifeWorkingDetails(entity).subscribe(data => {
+      })
+
     }
   }
 

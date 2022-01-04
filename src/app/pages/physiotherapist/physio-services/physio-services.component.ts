@@ -23,10 +23,19 @@ export class PhysioServicesComponent implements OnInit {
   term: any;
   user: any;
   dummid: any;
+  showDropdown:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.physioid = localStorage.getItem('physioid');
     this.dummid = localStorage.getItem('physioid');
+    if(this.dummid==undefined)
+    {
+      this.showDropdown=1;
+    }
+    else
+    {
+      this.showDropdown=2;
+    }
     this.user = localStorage.getItem('user');
     this.activatedroute.params.subscribe(params => {
 

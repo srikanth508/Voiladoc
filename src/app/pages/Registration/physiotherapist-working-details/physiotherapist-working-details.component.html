@@ -1,3 +1,7 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace headercolor">
     <div class="col-lg-5">
@@ -18,12 +22,6 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <!-- <select class="form-control" (change)="getphysioid($event)">
-          <option>{{labels[0].select}}</option>
-          <option *ngFor="let physio of physiolist" value="{{physio.id}}">{{physio.name}}</option>
-        </select> -->
-
-        
         <ng-multiselect-dropdown [placeholder]="'Select'" [data]="physiolist" [settings]="physiodd"
           (onSelect)="getphysioid($event)">
         </ng-multiselect-dropdown>
@@ -33,26 +31,7 @@
     </div>
     <br>
     <div *ngIf="dummid==null">
-      <!-- <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].workingAt}} : </label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <input type="radio" value="1" required (change)="Getworktypeid($event)">{{labels[0].hosptal}} &nbsp;&nbsp;
-      <input type="radio" required value="2" (change)="Getworktypeid($event)">{{labels[0].clinic}}
-    </div>
-  </div> -->
-      <!-- <div class="row">
-        <div class="col-lg-3">
-          <label>{{labels[0].physiotherapist}} : </label>
-          <span class="required">*</span>
-        </div>
-        <div class="col-lg-4">
-          <input type="text" class="form-control" [(ngModel)]="physioname" id="physioname" name="physioname" disabled>
-        </div>
-      </div>
-      <br> -->
+   
       <div class="row">
         <div class="col-lg-3">
           <label>{{labels[0].hospitalClinic}} : </label>
@@ -64,46 +43,16 @@
         </div>
       </div>
       <br>
-      <!-- <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].hospitalClinic}} : </label>
-      <span class="required">*</span>
-    </div>
-    <div class="col-lg-4">
-      <select class="form-control" (change)="Gethsp_clinicID($event)">
-        <option value="" selected>{{labels[0].select}}</option>
-        <option *ngFor="let hospital of hospitalcliniclist" value={{hospital.id}}>{{hospital.hospital_ClinicName}}
-        </option>
-      </select>
-    </div>
-  </div> -->
-
-    </div>
-
-    <!-- <div class="row">
-    <div class="col-lg-3">
-      <label>{{labels[0].fees}} : </label>
   
     </div>
-    <div class="col-lg-4">
-      <input class="form-control" type="text"  name="fees" [(ngModel)]="fees" placeholder="{{labels[0].fees}}"
-        [disabled]="table=='1'" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-    </div>
-  </div>
-  <br> -->
+
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].day}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <!-- <select class="form-control" required (change)="GetDaysID($event)" [(ngModel)]="dayid" name="dayid">
-          <option value="0" selected>{{labels[0].select}}</option>
-          <option *ngFor="let day of dayslist" value={{day.id}}>{{day.dayOfTheWeek}}
-          </option>
-        </select> -->
-
-
+    
         <ng-multiselect-dropdown [placeholder]="'Select'" [data]="dayslist" [settings]="daysdd"
           (onSelect)="GetDaysID($event)">
         </ng-multiselect-dropdown>
@@ -113,29 +62,19 @@
 
     </div>
     <br>
-    <!-- <div class="row">
-      <div class="col-lg-3">
-        <label>{{labels[0].fees}} : </label>
-
-      </div>
-      <div class="col-lg-4">
-        <input class="form-control" type="text" name="fees" [(ngModel)]="fees" placeholder="{{labels[0].fees}}"
-          [disabled]="table=='1'" onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
-      </div>
-    </div>
-    <br> -->
+   
     <div class="row">
       <div class="col-lg-3">
         <label>{{labels[0].startTime}} : </label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required [(ngModel)]="starttime" name="starttime" [disabled]="table=='1'">
+        <select class="form-control" required (change)="changeStarttime($event)">
           <option value="0">{{labels[0].startTime}}</option>
-          <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+          <option *ngFor="let day of Timeings" value={{day.id}}>{{day.slotName}}
           </option>
         </select>
-        <!-- <input type="time" class="form-control" required [(ngModel)]="starttime" name="starttime"> -->
+    
       </div>
     </div>
     <br>
@@ -145,65 +84,26 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <select class="form-control" required [(ngModel)]="endtime" name="endtime" [disabled]="table=='1'">
+        <select class="form-control" required (change)="changeEndtime($event)">
           <option value="0">{{labels[0].endTime}}</option>
-          <option *ngFor="let day of Timeings" value={{day.slotName}}>{{day.slotName}}
+          <option *ngFor="let day of endslotlist" value={{day.id}}>{{day.slotName}}
           </option>
         </select>
-        <!-- <input type="time" class="form-control" required [(ngModel)]="endtime" name="endtime"> -->
+     
       </div>
     </div>
     <br>
     <div class="row">
-      <div class="col-lg-5">
+      <div class="col-lg-4">
       </div>
       <div class="col-lg-2">
         <button type="button" class="btn btn-block btn-md allbtns btncolor" [disabled]="physioForm.form.invalid"
-          (click)="adddetails()">{{labels[0].add}}</button>
-      </div>
-      <div class="col-lg-5">
-      </div>
-    </div>
-    <br>
-    <div class="row" *ngIf="table=='1'">
-      <div class="col-lg-12">
-        <table>
-          <tr>
-            <!-- <th>{{labels[0].day}}</th> -->
-            <th>{{labels[0].hospitalClinic}}</th>
-            <th>{{labels[0].startTime}}</th>
-            <th>{{labels[0].endTime}}</th>
-            <!-- <th>{{labels[0].fees}}</th> -->
-            <th>{{labels[0].actions}}</th>
-          </tr>
-          <tr *ngFor="let det of detailsarray">
-            <!-- <td>{{det.Day}}</td> -->
-            <td>{{det.hospitalname}}</td>
-            <td>{{det.StartTime}}</td>
-            <td>{{det.EndTime}}</td>
-            <!-- <td>{{det.Fees}}</td> -->
-            <td>
-              <img src="assets/Images/dell.png" (click)="delete(det.Sno)">
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <br>
-    <div class="row" *ngIf="table=='1'">
-      <div class="col-lg-5">
-      </div>
-      <div class="col-lg-2">
-        <button type="button" class="btn btn-block btn-md allbtns btncolor"
           (click)="InsertPhysiotherapyHospitalDetailsAdmin()">{{labels[0].save}}</button>
       </div>
-      <!-- <div *ngIf="active==0" class="col-lg-2">
-        <button type="button" class="btn btn-block btn-md allbtns btncolor"
-          (click)="InsertPhysiotherapyHospitalDetails()">{{labels[0].save}}</button>
-      </div> -->
       <div class="col-lg-5">
       </div>
     </div>
     <br>
+   
   </form>
 </div>
