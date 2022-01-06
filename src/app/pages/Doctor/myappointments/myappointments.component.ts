@@ -464,7 +464,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
 
-showothertest:any;
+  showothertest: any;
 
 
 
@@ -1820,7 +1820,7 @@ showothertest:any;
 
         this.tsetssslist = data;
         this.tsetssslist[0]["checked"] = false;
-        console.log("testsss",this.tsetssslist)
+        console.log("testsss", this.tsetssslist)
       }, error => {
       }
     )
@@ -2006,7 +2006,7 @@ showothertest:any;
         'ClinicalInfo': 0
       }
       this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
-      
+
         if (data != 0) {
           if (this.languageid == 1) {
             Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
@@ -2015,8 +2015,8 @@ showothertest:any;
             this.testdisplay = "none";
             document.getElementById("close").click();
             this.getdiagnostictests();
-            this.SerachtestOn=0;
-            this.testsname="";
+            this.SerachtestOn = 0;
+            this.testsname = "";
             this.VisitDoctorAppointmentStatus(this.diaappointmentID);
             this.Insertnotificationtestazure();
             this.Insertnotificationtest()
@@ -2024,7 +2024,7 @@ showothertest:any;
             this.testid.length = 0;
             // this.tsetssslist = 0;
             this.testssid = 0;
-          
+
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -2039,8 +2039,8 @@ showothertest:any;
             this.qwerty = [];
             this.qwerty.length = 0;
             this.getdiagnostictests();
-            this.SerachtestOn=0;
-            this.testsname="";
+            this.SerachtestOn = 0;
+            this.testsname = "";
             this.VisitDoctorAppointmentStatus(this.diaappointmentID);
             this.Insertnotificationtestazure()
             this.Insertnotificationtest()
@@ -2048,9 +2048,9 @@ showothertest:any;
             this.testid.length = 0;
             this.tsetssslist = 0;
             this.testssid = 0;
-            this.SerachtestOn=0;
-           
-          
+            this.SerachtestOn = 0;
+
+
             if (this.followupvisit == 1) {
               this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
               })
@@ -2103,8 +2103,7 @@ showothertest:any;
   }
 
 
-  public insertDiagnostictest()
-  {
+  public insertDiagnostictest() {
     debugger
     var entity = {
       'DoctorID': this.doctorid,
@@ -2113,7 +2112,7 @@ showothertest:any;
       'DiagnosticTestName': this.diagnostictestname,
       'LanguageID': this.languageid,
       'AppointmentID': this.diaappointmentID,
-      'TestsID':59,
+      'TestsID': 59,
       'ClinicalInfo': 0
     }
     this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
@@ -2125,8 +2124,8 @@ showothertest:any;
           this.testdisplay = "none";
           document.getElementById("close").click();
           this.getdiagnostictests();
-          this.SerachtestOn=0;
-          this.testsname="";
+          this.SerachtestOn = 0;
+          this.testsname = "";
           this.VisitDoctorAppointmentStatus(this.diaappointmentID);
           this.Insertnotificationtestazure();
           this.Insertnotificationtest()
@@ -2134,9 +2133,9 @@ showothertest:any;
           this.testid.length = 0;
           // this.tsetssslist = 0;
           this.testssid = 0;
-          this.diagnostictestname=""
-        
-          
+          this.diagnostictestname = ""
+
+
 
           if (this.followupvisit == 1) {
             this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
@@ -2152,8 +2151,8 @@ showothertest:any;
           this.qwerty = [];
           this.qwerty.length = 0;
           this.getdiagnostictests();
-          this.SerachtestOn=0;
-          this.testsname="";
+          this.SerachtestOn = 0;
+          this.testsname = "";
           this.VisitDoctorAppointmentStatus(this.diaappointmentID);
           this.Insertnotificationtestazure()
           this.Insertnotificationtest()
@@ -2161,10 +2160,10 @@ showothertest:any;
           this.testid.length = 0;
           this.tsetssslist = 0;
           this.testssid = 0;
-          this.SerachtestOn=0;
-          this.diagnostictestname=""
-         
-        
+          this.SerachtestOn = 0;
+          this.diagnostictestname = ""
+
+
           if (this.followupvisit == 1) {
             this.docservice.UpdateBookAppointmentFollowupVisit(this.diaappointmentID).subscribe(data => {
             })
@@ -2176,7 +2175,7 @@ showothertest:any;
       }
     })
   }
-  
+
 
 
 
@@ -2667,8 +2666,8 @@ showothertest:any;
   public shoprescphoto = [];
 
   public uploadSoAPattachmentss() {
-    this.shoprescphoto=[];
-    this.attachmentsurl1=[];
+    this.shoprescphoto = [];
+    this.attachmentsurl1 = [];
     this.docservice.SoapAttachments(this.attachments1).subscribe(res => {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
@@ -3239,13 +3238,13 @@ showothertest:any;
   patientlist: any
   docregno: any;
   pEmail: any;
-  public GetSickSlipID(patientID, appid, pEmail, smsmobileno,nationalidno) {
+  public GetSickSlipID(patientID, appid, pEmail, smsmobileno, nationalidno) {
 
     this.sickslippatientid = patientID;
     this.appointmentid = appid;
     this.pEmail = pEmail;
     this.smsmobileno = smsmobileno;
-    this.nationaidno=nationalidno;
+    this.nationaidno = nationalidno;
     this.docservice.GetDoctorPatients(this.doctorid).subscribe(
       data => {
 
@@ -3320,10 +3319,10 @@ showothertest:any;
 
 
     if (this.languageid == 1) {
-      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.Scholldata +' Sick Slip / Medical Note</b></p><p>Patient name  : ' + this.patientname +'ID number :  '+ this.nationaidno+ ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdatehtml + '<br>End Date: ' + this.todatehtml + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
+      this.desc = '<p>DATE: ' + this.todaydate + '</p><p><b>SUBJECT: ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>Patient name  : ' + this.patientname + 'ID number :  ' + this.nationaidno + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.fromdate.toLocaleString() + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdatehtml + '<br>End Date: ' + this.todatehtml + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>" + this.MobileNumber + "<br>" + this.Hospital_ClinicName + "</p>"
     }
     else {
-      this.desc = '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Nom du patient  : ' + this.patientname + 'Numéro de CIN  :  '+ this.nationaidno+ ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdatehtml + ',<br><br>Date de fin : ' + this.todatehtml + ',<br><br><br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> Registration no :" + this.docregno + "<br>"
+      this.desc = '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Nom du patient  : ' + this.patientname + 'Numéro de CIN  :  ' + this.nationaidno + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdatehtml + ',<br><br>Date de fin : ' + this.todatehtml + ',<br><br><br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> Registration no :" + this.docregno + "<br>"
     }
 
     if (this.languageid == 1) {
@@ -3342,7 +3341,7 @@ showothertest:any;
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>SUBJECT : ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>Patient name : ' + this.patientname +'<br>ID number :  '+ this.nationaidno+ ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>Registration no :" + this.docregno + "<br>",
+        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>SUBJECT : ' + this.Scholldata + ' Sick Slip / Medical Note</b></p><p>Patient name : ' + this.patientname + '<br>ID number :  ' + this.nationaidno + ' </p><p style="text-align: center !important;"><b>To Whom It May Concern:</b></p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + "<br>Registration no :" + this.docregno + "<br>",
         'AppointmentID': this.appointmentid,
         'DoctorID': this.doctorid,
         'LeaveFor': this.leavefor,
@@ -3398,7 +3397,7 @@ showothertest:any;
         'FromDate': this.fromdate,
         'ToDate': this.todate,
         'SickSlipDate': this.todaydate,
-        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Nom du patient  : ' + this.patientname + '<br>Numéro de CIN  :  '+ this.nationaidno+ ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdatehtml + ',<br><br>Date de fin : ' + this.todatehtml + ',<br><br><br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> No d’inscription  : " + this.docregno + "<br>",
+        'Description': '<p>DATE: ' + this.todaydatess + '</p><p><b>Objet : ' + this.Scholldata + '</b></p><p>Nom du patient  : ' + this.patientname + '<br>Numéro de CIN  :  ' + this.nationaidno + ' </p><p style="text-align: center !important;"><b>A qui de droit,</b></p><p style="text-align:justify;">' + '(Ecole) : Je soussigné(e), certifie avoir examiné le patient et prescrit ' + this.Scholldata + '<br><br>' + 'Date de commencement : ' + this.fromdatehtml + ',<br><br>Date de fin : ' + this.todatehtml + ',<br><br><br>' + '<br>Meilleures Salutations,<br><u>' + this.user + "<br> No d’inscription  : " + this.docregno + "<br>",
         // 'Description': '<p>DATE: ' + this.todaydate + '</p><p><b>OBJET: ' + this.leavefor + ' Je vous référe le patient </b></p><p> ' + this.patientname + ' </p><p style="text-align: center !important;">Vous remerciant, je vous prie d’agréer, mon cher confrère (consœur) mes salutations les meilleures.wwwwXrr</p><p style="text-align:justify;">' + this.patientname + ' had a telehealth visit with me on ' + this.todate + ' for an acute illness.</p><p>Based on this evaluation, please excuse this patient from ' + this.leavefor + ' on the following dates:</p><p>Start Date: ' + this.fromdate + '<br>End Date: ' + this.todate + '</p><p>If they are feeling better, the patient may return to ' + this.leavefor + ' on the following day.</p><p>If they are not feeling better, they should be evaluated further.</p><p style="float: left;">Best Regards,<br><u>Dr. ' + this.doctorname + '</u><br>VoilaDoc</p>',
         'AppointmentID': this.appointmentid,
         'DoctorID': this.doctorid,
@@ -4732,11 +4731,16 @@ showothertest:any;
 
   viewdetaillist: any;
 
-  public GetViewDetails(id) {
+  public GetViewDetails(id, patientid) {
 
-    this.appointmentid = id
-    this.viewdetaillist = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid)
-
+    this.appointmentid = id;
+    this.patientID = patientid;
+    this.viewdetaillist = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid);
+    this.firstvaccine = this.viewdetaillist[0].firstVaccine,
+      this.secondvaccine = this.viewdetaillist[0].secondVaccine,
+      this.firstvaccinedate = this.viewdetaillist[0].firstVaccineDate,
+      this.secondvaccinedate = this.viewdetaillist[0].secondVaccineDate,
+      this.allergies= this.viewdetaillist[0].knownAllergies
   }
 
 
@@ -5913,11 +5917,11 @@ showothertest:any;
   public SendMailReport() {
 
     if (this.languageid == 1) {
-      var sub="Medical report";
+      var sub = "Medical report";
       var emaildesc = "As you requested, " + this.user + " sent a medical report. Please click on the link below." + this.emailurl + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team'
     }
     else {
-      var sub="Rapport de consultation"
+      var sub = "Rapport de consultation"
       var emaildesc = "Comme vous l'avez demandé, le " + this.user + " a envoyé un rapport médical. Veuillez cliquer sur le lien ci-dessous." + this.emailurl + "<br><br>" + 'Cordialement,' + "<br>" + 'Voiladoc Team'
     }
 
@@ -5969,6 +5973,63 @@ showothertest:any;
     )
   }
 
+
+
+
+
+  //vaccination 
+
+
+
+  firstvaccinedate: any;
+  secondvaccinedate: any;
+  firstvaccine: any;
+  secondvaccine: any;
+
+
+  vaccinationStatus() {
+    debugger
+    let firstvaccinedate = this.docservice.GetDates(this.firstvaccinedate)
+    let secondvacine = this.docservice.GetDates(this.secondvaccinedate)
+    var entity = {
+      'ID': this.patientID,
+      'FirstVaccine': this.firstvaccine,
+      'FirstVaccineDate': firstvaccinedate,
+      'SecondVaccine': this.secondvaccine,
+      'SecondVaccineDate': secondvacine
+    }
+    this.docservice.UpdatePatientRegistrationVaccinationstatus(entity).subscribe(data => {
+      debugger
+      Swal.fire('Updated Successfully');
+      this.firstvaccinedate = "";
+      this.secondvaccinedate = "";
+      this.firstvaccine = "";
+      this.secondvaccine = "";
+    })
+  }
+
+
+
+  public Updateallergies() {
+    var entity = {
+      'AppointmentID': this.appointmentid,
+      'KnownAllergies': this.allergies
+    }
+    this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
+
+      let res = data;
+      if (this.languageid == 1) {
+        Swal.fire('Allergies Updated Successfully');
+        this.getbookappointmentbydoctorid();
+       
+      }
+      else if (this.languageid == 6) {
+        Swal.fire('Les allergies ont été mises à jour');
+        this.getbookappointmentbydoctorid();
+       
+      }
+    })
+  }
 
 
 }

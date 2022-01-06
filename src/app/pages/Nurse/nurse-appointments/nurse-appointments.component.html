@@ -41,10 +41,11 @@
             <th>{{labels[0].address}}</th>
             <th id="imp">{{labels[0].appointmentTime}}</th>
             <th>{{labels[0].reason}}</th>
-            <th>{{labels[0].status}}</th>
+           
             <th *ngIf="languageid=='1'">Remarks </th>
             <th *ngIf="languageid=='6'">Remarques</th>
             <th>{{labels[0].paymentType}}</th>
+            <th>{{labels[0].status}}</th>
             <th>{{labels[0].action}}</th>
           </tr>
           <tr *ngFor="let app of appointmentist|filter:term">
@@ -70,19 +71,7 @@
             <td>{{app.address}}</td>
             <td>{{app.bookedTime}}</td>
             <td>{{app.reasonForVisit}}</td>
-            <td>
-              <label
-                *ngIf="app.accepted=='1'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.isVisited=='0'&&app.notVisited=='0'"
-                style="color:green">{{labels[0].accepted}}</label>
-              <label *ngIf="app.accepted=='0'&&app.nurseCancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
-                style="color:red">{{labels[0].nurseCancelled}}</label>
-              <label *ngIf="app.accepted=='0'&&app.cancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
-                style="color:red">{{labels[0].patientCancelled}}</label>
-              <label *ngIf="app.isVisited=='1'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'"
-                style="color:yellowgreen">{{labels[0].visited}}</label>
-              <label *ngIf="app.isVisited=='0'&&app.notVisited=='1'"
-                style="color:rgb(4, 107, 43)">{{labels[0].notVisited}}</label>
-            </td>
+           
             <td>
               {{app.patientNotes}}
             </td>
@@ -90,15 +79,26 @@
               {{app.paymentType}}
             </td>
             <td>
-
-
+              <label
+                *ngIf="app.accepted=='1'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.isVisited=='0'&&app.notVisited=='0'"
+                style="color:green">{{labels[0].accepted}}</label>
+              <label *ngIf="app.nurseCancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
+                style="color:red">{{labels[0].nurseCancelled}}</label>
+              <label *ngIf="app.cancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
+                style="color:red">{{labels[0].patientCancelled}}</label>
+              <label *ngIf="app.isVisited=='1'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'"
+                style="color:yellowgreen">{{labels[0].visited}}</label>
+              <label *ngIf="app.isVisited=='0'&&app.notVisited=='1'"
+                style="color:rgb(4, 107, 43)">{{labels[0].notVisited}}</label>
+            </td>
+            <td>
               <table>
                 <tr>
                   <td style="border: none;">
                     <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
                     <a [ngbTooltip]="tipcontent2"
                       *ngIf="app.accepted=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'">
-                      <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
+                      <img src="assets/Images/acc.png"
                         (click)="GetAcceptAppointmentID(app.id,app.nurseID,app.bookedTime,app.nurseName,app.hospital_ClinicName,app.patientID,app.emailID,app.smsmobileno)"
                         style="height:19px;" />
                     </a>&nbsp;
@@ -120,7 +120,6 @@
                     </a>
                     &nbsp;
                   </td>
-
                   <td style="border: none;">  
                     <ng-template #tipcontent93>Receipts</ng-template>
                     <a [ngbTooltip]="tipcontent93" *ngIf="app.isVisited=='1'">
@@ -129,8 +128,7 @@
                         data-toggle="modal" data-target="#Reciept" />
                     </a>&nbsp;
                   </td>
-
-                  <td style="border: none;">
+                  <!-- <td style="border: none;">
                     <ng-template #tipcontent100>Photos</ng-template>
                     <a [ngbTooltip]="tipcontent100">
                       <img src="assets/Images/imgicon.png"  data-toggle="modal"
@@ -138,7 +136,7 @@
                         (click)="GetIllnessPhotos(app.id)" />
                     </a>
                     &nbsp;
-                  </td>
+                  </td> -->
                 </tr>
 
                 <tr>
@@ -152,8 +150,8 @@
                     </a>&nbsp;
                   </td>
                   <td style="border: none;">
-                    <ng-template #tipcontent8>{{labels[0].notVisited}}</ng-template>
-                    <a [ngbTooltip]="tipcontent8"
+                    <ng-template #tipcontent90>{{labels[0].notVisited}}</ng-template>
+                    <a [ngbTooltip]="tipcontent90"
                       *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
                       <img src="assets/Images/notvisit.png" style="height:19px;" (click)="updateNotVisitBit(app.id)" />
                     </a>&nbsp;
@@ -162,7 +160,7 @@
                     <ng-template #tipcontent8>SOAP Notes</ng-template>
                     <a [ngbTooltip]="tipcontent8"
                       *ngIf="app.accepted=='1'&&app.isVisited=='0'&&app.notVisited=='0'&&app.nurseCancelled=='0'&&app.cancelled=='0'">
-                      <img src="assets/Images/soap.png" style="height:19px;" (click)="GetSoapID(app)"
+                      <img src="assets/Images/soap.png"  (click)="GetSoapID(app)"
                         data-toggle="modal" data-target="#Soapnotes" />
                     </a>&nbsp;
                   </td>

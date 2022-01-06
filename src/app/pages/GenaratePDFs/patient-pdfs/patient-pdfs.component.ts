@@ -196,11 +196,18 @@ export class PatientPdfsComponent implements OnInit {
   email: any;
 
   public SendMailReport() {
-    
+    if(this.languageid==1)
+    {
+    var body= "Good day !<br><br>"+"Sur la base de votre demande, voici votre rapport médical complet. Veuillez cliquer sur le lien pour télécharger. Envoyez-nous un e-mail à support@voiladoc.me si vous avez besoin d'aide.<br><br>" + this.emailurl + "<br><br>" + 'Best regards,' + "<br>" + 'Voiladoc data department'
+    }
+    else
+    {
+      var body= "Bonne journée !<br><br>"+"Based on your request, here is your full medical report. Please click the link to download. Email us at support@voiladoc.me if you need help.<br><br>" + this.emailurl + "<br><br>" + 'Best regards,' + "<br>" + 'Voiladoc data department'
+    }
     var entity = {
       'emailto': this.email,
       'emailsubject': "Medical report",
-      'emailbody': "<br><br>" + this.emailurl + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team',
+      'emailbody': body,
       'attachmenturl': this.noattachments,
       'cclist': this.cclist,
       'bcclist': this.bcclist

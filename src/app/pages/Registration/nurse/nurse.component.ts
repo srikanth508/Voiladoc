@@ -353,118 +353,121 @@ export class NurseComponent implements OnInit {
     }
   }
   public nurseid: any;
+  slotTypeID: any;
+
+  GetSlotDurationID(even) {
+    debugger
+    this.slotTypeID = even.target.value;
+  }
 
   public insertnursedetails() {
-    if(this.hospitalclinicid==undefined||this.hospitalclinicid=="")
-    {
-      if(this.languageid==1)
-      {
+    if (this.hospitalclinicid == undefined || this.hospitalclinicid == "") {
+      if (this.languageid == 1) {
         Swal.fire("Exceptional error. Please try again after completing all mandatory fields");
       }
-      else{
+      else {
         Swal.fire("Erreur exceptionnelle.  Veuillez réessayer après avoir rempli tous les champs obligatoires");
       }
     }
-    else
-    {
-
-    
-    this.spinner.show();
-    var entity = {
-      'NurseName': this.name,
-      'PhoneNo': this.phno,
-      'Email': this.email,
-      'GenderID': this.genderid,
-      'Address': this.address,
-      'CityID': this.cityid,
-      'AreaID': this.areaid,
-      'DepartementID': 2,
-      'Experience': this.exp,
-      'Description': this.description,
-      'HomeVisit': Number(this.homevisit),
-      'IDProof': this.idproofurl[0],
-      'PhotoUrl': this.attachmentsurl[0],
-      'Pincode': this.pincode,
-      'CountryID': this.countryid,
-      'HospitalClinicID': this.hospitalclinicid,
-      'Education': this.education,
-      'SpokenLanguages': this.spokenlanguages
-    }
-    this.docservice.InsertNurseRegistration(entity).subscribe(data => {
+    else {
 
 
-      this.nurseid = data;
-      if (this.nurseid != 0) {
-
-
-
-        for (let s = 0; s < this.serviceid.length; s++) {
-          var serviceentity = {
-            'NurseID': this.nurseid,
-            'ServiceID': this.serviceid[s].id,
-            'LanguageID': 1
-          }
-          this.docservice.InsertNurseServices(serviceentity).subscribe(data => {
-          })
-        }
-
-        for (let s = 0; s < this.specilisationid.length; s++) {
-          var specentity = {
-            'NurseID': this.nurseid,
-            'SpecializationID': this.specilisationid[s].id,
-            'LanguageID': 1
-          }
-          this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
-          })
-        }
-        if (this.languageid == 1) {
-          Swal.fire('Registration Completed', 'Nurse saved successfully', 'success');
-          this.spinner.hide();
-          location.href = '#/NurseDashboard';
-        }
-        else if (this.languageid == 6) {
-          Swal.fire('', "Mis à jour avec succès");
-          this.spinner.hide();
-          location.href = '#/NurseDashboard';
-        }
-
+      this.spinner.show();
+      var entity = {
+        'NurseName': this.name,
+        'PhoneNo': this.phno,
+        'Email': this.email,
+        'GenderID': this.genderid,
+        'Address': this.address,
+        'CityID': this.cityid,
+        'AreaID': this.areaid,
+        'DepartementID': 2,
+        'Experience': this.exp,
+        'Description': this.description,
+        'HomeVisit': Number(this.homevisit),
+        'IDProof': this.idproofurl[0],
+        'PhotoUrl': this.attachmentsurl[0],
+        'Pincode': this.pincode,
+        'CountryID': this.countryid,
+        'HospitalClinicID': this.hospitalclinicid,
+        'Education': this.education,
+        'SpokenLanguages': this.spokenlanguages,
+        'SlotDurationID':this.slotTypeID
       }
-      else {
-        if (data == 0) {
-          if (this.languageid == 1) {
-            Swal.fire('Email address already exists. Please verify and use the correct email address.');
-            this.spinner.hide();
+      this.docservice.InsertNurseRegistration(entity).subscribe(data => {
+
+
+        this.nurseid = data;
+        if (this.nurseid != 0) {
+
+
+
+          for (let s = 0; s < this.serviceid.length; s++) {
+            var serviceentity = {
+              'NurseID': this.nurseid,
+              'ServiceID': this.serviceid[s].id,
+              'LanguageID': 1
+            }
+            this.docservice.InsertNurseServices(serviceentity).subscribe(data => {
+            })
           }
-          else {
-            Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+
+          for (let s = 0; s < this.specilisationid.length; s++) {
+            var specentity = {
+              'NurseID': this.nurseid,
+              'SpecializationID': this.specilisationid[s].id,
+              'LanguageID': 1
+            }
+            this.docservice.InsertNurseSpecialization(specentity).subscribe(data => {
+            })
+          }
+          if (this.languageid == 1) {
+            Swal.fire('Registration Completed', 'Nurse saved successfully', 'success');
             this.spinner.hide();
+            location.href = '#/NurseDashboard';
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('', "Mis à jour avec succès");
+            this.spinner.hide();
+            location.href = '#/NurseDashboard';
           }
 
         }
         else {
-          if (this.languageid == 1) {
-            Swal.fire('The phone number already exists. Please verify and use the correct number');
-            this.spinner.hide();
+          if (data == 0) {
+            if (this.languageid == 1) {
+              Swal.fire('Email address already exists. Please verify and use the correct email address.');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("L'adresse email existe déjà. Veuillez vérifier et utiliser la bonne adresse email.");
+              this.spinner.hide();
+            }
+
           }
           else {
-            Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
-            this.spinner.hide();
+            if (this.languageid == 1) {
+              Swal.fire('The phone number already exists. Please verify and use the correct number');
+              this.spinner.hide();
+            }
+            else {
+              Swal.fire("Le numéro de téléphone existe déjà.Veuillez vérifier et utiliser le bon numéro.");
+              this.spinner.hide();
+            }
           }
+          // location.href = '#/NurseDashboard';
         }
-        // location.href = '#/NurseDashboard';
-      }
-    }, error => {
-      if(this.languageid==1)
-      {
-        Swal.fire("Exceptional error. Please try again after completing all mandatory fields");
-      }
-      else{
-        Swal.fire("Erreur exceptionnelle.  Veuillez réessayer après avoir rempli tous les champs obligatoires");
-      }
-      this.spinner.hide();
-    })
+      }, error => {
+        if (this.languageid == 1) {
+          Swal.fire("Exceptional error. Please try again after completing all mandatory fields");
+        }
+        else {
+          Swal.fire("Erreur exceptionnelle.  Veuillez réessayer après avoir rempli tous les champs obligatoires");
+        }
+        this.spinner.hide();
+      })
+    }
   }
-}
 
 
 

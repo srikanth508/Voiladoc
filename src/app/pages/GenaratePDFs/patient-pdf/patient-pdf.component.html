@@ -7,7 +7,8 @@
   <br />
   <div class="row ">
     <div class="col-lg-3">
-      <h5>Prescriptions</h5>
+      <h5 *ngIf="languageid==1">COMPLETE PATIENT REPORT</h5>
+      <h5 *ngIf="languageid==6">RAPPORT PATIENT COMPLET</h5>
     </div>
     <div class="col-lg-6"></div>
     <div class="col-lg-3"></div>
@@ -20,7 +21,7 @@
   <div class="row">
     <br>
     <div class="col-lg-3">
-      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search" name="search">
+      <input type="text" class="form-control" placeholder="{{labels1[0].search}}" [(ngModel)]="search" name="search">
     </div>
   </div><br>
   <div class="row">
@@ -611,7 +612,7 @@
           (click)="SavePdf()">{{labels1[0].sendtopatient}}</button>
 
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
-          (click)="DownPdf()">{{labels1[0].download}}</button>
+          (click)="DownPdf()">Télécharger pour patient</button>
       </div>
     </div>
   </div>

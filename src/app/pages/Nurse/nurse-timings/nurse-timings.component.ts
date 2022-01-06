@@ -31,7 +31,7 @@ export class NurseTimingsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getnurselist();
     this.getdaysmaster();
-    this.GetTimings();
+    // this.GetTimings();
     this.getlanguage();
     this.docservice.GetNurseHospitalDetailsByHospitals(this.nurseid, this.languageid,).subscribe(
       data => {
@@ -75,15 +75,15 @@ export class NurseTimingsComponent implements OnInit {
     this.dayid = even.target.value;
   }
   Timeings: any
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
        
-        this.Timeings = data;
-      }, error => {
-      }
-    )
-  }
+  //       this.Timeings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
   public getnurselist() {
     this.docservice.GetNurseHospitalDetailsWeb(this.nurseid, this.languageid).subscribe(

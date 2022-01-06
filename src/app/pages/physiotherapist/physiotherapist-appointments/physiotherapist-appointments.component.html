@@ -61,9 +61,9 @@
               <label
                 *ngIf="app.accepted=='1'&&app.physioCancelled=='0'&&app.cancelled=='0'&&app.isVisited=='0'&&app.notVisited=='0'"
                 style="color:green">{{labels[0].accepted}}</label>
-              <label *ngIf="app.accepted=='0'&&app.physioCancelled=='1'"
+              <label *ngIf="app.physioCancelled=='1'"
                 style="color:red">{{labels[0].physiotherapistcanceled}}</label>
-              <label *ngIf="app.accepted=='0'&&app.cancelled=='1'"
+              <label *ngIf="app.cancelled=='1'"
                 style="color:red">{{labels[0].patientCancelled}}</label>
               <label *ngIf="app.isVisited=='1'&&app.physioCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'"
                 style="color:yellowgreen">{{labels[0].visited}}</label>
@@ -72,7 +72,7 @@
             <td>
               <ng-template #tipcontent2>{{labels[0].accept}}</ng-template>
               <a [ngbTooltip]="tipcontent2" *ngIf="app.accepted=='0'&&app.physioCancelled=='0'&&app.cancelled=='0'">
-                <img src="assets/Images/acc.png" data-toggle="modal" data-target="#exampleModal1"
+                <img src="assets/Images/acc.png"
                   (click)="GetAcceptAppointmentID(app.id,app.physioID,app.bookedTime,app.name,app.patientID,app.emailID,app.hospital_ClinicName,app.smsmobileno)"
                   style="height:19px;" />
               </a>&nbsp;

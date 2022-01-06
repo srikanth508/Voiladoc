@@ -24,4 +24,15 @@ th::first-letter{
   }
   
 
+  .textstrike
+{
+  text-decoration: line-through;
+  color:red;
+}
+
+.substiutecolor
+{
+  color:#322b6b;
+}
+
   

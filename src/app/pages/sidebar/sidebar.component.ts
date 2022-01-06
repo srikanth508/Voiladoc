@@ -130,6 +130,7 @@ export class SidebarComponent implements OnInit {
   deliveryreports: any;
   userrole: any;
   patientrefaral: any;
+  importpatients:any;
   ngOnInit() {
     this.display = "none";
     this.roleid = localStorage.getItem('roleid');
@@ -480,6 +481,9 @@ export class SidebarComponent implements OnInit {
             }
             if (this.menulist[s].subMenuName == 'Patient Medicines') {
               this.patientmedicine = 1;
+            }
+            if (this.menulist[s].subMenuName == 'Import Patients') {
+              this.importpatients = 1;
             }
           }
 

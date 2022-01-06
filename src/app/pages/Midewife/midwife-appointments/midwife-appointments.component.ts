@@ -306,6 +306,7 @@ export class MidwifeAppointmentsComponent implements OnInit {
     this.acceptname = name;
     this.accbookedtime = bookedTime;
     this.smsmobileno = smsmobileno
+    this.acceptappointment();
   }
 
 

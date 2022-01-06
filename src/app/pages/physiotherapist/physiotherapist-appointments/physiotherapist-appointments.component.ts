@@ -444,6 +444,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     this.acceptemail = emailID;
     this.accepthospital = hospital_ClinicName;
     this.smsmobileno = smsmobileno;
+    this.acceptappointment();
 
   }
   public acceptappointment() {
@@ -540,9 +541,9 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc, smsmobileno) {
-    
+
     this.docservice.SendTwillioSMS(smsmobileno, smsdesc).subscribe(data => {
-      
+
     })
   }
 
@@ -757,10 +758,10 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
 
   public SavePDF() {
     ;
-    
+
     let pdfContent = window.document.getElementById("pdfcontent");
     var doc = new jsPDF('p', 'mm', "a4");
-    
+
     html2canvas(pdfContent).then(canvas => {
       ;
       var imgData = canvas.toDataURL('image/jpeg', 1.0);
@@ -773,20 +774,20 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
       var file = new File([pdf], "PhysioRecipts" + ".pdf");
 
       let body = new FormData();
-      
+
       body.append('Dan', file);
 
       this.docservice.ReceiptUpload(file).subscribe(res => {
         ;
         this.pdfurl = res;
         this.UpdateReceipt();
-        
+
       });
     });
   }
 
   public UpdateReceipt() {
-    
+
     var entity = {
       'AppointmentID': this.visitid,
       'ReceiptURL': this.pdfurl
@@ -802,7 +803,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
   public hospital: any;
   public physioaddrees: any;
   public GetRecept(id, bookedTime, appdate, name, patientID, emailID, details) {
-    
+
     this.slottime = bookedTime;
     this.appdate = appdate;
     this.visiname = name;
@@ -815,7 +816,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
       this.hospital = details.hospital_ClinicName,
       this.physioaddrees = details.physioAddess,
       this.paidamount = details.paidAmount
-    
+
   }
 
 
@@ -916,7 +917,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
   signature: any;
 
   public insertsoapnotes1() {
-    
+
     var entity = {
       'NPMID': this.physioid,
       'PatientID': this.patientid,
@@ -938,9 +939,9 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
       'TypeID': 2
     }
     this.docservice.InsertNPM_PatientSoapNotesWeb(entity).subscribe(data => {
-      
+
       if (data != 0) {
-        
+
         if (this.languageid == 1) {
           Swal.fire('Completed', 'Details saved successfully', 'success');
           this.clear()
@@ -955,29 +956,29 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     }
     )
   }
-  clear() { 
+  clear() {
     this.objective = "",
-    this.subjective = "",
-    this.assessment = "",
-   
-    this.followupplan = "",
-    this.notes = ""
-  this.plan = ""
-  this.signature = ""
-  this.icddesc = "",
-    this.icdcode = ""
+      this.subjective = "",
+      this.assessment = "",
+
+      this.followupplan = "",
+      this.notes = ""
+    this.plan = ""
+    this.signature = ""
+    this.icddesc = "",
+      this.icdcode = ""
   }
 
 
   public UploadSoapAttchments(abcd) {
-    
+
     this.dummprescriptionphotourl = []
-    
+
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
     this.uploadSoAPattachmentss();
     // }
-    
+
     if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
@@ -996,14 +997,14 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
-      
+
       let b = 'https://maroc.voiladoc.org' + a;
       if (this.attachments1[0].type == 'image/jpeg') {
-        
+
         this.shoprescphoto.push(b)
       }
       else if (this.attachments1[0].type == 'application/pdf') {
-        
+
         this.shoprescphoto.push('assets/Images/pdf.png')
       }
 
@@ -1013,7 +1014,7 @@ export class PhysiotherapistAppointmentsComponent implements OnInit {
     // this.sendattachment();
   }
 
-  Services:any;
+  Services: any;
 
   getNurseServices(Appointmentid) {
     debugger

@@ -150,7 +150,7 @@ export class NurseScheduleComponent implements OnInit {
 
   public GetNurseWorkingDetailsDyWise() {
     debugger
-    this.docservice.GetNurseWorkingDetailsDyWise(this.nurseid, 1, this.todaydate, this.languageid).subscribe(
+    this.docservice.GetNurseWorkingDetailsDyWise(this.nurseid, this.slotTypeID, this.todaydate, this.languageid).subscribe(
       data => {
         //this.workingdetails = data;
         this.DayDatelist = data[0];
@@ -186,11 +186,13 @@ export class NurseScheduleComponent implements OnInit {
 
   nursehospitalid: any;
   showcalender:any;
+  slotTypeID:any;
 
   public GetNurseID(item: any) {
     this.nurseid = item.nurseID;
     var list = this.nurselist.filter(x => x.nurseID == this.nurseid);
-    this.nursehospitalid = list[0].nursehospitalid
+    this.nursehospitalid = list[0].nursehospitalid,
+    this.slotTypeID = list[0].slotDurationID
     this.spinner.show();
     this.showcalender=1;
     this.GetNurseWorkingDetailsDyWise();
@@ -486,7 +488,7 @@ export class NurseScheduleComponent implements OnInit {
 
   public GetMorningSlotsMasterbyid() {
 
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.slotslist = data;

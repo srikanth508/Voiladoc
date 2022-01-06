@@ -42,7 +42,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     this.widwifeid = localStorage.getItem('midwifeid');
     this.getlanguage();
     this.getmidwifelist();
-    this.GetTimings();
+ 
     this.GetDaysMaster();
     this.endid = 0;
   }
@@ -59,15 +59,7 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
     )
   }
   Timeings: any
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
 
-        this.Timeings = data;
-      }, error => {
-      }
-    )
-  }
 
   middd = {};
   search: any;
@@ -144,16 +136,29 @@ export class MidwifeWorkingDetailsComponent implements OnInit {
       }
     )
   }
-
+  slotTypeID:any;
 
   public getmidwifeid(item: any) {
     this.widwifeid = item.id;
     var list1 = this.dummlist.filter(x => x.id == this.widwifeid)
     this.hsp_clinicID = list1[0].hospitalClinicID,
-      this.hospital_ClinicName = list1[0].hospital_ClinicName
+      this.hospital_ClinicName = list1[0].hospital_ClinicName,
+      this.slotTypeID = list1[0].slotDurationID
 
+      this.GetTimings();
   }
 
+
+
+  public GetTimings() {
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
+      data => {
+
+        this.Timeings = data;
+      }, error => {
+      }
+    )
+  }
   // public Getworktypeid(even) {
 
   //   this.worktypeid = even.target.value;

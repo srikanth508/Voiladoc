@@ -150,6 +150,7 @@ export class PhysiotherapistLoginComponent implements OnInit {
 
   public physiologinlist: any;
   public physioname: any;
+  smsmobileno:any;
 
   public GetPhysiotherapistLoginAdmin() {
     
@@ -160,15 +161,32 @@ export class PhysiotherapistLoginComponent implements OnInit {
         var list = this.physiologinlist.filter(x => x.physiotherapistID == this.physioid)
         this.physioname = list[0].name,
           this.pinno = list[0].pinno,
-          this.email = list[0].email
+          this.email = list[0].email,
+          this.smsmobileno = list[0].smsmobileno
 
-        this.sendmail()
+        this.sendmail();
+        this.SendTwiliSms()
       }, error => {
       }
     )
   }
 
+  async SendTwiliSms() {
+    debugger
 
+    if (this.languageid == 1) {
+      var sub = 'Welcome to Voiladoc'+'Pin code  : ' + this.pinno +  + 'UserName :' + this.username + + 'Password : ' + this.password
+      
+    }
+    else {
+      var sub = 'Bienvenue sur Voialdoc'+'Code PIN  : ' + this.pinno +  + "Nom d'utilisateur :" + this.username + + 'Mot de passe : ' + this.password
+     
+    }
+
+    this.docservice.SendTwillioSMS(this.smsmobileno, sub).subscribe(async data => {
+      return true
+    })
+  }
 
   pinno: any;
   emailattchementurl = [];

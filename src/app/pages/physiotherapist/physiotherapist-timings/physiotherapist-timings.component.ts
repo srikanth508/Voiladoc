@@ -29,7 +29,7 @@ export class PhysiotherapistTimingsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getphysiolist();
     this.getdaysmaster();
-    this.GetTimings();
+    // this.GetTimings();
     this.getlanguage();
     this.docservice.GetPhysiotherapyHospitalDetailsByHospitals(this.physioid, this.languageid,).subscribe(
       data => {
@@ -69,15 +69,15 @@ export class PhysiotherapistTimingsComponent implements OnInit {
   }
 
   Timeings: any
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
        
-        this.Timeings = data;
-      }, error => {
-      }
-    )
-  }
+  //       this.Timeings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
   public GetDayID(even) {
    
     this.dayid = even.target.value;

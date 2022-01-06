@@ -151,25 +151,44 @@ export class MidwifeLoginComponent implements OnInit {
 
   public midwiveslist: any;
   public midwifename: any;
+  smsmobileno: any;
 
 
   public GetMidWivesLoginAdmin() {
-    
+
     this.docservice.GetMidWivesLoginAdmin(this.languageid).subscribe(
       data => {
-        
+
         this.midwiveslist = data;
         var list = this.midwiveslist.filter(x => x.midWiveID == this.midewifeid)
         this.midwifename = list[0].name,
           this.email = list[0].email,
-          this.pinno = list[0].pinno
-        this.sendmail()
+          this.pinno = list[0].pinno,
+          this.smsmobileno = list[0].smsmobileno
+        this.sendmail();
+        this.SendTwiliSms();
 
       }, error => {
       }
     )
   }
 
+  async SendTwiliSms() {
+    debugger
+
+    if (this.languageid == 1) {
+      var sub = 'Welcome to Voiladoc'+'Pin code  : ' + this.pinno +  + 'UserName :' + this.username + + 'Password : ' + this.password
+      
+    }
+    else {
+      var sub = 'Bienvenue sur Voialdoc'+'Code PIN  : ' + this.pinno +  + "Nom d'utilisateur :" + this.username + + 'Mot de passe : ' + this.password
+     
+    }
+
+    this.docservice.SendTwillioSMS(this.smsmobileno, sub).subscribe(async data => {
+      return true
+    })
+  }
 
 
   pinno: any;

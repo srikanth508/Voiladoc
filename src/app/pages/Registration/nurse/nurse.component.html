@@ -186,6 +186,24 @@
       </div>
     </div>
     <br>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="dname_label">Slot Type :</label>
+        <span class="required">*</span>
+      </div>
+      <div class="col-lg-4" >
+        <select class="form-control" (change)="GetSlotDurationID($event)">
+          <option value="0" selected>{{labels[0].select}}</option>
+          <option value="1">30 Minutes</option>
+          <option value="2">90 Minutes</option>
+          <option value="3">2 Hours</option>
+         
+        </select>
+      </div>
+    </div>
+    <br>
+
     <div class="row">
       <div class="col-lg-3">
         <label class="dname_label" *ngIf="languageid=='1'">Education :</label>

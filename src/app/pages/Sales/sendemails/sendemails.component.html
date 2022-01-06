@@ -6,11 +6,12 @@
 <div class="container-fluid card card:hover">
   <br />
   <div class="row ">
-    <div class="col-lg-3">
-      <h5>Email</h5>
+    <div class="col-lg-4">
+      <h5 *ngIf="languageid==1">Email</h5>
+      <h5 *ngIf="languageid==6">EMAIL MESSAGING SERVICE</h5>
     </div>
     <div class="col-lg-6"></div>
-    <div class="col-lg-3"></div>
+ 
   </div>
   <br />
 </div>
@@ -25,24 +26,24 @@
     <div class="col-lg-3">
       <select class="form-control" (change)="SelectTypeID($event)" [(ngModel)]="typeid" [(ngModel)]="typeid">
         <option value="0">Select Type</option>
-        <option value="1">Patient</option>
-        <option value="2">Doctor</option>
-        <option value="3">Nurse</option>
-        <option value="4">Physiotherapist</option>
-        <option value="5">Midwife</option>
-        <option value="6">Hospital / Clinic</option>
+        <option value="1">Patients</option>
+        <option value="2">{{labels[0].doctor}}</option>
+        <option value="3">{{labels[0].nurse}}</option>
+        <option value="4">{{labels[0].psyiotherapist}}</option>
+        <option value="5">{{labels[0].midwife}}</option>
+        <option value="6">Hôpital / Cliniques</option>
       
       </select>
     </div>
     <div class="col-lg-2">
-      <input type="checkbox" (change)="GetPatientSelectAll($event)"> Select All
+      <input type="checkbox" (change)="GetPatientSelectAll($event)"> {{labels[0].selectall}}
 
       <img src="assets/Images/mail.png" data-toggle="modal" data-target="#exampleealycall"
         style="width: 34px;margin-left: 55px;" (click)="getpatientEmails()">
 
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
     <div class="col-lg-2">
       <!-- <ng-template #tipcontent1>Email</ng-template>
@@ -111,7 +112,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-2">
-              From
+              {{labels[0].from}}
             </div>
             <div class="col-lg-10">
               <input type="text" [(ngModel)]="frommail" name="frommail" placeholder="From" class="form-control">
@@ -119,7 +120,7 @@
           </div><br>
           <div class="row">
             <div class="col-lg-2">
-              To
+              {{labels[0].to}}
             </div>
             <div class="col-lg-10">
               <textarea class="form-control" rows="4" [(ngModel)]="showpatientemails"
@@ -144,7 +145,7 @@
           </div><br> -->
           <div class="row">
             <div class="col-lg-2">
-              Subject
+              {{labels[0].subject}}
             </div>
             <div class="col-lg-10">
               <input type="text" [(ngModel)]="Subject" name="Subject" placeholder="Subject" class="form-control">
@@ -152,7 +153,7 @@
           </div><br>
           <div class="row">
             <div class="col-lg-2">
-              Message
+              {{labels[0].message}}
             </div>
             <div class="col-lg-10">
               <ckeditor [editor]="Editor" [(ngModel)]="message" name="message" data=""></ckeditor>
@@ -161,7 +162,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-2">
-            Photo
+            Attachement
           </div>
           <div class="col-lg-6">
             <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)">
@@ -182,15 +183,15 @@
           </div>
           <div class="col-lg-2">
             <button type="button" style="background-color: #f18235;color: white;" class="btn btn-default"
-              data-dismiss="modal" (click)="SendEmail()">Send</button>
+              data-dismiss="modal" (click)="SendEmail()">{{labels[0].send}}</button>
           </div>
           <div class="col-lg-5">
           </div><br>
           <br>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
-            data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" style="background-color: #303577;color: white;"
+            data-dismiss="modal">{{labels[0].close}}</button>
         </div>
       </div>
     </div>

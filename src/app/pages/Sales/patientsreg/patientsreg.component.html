@@ -6,7 +6,8 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-8">
-      <h5>Imports Patients</h5>
+      <h5 *ngIf="languageid==1">Imports Patients</h5>
+      <h5 *ngIf="languageid==6">IMPORTER LES DÉTAILS DU PATIENT</h5>
       <!-- <h5>{{labels[0].monthWiseSchedule}}</h5> -->
       <br>
     </div>
@@ -15,7 +16,7 @@
     </div>
     <div class="col-lg-2">
       <button style="height:35px;background-color: #f18235;color:white" class="btn btn-block btncolor"
-        data-toggle="modal" data-target="#importexcel" (click)="importexcel()">import excel</button>
+        data-toggle="modal" data-target="#importexcel" (click)="importexcel()">Importer excel</button>
     </div>
   </div>
 </div>
@@ -31,7 +32,8 @@
             <th>{{labels[0].patientName}}</th>
             <th>{{labels[0].mobileNumber}}</th>
             <th>{{labels[0].emailID}}</th>
-            <th>Exception Message</th>
+            <th  *ngIf="languageid==1">Error Message</th>
+            <th  *ngIf="languageid==6">Message d'erreur</th>
 
           </tr>
           <tr *ngFor="let details of exceptionlist">
@@ -55,7 +57,7 @@
     <!-- Modal content-->
     <div class="modal-content" style="width: 700px;">
       <div class="modal-header">
-        <h4 class="modal-title">Import Excel</h4>
+        <h4 class="modal-title">Importer excel</h4>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -64,13 +66,20 @@
         <div class="row">
           <div class="col-lg-2"></div>
           <div class="col-lg-2">
-            <input type="radio" value="1" [(ngModel)]="typeid" name="typeid">Hospital
+            <input type="radio" value="1" [(ngModel)]="typeid" name="typeid">
+            
+            <span *ngIf="languageid==1">Hospital</span>
+            <span *ngIf="languageid==6">Hôpital </span>
           </div>
           <div class="col-lg-2">
-            <input type="radio" value="2" [(ngModel)]="typeid" name="typeid">Clinic
+            <input type="radio" value="2" [(ngModel)]="typeid" name="typeid">
+            <span *ngIf="languageid==1">Clinic</span>
+            <span *ngIf="languageid==6">Clinique</span>
           </div>
           <div class="col-lg-2">
-            <input type="radio" value="3" [(ngModel)]="typeid" name="typeid">Doctor
+            <input type="radio" value="3" [(ngModel)]="typeid" name="typeid">
+            <span *ngIf="languageid==1">Doctor</span>
+            <span *ngIf="languageid==6">Médecin</span>
           </div>
 
         </div><br>
@@ -106,16 +115,16 @@
           <div class="col-lg-2"></div>
           <div class="col-lg-4">
             <div class="form-group">
-              <button type="button" class="btn btn-primary" (click)="Upload_file()" data-dismiss="modal">
-                Import Excel
+              <button type="button" class="btn btn-primary" style="background-color: #f18235;" (click)="Upload_file()" data-dismiss="modal">
+                Importer
               </button>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235;" data-dismiss="modal">
+          {{labels[0].close}}
         </button>
       </div>
     </div>

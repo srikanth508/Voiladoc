@@ -133,21 +133,21 @@
                 </a>
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/Sendemails">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Emails
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].sendemails}}
                     <!-- {{labels[0].howToUseVoilaDoc}} -->
                 </a>
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/EmailDash">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Email Dash
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].emaildash}}
                     <!-- {{labels[0].howToUseVoilaDoc}} -->
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/SendSms">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Send Sms
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].sendsms}}
                     <!-- {{labels[0].howToUseVoilaDoc}} -->
                 </a>
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/SmsDash">
-                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; Sms Dash
+                    <img src="assets/Images/hos.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].smsdash}}
                     <!-- {{labels[0].howToUseVoilaDoc}} -->
                 </a>
 
@@ -193,16 +193,16 @@
                     <!-- {{labels[0].patientWallet}} -->
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/PatientPdfs">
-                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Doctor Medicines
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].doctorReport}}
                     <!-- {{labels[0].patientWallet}} -->
                 </a>
                 <a class="tablinks" (click)="highlight($event)" routerLink="/PatientPdf">
-                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Patient Medicines
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].patientMedicines}}
                     <!-- {{labels[0].patientWallet}} -->
                 </a>
 
                 <a class="tablinks" (click)="highlight($event)" routerLink="/Patientsreg">
-                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Import Patients
+                    <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].importpatients}}
                     <!-- {{labels[0].patientWallet}} -->
                 </a>
             </div>
@@ -1498,11 +1498,15 @@
                 <!-- {{labels[0].howToUseVoilaDoc}} -->
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/PatientPdfs" *ngIf="docmedicine=='1'">
-                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; Doctor Medicines
+                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp;{{labels[0].doctorReport}}
                 <!-- {{labels[0].patientWallet}} -->
             </a>
             <a class="tablinks" (click)="highlight($event)" routerLink="/PatientPdf" *ngIf="patientmedicine=='1'">
-                <img src="assets/Images/pharmacy.png"   style="width: 15px;">&nbsp; &nbsp; Patient Medicines
+                <img src="assets/Images/pharmacy.png"   style="width: 15px;">&nbsp; &nbsp; {{labels[0].patientMedicines}}
+                <!-- {{labels[0].patientWallet}} -->
+            </a>
+            <a class="tablinks" (click)="highlight($event)" routerLink="/Patientsreg" *ngIf="importpatients=='1'">
+                <img src="assets/Images/pharmacy.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].importpatients}}
                 <!-- {{labels[0].patientWallet}} -->
             </a>
 

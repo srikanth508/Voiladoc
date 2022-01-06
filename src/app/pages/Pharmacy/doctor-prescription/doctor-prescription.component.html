@@ -1,3 +1,7 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-3">
@@ -24,7 +28,7 @@
   </div><br>
   <div class="row">
     <div class="col-lg-12 table-responsive" style="overflow: auto;">
-      <table  class="table">
+      <table class="table">
         <thead>
           <tr>
             <th>{{labels[0].orderDate}}</th>
@@ -35,12 +39,12 @@
             <th *ngIf="languageid=='1'">Pick Up Type</th>
             <th *ngIf="languageid=='6'">Retrait et Livraison </th>
             <!-- <th>{{labels[0].substitablenotpermitedd}} </th> -->
-            <th>{{labels4[0].primarypatientname}}</th>
-            <th>{{labels4[0].phoneNoo}}</th>
+            <!-- <th>{{labels4[0].primarypatientname}}</th>
+            <th>{{labels4[0].phoneNoo}}</th> -->
             <th>{{labels4[0].bookedPatientname}}</th>
             <th>{{labels4[0].bookedpatientphno}}</th>
-            <!-- <th>{{labels[0].name}}</th>
-            <th>{{labels[0].phoneNo}} </th> -->
+            <th>{{labels[0].name}}</th>
+            <th>{{labels[0].phoneNo}} </th>
             <th>{{labels[0].mailId}}</th>
             <th>{{labels[0].deliveryAddress}}</th>
             <th>{{labels[0].paymentType}}</th>
@@ -69,10 +73,24 @@
             </td> -->
             <td>{{details.patientName}}</td>
             <td>{{details.mobileNumber}}</td>
-            <td>{{details.relationpatentname}}</td>
+            <td>
+              {{details.relationpatentname}}
+              <!-- <div class="txtorng">
+              <span placement="right" ngbTooltip="{{details.patientName}}" role="button" data-toggle="tooltip">
+                {{details.relationpatentname}}
+              </span>
+              </div> -->
+            </td>
             <td>{{details.relationmobileno}}</td>
             <td>{{details.relationemailid}}</td>
-            <td>{{details.address}}</td>
+            <td>
+              <div class="txtorng">
+                <span placement="right" ngbTooltip=" {{details.address}}" role="button" data-toggle="tooltip">
+               <img src="assets/Images/info.png" style="width: 30px;">
+                </span>
+              </div>
+
+            </td>
             <td>{{details.paymentType}}</td>
             <td>{{details.paidAmount}}</td>
             <td>
@@ -241,9 +259,8 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width: 939px;
-      height: auto;">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content " >
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{labels[0].medicines}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -342,33 +359,47 @@
                                   {{labels[0].quantity}}</th>
                                 <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                   {{labels[0].howmanyrefills}}</th>
-
                                 <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                   {{labels[0].substitablenotpermitedd}}</th>
-
                                 <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                   {{labels[0].notetoPharmsict}}</th>
                                 <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                   {{labels[0].amount}}</th>
                                 <!-- <th style="border: 2px solid black;background-color:#FFD300; color:black;">
                                 {{labels[0].notetoPharmsict}}</th> -->
+                                <th style="border: 2px solid black;background-color:#FFD300; color:black;">Substistute</th>
                                 <th style="border: 2px solid black;background-color:#FFD300; color:black;">Actions</th>
                               </tr>
                               <tr *ngFor="let medicinelist of orderedmedicinelist">
                                 <!-- <td>{{medicinelist.Medicinetype}}</td> -->
                                 <td style="border: 2px solid black;">
-                                  <!-- {{medicinelist.medicineName}} -->
-                                <input type="text" class="form-control" style="width: 167px;" [disabled]="medicinelist.subtute=='2'" [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.medicineName" name="medicinelist.medicineName" >
+                                  {{medicinelist.medicineName}}
+                                  <div>
+                                    <br>
+                                    <input type="text" class="form-control"  *ngIf="medicinelist.substituteBit==true"
+                                    [ngModelOptions]="{standalone: true}" 
+                                    [(ngModel)]="medicinelist.subMedicineName" name="medicinelist.subMedicineName" placeholder="{{labels[0].medicines}}">
+                                  </div>
+                                
                                 </td>
                                 <td style="border: 2px solid black;">
-                                  
-                                  <input type="text" class="form-control"  [disabled]="medicinelist.subtute=='2'" [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.sig" name="medicinelist.sig">
-                                  </td>
+                                  {{medicinelist.sig}}
+                                  <div>
+                                    <br>
+                                    <input type="text" class="form-control" placeholder="{{labels[0].sig}}" *ngIf="medicinelist.substituteBit==true" 
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.subPhysology"
+                                    name="medicinelist.subPhysology">
+                                  </div>
+                                </td>
                                 <td style="border: 2px solid black;">
-                                  <!-- {{medicinelist.quantity}} -->
-
-                                  <input type="text"  [ngModelOptions]="{standalone: true}" [(ngModel)]="medicinelist.quantity" name="medicinelist.quantity"
-                                    style="width: auto;" class="form-control" placeholder=" {{labels[0].quantity}}">
+                                  {{medicinelist.quantity}}
+                                  <div>
+                                    <br>
+                                    <input type="text" [ngModelOptions]="{standalone: true}" *ngIf="medicinelist.substituteBit==true"
+                                    [(ngModel)]="medicinelist.subQuantity" name="medicinelist.subQuantity"
+                                    class="form-control" placeholder=" {{labels[0].quantity}}">
+                                  </div>
+                    
                                 </td>
                                 <td style="border: 2px solid black;">{{medicinelist.refills}}</td>
                                 <td style="border: 2px solid black;">{{medicinelist.substistute}}</td>
@@ -376,8 +407,16 @@
                                 <td style="border: 2px solid black;">
                                   <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
                                     [(ngModel)]="medicinelist.amount" name="medicinelist.amount"
+                                    onkeypress='return(event.charCode>=48&&event.charCode<=57)'><br>
+
+                                    <input type="text" class="form-control"  *ngIf="medicinelist.substituteBit==true" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="medicinelist.subAmount" name="medicinelist.subAmount" 
                                     onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
                                   <!-- (ngModelChange)="onChange($event)" -->
+                                </td>
+                                <td  style="border: 2px solid black;">
+                                  <input type="checkbox" [disabled]="medicinelist.subtute=='2'" [ngModelOptions]="{standalone: true}"
+                                  [(ngModel)]="medicinelist.substituteBit" name="medicinelist.substituteBit">
                                 </td>
                                 <td style="border: 2px solid black;">
                                   <input type="checkbox" [ngModelOptions]="{standalone: true}"
@@ -416,7 +455,7 @@
           </div>
         </form>
         <div class="modal-footer">
-          <button type="button" style="background-color: #322b6b; color: white;margin-right: 529px;"
+          <button type="button" style="background-color: #322b6b; color: white;"
             class="btn btn-default" data-dismiss="modal" (click)="SavePDF()">{{labels[0].download}}</button>
           <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
             data-dismiss="modal">{{labels[0].close}}</button>
@@ -460,6 +499,29 @@
         </div><br>
         <div class="row" *ngIf="showedit=='0'">
           <div class="col-lg-4">
+            <label>Attchment :</label>
+          </div>
+          <div class="col-lg-4">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)"
+              class="dropzone_vendorinvoice dropzone">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone>
+            <span>
+              <img src="{{imageurl}}" style="height: 36px;"></span>
+          </div>
+        </div>
+        <div class="row" *ngIf="showedit=='0'">
+          <div class="col-lg-4">
+            <label>Comments :</label>
+          </div>
+          <div class="col-lg-4">
+            <textarea class="form-control" rows="4" placeholder="Comments" [(ngModel)]="comments"
+              name="comments"></textarea>
+
+          </div>
+        </div><br>
+        <div class="row" *ngIf="showedit=='0'">
+          <div class="col-lg-4">
           </div>
           <div class="col-lg-7">
             <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
@@ -471,8 +533,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-          data-dismiss="modal" (click)="SavePdfPhoto()"> {{labels[0].download}}</button>
+        <!-- <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
+          data-dismiss="modal" (click)="SavePdfPhoto()"> {{labels[0].download}}</button> -->
 
         <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
           data-dismiss="modal">{{labels[0].close}}</button>
@@ -480,8 +542,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 
@@ -502,14 +562,16 @@
         <div class="row">
           <div class="col-lg-6" *ngFor="let photo of uploadephotos">
             <a>
-              <img src="{{photo.photoUrl}}" (click)="openNewwindow(photo.photoUrl)" *ngIf="photo.typeID==1"  style="width: 350px;height: auto;"><br><br>
+              <img src="{{photo.photoUrl}}" (click)="openNewwindow(photo.photoUrl)" *ngIf="photo.typeID==1"
+                style="width: 350px;height: auto;"><br><br>
             </a>
-            <a >
-            <img src="assets/Images/pdf.png" (click)="openNewwindow(photo.photoUrl)" *ngIf="photo.typeID==2" style="width: 120px;height: auto;"><br><br>
+            <a>
+              <img src="assets/Images/pdf.png" (click)="openNewwindow(photo.photoUrl)" *ngIf="photo.typeID==2"
+                style="width: 120px;height: auto;"><br><br>
             </a>
           </div><br><br>
         </div><br>
-        <div class="row"  *ngIf="showedit=='0'">
+        <div class="row" *ngIf="showedit=='0'">
           <div class="col-lg-4">
             <label>{{labels[0].amountToPay}} :</label>
           </div>
@@ -518,16 +580,36 @@
               name="amounttopay">
           </div>
         </div><br>
+
+        <div class="row" *ngIf="showedit=='0'">
+          <div class="col-lg-4">
+            <label>Attchment :</label>
+          </div>
+          <div class="col-lg-4">
+            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone>
+            <span>
+              <img src="{{imageurl}}" style="height: 35px;"></span>
+          </div>
+        </div><br>
+        <div class="row" *ngIf="showedit=='0'">
+          <div class="col-lg-4">
+            <label>Comments :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" rows="4" placeholder="Comments" [(ngModel)]="comments"
+              name="comments">
+          </div>
+        </div><br>
         <div class="row">
           <div class="col-lg-4">
-
           </div>
           <div class="col-lg-5">
             <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-             *ngIf="showedit=='0'" (click)="updatefullyorderdetails()" 
-              data-dismiss="modal">{{labels[0].update}}</button>
+              *ngIf="showedit=='0'" (click)="updateamount()" data-dismiss="modal">{{labels[0].update}}</button>
           </div>
-        
+
         </div>
       </div>
       <div class="modal-footer">
@@ -550,22 +632,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- <div class="row">
-          <div class="col-lg-4">
-            <label>Photo :</label>
-          </div>
-          <div class="col-lg-5">
-            <ngx-dropzone [multiple]="false" (change)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
-              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
-            </ngx-dropzone>
-            <div>
-              <span *ngFor="let photo of photodetail">
-                <img src="{{photo}}" style="height:70px;width:50px">&nbsp;
-              </span>
-            </div>
-          </div>
-        </div>
-        <br> -->
+
         <div class="row">
           <div class="col-lg-4">
             <label>{{labels[0].amountToPay}} :</label>
@@ -580,7 +647,7 @@
           </div>
           <div class="col-lg-2">
             <button type="button" text_align="center" class="btn btn-block btn-md allbtns btncolor"
-              (click)="updatepartialorders()" style="width: 124px;" data-dismiss="modal">{{labels[0].update}}</button>
+              style="width: 124px;" data-dismiss="modal">{{labels[0].update}}</button>
           </div>
           <div class="col-lg-5">
           </div>
@@ -594,270 +661,7 @@
   </div>
 </div>
 
-<!-- 
-  <div id="asssign" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Assign</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12">
-              <table>
-                <tr>
-                  <td style="background-color: #f18235;">Name</td>
-                  <td style="background-color: #f18235;">Phone No</td>
-                  <td style="background-color: #f18235;">Assign</td>
-                </tr>
-                <tr *ngFor="let details of partnerlist|filter:term">
-                  <td>{{details.name}}</td>
-                  <td>{{details.phoneNo}}</td>
-                  <td>
-                    <button type="button" style="background-color: #00b0f0; color: white;  width: 75px;"
-                      (click)="asssign(details.id,details.deliveryCompanyID)" class="asignbtn"
-                      data-dismiss="modal">Assign</button>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-            data-dismiss="modal">{{labels[0].close}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-   -->
 
-
-
-
-
-
-
-
-
-
-<!-- <div id="asssignss" class="modal fade" role="dialog">
-    <div class="modal-dialog" style=" position: absolute;
-    bottom: 8px;
-    right: 16px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Assign</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="container-fluid card card-hover" style="height: 550px;">
-            <br>
-            <div style="height: 500px;overflow-y: scroll;">
-              <div *ngFor='let convo of coversationarray'>
-                <div class="container" *ngIf='convo.user=="doc"'>
-                  <div class="row">
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-5" style="background-color:darkgray;border-radius: 5px;color:white">
-                      <div *ngIf="convo.msgtype=='1'">
-                        <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
-                        float: left;">
-                        <p style="margin-top: 5px;">{{convo.chatmsg}}
-                          <span style="float: right;;margin-top: 5px;">
-                            {{convo.time}}
-                          </span>
-                        </p>
-                      </div>
-                      <div *ngIf="convo.msgtype=='2'">
-                        <img src="{{convo.chatmsg}}" style="width: 100%;">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="container" *ngIf='convo.user=="pat"'>
-                  <div class="row">
-                    <div class="col-lg-5"
-                      style="background-color:#1ebea5;border-radius: 5px;color:white;margin-top: 1px;">
-                      <div *ngIf="convo.msgtype=='1'">
-                        <p style="margin-top: 5px;">
-                          <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
-                          &nbsp;
-                          {{convo.chatmsg}}
-                          <span style="float: right;;margin-top: 5px;">
-                            {{convo.time}}
-                          </span>
-                        </p>
-                      </div>
-                      <div *ngIf="convo.msgtype=='2'">
-                        <img src="{{convo.chatmsg}}" style="width: 100%;">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <br>
-              </div>
-            </div>
-            <hr>
-            <div class="container-fluid">
-              <form #loginForm="ngForm">
-                <div class="row">
-                  <div class="col-lg-9">
-                    <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required
-                      class="form-control" style=" border-style:none;" placeholder="Type a Message" />
-                  </div>
-                  <div class="col-lg-1">
-                  
-                    <button type="submit" class="form-control chat" [disabled]="loginForm.form.invalid"
-                      (click)="dosendmsg()">
-                      Send
-                    </button>
-                 
-                  </div>
-                  <div class="col-lg-2">
-                    <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)"
-                      class="dropzone_vendorinvoice" style="height: 50px;">
-                    </ngx-dropzone>
-                  </div>
-  
-                </div>
-              </form>
-            </div><br>
-          </div>
-          <div class="modal-footer">
-            <button type="button" style="background-color: #f18235; color: white;" class="btn btn-default"
-              data-dismiss="modal">{{labels[0].close}}</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
-<!-- 
-  <div class="container">
-    <div class="row">
-      <div class="panel panel-chat">
-        <div class="panel-heading">
-          <a href="#" class="chatMinimize" onclick="return false"><span>Chat</span></a>
-          <a  class="chatClose" (click)="GetShowID()">*</a>
-          <div class="clearFix"></div>
-        </div>
-        <div class="panel-body">
-          <div style="height: 500px;overflow-y: scroll;" id="chatboxdiv">
-            <div *ngFor='let convo of coversationarray'>
-              <div class="container" *ngIf='convo.user=="doc"'>
-                <div class="row">
-                  <div class="col-lg-4"></div>
-                  <div class="col-lg-2"></div>
-                  <div class="col-lg-6" style="background-color:darkgray;border-radius: 5px;color:white">
-                    <div *ngIf="convo.msgtype=='1'">
-                    
-                      <p style="margin-top: 5px;">{{convo.chatmsg}}
-                        <span style="float: right;;margin-top: 5px;">
-                          {{convo.time}}
-                        </span>
-                      </p>
-                    </div>
-                    <div *ngIf="convo.msgtype=='2'">
-                      <img src="{{convo.chatmsg}}" style="width: 100%;">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="container" *ngIf='convo.user=="pat"'>
-                <div class="row">
-                  <div class="col-lg-8" style="background-color:#1ebea5;border-radius: 5px;color:white;margin-top: 1px;">
-                    <div *ngIf="convo.msgtype=='1'">
-                      <p style="margin-top: 5px;">
-                      
-                        &nbsp;
-                        {{convo.chatmsg}}
-                        <span style="float: right;;margin-top: 5px;">
-                          {{convo.time}}
-                        </span>
-                      </p>
-                    </div>
-                    <div *ngIf="convo.msgtype=='2'">
-                      <img src="{{convo.chatmsg}}" style="width: 100%;">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-            </div>
-          </div>
-  
-                  <div style="height: 500px;overflow-y: scroll;">
-                    <div *ngFor='let convo of coversationarray'>
-                      <div class="container" *ngIf='convo.user=="doc"'>
-                        <div class="row">
-                          <div class="col-lg-12"  style="background-color:darkgray;border-radius: 5px;color:white">
-                            <div *ngIf="convo.msgtype=='1'">
-                              <img src="{{docphoto}}" class="rounded-circle" style="width:26px;;margin-top: 5px;margin-right: 3%;
-                              float: left;">
-                              <p style="margin-top: 5px;">{{convo.chatmsg}}
-                                <span>
-                                  {{convo.time}}
-                                </span>
-                              </p>
-                            </div>
-                            <div *ngIf="convo.msgtype=='2'">
-                              <img src="{{convo.chatmsg}}" style="width: 100%;">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="container" *ngIf='convo.user=="pat"'>
-                        <div class="row">
-                          <div class="col-lg-12" >
-                            <div *ngIf="convo.msgtype=='1'">
-                              <p style="margin-top: 5px;">
-                                <img src="{{patientphoto}}" class="rounded-circle" style="width:26px;margin-top: 5px;">
-                                &nbsp;
-                                {{convo.chatmsg}}
-                                <span style="float: left;margin-top: 5px;">
-                                  {{convo.time}}
-                                </span>
-                              </p>
-                            </div>
-                            <div *ngIf="convo.msgtype=='2'">
-                              <img src="{{convo.chatmsg}}" style="width: 100%;">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <br>
-                    </div>
-                  </div>
-                  <hr>
-                </div> -
-          <div class="clearFix"></div>
-        </div>
-        <div class="panel-footer">
-          <br>
-          <div class="container-fluid">
-            <form #loginForm="ngForm">
-              <div class="row" style="background-color: white;">
-                <div class="col-lg-8">
-                  <input type="text" [(ngModel)]="chatconversation" name="chatconversation" required class="form-control"
-                    style=" border-style:none;" placeholder="Type a Message" />
-                </div>
-                <div class="col-lg-4">
-                  <button type="submit" class="form-control chat" [disabled]="loginForm.form.invalid"
-                    (click)="dosendmsg()">
-                    Send
-                  </button>
-                </div>
-  
-              
-              </div>
-            </form>
-          </div><br>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
 
 

@@ -126,6 +126,7 @@ export class DiagnosticComponent implements OnInit {
 
 
   public diagnoticloginlist: any;
+  smsmobileno:any;
 
   public getdiagnosticloginfordash() {
     debugger
@@ -138,13 +139,34 @@ export class DiagnosticComponent implements OnInit {
         this.diagnosticname = list[0].diagnosticCenterName,
           this.pinno = list[0].pinno,
           this.email = list[0].emailID
+          this.smsmobileno = list[0].smsmobileno
 
            this.sendmail();
+           this.SendTwiliSms()
 
       }, error => {
       }
     )
   }
+  
+  async SendTwiliSms() {
+    debugger
+
+    if (this.languageid == 1) {
+      var sub = 'Welcome to Voiladoc'+'Pin code  : ' + this.pinno +  + 'UserName :' + this.username + + 'Password : ' + this.password
+      
+    }
+    else {
+      var sub = 'Bienvenue sur Voialdoc'+'Code PIN  : ' + this.pinno +  + "Nom d'utilisateur :" + this.username + + 'Mot de passe : ' + this.password
+     
+    }
+
+    this.docservice.SendTwillioSMS(this.smsmobileno, sub).subscribe(async data => {
+      return true
+    })
+  }
+
+
 
 
 

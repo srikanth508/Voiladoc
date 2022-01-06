@@ -290,6 +290,13 @@ export class MidwifeComponent implements OnInit {
     }
   }
 
+  slotTypeID:any;
+  GetSlotDurationID(even) {
+    this.slotTypeID = even.target.value;
+  }
+
+  
+
   public InsertMidWives() {
     this.spinner.show();
     var entity = {
@@ -310,7 +317,8 @@ export class MidwifeComponent implements OnInit {
       'CountryID': this.countryid,
       'HospitalClinicID': this.hospitalclinicid,
       'Education': this.education,
-      'SpokenLanguages': this.spokenlanguages
+      'SpokenLanguages': this.spokenlanguages,
+      'SlotDurationID':this.slotTypeID
     }
     this.docservice.InsertMidWivesRegistration(entity).subscribe(data => {
       if (data != 0 && data != 1) {

@@ -127,7 +127,8 @@
               <ng-template #tipcontent300>{{labels[0].viewdetils}}</ng-template>
               <img src="assets/Images/medicalquestion.png" *ngIf="details.cancelled=='0'&&details.docCancelled=='0'"
                 [ngbTooltip]="tipcontent300" style="margin: 2%;width: 24px;" data-toggle="modal"
-                data-target="#exampleModalLong78" (click)="GetViewDetails(details.appointmentID)" />&nbsp;
+                data-target="#exampleModalLong78"
+                (click)="GetViewDetails(details.appointmentID,details.patientID)" />&nbsp;
 
               <ng-template #tipcontent2094>{{labels[0].diagnosticreport}}</ng-template>
               <a [ngbTooltip]="tipcontent2094">
@@ -538,7 +539,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="width: 900px;
       height: auto;">
-       <div class="modal-header">
+      <div class="modal-header">
         <!-- <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='1'">Refund</h5>
         <h5 class="modal-title" id="exampleModalLabel" *ngIf="languageid=='6'"> Remboursement au patient</h5> -->
 
@@ -546,7 +547,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
+
       <div class="modal-body" id="Prescriptions">
         <div class="container-fluid" *ngFor="let alldetails of pdfprslist">
           <div *ngIf="alldetails.prescriptionExists!='0'&&Prescription==1">
@@ -660,7 +661,7 @@
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
-                <label><b> {{labels[0].nationalIDNo}}</b> :  {{alldetails.nationalidno}}</label><br>
+                <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.nationalidno}}</label><br>
                 <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -768,7 +769,7 @@
                 <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                 <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                 <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
-                <label><b> {{labels[0].nationalIDNo}}</b> :  {{alldetails.nationalidno}}</label><br>
+                <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.nationalidno}}</label><br>
                 <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                 <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                 <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -858,7 +859,7 @@
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
-                  <label><b> {{labels[0].nationalIDNo}}</b> :  {{alldetails.nationalidno}}</label><br>
+                  <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.nationalidno}}</label><br>
                   <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -982,7 +983,7 @@
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
-                  <label><b> {{labels[0].nationalIDNo}}</b> :  {{alldetails.nationalidno}}</label><br>
+                  <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.nationalidno}}</label><br>
                   <label><b> {{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -1043,7 +1044,7 @@
                   <label><b>{{labels[0].phoneNo}}</b> : {{alldetails.mobileNumber}}</label><br>
                   <label><b>{{labels[0].address}}</b> : {{alldetails.address}}</label><br>
                   <label><b> {{labels[0].email}}</b> : {{alldetails.emailID}}</label><br>
-                  <label><b> {{labels[0].nationalIDNo}}</b> :  {{alldetails.nationalidno}}</label><br>
+                  <label><b> {{labels[0].nationalIDNo}}</b> : {{alldetails.nationalidno}}</label><br>
                   <label><b>{{labels[0].age}}</b> : {{alldetails.age}}</label><br>
                   <label><b> {{labels[0].dateOfBirth}}</b> : {{alldetails.dateOfBirth}}</label><br>
                   <label><b> {{labels[0].gender}}</b> : {{alldetails.gender}}</label><br>
@@ -1872,12 +1873,14 @@
 
               </div>
               <div class="col-lg-3">
-                <input type="radio" value="1" [(ngModel)]="showothertest" name="showothertest">&nbsp;{{labels[0].testdtabase}}
+                <input type="radio" value="1" [(ngModel)]="showothertest"
+                  name="showothertest">&nbsp;{{labels[0].testdtabase}}
 
               </div>
               <div class="col-lg-3">
 
-                <input type="radio" value="2" [(ngModel)]="showothertest" name="showothertest">&nbsp;{{labels[0].manuallywritten}}
+                <input type="radio" value="2" [(ngModel)]="showothertest"
+                  name="showothertest">&nbsp;{{labels[0].manuallywritten}}
               </div>
             </div><br>
             <div *ngIf="showothertest==2">
@@ -1931,8 +1934,8 @@
                     <tr *ngFor="let code of tsetssslist|filter:testsname">
                       <td>{{code.name}}</td>
                       <td>
-                        <input type="text" class="form-control" [(ngModel)]="code.short" name="code.short"
-                         disabled [ngModelOptions]="{standalone: true}">
+                        <input type="text" class="form-control" [(ngModel)]="code.short" name="code.short" disabled
+                          [ngModelOptions]="{standalone: true}">
                       </td>
                       <td>
                         <input type="checkbox" [(ngModel)]="code.checked" name="code.checked">
@@ -2536,6 +2539,10 @@
                   <th>{{labels[0].substistude}} </th>
                   <th>{{labels[0].howmanyRefills}}</th>
                   <th>{{labels[0].noteToPharmasist}}</th>
+                  <th>Substitute Medicine Name</th>
+                  <th>Sig</th>
+                  <th>Quantity</th>
+
                   <!-- <th>Actions</th> -->
                 </tr>
                 <tr *ngFor="let presciption of prescrptionlist">
@@ -2545,19 +2552,23 @@
                   <td>{{presciption.departmentname}}</td>
                   <td>{{presciption.doctorName}}</td>
                   <!-- <td>{{presciption.medicinetype}}</td> -->
-                  <td>{{presciption.medicineName}}</td>
+                  <td [ngClass]="{'textstrike':presciption.substituteBit==true}">{{presciption.medicineName}}</td>
                   <!--                   
                   <td>{{presciption.unitOfMeasure}}</td>
                   <td>{{presciption.dosage}}</td> -->
                   <!-- <td>{{presciption.duration}}</td> -->
-                  <td>{{presciption.sig}}</td>
-                  <td>{{presciption.dispenseQuantity}}</td>
+                  <td [ngClass]="{'textstrike':presciption.substituteBit==true}">{{presciption.sig}}</td>
+                  <td [ngClass]="{'textstrike':presciption.substituteBit==true}">{{presciption.dispenseQuantity}}</td>
                   <td>
                     <span *ngIf="presciption.substainablenotPermitted=='1'">{{labels[0].yes}}</span>
                     <span *ngIf="presciption.substainablenotPermitted=='2'"> {{labels[0].no}}</span>
                   </td>
                   <td>{{presciption.howmanyRefills}}</td>
                   <td>{{presciption.noteToPharmasist}}</td>
+                  <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subMedicineName}}</td>
+                  <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subPhysology}}</td>
+                  <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subQuantity}}</td>
+
                   <!-- <td>{{presciption.diagnosis}}</td> -->
                   <!-- <td>
                     <ng-template #tipcontent9503>Edit</ng-template>
@@ -3005,8 +3016,9 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button type="button" class="btn btncolor" style="background-color: #f18235;" data-dismiss="modal" data-toggle="modal"
-                data-target="#mymedicalcertficate" (click)="InsertSickSlipGenarator()">{{labels1[0].generate}}</button>
+              <button type="button" class="btn btncolor" style="background-color: #f18235;" data-dismiss="modal"
+                data-toggle="modal" data-target="#mymedicalcertficate"
+                (click)="InsertSickSlipGenarator()">{{labels1[0].generate}}</button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -3786,7 +3798,8 @@
             </div>
           </div>
           <button style="margin-top: 10px;margin-left: 126px;" type="button" class="btn btn-md allbtns btncolor"
-            (click)="InsertDiagnostictestAndSoap()" *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='4'||diasoaptypeid=='5'"
+            (click)="InsertDiagnostictestAndSoap()"
+            *ngIf="diasoaptypeid=='1'||diasoaptypeid=='2'||diasoaptypeid=='4'||diasoaptypeid=='5'"
             data-dismiss="modal">{{labels[0].save}}</button>
 
           <button style="margin-top: 10px;margin-left: 126px;" type="button" class="btn btn-md allbtns btncolor"
@@ -3796,8 +3809,10 @@
 
       </div>
       <div class="modal-footer">
-        <span *ngIf="languageid=='1'" style="color:gray;font-size: 14px;">You can only upload one document per session* </span>
-        <span *ngIf="languageid=='6'" style="color:gray;font-size: 14px;">Vous ne pouvez télécharger qu'un seul document par session*
+        <span *ngIf="languageid=='1'" style="color:gray;font-size: 14px;">You can only upload one document per session*
+        </span>
+        <span *ngIf="languageid=='6'" style="color:gray;font-size: 14px;">Vous ne pouvez télécharger qu'un seul document
+          par session*
         </span>
         <button type="button" class="btn btn-md allbtns btncolor" data-dismiss="modal">{{labels[0].close}}</button>
         <!-- <button type="button" class="btn btn-secondary" (click)="SendReciept()" data-dismiss="modal">Send Email</button> -->
@@ -4217,7 +4232,7 @@
 
 <div id="mymedicalcertficate" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-   
+
     <div class="modal-content">
       <div class="modal-header modal-xl card">
         <h5 class="modal-title" id="exampleModalLongTitle"></h5>
@@ -4520,6 +4535,7 @@
                   <th>{{labels[0].areyoasmoker}}</th>
                   <th>{{labels[0].doyouecescise}}</th>
                   <th>{{labels[0].medicalinsurance}}</th>
+                  <th>Allergies</th>
                 </tr>
                 <tr *ngFor="let view of viewdetaillist">
                   <td>{{view.nationalidno}}</td>
@@ -4529,7 +4545,16 @@
                   <td>{{view.medicalHistory}}</td>
                   <td>{{view.surgeryHistory}}</td>
                   <td>{{view.longtermTreatment}}</td>
-                  <td>{{view.vaccinationStatus}}</td>
+                  <td>{{view.vaccinationStatus}}
+
+                    <div class="txtorng">
+                      <span placement="right" ngbTooltip="{{view.firstVaccine}},{{view.secondVaccine}}" role="button"
+                        data-toggle="tooltip">
+                        <img src="assets/Images/info.png" style="width: 25px;" data-toggle="modal"
+                          data-target="#vaccination">
+                      </span>
+                    </div>
+                  </td>
                   <td>{{view.dietaryIssues}}</td>
                   <td>
                     <p *ngIf="view.alcohol=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
@@ -4547,6 +4572,10 @@
                     <p *ngIf="view.medicalinsurance=='1'" style="margin-top: 14px;">{{labels[0].yes}}</p>
                     <p *ngIf="view.medicalinsurance=='0'" style="margin-top: 14px;"></p>
                   </td>
+                  <td>
+                    {{view.knownAllergies}}
+                    <img src="assets/Images/edit.png" data-toggle="modal" data-target="#Allergies">
+                  </td>
                 </tr>
               </table>
             </div>
@@ -4561,6 +4590,135 @@
   </div>
 </div>
 
+
+
+
+<div class="modal fade" id="Allergies" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>{{labels[0].allergies}}</label>
+            </div>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" placeholder="{{labels[0].allergies}}" [(ngModel)]="allergies"
+                name="allergies">
+
+              <!-- <ngx-tags-input class="form-control input-xl" style="height: 100px;" [(ngModel)]="allergies"
+                name="allergies"></ngx-tags-input> -->
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn btn-primary" style="background-color: #f18235;color: white;"
+                (click)="Updateallergies()">{{labels[0].save}}</button>
+            </div>
+            <div class="col-lg-5">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          style="background-color: #f18235;">{{labels[0].close}}</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="vaccination" tabindex="-1" role="dialog" aria-labelledby="vaccination" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Vaccination</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4">
+              <label>First Vaccine :</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="First Vaccine" [(ngModel)]="firstvaccine"
+                name="firstvaccine">
+            </div>
+
+          </div><br>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>First Vaccine Date :</label>
+            </div>
+            <div class="col-lg-5">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="firstvaccinedate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="firstvaccinedate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="firstvaccinedate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="firstvaccinedate" bsDatepicker>
+            </div>
+
+          </div><br>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Second Vaccine :</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="Second Vaccine" [(ngModel)]="secondvaccine"
+                name="secondvaccine">
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Second Vaccine Date :</label>
+            </div>
+            <div class="col-lg-5">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="secondvaccinedate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="secondvaccinedate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="secondvaccinedate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="secondvaccinedate" bsDatepicker>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-secondary" style="background-color: #f18235;color: white;"
+                (click)="vaccinationStatus()" data-dismiss="modal">Save</button>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
+              data-dismiss="modal">{{labels[0].close}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -4682,3 +4840,7 @@
       </div>
     </div>
   </div>
+
+
+  <!-- 
+  vaccination -->

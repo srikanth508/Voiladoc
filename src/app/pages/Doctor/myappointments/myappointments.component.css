@@ -427,6 +427,25 @@ color:white;
   border-top: none;
 }
 
+
+.txtorng{
+  font-size: 12px;
+  line-height: 1.2;
+  color: #ff7007;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.textstrike
+{
+  text-decoration: line-through;
+  color:red;
+}
+
+.substiutecolor
+{
+  color:#322b6b;
+}
 /* .tableContainer{
  
   margin: -10px 0px -10px 0px;

@@ -148,7 +148,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
   public GetPhjysioworkingDatewise() {
     debugger
-    this.docservice.GetPhysioWorkingDetailsDyWise(this.physioid, 1, this.todaydate, this.languageid).subscribe(
+    this.docservice.GetPhysioWorkingDetailsDyWise(this.physioid, this.slotTypeID, this.todaydate, this.languageid).subscribe(
       data => {
         //this.workingdetails = data;
         this.DayDatelist = data[0];
@@ -186,6 +186,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
   public date: any;
   physiohospitalid: any;
   showcalender:any;
+  slotTypeID:any;
 
   GetPhysiotherapistID(item: any) {
     this.spinner.show();
@@ -194,6 +195,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     this.physioid = item.physiotherapyID
     var list = this.physioist.filter(x => x.physiotherapyID == this.physioid);
     this.physiohospitalid = list[0].id;
+    this.slotTypeID = list[0].slotDurationID;
     this.GetPhjysioworkingDatewise();
   }
 
@@ -517,7 +519,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
 
   public GetMorningSlotsMasterbyid() {
 
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.slotslist = data;

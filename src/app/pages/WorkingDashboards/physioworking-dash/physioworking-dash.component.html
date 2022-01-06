@@ -6,7 +6,7 @@
   <div class="row headerspace">
     <div class="col-lg-9" style="margin-top: -2px;">
       <h5 *ngIf="languageid==1">Physiotherapist Planning</h5>
-      <h5 *ngIf="languageid==6">PHYSIOTHÉRAPEUTE Planning</h5>
+      <h5 *ngIf="languageid==6">SOIGNANT PLANNING</h5>
     </div>
     <div class="col-lg-3" style="text-align: end;margin-top: -12px;">
       <button *ngIf="languageid==1" type="button" class="btn btncolor" routerLink="/PhysiotherapistWorkingDetails">Add
@@ -31,6 +31,23 @@
   
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+
+    <div class="col-lg-1" >
+      <div class="homecare"><span >{{labels1[0].homeVisit}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
+        <p style="margin-left:12px"> {{labels1[0].notAvailable}}</p>
+      </div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 42px;width: 127%;">
+        <p style="margin-left:12px"> {{labels1[0].meeting}}</p>
+      </div>
     </div>
   </div><br>
   <div class="row">

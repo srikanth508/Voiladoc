@@ -64,7 +64,7 @@ export class MidwifeFeesComponent implements OnInit {
       }
     )
     this.getmidwifes();
-    this.GetTimings();
+    // this.GetTimings();
   }
 
   public getmidwifes() {
@@ -282,16 +282,16 @@ export class MidwifeFeesComponent implements OnInit {
   Timeings: any;
   dummtimings: any;
 
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
 
-        this.Timeings = data;
-        this.dummtimings = data;
-      }, error => {
-      }
-    )
-  }
+  //       this.Timeings = data;
+  //       this.dummtimings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
 
   public delete(Sno) {

@@ -62,10 +62,10 @@
               <label
                 *ngIf="app.accepted=='1'&&app.midwivesCancelled=='0'&&app.cancelled=='0'&&app.isVisited=='0'&&app.notVisited=='0'"
                 style="color:green">{{labels[0].accepted}}</label>
-              <label *ngIf="app.accepted=='0'&&app.midwivesCancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
+              <label *ngIf="app.midwivesCancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
                 style="color:red">{{labels[0].midwifeCancelled}}</label>
 
-              <label *ngIf="app.accepted=='0'&&app.cancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
+              <label *ngIf="app.cancelled=='1'&&app.isVisited=='0'&&app.notVisited=='0'"
                 style="color:red">{{labels[0].patientCancelled}}</label>
               <label *ngIf="app.isVisited=='1'&&app.midwivesCancelled=='0'&&app.cancelled=='0'&&app.notVisited=='0'"
                 style="color:yellowgreen">{{labels[0].visited}}</label>

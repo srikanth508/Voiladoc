@@ -69,7 +69,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
 
   public GetMidwifeTimings() {
     this.spinner.show();
-    this.docservice.GetMidwifeYearwiseCalender(this.midwifeid, 1, this.languageid).subscribe(
+    this.docservice.GetMidwifeYearwiseCalender(this.midwifeid, this.slotTypeID, this.languageid).subscribe(
       data => {
         debugger
         this.Timings = data;
@@ -160,12 +160,14 @@ export class MidwifeWorkingDashComponent implements OnInit {
 
 
   midwifeid: any;
+  slotTypeID: any;
 
   public GetmidwifeID(item: any) {
 
     this.midwifeid = item.midWifeID;
-    var list=this.midwifelist.filter(x=>x.midWifeID==this.midwifeid);
-    this.midwifehospitalid=list[0].midwifehospitalid
+    var list = this.midwifelist.filter(x => x.midWifeID == this.midwifeid);
+    this.midwifehospitalid = list[0].midwifehospitalid,
+      this.slotTypeID = list[0].slotDurationID
     this.GetMidwifeTimings()
 
   }
@@ -305,7 +307,7 @@ export class MidwifeWorkingDashComponent implements OnInit {
     }
 
 
-  else if (this.allappointmentid == 1 && this.appointmentypeid == 6) {
+    else if (this.allappointmentid == 1 && this.appointmentypeid == 6) {
       debugger
       this.spinner.show();
       var entity1 = {

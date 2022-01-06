@@ -37,9 +37,26 @@
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"
         (click)="GetTypeID($event)" value="2"> {{labels[0].timewise}}
     </div>
-   
   </div>
-  <br>
+  <div class="row" *ngIf="showcalender=='1'">
+    <div class="col-lg-8">
+
+    </div>
+    <div class="col-lg-1" >
+      <div class="homecare"><span >{{labels[0].homeVisit}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
+        <p style="margin-left:12px"> {{labels[0].notAvailable}}</p>
+      </div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 42px;width: 127%;">
+        <p style="margin-left:12px"> {{labels[0].meeting}}</p>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-lg-12">
       <div style="margin-top:3px">

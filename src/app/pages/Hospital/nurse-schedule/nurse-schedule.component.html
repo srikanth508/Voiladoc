@@ -29,7 +29,7 @@
         [bsConfig]="{ showWeekNumbers:false }" [minDate]="today" (bsValueChange)="GetDate($event)"
         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
     </div>
-    <div class="col-lg-3" *ngIf="showcalender=='1'">
+    <div class="col-lg-5" *ngIf="showcalender=='1'">
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EditDayWiseSlots"
         (click)="GetTypeID($event)" value="1"> {{labels[0].daywise}} &nbsp;
       <input type="radio" [(ngModel)]="typeID" name="typeID" data-toggle="modal" data-target="#EdittimeWiseSlots"

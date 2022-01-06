@@ -714,8 +714,14 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   public SendTwiliSms(smsdesc) {
-    debugger
-    this.docservice.SendTwillioSMS(this.smsmobileno, smsdesc).subscribe(data => {
+    if(this.languageid==1)
+    {
+      var smstext = "Your New Password is : " + this.password
+    }
+    else{
+      var smstext = "Votre nouveau mot de passe : " + this.password
+    }
+    this.docservice.SendTwillioSMS(this.smsmobileno, smstext).subscribe(data => {
 
     })
   }

@@ -24,8 +24,9 @@ export class PhysiomonthWiseScheduleComponent implements OnInit {
   labels: any;
   todaydate: any;
   physioist: any;
-  today=new Date();
-  term:any;
+  today = new Date();
+  term: any;
+  slotTypeID: any;
   ngOnInit() {
     this.spinner.show();
     this.languageid = localStorage.getItem('LanguageID');
@@ -35,20 +36,22 @@ export class PhysiomonthWiseScheduleComponent implements OnInit {
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-
+    this.getlanguage();
     this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
       data => {
 
         this.physioist = data;
         var list = this.physioist.filter(x => x.physiotherapyID == this.physioid);
         this.physiohospitalid = list[0].id;
+        this.slotTypeID = list[0].slotDurationID;
+        this.GetPhjysioworkingDatewise();
+    this.GetMorningSlotsMasterbyid();
 
       }, error => {
       }
     )
-    this.getlanguage();
-    this.GetPhjysioworkingDatewise();
-    this.GetMorningSlotsMasterbyid();
+
+    
 
   }
 
@@ -104,7 +107,7 @@ export class PhysiomonthWiseScheduleComponent implements OnInit {
 
   public GetPhjysioworkingDatewise() {
     debugger
-    this.docservice.GetPhysioWorkingDetailsDyWise(this.physioid, 1, this.todaydate, this.languageid).subscribe(
+    this.docservice.GetPhysioWorkingDetailsDyWise(this.physioid, this.slotTypeID, this.todaydate, this.languageid).subscribe(
       data => {
         //this.workingdetails = data;
         this.DayDatelist = data[0];
@@ -399,7 +402,7 @@ export class PhysiomonthWiseScheduleComponent implements OnInit {
 
 
   public InsertDayWiseAlert() {
-debugger
+    debugger
     if (this.daychangedate == undefined || this.daychangedate == null) {
       if (this.languageid == 1) {
         Swal.fire('Please Select Date')
@@ -474,7 +477,7 @@ debugger
 
   public GetMorningSlotsMasterbyid() {
 
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.slotslist = data;

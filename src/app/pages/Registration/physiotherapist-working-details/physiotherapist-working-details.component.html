@@ -22,7 +22,7 @@
         <span class="required">*</span>
       </div>
       <div class="col-lg-4">
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="physiolist" [settings]="physiodd"
+        <ng-multiselect-dropdown [placeholder]="select" [data]="physiolist" [settings]="physiodd"
           (onSelect)="getphysioid($event)">
         </ng-multiselect-dropdown>
 
@@ -53,7 +53,7 @@
       </div>
       <div class="col-lg-4">
     
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="dayslist" [settings]="daysdd"
+        <ng-multiselect-dropdown [placeholder]="select" [data]="dayslist" [settings]="daysdd"
           (onSelect)="GetDaysID($event)">
         </ng-multiselect-dropdown>
 

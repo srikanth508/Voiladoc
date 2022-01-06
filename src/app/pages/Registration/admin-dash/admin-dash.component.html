@@ -1,16 +1,16 @@
 <br />
-<div class="container-fluid card card-hover ">
+<div class="container-fluid card card-hover">
   <div class="row  headerspace headercolor ">
     <div class="col-lg-5">
-      <h5 *ngIf="languageid=='1'">Dashboard</h5>
-      <h5 *ngIf="languageid=='6'">Tableau de bord </h5>
+      <h5 *ngIf="languageid=='1'" style="padding: 12px">Dashboard</h5>
+      <h5 *ngIf="languageid=='6'" style="padding: 12px">Tableau de bord </h5>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="padding: 14px">
       <!-- <ng-daterangepicker [(ngModel)]="value" [options]="options" (ngModelChange)="selectedDate($event)">
       </ng-daterangepicker> -->
-      <input *ngIf="languageid==1" type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
+      <input *ngIf="languageid==1"  type="text" placeholder="Select Date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (ngModelChange)="selectedDate($event)" bsDaterangepicker>
-      <input *ngIf="languageid==6" type="text"  placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
+      <input *ngIf="languageid==6"  type="text"  placeholder="Sélecteur de date" [bsConfig]="{ showWeekNumbers:false }"
         class="form-control" [(ngModel)]="value" (bsValueChange)="selectedDate($event)" bsDaterangepicker>
 
     </div>

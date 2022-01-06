@@ -47,7 +47,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     this.physioid = localStorage.getItem('physioid');
 
     this.getphysiolist();
-    this.GetTimings();
+
     this.GetDaysMaster();
 
     // this.docservice.GetPhysiotherapyHospitalDetails(this.languageid).subscribe(
@@ -71,11 +71,15 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
     this.getlanguage()
     this.spinner.hide();
   }
+  select:any;
+  search:any;
   public getlanguage() {
     this.docservice.GetAdmin_WorkingDetails_label(this.languageid).subscribe(
       data => {
 
         this.labels = data;
+        this.select=this.labels[0].select,
+        this.search = this.labels[0].search
       }, error => {
       }
     )
@@ -98,7 +102,8 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
             allowSearchFilter: true,
-            enableCheckAll: false
+            enableCheckAll: false,
+            searchPlaceholderText: this.search,
           };
 
 
@@ -121,7 +126,8 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
             unSelectAllText: 'UnSelect All',
             //  itemsShowLimit: 3,
             allowSearchFilter: true,
-            enableCheckAll: false
+            enableCheckAll: false,
+            searchPlaceholderText: this.search
           };
 
         }, error => {
@@ -131,12 +137,15 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
 
   }
 
+  slotTypeID: any;
+
   public getphysioid(item: any) {
     this.physioid = item.id;
     var list = this.dummlist.filter(x => x.id == this.physioid)
     this.hsp_clinicID = list[0].hospitalClinicID,
-      this.hospital_ClinicName = list[0].hospital_ClinicName
-
+      this.hospital_ClinicName = list[0].hospital_ClinicName,
+      this.slotTypeID = list[0].slotDurationID
+    this.GetTimings();
   }
 
   // public Getworktypeid(even) {
@@ -180,7 +189,8 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
           allowSearchFilter: true,
-          enableCheckAll: false
+          enableCheckAll: false,
+          searchPlaceholderText: this.search,
         };
 
       }, error => {
@@ -194,7 +204,7 @@ export class PhysiotherapistWorkingDetailsComponent implements OnInit {
   }
   Timeings: any;
   public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.Timeings = data;

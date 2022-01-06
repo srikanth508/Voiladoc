@@ -32,7 +32,7 @@ export class MidWifeTimingsComponent implements OnInit {
     this.enddatetime = 0;
     this.getmidwifelist();
     this.getdaysmaster()
-    this.GetTimings();
+    // this.GetTimings();
     this.getlanguage();
     this.docservice.GetMidWifeHospitalDetailsByHospitals(this.midwifeid, this.languageid,).subscribe(
       data => {
@@ -73,15 +73,15 @@ export class MidWifeTimingsComponent implements OnInit {
     )
   }
   Timeings: any
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
        
-        this.Timeings = data;
-      }, error => {
-      }
-    )
-  }
+  //       this.Timeings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
   public GetDayID(even) {
    

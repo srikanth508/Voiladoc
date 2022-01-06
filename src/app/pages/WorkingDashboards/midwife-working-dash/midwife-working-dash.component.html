@@ -25,20 +25,30 @@
         <option value="">{{labels[0].selectMidwife}}</option>
         <option *ngFor="let mid of midwifelist" value={{mid.id}}>{{mid.name}}</option>
       </select> -->
-    
-      <ng-multiselect-dropdown [placeholder]="select"  [data]="midwifelist"
-        [settings]="middd" (onSelect)="GetmidwifeID($event)">
+
+      <ng-multiselect-dropdown [placeholder]="select" [data]="midwifelist" [settings]="middd"
+        (onSelect)="GetmidwifeID($event)">
       </ng-multiselect-dropdown>
     </div>
-    <div class="col-lg-3">
-      <!-- (change)="GetDaysName($event)" -->
-      <!-- <select value="" selected class="form-control" [(ngModel)]="daysname" name="daysname">
-        <option value="">{{labels[0].selectday}}</option>
-        <option *ngFor="let days of dayslist" value={{days.dayOfTheWeek}}>{{days.dayOfTheWeek}}</option>
-      </select> -->
-    </div>
+
     <div class="col-lg-3">
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-1">
+      <div class="homecare"><span>{{labels1[0].homeVisit}}</span></div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
+        <p style="margin-left:12px"> {{labels1[0].notAvailable}}</p>
+      </div>
+    </div>
+    <div class="col-lg-1 ">
+      <div class="meeting" style="margin-left: 42px;width: 127%;">
+        <p style="margin-left:12px"> {{labels1[0].meeting}}</p>
+      </div>
     </div>
   </div><br>
   <div class="row">
@@ -188,10 +198,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-

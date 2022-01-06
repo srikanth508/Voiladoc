@@ -341,6 +341,12 @@ export class PhysiotherapistComponent implements OnInit {
     }
   }
 
+  slotTypeID:any;
+  GetSlotDurationID(even) {
+    this.slotTypeID = even.target.value;
+  }
+
+
   public insertphysiodetails() {
 
     this.spinner.show();
@@ -362,7 +368,8 @@ export class PhysiotherapistComponent implements OnInit {
       'CountryID': this.countryid,
       'HospitalClinicID': this.hospitalclinicid,
       'Education': this.education,
-      'SpokenLanguages': this.spokenlanguages
+      'SpokenLanguages': this.spokenlanguages,
+      'SlotDurationID':this.slotTypeID
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       let physioid = data;

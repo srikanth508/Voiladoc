@@ -64,7 +64,7 @@ export class PhysioFeesComponent implements OnInit {
     )
     this.idcount = 1;
     this.getphysiotherapist();
-    this.GetTimings();
+    // this.GetTimings();
   }
 
 
@@ -96,16 +96,16 @@ export class PhysioFeesComponent implements OnInit {
   Timeings: any;
   dummtimings: any;
 
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
 
-        this.Timeings = data;
-        this.dummtimings = data;
-      }, error => {
-      }
-    )
-  }
+  //       this.Timeings = data;
+  //       this.dummtimings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
 
 

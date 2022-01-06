@@ -152,7 +152,7 @@ export class NurseLoginComponent implements OnInit {
   public nurseloginlist: any;
   public nursename: any;
 
-
+  smsmobileno:any;
 
   public GetNurseLoginAdmin() {
 
@@ -163,13 +163,33 @@ export class NurseLoginComponent implements OnInit {
         var list = this.nurseloginlist.filter(x => x.nurseID == this.nurseid)
         this.nursename = list[0].nurseName,
           this.email = list[0].email,
-          this.pinno = list[0].pinno
+          this.pinno = list[0].pinno,
+          this.smsmobileno = list[0].smsmobileno
         this.sendmail()
       }, error => {
       }
     )
 
   }
+
+  
+  async SendTwiliSms() {
+    debugger
+
+    if (this.languageid == 1) {
+      var sub = 'Welcome to Voiladoc'+'Pin code  : ' + this.pinno +  + 'UserName :' + this.username + + 'Password : ' + this.password
+      
+    }
+    else {
+      var sub = 'Bienvenue sur Voialdoc'+'Code PIN  : ' + this.pinno +  + "Nom d'utilisateur :" + this.username + + 'Mot de passe : ' + this.password
+     
+    }
+
+    this.docservice.SendTwillioSMS(this.smsmobileno, sub).subscribe(async data => {
+      return true
+    })
+  }
+
 
 
 

@@ -122,6 +122,7 @@ export class PharmacyComponent implements OnInit {
     }
     // }
   }
+  smsmobileno:any;
 
 
   public getpharmacyloginfordash() {
@@ -132,10 +133,28 @@ export class PharmacyComponent implements OnInit {
         this.pinno = list[0].pinno,
           this.email = list[0].email,
           this.pharmacyname = list[0].pharmacyName
-        this.sendmail()
+        this.sendmail();
+        this.SendTwiliSms();
       }, error => {
       }
     )
+  }
+
+  async SendTwiliSms() {
+    debugger
+
+    if (this.languageid == 1) {
+      var sub = 'Welcome to Voiladoc'+'Pin code  : ' + this.pinno +  + 'UserName :' + this.username + + 'Password : ' + this.password
+      
+    }
+    else {
+      var sub = 'Bienvenue sur Voialdoc'+'Code PIN  : ' + this.pinno +  + "Nom d'utilisateur :" + this.username + + 'Mot de passe : ' + this.password
+     
+    }
+
+    this.docservice.SendTwillioSMS(this.smsmobileno, sub).subscribe(async data => {
+      return true
+    })
   }
 
   pinno: any;

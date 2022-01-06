@@ -7,6 +7,7 @@ import { NgDateRangePickerOptions } from 'ng-daterangepicker';
 import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf";
 import { timer } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-doctor-prescription',
   templateUrl: './doctor-prescription.component.html',
@@ -14,7 +15,7 @@ import { timer } from 'rxjs';
 })
 export class DoctorPrescriptionComponent implements OnInit {
   options: NgDateRangePickerOptions;
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
 
 
   value: any;
@@ -114,6 +115,8 @@ export class DoctorPrescriptionComponent implements OnInit {
       }, error => {
       }
     )
+
+
 
 
 
@@ -755,109 +758,106 @@ export class DoctorPrescriptionComponent implements OnInit {
   amounttopay: any;
 
 
-  ValidateAmount() {
 
-  }
-
-  public GetFullyOrderDetails(details) {
-    this.id = details.id
-  }
+  // public GetFullyOrderDetails(details) {
+  //   this.id = details.id
+  // }
 
 
-  public updatefullyorderdetails() {
-    var entity = {
-      'ID': this.id,
-      'AmountToPay': this.amounttopay
-    }
-    this.docservice.UpdatePatient_TextMedicineDetailsFullyAvailableBit(entity).subscribe(data => {
-      let res = data;
-      if (this.languageid == 1) {
-        Swal.fire('Success', 'Updated Successfully');
-        this.amounttopay = ""
-        this.GetPharmacyOrders()
-      }
-      else {
-        Swal.fire('Succès', 'Mis à jour avec succés');
-        this.amounttopay = ""
-        this.GetPharmacyOrders()
-      }
+  // public updatefullyorderdetails() {
+  //   var entity = {
+  //     'ID': this.id,
+  //     'AmountToPay': this.amounttopay
+  //   }
+  //   this.docservice.UpdatePatient_TextMedicineDetailsFullyAvailableBit(entity).subscribe(data => {
+  //     let res = data;
+  //     if (this.languageid == 1) {
+  //       Swal.fire('Success', 'Updated Successfully');
+  //       this.amounttopay = ""
+  //       this.GetPharmacyOrders()
+  //     }
+  //     else {
+  //       Swal.fire('Succès', 'Mis à jour avec succés');
+  //       this.amounttopay = ""
+  //       this.GetPharmacyOrders()
+  //     }
 
-    })
-  }
+  //   })
+  // }
 
 
   partialid: any;
 
 
-  public GetPartialOrderDetails(details) {
-    this.partialid = details.id
-  }
+  // public GetPartialOrderDetails(details) {
+  //   this.partialid = details.id
+  // }
 
 
-  attachments2 = []
-  attachmentsurl2 = []
-  public photodetail = []
+  // attachments2 = []
+  // attachmentsurl2 = []
+  // public photodetail = []
 
-  public dummattachmenturl = []
+  // public dummattachmenturl = []
 
-  public onattachmentUpload2(abcd) {
+  // public onattachmentUpload2(abcd) {
 
-    // for (let i = 0; i < abcd.length; i++) {
-    this.dummattachmenturl = []
-    this.attachments2.push(abcd.addedFiles[0]);
-    this.uploadattachments2();
-    // }
-    if (this.languageid == 1) {
-      Swal.fire('Added Successfully');
-      abcd.length = 0;
-    }
-    else if (this.languageid == 6) {
-      Swal.fire('Mis à jour avec succés');
-      abcd.length = 0;
-    }
+  //   // for (let i = 0; i < abcd.length; i++) {
+  //   this.dummattachmenturl = []
+  //   this.attachments2.push(abcd.addedFiles[0]);
+  //   this.uploadattachments2();
+  //   // }
+  //   if (this.languageid == 1) {
+  //     Swal.fire('Added Successfully');
+  //     abcd.length = 0;
+  //   }
+  //   else if (this.languageid == 6) {
+  //     Swal.fire('Mis à jour avec succés');
+  //     abcd.length = 0;
+  //   }
 
-  }
-  public uploadattachments2() {
-    this.docservice.DoctorMedicalProof(this.attachments2).subscribe(res => {
+  // }
+  // public uploadattachments2() {
+  //   this.docservice.DoctorMedicalProof(this.attachments2).subscribe(res => {
 
-      this.attachmentsurl2.push(res);
-      this.dummattachmenturl.push(res);
+  //     this.attachmentsurl2.push(res);
+  //     this.dummattachmenturl.push(res);
 
-      let a = this.dummattachmenturl[0].slice(2);
+  //     let a = this.dummattachmenturl[0].slice(2);
 
-      let b = 'https://maroc.voiladoc.org' + a;
+  //     let b = 'https://maroc.voiladoc.org' + a;
 
-      this.photodetail.push(b)
-
-
-      this.attachments2.length = 0;
-
-    })
-    // this.sendattachment();
-  }
+  //     this.photodetail.push(b)
 
 
-  public updatepartialorders() {
-    var entity = {
-      'ID': this.partialid,
-      'PartialPhotoUrl': this.attachmentsurl2[0],
-      'AmountToPay': this.amounttopay
-    }
-    this.docservice.UpdatePatient_TextMedicineDetailsPartialBit(entity).subscribe(data => {
-      let res = data;
-      if (this.languageid == 1) {
-        Swal.fire('Success', 'Updated Successfully');
-        this.amounttopay = ""
-        this.GetPharmacyOrders()
-      }
-      else {
-        Swal.fire('Succès', 'Mis à jour avec succés');
-        this.amounttopay = ""
-        this.GetPharmacyOrders()
-      }
+  //     this.attachments2.length = 0;
 
-    })
-  }
+  //   })
+  //   // this.sendattachment();
+  // }
+
+
+  // public updatepartialorders() {
+  //   var entity = {
+  //     'ID': this.partialid,
+  //     'PartialPhotoUrl': this.attachmentsurl2[0],
+  //     'AmountToPay': this.amounttopay
+  //   }
+  //   this.docservice.UpdatePatient_TextMedicineDetailsPartialBit(entity).subscribe(data => {
+  //     let res = data;
+  //     if (this.languageid == 1) {
+  //       Swal.fire('Success', 'Updated Successfully');
+  //       this.amounttopay = ""
+  //       this.GetPharmacyOrders()
+  //     }
+  //     else {
+  //       Swal.fire('Succès', 'Mis à jour avec succés');
+  //       this.amounttopay = ""
+  //       this.GetPharmacyOrders()
+  //     }
+
+  //   })
+  // }
 
 
 
@@ -1265,27 +1265,30 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public onattachmentUpload(abcd) {
-
-    for (let i = 0; i < abcd.length; i++) {
-      this.attachments.push(abcd[i]);
-      this.uploadattachments();
-    }
+    debugger
+    this.spinner.show();
+    this.attachments.push(abcd.addedFiles[0]);
+    this.uploadattachments();
 
     Swal.fire('Added Successfully');
     abcd.length = 0;
   }
 
   public uploadattachments() {
+    debugger
     this.docservice.pharmacyphoto(this.attachments).subscribe(res => {
-
+      debugger
+      this.spinner.hide();
       this.attachmentsurl.push(res);
       let a = this.attachmentsurl[0].slice(2);
-
+      debugger
       let b = 'https://maroc.voiladoc.org' + a;
       this.imageurl = b;
       this.image = 1;
       this.attachments.length = 0;
-
+    }, error => {
+      this.spinner.hide();
+      Swal.fire("issue with internet");
     })
     // this.sendattachment();
   }
@@ -1307,10 +1310,13 @@ export class DoctorPrescriptionComponent implements OnInit {
 
 
   public Updateavailablemedicines() {
-
-    var txtAmount = this.orderedmedicinelist.filter(x => x.amount == 0 && (x.availableBit == true || x.availableBit == 1));
+    debugger
+    
+    var txtAmount = this.orderedmedicinelist.filter(x => (x.amount == 0 && (x.availableBit == true || x.availableBit == 1)) && (x.substituteBit != true && x.substituteBit != 1));
+    var subAmount = this.orderedmedicinelist.filter(x => (x.subAmount == 0 && (x.availableBit == true || x.availableBit == 1)) && (x.substituteBit == true && x.substituteBit == 1));
+    debugger
     var mandatoryOne = this.orderedmedicinelist.filter(x => (x.availableBit == true || x.availableBit == 1))
-    if (txtAmount.length != 0 || mandatoryOne.length == 0) {
+    if (txtAmount.length != 0 || mandatoryOne.length == 0||subAmount.length!=0) {
       if (this.languageid == 1) {
         Swal.fire("For available drugs, please make sure you have entered the price and ticked the box in the corresponding action column.");
       }
@@ -1327,6 +1333,7 @@ export class DoctorPrescriptionComponent implements OnInit {
     //   }
     // }
     else {
+      this.spinner.show();
       for (let i = 0; i < this.orderedmedicinelist.length; i++) {
         debugger
         var entity = {
@@ -1335,7 +1342,13 @@ export class DoctorPrescriptionComponent implements OnInit {
           'AvailableBit': this.orderedmedicinelist[i].availableBit,
           'Quantity': this.orderedmedicinelist[i].quantity,
           'MedicineName': this.orderedmedicinelist[i].medicineName,
-          'SIG': this.orderedmedicinelist[i].sig
+          'SIG': this.orderedmedicinelist[i].sig,
+          'SubMedicineName': this.orderedmedicinelist[i].subMedicineName,
+          'SubQuantity': this.orderedmedicinelist[i].subQuantity,
+          'SubPhysology': this.orderedmedicinelist[i].subPhysology,
+          'SubAmount': this.orderedmedicinelist[i].subAmount,
+          'DocPrID': this.orderedmedicinelist[i].docPrID,
+          'SubstituteBit': this.orderedmedicinelist[i].substituteBit
         }
         this.docservice.UpdatePatientOrderedMedicinesAvailableMedicines(entity).subscribe(data => {
           debugger
@@ -1347,16 +1360,23 @@ export class DoctorPrescriptionComponent implements OnInit {
               Swal.fire('Mis à jour avec succès !');
             }
             this.Notification()
-            if (this.languageid == 1) {
-              var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
-            }
-            else {
-              var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
-            }
-            this.SendTwiliSms(smsdesc, this.smsmobleno);
-            this.GetPharmacyOrders()
+            
+            this.GetPharmacyOrders();
+            this.spinner.hide();
+          },error=>{
+            this.spinner.hide();
           })
+        },error=>{
+          this.spinner.hide();
         })
+
+        if (this.languageid == 1) {
+          var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
+        }
+        else {
+          var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
+        }
+        this.SendTwiliSms(smsdesc, this.smsmobleno);
       }
 
 
@@ -1377,19 +1397,20 @@ export class DoctorPrescriptionComponent implements OnInit {
     })
   }
 
-
+  comments: any;
+  attachmentsurl2 = []
 
   public updateamount() {
-
     var entity = {
       'ID': this.id,
-      'PhotoPrescriptionAmount': this.amounttopay
+      'PhotoPrescriptionAmount': this.amounttopay,
+      'SubPhotoUrl': this.attachmentsurl[0],
+      'SubRemarks': this.comments
     }
     this.docservice.UpdatePatient_TextMedicineDetailsPhotoAmount(entity).subscribe(data => {
       if (this.languageid == 1) {
         Swal.fire("Amount Updated Successfully");
         this.getpharmacyorders()
-
       }
       else {
         Swal.fire("Montant mis à jour et envoyé au patient.");

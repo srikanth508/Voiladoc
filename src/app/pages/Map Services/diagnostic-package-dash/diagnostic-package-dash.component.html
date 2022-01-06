@@ -38,7 +38,8 @@
 
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 60px;">Count : {{count}}</label>
+      <label style="margin-left: 60px;" *ngIf="languageid==1">Count : {{count}}</label>
+      <label style="margin-left: 60px;" *ngIf="languageid==6">Nombre : {{count}}</label>
     </div>
   </div>
   <br>

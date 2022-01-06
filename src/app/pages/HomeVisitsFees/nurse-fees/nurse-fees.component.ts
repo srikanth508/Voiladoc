@@ -74,21 +74,21 @@ export class NurseFeesComponent implements OnInit {
       }
     )
     this.getnurse();
-    this.GetTimings();
+    // this.GetTimings();
   }
 
 
-  Timeings: any
-  public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
-      data => {
+   Timeings: any
+  // public GetTimings() {
+  //   this.docservice.GetSlotMasterTimings().subscribe(
+  //     data => {
 
-        this.Timeings = data;
-        this.dummtimings = data;
-      }, error => {
-      }
-    )
-  }
+  //       this.Timeings = data;
+  //       this.dummtimings = data;
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
 
   public getnurse() {

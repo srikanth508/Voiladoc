@@ -121,7 +121,7 @@ export class PhysioworkingDashComponent implements OnInit {
 
   Timings: any;
   public getPhysioTimings() {
-    this.docservice.GetPhysioYearwiseCalender(this.physioid, 1, this.languageid).subscribe(
+    this.docservice.GetPhysioYearwiseCalender(this.physioid, this.SlotTypeID, this.languageid).subscribe(
       data => {
         debugger
         this.Timings = data;
@@ -155,12 +155,14 @@ export class PhysioworkingDashComponent implements OnInit {
   // }
 
   physioid: any;
+  SlotTypeID:any;
 
   public GetPhysioID(item: any) {
     this.spinner.show();
     this.physioid = item.physiotherapyID
     var list = this.physioist.filter(x => x.physiotherapyID == this.physioid);
-    this.phsyhospitadetailsid = list[0].id
+    this.phsyhospitadetailsid = list[0].id,
+    this.SlotTypeID = list[0].slotDurationID
     this.getPhysioTimings()
   }
 

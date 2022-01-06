@@ -71,7 +71,8 @@ export class PatientsregComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
 
 
@@ -98,7 +99,8 @@ export class PatientsregComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
 
 
@@ -107,11 +109,14 @@ export class PatientsregComponent implements OnInit {
     )
   }
 
+  search: any;
+
   public getlanguage() {
     this.docservice.GetAdmin_Masters_labels(this.languageid).subscribe(
       data => {
 
         this.labels = data;
+        this.search = this.labels[0].search
 
       },
       error => { }
@@ -135,7 +140,8 @@ export class PatientsregComponent implements OnInit {
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           //  itemsShowLimit: 3,
-          allowSearchFilter: true
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
         };
       }, error => {
       }
@@ -251,9 +257,16 @@ export class PatientsregComponent implements OnInit {
     },
       error => {
         debugger
-
         debugger
-        Swal.fire("Exception while Importing");
+        if(this.languageid==1)
+        {
+          Swal.fire("Exception while Importing");
+        }
+        else
+        {
+          Swal.fire("Erreur détectée lors de l'importation.")
+        }
+      
         this.contactdata = [];
         this.qwerty = [];
         debugger

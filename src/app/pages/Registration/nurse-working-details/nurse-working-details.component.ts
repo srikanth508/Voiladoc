@@ -44,7 +44,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.getnurselist();
     this.GetDaysMaster();
-    this.GetTimings();
+   
     this.idcount = 1;
     this.table = 0;
     this.active = 0;
@@ -140,13 +140,17 @@ export class NurseWorkingDetailsComponent implements OnInit {
       )
     }
   }
+  slotTypeID:any;
 
   public getnurseid(item: any) {
     this.nurseid = item.id;
     debugger
     var list = this.dummnurselist.filter(x => x.id == this.nurseid)
     this.hsp_clinicID = list[0].hospitalClinicID,
-      this.hospital_ClinicName = list[0].hospital_ClinicName
+      this.hospital_ClinicName = list[0].hospital_ClinicName,
+      this.slotTypeID = list[0].slotDurationID
+
+      this.GetTimings();
     debugger
   }
 
@@ -203,7 +207,7 @@ export class NurseWorkingDetailsComponent implements OnInit {
   }
   Timeings: any
   public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.Timeings = data;

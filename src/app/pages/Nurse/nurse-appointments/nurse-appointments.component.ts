@@ -328,6 +328,8 @@ export class NurseAppointmentsComponent implements OnInit {
     this.acceppatientid = patientID;
     this.accemail = emailID;
     this.smsmobileno = smsmobileno
+    this.acceptappointment();
+
   }
 
 
@@ -831,18 +833,16 @@ export class NurseAppointmentsComponent implements OnInit {
       'ReceiptURL': this.pdfurl
     }
     this.docservice.UpdateBook_Nurse_AppointmentPdfUrl(entity).subscribe(data => {
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Receipt Sent Successfully');
       }
-      else
-      {
+      else {
         Swal.fire('Le reçu a été envoyé au patient.');
       }
-     
+
     })
   }
-  phoneno:any;
+  phoneno: any;
 
   public GetRecept(id, bookedtime, apptDatetime, nurseName, hospital_ClinicName, patientID, emailID, details) {
     this.slottime = bookedtime;
@@ -857,7 +857,7 @@ export class NurseAppointmentsComponent implements OnInit {
       this.address = details.address,
       this.paidAmount = details.paidAmount,
       this.patientname = details.patientName
-      this.phoneno=details.phoneNo
+    this.phoneno = details.phoneNo
 
   }
 

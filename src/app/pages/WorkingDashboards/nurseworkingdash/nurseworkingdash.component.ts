@@ -151,15 +151,16 @@ export class NurseworkingdashComponent implements OnInit {
     }
   }
 
-
+  slotTypeID:any;
 
   public GetNurseID(item: any) {
 
     this.nurseid = item.nurseID;
 
     var list = this.nurselist.filter(x => x.nurseID == this.nurseid);
-    this.nursehospitaldetilsid = list[0].nursehospitalid
-    // this.getnurseesworkingdetails()
+    this.nursehospitaldetilsid = list[0].nursehospitalid,
+    this.slotTypeID = list[0].slotDurationID
+    
     this.GetNurseTimings()
   }
 
@@ -177,7 +178,7 @@ export class NurseworkingdashComponent implements OnInit {
 
   Timeings: any
   public GetTimings() {
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.Timeings = data;
@@ -191,7 +192,7 @@ export class NurseworkingdashComponent implements OnInit {
 
   public GetNurseTimings() {
     this.spinner.show();
-    this.docservice.GetNurseSlotsByNurseID(this.nurseid, 1, this.languageid).subscribe(
+    this.docservice.GetNurseSlotsByNurseID(this.nurseid, this.slotTypeID, this.languageid).subscribe(
       data => {
         debugger
         this.Timings = data;

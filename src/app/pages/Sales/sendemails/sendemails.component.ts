@@ -121,8 +121,17 @@ export class SendemailsComponent implements OnInit {
     this.attchement.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Fichier ajouté.');
+      abcd.length = 0;
+    }
+   
   }
 
 

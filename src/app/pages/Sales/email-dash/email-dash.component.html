@@ -25,7 +25,7 @@
     <div class="col-lg-4">
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
   </div>
   <br />
@@ -36,9 +36,9 @@
           <tr>
             <th>Date</th>
             <th>{{ labels[0].patientName }}</th>
-            <th>Subject</th>
+            <th>{{labels[0].subject}}</th>
             <th>{{ labels[0].emailID }}</th>
-            <th>Message</th>
+            <th>{{labels[0].message}}</th>
             <th>Attachments</th>
           </tr>
           <tr *ngFor="let list of Patientlist|filter:search">

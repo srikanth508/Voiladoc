@@ -16,7 +16,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
   public TodatDate: any;
   public languageid: any;
   public workingdetails: any;
-  term:any;
+  term: any;
   showmonth: any;
   month: any;
   year: any;
@@ -25,41 +25,33 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
   public nurseid: any;
   public Workinglist: any;
   todaydate: any;
-  today=new Date();
+  today = new Date();
+  slotTypeID: any;
 
   ngOnInit() {
 
     this.spinner.show();
     this.nurseid = localStorage.getItem('nurseid');
     this.languageid = localStorage.getItem('LanguageID');
-
-    this.timeSheetTablearray = [];
-    this.TodatDate = new Date();
-    var date = new Date();
-
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-
-    // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
-    // var Lastdate;
-    // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    //
-    // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    debugger
     this.getlanguage();
     this.docservice.GetNurseHospitalDetailsNurses(this.languageid).subscribe(
       data => {
+        debugger
         this.nurselist = data;
         var list = this.nurselist.filter(x => x.nurseID == this.nurseid);
-        this.nursehospitalid = list[0].nursehospitalid
-
+        this.nursehospitalid = list[0].nursehospitalid,
+          this.slotTypeID = list[0].slotDurationID
+          this.GetNurseWorkingDetailsDyWise();
+          this.GetMorningSlotsMasterbyid();
       }, error => {
       }
     )
-    this.GetMorningSlotsMasterbyid();
 
-    this.GetNurseWorkingDetailsDyWise()
   }
 
 
@@ -97,7 +89,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
 
   public GetNurseWorkingDetailsDyWise() {
     debugger
-    this.docservice.GetNurseWorkingDetailsDyWise(this.nurseid, 1, this.todaydate, this.languageid).subscribe(
+    this.docservice.GetNurseWorkingDetailsDyWise(this.nurseid,this.slotTypeID, this.todaydate, this.languageid).subscribe(
       data => {
         //this.workingdetails = data;
         this.DayDatelist = data[0];
@@ -434,7 +426,7 @@ export class NurseMonthWiseScheduleComponent implements OnInit {
 
   public GetMorningSlotsMasterbyid() {
 
-    this.docservice.GetSlotMasterTimings().subscribe(
+    this.docservice.GetSlotMasterTimings(this.slotTypeID).subscribe(
       data => {
 
         this.slotslist = data;

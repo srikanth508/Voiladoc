@@ -46,7 +46,7 @@ export class DiagnostictestComponent implements OnInit {
       this.showdropdown = 1;
     }
     else {
-      this.showdropdown = 1;
+      this.showdropdown = 2;
     }
     this.getlanguage();
     this.getdiagnosticforadmin();

@@ -69,12 +69,11 @@ export class SendSmsComponent implements OnInit {
   public sendsms() {
     for (let i = 0; i < this.sendemailpatients.length; i++) {
       this.spinner.show();
-      
-      let Entity = {
-        'Contacts': this.sendemailpatients[i].mobileNumber,
-        'TextMessage': this.message
-      }
-      this.docservice.SendSMS(Entity).subscribe(data => {
+      // let Entity = {
+      //   'Contacts': this.sendemailpatients[i].smsmobileno,
+      //   'TextMessage': this.message
+      // }
+      this.docservice.SendTwillioSMS(this.sendemailpatients[i].smsmobileno,this.message).subscribe(data => {
         
         var entity = {
           'PatientID': this.sendemailpatients[i].id,

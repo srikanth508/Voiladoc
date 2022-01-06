@@ -402,4 +402,10 @@ export class NewPatientHistoryComponent implements OnInit {
     )
   }
 
+
+  public GetReportPdf(pdf) {
+
+    window.open(pdf, "_blank");
+  }
+
 }

@@ -3,7 +3,8 @@
   <br />
   <div class="row ">
     <div class="col-lg-3">
-      <h5>SMS dashboard</h5>
+      <h5 *ngIf="languageid==1">SMS dashboard</h5>
+      <h5 *ngIf="languageid==6">TABLEAU DE BORD SMS</h5>
     </div>
     <div class="col-lg-6"></div>
     <div class="col-lg-3"></div>
@@ -25,7 +26,7 @@
     <div class="col-lg-4">
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{ labels[0].count }} : <b>{{count}}</b></label>
     </div>
   </div>
   <br />
@@ -36,8 +37,8 @@
           <tr>
             <th>Date</th>
             <th>{{ labels[0].patientName }}</th>
-            <th>Mobile Number</th>
-            <th>Message</th>
+            <th>{{ labels[0].mobileNumber }}</th>
+            <th>{{ labels[0].message }}</th>
             <th>{{ labels[0].emailID }}</th>
           </tr>
           <tr *ngFor="let list of Patientlist|filter:search">

@@ -6,11 +6,12 @@
 <div class="container-fluid card card:hover">
   <br />
   <div class="row ">
-    <div class="col-lg-3">
-      <h5>SMS</h5>
+    <div class="col-lg-6">
+      <h5 *ngIf="languageid==1">SMS MESSAGING SERVICE</h5>
+      <h5 *ngIf="languageid==6">SERVICE DE MESSAGERIE SMS</h5>
     </div>
     <div class="col-lg-6"></div>
-    <div class="col-lg-3"></div>
+   
   </div>
   <br />
 </div>
@@ -23,7 +24,7 @@
     <div class="col-lg-7">
     </div>
     <div class="col-lg-2">
-      <label style="margin-left: 76px;"> Count : <b>{{count}}</b></label>
+      <label style="margin-left: 76px;"> {{labels[0].count}} : <b>{{count}}</b></label>
     </div>
     <!-- <div class="col-lg-2">
       <input type="checkbox" (change)="GetPatientSelectAll($event)"> Select All

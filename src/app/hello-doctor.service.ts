@@ -1508,7 +1508,7 @@ export class HelloDoctorService {
   }
   public DeletePhysiotherapistWorkingDetails(id) {
 
-    return this.http.get<any[]>(this.host + '/Admin/DeletePhysiotherapistWorkingDetails?ID='+id);
+    return this.http.get<any[]>(this.host + '/Admin/DeletePhysiotherapistWorkingDetails?ID=' + id);
   }
 
   public GetMidWifeHospitalDetailsWeb(mid, lid) {
@@ -3841,9 +3841,9 @@ export class HelloDoctorService {
     );
   }
 
-  public GetSlotMasterTimings() {
+  public GetSlotMasterTimings(SlotTypeID) {
 
-    return this.http.get<any[]>(this.host + '/Doctor/GetSlotMasterTimings');
+    return this.http.get<any[]>(this.host + '/Doctor/GetSlotMasterTimings?SlotTypeID=' + SlotTypeID);
   }
 
   public UpdateSickSlipGenarator(data) {
@@ -6030,7 +6030,7 @@ export class HelloDoctorService {
     return this.http.post(this.url, data)
   }
 
-  
+
   public GetDoctor_PatientDiagosticApps(patientid, lid) {
 
     return this.http.get<any[]>(this.host + '/Doctor/GetDoctor_PatientDiagosticApps?PateintID=' + patientid + '&LanguageID=' + lid);
@@ -6072,7 +6072,7 @@ export class HelloDoctorService {
   }
 
 
-  
+
   public GetPhysioAppointmentdabySlot(physioid, slotid, appdate) {
 
     return this.http.get<any[]>(this.host + '/Admin/GetPhysioAppointmentdabySlot?PhysioID=' + physioid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
@@ -6083,8 +6083,40 @@ export class HelloDoctorService {
     return this.http.get<any[]>(this.host + '/Admin/GetPhysioCancelledAppointmentByDateWise?PhysioID=' + physioid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
   }
 
-    public GetBook_Physio_AppointmentCount(appdate, physioid) {
+  public GetBook_Physio_AppointmentCount(appdate, physioid) {
 
     return this.http.get<any[]>(this.host + '/Admin/GetBook_Physio_AppointmentCount?AppointmentDate=' + appdate + '&PhysioID=' + physioid);
+  }
+
+
+  public GetMidwifeWorkingDetailsDyWise(nurseid, slotypeid, StartDate, lid) {
+    return this.http.get<any[]>(this.host + '/Admin/GetMidwifeWorkingDetailsDyWise?MidwifeID=' + nurseid + '&SlotTypeID=' + slotypeid + '&StartDate=' + StartDate + '&LanguageID=' + lid);
+  }
+
+
+  public InsertMidwifeWorkingDetails_DateWise(data) {
+    this.url = this.host + '/Admin/InsertMidwifeWorkingDetails_DateWise';
+    return this.http.post(this.url, data)
+  }
+
+
+  public GetMidwifeAppointmentdabySlot(midwifeid, slotid, appdate) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetMidwifeAppointmentdabySlot?MidWivesID=' + midwifeid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
+  }
+
+  public GetMidwifeCancelledAppointmentByDateWise(midwifeid, slotid, appdate) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetMidwifeCancelledAppointmentByDateWise?MidwifeID=' + midwifeid + '&DoctorSlotID=' + slotid + '&ApptDatetime=' + appdate);
+  }
+  public GetBook_Midwives_AppointmentCount(appdate, MidwifeID) {
+
+    return this.http.get<any[]>(this.host + '/Admin/GetBook_Midwives_AppointmentCount?AppointmentDate=' + appdate + '&MidwifeID=' + MidwifeID);
+  }
+
+
+  public UpdatePatientRegistrationVaccinationstatus(data) {
+    this.url = this.host + '/Doctor/UpdatePatientRegistrationVaccinationstatus';
+    return this.http.post(this.url, data)
   }
 }

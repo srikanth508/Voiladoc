@@ -42,3 +42,30 @@ th::first-letter{
       label{
         margin-right: 10px;
     }
+
+    .homecare
+    {
+      height: 30px;
+      width: 100px;
+      background-color: #0099FF;
+      color:white;
+      margin-left: 22px;
+      text-indent: 13px
+    }
+    .Notavailable
+    {
+      height: 30px;
+      width: 100px;
+      background-color: #D3D3D3;
+      color:white;
+      margin-left: 22px;
+    }
+  
+    .meeting
+    {
+      height: 30px;
+      width: 100px;
+      background-color: #FFC000;
+      color:white;
+      margin-left: 22px;
+    }

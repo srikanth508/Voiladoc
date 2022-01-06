@@ -6,11 +6,12 @@
 <div class="container-fluid card card:hover">
   <br />
   <div class="row ">
-    <div class="col-lg-3">
-      <h5>Doctor Medicines</h5>
+    <div class="col-lg-6">
+      <h5 *ngIf="languageid==1">COMPLETE DOCTOR REPORT</h5>
+      <h5 *ngIf="languageid==6">RAPPORT MÉDECIN COMPLET</h5>
     </div>
     <div class="col-lg-6"></div>
-    <div class="col-lg-3"></div>
+  
   </div>
   <br />
 </div>
@@ -57,13 +58,21 @@
               <img src="assets/Images/medical.png" data-toggle="modal" data-target="#mymodalss"
                 (click)="GetAllPrescription(details.id,details.emailID)">&nbsp;
 
-              <button (click)="disabledoctor(details.id)" *ngIf="details.enabledisble=='0'"
-                style="background-color: green;color: aliceblue;border: none;">Disable</button>
+
+
+                <img src="assets/Images/active.png" *ngIf="details.enabledisble=='0'" style="width: 30px;" 
+                (click)="disabledoctor(details.id)" >&nbsp;
+
+                <img src="assets/Images/dactive.png" *ngIf="details.enabledisble=='1'" style="width: 30px;" 
+                (click)="enabledoctor(details.id)" >&nbsp;
+
+              <!-- <button 
+                style="background-color: green;color: aliceblue;border: none;">Disable</button> -->
               <!-- *ngIf="details.hidden=='0'" -->
 
 
-              <button (click)="enabledoctor(details.id)" *ngIf="details.enabledisble=='1'"
-                style="background-color: red;color: aliceblue;border: none;">Enable</button>
+              <!-- <button (click)="enabledoctor(details.id)" *ngIf="details.enabledisble=='1'"
+                style="background-color: red;color: aliceblue;border: none;">Enable</button> -->
 
             </td>
           </tr>
@@ -497,7 +506,7 @@
       </div>
       <div class="modal-footer" style="margin-top: -24px;">
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
-          (click)="SavePdf()">{{labels2[0].sendtopatient}}</button>
+          (click)="SavePdf()">Envoyer au médecin</button>
 
         <button type="button" class="btn btn-default" style="background-color: #f18235;color: white;"
           (click)="DownloadPdf()">{{labels2[0].download}}</button>

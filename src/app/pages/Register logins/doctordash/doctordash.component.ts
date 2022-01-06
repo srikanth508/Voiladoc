@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../../hello-doctor.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-doctordash',
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class DoctordashComponent implements OnInit {
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
 
   public doctorloginlist: any;
   public docid: any;
@@ -26,6 +27,7 @@ export class DoctordashComponent implements OnInit {
   countrymanaerid: any;
   showeditbutton: any;
   ngOnInit() {
+    this.spinner.show();
     this.languageid = localStorage.getItem('LanguageID');
     this.pinno = localStorage.getItem('Pinno');
     this.getlanguage();
@@ -57,8 +59,9 @@ export class DoctordashComponent implements OnInit {
     if (this.hospitalclinicid == undefined) {
       this.docservice.GetDoctorLoginForDash(this.languageid).subscribe(
         data => {
-
+          this.spinner.hide();
           this.doctorloginlist = data;
+          console.log('doclist', this.doctorloginlist)
           this.count = this.doctorloginlist.length;
         }, error => {
         }
@@ -193,9 +196,9 @@ export class DoctordashComponent implements OnInit {
 
 
   public CheckPasswordvalidate() {
-    
+
     if (this.Enteredpinno == "" || this.entercurrentpwd == "") {
-      
+
       if (this.languageid == 1) {
         Swal.fire('Please Enter Your Pin No && Current password')
         this.entercurrentpwd = "";
@@ -210,28 +213,91 @@ export class DoctordashComponent implements OnInit {
 
     }
     else {
-      
+
       if (this.pinno == this.Enteredpinno && this.currentpwd == this.entercurrentpwd) {
         this.Showpassword = 1;
         this.Enteredpinno = ""
         this.entercurrentpwd = "";
       }
       else {
-        
-        if(this.languageid==1)
-        {
+
+        if (this.languageid == 1) {
           Swal.fire('Please enter valid Pin and valid password')
           this.Enteredpinno = ""
           this.currentpwd = ""
         }
-        else
-        {
+        else {
           Swal.fire('Veuilez saisir un PIN valide et un mot de passe valide.')
           this.Enteredpinno = ""
           this.currentpwd = ""
         }
-      
+
       }
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  emailattchementurl = [];
+  public email: any;
+  public doctorname: any;
+
+  async sendmail(details) {
+    this.spinner.show();
+    if (this.languageid == 1) {
+      var sub = "Welcome to Voiladoc"
+      var body = 'Dear ' + details.doctorName + ',' + "<br><br>" + 'Thank You For Registering Voiladoc Plaform. Here are your login details. ' + "<br><br>" + 'Voiladoc pro web link : https://maroc.voiladoc.org/' + "<br>" + 'Pin code  : ' + details.pinno + "<br>" + 'UserName :' + details.userName + "<br>" + 'Password : ' + details.password + "<br><br>" + 'Please do not share your login credentials with anyone. Contact our helpline on +212522446145 or email us at support@voiladoc.ma' + "<br><br>" + 'Regards,' + "<br>" + 'Voiladoc Team' + "<br>" + 'www.voiladoc.ma'
+    }
+    else {
+      var sub = "Bienvenue sur Voialdoc "
+      var body = 'Cher ' + details.doctorName + ',' + "<br><br>" + 'Merci de vous être inscrit sur Voiladoc. Voici vos identifiants de connexion. ' + "<br><br>" + 'Lien web Voiladoc pro : https://maroc.voiladoc.org/' + "<br>" + 'Code PIN  : ' + details.pinno + "<br>" + "Nom d'utilisateur :" + details.userName + "<br>" + 'Mot de passe : ' + details.password + "<br><br>" + "Veuillez ne pas partager vos identifiants de connexion avec qui que ce soit. Contactez notre ligne d'assistance au +212522446145 ou envoyez-nous un e-mail à support@voiladoc.ma" + "<br><br>" + 'Meilleures salutations,' + "<br>" + 'Team Voiladoc' + "<br>" + 'www.voiladoc.com'
+    }
+
+    var entity = {
+      'emailto': details.emailID,
+      'emailsubject': sub,
+      'emailbody': body,
+      'attachmenturl': this.emailattchementurl,
+      'cclist': 0,
+      'bcclist': 0
+    }
+    this.docservice.sendemail(entity).subscribe(data => {
+
+      this.SendTwiliSms(details);
+    },error=>{
+      this.spinner.hide();
+    })
+  }
+
+
+
+  SendTwiliSms(details) {
+    debugger
+
+    if (this.languageid == 1) {
+      var sub = 'Welcome to Voiladoc' + 'Pin code  : ' + details.pinno + ' UserName :' + details.userName + ' Password : ' + details.password
+
+    }
+    else {
+      var sub = 'Bienvenue sur Voialdoc' + 'Code PIN  : ' + details.pinno + '  Nom dutilisateur : ' + details.userName + ' Mot de passe : ' + details.password
+
+    }
+
+    this.docservice.SendTwillioSMS(details.smsmobileno, sub).subscribe(async data => {
+      Swal.fire("Email Sent Successfully");
+      this.spinner.hide();
+    },error=>{
+      this.spinner.hide();
+    })
+  }
+
 }
