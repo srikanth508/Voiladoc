@@ -16,10 +16,14 @@
       <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
     <div class="col-lg-3" >
-      <select class="form-control" *ngIf="showDrop=='1'" (change)="GetDiagnosticcenterID($event)">
+      <!-- <select class="form-control" *ngIf="showDrop=='1'" (change)="GetDiagnosticcenterID($event)">
         <option value="0">{{labels[0].selectDiagmosticcenter}}</option>
         <option *ngFor="let dia of diagnosticlist" value="{{dia.id}}">{{dia.diagnosticCenterName}}</option>
-      </select>
+      </select> -->
+
+      <ng-multiselect-dropdown [placeholder]="SelectLabel" [data]="diagnosticlist" [settings]="dia"
+      (onSelect)="GetDiagnosticcenterID($event)">
+    </ng-multiselect-dropdown>
     </div>
     <div class="col-lg-6">
       <label style="float: right;" *ngIf="languageid=='1'">Count : {{count}}</label>
@@ -69,13 +73,13 @@
     </div>
   </div>
   <br>
-  <!-- <div class="col-lg-12" style="text-align: center">
+  <div class="col-lg-12" style="text-align: center">
     <br>
     <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
       responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
       screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div> -->
+  </div>
   <br>
   <br>
 </div>

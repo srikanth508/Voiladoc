@@ -19,6 +19,7 @@ export class NurseServicesDashComponent implements OnInit {
   showdropdown: any;
   hospitalclinicid: any;
   ngOnInit() {
+    debugger
     this.languageid = localStorage.getItem('LanguageID');
     this.nurseid = localStorage.getItem('nurseid');
     this.hospitalclinicid = localStorage.getItem('hospitalid');
@@ -60,6 +61,7 @@ export class NurseServicesDashComponent implements OnInit {
 
   public GetNurseServices() {
     if (this.nurseid != undefined) {
+      debugger
       this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
         data => {
 
@@ -68,8 +70,8 @@ export class NurseServicesDashComponent implements OnInit {
         }
       )
     }
-    if (this.hospitalclinicid != undefined) {
-
+   else if (this.hospitalclinicid != undefined) {
+      debugger
       this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
         data => {
 
@@ -79,7 +81,7 @@ export class NurseServicesDashComponent implements OnInit {
       )
     }
     else {
-
+      debugger
       this.docservice.GetNurseServicesByIDWeb(this.languageid, 0).subscribe(
         data => {
 

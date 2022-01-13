@@ -6119,4 +6119,21 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/UpdatePatientRegistrationVaccinationstatus';
     return this.http.post(this.url, data)
   }
+
+
+  public GetPatient_VaccinationDetails(PatientID) {
+
+    return this.http.get<any[]>(this.host + '/Doctor/GetPatient_VaccinationDetails?PatientID=' + PatientID);
+  }
+
+
+  public InsertPatient_VaccinationDetails(data) {
+    this.url = this.host + '/Doctor/InsertPatient_VaccinationDetails';
+    return this.http.post(this.url, data)
+  }
+
+  public GetBookApptbyPatientID(id, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetBookApptbyPatientID?PatientID=' + id + '&LanguageID=' + lid);
+  }
 }

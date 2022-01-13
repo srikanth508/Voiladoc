@@ -859,6 +859,8 @@ export class NurseAppointmentsComponent implements OnInit {
       this.patientname = details.patientName
     this.phoneno = details.phoneNo
 
+    this.getNurseServices(id);
+
   }
 
 
@@ -1026,15 +1028,24 @@ export class NurseAppointmentsComponent implements OnInit {
 
 
   Services: any;
-
-
+  nationaidno:any;
+  servicename: any;
 
   getNurseServices(Appointmentid) {
     debugger
+    this.servicename == '';
     this.docservice.GetBookAppointment_NurseServices(Appointmentid).subscribe(
       data => {
         debugger
         this.Services = data;
+        for (let i = 0; i < this.Services.length; i++) {
+          if (this.servicename == '') {
+            this.servicename = this.Services[i].serviceName
+          }
+          else {
+            this.servicename = ',' + this.Services[i].serviceName
+          }
+        }
       }, error => {
       }
     )

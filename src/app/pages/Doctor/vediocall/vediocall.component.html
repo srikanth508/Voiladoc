@@ -123,6 +123,9 @@
             <td class="tabletdstyles">
 
               {{labels[0].statutvaccinal}} : {{vaccinationStatus}}
+
+              <img src="assets/Images/vaccination.png" style="width: 25px;" data-toggle="modal"
+              data-target="#vaccination" (click)="getvaccinatindetails()">
             </td>
           </tr>
           <tr>
@@ -214,7 +217,7 @@
             <td colspan="2" style="text-align: left;">
               Photos : <img src="assets/Images/imgicon.png" *ngIf="photoexist=='1'" title="{{labels[0].images}}"
                 (click)="GetImagesID()" data-toggle="modal" data-target="#exampleModalLong2"
-                style="margin: 2%;width: 20px;" />
+                style="margin: 2%;width: 20px;" />&nbsp;
               <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
                 *ngIf="photoexist=='0'">{{labels[0].nophotos}}</span>&nbsp; <br>
 
@@ -228,7 +231,7 @@
                 title="{{labels[0].video}}" style="margin: 2%;width: 20px;"
                 (click)="GetReportsssss()" />&nbsp;
                 <span style="font-family: Helvetica Neue, Helvetica,Arial,sans-serif;"
-                *ngIf="pdfexist=='0'">No Pdf</span><br>
+                *ngIf="pdfexist=='0'">{{labels[0].nopdf}}</span><br>
           
             </td>
           </tr>
@@ -560,7 +563,7 @@
       </div>
       <div class="modal-body" stylw="width:1100px">
         <div class="container-fluid">
-          <form #diaForm="ngForm">
+          <!-- <form #diaForm="ngForm">
 
             <div class="row">
               <div class="col-lg-5">
@@ -619,7 +622,7 @@
                 </div>
               </div> <br>
             </div>
-            <!-- *ngIf="testid==2" -->
+           
             <div>
               <div class="row">
                 <div class="col-lg-5">
@@ -666,80 +669,6 @@
               </div>
             </div>
             <br>
-            <!-- <div class="row">
-              <div class="col-lg-5">
-                <h6>{{labels[0].chooseFromtemplate}} </h6>
-                <select class="form-control" (change)="GetTestTemplateID($event)">
-                  <option selected="selected" value="0">{{labels[0].select}}</option>
-                  <option *ngFor="let testtemp of TestTemplateList" value="{{testtemp.id}}">{{testtemp.templateName}}
-                  </option>
-                </select>
-              </div>
-          
-            </div>
-            <br> -->
-            <!-- <div class="row">
-              
-              <div class="col-lg-5">
-                <h6>{{labels[0].fillAllDetails}}</h6>
-              </div>
-            </div>
-            <br> -->
-            <!-- <div class="row">
-              <div class="col-lg-5">
-                <select class="form-control" (change)="GetDiagnosticTestID($event)" [(ngModel)]="testid" name="testid">
-                  <option value="0">{{labels[0].select}} {{labels[0].testType}}</option>
-                  <option *ngFor="let test of testslist" value={{test.id}}>{{test.name}}</option>
-                </select>
-                <br>
-                <select class="form-control" (change)="GetDiagnosticTestssID($event)" [(ngModel)]="testssid"
-                  name="testssid">
-                  <option value="0">{{labels[0].select}} {{labels[0].testName}}</option>
-                  <option *ngFor="let tests of tsetssslist" value={{tests.id}}>{{tests.short}}</option>
-                </select>
-                <br>
-                <div *ngIf="testssid=='59'||testssid=='60'">
-
-                  <input type="text" class="form-control" placeholder="{{labels[0].testName}}"
-                    [(ngModel)]="diagnostictestname" name="diagnostictestname">
-
-                </div><br>
-               
-                <textarea class="form-control" [(ngModel)]="clinicinfo" name="clinicinfo"
-                  placeholder="{{labels[0].clinicalInfo}}" rows="4"></textarea>
-                <br>
-   
-                <div class="row">
-                  <div class="col-lg-6">
-                    <label>{{labels[0].saveastemplate}} :</label>
-                  </div>
-                  <div class="col-lg-6">
-                    <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="1">&nbsp;
-                    {{labels[0].yes}} &nbsp;&nbsp;
-                    <input type="radio" [(ngModel)]="testtemplate" name="testtemplate" [value]="2">&nbsp;
-                    {{labels[0].no}} &nbsp;&nbsp;
-                  </div>
-                </div>
-                <br>
-                <div *ngIf="testtemplate=='1'">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <label>{{labels[0].templateName}} :</label>
-                    </div>
-                    <div class="col-lg-6">
-                      <input type="text" class="form-control" name="testtemplatename" [(ngModel)]="testtemplatename"
-                        placeholder="{{labels[0].templateName}}">
-                    </div>
-                  </div>
-                  <br>
-                </div>
-
-                <button type="button" class="btn btn-default " [disabled]="diaForm.form.invalid"
-                  style="background-color: #f18235;color: white;" (click)="adddetails()">{{labels[0].add}}</button>
-              </div>
-            
-
-            </div><br> -->
 
             <div class="row">
               <div class="col-lg-12">
@@ -777,7 +706,102 @@
 
             </div>
 
-          </form>
+          </form> -->
+       
+
+          <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-4">
+              <input type="radio" value="1" [(ngModel)]="showothertest"
+                name="showothertest">&nbsp;{{labels[0].testdtabase}}
+
+            </div>
+            <div class="col-lg-4">
+
+              <input type="radio" value="2" [(ngModel)]="showothertest"
+                name="showothertest">&nbsp;{{labels[0].manuallywritten}}
+            </div>
+          </div><br>
+          <div *ngIf="showothertest==2">
+            <div class="row">
+
+              <div class="col-lg-2">
+
+              </div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" placeholder="Tests" [(ngModel)]="diagnostictestname"
+                  name="diagnostictestname">
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-lg-3">
+              </div>
+              <div class="col-lg-5">
+                <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+                  (click)="insertDiagnostictest()">{{labels[0].save}}</button>
+              </div>
+              <div class="col-lg-2">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showothertest==1">
+            <div class=row>
+              <div class="col-lg-4">
+                <label>{{labels[0].testName}} :</label>
+                <span class="required">*</span>
+              </div>
+              <div class="col-lg-6">
+                <!-- <input id="typeahead-basic" type="text" class="form-control" placeholder="{{labels[0].drugName}}"
+                  [(ngModel)]="medicinename" [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search1"
+                  (ngModelChange)="GetDrugNameID()" /> -->
+                <input type="text" [(ngModel)]="testsname" name="testsname" class="form-control"
+                  placeholder="{{labels[0].testName}}" (ngModelChange)="SearchTestname(testsname)">
+              </div>
+            </div><br>
+          </div>
+          <div class="row" *ngIf="SerachtestOn=='1'&&showothertest==1">
+            <!-- <div class="col-lg-4">
+            </div> -->
+            <div class="col-lg-12" style="overflow-y:auto;height:300px">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{{labels[0].testType}}</th>
+                    <th>{{labels[0].testName}}</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let code of tsetssslist|filter:testsname">
+                    <td>{{code.name}}</td>
+                    <td>
+                      <input type="text" class="form-control" [(ngModel)]="code.short" name="code.short" disabled
+                        [ngModelOptions]="{standalone: true}">
+                    </td>
+                    <td>
+                      <input type="checkbox" [(ngModel)]="code.checked" name="code.checked">
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <br>
+          </div><br>
+          <div class="row" *ngIf="SerachtestOn=='1'&&showothertest==1">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-5">
+              <button type="button" style="background-color: #f18235;color: white;" class="btn btn-secondary"
+                (click)="insertDiagnostictestdetails()">{{labels[0].save}}</button>
+            </div>
+            <div class="col-lg-2">
+            </div>
+          </div>
+          <br>
+       
+       
+       
+       
         </div>
       </div>
       <div class="modal-footer">
@@ -1021,7 +1045,7 @@
                     </td>
                     <td>{{presciption.noteToPharmasist}}</td>
                     <!-- <td>{{presciption.diagnosis}}</td> -->
-                    <td>
+                    <!-- <td> -->
                       <!-- <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
                       <a [ngbTooltip]="tipcontent2">
                         <img src="assets/Images/dell.png" style="width: 20px;margin-left: 10px;"
@@ -1035,7 +1059,7 @@
                         <img src="assets/Images/edit.png" *ngIf="presciption.showmyediticon=='1'" data-toggle="modal" data-target="#edirprescription"
                           (click)="GetPriviouesPrescriptionlist(presciption)" style="width: 24px">
                       </a> -->
-                    </td>
+                    <!-- </td> -->
                   </tr>
                 </thead>
               </table>
@@ -2129,6 +2153,87 @@ Vital details -->
     </div>
   </div>
 </div>
+
+
+
+<!-- 
+vaccination -->
+
+
+
+
+<div class="modal fade" id="vaccination" tabindex="-1" role="dialog" aria-labelledby="vaccination" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="margin-left: 439px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].vaccineeditts}}</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <tr>
+                  <th>{{labels[0].vaccinename}}</th>
+                  <th>Date</th>
+                </tr>
+                <tr *ngFor="let vaccine of vaccinationlist">
+                  <td>{{vaccine.vaccinationName}}</td>
+                  <td>{{vaccine.vaccinationDate}}</td>
+                </tr>
+              </table>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <label>{{labels[0].vaccinename}} :</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="{{labels[0].vaccinename}}" [(ngModel)]="firstvaccine"
+                name="firstvaccine">
+            </div>
+
+          </div><br>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Date :</label>
+            </div>
+            <div class="col-lg-5">
+              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
+                [bsConfig]="{ showWeekNumbers:false }" name="firstvaccinedate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="firstvaccinedate" bsDatepicker>
+              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
+                [bsConfig]="{ showWeekNumbers:false }" name="firstvaccinedate"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="firstvaccinedate" bsDatepicker>
+            </div>
+
+          </div><br>
+          <div class="row">
+            <div class="col-lg-5">
+
+            </div>
+            <div class="col-lg-2">
+              <button class="btn btn-secondary" style="background-color: #f18235;color: white;"
+                (click)="InsertvaccinationStatus()" data-dismiss="modal">{{labels[0].savevaccine}}</button>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;"
+              data-dismiss="modal">{{labels[0].close}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

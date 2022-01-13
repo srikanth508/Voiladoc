@@ -213,7 +213,7 @@
                   <td style="border:none">
                     <ng-template #tipcontent899>{{labels[0].deliveryCompany}}</ng-template>
                     <a [ngbTooltip]="tipcontent899"
-                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.partialBit=='0'&&details.selfPickUP=='0'">
+                      *ngIf="details.approved=='1'&&details.pharmacyCancelled=='0'&&details.cancelled=='0'&&details.delivered=='0'&&details.partialBit=='0'&&details.selfPickUP=='0'&&details.paidStatus=='1'">
                       <img src="assets/Images/readyfordel.png" style="height:20px;"
                         (click)="GetReadyForDelivery(details.id)" /></a>
                   </td>
@@ -406,7 +406,7 @@
                                 <td style="border: 2px solid black;">{{medicinelist.noteToPharmacist}}</td>
                                 <td style="border: 2px solid black;">
                                   <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
-                                    [(ngModel)]="medicinelist.amount" name="medicinelist.amount"
+                                    [(ngModel)]="medicinelist.amount" name="medicinelist.amount" [disabled]="medicinelist.substituteBit==true"
                                     onkeypress='return(event.charCode>=48&&event.charCode<=57)'><br>
 
                                     <input type="text" class="form-control"  *ngIf="medicinelist.substituteBit==true" [ngModelOptions]="{standalone: true}"

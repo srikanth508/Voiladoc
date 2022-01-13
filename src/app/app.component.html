@@ -875,12 +875,15 @@
                                     <th>{{labels10[0].medicines}}</th>
                                     <th>{{labels10[0].sig}}</th>
                                     <th>{{labels10[0].quantity}}</th>
+                                    <th>
+                                        {{labels10[0].substitablenotpermitedd}}</th>
 
                                 </tr>
                                 <tr *ngFor="let ss of orderedmedicinelist">
                                     <td>{{ss.medicineName}}</td>
                                     <td>{{ss.sig}}</td>
                                     <td>{{ss.quantity}}</td>
+                                    <td>{{ss.substistute}}</td>
 
                                 </tr>
                             </table>

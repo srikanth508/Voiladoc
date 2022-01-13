@@ -432,7 +432,7 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.InsertDeliverNotification();
             this.InsertNotiFicationDeliver();
 
-            var smsdec = "Your Medicine Order with " + this.user + " has been Delivered."
+            var smsdec = "Your Medicine Order with has been Delivered."
             this.SendTwiliSms(smsdec, this.smsmobleno)
           })
           Swal.fire(
@@ -466,7 +466,7 @@ export class DoctorPrescriptionComponent implements OnInit {
             this.InsertDeliverNotification();
             this.InsertNotiFicationDeliver();
 
-            var smsdec = "Votre commande de médicaments avec" + this.user + " a été livré."
+            var smsdec = "Votre commande de médicaments avec a été livré."
             this.SendTwiliSms(smsdec, this.smsmobleno)
           })
           Swal.fire(
@@ -1370,16 +1370,16 @@ export class DoctorPrescriptionComponent implements OnInit {
           this.spinner.hide();
         })
 
-        if (this.languageid == 1) {
-          var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
-        }
-        else {
-          var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
-        }
-        this.SendTwiliSms(smsdesc, this.smsmobleno);
+      
       }
 
-
+      if (this.languageid == 1) {
+        var smsdesc = "Pharamacy has Updated Available Medicines. Please open Voiladoc App And Order it. ";
+      }
+      else {
+        var smsdesc = this.user + " pharmacie du maroc Pharmacy vous a envoyé une mise à jour surmédicaments et prix. Veuillez ouvrir Voiladoc.";
+      }
+      this.SendTwiliSms(smsdesc, this.smsmobleno);
     }
   }
 

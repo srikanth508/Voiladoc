@@ -233,6 +233,7 @@ export class MyappointmentsComponent implements OnInit {
   public todaydatess: any;
 
   ngOnInit() {
+    this.spinner.show();
     this.languageid = localStorage.getItem('LanguageID');
     this.misuse = 0;
     this.departmentid = 0;
@@ -323,11 +324,11 @@ export class MyappointmentsComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
-    this.getbookappointmentbydoctorid();
-    this.getbookappointmentbydocid()
+    this.spinner.show();
     this.Getmedicinetypemaster();
     this.GetWhenConsumemedicals();
     this.getdiagnosticcentertests();
+    this.spinner.show();
     this.getserverdateandtime();
     this.getdepartmentmaster();
     this.getdoctorforadmin();
@@ -341,7 +342,7 @@ export class MyappointmentsComponent implements OnInit {
     this.getdiagnostictests();
 
     // document.getElementById('Scheduled').style.display = "block";
-
+    this.spinner.show();
     document.getElementById("defaultOpen").style.display = "block";
 
     this.morning = 0;
@@ -362,6 +363,9 @@ export class MyappointmentsComponent implements OnInit {
       this.ailment = 'Aucune donnée fournie'
     }
 
+    this.spinner.show();
+    this.getbookappointmentbydoctorid();
+    this.getbookappointmentbydocid()
   }
 
 
@@ -381,6 +385,7 @@ export class MyappointmentsComponent implements OnInit {
   }
   labels1: any
   public getlanguage() {
+    this.spinner.show();
     this.docservice.GetAdmin_DoctorMyAppointments_Label(this.languageid).subscribe(
       data => {
 
@@ -443,7 +448,7 @@ export class MyappointmentsComponent implements OnInit {
 
     this.docservice.GetBookAppointmentByDoctorID(this.doctorid, this.startdate, this.enddate, this.languageid).subscribe(
       data => {
-
+        this.spinner.hide();
         this.dummappointmentlist = data;
         this.appointmentlist = this.dummappointmentlist.filter(x => x.noShow != 1 && x.docCancelled != 1 && x.cancelled != 1)
         this.count = this.appointmentlist.length
@@ -465,6 +470,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   showothertest: any;
+  
 
 
 
@@ -4736,11 +4742,23 @@ export class MyappointmentsComponent implements OnInit {
     this.appointmentid = id;
     this.patientID = patientid;
     this.viewdetaillist = this.appointmentlist.filter(x => x.appointmentID == this.appointmentid);
-    this.firstvaccine = this.viewdetaillist[0].firstVaccine,
-      this.secondvaccine = this.viewdetaillist[0].secondVaccine,
-      this.firstvaccinedate = this.viewdetaillist[0].firstVaccineDate,
-      this.secondvaccinedate = this.viewdetaillist[0].secondVaccineDate,
-      this.allergies= this.viewdetaillist[0].knownAllergies
+    // this.firstvaccine = this.viewdetaillist[0].firstVaccine,
+    //   this.secondvaccine = this.viewdetaillist[0].secondVaccine,
+    //   this.firstvaccinedate = this.viewdetaillist[0].firstVaccineDate,
+    //   this.secondvaccinedate = this.viewdetaillist[0].secondVaccineDate,
+    this.allergies = this.viewdetaillist[0].knownAllergies
+
+    this.allergieslist = this.details.knownAllergies.split(',')
+
+    this.allergies = []
+    for (let i = 0; i < this.allergieslist.length; i++) {
+      var wtt = {
+        displayValue: this.allergieslist[i]
+      }
+
+      this.allergies.push(wtt);
+    }
+    this.GetAllerges();
   }
 
 
@@ -5990,46 +6008,186 @@ export class MyappointmentsComponent implements OnInit {
   vaccinationStatus() {
     debugger
     let firstvaccinedate = this.docservice.GetDates(this.firstvaccinedate)
-    let secondvacine = this.docservice.GetDates(this.secondvaccinedate)
+
     var entity = {
-      'ID': this.patientID,
-      'FirstVaccine': this.firstvaccine,
-      'FirstVaccineDate': firstvaccinedate,
-      'SecondVaccine': this.secondvaccine,
-      'SecondVaccineDate': secondvacine
+      'VaccinationName': this.firstvaccine,
+      'VaccinationDate': firstvaccinedate,
+      'PatientID': this.patientID,
+      'AppointmentID': this.appointmentid
     }
-    this.docservice.UpdatePatientRegistrationVaccinationstatus(entity).subscribe(data => {
+    this.docservice.InsertPatient_VaccinationDetails(entity).subscribe(data => {
       debugger
-      Swal.fire('Updated Successfully');
-      this.firstvaccinedate = "";
-      this.secondvaccinedate = "";
-      this.firstvaccine = "";
-      this.secondvaccine = "";
+      if(this.languageid==1)
+      {
+        Swal.fire('Updated Successfully');
+        this.getvaccinatindetails();
+        this.firstvaccinedate = "";
+        this.secondvaccinedate = "";
+        this.firstvaccine = "";
+        this.secondvaccine = "";
+      }
+      else
+      {
+        Swal.fire('Les vaccins ont été mis à jour.');
+        this.getvaccinatindetails();
+        this.firstvaccinedate = "";
+        this.secondvaccinedate = "";
+        this.firstvaccine = "";
+        this.secondvaccine = "";
+      }
+     
     })
+  }
+
+
+  vaccinationlist: any;
+
+
+
+  getvaccinatindetails() {
+    this.docservice.GetPatient_VaccinationDetails(this.patientID).subscribe(
+      data => {
+        this.vaccinationlist = data;
+
+      }, error => {
+      }
+    )
+
+  }
+
+
+
+  //Allergies
+
+
+  allergieslist = [];
+  myarray = [];
+  allergyidcount: any;
+  public GetAllerges() {
+    // this.allergieslist = this.allergies.split(',')
+
+    // this.allergies = []
+    // for (let i = 0; i < this.allergieslist.length; i++) {
+    //   var wtt = {
+    //     displayValue: this.allergieslist[i]
+    //   }
+
+    //   this.allergies.push(wtt);
+    // }
+
+    // this.allergyidcount=0
+    debugger
+    this.myarray = []
+    let showalergres = this.allergies.split(',');
+    debugger
+    for (let i = 0; i < showalergres.length; i++) {
+      var medetty = {
+        'Showallergies': showalergres[i],
+        'Snoo': i + 1
+      }
+      this.myarray.push(medetty);
+      this.allergyidcount = this.allergyidcount + 1;
+
+    }
+  }
+
+
+
+
+  public updateelergies: any;
+
+  public deletealergeies(Sno) {
+
+    for (let i = 0; i < this.myarray.length; i++) {
+      if (Sno == this.myarray[i].Snoo) {
+        this.myarray.splice(i, 1);
+      }
+    }
+    this.updateelergies = '';
+    for (let j = 0; j < this.myarray.length; j++) {
+
+      if (this.updateelergies == '') {
+        this.updateelergies = this.myarray[j].Showallergies;
+      }
+      else {
+        this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
+      }
+
+    }
+    this.Updatealriesss()
   }
 
 
 
   public Updateallergies() {
+    this.updateelergies = '';
+    debugger
+
+    for (let j = 0; j < this.myarray.length; j++) {
+
+      if (this.updateelergies == '') {
+        this.updateelergies = this.myarray[j].Showallergies;
+      }
+      else {
+        this.updateelergies = this.updateelergies + ',' + this.myarray[j].Showallergies;
+      }
+
+    }
+
     var entity = {
       'AppointmentID': this.appointmentid,
-      'KnownAllergies': this.allergies
+      'KnownAllergies': this.updateelergies
     }
     this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
 
       let res = data;
       if (this.languageid == 1) {
         Swal.fire('Allergies Updated Successfully');
-        this.getbookappointmentbydoctorid();
-       
+        this.allergieslist = [];
+        this.allergies = this.updateelergies;
+
       }
       else if (this.languageid == 6) {
         Swal.fire('Les allergies ont été mises à jour');
-        this.getbookappointmentbydoctorid();
-       
+        this.allergieslist = [];
+        this.allergies = this.updateelergies;
+
       }
     })
   }
 
+
+  addallergies: any;
+
+  public updatedetsils() {
+
+    var medetty = {
+      'Showallergies': this.addallergies,
+      'Snoo': this.myarray.length + 1
+    }
+    this.myarray.push(medetty);
+
+    this.Updateallergies()
+  }
+
+
+  public Updatealriesss() {
+
+    var entity = {
+      'AppointmentID': this.appointmentid,
+      'KnownAllergies': this.updateelergies
+    }
+    this.docservice.UpdateBookAppointmentKnownAllergies(entity).subscribe(data => {
+      let res = data;
+      if (this.languageid == 1) {
+
+
+      }
+      else if (this.languageid == 6) {
+
+
+      }
+    })
+  }
 
 }

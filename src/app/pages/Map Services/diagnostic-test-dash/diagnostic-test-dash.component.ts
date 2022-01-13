@@ -29,6 +29,9 @@ export class DiagnosticTestDashComponent implements OnInit {
   diagnosticlist: any;
   dummdiid:any;
   showDrop:any;
+  search:any;
+  dia={};
+  SelectLabel:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.diagnosticenterid = localStorage.getItem('diagnosticid');
@@ -45,6 +48,8 @@ export class DiagnosticTestDashComponent implements OnInit {
       data => {
 
         this.labels1 = data;
+        this.SelectLabel=this.labels1[0].select;
+        this.search=this.labels1[0].search;
       },
 
       error => { }
@@ -62,6 +67,17 @@ export class DiagnosticTestDashComponent implements OnInit {
       data => {
 
         this.diagnosticlist = data;
+
+        this.dia = {
+          singleSelection: true,
+          idField: 'id',
+          textField: 'diagnosticCenterName',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          //  itemsShowLimit: 3,
+          allowSearchFilter: true,
+          searchPlaceholderText: this.search,
+        };
 
       }, error => {
       }
@@ -86,10 +102,10 @@ export class DiagnosticTestDashComponent implements OnInit {
   }
 
 
-  public GetDiagnosticcenterID(even) {
-
-    this.diagnosticenterid = even.target.value;
-    this.GetDiagnosticServices();
+  public GetDiagnosticcenterID(item:any) {
+debugger
+    this.diagnosticenterid = item.id
+    this.GetDiagnosticServices();debugger
   }
 
   public GetDiagnosticServices() {
@@ -97,7 +113,7 @@ export class DiagnosticTestDashComponent implements OnInit {
     if (this.diagnosticenterid != undefined) {
       this.docservice.GetDiagnosticCenterTestsForDash(this.languageid).subscribe(
         data => {
-
+          debugger
           this.dummlist = data;
 
           this.servicelist = this.dummlist.filter(x => x.diagnosticCenterID == this.diagnosticenterid)

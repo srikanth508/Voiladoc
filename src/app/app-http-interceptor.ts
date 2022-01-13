@@ -25,7 +25,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
         //     })
         // };
         // ;
-        console.log('intercepted request ... ');
+        // console.log('intercepted request ... ');
         const token = localStorage.getItem('token');;
         // Clone the request to add the new header.
         
@@ -38,7 +38,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
         //     return next.handle(req);
         // }
         
-        console.log('Sending request with new header now ...');
+        // console.log('Sending request with new header now ...');
 
         //send the newly created request
         return next.handle(authReq).pipe(

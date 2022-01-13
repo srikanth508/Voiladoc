@@ -344,7 +344,8 @@ export class VediocallComponent implements OnInit {
     this.geticdcode()
     this.GetDoctorSoapNotesTemplates()
     this.GetDrugnamemaster()
-    this.GetDiagnpsticDoctorTemplates()
+    this.GetDiagnpsticDoctorTemplates();
+    this.getdiagnostictests();
     this.getvitaldetails()
   }
 
@@ -1621,13 +1622,14 @@ export class VediocallComponent implements OnInit {
         this.diagnostictesttypename = this.testslist[i].name
       }
     }
-    this.getdiagnostictests();
+   
   }
   public getdiagnostictests() {
-    this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(this.testid, this.languageid).subscribe(
+    this.docservice.GetDiagnosticTestMasterByTestIDByLanguageID(1, this.languageid).subscribe(
       data => {
 
         this.tsetssslist = data;
+        this.tsetssslist[0]["checked"] = false;
       }, error => {
       }
     )
@@ -1678,55 +1680,55 @@ export class VediocallComponent implements OnInit {
     this.testssid = 0;
   }
 
-  public insertDiagnostictestdetails() {
+  // public insertDiagnostictestdetails() {
 
-    for (let i = 0; i < this.qwerty.length; i++) {
-      var entity = {
-        'DoctorID': this.doctorid,
-        'PateintID': this.patientid,
-        'DiagnosticTestTypeID': this.qwerty[i].DiagnosticTestTypeID,
-        'DiagnosticTestName': this.qwerty[i].TestName,
-        'LanguageID': this.languageid,
-        'AppointmentID': this.appointmentid,
-        'TestsID': this.qwerty[i].TestID,
-        'ClinicalInfo': this.qwerty[i].ClinicalInfo
-      }
-      this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
-        if (data != 0) {
-          if (this.languageid == 1) {
-            Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
-            this.tablecount = 0;
-            this.qwerty = []
-            this.qwerty.length = 0
-            this.testid.length = 0;
-            this.testssid = 0;
-            this.getpatient_diagnosticdetails()
-          }
-          else {
+  //   for (let i = 0; i < this.qwerty.length; i++) {
+  //     var entity = {
+  //       'DoctorID': this.doctorid,
+  //       'PateintID': this.patientid,
+  //       'DiagnosticTestTypeID': this.qwerty[i].DiagnosticTestTypeID,
+  //       'DiagnosticTestName': this.qwerty[i].TestName,
+  //       'LanguageID': this.languageid,
+  //       'AppointmentID': this.appointmentid,
+  //       'TestsID': this.qwerty[i].TestID,
+  //       'ClinicalInfo': this.qwerty[i].ClinicalInfo
+  //     }
+  //     this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
+  //       if (data != 0) {
+  //         if (this.languageid == 1) {
+  //           Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+  //           this.tablecount = 0;
+  //           this.qwerty = []
+  //           this.qwerty.length = 0
+  //           this.testid.length = 0;
+  //           this.testssid = 0;
+  //           this.getpatient_diagnosticdetails()
+  //         }
+  //         else {
 
-            Swal.fire('Détails enregistrés', 'Test de laboratoire');
-            this.getpatient_diagnosticdetails();
-            this.tablecount = 0;
-            this.qwerty = []
-            this.qwerty.length = 0
-            this.testid.length = 0;
-            this.testssid = 0;
+  //           Swal.fire('Détails enregistrés', 'Test de laboratoire');
+  //           this.getpatient_diagnosticdetails();
+  //           this.tablecount = 0;
+  //           this.qwerty = []
+  //           this.qwerty.length = 0
+  //           this.testid.length = 0;
+  //           this.testssid = 0;
 
-          }
-          this.tablecount = 0;
-          this.qwerty = []
-          this.qwerty.length = 0
-          this.testid.length = 0;
-          this.testssid = 0;
+  //         }
+  //         this.tablecount = 0;
+  //         this.qwerty = []
+  //         this.qwerty.length = 0
+  //         this.testid.length = 0;
+  //         this.testssid = 0;
 
-          this.getpatient_diagnosticdetails()
-          this.Insertnotificationtest()
-        }
-        this.getpatient_diagnosticdetails()
-      })
-    }
-    this.getpatient_diagnosticdetails()
-  }
+  //         this.getpatient_diagnosticdetails()
+  //         this.Insertnotificationtest()
+  //       }
+  //       this.getpatient_diagnosticdetails()
+  //     })
+  //   }
+  //   this.getpatient_diagnosticdetails()
+  // }
 
 
 
@@ -2378,6 +2380,8 @@ export class VediocallComponent implements OnInit {
 
 
 
+
+
   dummprescriptionphotourl = []
   attachments1 = [];
   attachmentsurl1 = []
@@ -2531,6 +2535,208 @@ export class VediocallComponent implements OnInit {
   public GetReportsssss() {
 
     window.open(this.illnesspdf, "_blank");
+  }
+
+
+
+  vaccinationlist:any;
+
+  getvaccinatindetails() {
+    this.docservice.GetPatient_VaccinationDetails(this.patientid).subscribe(
+      data => {
+        this.vaccinationlist = data;
+
+      }, error => {
+      }
+    )
+    
+
+
+    
+  }
+  firstvaccine:any;
+  firstvaccinedate:any;
+  
+  InsertvaccinationStatus() {
+    debugger
+    let firstvaccinedate = this.docservice.GetDates(this.firstvaccinedate)
+
+    var entity = {
+      'VaccinationName': this.firstvaccine,
+      'VaccinationDate': firstvaccinedate,
+      'PatientID': this.patientid,
+      'AppointmentID': this.appointmentid
+    }
+    this.docservice.InsertPatient_VaccinationDetails(entity).subscribe(data => {
+      debugger
+      if(this.languageid==1)
+      {
+        Swal.fire('Updated Successfully');
+        this.firstvaccinedate = "";
+        this.firstvaccine = "";
+        this.getvaccinatindetails();
+      }
+      else
+      {
+        Swal.fire('Les vaccins ont été mis à jour.');
+        this.firstvaccinedate = "";
+        this.firstvaccine = "";
+        this.getvaccinatindetails();
+      }
+     
+
+    })
+  }
+
+
+
+  showothertest: any;
+  SerachtestOn:any;
+
+
+
+  public insertDiagnostictest() {
+    debugger
+    var entity = {
+      'DoctorID': this.doctorid,
+      'PateintID': this.diapatientid,
+      'DiagnosticTestTypeID': 1,
+      'DiagnosticTestName': this.diagnostictestname,
+      'LanguageID': this.languageid,
+      'AppointmentID': this.appointmentid,
+      'TestsID': 59,
+      'ClinicalInfo': 0
+    }
+    this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
+      debugger
+      if (data != 0) {
+        if (this.languageid == 1) {
+          Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+          debugger
+         
+          this.getdiagnostictests();
+       
+        
+          this.Insertnotificationtest()
+          this.tablecount = 0;
+          this.testid.length = 0;
+          // this.tsetssslist = 0;
+          this.testssid = 0;
+          this.diagnostictestname = ""
+
+
+
+      
+        }
+        else if (this.languageid == 6) {
+          Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
+       
+          this.qwerty = [];
+          this.qwerty.length = 0;
+          this.getdiagnostictests();
+        
+          this.Insertnotificationtest()
+          this.tablecount = 0;
+          this.testid.length = 0;
+          this.tsetssslist = 0;
+          this.testssid = 0;
+          this.SerachtestOn = 0;
+          this.diagnostictestname = ""
+
+
+        
+        }
+
+      }
+    })
+  }
+
+
+
+
+  public SearchTestname(testsname) {
+    if (testsname == "") {
+      this.SerachtestOn = 0
+    }
+    else {
+      this.SerachtestOn = 1;
+      //  this.drugnamelist = this.dummdrugnamelist.filter((x) => x.medicinename.contains(medicinename))
+      //  this.drugnamelist=this.dummdrugnamelist.filter(x=>x.medicinename)
+    }
+  }
+
+
+
+  public insertDiagnostictestdetails() {
+    if (this.languageid == 1) {
+      var smsdesc = "Following your consultation with Dr " + this.user + " your prescription for lab tests is now available in homepage."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    else {
+      debugger
+      var smsdesc = "Suite à votre consultation avec le Dr " + this.user + ", votre ordonnance pour vos examens médicaux est maintant disponible dans Accueil."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    debugger
+    var checktestlist = this.tsetssslist.filter(x => x.checked == true)
+    debugger
+    for (let i = 0; i < checktestlist.length; i++) {
+      debugger
+      var entity = {
+        'DoctorID': this.doctorid,
+        'PateintID': this.patientid,
+        'DiagnosticTestTypeID': 1,
+        'DiagnosticTestName': checktestlist[i].short,
+        'LanguageID': this.languageid,
+        'AppointmentID': this.appointmentid,
+        'TestsID': checktestlist[i].id,
+        'ClinicalInfo': 0
+      }
+      this.docservice.InsertDoctor_PatientDiagnostics(entity).subscribe(data => {
+
+        if (data != 0) {
+          if (this.languageid == 1) {
+            Swal.fire('Completed', 'Diagnostic Tests Added successfully', 'success');
+            this.getpatient_diagnosticdetails();
+            checktestlist = [];
+            checktestlist = 0;
+      
+            this.getdiagnostictests();
+            this.SerachtestOn = 0;
+         
+            this.Insertnotificationtest()
+            this.tablecount = 0;
+            this.testid.length = 0;
+            // this.tsetssslist = 0;
+            this.testssid = 0;
+          }
+          else if (this.languageid == 6) {
+            Swal.fire('Détails enregistrés', 'Test de laboratoire', 'success');
+            this.getpatient_diagnosticdetails();
+            this.getdiagnostictests();
+            this.SerachtestOn = 0;
+          
+            this.Insertnotificationtest()
+            this.tablecount = 0;
+            this.testid.length = 0;
+            this.tsetssslist = 0;
+            this.testssid = 0;
+            this.SerachtestOn = 0;
+          }
+
+        }
+      })
+    }
+
+    if (this.languageid == 1) {
+      var smsdesc = "Following your consultation with Dr " + this.user + " your prescription for lab tests is now available in homepage."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
+    else {
+      debugger
+      var smsdesc = "Suite à votre consultation avec le Dr " + this.user + ", votre ordonnance pour vos examens médicaux est maintant disponible dans Accueil."
+      this.SendTwiliSms(smsdesc, this.smsmobileno)
+    }
   }
 
 }

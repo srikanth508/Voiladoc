@@ -71,6 +71,7 @@ export class NewPatientHistoryComponent implements OnInit {
   age: any;
   color: any;
   homecaresoaplist: any;
+  Appointmentlist: any;
   ngOnInit() {
 
 
@@ -83,6 +84,7 @@ export class NewPatientHistoryComponent implements OnInit {
 
     }
     )
+
 
     if (this.departmentid == 14) {
 
@@ -217,8 +219,31 @@ export class NewPatientHistoryComponent implements OnInit {
       this.color = "#f18235"
     }
 
+    debugger
+    this.docservice.GetBookApptbyPatientID(this.patientid, this.languageid).subscribe(
+      data => {
+        debugger
+        this.Appointmentlist = data;
+      }, error => {
+      }
+    )
+
+    this.getvaccinatindetails()
   }
 
+
+  vaccinationlist:any;
+
+  getvaccinatindetails() {
+    this.docservice.GetPatient_VaccinationDetails(this.patientid).subscribe(
+      data => {
+        this.vaccinationlist = data;
+
+      }, error => {
+      }
+    )
+
+  }
 
   appointmentDialist: any;
 
@@ -408,4 +433,10 @@ export class NewPatientHistoryComponent implements OnInit {
     window.open(pdf, "_blank");
   }
 
+  viewdetaillist: any;
+
+  showmedicalquestionare(app) {
+    debugger
+    this.viewdetaillist = this.Appointmentlist.filter(x => x.id == app.id);
+  }
 }

@@ -20,7 +20,18 @@
   }
   th{
     text-transform: lowercase;
+   
   }
+
+  th {
+    background-color: #322B6B;
+    color:white;
+    text-align: center;
+    padding: 4px;
+    /* border: 1px solid #dddddd;  */
+    /* border: 1px solid gray; */
+  }
+
   .headerrspace{
       color: #251156;
       height:70px;

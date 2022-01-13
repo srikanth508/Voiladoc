@@ -1890,7 +1890,7 @@
 
                 </div>
                 <div class="col-lg-6">
-                  <input type="text" class="form-control" placeholder="Diagnostic test" [(ngModel)]="diagnostictestname"
+                  <input type="text" class="form-control" placeholder="Tests" [(ngModel)]="diagnostictestname"
                     name="diagnostictestname">
                 </div>
               </div><br>
@@ -2565,7 +2565,8 @@
                   </td>
                   <td>{{presciption.howmanyRefills}}</td>
                   <td>{{presciption.noteToPharmasist}}</td>
-                  <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subMedicineName}}</td>
+                  <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subMedicineName}}
+                  </td>
                   <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subPhysology}}</td>
                   <td [ngClass]="{'substiutecolor':presciption.substituteBit==true}">{{presciption.subQuantity}}</td>
 
@@ -4548,11 +4549,11 @@
                   <td>{{view.vaccinationStatus}}
 
                     <div class="txtorng">
-                      <span placement="right" ngbTooltip="{{view.firstVaccine}},{{view.secondVaccine}}" role="button"
-                        data-toggle="tooltip">
-                        <img src="assets/Images/info.png" style="width: 25px;" data-toggle="modal"
-                          data-target="#vaccination">
-                      </span>
+                      <!-- <span placement="right" ngbTooltip="{{view.firstVaccine}},{{view.secondVaccine}}" role="button"
+                        data-toggle="tooltip"> -->
+                      <img src="assets/Images/vaccination.png" style="width: 25px;" data-toggle="modal"
+                        data-target="#vaccination" (click)="getvaccinatindetails()">
+                      <!-- </span> -->
                     </div>
                   </td>
                   <td>{{view.dietaryIssues}}</td>
@@ -4574,7 +4575,7 @@
                   </td>
                   <td>
                     {{view.knownAllergies}}
-                    <img src="assets/Images/edit.png" data-toggle="modal" data-target="#Allergies">
+                    <img src="assets/Images/allergy.png" style="width: 17px;" data-toggle="modal" data-target="#Allergies" (click)="GetAllerges(view.knownAllergies)">
                   </td>
                 </tr>
               </table>
@@ -4595,7 +4596,7 @@
 
 <div class="modal fade" id="Allergies" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="margin-left: 787px;">
     <div class="modal-content modal-lg">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">{{labels[0].modifieAllergies}}</h5>
@@ -4606,12 +4607,35 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Allergies</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let allergilist of myarray">
+                    <td>{{allergilist.Showallergies}}</td>
+                    <td>
+                      <ng-template #tipcontent2>{{labels[0].delete}}</ng-template>
+                      <a [ngbTooltip]="tipcontent2">
+                        <img src="assets/Images/dell.png" (click)="deletealergeies(allergilist.Snoo)"
+                          style="width: 20px;margin-left: 10px;">
+                      </a>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <br>
+          <div class="row">
             <div class="col-lg-3">
               <label>{{labels[0].allergies}}</label>
             </div>
             <div class="col-lg-8">
-              <input type="text" class="form-control" placeholder="{{labels[0].allergies}}" [(ngModel)]="allergies"
-                name="allergies">
+              <input type="text" class="form-control" placeholder="{{labels[0].allergies}}" [(ngModel)]="addallergies"
+                name="addallergies">
 
               <!-- <ngx-tags-input class="form-control input-xl" style="height: 100px;" [(ngModel)]="allergies"
                 name="allergies"></ngx-tags-input> -->
@@ -4621,8 +4645,7 @@
             <div class="col-lg-5">
             </div>
             <div class="col-lg-2">
-              <button type="button" class="btn btn-primary" style="background-color: #f18235;color: white;"
-                (click)="Updateallergies()">{{labels[0].save}}</button>
+              <button type="button" class="btn btn-primary" style="background-color: #f18235;color: white;" (click)="updatedetsils()">{{labels[0].save}}</button>
             </div>
             <div class="col-lg-5">
             </div>
@@ -4631,8 +4654,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-          style="background-color: #f18235;">{{labels[0].close}}</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #f18235;color: white;" data-dismiss="modal">{{labels[0].close}}</button>
 
       </div>
     </div>
@@ -4645,7 +4667,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Vaccination</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].vaccineeditts}}</h5>
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -4654,18 +4676,33 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-lg-12">
+              <table>
+                <tr>
+                  <th>{{labels[0].vaccinename}}</th>
+                  <th>Date</th>
+                </tr>
+                <tr *ngFor="let vaccine of vaccinationlist">
+                  <td>{{vaccine.vaccinationName}}</td>
+                  <td>{{vaccine.vaccinationDate}}</td>
+                </tr>
+              </table>
+            </div>
+          </div><br>
+
+          <div class="row">
             <div class="col-lg-4">
-              <label>First Vaccine :</label>
+              <label>{{labels[0].vaccinename}} :</label>
             </div>
             <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="First Vaccine" [(ngModel)]="firstvaccine"
+              <input type="text" class="form-control" placeholder="{{labels[0].vaccinename}}" [(ngModel)]="firstvaccine"
                 name="firstvaccine">
             </div>
 
           </div><br>
           <div class="row">
             <div class="col-lg-4">
-              <label>First Vaccine Date :</label>
+              <label>Date :</label>
             </div>
             <div class="col-lg-5">
               <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
@@ -4676,28 +4713,6 @@
                 [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="firstvaccinedate" bsDatepicker>
             </div>
 
-          </div><br>
-          <div class="row">
-            <div class="col-lg-4">
-              <label>Second Vaccine :</label>
-            </div>
-            <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="Second Vaccine" [(ngModel)]="secondvaccine"
-                name="secondvaccine">
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-lg-4">
-              <label>Second Vaccine Date :</label>
-            </div>
-            <div class="col-lg-5">
-              <input *ngIf="languageid==1" type="text" class="form-control" placeholder="MM/DD/YYYY"
-                [bsConfig]="{ showWeekNumbers:false }" name="secondvaccinedate"
-                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="secondvaccinedate" bsDatepicker>
-              <input *ngIf="languageid==6" type="text" class="form-control" placeholder="jj/mm/aa"
-                [bsConfig]="{ showWeekNumbers:false }" name="secondvaccinedate"
-                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" [(ngModel)]="secondvaccinedate" bsDatepicker>
-            </div>
           </div><br>
           <div class="row">
             <div class="col-lg-5">
@@ -4705,7 +4720,7 @@
             </div>
             <div class="col-lg-2">
               <button class="btn btn-secondary" style="background-color: #f18235;color: white;"
-                (click)="vaccinationStatus()" data-dismiss="modal">Save</button>
+                (click)="vaccinationStatus()" data-dismiss="modal">{{labels[0].savevaccine}}</button>
             </div>
 
           </div>

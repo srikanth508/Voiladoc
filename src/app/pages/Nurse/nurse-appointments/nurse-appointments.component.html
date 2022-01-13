@@ -426,16 +426,16 @@
               <div>Date : {{appdate}}</div>
               <div>{{labels1[0].receiptNo}} : {{visitappid}} </div>
               <div>{{labels1[0].patientName}} : {{patientname}}</div>
-              <!-- <div>{{labels1[0].nationalIDNo}} : {{nationaidno}}</div> -->
+              <div>{{labels1[0].nationalIDNo}} : {{nationaidno}}</div>
               <div>{{labels1[0].address}} : {{address}}</div>
             </div>
             <div class="col-lg-2">
             </div>
             <div class="col-lg-4">
 
-              <div>{{nursename}}</div>
+              <div>{{labels[0].name}} : {{nursename}}</div>
               <div>{{visithospital}}</div>
-              <div>{{phoneno}}</div>
+              <div> {{labels[0].phoneNo}} : {{phoneno}}</div>
               <div>{{nurseaddress}}</div>
 
 
@@ -459,7 +459,7 @@
             </div>
             <div class="col-lg-4">
               <!-- {{labels1[0].vediocallreciept}} -->
-              Home Visit Payment Receipt
+              {{servicename}}
             </div>
             <div class="col-lg-4">
               {{paidAmount}}
@@ -474,7 +474,7 @@
           </div>
 
           <div style="margin-top: -83px;">
-            Nurse : {{nursename}}
+            {{labels[0].nurse}} : {{nursename}}
 
             <label style="text-align: end;float: right;">{{labels1[0].totalCharges}} : {{paidAmount}}</label>
           </div>
