@@ -383,6 +383,10 @@ import { MidwifeservicesComponent } from './pages/Midewife/midwifeservices/midwi
 import { MidwifeservicesdashComponent } from './pages/Midewife/midwifeservicesdash/midwifeservicesdash.component';
 import { HomedeliverMasterComponent } from './pages/Masters/homedeliver-master/homedeliver-master.component';
 import { LoaderComponent } from './pages/loader/loader.component';
+import { CreateFoldersComponent } from './pages/PersonalFolders/create-folders/create-folders.component';
+import { FoldersDashComponent } from './pages/PersonalFolders/folders-dash/folders-dash.component';
+import { MyFilesComponent } from './pages/PersonalFolders/my-files/my-files.component';
+import { SubFolderFilesComponent } from './pages/PersonalFolders/sub-folder-files/sub-folder-files.component';
 
 
 // const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -764,6 +768,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MidwifeservicesdashComponent,
     HomedeliverMasterComponent,
     LoaderComponent,
+    CreateFoldersComponent,
+    FoldersDashComponent,
+    MyFilesComponent,
+    SubFolderFilesComponent,
     
    
   ],

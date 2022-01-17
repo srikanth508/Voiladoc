@@ -273,7 +273,7 @@ export class DoctordashComponent implements OnInit {
     this.docservice.sendemail(entity).subscribe(data => {
 
       this.SendTwiliSms(details);
-    },error=>{
+    }, error => {
       this.spinner.hide();
     })
   }
@@ -284,18 +284,25 @@ export class DoctordashComponent implements OnInit {
     debugger
 
     if (this.languageid == 1) {
-      var sub = 'Welcome to Voiladoc' + 'Pin code  : ' + details.pinno + ' UserName :' + details.userName + ' Password : ' + details.password
+      var sub = 'Welcome to Voiladoc   !' + 'Pin code  : ' + details.pinno + ' UserName :' + details.userName + ' Password : ' + details.password
 
     }
     else {
-      var sub = 'Bienvenue sur Voialdoc' + 'Code PIN  : ' + details.pinno + '  Nom dutilisateur : ' + details.userName + ' Mot de passe : ' + details.password
+      var sub = 'Bienvenue sur Voialdoc   !' + 'Code PIN  : ' + details.pinno + '  Nom dutilisateur : ' + details.userName + ' Mot de passe : ' + details.password
 
     }
 
     this.docservice.SendTwillioSMS(details.smsmobileno, sub).subscribe(async data => {
-      Swal.fire("Email Sent Successfully");
-      this.spinner.hide();
-    },error=>{
+      if (this.languageid == 1) {
+        Swal.fire("The login credentials have been sent again.");
+        this.spinner.hide();
+      }
+      else {
+        Swal.fire("Les identifiants de connexion ont été à nouveau envoyés.");
+        this.spinner.hide();
+      }
+
+    }, error => {
       this.spinner.hide();
     })
   }

@@ -44,6 +44,7 @@ export class EditNurseComponent implements OnInit {
   public attachments = [];
   public attachmentsurl = [];
   public dropzonelable: any;
+  hospitalname: any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -54,7 +55,7 @@ export class EditNurseComponent implements OnInit {
     this.languageid = localStorage.getItem('LanguageID');
     this.docservice.GetNurseRegistrationByIDAndLanguageID(this.id, this.languageid).subscribe(
       data => {
-        
+
         this.nursedetails = data;
         this.name = this.nursedetails[0].nurseName;
         this.phno = this.nursedetails[0].phoneNo;
@@ -71,7 +72,8 @@ export class EditNurseComponent implements OnInit {
         this.pincode = this.nursedetails[0].pincode;
         this.photourl = this.nursedetails[0].photoURL;
         this.attachmentsurl[0] = this.nursedetails[0].photoUrlPath;
-        
+        this.hospitalname = this.nursedetails[0].hospital_ClinicName;
+
         this.GetCountryMaster();
         this.getcitymasterbyid();
         this.getareamasterbyid();
@@ -90,9 +92,9 @@ export class EditNurseComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
-    this.countryid="";
-    this.areaid="";
-    this.cityid=""
+    this.countryid = "";
+    this.areaid = "";
+    this.cityid = ""
   }
 
 
@@ -257,7 +259,7 @@ export class EditNurseComponent implements OnInit {
 
 
   public updatephoto() {
-    
+
     var entity = {
       'ID': this.id,
       'PhotoUrl': this.attachmentsurl[0]

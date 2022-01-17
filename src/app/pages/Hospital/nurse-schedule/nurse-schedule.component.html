@@ -39,21 +39,17 @@
   </div>
   <br>
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-9">
     </div>
-    <div class="col-lg-1" *ngIf="showcalender=='1'">
-      <div class="homecare"><span>{{labels[0].homeVisit}}</span></div>
-    </div>
-    <div class="col-lg-1" *ngIf="showcalender=='1'">
-      <div class="Notavailable" style="margin-left: 20px;width: 167%;">
-        <p style="margin-left:12px"> {{labels[0].notAvailable}}</p>
+  <div class="col-lg-3">
+    <div class="col-lg-3">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn  homecare">{{labels[0].homeVisit}}</button>
+        <button type="button" class="btn  Notavailable">{{labels[0].notAvailable}}</button>
+        <button type="button" class="btn  meeting">{{labels[0].meeting}}</button>
       </div>
     </div>
-    <div class="col-lg-1" *ngIf="showcalender=='1'">
-      <div class="meeting" style="margin-left: 42px;width: 127%;">
-        <p style="margin-left:12px"> {{labels[0].meeting}}</p>
-      </div>
-    </div>
+  </div>
   </div>
   <div class="row">
     <div class="col-lg-12">

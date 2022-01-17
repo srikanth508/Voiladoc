@@ -39,7 +39,8 @@
             <th>{{labels[0].subject}}</th>
             <th>{{ labels[0].emailID }}</th>
             <th>{{labels[0].message}}</th>
-            <th>Attachments</th>
+            <th *ngIf="languageid==1">Attachments</th>
+            <th *ngIf="languageid==6">Pièce jointe</th>
           </tr>
           <tr *ngFor="let list of Patientlist|filter:search">
             <td>{{list.date}}</td>

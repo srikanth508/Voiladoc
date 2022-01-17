@@ -31,14 +31,14 @@ export class SendemailsComponent implements OnInit {
   emailidd: any;
   count: any;
   frommail: any;
-  typeid:any;
+  typeid: any;
 
   ngOnInit() {
     this.languageid = localStorage.getItem("LanguageID");
     this.user = localStorage.getItem('user');
     this.getlanguage()
     this.GetPatientlist()
-    this.typeid=1
+    this.typeid = 1
 
     if (this.languageid == 1) {
       this.dropzonelable = "Upload file"
@@ -66,9 +66,9 @@ export class SendemailsComponent implements OnInit {
       data => {
         this.dummpatientPatientlist = data;
 
-        this.Patientlist = this.dummpatientPatientlist.filter(x=>x.type==this.typeid)
+        this.Patientlist = this.dummpatientPatientlist.filter(x => x.type == this.typeid)
         this.count = this.Patientlist.length
-      
+
       },
       error => { }
     );
@@ -76,13 +76,13 @@ export class SendemailsComponent implements OnInit {
 
 
   public GetPatientSendemailslist(even, list) {
-    
+
     if (even.target.checked == true) {
       this.sendemailpatients.push(list);
       // list.selected=1;
     }
     else if (even.target.checked == false) {
-      
+
       this.sendemailpatients.splice(this.sendemailpatients.indexOf(list), 1);
       // list.selected=0;
     }
@@ -90,11 +90,12 @@ export class SendemailsComponent implements OnInit {
   }
 
   public GetPatientSelectAll(even) {
-    
+
     var chkboxes = document.getElementsByClassName('chk_sendmailcheck')
     if (even.target.checked == true) {
-      
+
       this.sendemailpatients = this.Patientlist;
+      console.log('sendsms',this.sendemailpatients)
       this.Patientlist.checked = true;
 
       for (let i = 0; i < chkboxes.length; i++) {
@@ -103,7 +104,7 @@ export class SendemailsComponent implements OnInit {
 
     }
     else if (even.target.checked == false) {
-      
+
       this.sendemailpatients = []
       for (let i = 0; i < chkboxes.length; i++) {
         document.getElementsByClassName('chk_sendmailcheck')[i]['checked'] = false;
@@ -115,29 +116,27 @@ export class SendemailsComponent implements OnInit {
   showidentityproof = [];
 
   public onattachmentUpload(abcd) {
-    
+
     this.identityattachmentsurlssss = []
     // for (let i = 0; i < abcd.length; i++) {
     this.attchement.push(abcd.addedFiles[0]);
     this.uploadid();
     // }
-    if(this.languageid==1)
-    {
+    if (this.languageid == 1) {
       Swal.fire('Added Successfully');
       abcd.length = 0;
     }
-    else
-    {
+    else {
       Swal.fire('Fichier ajouté.');
       abcd.length = 0;
     }
-   
+
   }
 
 
   public uploadid() {
     this.docservice.EmailAttachments(this.attchement).subscribe(res => {
-      
+
       this.attchementurl.push(res);
       this.identityattachmentsurlssss.push(res);
       let a = this.identityattachmentsurlssss[0].slice(2);
@@ -151,7 +150,7 @@ export class SendemailsComponent implements OnInit {
 
 
   public SendEmail() {
-    
+
 
     document.getElementById("qwerty").innerHTML = this.message;
     this.removetagsmessage = document.getElementById("qwerty").innerText;
@@ -168,18 +167,18 @@ export class SendemailsComponent implements OnInit {
         'bcclist': this.bcclist
       }
       this.docservice.sendemail(entity).subscribe(data => {
-        
+
         var entity1 = {
           'PatientID': this.sendemailpatients[i].id,
           'Subject': this.Subject,
           'Message': this.message,
           'SenderID': '1',
           'senderName': this.user,
-          'ReceiverName':this.sendemailpatients[i].patientName,
-          'TypeID':this.typeid
+          'ReceiverName': this.sendemailpatients[i].patientName,
+          'TypeID': this.typeid
         }
         this.docservice.InsertPatientEmails(entity1).subscribe(data => {
-          
+
           this.emailidd = data;
           for (let j = 0; j < this.attchementurl.length; j++) {
             var entity2 = {
@@ -187,11 +186,19 @@ export class SendemailsComponent implements OnInit {
               'AttachmentUrl': this.attchementurl[j]
             }
             this.docservice.InsertEmail_Attachments(entity2).subscribe(data => {
-              
-              this.spinner.hide();
-              Swal.fire('Success', 'Mail sent successfully');
+              if (this.languageid == 1) {
+                this.spinner.hide();
+                Swal.fire('Mail sent successfully');
 
-              location.href = "#/EmailDash"
+                location.href = "#/EmailDash"
+              }
+              else {
+                this.spinner.hide();
+                Swal.fire('Email envoyé avec succès.');
+
+                location.href = "#/EmailDash"
+              }
+
 
               // this.sendemailpatients=[]
               // this.attchementurl=[]
@@ -199,12 +206,20 @@ export class SendemailsComponent implements OnInit {
               // this.removetagsmessage=""
               // this.message=""
               if ((this.sendemailpatients.length + 1) == i) {
-                
-                Swal.fire('Success', 'Mail send successfully');
 
-                
-                // this.spinner.hide();
-                location.href = "#/EmailDash"
+                if (this.languageid == 1) {
+                  // this.spinner.hide();
+                  Swal.fire('Mail sent successfully');
+
+                  location.href = "#/EmailDash"
+                }
+                else {
+                  // this.spinner.hide();
+                  Swal.fire('Email envoyé avec succès.');
+
+                  location.href = "#/EmailDash"
+                }
+
               }
 
             })
@@ -214,12 +229,24 @@ export class SendemailsComponent implements OnInit {
       // this.spinner.hide();
       // Swal.fire('Success', 'Mail send successfully');
       if ((this.sendemailpatients.length) == i) {
-        
-        Swal.fire('Success', 'Mail send successfully');
 
-        
+        if (this.languageid == 1) {
+          this.spinner.hide();
+          Swal.fire('Mail sent successfully');
+
+          location.href = "#/EmailDash"
+        }
+        else {
+          this.spinner.hide();
+          Swal.fire('Email envoyé avec succès.');
+
+          location.href = "#/EmailDash"
+        }
+
+
+
         // this.spinner.hide();
-        location.href = "#/EmailDash"
+
       }
 
     }
@@ -258,10 +285,10 @@ export class SendemailsComponent implements OnInit {
 
     this.showtoemails = this.sendemailpatients.map(x => x.emailID);
     this.showpatientemails = this.showtoemails.join(';');
-    
+
     this.ccemails = this.cclistarray.map(x => x.emailID);
     this.cclist = this.ccemails.join(';');
-    
+
     this.showbccmails = this.bcclistarray.map(x => x.emailID);
     this.bcclist = this.showbccmails.join(';');
 
@@ -273,40 +300,39 @@ export class SendemailsComponent implements OnInit {
   cclistarray = []
 
   public GetPatientcclist(even, list) {
-    
+
     if (even.target.checked == true) {
       this.cclistarray.push(list);
       // list.selected=1;
-      
+
     }
     else if (even.target.checked == false) {
-      
+
       this.cclistarray.splice(this.cclistarray.indexOf(list), 1);
       // list.selected=0;
     }
   }
 
   public GetPatientbcclist(even, list) {
-    
+
     if (even.target.checked == true) {
       this.bcclistarray.push(list);
       // list.selected=1;
-      
+
     }
     else if (even.target.checked == false) {
-      
+
       this.bcclistarray.splice(this.bcclistarray.indexOf(list), 1);
       // list.selected=0;
     }
   }
 
 
-  public SelectTypeID(even)
-  {
-    this.typeid=even.target.value;
+  public SelectTypeID(even) {
+    this.typeid = even.target.value;
 
-    this.Patientlist = this.dummpatientPatientlist.filter(x=>x.type==this.typeid)
+    this.Patientlist = this.dummpatientPatientlist.filter(x => x.type == this.typeid)
     this.count = this.Patientlist.length
-  
+
   }
 }

@@ -37,3 +37,26 @@
     color:white;
     margin-left: 22px;
   }
+
+  .homecare
+  {
+   
+    background-color: #0099FF;
+    color:white;
+   
+  }
+  .Notavailable
+  {
+    
+    background-color: #D3D3D3;
+    color:white;
+   
+  }
+
+  .meeting
+  {
+   
+    background-color: #FFC000;
+    color:white;
+  
+  }

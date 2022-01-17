@@ -81,7 +81,7 @@ export class IndependentSubscriptionsComponent implements OnInit {
     )
 
     this.getlanguage()
-
+this.typeid==1;
   }
 
 

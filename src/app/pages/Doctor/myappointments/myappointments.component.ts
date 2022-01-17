@@ -470,7 +470,7 @@ export class MyappointmentsComponent implements OnInit {
 
 
   showothertest: any;
-  
+
 
 
 
@@ -1725,6 +1725,7 @@ export class MyappointmentsComponent implements OnInit {
       this.testpatientemail = pemail
     this.testdisplay = "block";
     this.diapatientid = patientID;
+    
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
     this.slots = slots
@@ -2674,7 +2675,9 @@ export class MyappointmentsComponent implements OnInit {
   public uploadSoAPattachmentss() {
     this.shoprescphoto = [];
     this.attachmentsurl1 = [];
-    this.docservice.SoapAttachments(this.attachments1).subscribe(res => {
+
+    let folder = this.patientid + '/' + 'SoapNotes'
+    this.docservice.UploadPatientDocuments(this.attachments1,folder).subscribe(res => {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
@@ -4212,7 +4215,8 @@ export class MyappointmentsComponent implements OnInit {
       this.docaddres = data.docaddress,
       this.nationaidno = data.nationalIdentityNo,
       this.regno = data.registrationNo,
-      this.patientaddress = data.patientaddress
+      this.patientaddress = data.patientaddress,
+      this.patientid = data.patientID
 
   }
 
@@ -4312,8 +4316,9 @@ export class MyappointmentsComponent implements OnInit {
 
 
   public onattachmentUpload1(abcd) {
-
-    this.dummprescriptionphotourl = []
+    this.spinner.show();
+    this.dummprescriptionphotourl = [];
+    this.dummprescriptionphotourl.length = 0;
 
     // for (let i = 0; i < abcd.length; i++) {
     this.attachments1.push(abcd.addedFiles[0]);
@@ -4333,8 +4338,23 @@ export class MyappointmentsComponent implements OnInit {
   // public shoprescphoto = [];
 
   public uploadattachments1() {
-    this.docservice.DoctorPhotoUpload(this.attachments1).subscribe(res => {
-
+    if (this.diasoaptypeid == 1) {
+      var foldername = this.patientid + '/' + 'DiagnosticTests'
+    }
+    else if (this.diasoaptypeid == 2) {
+      var foldername = this.patientid + '/' + 'SoapNotes'
+    }
+    else if (this.diasoaptypeid == 3) {
+      var foldername = this.patientid + '/' + 'Prescriptions'
+    }
+    else if (this.diasoaptypeid == 4) {
+      var foldername = this.patientid + '/' + 'Medical Certificate'
+    }
+    else if (this.diasoaptypeid == 5) {
+      var foldername = this.patientid + '/' + 'Referal Letter'
+    }
+    this.docservice.UploadPatientDocuments(this.attachments1, foldername).subscribe(res => {
+      this.spinner.hide();
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
@@ -5553,7 +5573,10 @@ export class MyappointmentsComponent implements OnInit {
       let body = new FormData();
 
       body.append('Dan', file);
-      this.docservice.ReceiptUpload(file).subscribe(res => {
+
+      let foldername = this.patientid + '/' + 'Receipts'
+
+      this.docservice.DoctorReports(file, foldername).subscribe(res => {
         ;
         this.pdfurl = res;
         this.UpdateReceipt();
@@ -5800,9 +5823,10 @@ export class MyappointmentsComponent implements OnInit {
   medical: any;
   pdfprslist: any;
 
-  public GetAllPrescription(appointmentid, email) {
+  public GetAllPrescription(appointmentid, email, patientID) {
     this.appointmentid = appointmentid;
     this.email = email;
+    this.patientid = patientID;
     // this.docservice.GetBookAppointmentByAppID(this.languageid, patientid, 1).subscribe(data => {
     //   this.pdfprslist = data;
     // })
@@ -5893,12 +5917,13 @@ export class MyappointmentsComponent implements OnInit {
       var file = new File([pdf], "Report" + ".pdf");
       let body = new FormData();
       body.append('Dan', file);
-
-      this.docservice.DoctorPdfreports(file).subscribe(res => {
+      debugger
+      let folder = this.patientid + '/' + 'Consulation Report'
+      this.docservice.DoctorReports(file, folder).subscribe(res => {
         ;
         // ReceiptUpload
         // DoctorPdfreports
-
+        debugger
         this.sendattchmenturl.push(res);
         let a = this.sendattchmenturl[0].slice(2);
 
@@ -5909,7 +5934,6 @@ export class MyappointmentsComponent implements OnInit {
         this.updateReport();
         this.spinner.hide()
       });
-      this.spinner.hide()
 
       // doc.save('Prescriptions.pdf');
     });
@@ -6017,8 +6041,7 @@ export class MyappointmentsComponent implements OnInit {
     }
     this.docservice.InsertPatient_VaccinationDetails(entity).subscribe(data => {
       debugger
-      if(this.languageid==1)
-      {
+      if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
         this.getvaccinatindetails();
         this.firstvaccinedate = "";
@@ -6026,8 +6049,7 @@ export class MyappointmentsComponent implements OnInit {
         this.firstvaccine = "";
         this.secondvaccine = "";
       }
-      else
-      {
+      else {
         Swal.fire('Les vaccins ont été mis à jour.');
         this.getvaccinatindetails();
         this.firstvaccinedate = "";
@@ -6035,7 +6057,7 @@ export class MyappointmentsComponent implements OnInit {
         this.firstvaccine = "";
         this.secondvaccine = "";
       }
-     
+
     })
   }
 

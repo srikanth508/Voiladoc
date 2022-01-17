@@ -189,15 +189,16 @@
 
     <div class="row">
       <div class="col-lg-3">
-        <label class="dname_label">Slot Type :</label>
+        <label class="dname_label">{{labels[0].slotType}} :</label>
         <span class="required">*</span>
       </div>
       <div class="col-lg-4" >
         <select class="form-control" (change)="GetSlotDurationID($event)">
           <option value="0" selected>{{labels[0].select}}</option>
           <option value="1">30 Minutes</option>
+          <option value="4">60 Minutes</option>
           <option value="2">90 Minutes</option>
-          <option value="3">2 Hours</option>
+          <option value="3">2 {{labels[0].hours}}</option>
          
         </select>
       </div>

@@ -52,6 +52,33 @@ export class SendSmsComponent implements OnInit {
     );
   }
 
+
+
+
+  public GetPatientSelectAll(even) {
+
+    var chkboxes = document.getElementsByClassName('chk_sendmailcheck')
+    if (even.target.checked == true) {
+
+      this.sendemailpatients = this.Patientlist;
+      this.Patientlist.checked = true;
+      console.log('sendsms',this.sendemailpatients)
+      for (let i = 0; i < chkboxes.length; i++) {
+        document.getElementsByClassName('chk_sendmailcheck')[i]['checked'] = true;
+      }
+
+    }
+    else if (even.target.checked == false) {
+
+      this.sendemailpatients = []
+      for (let i = 0; i < chkboxes.length; i++) {
+        document.getElementsByClassName('chk_sendmailcheck')[i]['checked'] = false;
+      }
+    }
+  }
+
+
+
   public GetPatientSendemailslist(even, list) {
     
     if (even.target.checked == true) {

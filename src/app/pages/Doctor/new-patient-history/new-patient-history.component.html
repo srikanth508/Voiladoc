@@ -233,7 +233,7 @@
             <th [style.background-color]="color">{{labels1[0].doctorName}}</th>
             <th [style.background-color]="color">{{labels1[0].department}}</th>
             <th [style.background-color]="color">{{labels[0].diagnosticTest}}</th>
-            <th [style.background-color]="color">Report</th>
+            <th [style.background-color]="color">Rpport</th>
             <!-- <th [style.background-color]="color">{{labels[0].test}}</th>
             <th [style.background-color]="color">{{labels[0].testName}}</th>
             <th [style.background-color]="color">{{labels1[0].clinicalInfo}}</th> -->
@@ -252,7 +252,7 @@
             </td>
             <td>
               <img src="assets/Images/pdf.png" style="height:20px;" *ngIf="dia.reportUrl!='0'"
-              title="Diagnostic Report" (click)="GetReportPdf(dia.reportUrl)">
+              title="Rapport" (click)="GetReportPdf(dia.reportUrl)">
             </td>
             <!-- <td>{{dia.name}}</td>
             <td>{{dia.testName}}</td>
@@ -472,7 +472,7 @@
         <thead>
           <tr>
             <th id="imp" [style.background-color]="color">{{labels[0].appointmentDate}}</th>
-            <th [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
+            <th id="imp" [style.background-color]="color">{{labels1[0].appointmentNumber}}</th>
             <th [style.background-color]="color">{{labels[0].documenttype}}</th>
 
             <th [style.background-color]="color">{{labels1[0].doctorName}}</th>
@@ -491,7 +491,7 @@
             <td>{{soap1.pMobileNo}}</td>
             <!-- <td>{{soap1.reasonForVisit}}</td> -->
             <td>
-              <ng-template #tipcontent948>Report</ng-template>
+              <ng-template #tipcontent948>Notes</ng-template>
               <a [ngbTooltip]="tipcontent948">
                 <img src=" assets/Images/pdf.png" style="height:25px;" (click)="GetPdfsss(soap1.photoUrl)" />
               </a>

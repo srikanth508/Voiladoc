@@ -240,11 +240,23 @@ export class PatientsregComponent implements OnInit {
       this.data = data;
       if (data == "Success") {
         debugger
-        Swal.fire("Saved Successfully");
-        this.getexceptions();
-        this.spinner.hide();
-        this.contactdata = [];
-        this.qwerty = [];
+        if(this.languageid==1)
+        {
+          Swal.fire("Save without errors.");
+          this.getexceptions();
+          this.spinner.hide();
+          this.contactdata = [];
+          this.qwerty = [];
+        }
+        else
+        {
+          Swal.fire("Enregistrer sans erreurs.");
+          this.getexceptions();
+          this.spinner.hide();
+          this.contactdata = [];
+          this.qwerty = [];
+        }
+       
         // this.contactdata = []
       }
       else {
@@ -260,11 +272,11 @@ export class PatientsregComponent implements OnInit {
         debugger
         if(this.languageid==1)
         {
-          Swal.fire("Exception while Importing");
+          Swal.fire("Saved with some errors. Please check the error on the dashboard.");
         }
         else
         {
-          Swal.fire("Erreur détectée lors de l'importation.")
+          Swal.fire("Enregistré avec quelques erreurs. Veuillez vérifier l'erreur sur le tableau de bord.")
         }
       
         this.contactdata = [];

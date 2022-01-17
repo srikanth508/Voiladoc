@@ -213,10 +213,10 @@ export class NewPatientHistoryComponent implements OnInit {
     this.getvitaldetails()
 
     if (this.languageid == 1) {
-      this.color = "#f18235"
+      this.color = "#322B6B"
     }
     else {
-      this.color = "#f18235"
+      this.color = "#322B6B"
     }
 
     debugger

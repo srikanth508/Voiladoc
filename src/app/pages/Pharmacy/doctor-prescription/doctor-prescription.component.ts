@@ -1270,8 +1270,17 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.attachments.push(abcd.addedFiles[0]);
     this.uploadattachments();
 
-    Swal.fire('Added Successfully');
-    abcd.length = 0;
+    if(this.languageid==1)
+    {
+      Swal.fire('Added Successfully');
+      abcd.length = 0;
+    }
+    else
+    {
+      Swal.fire('Mis à jour et envoyé au patient.');
+      abcd.length = 0;
+    }
+
   }
 
   public uploadattachments() {
@@ -1410,11 +1419,19 @@ export class DoctorPrescriptionComponent implements OnInit {
     this.docservice.UpdatePatient_TextMedicineDetailsPhotoAmount(entity).subscribe(data => {
       if (this.languageid == 1) {
         Swal.fire("Amount Updated Successfully");
-        this.getpharmacyorders()
+        this.getpharmacyorders();
+        this.amounttopay="";
+        this.comments="";
+        this.attachmentsurl.length=0;
+        this.imageurl="";
       }
       else {
         Swal.fire("Montant mis à jour et envoyé au patient.");
-        this.getpharmacyorders()
+        this.getpharmacyorders();
+        this.amounttopay="";
+        this.comments="";
+        this.attachmentsurl.length=0;
+        this.imageurl="";
 
       }
 

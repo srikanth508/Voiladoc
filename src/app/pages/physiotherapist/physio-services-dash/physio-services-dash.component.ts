@@ -13,6 +13,7 @@ export class PhysioServicesDashComponent implements OnInit {
   public languageid: any;
   servicesList: any;
   term: any;
+  labels1:any;
   physioid: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
@@ -26,6 +27,13 @@ export class PhysioServicesDashComponent implements OnInit {
       data => {
 
         this.labels = data;
+      }, error => {
+      }
+    )
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
       }, error => {
       }
     )

@@ -151,6 +151,19 @@
               </div>
             </div>
             <br>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label *ngIf="languageid=='1'">Hospital/Clinic : </label>
+                <label id="imp" *ngIf="languageid=='6'">Hôpital / Clinique : </label>
+              </div>
+              <div class="col-lg-6"> 
+                <input type="text" disabled  [(ngModel)]="hospitalname" name="hospitalname" class="form-control"
+                 >
+              </div>
+            </div>
+            <br>
+
             <!-- <div class="row">
               <div class="col-lg-4">
                 <label>{{labels[0].isHomeVisitIsAvailable}} :</label>

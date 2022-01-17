@@ -84,6 +84,7 @@ export class EditphysiotherapistComponent implements OnInit {
 
   public photourl: any;
   public attachmentsurl = [];
+  hospitalname: any;
 
   public getpsytherapydetails() {
     this.docservice.GePhysiotherapyRegistrationByIDandLanguageID(this.id, this.languageid).subscribe(data => {
@@ -103,6 +104,7 @@ export class EditphysiotherapistComponent implements OnInit {
         this.pincode = this.details.pincode
       this.photourl = this.details.photoURL;
       this.attachmentsurl[0] = this.details.photoUrlPath;
+      this.hospitalname = this.details.hospital_ClinicName;
       this.GetDepartmentmaster();
       this.GetCountryMaster();
       this.getcitymaster();

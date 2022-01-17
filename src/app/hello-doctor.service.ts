@@ -456,6 +456,17 @@ export class HelloDoctorService {
     return this.http.post(this.host + '/Doctor/IdentityUpload/', formdata);
   }
 
+
+  public DoctorsPersonalUploads(files, foldername) {
+    let formdata: FormData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      debugger
+      formdata.append('file_upload', files[i], files[i].name);
+    }
+    this.url = this.host + '/Doctor/DoctorsPersonalUploads?FolderName=' + foldername;
+    return this.http.post(this.url, formdata);
+  }
+
   public DoctorSignatureUpload(files) {
     let formdata: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -6135,5 +6146,59 @@ export class HelloDoctorService {
   public GetBookApptbyPatientID(id, lid) {
     debugger
     return this.http.get<any[]>(this.host + '/Doctor/GetBookApptbyPatientID?PatientID=' + id + '&LanguageID=' + lid);
+  }
+
+  public InsertDoctors_PersonalFolder(data) {
+    this.url = this.host + '/Doctor/InsertDoctors_PersonalFolder';
+    return this.http.post(this.url, data)
+  }
+
+  public GetDoctors_PersonalFolder(doctorid, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetDoctors_PersonalFolder?DoctorID=' + doctorid + '&LanguageID=' + lid);
+  }
+
+  public InsertFolders_Attchments(data) {
+    this.url = this.host + '/Doctor/InsertFolders_Attchments';
+    return this.http.post(this.url, data)
+  }
+
+  public GetFolders_Attchments(folderid, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetFolders_Attchments?FolderID=' + folderid + '&LanguageID=' + lid);
+  }
+
+  public GetSubFolder_Attachments(folderid, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetSubFolder_Attachments?SubfolderID=' + folderid + '&LanguageID=' + lid);
+  }
+
+
+  public InsertSubFolder_Attachments(data) {
+    this.url = this.host + '/Doctor/InsertSubFolder_Attachments';
+    return this.http.post(this.url, data)
+  }
+
+
+
+  public UploadPatientDocuments(files, foldername) {
+    let formdata: FormData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      debugger
+      formdata.append('file_upload', files[i], files[i].name);
+    }
+    this.url = this.host + '/Doctor/UploadPatientDocuments?FolderName=' + foldername;
+    return this.http.post(this.url, formdata);
+  }
+
+
+  
+  public DoctorReports(files,foldername) {
+
+    let formdata: FormData = new FormData();
+    formdata.append('file_upload', files, files.name);
+
+    this.url = this.host + '/Doctor/UploadPatientDocuments?FolderName=' + foldername;
+    return this.http.post(this.url, formdata);
   }
 }

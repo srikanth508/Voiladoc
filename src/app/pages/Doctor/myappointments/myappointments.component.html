@@ -349,7 +349,7 @@
                       <img src="assets/Images/conreport.png" style="height:30px;" data-toggle="modal"
                         data-target="#PdfsCheck"
                         *ngIf="details.noShow=='0'&&details.cancelled=='0'&&details.docCancelled=='0'&&details.accepted=='1'"
-                        (click)="GetAllPrescription(details.appointmentID,details.pEmail)">
+                        (click)="GetAllPrescription(details.appointmentID,details.pEmail,details.patientID)">
                     </a>
                   </td>
                 </tr>

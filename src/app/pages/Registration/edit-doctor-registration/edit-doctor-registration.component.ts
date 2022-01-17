@@ -191,7 +191,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
       }
     )
   }
-
+  hospitalname:any;
   public getdoctordetailsbyid() {
 
     this.docservice.GetDoctorDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
@@ -227,7 +227,8 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.hospitalid = this.details.hospitalClinicID,
           this.signatureurl = this.details.signatureURL,
           this.referbit = this.details.referealBit,
-          this.categoryid = this.details.categoryID
+          this.categoryid = this.details.categoryID,
+          this.hospitalname=this.details.hospital_ClinicName
 
         this.GetCountryMaster()
         this.getcitymaster();

@@ -581,6 +581,10 @@
                 <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].myProfile}}
             </a>
 
+            <a class="tablinks" (click)="highlight($event)" *ngIf="roleid=='2'" routerLink="/FoldersDash">
+                <img src="assets/Images/profile.png" style="width: 15px;">&nbsp; &nbsp; My Folders
+            </a>
+
 
 
 
@@ -1381,7 +1385,7 @@
                     </a>
                     <a class="tablinks" (click)="highlight($event)" routerLink="/NurseServicesDash"
                         *ngIf="nursefees=='1'">
-                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].nurseFees}}
+                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;  {{labels[0].prestations}}
                     </a>
                     <a class="tablinks" (click)="highlight($event)" *ngIf="nurseagenda=='1'"
                         routerLink="/NurseSchedule">
@@ -1401,7 +1405,7 @@
                     <a class="tablinks" (click)="highlight($event)" routerLink="/PhysioServicesDash"
                         *ngIf="physiofees=='1'">
                         <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;
-                        {{labels[0].physitherapistFees}}
+                        {{labels[0].prestations}}
                     </a>
                     <a class="tablinks" (click)="highlight($event)" *ngIf="physiotherapistagenda=='1'"
                         routerLink="/PhysioMonthWiseSch">
@@ -1418,7 +1422,7 @@
                     </a>
                     <a class="tablinks" (click)="highlight($event)" routerLink="/MidwifeservicesDash"
                         *ngIf="midwifefees=='1'">
-                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp; {{labels[0].midwifefee}}
+                        <img src="assets/Images/phareg.png" style="width: 15px;">&nbsp; &nbsp;  {{labels[0].prestations}}
                     </a>
                     <a class="tablinks" (click)="highlight($event)" *ngIf="midwifeagenda=='1'"
                         routerLink="/MidWifeMonthWiseSch">

@@ -3,13 +3,14 @@
   <br>
   <div class="row ">
     <div class="col-lg-3">
-      <h5>Services</h5>
+      <h5 *ngIf="languageid==1">Services</h5>
+      <h5 *ngIf="languageid==6">PRESTATIONS</h5>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-5">
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <button type="button" routerLink="/PhysioServices"
-        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">Add</button>
+        style="float: right;background-color:  #f18235;width: 49%;color: white;" class="btn btncolor">{{labels1[0].addservice}}</button>
     </div>
   </div>
   <br>
@@ -25,17 +26,17 @@
       <table>
         <thead>
           <tr>
-            <th>Physiotherapist </th>
-            <th>Service name </th>
-            <th>Description </th>
-            <th>Charges </th>
+            <th>{{labels1[0].nurseName}} </th>
+            <th>{{labels1[0].servicename}} </th>
+            <!-- <th>Description </th> -->
+            <th>{{labels1[0].charges}} </th>
             <th>{{labels[0].actions}}</th>
             <!-- <th>{{labels[0].description}}</th> -->
           </tr>
           <tr *ngFor="let list of servicesList|filter:term">
             <td>{{list.name}}</td>
             <td>{{list.serviceName}}</td>
-            <td>{{list.serviceDescription}}</td>
+            <!-- <td>{{list.serviceDescription}}</td> -->
             <td>{{list.serviceCharges}}</td>
             <td>
               <ng-template #tipcontent1>{{labels[0].edit}}</ng-template>

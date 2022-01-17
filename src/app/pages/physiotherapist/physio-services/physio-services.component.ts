@@ -24,6 +24,7 @@ export class PhysioServicesComponent implements OnInit {
   user: any;
   dummid: any;
   showDropdown:any;
+  labels1:any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.physioid = localStorage.getItem('physioid');
@@ -55,10 +56,19 @@ export class PhysioServicesComponent implements OnInit {
 
     this.getlanguage();
 
+
     this.docservice.GetPhysiotherapyRegistringLogins(this.languageid).subscribe(
       data => {
         this.physiolist = data;
 
+      }, error => {
+      }
+    )
+
+    this.docservice.GetAdmin_RegisterLogins_Label(this.languageid).subscribe(
+      data => {
+        debugger
+        this.labels1 = data;
       }, error => {
       }
     )

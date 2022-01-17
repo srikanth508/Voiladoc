@@ -72,6 +72,7 @@ export class EditMidwifeComponent implements OnInit {
   }
   public attachmentsurl = [];
   public photourl: any;
+  hospitalname: any;
   public Getmidwifedetails() {
     this.docservice.GetMidWivesRegistrationByIDAndLanguageID(this.id, this.languageid).subscribe(data => {
       this.details = data[0];
@@ -91,6 +92,7 @@ export class EditMidwifeComponent implements OnInit {
         this.pincode = this.details.pincode
       this.photourl = this.details.photoURL;
       this.attachmentsurl[0] = this.details.photoUrlPath;
+      this.hospitalname = this.details.hospital_ClinicName;
 
       this.GetDepartmentmaster();
       this.GetCountryMaster();

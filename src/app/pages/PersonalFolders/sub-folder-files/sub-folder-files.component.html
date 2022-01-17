@@ -1,0 +1,173 @@
+<ngx-spinner bdColor="rgba(68,64,66,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<br>
+<div class="container-fluid card card:hover headerspace">
+  <div class="row headerspace">
+    <div class="col-lg-10">
+      <h5>My Files</h5>
+    </div>
+    <div class="col-lg-2">
+      <!-- <button style="margin-left: 10px;" type="button" routerLink="/CreateFolders"
+      class="btn btncolor">Add Folder
+    </button> -->
+    </div>
+  </div>
+</div>
+<br>
+<div class="container-fluid card card:hover ">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-lg-3">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="Search">
+    </div>
+    <div class="col-lg-5">
+
+    </div>
+    <div class="col-lg-2">
+      <!-- <button style="margin-left: 10px;" type="button" class="btn btncolor" data-toggle="modal"
+        data-target="#subfolder">Create Sub Folder
+      </button> -->
+    </div>
+    <div class="col-lg-2">
+      <button style="margin-left: 10px;" type="button" class="btn btncolor" data-toggle="modal"
+        data-target="#exampleModal">Add Files
+      </button>
+      <!-- <label>Count : {{folderlist.length}}</label> -->
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-lg-12" style="overflow: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Created date</th>
+           
+            <th>File Name</th>
+            <th>File Type</th>
+            <th>File</th>
+            <!-- <th>Actions</th> -->
+          </tr>
+          <tr *ngFor="let attch of atachmentlist|filter:term">
+            <td>{{attch.date}}</td>
+            <td>{{attch.fileName}}</td>
+            <td>{{attch.fileType}}</td>
+            <td>
+              <img src="{{attch.documents}}" *ngIf="attch.fileType=='Image'" style="width: 30px;"
+                (click)="openwindow(attch.documents)">
+              <img src="assets/Images/word.png" *ngIf="attch.fileType=='Word Document'" style="width: 30px;"
+                (click)="openwindow(attch.documents)">
+              <img src="assets/Images/pdf.png" *ngIf="attch.fileType=='Pdf'" style="width: 30px;"
+                (click)="openwindow(attch.documents)">
+              <img src="assets/Images/xl.png" *ngIf="attch.fileType=='Excel'" style="width: 30px;"
+                (click)="openwindow(attch.documents)">
+
+              <img src="assets/Images/pmr.png" *ngIf="attch.fileType=='Folder'" style="width: 30px;" [routerLink]="['/SubFolderFiles',attch.folderID,attch.id]" >
+            </td>
+            <!-- <td>
+              
+            </td> -->
+          </tr>
+        </thead>
+      </table><br><br>
+    </div><br>
+  </div><br><br>
+</div><br>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>File Name :</label>
+          </div>
+          <div class="col-lg-5">
+           <input type="text" class="form-control" [(ngModel)]="filename" name="filename" placeholder="File Name"> 
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Attachment</label>
+          </div>
+          <div class="col-lg-5">
+            <ngx-dropzone [multiple]="false" style="height:57px" (change)="onattachmentUpload($event)"
+              class="dropzone_vendorinvoice">
+              <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
+            </ngx-dropzone>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-primary" (click)="InsertDetails()">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- 
+<div class="modal fade" id="subfolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sub Folder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-3">
+            <label>Sub Folder Name</label>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control" [(ngModel)]="subfoldername" name="subfoldername"
+              placeholder="Sub Folder">
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-lg-3">
+
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-primary" (click)="CreateSubfolder()">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div> -->
