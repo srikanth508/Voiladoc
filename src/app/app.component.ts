@@ -801,14 +801,14 @@ export class AppComponent {
         this.GetPharmacyNotifications()
         if (this.languageid == 1) {
           Swal.fire('Success', 'Order Accepted Successfully');
-          var smsdesc = this.details.pharmacyName + " accepted your medicine order which is being processed. "
+          var smsdesc = this.details.pharmacyName + " Pharmacy accepted your medicine order which is being processed. "
           this.SendTwiliSms(smsdesc, this.mobileno)
 
           location.href = "#/DoctorPrescription"
         }
         else if (this.languageid == 6) {
           Swal.fire('Succès', 'Commande acceptée avec succès');
-          var smsdesc = "La " + this.details.pharmacyName + " a accepté votre commande de médicaments qui est en cours de traitement."
+          var smsdesc = "La " + this.details.pharmacyName + " pharmacie a accepté votre commande de médicaments qui est en cours de traitement."
           this.SendTwiliSms(smsdesc, this.mobileno)
           location.href = "#/DoctorPrescription"
 

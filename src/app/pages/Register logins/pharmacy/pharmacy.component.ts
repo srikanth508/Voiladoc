@@ -90,15 +90,13 @@ export class PharmacyComponent implements OnInit {
             this.getpharmacyloginfordash();
             Swal.fire('Registration Completed', 'Details saved successfully', 'success');
             location.href = "#/Pharmacydash"
-            this.clear();
-            this.password1 = 0;
+       
           }
           else {
             this.getpharmacyloginfordash();
             Swal.fire('', 'Mis à jour avec succés', 'success');
             location.href = "#/Pharmacydash"
-            this.clear();
-            this.password1 = 0;
+           
           }
 
 
@@ -107,14 +105,12 @@ export class PharmacyComponent implements OnInit {
           if (this.languageid == 1) {
             Swal.fire('Error', 'Pharmacy Login Already Exists', 'success');
             location.href = "#/Pharmacydash"
-            this.clear();
-            this.password1 = 0;
+            
           }
           else {
             Swal.fire('Erreur Cet identifiant existe déjà');
             location.href = "#/Pharmacydash"
-            this.clear();
-            this.password1 = 0;
+           
           }
 
         }
@@ -189,8 +185,4 @@ export class PharmacyComponent implements OnInit {
 
 
 
-  public clear() {
-    this.username = '';
-    this.password = '';
-  }
 }

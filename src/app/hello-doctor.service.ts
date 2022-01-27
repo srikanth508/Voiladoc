@@ -6201,4 +6201,17 @@ export class HelloDoctorService {
     this.url = this.host + '/Doctor/UploadPatientDocuments?FolderName=' + foldername;
     return this.http.post(this.url, formdata);
   }
+
+
+
+  public GetSub_Folders_Attachemnts(folderid, lid) {
+    debugger
+    return this.http.get<any[]>(this.host + '/Doctor/GetSub_Folders_Attachemnts?SubFolders_ID=' + folderid + '&LanguageID=' + lid);
+  }
+
+  
+  public InsertSub_Folders_Attachemnts(data) {
+    this.url = this.host + '/Doctor/InsertSub_Folders_Attachemnts';
+    return this.http.post(this.url, data)
+  }
 }

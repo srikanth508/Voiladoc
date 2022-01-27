@@ -133,6 +133,10 @@ term:any;
         this.spinner.hide();
       }, error => {
         this.spinner.hide();
+        Swal.fire("We are facing problems on our side. please try again later");
+      
+
+
       }
     )
   }

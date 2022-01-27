@@ -49,7 +49,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     )
     this.getphysio();
     this.getlanguage();
-    this.GetMorningSlotsMasterbyid();
+   
   }
 
   public getphysio() {
@@ -197,6 +197,7 @@ export class PhysioMonthWiseSchComponent implements OnInit {
     this.physiohospitalid = list[0].id;
     this.slotTypeID = list[0].slotDurationID;
     this.GetPhjysioworkingDatewise();
+    this.GetMorningSlotsMasterbyid();
   }
 
 

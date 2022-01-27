@@ -109,7 +109,7 @@ export class SubFolderFilesComponent implements OnInit {
         'SubfolderID': this.subfolderid,
         'FileName': this.filename,
         'AttachmentUrl': this.attachmentsurl[0],
-
+        'SubFolderName':''
       }
       this.docservice.InsertSubFolder_Attachments(entity).subscribe(data => {
         if (data != 0) {
@@ -125,4 +125,26 @@ export class SubFolderFilesComponent implements OnInit {
   openwindow(documents) {
     window.open(documents, '_blank');
   }
+
+  subfold:any;
+
+
+  CreateSubfolder() {
+   
+      debugger
+      var entity = {
+        'FolderID': this.folderid,
+        'SubfolderID': this.subfolderid,
+        'FileName': '',
+        'AttachmentUrl': 0,
+        'SubFolderName':this.subfold
+      }
+      this.docservice.InsertSubFolder_Attachments(entity).subscribe(data => {
+        if (data != 0) {
+          Swal.fire("File Saved Successfully");
+          this.attachmentsurl.length = 0;
+          this.GetAttachments();
+        }
+      })
+    }
 }

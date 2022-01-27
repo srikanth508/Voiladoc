@@ -652,11 +652,11 @@ export class VediocallComponent implements OnInit {
 
   public SendNotification() {
     if (this.languageid == 1) {
-      var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. "
+      var smsdesc = "The doctor has started the call. Please open Voiladoc app and accept the call now. The doctor cannot wait more than 5 minutes once the consultation has been initiated. If that happens, you will be billed for this call in accordance with our cancellation/refund policy. "
       this.SendTwiliSms(smsdesc, this.smsmobileno)
 
       var entity = {
-        'Description': "The doctor has started the call. Please open Voiladoc app and accept the call now. ",
+        'Description': "The doctor has started the call. Please open Voiladoc app and accept the call now. The doctor cannot wait more than 5 minutes once the consultation has been initiated. If that happens, you will be billed for this call in accordance with our cancellation/refund policy.",
         'ToUser': this.email,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {
@@ -668,10 +668,10 @@ export class VediocallComponent implements OnInit {
       })
     }
     else if (this.languageid == 6) {
-      var smsdesc = "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel."
+      var smsdesc = "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel. Le médecin ne pourra attendre plus de 5 minutes une fois la consultation initiée. Au-delà la consultation sera facturée conformément à notre politique d’annulation / remboursement."
       this.SendTwiliSms(smsdesc, this.smsmobileno);
       var entity = {
-        'Description': "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel.",
+        'Description': "Le médecin a lancé l'appel. Veuillez ouvrir l'application Voiladoc et accepter l'appel. Le médecin ne pourra attendre plus de 5 minutes une fois la consultation initiée. Au-delà la consultation sera facturée conformément à notre politique d’annulation / remboursement.",
         'ToUser': this.email,
       }
       this.docservice.PostGCMNotifications(entity).subscribe(data => {

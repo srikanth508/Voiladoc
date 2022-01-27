@@ -31,7 +31,7 @@ export class NurseScheduleComponent implements OnInit {
   todaydate: any;
   public DayDatelist: any;
   today = new Date();
-  term:any;
+  term: any;
 
   ngOnInit() {
 
@@ -47,7 +47,7 @@ export class NurseScheduleComponent implements OnInit {
     this.getlanguage()
 
     this.getnurselist();
-    this.GetMorningSlotsMasterbyid();
+
 
 
     // var startdate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -180,22 +180,24 @@ export class NurseScheduleComponent implements OnInit {
         this.spinner.hide();
       }, error => {
         this.spinner.hide();
+        Swal.fire("We are facing problems on our side. please try again later");
       }
     )
   }
 
   nursehospitalid: any;
-  showcalender:any;
-  slotTypeID:any;
+  showcalender: any;
+  slotTypeID: any;
 
   public GetNurseID(item: any) {
     this.nurseid = item.nurseID;
     var list = this.nurselist.filter(x => x.nurseID == this.nurseid);
     this.nursehospitalid = list[0].nursehospitalid,
-    this.slotTypeID = list[0].slotDurationID
+      this.slotTypeID = list[0].slotDurationID
     this.spinner.show();
-    this.showcalender=1;
+    this.showcalender = 1;
     this.GetNurseWorkingDetailsDyWise();
+    this.GetMorningSlotsMasterbyid();
 
   }
 
@@ -664,9 +666,9 @@ export class NurseScheduleComponent implements OnInit {
 
 
 
-  timewiseappointmentid:any;
-  totalappcount:any;
-  timechangedate1:any;
+  timewiseappointmentid: any;
+  totalappcount: any;
+  timechangedate1: any;
 
 
 
@@ -767,7 +769,7 @@ export class NurseScheduleComponent implements OnInit {
               this.notificationdate = list.notificationdate,
               this.appointmentid = list.id,
               this.patientname = list.pName
-          
+
             this.SendCancelPatientmail();
             this.GetNurseWorkingDetailsDyWise();
             debugger
@@ -776,22 +778,22 @@ export class NurseScheduleComponent implements OnInit {
         this.docservice.GetNurseCancelledAppointmentByDateWise(this.nurseid, this.timewisechangeslotlist[j].id, this.timechangedate).subscribe(data => {
           debugger
         })
-          var entity = {
-            'NurseHospitalDetailsID': this.nursehospitalid,
-            'NurseID': this.nurseid,
-            'DayID': this.timechangedayid,
-            'SlotID': this.timewisechangeslotlist[j].id,
-            'Fees': this.fees,
-            'AppointmentDate': this.timechangedate,
-            'AppointmentTypeID': this.timewiseappointmentid
-          }
+        var entity = {
+          'NurseHospitalDetailsID': this.nursehospitalid,
+          'NurseID': this.nurseid,
+          'DayID': this.timechangedayid,
+          'SlotID': this.timewisechangeslotlist[j].id,
+          'Fees': this.fees,
+          'AppointmentDate': this.timechangedate,
+          'AppointmentTypeID': this.timewiseappointmentid
+        }
         this.docservice.InsertNurseWorkingDetails_DateWise(entity).subscribe(data => {
 
-       
+
         })
       }
 
-    
+
       this.GetNurseWorkingDetailsDyWise();
       this.spinner.show();
       if (this.languageid == 1) {

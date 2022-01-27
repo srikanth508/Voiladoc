@@ -1725,7 +1725,7 @@ export class MyappointmentsComponent implements OnInit {
       this.testpatientemail = pemail
     this.testdisplay = "block";
     this.diapatientid = patientID;
-    
+
     this.diaappointmentID = appointmentID;
     this.appdate = appdate
     this.slots = slots
@@ -2677,7 +2677,7 @@ export class MyappointmentsComponent implements OnInit {
     this.attachmentsurl1 = [];
 
     let folder = this.patientid + '/' + 'SoapNotes'
-    this.docservice.UploadPatientDocuments(this.attachments1,folder).subscribe(res => {
+    this.docservice.UploadPatientDocuments(this.attachments1, folder).subscribe(res => {
       this.attachmentsurl1.push(res);
       this.dummprescriptionphotourl.push(res);
       let a = this.attachmentsurl1[0].slice(2);
@@ -4830,7 +4830,7 @@ export class MyappointmentsComponent implements OnInit {
               'success', 'Details registered Successfully')
             this.getbookappointmentbydoctorid()
 
-            var smsdesc = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Type : téléconsultation"
+            var smsdesc = this.user + " is available earlier. Do you want to start the call now? Open the app to accept or reject. Type: teleconsultation"
             this.SendTwiliSms(smsdesc, this.smsmobileno)
 
             debugger
@@ -4859,7 +4859,7 @@ export class MyappointmentsComponent implements OnInit {
             Swal.fire('Succès', 'Détails enregistrés avec succès')
             this.getbookappointmentbydoctorid()
 
-            var smsdesc = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Type : téléconsultation"
+            var smsdesc = this.user + " est disponible plus tôt. Voulez-vous commencer l'appel maintenant ? Ouvrez l'app pour accepter ou rejeter. Type : téléconsultation"
             this.SendTwiliSms(smsdesc, this.smsmobileno)
 
           })
@@ -5479,7 +5479,7 @@ export class MyappointmentsComponent implements OnInit {
             'Offer for a free call has been sent to patient. ',
             'success'
           )
-          var smsdesc = "The consultation was unsuccessful due to technical reasons. The doctor has activated a free call. Please schedule as call on your homepage."
+          var smsdesc = this.user + " has given you a free call. Please click the notification on Voiladoc app to book your next appt."
           this.SendTwiliSms(smsdesc, this.smsmobileno)
         }
         else {
@@ -5509,7 +5509,7 @@ export class MyappointmentsComponent implements OnInit {
             "Une notification informant le patient a été envoyée",
             'success'
           )
-          var smsdesc = "La consultation n'a pu aboutir. Merci de prendre un nouveau RDV (non payant) pour poursuivre la téléconsultation."
+          var smsdesc = "Le " + this.user + " vous a accordé une RDV gratuite. Veuillez cliquer sur la notification sur l'App Voiladoc pour réserver votre prochain RDV."
           this.SendTwiliSms(smsdesc, this.smsmobileno)
         }
         else {
@@ -5639,11 +5639,11 @@ export class MyappointmentsComponent implements OnInit {
       this.InserWlletlog()
       this.insertWalletnotification()
       if (this.languageid == 1) {
-        var smsdesc = this.user + " has Refunded amount in your wallet " + this.paidamount + ". Please use Voiladoc for further bookings  "
+        var smsdesc = "We like to inform you that Dr." + this.user + " has refunded " + this.paidamount + "MAD to your Voiladoc Wallet  "
         this.SendTwiliSms(smsdesc, this.smsmobileno)
       }
       else {
-        var smsdesc = this.user + "a le montant remboursé dans votre portefeuille " + this.paidamount + ". Veuillez utiliser Voiladoc pour d'autres réservations  "
+        var smsdesc = "Nous vous informons que le  Dr." + this.user + " a remboursé " + this.paidamount + " MAD . sur votre portefeuille Voiladoc."
         this.SendTwiliSms(smsdesc, this.smsmobileno)
       }
 
@@ -5687,7 +5687,7 @@ export class MyappointmentsComponent implements OnInit {
       var entity = {
         'PatientID': this.patientID,
         'Notification': "Amount Refunded By" + this.user,
-        'Description': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+        'Description':"We like to inform you that Dr." + this.user + " has refunded " + this.paidamount + "MAD to your Voiladoc Wallet  ",
         'NotificationTypeID': 30,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -5704,7 +5704,7 @@ export class MyappointmentsComponent implements OnInit {
       var entity = {
         'PatientID': this.patientID,
         'Notification': "Amount Refunded By" + this.user,
-        'Description': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+        'Description':"Nous vous informons que le  Dr." + this.user + " a remboursé " + this.paidamount + " MAD . sur votre portefeuille Voiladoc.",
         'NotificationTypeID': 30,
         'Date': this.todaydate,
         'LanguageID': this.languageid,
@@ -5727,7 +5727,7 @@ export class MyappointmentsComponent implements OnInit {
       'Date': this.serverdate,
       'Time': this.servertime,
       'User': this.user,
-      'Reason': this.user + " has Refunded amount in your wallet" + this.paidamount + ". Please use Voiladoc for further bookings  ",
+      'Reason': "Nous vous informons que le  Dr." + this.user + " a remboursé " + this.paidamount + " MAD . sur votre portefeuille Voiladoc.",
       'Amount': this.paidamount,
       'DoctorID': this.doctorid,
       'AppointmentID': this.appointmentid,

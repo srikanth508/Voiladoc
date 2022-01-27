@@ -387,6 +387,7 @@ import { CreateFoldersComponent } from './pages/PersonalFolders/create-folders/c
 import { FoldersDashComponent } from './pages/PersonalFolders/folders-dash/folders-dash.component';
 import { MyFilesComponent } from './pages/PersonalFolders/my-files/my-files.component';
 import { SubFolderFilesComponent } from './pages/PersonalFolders/sub-folder-files/sub-folder-files.component';
+import { MysubfolderfilesComponent } from './pages/PersonalFolders/mysubfolderfiles/mysubfolderfiles.component';
 
 
 // const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -772,6 +773,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FoldersDashComponent,
     MyFilesComponent,
     SubFolderFilesComponent,
+    MysubfolderfilesComponent,
     
    
   ],
@@ -796,10 +798,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     CKEditorModule,
     NgxTagsInputModule,
     // UserIdleModule.forRoot({idle: 60, timeout: 60, ping: 120}),
-    TranslatorModule.forRoot({
-      providedLanguages: ['en', 'fr'],
-      defaultLanguage: 'en'
-    })
+    // TranslatorModule.forRoot({
+    //   providedLanguages: ['en', 'fr'],
+    //   defaultLanguage: 'en'
+    // })
   ],
 //   providers: [{provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true}],
 //   bootstrap: [AppComponent]

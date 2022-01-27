@@ -37,18 +37,18 @@ export class DocCalenderComponent implements OnInit {
   term: any;
 
   ngOnInit() {
-    this.spinner.show();
+   
     this.doctorid = localStorage.getItem('userid');
     this.languageid = localStorage.getItem('LanguageID');
     const format = 'yyyy-MM-dd';
     const myDate = new Date();
     const locale = 'en-US';
     this.todaydate = formatDate(myDate, format, locale);
-    this.spinner.show();
+  
     this.getlanguage()
     this.docservice.GetDoctorListByLanguageID(this.languageid).subscribe(
       data => {
-        this.spinner.show();
+     
         this.doctorlist = data;
         var list = this.doctorlist.filter(x => x.id == this.doctorid)
         this.slottypeid = list[0].slotDurationID
@@ -80,7 +80,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public GetMyDoctorWorkingDetails() {
-    this.spinner.show();
+ 
     this.docservice.GetDoctorcalenderSlotsByDoctorID(this.doctorid, this.slottypeid, this.todaydate, this.languageid).subscribe(
       data => {
 
@@ -216,7 +216,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public insertdetails() {
-
+    this.spinner.show();
     this.docservice.GetDoctorAppointmentByDateBySlot(this.doctorid, this.slotID, this.appointmentdate).subscribe(data1 => {
 
       if (data1.length != 0) {
@@ -258,7 +258,7 @@ export class DocCalenderComponent implements OnInit {
         else {
           Swal.fire('Mis à jour avec succès !');
         }
-        this.spinner.show();
+     
       })
 
 
@@ -532,7 +532,7 @@ export class DocCalenderComponent implements OnInit {
 
 
   public InsertDayWiseSlots() {
-
+    this.spinner.show();
     if (this.daychangedate == undefined || this.daychangedate == null) {
       Swal.fire('Please Select Date')
     }
@@ -558,7 +558,7 @@ export class DocCalenderComponent implements OnInit {
             this.Insertnotificatiacceptforcansel();
             this.insercancelnotoification();
             this.SendCancelPatientmail();
-            this.GetMyDoctorWorkingDetails();
+            // this.GetMyDoctorWorkingDetails();
           }
 
         })
@@ -583,7 +583,7 @@ export class DocCalenderComponent implements OnInit {
       }
       this.insertbookappointmenttype();
       this.GetMyDoctorWorkingDetails();
-      this.spinner.show();
+     
       if (this.languageid == 1) {
         Swal.fire('Updated Successfully');
       }
