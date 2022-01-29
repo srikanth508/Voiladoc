@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelloDoctorService } from '../../hello-doctor.service';
 import { Router } from "@angular/router";
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ export class SidebarComponent implements OnInit {
   invitaionsreport: any;
 
 
-  constructor(public docservice: HelloDoctorService) { }
+  constructor(public docservice: HelloDoctorService, private spinner: NgxSpinnerService) { }
 
   public temp: any;
   public roleid: any;
@@ -24,7 +25,7 @@ export class SidebarComponent implements OnInit {
   public labels: any;
   public hospitalid: any;
   public menulist: any;
-  docmedicine:any;
+  docmedicine: any;
   public masters: any;
   public registery: any;
   public workingdetails: any;
@@ -116,7 +117,7 @@ export class SidebarComponent implements OnInit {
   public RejectedDash: any;
   public subscriptions: any;
   public diagnosticplanning: any;
-  patientmedicine:any;
+  patientmedicine: any;
 
   public midwifeagenda: any;
   public doctoragenda: any;
@@ -130,8 +131,11 @@ export class SidebarComponent implements OnInit {
   deliveryreports: any;
   userrole: any;
   patientrefaral: any;
-  importpatients:any;
+  importpatients: any;
   ngOnInit() {
+
+    
+
     this.display = "none";
     this.roleid = localStorage.getItem('roleid');
     this.languageid = localStorage.getItem('LanguageID')
@@ -517,6 +521,11 @@ export class SidebarComponent implements OnInit {
   }
 
   public highlight(evt) {
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 2000);
     var i, tablinks;
 
     tablinks = document.getElementsByClassName("tablinks");

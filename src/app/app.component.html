@@ -2,11 +2,6 @@
     <div class="row" style="height: 10vh;" *ngIf="isDescktopResolution==true">
         <div class="col-lg-2">
             <img src="assets/Images/logo1.png">
-            <!-- 
-            <img src="assets/Images/ham.png" *ngIf="showsidebar1==0" (click)="openNav1()"
-            style="margin-left: 1%;float: right;height:30px;margin-top: 21px;">
-        <img src="assets/Images/ham.png" *ngIf="showsidebar1==1" (click)="closeNav2()"
-            style="margin-left: 1%;float: right;height:30px;margin-top: 21px;"> -->
         </div>
         <div class="col-lg-6">
             <marquee *ngFor="let noti of docnoti" style="margin-top:18px;color:red">{{noti.description}}</marquee>
@@ -23,7 +18,8 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="isDescktopResolution==true">
+    <!-- *ngIf="isDescktopResolution==true" -->
+    <div class="row" >
         <div class="col-lg-2" style="height: 90vh;overflow-y: auto;background-color: #f3f3f3;" id="sidbarid">
             <app-sidebar></app-sidebar>
         </div>
@@ -33,7 +29,7 @@
 
     </div>
 
-    <div class="row" style="height: 20vh;" *ngIf="isMobileResolution==true">
+    <!-- <div class="row" style="height: 20vh;" *ngIf="isMobileResolution==true">
         <div class="col-lg-12">
             <img src="assets/Images/logo.png" style="margin-top:5px;">
             <img src="assets/Images/ham.png" *ngIf="showsidebar==0" (click)="openNav()"
@@ -52,8 +48,8 @@
             <label style="float: left;padding: 1%;cursor: pointer;height:80px;">{{labels[0].welcome}},
                 <b>{{user}}</b></label>
         </div>
-    </div>
-    <div class="row" *ngIf="isMobileResolution==true">
+    </div> -->
+    <!-- <div class="row" *ngIf="isMobileResolution==true">
         <div class="col-lg-12" style="overflow-y: auto;height: 80vh;">
             <div id="sidenav" *ngIf="showsidebar==1">
                 <div class="row" id="mySidenav">
@@ -419,7 +415,7 @@
                             <br>
                             <br>
                         </div>
-                        <!-- DOCTOR -->
+                        
                         <a *ngIf="roleid=='2'" routerLink="/DoctorDashboard" (click)="closeNav()">
                             <img src="assets/Images/dash.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].dashboard}}
@@ -459,7 +455,6 @@
                             Patient Referrals
                         </a>
 
-                        <!-- HOSPITAL -->
                         <a *ngIf="roleid=='3'" routerLink="/Profile" (click)="closeNav()">
                             <img src="assets/Images/profile.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myProfile}}
@@ -572,7 +567,7 @@
                             </a>
                         </div>
 
-                        <!-- DIAGNOSTIC -->
+                      
                         <a *ngIf="roleid=='4'" routerLink="/Profiles" (click)="closeNav()">
                             <img src="assets/Images/profile.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myProfile}}
@@ -590,7 +585,7 @@
                             {{labels[0].offers}}
                         </a>
 
-                        <!-- PHARMACY -->
+                      
                         <a *ngIf="roleid=='5'" routerLink="/Pharmacyprofile" (click)="closeNav()">
                             <img src="assets/Images/profile.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myProfile}}
@@ -608,7 +603,7 @@
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].offers}}
                         </a>
-                        <!-- NURSE -->
+                      
                         <a *ngIf="roleid=='7'" routerLink="/NurseAdminDash" (click)="closeNav()">
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].dashboard}}
@@ -637,7 +632,7 @@
 
 
 
-                        <!-- PHYSIOTHERAPIST -->
+                      
                         <a *ngIf="roleid=='8'" routerLink="/PhysioAdminDash" (click)="closeNav()">
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].dashboard}}
@@ -664,7 +659,7 @@
                         </a>
 
 
-                        <!-- MIDWIFE -->
+                        
                         <a *ngIf="roleid=='9'" routerLink="/AdminMidWifeDash" (click)="closeNav()">
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].dashboard}}
@@ -689,7 +684,7 @@
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myWorkingDetails}}
                         </a>
-                        <!-- DELIVERY -->
+                      
                         <a *ngIf="roleid=='10'" routerLink="/DeliverPartnerProfile" (click)="closeNav()">
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myProfile}}
@@ -702,7 +697,6 @@
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].employees}}
                         </a>
-
                         <a *ngIf="roleid=='11'" routerLink="/MyProfiles" (click)="closeNav()">
                             <img src="assets/Images/offers.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myProfile}}
@@ -716,7 +710,6 @@
                             <img src="assets/Images/profile.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].myProfile}}
                         </a>
-
                         <a *ngIf="roleid=='14'" routerLink="/HospitalDashboard" (click)="closeNav()">
                             <img src="assets/Images/profile.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].hospitalDashboard}}
@@ -725,17 +718,14 @@
                             <img src="assets/Images/app.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].hosAppointments}}
                         </a>
-
                         <a *ngIf="roleid=='14'" routerLink="/CancelledAppointments" (click)="closeNav()">
                             <img src="assets/Images/profile.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             Cancelled Appointments
                         </a>
-
                         <a *ngIf="roleid=='14'" routerLink="/Doctors" (click)="closeNav()">
                             <img src="assets/Images/ds.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             {{labels[0].doctors}}
                         </a>
-
                         <a *ngIf="roleid=='14'" routerLink="/DoctorRevenue" (click)="closeNav()">
                             <img src="assets/Images/ds.png" style="width: 15px;" (click)="closeNav()">&nbsp; Payments
                         </a>
@@ -747,8 +737,6 @@
                             <img src="assets/Images/feedback.png" style="width: 15px;" (click)="closeNav()">&nbsp;
                             Patient Registration
                         </a>
-
-
                         <div *ngIf="this.docservice.showvid == 1">
                             <p style="color: aliceblue;">Doctor Video</p>
                             <app-publisher [session]="session" id="publishme" [ngStyle]="{ display: block }">
@@ -761,7 +749,7 @@
 
             <router-outlet id="main" (activate)="onActivate($event)"></router-outlet>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <div class="container-fluid" *ngIf="temp!='1'">

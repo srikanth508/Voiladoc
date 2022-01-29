@@ -336,6 +336,14 @@ export class DoctorregistrationComponent implements OnInit {
 
 
   typeofdoctor: any;
+  taxidentification: any;
+  businessid: any;
+  commercialcity: any;
+  taxprofessional: any;
+  socialseccurityfundno: any;
+  nameofbank: any;
+  accountName: any;
+  accountNumber: any;
 
   public GetTypeofdoctor(even) {
 
@@ -428,7 +436,19 @@ export class DoctorregistrationComponent implements OnInit {
         'SpokenLanguages': this.speaklanguages,
         'SignatureURL': this.signatureurl[0],
         'SlotDurationID': this.slotid,
-        'CategoryID': this.categoryid
+        'CategoryID': this.categoryid,
+        'SubscriptionTypeID': this.subscriptiontype,
+        'MonthlySubscription': this.monthlysubription,
+        'AppointmentPercentage': this.appointmentpercentage,
+        'TaxIdentification': this.taxidentification,
+        'BusinessID': this.businessid,
+        'CommercialRegCity': this.commercialcity,
+        'TaxProfessional': this.taxprofessional,
+        'SocialSeccurityNo': this.socialseccurityfundno,
+        'Nameofthebank': this.nameofbank,
+        'AccountName': this.accountName,
+        'AccountNumber': this.accountNumber,
+        'VAT': 0
       }
       this.docservice.InsertDoctorRegistration(entity).subscribe(data => {
 
@@ -737,6 +757,8 @@ export class DoctorregistrationComponent implements OnInit {
 
   }
 
+  subscriptiontype: any;
+
   public DoctorSignatureUpload() {
     this.docservice.DoctorSignatureUpload(this.signatureattachmentssss).subscribe(res => {
 
@@ -928,4 +950,14 @@ export class DoctorregistrationComponent implements OnInit {
 
     this.gender = even.target.value;
   }
+
+  appointmentpercentage: any;
+  monthlysubription: any;
+  public Getsubscriptontype() {
+
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
+  }
+
+
 }

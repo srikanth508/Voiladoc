@@ -30,7 +30,7 @@
           <span class="requird">*</span>
         </div>
         <div class="col-lg-6">
-          <input type="number" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
+          <input type="text" maxlength="10" placeholder="{{labels[0].phoneNo}}" name="phno" [(ngModel)]="phno" required
             class="form-control">
         </div>
       </div>
@@ -186,7 +186,7 @@
       <img src={{photourl}} style="width: 100%;height: 400px;" /><br><br>
       <button class="btn  btncolor" (click)="GetEditPhoto()">{{labels[0].edit}}</button><br><br>
       <div class="col-lg-8" *ngIf="editbit=='1'">
-        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+        <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice h-100">
           <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
         </ngx-dropzone>
         <span *ngFor="let hspphoto of showphoto">

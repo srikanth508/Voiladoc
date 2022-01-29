@@ -72,7 +72,20 @@ export class EditNurseComponent implements OnInit {
         this.pincode = this.nursedetails[0].pincode;
         this.photourl = this.nursedetails[0].photoURL;
         this.attachmentsurl[0] = this.nursedetails[0].photoUrlPath;
-        this.hospitalname = this.nursedetails[0].hospital_ClinicName;
+        this.hospitalname = this.nursedetails[0].hospital_ClinicName
+        this.subscriptiontype=this.nursedetails[0].subscriptionTypeID,
+
+          this.monthlysubription=this.nursedetails[0].monthlySubscription
+          this.appointmentpercentage=this.nursedetails[0].appointmentPercentage
+           this.taxidentification=this.nursedetails[0].taxIdentification
+           this.businessid=this.nursedetails[0].businessID
+          this.commercialcity=this.nursedetails[0].commercialRegCity
+           this.taxprofessional=this.nursedetails[0].taxProfessional
+
+           this.socialseccurityfundno=this.nursedetails[0].socialSeccurityNo
+           this.nameofbank=this.nursedetails[0].nameofthebank
+            this.accountName=this.nursedetails[0].accountName
+            this.accountNumber=this.nursedetails[0].accountNumber
 
         this.GetCountryMaster();
         this.getcitymasterbyid();
@@ -180,6 +193,15 @@ export class EditNurseComponent implements OnInit {
     }
   }
 
+  taxidentification: any;
+  businessid: any;
+  commercialcity: any;
+  taxprofessional: any;
+  socialseccurityfundno: any;
+  nameofbank: any;
+  accountName: any;
+  accountNumber: any;
+  subscriptiontype:any;
 
   public updatedetails() {
     var entity = {
@@ -197,7 +219,19 @@ export class EditNurseComponent implements OnInit {
       'CityID': this.cityid,
       'AreaID': this.areaid,
       'Pincode': this.pincode,
-      'CountryID': this.countryid
+      'CountryID': this.countryid,
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'TaxIdentification': this.taxidentification,
+      'BusinessID': this.businessid,
+      'CommercialRegCity': this.commercialcity,
+      'TaxProfessional': this.taxprofessional,
+      'SocialSeccurityNo': this.socialseccurityfundno,
+      'Nameofthebank': this.nameofbank,
+      'AccountName': this.accountName,
+      'AccountNumber': this.accountNumber,
+      'VAT': 0
     }
     this.docservice.UpdateNurseRegistration(entity).subscribe(data => {
       if (data != undefined) {
@@ -280,6 +314,15 @@ export class EditNurseComponent implements OnInit {
         this.ngOnInit();
       }
     })
+  }
+
+
+  appointmentpercentage: any;
+  monthlysubription: any;
+  public Getsubscriptontype() {
+
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
   }
 
 }

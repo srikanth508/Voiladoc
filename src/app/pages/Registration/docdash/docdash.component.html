@@ -60,8 +60,8 @@
             <th>{{labels[0].phoneNo}}</th>
             <th>{{labels[0].email}}</th>
             <!-- <th>{{labels[0].registeredDate}}</th> -->
-            <th>{{labels[0].country}}</th>
-            <th>{{labels[0].province}}</th>
+            <!-- <th>{{labels[0].country}}</th>
+            <th>{{labels[0].province}}</th> -->
             <th>{{labels[0].city}}</th>
             <th>{{labels[0].registrationNo}}</th>
             <th>{{labels[0].department}}</th>
@@ -74,15 +74,15 @@
             <th>{{labels[0].actions}}</th>
           </tr>
           <tr
-            *ngFor="let details of doctorlist|filter:term|filter:departmentname">
+            *ngFor="let details of doctorlist|filter:term|filter:departmentname| paginate: { id: 'foo', itemsPerPage: 10, currentPage: p}">
             <!-- | paginate: { id: 'foo', itemsPerPage: 10, currentPage: p} -->
             <td><img src="{{details.photoURL}}" style="height: 50px;width: 50px;" /></td>
             <td>{{details.doctorName}}</td>
             <td>{{details.mobileNumber}}</td>
             <td>{{details.emailID}}</td>
             <!-- <td>{{details.registeredDate}}</td> -->
-            <td>{{details.short}}</td>
-            <td>{{details.city}}</td>
+            <!-- <td>{{details.short}}</td>
+            <td>{{details.city}}</td> -->
             <td>{{details.areaName}}</td>
             <td>{{details.registrationNo}}</td>
             <td>{{details.departmentname}}</td>
@@ -114,11 +114,11 @@
       </table>
     </div>
   </div><br><br>
-  <!-- <div class="col-lg-12" style="text-align: center">
+  <div class="col-lg-12" style="text-align: center">
     <br>
     <pagination-controls id="foo" (pageChange)="pageChanged($event)" maxSize="15" directionLinks="true" autoHide="true"
       responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
       screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div><br><br> -->
+  </div><br><br>
 </div><br><br><br>

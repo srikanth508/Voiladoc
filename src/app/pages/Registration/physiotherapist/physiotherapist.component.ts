@@ -346,6 +346,28 @@ export class PhysiotherapistComponent implements OnInit {
     this.slotTypeID = even.target.value;
   }
 
+  
+  taxidentification: any;
+  businessid: any;
+  commercialcity: any;
+  taxprofessional: any;
+  socialseccurityfundno: any;
+  nameofbank: any;
+  accountName: any;
+  accountNumber: any;
+  subscriptiontype: any;
+
+  appointmentpercentage: any;
+  monthlysubription: any;
+
+  
+  public Getsubscriptontype() {
+
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
+  }
+  
+
 
   public insertphysiodetails() {
 
@@ -369,7 +391,19 @@ export class PhysiotherapistComponent implements OnInit {
       'HospitalClinicID': this.hospitalclinicid,
       'Education': this.education,
       'SpokenLanguages': this.spokenlanguages,
-      'SlotDurationID':this.slotTypeID
+      'SlotDurationID':this.slotTypeID,
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'TaxIdentification': this.taxidentification,
+      'BusinessID': this.businessid,
+      'CommercialRegCity': this.commercialcity,
+      'TaxProfessional': this.taxprofessional,
+      'SocialSeccurityNo': this.socialseccurityfundno,
+      'Nameofthebank': this.nameofbank,
+      'AccountName': this.accountName,
+      'AccountNumber': this.accountNumber,
+      'VAT': 0
     }
     this.docservice.InsertphysiotherapyRegistrationAdmin(entity).subscribe(data => {
       let physioid = data;

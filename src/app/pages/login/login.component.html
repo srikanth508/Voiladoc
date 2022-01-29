@@ -57,8 +57,16 @@
             <label style="color:#f18235;float: right;cursor: pointer;"
               routerLink="/ForgotPassword">{{labels[0].forgotpassword}}</label><br>
 
-            <button type="submit" class="form-control login" (click)="login()"
-              [disabled]="loginForm.form.invalid">{{labels[0].login}}</button>
+            <div class="row">
+              <div class="col-lg-4">
+
+              </div>
+              <div class="col-lg-4">
+                <button type="submit" class="login" (click)="login()"
+                  [disabled]="loginForm.form.invalid">{{labels[0].login}}</button>
+              </div>
+            </div>
+
           </div>
         </form>
       </div>
@@ -67,5 +75,3 @@
     </div>
   </div>
 </div>
-
-

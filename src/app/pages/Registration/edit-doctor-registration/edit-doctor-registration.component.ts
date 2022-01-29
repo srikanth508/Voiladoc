@@ -192,6 +192,7 @@ export class EditDoctorRegistrationComponent implements OnInit {
     )
   }
   hospitalname:any;
+  subscriptiontype:any;
   public getdoctordetailsbyid() {
 
     this.docservice.GetDoctorDetailsForAdminByLanguageID(this.id, this.languageid).subscribe(
@@ -228,7 +229,21 @@ export class EditDoctorRegistrationComponent implements OnInit {
           this.signatureurl = this.details.signatureURL,
           this.referbit = this.details.referealBit,
           this.categoryid = this.details.categoryID,
-          this.hospitalname=this.details.hospital_ClinicName
+          this.hospitalname=this.details.hospital_ClinicName,
+          this.subscriptiontype=this.details.subscriptionTypeID,
+          this.monthlysubription=this.details.monthlySubscription
+          this.appointmentpercentage=this.details.appointmentPercentage
+           this.taxidentification=this.details.taxIdentification
+           this.businessid=this.details.businessID
+          this.commercialcity=this.details.commercialRegCity
+           this.taxprofessional=this.details.taxProfessional
+
+           this.socialseccurityfundno=this.details.socialSeccurityNo
+           this.nameofbank=this.details.nameofthebank
+            this.accountName=this.details.accountName
+            this.accountNumber=this.details.accountNumber
+           
+
 
         this.GetCountryMaster()
         this.getcitymaster();
@@ -272,6 +287,25 @@ export class EditDoctorRegistrationComponent implements OnInit {
   referbit: any;
   categoryid: any;
 
+
+  taxidentification: any;
+  businessid: any;
+  commercialcity: any;
+  taxprofessional: any;
+  socialseccurityfundno: any;
+  nameofbank: any;
+  accountName: any;
+  accountNumber: any;
+
+
+  appointmentpercentage: any;
+  monthlysubription: any;
+  public Getsubscriptontype() {
+
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
+  }
+
   public updatedetails() {
 
     var entity = {
@@ -298,7 +332,19 @@ export class EditDoctorRegistrationComponent implements OnInit {
       'HospitalClinicID': this.hospitalid,
       'SignatureURL': this.signatureurl,
       'ReferealBit': this.referbit,
-      'CategoryID': this.categoryid
+      'CategoryID': this.categoryid,
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'TaxIdentification': this.taxidentification,
+      'BusinessID': this.businessid,
+      'CommercialRegCity': this.commercialcity,
+      'TaxProfessional': this.taxprofessional,
+      'SocialSeccurityNo': this.socialseccurityfundno,
+      'Nameofthebank': this.nameofbank,
+      'AccountName': this.accountName,
+      'AccountNumber': this.accountNumber,
+      'VAT': 0
     }
     this.docservice.UpdateDoctorPersonelInfo(entity).subscribe(res => {
       let test = res;

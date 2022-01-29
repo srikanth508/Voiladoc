@@ -202,7 +202,7 @@
           <img src={{photourl}} style="width: 100%;height: auto;" /><br><br>
           <!-- <button class="btn  btncolor" (click)="GetEditPhoto()">{{labels[0].edit}}</button><br><br> -->
           <div class="col-lg-8" *ngIf="editbit=='1'">
-            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload1($event)" class="dropzone_vendorinvoice h-100">
             </ngx-dropzone><br>
             <span *ngFor="let pic of showdocphoto">
               <img src="{{pic}}" style="height:30px;width:30px">
@@ -225,7 +225,7 @@
           <br><br>
 
           <div class="col-lg-4" *ngIf="meditt=='1'">
-            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
+            <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload2($event)" class="dropzone_vendorinvoice h-100">
             </ngx-dropzone>
             <span *ngFor="let sds of photodetail">
               <img src="{{sds}}" style="height: 20px;width: 30px;">
@@ -400,7 +400,7 @@
             <img src="{{identiy.photoURL}}" style="height:100px;width:100px;"><br><br>
             <!-- <button class="btn  btncolor" (click)="GetidentityID(identiy.id)">{{labels[0].edit}}</button><br><br> -->
             <div class="col-lg-12" *ngIf="identiyyyds=='1'">
-              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (filesAdded)="onattachmentUpload($event)" class="dropzone_vendorinvoice h-100">
               </ngx-dropzone>
               <span *ngFor="let dsffs of showidentityproof">
                 <img src="{{dsffs}}" style="height: 20px;width: 20px;">

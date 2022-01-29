@@ -388,6 +388,7 @@ import { FoldersDashComponent } from './pages/PersonalFolders/folders-dash/folde
 import { MyFilesComponent } from './pages/PersonalFolders/my-files/my-files.component';
 import { SubFolderFilesComponent } from './pages/PersonalFolders/sub-folder-files/sub-folder-files.component';
 import { MysubfolderfilesComponent } from './pages/PersonalFolders/mysubfolderfiles/mysubfolderfiles.component';
+import { SidebarTestComponent } from './pages/sidebar-test/sidebar-test.component';
 
 
 // const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -774,6 +775,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MyFilesComponent,
     SubFolderFilesComponent,
     MysubfolderfilesComponent,
+    SidebarTestComponent,
     
    
   ],

@@ -24,8 +24,7 @@
             </div>
             <div class="col-lg-4">
               <input type="text" placeholder="{{labels[0].doctorName}}" name="doctorname" required
-                [(ngModel)]="doctorname" class="form-control"
-               >
+                [(ngModel)]="doctorname" class="form-control">
             </div>
           </div>
           <br>
@@ -289,8 +288,8 @@
           <div *ngIf="dummid==null">
             <div class="row">
               <div class="col-lg-3">
-                <label  *ngIf="languageid=='1'">Status :</label>
-                <label  *ngIf="languageid=='6'">Statut :</label>
+                <label *ngIf="languageid=='1'">Status :</label>
+                <label *ngIf="languageid=='6'">Statut :</label>
                 <span class="required">*</span>
               </div>
               <div class="col-lg-8">
@@ -299,7 +298,7 @@
                 {{labels[0].hospitaldoctor}}
                 <input type="radio" value="2" [(ngModel)]="typeofdoctor" required name="typeofdoctor"
                   (click)="GetTypeofdoctor($event)">&nbsp;
-                  {{labels[0].independentdoctor}}
+                {{labels[0].independentdoctor}}
                 <!-- <input type="radio" value="3"  [(ngModel)]="typeofdoctor"
               required  name="typeofdoctor" (click)="GetTypeofdoctor($event)">&nbsp;
               {{labels[0].groupofdoctors}} -->
@@ -327,7 +326,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload($event)" class="dropzone_vendorinvoice h-100">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let showphoto of showidentityproof">
@@ -351,7 +350,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onSignaturUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onSignaturUpload($event)" class="dropzone_vendorinvoice h-100">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let showsigphoto of showsignaturephoto">
@@ -373,7 +372,7 @@
               <span class="required">*</span>
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice h-100">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let docphoto of showdocphoto">
@@ -464,7 +463,7 @@
 
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload2($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload2($event)" class="dropzone_vendorinvoice h-100">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let pho of photodetail">
@@ -568,7 +567,7 @@
               <label for="" class="reglabel" id="imp">{{labels[0].resume}} :</label>
             </div>
             <div class="col-lg-4">
-              <ngx-dropzone [multiple]="false" (change)="onidUpload($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onidUpload($event)" class="dropzone_vendorinvoice h-100">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let pho of showidproof">
@@ -608,6 +607,174 @@
         </div>
         <br>
         <br>
+        <!-- <div class="row">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-2">
+            <button type="button" text_align="center" [disabled]="doctorForm.form.invalid||validEmail==false"
+              class="btn btn-block btn-md allbtns btncolor"
+              (click)="insertdoctorregistration()">{{labels[0].save}}</button>
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div> -->
+        <button type="button" style="float: left" class="btn btncolor " awPreviousStep>{{labels[0].previous}}</button>
+        <button type="button" style="float: right" class="btn dashbtn btncolor" awNextStep>{{labels[0].next}}</button>
+      </aw-wizard-step>
+
+
+
+
+
+
+      <aw-wizard-step stepTitle="Financial">
+        <hr size="30">
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Tax Identification :</label>
+
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Tax Identification" [(ngModel)]="taxidentification" name="taxidentification">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Business ID :</label>
+
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Business ID" [(ngModel)]="businessid" name="businessid">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Commercial Registration & City :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Commercial Registration & City" [(ngModel)]="commercialcity" name="commercialcity">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Tax Professional :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Tax Professional" [(ngModel)]="taxprofessional" name="taxprofessional">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Social security fund no :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Social security fund no" [(ngModel)]="socialseccurityfundno" name="socialseccurityfundno">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Name of the bank :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Name of the bank" [(ngModel)]="nameofbank" name="nameofbank">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Account name :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Account name" [(ngModel)]="accountName" name="accountName">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="Address_label">Account number :</label>
+          </div>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Account number" maxlength="24" [(ngModel)]="accountNumber" name="accountNumber">
+          </div>
+        </div>
+        <br>
+
+        <div class="row" *ngIf="hospitalclinicid=='590'">
+          <div class="col-lg-3">
+            <label>Subscription type :</label>
+            <span class="required">*</span>
+          </div>
+          <div class="col-md-8">
+            <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"
+              (click)="Getsubscriptontype()" value="1">Monthly Subscription
+            &nbsp;
+            <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"
+              (click)="Getsubscriptontype()" value="2"> Appointment Percentage
+            &nbsp;
+            <input type="radio" name="subscriptiontype" required [(ngModel)]="subscriptiontype"
+              (click)="Getsubscriptontype()" value="3"> Both
+          </div>
+        </div><br>
+        <div *ngIf="subscriptiontype=='1'">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Monthly Subscription :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+                [(ngModel)]="monthlysubription" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            </div>
+          </div><br>
+
+        </div>
+        <div *ngIf="subscriptiontype=='2'">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Appointment percentage :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Appointment percentage" name="appointmentpercentage"
+                [(ngModel)]="appointmentpercentage" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            </div>
+          </div><br>
+        </div>
+        <div *ngIf="subscriptiontype=='3'">
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Appointment percentage :</label>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Appointment Percentage" name="appointmentpercentage"
+                [(ngModel)]="appointmentpercentage" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-lg-3">
+              <label>Monthly Subscription :</label>
+              <span class="required">*</span>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" placeholder="Monthly Subscription" name="monthlysubription"
+                [(ngModel)]="monthlysubription" class="form-control"
+                onkeypress='return(event.charCode>=48&&event.charCode<=57)'>
+            </div>
+          </div><br>
+        </div>
         <div class="row">
           <div class="col-lg-5">
           </div>
@@ -622,6 +789,8 @@
 
         <button type="button" style="float: left" class="btn btncolor " awPreviousStep>{{labels[0].previous}}</button>
       </aw-wizard-step>
+
+
     </aw-wizard>
     <br>
     <br>

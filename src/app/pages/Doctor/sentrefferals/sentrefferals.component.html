@@ -183,7 +183,7 @@
               <label for="" class="reglabel">{{labels1[0].attachments}} :</label>
             </div>
             <div class="col-lg-5">
-              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice">
+              <ngx-dropzone [multiple]="false" (change)="onattachmentUpload1($event)" class="dropzone_vendorinvoice h-100">
                 <ngx-dropzone-label>{{dropzonelable}}</ngx-dropzone-label>
               </ngx-dropzone>
               <span *ngFor="let pho of showdocphoto">
