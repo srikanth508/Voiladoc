@@ -12,10 +12,24 @@ export class CreateFoldersComponent implements OnInit {
 
   folderName: any;
   doctorid: any;
+  languageid:any;
+  labels:any;
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
+    this.languageid = localStorage.getItem('LanguageID');
+    this.getlanguage();
   }
 
+
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+      }, error => {
+      }
+    )
+  }
 
 
   InsertDetails() {
@@ -25,8 +39,16 @@ export class CreateFoldersComponent implements OnInit {
     }
     this.docservice.InsertDoctors_PersonalFolder(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire("Saved Successfully");
-        location.href="#/FoldersDash"
+        if(this.languageid==1)
+        {
+          Swal.fire("Saved Successfully");
+          location.href="#/FoldersDash"
+        }
+        else{
+          Swal.fire("Enregistré avec succès");
+          location.href="#/FoldersDash"
+        }
+       
       }
     })
   }

@@ -16,12 +16,13 @@ export class MyFilesComponent implements OnInit {
   id: any;
   term: any;
   doctorid: any;
+  labels: any;
   ngOnInit() {
     this.languageid = localStorage.getItem('LanguageID');
     this.doctorid = localStorage.getItem('userid');
 
     this.activatedroute.params.subscribe(params => {
-debugger
+      debugger
       this.id = params['id'];
       this.foldername = params['Foldername'];
       this.GetAttachments();
@@ -34,8 +35,20 @@ debugger
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    this.getlanguage();
   }
 
+
+
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+      }, error => {
+      }
+    )
+  }
 
   atachmentlist: any;
   foldername: any;
@@ -43,7 +56,7 @@ debugger
   GetAttachments() {
     this.docservice.GetFolders_Attchments(this.id, this.languageid).subscribe(data => {
       this.atachmentlist = data;
-    
+
     })
   }
 
@@ -53,7 +66,7 @@ debugger
   attachmentsurl = [];
 
   public onattachmentUpload(abcd) {
-    
+
 
     this.spinner.show();
     // for (let i = 0; i < abcd.length; i++) {
@@ -80,7 +93,7 @@ debugger
 
   public uploadattachments() {
     let folder = this.doctorid + '/' + this.foldername
-    this.docservice.DoctorsPersonalUploads(this.attachments,folder).subscribe(res => {
+    this.docservice.DoctorsPersonalUploads(this.attachments, folder).subscribe(res => {
       this.attachmentsurl.push(res);
       this.spinner.hide();
       this.identityattachmentsurlssss.push(res);
@@ -117,9 +130,16 @@ debugger
       }
       this.docservice.InsertFolders_Attchments(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire("File Saved Successfully");
-          this.attachmentsurl.length = 0;
-          this.GetAttachments();
+          if (this.languageid == 1) {
+            Swal.fire("File Saved Successfully");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
+          else {
+            Swal.fire("Fichier enregistré avec succès");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
         }
       })
     }
@@ -146,9 +166,17 @@ debugger
     }
     this.docservice.InsertFolders_Attchments(entity).subscribe(data => {
       if (data != 0) {
-        Swal.fire("File Saved Successfully");
-        this.attachmentsurl.length = 0;
-        this.GetAttachments();
+        if (this.languageid == 1) {
+          Swal.fire("Subfolder created");
+          this.attachmentsurl.length = 0;
+          this.GetAttachments();
+        }
+        else {
+          Swal.fire("Sous dossier créé");
+          this.attachmentsurl.length = 0;
+          this.GetAttachments();
+        }
+
       }
     })
   }

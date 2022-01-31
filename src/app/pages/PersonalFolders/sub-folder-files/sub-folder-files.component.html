@@ -6,7 +6,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-10">
-      <h5>My Files</h5>
+      <h5>{{foldername}} / {{subfoldername}}</h5>
     </div>
     <div class="col-lg-2">
       <!-- <button style="margin-left: 10px;" type="button" routerLink="/CreateFolders"
@@ -19,19 +19,19 @@
 <div class="container-fluid card card:hover ">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="term" placeholder="Search">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
     <div class="col-lg-5">
 
     </div>
     <div class="col-lg-2">
       <button style="margin-left: 10px;" type="button" class="btn btncolor" data-toggle="modal"
-        data-target="#subfolder">Create Sub Folder
+        data-target="#subfolder">{{labels[0].createSubFolder}}
       </button>
     </div>
     <div class="col-lg-2">
       <button style="margin-left: 10px;" type="button" class="btn btncolor" data-toggle="modal"
-        data-target="#exampleModal">Add Files
+        data-target="#exampleModal">{{labels[0].addfiles}}
       </button>
       <!-- <label>Count : {{folderlist.length}}</label> -->
     </div>
@@ -41,11 +41,11 @@
       <table>
         <thead>
           <tr>
-            <th>Created date</th>
-            <th>Sub Folder Name</th>
-            <th>File Name</th>
-            <th>File Type</th>
-            <th>File</th>
+            <th>{{labels[0].createdDate}}</th>
+            <th>{{labels[0].subfoldername}}</th>
+            <th>{{labels[0].filename}}</th>
+            <th>{{labels[0].filetype}}</th>
+            <th>{{labels[0].file}}</th>
             <!-- <th>Actions</th> -->
           </tr>
           <tr *ngFor="let attch of atachmentlist|filter:term">
@@ -64,7 +64,7 @@
                 (click)="openwindow(attch.documents)">
 
               <img src="assets/Images/pmr.png" *ngIf="attch.fileType=='Folder'" style="width: 30px;"
-              [routerLink]="['/Mysubfolderfiles',attch.folderID,attch.subfolderID,attch.id,attch.folderName,attch.subFolderName,attch.subFolderssName]">
+                [routerLink]="['/Mysubfolderfiles',attch.folderID,attch.subfolderID,attch.id,attch.folderName,attch.subFolderName,attch.subFolderssName]">
             </td>
             <!-- <td>
               
@@ -88,7 +88,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].addfiles}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -96,10 +96,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-3">
-            <label>File Name :</label>
+            <label>{{labels[0].filename}} :</label>
           </div>
           <div class="col-lg-5">
-            <input type="text" class="form-control" [(ngModel)]="filename" name="filename" placeholder="File Name">
+            <input type="text" class="form-control" [(ngModel)]="filename" name="filename" placeholder="{{labels[0].filename}}">
           </div>
         </div><br>
         <div class="row">
@@ -118,12 +118,12 @@
 
           </div>
           <div class="col-lg-2">
-            <button type="button" class="btn btn-primary" (click)="InsertDetails()">Save</button>
+            <button type="button" class="btn btn-primary Buttoncolor" (click)="InsertDetails()">{{labels[0].save}}</button>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary Buttoncolor" data-dismiss="modal">{{labels[0].close}}</button>
 
       </div>
     </div>
@@ -183,7 +183,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Sub Folder</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{labels[0].subfolder}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -192,11 +192,11 @@
         <form #SubForm="ngForm">
           <div class="row">
             <div class="col-lg-3">
-              <label>Sub Folder Name</label>
+              <label>{{labels[0].subfoldername}}</label>
             </div>
             <div class="col-lg-5">
               <input type="text" class="form-control" [(ngModel)]="subfold" name="subfold" required
-                placeholder="Sub Folder">
+                placeholder="{{labels[0].subfoldername}}">
             </div>
           </div><br>
           <div class="row">
@@ -204,14 +204,14 @@
 
             </div>
             <div class="col-lg-2">
-              <button type="button" class="btn btn-primary" (click)="CreateSubfolder()"
-                [disabled]="SubForm.form.invalid">Save</button>
+              <button type="button" class="btn btn-primary Buttoncolor" (click)="CreateSubfolder()"
+                [disabled]="SubForm.form.invalid">{{labels[0].save}}</button>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary Buttoncolor" data-dismiss="modal">{{labels[0].close}}</button>
 
       </div>
     </div>

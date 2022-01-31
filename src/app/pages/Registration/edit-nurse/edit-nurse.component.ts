@@ -45,6 +45,7 @@ export class EditNurseComponent implements OnInit {
   public attachmentsurl = [];
   public dropzonelable: any;
   hospitalname: any;
+  hospitalclinicid:any;
   ngOnInit() {
     this.activatedroute.params.subscribe(params => {
 
@@ -67,6 +68,7 @@ export class EditNurseComponent implements OnInit {
         this.description = this.nursedetails[0].description;
         this.homevisit = this.nursedetails[0].homeVisit;
         this.countryid = this.nursedetails[0].countryID;
+        this.hospitalclinicid=this.nursedetails[0].hospitalclinicID;
         this.cityid = this.nursedetails[0].cityID;
         this.areaid = this.nursedetails[0].areaID;
         this.pincode = this.nursedetails[0].pincode;

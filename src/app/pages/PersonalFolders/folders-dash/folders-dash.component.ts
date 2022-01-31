@@ -12,13 +12,25 @@ export class FoldersDashComponent implements OnInit {
   doctorid: any;
   languageid: any;
   folderlist: any;
-  term:any;
+  labels: any;
+  term: any;
   ngOnInit() {
     this.doctorid = localStorage.getItem('userid');
     this.languageid = localStorage.getItem('LanguageID');
     this.GetDoctors_PersonalFolder();
+    this.getlanguage()
   }
 
+
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+      }, error => {
+      }
+    )
+  }
 
   GetDoctors_PersonalFolder() {
     this.docservice.GetDoctors_PersonalFolder(this.doctorid, this.languageid).subscribe(data => {

@@ -2,11 +2,11 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-10">
-      <h5>Folders Dashboard</h5>
+      <h5>{{labels[0].folderdash}}</h5>
     </div>
     <div class="col-lg-2">
       <button style="margin-left: 10px;" type="button" routerLink="/CreateFolders"
-      class="btn btncolor">Add Folder
+      class="btn btncolor">{{labels[0].addfolder}}
     </button>
     </div>
   </div>
@@ -15,13 +15,13 @@
 <div class="container-fluid card card:hover ">
   <div class="row" style="margin-top: 20px;">
     <div class="col-lg-3">
-      <input type="text" class="form-control" [(ngModel)]="term" placeholder="Search">
+      <input type="text" class="form-control" [(ngModel)]="term" placeholder="{{labels[0].search}}">
     </div>
     <div class="col-lg-7">  
 
     </div>
     <div class="col-lg-2">
-      <label>Count : {{folderlist.length}}</label>
+      <label>{{labels[0].count}} : {{folderlist.length}}</label>
     </div>
   </div><br>
   <div class="row">
@@ -29,8 +29,8 @@
       <table>
         <thead>
           <tr>
-            <th>Created date</th>
-            <th>Folder name</th>
+            <th>{{labels[0].createdDate}}</th>
+            <th>{{labels[0].foldername}}</th>
             <th>Actions</th>
           </tr>
           <tr *ngFor="let folder of folderlist|filter:term">

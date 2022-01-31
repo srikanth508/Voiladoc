@@ -44,8 +44,19 @@ export class MysubfolderfilesComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    this.getlanguage();
   }
 
+  labels: any;
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+      }, error => {
+      }
+    )
+  }
 
   atachmentlist: any;
 
@@ -111,15 +122,22 @@ export class MysubfolderfilesComponent implements OnInit {
       var entity = {
         'FolderID': this.folderid,
         'SubfolderID': this.subfolderid,
-        'SubFolders_ID':this.subfoldessrid,
+        'SubFolders_ID': this.subfoldessrid,
         'FileName': this.filename,
         'AttachmentUrl': this.attachmentsurl[0]
       }
       this.docservice.InsertSub_Folders_Attachemnts(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire("File Saved Successfully");
-          this.attachmentsurl.length = 0;
-          this.GetAttachments();
+          if (this.languageid == 1) {
+            Swal.fire("File Saved Successfully");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
+          else {
+            Swal.fire("Fichier enregistré avec succès");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
         }
       })
     }

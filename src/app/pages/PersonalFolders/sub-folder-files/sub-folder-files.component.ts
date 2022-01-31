@@ -39,7 +39,21 @@ export class SubFolderFilesComponent implements OnInit {
     else if (this.languageid == 6) {
       this.dropzonelable = "Télécharger des fichiers"
     }
+    this.getlanguage()
   }
+
+
+  labels:any;
+  public getlanguage() {
+    this.docservice.GetAdmin_DoctorLoginPMR_Label(this.languageid).subscribe(
+      data => {
+
+        this.labels = data;
+      }, error => {
+      }
+    )
+  }
+
 
   atachmentlist: any;
 
@@ -113,9 +127,19 @@ export class SubFolderFilesComponent implements OnInit {
       }
       this.docservice.InsertSubFolder_Attachments(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire("File Saved Successfully");
-          this.attachmentsurl.length = 0;
-          this.GetAttachments();
+          if(this.languageid==1)
+          {
+            Swal.fire("File Saved Successfully");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
+          else
+          {
+            Swal.fire("Fichier enregistré avec succès");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
+        
         }
       })
     }
@@ -141,9 +165,18 @@ export class SubFolderFilesComponent implements OnInit {
       }
       this.docservice.InsertSubFolder_Attachments(entity).subscribe(data => {
         if (data != 0) {
-          Swal.fire("File Saved Successfully");
-          this.attachmentsurl.length = 0;
-          this.GetAttachments();
+          if(this.languageid==1)
+          {
+            Swal.fire("Subfolder created");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
+          else
+          {
+            Swal.fire("Sous dossier créé");
+            this.attachmentsurl.length = 0;
+            this.GetAttachments();
+          }
         }
       })
     }

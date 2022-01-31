@@ -2,7 +2,7 @@
 <div class="container-fluid card card:hover headerspace">
   <div class="row headerspace">
     <div class="col-lg-10">
-      <h5>Folders Dashboard</h5>
+      <h5>{{labels[0].creatingFolder}}</h5>
     </div>
     <div class="col-lg-2">
      
@@ -15,10 +15,10 @@
   <form #folderForm="ngForm">
   <div class="row" style="margin-top: 10px;">
     <div class="col-lg-3">
-      <label>Folder Name : </label>
+      <label>{{labels[0].foldername}} : </label>
     </div>
     <div class="col-lg-4">
-      <input type="text" class="form-control" placeholder="Folder Name" [(ngModel)]="folderName" name="folderName" required>
+      <input type="text" class="form-control" placeholder="{{labels[0].foldername}}" [(ngModel)]="folderName" name="folderName" required>
     </div>
 
   </div><br>
@@ -29,7 +29,7 @@
 </div>
 <div class="col-lg-2">
   <button type="button" text_align="center"
-  class="btn btn-block btn-md allbtns btncolor" (click)="InsertDetails()" [disabled]="folderForm.form.invalid">Save</button>
+  class="btn btn-block btn-md allbtns btncolor" (click)="InsertDetails()" [disabled]="folderForm.form.invalid">{{labels[0].save}}</button>
 </div>
   </div><br><br>
 </form>

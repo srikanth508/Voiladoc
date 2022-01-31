@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Voiladoc</title>
+  <base href="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/Images/windowlogo.png">
+  <!-- <script src='http://kit.fontawesome.com/a076d05399.js'></script> -->
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <!-- <script src="assets/scripts/loadscripts.js"></script> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+    crossorigin="anonymous"></script>
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+  <!-- <link href='./assets/scriptpages/FontRobato.css' rel='stylesheet'> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js" charset="utf-8"></script>
+  <script src="bower_components/angular-bootstrap-multiselect/dist/angular-bootstrap-multiselect.min.js"></script>
+  <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+
+
+
+
+
+<!-- 
+
+  <script type="text/javascript">
+    // Set timeout variables.
+    var timoutNow = 1800000; // Timeout of 30 mins - time in ms
+    // var logoutUrl = "<?php echo base_url('logout') ?>"; 
+
+    // URL to logout page.
+
+    var timeoutTimer;
+
+    // Start timer
+    function StartTimers() {
+      debugger
+      
+      
+      // timeoutTimer = setTimeout("IdleTimeout()", timoutNow);
+      timeoutTimer = setTimeout("", 0);
+      clearTimeout(timeoutTimer);
+      debugger
+
+    }
+
+
+    function logout() {
+      debugger
+      // window.location.href = '/action/logout';
+      sessionStorage.clear();
+      localStorage.clear();
+      location.href = "#/login";
+      location.reload();
+      this.setCookie("doc_id", "")
+      //Adapt to actual logout script
+    }
+
+    // Reset timer
+    function ResetTimers() {
+      debugger
+      clearTimeout(timeoutTimer);
+      
+
+      StartTimers();
+      debugger
+    }
+
+    // Logout user
+    function IdleTimeout() {
+      debugger
+      // window.location = logout;
+      logout()
+    }
+  </script>
+
+<body onload="StartTimers();" onmousemove="ResetTimers();">
+
+
+
+</body> -->
+
+
+
+
+<!-- 
+<script type="text/javascript">
+
+  function idleTimer() {
+    var t;
+    var timoutNow = 0
+    window.onload = resetTimer;
+    debugger
+    window.onmousemove = resetTimer; // catches mouse movements
+    window.onmousedown = resetTimer; // catches mouse movements
+    window.onclick = resetTimer;     // catches mouse clicks
+    debugger
+    window.onscroll = resetTimer;    // catches scrolling
+    window.onkeypress = resetTimer;  //catches keyboard actions
+    debugger
+    // function logout() {
+    //   debugger
+    //   // window.location.href = '/action/logout';
+    //   sessionStorage.clear();
+    //   localStorage.clear();
+    //   location.href = "#/login";
+    //   location.reload();
+    //   this.setCookie("doc_id", "")
+    //   //Adapt to actual logout script
+    // }
+
+
+
+    function reload() {
+      debugger
+      t = 0;
+      //   setTimeout(function () {
+      //     debugger
+      //     // customnotify();
+      //   }, 5000); // 5000 milliseconds means 5 seconds.
+      //   debugger
+      window.location = self.location.href;  //Reloads the current page
+    }
+
+    // function resetTimer() {
+    //   debugger
+
+    //   t = setTimeout(logout, 1800000);  // time is in milliseconds (1000 is 1 second)
+    //   t = setTimeout(reload, 30000);
+    //   debugger
+    //   setTimeout(t);
+    //   debugger
+    //   clearTimeout(t);
+    //   debugger
+
+    //   debugger
+
+    // }
+  }
+    // idleTimer();
+</script> -->
+
+
+
+
+<!-- 
+<script>
+    setTimeout(function(){
+      
+        customnotify();
+    },5000); // 5000 milliseconds means 5 seconds.
+ </script> 
+
+  <script>
+    window.onload = function () {
+      setTimeout(function () {
+        customnotify();
+      }, 2000);
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+
+      }
+    });
+
+
+    var httpClient = function () {
+      this.get = function (aUrl, aCallback) {
+        var anhttpRequest = new XMLhttpRequest();
+        anhttpRequest.onreadystatechange = function () {
+          if (anhttpRequest.readyState == 4 && anhttpRequest.status == 200)
+            aCallback(anhttpRequest.responseText);
+        }
+        
+        anhttpRequest.open("GET", aUrl, true);
+        anhttpRequest.send(null);
+      }
+    }
+
+
+    function setCookie(cname, cvalue) {
+      var d = new Date();
+      //d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      //var expires = "expires="+ d.toUTCString();
+      // document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+      document.cookie = cname + "=" + cvalue;
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function customnotify() {
+      ;
+      
+      userid = localStorage.getItem('userid');
+      if (userid != undefined || userid != null || userid != "") {
+        if (getCookie("doc_id") == ""||getCookie("doc_id") == "null") {
+          setCookie("doc_id", userid);
+        }
+        
+      }
+      if (getCookie("doc_id") != "") {
+        // localStorage.getItem('WebUrl')
+        var client = new httpClient();
+        client.get( "https://maroc.voiladoc.org/MarocAPI"+ '/Doctor/GetNotifications_DoctorByDoctorIDWebSide?DoctorID=' + getCookie("doc_id"), function (response) {
+          ;
+          var res = JSON.parse(response);
+          
+          for (var i = 0; i < res.length; i++) {
+            // do something with response
+            var notification = new Notification(res[i].notification, {
+              icon: '/assets/Images/logo.png',
+              body: res[i].description,
+            });
+
+            /* Remove the notification from Notification Center when clicked.*/
+            // notification.onclick = function () {
+            //   ;
+            //   // window.open(url);
+            // };
+
+            /* Callback function when the notification is closed. */
+            notification.onclose = function () {
+           
+              console.log('Notification closed');
+            };
+          }
+
+        });
+
+
+      }
+
+    } 
+  </script> -->
+
+
+
+<link rel="stylesheet" href="styles.8e8630c4e4769a4a6eae.css"></head>
+
+<body>
+
+  <app-root></app-root>
+<script type="text/javascript" src="runtime.7692800a3b66884bd362.js"></script><script type="text/javascript" src="polyfills.000ab6e04851d2512ca1.js"></script><script type="text/javascript" src="scripts.444f34f8bbb89a186cf1.js"></script><script type="text/javascript" src="main.8a0174109ed589e2c3ed.js"></script></body>
+
+</html>
