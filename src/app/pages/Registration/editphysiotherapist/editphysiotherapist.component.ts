@@ -85,7 +85,7 @@ export class EditphysiotherapistComponent implements OnInit {
   public photourl: any;
   public attachmentsurl = [];
   hospitalname: any;
-
+  hospitalclinicid:any;
   public getpsytherapydetails() {
     this.docservice.GePhysiotherapyRegistrationByIDandLanguageID(this.id, this.languageid).subscribe(data => {
       this.details = data[0];
@@ -105,6 +105,18 @@ export class EditphysiotherapistComponent implements OnInit {
       this.photourl = this.details.photoURL;
       this.attachmentsurl[0] = this.details.photoUrlPath;
       this.hospitalname = this.details.hospital_ClinicName;
+      this.subscriptiontype=this.details.subscriptionTypeID,
+      this.monthlysubription=this.details.monthlySubscription
+      this.appointmentpercentage=this.details.appointmentPercentage
+       this.taxidentification=this.details.taxIdentification
+       this.businessid=this.details.businessID
+      this.commercialcity=this.details.commercialRegCity
+       this.taxprofessional=this.details.taxProfessional
+       this.socialseccurityfundno=this.details.socialSeccurityNo
+       this.nameofbank=this.details.nameofthebank
+        this.accountName=this.details.accountName
+        this.accountNumber=this.details.accountNumber,
+        this.hospitalclinicid=this.details.hospitalClinicID,
       this.GetDepartmentmaster();
       this.GetCountryMaster();
       this.getcitymaster();
@@ -203,6 +215,16 @@ export class EditphysiotherapistComponent implements OnInit {
     }
   }
 
+
+  taxidentification: any;
+  businessid: any;
+  commercialcity: any;
+  taxprofessional: any;
+  socialseccurityfundno: any;
+  nameofbank: any;
+  accountName: any;
+  accountNumber: any;
+  subscriptiontype:any;
   public updatedetails() {
 
     var entity = {
@@ -220,7 +242,19 @@ export class EditphysiotherapistComponent implements OnInit {
       'Description': this.description,
       'HomeVisit': Number(this.homevisit),
       'Pincode': this.pincode,
-      'CountryID': this.countryid
+      'CountryID': this.countryid,
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'TaxIdentification': this.taxidentification,
+      'BusinessID': this.businessid,
+      'CommercialRegCity': this.commercialcity,
+      'TaxProfessional': this.taxprofessional,
+      'SocialSeccurityNo': this.socialseccurityfundno,
+      'Nameofthebank': this.nameofbank,
+      'AccountName': this.accountName,
+      'AccountNumber': this.accountNumber,
+      'VAT': 0
     }
 
     this.docservice.UpdatephysiotherapyRegistration(entity).subscribe(data => {
@@ -315,5 +349,13 @@ export class EditphysiotherapistComponent implements OnInit {
         this.ngOnInit();
       }
     })
+  }
+  
+  appointmentpercentage: any;
+  monthlysubription: any;
+  public Getsubscriptontype() {
+
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
   }
 }

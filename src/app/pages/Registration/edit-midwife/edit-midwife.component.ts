@@ -73,6 +73,7 @@ export class EditMidwifeComponent implements OnInit {
   public attachmentsurl = [];
   public photourl: any;
   hospitalname: any;
+  hospitalclinicid:any;
   public Getmidwifedetails() {
     this.docservice.GetMidWivesRegistrationByIDAndLanguageID(this.id, this.languageid).subscribe(data => {
       this.details = data[0];
@@ -93,6 +94,18 @@ export class EditMidwifeComponent implements OnInit {
       this.photourl = this.details.photoURL;
       this.attachmentsurl[0] = this.details.photoUrlPath;
       this.hospitalname = this.details.hospital_ClinicName;
+      this.subscriptiontype=this.details.subscriptionTypeID,
+      this.monthlysubription=this.details.monthlySubscription
+      this.appointmentpercentage=this.details.appointmentPercentage
+       this.taxidentification=this.details.taxIdentification
+       this.businessid=this.details.businessID
+      this.commercialcity=this.details.commercialRegCity
+       this.taxprofessional=this.details.taxProfessional
+       this.socialseccurityfundno=this.details.socialSeccurityNo
+       this.nameofbank=this.details.nameofthebank
+        this.accountName=this.details.accountName
+        this.accountNumber=this.details.accountNumber,
+        this.hospitalclinicid=this.details.hospitalClinicID,
 
       this.GetDepartmentmaster();
       this.GetCountryMaster();
@@ -178,6 +191,16 @@ export class EditMidwifeComponent implements OnInit {
       }
     }
   }
+
+  taxidentification: any;
+  businessid: any;
+  commercialcity: any;
+  taxprofessional: any;
+  socialseccurityfundno: any;
+  nameofbank: any;
+  accountName: any;
+  accountNumber: any;
+  subscriptiontype:any;
   public updatedetails() {
     var entity = {
       'LanguageID': this.languageid,
@@ -194,7 +217,19 @@ export class EditMidwifeComponent implements OnInit {
       'Description': this.description,
       'HomeVisit': Number(this.homevisit),
       'Pincode': this.pincode,
-      'CountryID': this.countryid
+      'CountryID': this.countryid,
+      'SubscriptionTypeID': this.subscriptiontype,
+      'MonthlySubscription': this.monthlysubription,
+      'AppointmentPercentage': this.appointmentpercentage,
+      'TaxIdentification': this.taxidentification,
+      'BusinessID': this.businessid,
+      'CommercialRegCity': this.commercialcity,
+      'TaxProfessional': this.taxprofessional,
+      'SocialSeccurityNo': this.socialseccurityfundno,
+      'Nameofthebank': this.nameofbank,
+      'AccountName': this.accountName,
+      'AccountNumber': this.accountNumber,
+      'VAT': 0
     }
     this.docservice.UpdateMidWivesRegistration(entity).subscribe(data => {
       if (data != undefined) {
@@ -287,4 +322,12 @@ export class EditMidwifeComponent implements OnInit {
     })
   }
 
+
+  appointmentpercentage: any;
+  monthlysubription: any;
+  public Getsubscriptontype() {
+
+    this.appointmentpercentage = 0;
+    this.monthlysubription = 0;
+  }
 }
